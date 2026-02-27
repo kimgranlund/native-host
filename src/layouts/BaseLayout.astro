@@ -30,7 +30,10 @@ const { title } = Astro.props;
           }, { once: true });
       } catch(e) {}
     </script>
-    <style is:inline>html.ce-pending { visibility: hidden; }</style>
+    <style is:inline>
+      html.ce-pending { visibility: hidden; }
+      html.ce-pending * { transition: none !important; }
+    </style>
   </head>
   <body>
     <slot />
