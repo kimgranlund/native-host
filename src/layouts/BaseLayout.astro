@@ -16,11 +16,6 @@ const { title } = Astro.props;
       @import '@nonoun/native-ui/css/foundation';
       @import '@nonoun/native-ui/css/components';
     </style>
-    <script is:inline>
-      // Create a ready promise BEFORE any module scripts load.
-      // The bundled BaseLayout module resolves it after populating window globals.
-      window.__nativeUIReady = new Promise(function(r) { window.__nativeUIResolve = r; });
-    </script>
   </head>
   <body>
     <slot />

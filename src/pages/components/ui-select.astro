@@ -546,6 +546,7 @@ const codeExamples = {
   </main>
 
   <script>
+import '../../scripts/copy-buttons';
 // Event logging
       const eventSelect = document.getElementById('event-select');
       const eventLog = document.getElementById('event-log');
@@ -608,19 +609,5 @@ const codeExamples = {
         entry.textContent = `ui-change — value: "${e.detail.value}", label: "${e.detail.label}"`;
         dynamicLog.prepend(entry);
       });
-// ── Copy buttons ──
-
-      for (const btn of document.querySelectorAll('.copy-btn')) {
-        btn.addEventListener('click', async () => {
-          const code = btn.closest('.layout-code')?.querySelector('code');
-          if (!code) return;
-          await navigator.clipboard.writeText(code.textContent);
-          const icon = btn.querySelector('ui-icon');
-          if (icon) {
-            icon.setAttribute('name', 'check');
-            setTimeout(() => { icon.setAttribute('name', 'copy'); }, 1500);
-          }
-        });
-      }
   </script>
 </SidebarLayout>

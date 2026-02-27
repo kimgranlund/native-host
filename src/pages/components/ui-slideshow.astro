@@ -197,6 +197,7 @@ const codeExamples = {
   </main>
 
   <script>
+import '../../scripts/copy-buttons';
 const demo = document.getElementById('event-demo');
       const log = document.getElementById('event-log');
       demo.addEventListener('ui-slide-change', (e) => {
@@ -204,20 +205,6 @@ const demo = document.getElementById('event-demo');
         log.textContent = `ui-slide-change → index: ${index}\n` + log.textContent;
         if (log.textContent.length > 500) log.textContent = log.textContent.slice(0, 500);
       });
-// ── Copy buttons ──
-
-      for (const btn of document.querySelectorAll('.copy-btn')) {
-        btn.addEventListener('click', async () => {
-          const code = btn.closest('.layout-code')?.querySelector('code');
-          if (!code) return;
-          await navigator.clipboard.writeText(code.textContent);
-          const icon = btn.querySelector('ui-icon');
-          if (icon) {
-            icon.setAttribute('name', 'check');
-            setTimeout(() => { icon.setAttribute('name', 'copy'); }, 1500);
-          }
-        });
-      }
   </script>
   <style is:global>
     .nav-main {

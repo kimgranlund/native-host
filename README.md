@@ -1,6 +1,6 @@
 # native-host
 
-Documentation site for the [@nonoun/native-ui](https://www.npmjs.com/package/@nonoun/native-ui) web component library, built with [Astro](https://astro.build).
+Documentation and application shell for the [@nonoun/native-ui](https://www.npmjs.com/package/@nonoun/native-ui) web component library, built with [Astro](https://astro.build).
 
 ## Getting Started
 
@@ -9,7 +9,7 @@ npm install
 npm run dev
 ```
 
-Open [localhost:4321](http://localhost:4321) — redirects to the ui-button demo page.
+Open [localhost:4321](http://localhost:4321).
 
 ## Commands
 
@@ -25,40 +25,32 @@ Open [localhost:4321](http://localhost:4321) — redirects to the ui-button demo
 src/
   layouts/
     BaseLayout.astro            HTML shell, CSS, component registration
-    SidebarLayout.astro         Sidebar nav + breadcrumb + content area
+    SidebarLayout.astro         Sidebar nav, breadcrumb, inspector/chat panels, command palette
   pages/
     index.astro                 Redirects to /components/ui-button
-    components/[slug].astro     30 component demo pages
-    containers/[slug].astro     9 container demo pages
-    blocks/[slug].astro         19 block pattern pages
-    traits/[slug].astro         22 trait/controller demo pages
-    styles/[slug].astro         4 style reference pages
-    a2ui/[slug].astro           2 A2UI protocol demos
+    components/*.astro          30 component demo pages
+    containers/*.astro          9 container demo pages
+    blocks/*.astro              19 block pattern pages
+    traits/*.astro              22 trait/controller demo pages
+    styles/*.astro              4 style reference pages
+    a2ui/*.astro                2 A2UI protocol demos
     icons.astro                 Icon system demo
     kernel.astro                Kernel demo
     core/context.astro          Context API demo
   data/
-    sitemap.json                Page registry (title, path, group, snippet)
-  lib/
-    snippets.ts                 Snippet file loader and HTML parser
+    sitemap.json                Page registry (title, path, group)
   scripts/
-    layout.ts                   Client-side sidebar, theme, command palette
+    layout.ts                   Client-side sidebar, theme, command palette, inspector, chat
+    icons.ts                    Icon registration
+    setup.ts                    Trait registration, window globals, component registration
   styles/
-    demo.css                    Shared demo page layout styles
-    layout.css                  Sidebar chrome styles
-docs/
-  snippets/                     89 HTML demo pages (source of truth)
+    layout.css                  App-specific sidebar content and command dialog overrides
+    layout-blocks.css           Shared documentation layout utilities (.layout-section, .layout-row, etc.)
 ```
 
-## How It Works
+## Architecture
 
-The 89 demo pages in `docs/snippets/` are full HTML files from the original Vite dev server, with imports already converted to npm paths. At build time:
-
-1. Dynamic `[slug].astro` routes use `import.meta.glob` to load snippet HTML as raw strings
-2. A parser extracts `<main>` content, inline `<style>`, and `<script>` blocks
-3. Content is injected into the `SidebarLayout` via Astro's `set:html` directive
-4. The sidebar nav is generated server-side from `sitemap.json`
-5. Client-side JS handles sidebar toggle, theme switching, command palette (Cmd+K), and navigation
+90 individual `.astro` pages — one per component, trait, block, and style page. Each page is a standalone file with its own markup, scripts, and optional `<style is:global>` block. All pages share `SidebarLayout` which provides the sidebar nav, breadcrumb bar, inspector panel, chat panel, and command palette.
 
 ## Features
 
@@ -66,5 +58,7 @@ The 89 demo pages in `docs/snippets/` are full HTML files from the original Vite
 - Light/dark theme toggle
 - Command palette search (Cmd+K / Ctrl+K)
 - Code block toggle for demo pages
+- Design inspector panel with color system explorer
+- Chat panel
 - Breadcrumb showing current group and page
-- 90 pre-rendered pages, builds in ~1.2 seconds
+- 90 pre-rendered static pages

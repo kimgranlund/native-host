@@ -175,24 +175,12 @@ el.addEventListener('ui-press', () =&gt; copy.copy());`,
   </main>
 
   <script>
+import { Trait } from "@nonoun/native-ui";
+import '../../scripts/copy-buttons';
 // ── Minimal UIElement shell for injection demos ──
 
       class CopyDemo extends UIElement {}
       define('copy-demo', CopyDemo);
-// ── Copy buttons ──
-
-      for (const btn of document.querySelectorAll('.copy-btn')) {
-        btn.addEventListener('click', async () => {
-          const code = btn.closest('.layout-code')?.querySelector('code');
-          if (!code) return;
-          await navigator.clipboard.writeText(code.textContent);
-          const icon = btn.querySelector('ui-icon');
-          if (icon) {
-            icon.setAttribute('name', 'check');
-            setTimeout(() => { icon.setAttribute('name', 'copy'); }, 1500);
-          }
-        });
-      }
 
       // ── Helper: event logging ──
 
