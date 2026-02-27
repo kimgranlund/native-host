@@ -13,7 +13,9 @@ yarn-error.log*
 pnpm-debug.log*
 
 # local dev
-#bugs
+docs/snippets
+bugs
+CLAUDE.md
 
 # environment variables
 .env
