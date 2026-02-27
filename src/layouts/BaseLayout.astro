@@ -16,15 +16,17 @@ const { title } = Astro.props;
       @import '@nonoun/native-ui/css/foundation';
       @import '@nonoun/native-ui/css/components';
 
-      /* FOUC prevention — hide custom elements until defined */
-      :not(:defined) { opacity: 0; }
     </style>
+    <!-- FOUC prevention — keep page hidden until custom elements are defined -->
+    <script is:inline>document.documentElement.classList.add('ce-pending')</script>
+    <style is:inline>html.ce-pending { visibility: hidden; }</style>
   </head>
   <body>
     <slot />
     <script>
       import '../scripts/icons';
       import '../scripts/setup';
+      document.documentElement.classList.remove('ce-pending');
     </script>
   </body>
 </html>
