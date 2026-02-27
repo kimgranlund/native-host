@@ -23,6 +23,11 @@ const { title } = Astro.props;
       try {
         if (localStorage.getItem('nav-color-scheme'))
           document.documentElement.style.colorScheme = localStorage.getItem('nav-color-scheme');
+        if (localStorage.getItem('nav-sidebar-collapsed') === 'true')
+          document.addEventListener('DOMContentLoaded', function() {
+            var el = document.getElementById('layout-sidebar');
+            if (el) el.setAttribute('collapsed', '');
+          }, { once: true });
       } catch(e) {}
     </script>
     <style is:inline>html.ce-pending { visibility: hidden; }</style>

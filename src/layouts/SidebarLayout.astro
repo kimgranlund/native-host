@@ -34,11 +34,6 @@ const groupIcons: Record<string, string> = {
   </style>
 
   <ui-layout-sidebar id="layout-sidebar">
-    <script is:inline>
-      try { if (localStorage.getItem('nav-sidebar-collapsed') === 'true')
-        document.getElementById('layout-sidebar').setAttribute('collapsed', '');
-      } catch(e) {}
-    </script>
     <aside slot="sidebar">
       <ui-layout-sidebar-header>
         <ui-layout-sidebar-trigger>
