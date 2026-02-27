@@ -15,6 +15,9 @@ const { title } = Astro.props;
     <style is:global>
       @import '@nonoun/native-ui/css/foundation';
       @import '@nonoun/native-ui/css/components';
+
+      /* FOUC prevention — hide custom elements until defined */
+      :not(:defined) { opacity: 0; }
     </style>
   </head>
   <body>
