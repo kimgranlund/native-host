@@ -27,7 +27,7 @@ src/
     BaseLayout.astro            HTML shell, CSS, component registration
     SidebarLayout.astro         Sidebar nav, breadcrumb, inspector/chat panels, command palette
   pages/
-    index.astro                 Redirects to /components/ui-button
+    index.astro                 Landing page with group overview and features
     components/*.astro          30 component demo pages
     containers/*.astro          9 container demo pages
     blocks/*.astro              19 block pattern pages
@@ -38,11 +38,13 @@ src/
     kernel.astro                Kernel demo
     core/context.astro          Context API demo
   data/
-    sitemap.json                Page registry (title, path, group)
+    pages.ts                    Auto-discovers .astro pages for nav and command palette
   scripts/
     layout.ts                   Client-side sidebar, theme, command palette, inspector, chat
-    icons.ts                    Icon registration
+    icons.ts                    Phosphor icon registration (~108 icons)
     setup.ts                    Trait registration, window globals, component registration
+    event-log.ts                Shared event logging utilities for demo pages
+    copy-buttons.ts             Shared copy-to-clipboard button handler
   styles/
     layout.css                  App-specific sidebar content and command dialog overrides
     layout-blocks.css           Shared documentation layout utilities (.layout-section, .layout-row, etc.)
