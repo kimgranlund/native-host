@@ -1,0 +1,11 @@
+---
+import SidebarLayout from '../../layouts/SidebarLayout.astro';
+import { getSnippet } from '../../lib/snippets';
+
+const snippet = getSnippet('context.html');
+---
+<SidebarLayout title="Context API">
+  {snippet?.styles && <style set:html={snippet.styles} />}
+  <main set:html={snippet?.content ?? ''} />
+  {snippet?.scripts && <script set:html={snippet.scripts} type="module" />}
+</SidebarLayout>

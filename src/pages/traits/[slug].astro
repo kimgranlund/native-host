@@ -1,0 +1,19 @@
+---
+import SidebarLayout from '../../layouts/SidebarLayout.astro';
+import { getSnippet, listSnippets } from '../../lib/snippets';
+import sitemap from '../../data/sitemap.json';
+
+export function getStaticPaths() {
+  return listSnippets('traits').map(({ slug }) => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+const snippet = getSnippet(`traits/${slug}.html`);
+const entry = sitemap.find(e => e.path === `/traits/${slug}`);
+const title = entry?.title ?? snippet?.title ?? slug!;
+---
+<SidebarLayout title={title}>
+  {snippet?.styles && <style set:html={snippet.styles} />}
+  <main set:html={snippet?.content ?? ''} />
+  {snippet?.scripts && <script set:html={snippet.scripts} type="module" />}
+</SidebarLayout>

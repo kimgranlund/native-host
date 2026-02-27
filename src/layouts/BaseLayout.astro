@@ -1,0 +1,32 @@
+---
+interface Props {
+  title: string;
+}
+const { title } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <title>{title} — native-ui</title>
+    <style is:global>
+      @import '@nonoun/native-ui/css/foundation';
+      @import '@nonoun/native-ui/css/components';
+    </style>
+    <script is:inline>
+      // Create a ready promise BEFORE any module scripts load.
+      // The bundled BaseLayout module resolves it after populating window globals.
+      window.__nativeUIReady = new Promise(function(r) { window.__nativeUIResolve = r; });
+    </script>
+  </head>
+  <body>
+    <slot />
+    <script>
+      import '../scripts/icons';
+      import '../scripts/setup';
+    </script>
+  </body>
+</html>

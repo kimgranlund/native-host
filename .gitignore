@@ -12,10 +12,13 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+# local dev
+#bugs
 
 # environment variables
 .env
 .env.production
+.claude
 
 # macOS-specific files
 .DS_Store
