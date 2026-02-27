@@ -1,0 +1,306 @@
+---
+import SidebarLayout from '../../layouts/SidebarLayout.astro';
+
+const codeExamples = {
+  example: `/* ── Intent → Variant Resolution Flow ── */
+/* 1. [intent] sets the color family */
+:where([intent="accent"]) {
+  --_panel: var(--accent-panel);
+  --_surface: var(--accent-surface);
+  --_ink: var(--accent-ink);
+}
+
+/* 2. [variant] picks the role from the family */
+:where([variant="primary"]) {
+  --_background: var(--_surface);
+  --_color: var(--_surface-ink);
+  --_border-color: transparent;
+}`,
+};
+---
+<SidebarLayout title="State Grid">
+  <main>
+<h1>Component State Grid</h1>
+      <p>Each card shows the CSS color tokens a component uses per state. Hover or click a state pill to highlight every component that resolves to the same <code>background</code>, <code>color</code>, and <code>border-color</code> values.</p>
+
+      <ui-panel bordered size="sm" style="flex-direction: row; flex-wrap: wrap; gap: calc(var(--_space) * 4); margin-bottom: calc(var(--_space) * 4);">
+        <div class="legend-item"><span class="legend-swatch" style="background: var(--accent-surface);"></span> accent-surface</div>
+        <div class="legend-item"><span class="legend-swatch" style="background: white; border-color: var(--neutral-border-muted);"></span> white</div>
+        <div class="legend-item"><span class="legend-swatch" style="background: var(--neutral-panel);"></span> panel</div>
+        <div class="legend-item"><span class="legend-swatch" style="background: var(--neutral-control);"></span> control</div>
+        <div class="legend-item"><span class="legend-swatch" style="background: var(--neutral-higher);"></span> button</div>
+        <div class="legend-item"><span class="legend-swatch" style="background: transparent; border-color: var(--neutral-border);"></span> transparent</div>
+      </ui-panel>
+
+      <!-- Toolbar: category filters + state search -->
+      <ui-toolbar id="toolbar" size="sm">
+        <ui-segmented-control id="cat-filters" value="all" size="sm">
+          <ui-segment value="all">All</ui-segment>
+          <ui-segment value="interactive">Interactive</ui-segment>
+          <ui-segment value="widget">Widget</ui-segment>
+          <ui-segment value="composite">Composite</ui-segment>
+          <ui-segment value="coordinator">Coordinator</ui-segment>
+          <ui-segment value="display">Display</ui-segment>
+          <ui-segment value="container">Container</ui-segment>
+        </ui-segmented-control>
+        <ui-divider orientation="vertical"></ui-divider>
+        <ui-input id="state-filter" placeholder="Filter states... (e.g. disabled, hover, active)" size="sm">
+          <ui-icon name="magnifying-glass" slot="leading"></ui-icon>
+        </ui-input>
+      </ui-toolbar>
+
+      <div class="layout-section">
+      <pre class="layout-code"><code>/* ── State Token Resolution ── */
+/* Components read local tokens (--_*) set by attribute selectors */
+
+/* Rest state */
+background: var(--_background);
+color: var(--_color);
+border-color: var(--_border-color);
+
+/* Hover state — fallback chain */
+background: var(--_background-hover, var(--_background));
+color: var(--_color-hover, var(--_color));
+border-color: var(--_border-color-hover, var(--_border-color));
+
+/* Disabled state */
+color: var(--_ink-disabled);
+pointer-events: none;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+
+      <pre class="layout-code"><code set:html={codeExamples.example} /><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+      </div>
+
+      <div class="state-grid" id="grid"></div>
+  </main>
+
+  <script>
+// ── Copy buttons ──
+
+      for (const btn of document.querySelectorAll('.copy-btn')) {
+        btn.addEventListener('click', async () => {
+          const code = btn.closest('.layout-code')?.querySelector('code');
+          if (!code) return;
+          await navigator.clipboard.writeText(code.textContent);
+          const icon = btn.querySelector('ui-icon');
+          if (icon) {
+            icon.setAttribute('name', 'check');
+            setTimeout(() => { icon.setAttribute('name', 'copy'); }, 1500);
+          }
+        });
+      }
+  </script>
+  <style is:global>
+    h1 + p {
+      font-size: 0.8125rem;
+      color: var(--neutral-ink-muted);
+      margin-bottom: calc(var(--_space) * 6);
+    }
+
+    /* ── Toolbar ── */
+    #toolbar {
+      margin-bottom: calc(var(--_space) * 4);
+    }
+
+    #state-filter {
+      min-width: 10rem;
+    }
+
+    /* ── Grid ── */
+    .state-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+      gap: calc(var(--_space) * 3);
+    }
+
+    /* ── Card state overrides ── */
+    .state-grid > ui-card {
+      transition: box-shadow 0.2s, border-color 0.2s, opacity 0.2s;
+    }
+
+    .state-grid > ui-card.dimmed {
+      opacity: 0.35;
+    }
+
+    .state-grid > ui-card.highlighted {
+      border-color: var(--accent-surface);
+      box-shadow: 0 0 0 2px var(--accent-surface);
+    }
+
+    .state-grid > ui-card.cat-hidden {
+      display: none;
+    }
+
+    .comp-card-name {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--neutral-ink-strong);
+    }
+
+    .comp-card-body {
+      display: flex;
+      flex-direction: column;
+      gap: calc(var(--_space) * 1.5);
+    }
+
+    /* ── State group labels ── */
+    .state-group-label {
+      font-size: 0.625rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--neutral-ink-muted);
+      margin-top: calc(var(--_space) / 2);
+    }
+
+    .state-group-label:first-child {
+      margin-top: 0;
+    }
+
+    /* ── State pill row ── */
+    .state-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--_space);
+    }
+
+    /* ── State pill ── */
+    .state-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--_space);
+      padding: var(--_space) calc(var(--_space) * 2);
+      border-radius: 1rem;
+      font-size: 0.6875rem;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid var(--neutral-border-muted);
+      background: var(--neutral-body);
+      color: var(--neutral-ink);
+      transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
+      white-space: nowrap;
+      outline: none;
+    }
+
+    .state-pill:hover {
+      background: var(--neutral-panel-hover);
+      border-color: var(--neutral-border);
+    }
+
+    .state-pill:focus-visible {
+      outline: 2px solid var(--ui-focus-ring);
+      outline-offset: 1px;
+    }
+
+    /* Selection group pills get a subtle accent tint */
+    .state-pill[data-group="selection"] {
+      background: oklch(from var(--accent-surface) l c h / 0.15);
+      border-color: oklch(from var(--accent-surface) l c h / 0.3);
+    }
+
+    /* Value group pills get a subtle info tint */
+    .state-pill[data-group="value"] {
+      background: oklch(from var(--info-surface) l c h / 0.15);
+      border-color: oklch(from var(--info-surface) l c h / 0.3);
+    }
+
+    .state-pill.active-highlight {
+      background: var(--accent-surface);
+      color: var(--accent-surface-ink);
+      border-color: var(--accent-surface);
+    }
+
+    .state-pill.locked-source {
+      box-shadow: 0 0 0 2px var(--ui-focus-ring);
+    }
+
+    .state-pill.filter-dim {
+      opacity: 0.25;
+    }
+
+    /* ── Color swatch ── */
+    .swatch {
+      display: inline-block;
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 50%;
+      border: 1px solid oklch(0% 0 0 / 0.15);
+      flex-shrink: 0;
+    }
+
+    /* ── Legend ── */
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: calc(var(--_space) * 1.5);
+      font-size: 0.6875rem;
+      color: var(--neutral-ink-muted);
+    }
+
+    .legend-swatch {
+      width: 0.625rem;
+      height: 0.625rem;
+      border-radius: 50%;
+      border: 1px solid oklch(0% 0 0 / 0.15);
+    }
+
+    /* ── Empty state text ── */
+    .no-states {
+      font-size: 0.6875rem;
+      color: var(--neutral-ink-muted);
+      font-style: italic;
+    }
+
+    /* ── Tooltip ── */
+    .hover-tooltip {
+      position: fixed;
+      z-index: 100;
+      pointer-events: none;
+      background: var(--neutral-modal);
+      color: var(--neutral-ink-strong);
+      border: 1px solid var(--neutral-border-muted);
+      border-radius: var(--_radius);
+      padding: calc(var(--_space) * 2) calc(var(--_space) * 3);
+      font-size: 0.6875rem;
+      line-height: 1.5;
+      box-shadow: 0 4px 12px oklch(0% 0 0 / 0.12);
+      max-width: 22rem;
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+
+    .hover-tooltip.visible { opacity: 1; }
+
+    .hover-tooltip .tt-row {
+      display: flex;
+      align-items: center;
+      gap: calc(var(--_space) * 1.5);
+    }
+
+    .hover-tooltip .tt-row + .tt-row { margin-top: var(--_space); }
+
+    .hover-tooltip .tt-label {
+      color: var(--neutral-ink-muted);
+      min-width: 5rem;
+    }
+
+    .hover-tooltip .tt-value {
+      font-family: ui-monospace, monospace;
+      font-size: 0.625rem;
+    }
+
+    .hover-tooltip .tt-resolved {
+      color: var(--neutral-ink-muted);
+      font-size: 0.5625rem;
+    }
+
+    .hover-tooltip .tt-match-header {
+      margin-top: calc(var(--_space) * 2);
+      font-weight: 600;
+      color: var(--accent-ink);
+      font-size: 0.625rem;
+    }
+
+    /* ── Code Blocks ── */
+</style>
+
+</SidebarLayout>

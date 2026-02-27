@@ -1,0 +1,196 @@
+---
+import SidebarLayout from '../../layouts/SidebarLayout.astro';
+---
+<SidebarLayout title="Nav Header">
+  <main>
+<ui-stack gap="6">
+    <div>
+      <h1>Top Navigation Bar</h1>
+      <p style="color: var(--neutral-ink-muted); font-size: 0.875rem;">
+        Horizontal application header with brand, navigation, search, and user controls.
+        Demonstrates two layout variants: breadcrumb-centered and search-centered.
+      </p>
+    </div>
+
+    <!-- -- With Breadcrumb -- -->
+
+    <ui-stack gap="4">
+    <h2>With Breadcrumb Navigation</h2>
+    <nav class="nav-bar" aria-label="Main navigation">
+      <div class="nav-brand">
+        <ui-icon name="house" aria-hidden="true"></ui-icon>
+        Acme Inc
+      </div>
+
+      <ui-divider orientation="vertical"></ui-divider>
+
+      <div class="nav-center">
+        <ui-breadcrumb size="sm">
+          <ui-breadcrumb-item href="/">Dashboard</ui-breadcrumb-item>
+          <ui-breadcrumb-item href="/projects">Projects</ui-breadcrumb-item>
+          <ui-breadcrumb-item current>Alpha</ui-breadcrumb-item>
+        </ui-breadcrumb>
+      </div>
+
+      <div class="nav-actions">
+        <ui-button variant="ghost" size="sm" aria-label="Search">
+          <ui-icon name="magnifying-glass"></ui-icon>
+        </ui-button>
+        <div class="icon-badge-wrapper">
+          <ui-button variant="ghost" size="sm" aria-label="Notifications">
+            <ui-icon name="bell"></ui-icon>
+          </ui-button>
+          <ui-badge intent="danger" floating>3</ui-badge>
+        </div>
+        <ui-divider orientation="vertical"></ui-divider>
+        <div class="nav-user">
+          <ui-avatar name="Kim Granlund" size="sm"></ui-avatar>
+          <span class="nav-user-name">Kim Granlund</span>
+          <ui-icon name="caret-down" aria-hidden="true" style="color: var(--neutral-ink-muted);"></ui-icon>
+        </div>
+      </div>
+    </nav>
+    </ui-stack>
+
+    <!-- -- With Search Input -- -->
+
+    <ui-stack gap="4">
+    <h2>With Search Input</h2>
+    <nav class="nav-bar" aria-label="Main navigation with search">
+      <div class="nav-brand">
+        <ui-icon name="house" aria-hidden="true"></ui-icon>
+        Acme Inc
+      </div>
+
+      <ui-divider orientation="vertical"></ui-divider>
+
+      <div class="nav-center">
+        <div class="search-input-wrapper">
+          <ui-input size="sm" placeholder="Search projects, people, tasks...">
+            <ui-icon name="magnifying-glass" slot="leading"></ui-icon>
+          </ui-input>
+        </div>
+      </div>
+
+      <div class="nav-actions">
+        <div class="icon-badge-wrapper">
+          <ui-button variant="ghost" size="sm" aria-label="Notifications">
+            <ui-icon name="bell"></ui-icon>
+          </ui-button>
+          <ui-badge intent="danger" floating>3</ui-badge>
+        </div>
+        <ui-divider orientation="vertical"></ui-divider>
+        <div class="nav-user">
+          <ui-avatar name="Kim Granlund" size="sm"></ui-avatar>
+          <span class="nav-user-name">Kim Granlund</span>
+          <ui-icon name="caret-down" aria-hidden="true" style="color: var(--neutral-ink-muted);"></ui-icon>
+        </div>
+      </div>
+    </nav>
+    </ui-stack>
+
+    <!-- -- Compact Variant -- -->
+
+    <ui-stack gap="4">
+    <h2>Compact (density)</h2>
+    <nav class="nav-bar" aria-label="Compact navigation" density="compact">
+      <div class="nav-brand">
+        <ui-icon name="house" aria-hidden="true"></ui-icon>
+        Acme Inc
+      </div>
+
+      <ui-divider orientation="vertical"></ui-divider>
+
+      <div class="nav-center">
+        <ui-breadcrumb size="sm">
+          <ui-breadcrumb-item href="/">Dashboard</ui-breadcrumb-item>
+          <ui-breadcrumb-item current>Overview</ui-breadcrumb-item>
+        </ui-breadcrumb>
+      </div>
+
+      <div class="nav-actions">
+        <ui-button variant="ghost" size="sm" aria-label="Search">
+          <ui-icon name="magnifying-glass"></ui-icon>
+        </ui-button>
+        <div class="icon-badge-wrapper">
+          <ui-button variant="ghost" size="sm" aria-label="Notifications">
+            <ui-icon name="bell"></ui-icon>
+          </ui-button>
+          <ui-badge intent="danger" floating>3</ui-badge>
+        </div>
+        <ui-divider orientation="vertical"></ui-divider>
+        <div class="nav-user">
+          <ui-avatar name="Kim Granlund" size="xs"></ui-avatar>
+        </div>
+      </div>
+    </nav>
+    </ui-stack>
+    </ui-stack>
+  </main>
+  <style is:global>
+    .nav-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.5rem 1rem;
+      background: var(--neutral-body);
+      border: 1px solid var(--neutral-border-muted);
+      border-radius: var(--_radius);
+      min-height: 3rem;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 700;
+      font-size: 0.9375rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .nav-brand ui-icon {
+      color: var(--accent-ink-strong);
+    }
+
+    .nav-center {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 0;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      flex-shrink: 0;
+    }
+
+    .nav-user {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding-inline-start: 0.25rem;
+      cursor: default;
+    }
+
+    .nav-user-name {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .icon-badge-wrapper {
+      position: relative;
+      display: inline-flex;
+    }
+
+    .search-input-wrapper {
+      max-width: 20rem;
+      width: 100%;
+    }
+</style>
+
+</SidebarLayout>

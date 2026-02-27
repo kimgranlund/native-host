@@ -1,6 +1,6 @@
 // Client-side interactivity for the sidebar layout shell.
 // Handles: sidebar collapse/expand, theme toggle, command palette (Cmd+K),
-// code toggle, nav group persistence, and navigation.
+// code toggle, inspector toggle, chat toggle, nav group persistence, and navigation.
 
 const STORAGE_COLLAPSED = 'nav-sidebar-collapsed';
 const STORAGE_COLOR_SCHEME = 'nav-color-scheme';
@@ -69,14 +69,14 @@ function syncCodeState(show: boolean) {
       ? '<ui-icon name="code-fill" size="md"></ui-icon>'
       : '<ui-icon name="code" size="md"></ui-icon>';
   }
-  for (const block of document.querySelectorAll('.demo-code')) {
+  for (const block of document.querySelectorAll('.layout-code')) {
     if (show) block.setAttribute('visible', '');
     else block.removeAttribute('visible');
   }
 }
 
 // Show code toggle button only if page has code blocks
-if (codeToggle && document.querySelectorAll('.demo-code').length > 0) {
+if (codeToggle && document.querySelectorAll('.layout-code').length > 0) {
   codeToggle.style.display = '';
   if (localStorage.getItem(CODE_STORAGE) === 'true') syncCodeState(true);
 }
@@ -85,6 +85,50 @@ codeToggle?.addEventListener('click', () => {
   const willShow = localStorage.getItem(CODE_STORAGE) !== 'true';
   syncCodeState(willShow);
 });
+
+// ── Inspector toggle ──
+
+import { buildInspector } from '@nonoun/native-ui/inspector';
+
+const inspectorToggle = document.getElementById('inspector-toggle') as HTMLElement | null;
+const inspector = document.querySelector('ui-layout-inspector') as HTMLElement & { toggle(): void } | null;
+
+if (inspector) {
+  buildInspector(inspector);
+}
+
+inspectorToggle?.addEventListener('click', () => {
+  inspector?.toggle();
+});
+
+if (inspector) {
+  new MutationObserver(() => {
+    if (!inspectorToggle) return;
+    const isOpen = inspector.hasAttribute('open');
+    inspectorToggle.innerHTML = isOpen
+      ? '<ui-icon name="sliders-horizontal-fill" size="md"></ui-icon>'
+      : '<ui-icon name="sliders-horizontal" size="md"></ui-icon>';
+  }).observe(inspector, { attributes: true, attributeFilter: ['open'] });
+}
+
+// ── Chat toggle ──
+
+const chatToggle = document.getElementById('chat-toggle') as HTMLElement | null;
+const chat = document.querySelector('ui-layout-chat') as HTMLElement & { toggle(): void } | null;
+
+chatToggle?.addEventListener('click', () => {
+  chat?.toggle();
+});
+
+if (chat) {
+  new MutationObserver(() => {
+    if (!chatToggle) return;
+    const isOpen = chat.hasAttribute('open');
+    chatToggle.innerHTML = isOpen
+      ? '<ui-icon name="chat-dots-fill" size="md"></ui-icon>'
+      : '<ui-icon name="chat-dots" size="md"></ui-icon>';
+  }).observe(chat, { attributes: true, attributeFilter: ['open'] });
+}
 
 // ── Nav group persistence ──
 

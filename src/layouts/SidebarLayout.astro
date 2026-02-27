@@ -29,7 +29,8 @@ const groupIcons: Record<string, string> = {
 <BaseLayout title={title}>
   <style is:global>
     @import '../styles/layout.css';
-    @import '../styles/demo.css';
+    @import '../styles/layout-blocks.css';
+    @import '@nonoun/native-ui/css/inspector';
   </style>
 
   <ui-layout-sidebar id="layout-sidebar">
@@ -140,6 +141,12 @@ const groupIcons: Record<string, string> = {
         </ui-breadcrumb>
 
         <div slot="trailing" style="display:flex;align-items:center;gap:0.125rem">
+          <ui-button variant="ghost" size="sm" aria-label="Toggle inspector" id="inspector-toggle">
+            <ui-icon name="sliders-horizontal" size="md"></ui-icon>
+          </ui-button>
+          <ui-button variant="ghost" size="sm" aria-label="Toggle chat" id="chat-toggle">
+            <ui-icon name="chat-dots" size="md"></ui-icon>
+          </ui-button>
           <ui-button variant="ghost" size="sm" aria-label="Toggle source code" id="code-toggle" style="display:none">
             <ui-icon name="code" size="md"></ui-icon>
           </ui-button>
@@ -153,6 +160,15 @@ const groupIcons: Record<string, string> = {
         <ui-layout-body>
           <slot />
         </ui-layout-body>
+        <ui-layout-inspector>
+          <div class="layout-resize-handle"></div>
+        </ui-layout-inspector>
+        <ui-layout-chat>
+          <div class="layout-resize-handle"></div>
+          <ui-chat size="sm">
+            <ui-chat-content></ui-chat-content>
+          </ui-chat>
+        </ui-layout-chat>
       </ui-layout-canvas>
     </div>
   </ui-layout-sidebar>

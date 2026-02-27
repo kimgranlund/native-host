@@ -1,0 +1,78 @@
+---
+import SidebarLayout from '../../layouts/SidebarLayout.astro';
+---
+<SidebarLayout title="Form Contact">
+  <main>
+<ui-stack gap="6">
+    <div>
+      <h1>Contact Us</h1>
+      <p style="color: var(--neutral-ink-muted); font-size: 0.875rem;">
+        Have a question or feedback? Fill out the form below and we'll get back to you within 24 hours.
+      </p>
+    </div>
+
+    <div class="form-wrapper">
+      <ui-card>
+        <ui-header>
+          <span slot="label">Send us a message</span>
+        </ui-header>
+        <ui-body>
+          <form id="contact-form">
+            <ui-stack gap="4">
+              <ui-field required>
+                <label slot="label">Full name</label>
+                <ui-input placeholder="Jane Doe" name="name">
+                  <ui-icon name="user" slot="leading"></ui-icon>
+                </ui-input>
+              </ui-field>
+
+              <ui-field required>
+                <label slot="label">Email address</label>
+                <ui-input placeholder="you@example.com" name="email">
+                  <ui-icon name="envelope" slot="leading"></ui-icon>
+                </ui-input>
+                <span slot="description">We'll never share your email with anyone else.</span>
+              </ui-field>
+
+              <ui-field required>
+                <label slot="label">Subject</label>
+                <ui-select name="subject" placeholder="Select a topic">
+                  <ui-button justify="spread">
+                    <span slot="label">Select a topic</span>
+                    <ui-icon name="caret-up-down" slot="trailing"></ui-icon>
+                  </ui-button>
+                  <ui-listbox popover>
+                    <ui-option value="general">General Inquiry</ui-option>
+                    <ui-option value="support">Technical Support</ui-option>
+                    <ui-option value="sales">Sales</ui-option>
+                    <ui-option value="partnership">Partnership</ui-option>
+                  </ui-listbox>
+                </ui-select>
+              </ui-field>
+
+              <ui-field required>
+                <label slot="label">Message</label>
+                <ui-textarea placeholder="Tell us how we can help..." rows="5" name="message" autogrow></ui-textarea>
+                <span slot="description">Minimum 20 characters.</span>
+              </ui-field>
+            </ui-stack>
+          </form>
+        </ui-body>
+        <ui-footer>
+          <ui-button variant="ghost"><span slot="label">Cancel</span></ui-button>
+          <ui-button variant="primary" intent="accent" type="submit" form="contact-form">
+            <ui-icon name="envelope" slot="leading"></ui-icon>
+            <span slot="label">Send Message</span>
+          </ui-button>
+        </ui-footer>
+      </ui-card>
+    </div>
+    </ui-stack>
+  </main>
+  <style is:global>
+    .form-wrapper {
+      max-width: 32rem;
+    }
+</style>
+
+</SidebarLayout>

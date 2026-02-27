@@ -1,0 +1,134 @@
+---
+import SidebarLayout from '../../layouts/SidebarLayout.astro';
+---
+<SidebarLayout title="ui-panel">
+  <main>
+<h1>&lt;ui-panel&gt;</h1>
+    <p style="color: var(--neutral-ink-muted); font-size: 0.875rem; margin-bottom: 1.5rem;">
+      Section surface for sidebars, toolbars, and content areas. Less bounded than card. CSS-only container.
+    </p>
+
+    <!-- ── Basic ── -->
+
+    <h2>Basic</h2>
+    <div class="layout-section">
+      <ui-panel>
+        <p style="margin: 0;">A basic panel with default padding and panel-elevation background.</p>
+      </ui-panel>
+    <pre class="layout-code"><code>&lt;ui-panel&gt;
+  &lt;p&gt;A basic panel with default padding and panel-elevation background.&lt;/p&gt;
+&lt;/ui-panel&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+    </div>
+
+    <!-- ── Bordered ── -->
+
+    <h2>Bordered</h2>
+    <div class="layout-section">
+      <ui-panel bordered>
+        <p style="margin: 0;">A panel with a visible border.</p>
+      </ui-panel>
+    <pre class="layout-code"><code>&lt;ui-panel bordered&gt;
+  &lt;p&gt;A panel with a visible border.&lt;/p&gt;
+&lt;/ui-panel&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+    </div>
+
+    <!-- ── Sidebar Layout ── -->
+
+    <h2>Sidebar Layout</h2>
+    <div class="layout-section">
+      <div class="sidebar-demo">
+        <ui-panel bordered>
+          <ui-stack gap="1">
+            <ui-button variant="ghost" justify="spread" style="width: 100%;"><ui-icon name="house" slot="leading"></ui-icon><span slot="label">Dashboard</span></ui-button>
+            <ui-button variant="ghost" justify="spread" style="width: 100%;"><ui-icon name="folder" slot="leading"></ui-icon><span slot="label">Projects</span></ui-button>
+            <ui-button variant="ghost" justify="spread" style="width: 100%;"><ui-icon name="gear" slot="leading"></ui-icon><span slot="label">Settings</span></ui-button>
+          </ui-stack>
+        </ui-panel>
+        <div class="content-area">
+          Main content area. The panel serves as a sidebar surface.
+        </div>
+      </div>
+      <pre class="layout-code"><code>&lt;ui-panel bordered&gt;
+  &lt;ui-stack gap="1"&gt;
+    &lt;ui-button variant="ghost" justify="spread"&gt;
+      &lt;ui-icon name="house" slot="leading"&gt;&lt;/ui-icon&gt;
+      &lt;span slot="label"&gt;Dashboard&lt;/span&gt;
+    &lt;/ui-button&gt;
+    &lt;ui-button variant="ghost" justify="spread"&gt;...&lt;/ui-button&gt;
+  &lt;/ui-stack&gt;
+&lt;/ui-panel&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+    </div>
+
+    <!-- ── Sizes ── -->
+
+    <h2>Sizes</h2>
+    <div class="layout-section">
+      <ui-stack gap="4">
+        <ui-panel bordered size="sm">
+          <p style="margin: 0; font-size: 0.8125rem;">Small panel — compact padding</p>
+        </ui-panel>
+        <ui-panel bordered size="lg">
+          <p style="margin: 0;">Large panel — spacious padding</p>
+        </ui-panel>
+      </ui-stack>
+    <pre class="layout-code"><code>&lt;ui-panel bordered size="sm"&gt;
+  &lt;p&gt;Small panel&lt;/p&gt;
+&lt;/ui-panel&gt;
+
+&lt;ui-panel bordered size="lg"&gt;
+  &lt;p&gt;Large panel&lt;/p&gt;
+&lt;/ui-panel&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+    </div>
+
+    <!-- ── No Padding ── -->
+
+    <h2>No Padding</h2>
+    <div class="layout-section">
+      <ui-panel bordered padded="false">
+        <p style="margin: 0;">This panel has <code>padded="false"</code> — no internal padding. Content touches the edges.</p>
+      </ui-panel>
+    <pre class="layout-code"><code>&lt;ui-panel bordered padded="false"&gt;
+  &lt;p&gt;No internal padding. Content touches the edges.&lt;/p&gt;
+&lt;/ui-panel&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+    </div>
+  </main>
+
+  <script>
+// ── Copy buttons ──
+
+      for (const btn of document.querySelectorAll('.copy-btn')) {
+        btn.addEventListener('click', async () => {
+          const code = btn.closest('.layout-code')?.querySelector('code');
+          if (!code) return;
+          await navigator.clipboard.writeText(code.textContent);
+          const icon = btn.querySelector('ui-icon');
+          if (icon) {
+            icon.setAttribute('name', 'check');
+            setTimeout(() => { icon.setAttribute('name', 'copy'); }, 1500);
+          }
+        });
+      }
+  </script>
+  <style is:global>
+    .sidebar-demo {
+      display: flex;
+      gap: 1rem;
+      height: 16rem;
+    }
+
+    .sidebar-demo > ui-panel {
+      width: 14rem;
+      flex-shrink: 0;
+    }
+
+    .sidebar-demo > .content-area {
+      flex: 1;
+      padding: 1rem;
+      font-size: 0.875rem;
+      color: var(--neutral-ink-muted);
+    }
+
+    /* ── Code Blocks ── */
+</style>
+
+</SidebarLayout>
