@@ -1,6 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
-import sitemap from '../data/sitemap.json';
+import { sitemap, type PageEntry } from '../data/pages';
 
 interface Props {
   title: string;
@@ -11,7 +11,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 const currentEntry = sitemap.find(e => e.path === currentPath);
 
 // Group sitemap entries
-const groups = new Map<string, typeof sitemap>();
+const groups = new Map<string, PageEntry[]>();
 for (const entry of sitemap) {
   if (!groups.has(entry.group)) groups.set(entry.group, []);
   groups.get(entry.group)!.push(entry);

@@ -306,6 +306,7 @@ const codeExamples = {
 
   <script>
 import '../../scripts/copy-buttons';
+import { logPrepend } from '../../scripts/event-log';
 // Change event logging
       const eventSc = document.getElementById('event-sc');
       const eventLog = document.getElementById('event-log');
@@ -313,10 +314,7 @@ import '../../scripts/copy-buttons';
 
       eventSc.addEventListener('ui-change', (e) => {
         count++;
-        const entry = document.createElement('div');
-        entry.className = 'log-entry';
-        entry.textContent = `#${count} ui-change — value: "${e.detail.value}", label: "${e.detail.label}"`;
-        eventLog.prepend(entry);
+        logPrepend(eventLog, `#${count} ui-change — value: "${e.detail.value}", label: "${e.detail.label}"`);
       });
 
       // Form logging
@@ -327,17 +325,11 @@ import '../../scripts/copy-buttons';
         e.preventDefault();
         const data = new FormData(form);
         const entries = [...data.entries()].map(([k, v]) => `${k}=${v}`).join(', ');
-        const entry = document.createElement('div');
-        entry.className = 'log-entry';
-        entry.textContent = `submit — ${entries || '(empty)'}`;
-        formLog.prepend(entry);
+        logPrepend(formLog, `submit — ${entries || '(empty)'}`);
       });
 
       form.addEventListener('reset', () => {
-        const entry = document.createElement('div');
-        entry.className = 'log-entry';
-        entry.textContent = 'reset';
-        formLog.prepend(entry);
+        logPrepend(formLog, 'reset');
       });
   </script>
 </SidebarLayout>

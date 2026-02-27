@@ -397,6 +397,7 @@ const codeExamples = {
 
   <script>
 import '../../scripts/copy-buttons';
+import { logPrepend } from '../../scripts/event-log';
 // Basic listbox value tracking
       const basicListbox = document.getElementById('basic-listbox');
       const basicValue = document.getElementById('basic-value');
@@ -420,18 +421,12 @@ import '../../scripts/copy-buttons';
 
       eventListbox.addEventListener('ui-select', (e) => {
         eventCount++;
-        const entry = document.createElement('div');
-        entry.className = 'log-entry';
-        entry.textContent = `#${eventCount} ui-select — value: "${e.detail.value}", label: "${e.detail.label}"`;
-        eventLog.prepend(entry);
+        logPrepend(eventLog, `#${eventCount} ui-select — value: "${e.detail.value}", label: "${e.detail.label}"`);
       });
 
       eventListbox.addEventListener('ui-change', (e) => {
         eventCount++;
-        const entry = document.createElement('div');
-        entry.className = 'log-entry';
-        entry.textContent = `#${eventCount} ui-change — value: "${e.detail.value}", label: "${e.detail.label}"`;
-        eventLog.prepend(entry);
+        logPrepend(eventLog, `#${eventCount} ui-change — value: "${e.detail.value}", label: "${e.detail.label}"`);
       });
   </script>
   <style is:global>

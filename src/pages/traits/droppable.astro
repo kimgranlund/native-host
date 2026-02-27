@@ -191,15 +191,7 @@ const detailText = `{ text }`;
 
   <script>
 import '../../scripts/copy-buttons';
-
-      // ── Helpers ──
-
-      function appendLog(el, msg) {
-        const line = document.createElement('div');
-        line.textContent = msg;
-        el.appendChild(line);
-        el.scrollTop = el.scrollHeight;
-      }
+import { logAppend as appendLog } from '../../scripts/event-log';
 
       function formatSize(bytes) {
         if (bytes < 1024) return bytes + ' B';
@@ -355,9 +347,6 @@ import '../../scripts/copy-buttons';
     }
 
     /* ── Code Blocks ── */
-
-
-
 
     /* ── API Reference ── */
 

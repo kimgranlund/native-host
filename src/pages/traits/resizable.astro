@@ -162,15 +162,7 @@ const detailWidthHeight = `{ width, height }`;
 
   <script>
 import '../../scripts/copy-buttons';
-
-      // ── Event logging ──
-
-      function appendLog(el, msg) {
-        const line = document.createElement('div');
-        line.textContent = msg;
-        el.appendChild(line);
-        el.scrollTop = el.scrollHeight;
-      }
+import { logAppend as appendLog } from '../../scripts/event-log';
 
       // ── Horizontal ──
 
@@ -263,9 +255,6 @@ import '../../scripts/copy-buttons';
     }
 
     /* ── Code Blocks ── */
-
-
-
 
     /* ── API Reference ── */
 

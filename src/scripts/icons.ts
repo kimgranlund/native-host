@@ -1,4 +1,4 @@
-// Registers all Phosphor icons used across snippet demo pages.
+// Registers all Phosphor icons used across demo pages.
 // Uses ?raw imports so Vite inlines the SVG strings at build time.
 import { registerIcon } from '@nonoun/native-ui';
 
@@ -26,8 +26,11 @@ import checkCircle from '@phosphor-icons/core/assets/regular/check-circle.svg?ra
 import clipboard from '@phosphor-icons/core/assets/regular/clipboard.svg?raw';
 import clipboardText from '@phosphor-icons/core/assets/regular/clipboard-text.svg?raw';
 import code from '@phosphor-icons/core/assets/regular/code.svg?raw';
+import compass from '@phosphor-icons/core/assets/regular/compass.svg?raw';
 import copy from '@phosphor-icons/core/assets/regular/copy.svg?raw';
+import cpu from '@phosphor-icons/core/assets/regular/cpu.svg?raw';
 import creditCard from '@phosphor-icons/core/assets/regular/credit-card.svg?raw';
+import cube from '@phosphor-icons/core/assets/regular/cube.svg?raw';
 import currencyDollar from '@phosphor-icons/core/assets/regular/currency-dollar.svg?raw';
 import dotsThree from '@phosphor-icons/core/assets/regular/dots-three.svg?raw';
 import download from '@phosphor-icons/core/assets/regular/download.svg?raw';
@@ -56,6 +59,7 @@ import magnifyingGlassMinus from '@phosphor-icons/core/assets/regular/magnifying
 import magnifyingGlassPlus from '@phosphor-icons/core/assets/regular/magnifying-glass-plus.svg?raw';
 import mapPin from '@phosphor-icons/core/assets/regular/map-pin.svg?raw';
 import microphone from '@phosphor-icons/core/assets/regular/microphone.svg?raw';
+import moon from '@phosphor-icons/core/assets/regular/moon.svg?raw';
 import pkg from '@phosphor-icons/core/assets/regular/package.svg?raw';
 import pencilSimple from '@phosphor-icons/core/assets/regular/pencil-simple.svg?raw';
 import percent from '@phosphor-icons/core/assets/regular/percent.svg?raw';
@@ -73,12 +77,17 @@ import shieldCheck from '@phosphor-icons/core/assets/regular/shield-check.svg?ra
 import shoppingBag from '@phosphor-icons/core/assets/regular/shopping-bag.svg?raw';
 import shoppingCart from '@phosphor-icons/core/assets/regular/shopping-cart.svg?raw';
 import shuffle from '@phosphor-icons/core/assets/regular/shuffle.svg?raw';
+import sidebarSimple from '@phosphor-icons/core/assets/regular/sidebar-simple.svg?raw';
 import signOut from '@phosphor-icons/core/assets/regular/sign-out.svg?raw';
 import skipBack from '@phosphor-icons/core/assets/regular/skip-back.svg?raw';
 import skipForward from '@phosphor-icons/core/assets/regular/skip-forward.svg?raw';
+import slidersHorizontal from '@phosphor-icons/core/assets/regular/sliders-horizontal.svg?raw';
 import sortAscending from '@phosphor-icons/core/assets/regular/sort-ascending.svg?raw';
+import sparkle from '@phosphor-icons/core/assets/regular/sparkle.svg?raw';
 import speakerHigh from '@phosphor-icons/core/assets/regular/speaker-high.svg?raw';
+import squaresFour from '@phosphor-icons/core/assets/regular/squares-four.svg?raw';
 import star from '@phosphor-icons/core/assets/regular/star.svg?raw';
+import sun from '@phosphor-icons/core/assets/regular/sun.svg?raw';
 import terminal from '@phosphor-icons/core/assets/regular/terminal.svg?raw';
 import textAlignCenter from '@phosphor-icons/core/assets/regular/text-align-center.svg?raw';
 import textAlignLeft from '@phosphor-icons/core/assets/regular/text-align-left.svg?raw';
@@ -98,17 +107,6 @@ import warningCircle from '@phosphor-icons/core/assets/regular/warning-circle.sv
 import x from '@phosphor-icons/core/assets/regular/x.svg?raw';
 import xCircle from '@phosphor-icons/core/assets/regular/x-circle.svg?raw';
 
-// Layout shell icons (used in SidebarLayout.astro and layout.ts, not in snippets)
-import compass from '@phosphor-icons/core/assets/regular/compass.svg?raw';
-import cpu from '@phosphor-icons/core/assets/regular/cpu.svg?raw';
-import cube from '@phosphor-icons/core/assets/regular/cube.svg?raw';
-import moon from '@phosphor-icons/core/assets/regular/moon.svg?raw';
-import sidebarSimple from '@phosphor-icons/core/assets/regular/sidebar-simple.svg?raw';
-import sparkle from '@phosphor-icons/core/assets/regular/sparkle.svg?raw';
-import squaresFour from '@phosphor-icons/core/assets/regular/squares-four.svg?raw';
-import slidersHorizontal from '@phosphor-icons/core/assets/regular/sliders-horizontal.svg?raw';
-import sun from '@phosphor-icons/core/assets/regular/sun.svg?raw';
-
 // Fill weight
 import chatDotsFill from '@phosphor-icons/core/assets/fill/chat-dots-fill.svg?raw';
 import codeFill from '@phosphor-icons/core/assets/fill/code-fill.svg?raw';
@@ -116,111 +114,118 @@ import dotsThreeOutlineFill from '@phosphor-icons/core/assets/fill/dots-three-ou
 import sidebarSimpleFill from '@phosphor-icons/core/assets/fill/sidebar-simple-fill.svg?raw';
 import slidersHorizontalFill from '@phosphor-icons/core/assets/fill/sliders-horizontal-fill.svg?raw';
 
-registerIcon('arrow-clockwise', arrowClockwise);
-registerIcon('arrow-counter-clockwise', arrowCounterClockwise);
-registerIcon('arrow-down', arrowDown);
-registerIcon('arrow-left', arrowLeft);
-registerIcon('arrow-right', arrowRight);
-registerIcon('arrow-up', arrowUp);
-registerIcon('arrows-out', arrowsOut);
-registerIcon('bell', bell);
-registerIcon('book-open', bookOpen);
-registerIcon('calendar', calendar);
-registerIcon('caret-down', caretDown);
-registerIcon('caret-left', caretLeft);
-registerIcon('caret-right', caretRight);
-registerIcon('caret-up', caretUp);
-registerIcon('caret-up-down', caretUpDown);
-registerIcon('chart-bar', chartBar);
-registerIcon('chat-circle', chatCircle);
-registerIcon('chat-dots', chatDots);
-registerIcon('check', check);
-registerIcon('check-circle', checkCircle);
-registerIcon('clipboard', clipboard);
-registerIcon('clipboard-text', clipboardText);
-registerIcon('code', code);
-registerIcon('copy', copy);
-registerIcon('credit-card', creditCard);
-registerIcon('currency-dollar', currencyDollar);
-registerIcon('dots-three', dotsThree);
-registerIcon('download', download);
-registerIcon('envelope', envelope);
-registerIcon('envelope-simple', envelopeSimple);
-registerIcon('eye', eye);
-registerIcon('file-text', fileText);
-registerIcon('floppy-disk', floppyDisk);
-registerIcon('folder', folder);
-registerIcon('folder-open', folderOpen);
-registerIcon('funnel', funnel);
-registerIcon('gear', gear);
-registerIcon('github-logo', githubLogo);
-registerIcon('google-logo', googleLogo);
-registerIcon('grid-four', gridFour);
-registerIcon('heart', heart);
-registerIcon('house', house);
-registerIcon('info', info);
-registerIcon('lightning', lightning);
-registerIcon('list', list);
-registerIcon('list-bullets', listBullets);
-registerIcon('list-numbers', listNumbers);
-registerIcon('lock', lock);
-registerIcon('magnifying-glass', magnifyingGlass);
-registerIcon('magnifying-glass-minus', magnifyingGlassMinus);
-registerIcon('magnifying-glass-plus', magnifyingGlassPlus);
-registerIcon('map-pin', mapPin);
-registerIcon('microphone', microphone);
-registerIcon('package', pkg);
-registerIcon('pencil-simple', pencilSimple);
-registerIcon('percent', percent);
-registerIcon('phone', phone);
-registerIcon('play', play);
-registerIcon('plus', plus);
-registerIcon('printer', printer);
-registerIcon('pulse', pulse);
-registerIcon('receipt', receipt);
-registerIcon('repeat', repeat);
-registerIcon('rocket-launch', rocketLaunch);
-registerIcon('scissors', scissors);
-registerIcon('selection-all', selectionAll);
-registerIcon('shield-check', shieldCheck);
-registerIcon('shopping-bag', shoppingBag);
-registerIcon('shopping-cart', shoppingCart);
-registerIcon('shuffle', shuffle);
-registerIcon('sign-out', signOut);
-registerIcon('skip-back', skipBack);
-registerIcon('skip-forward', skipForward);
-registerIcon('sort-ascending', sortAscending);
-registerIcon('speaker-high', speakerHigh);
-registerIcon('star', star);
-registerIcon('terminal', terminal);
-registerIcon('text-align-center', textAlignCenter);
-registerIcon('text-align-left', textAlignLeft);
-registerIcon('text-align-right', textAlignRight);
-registerIcon('text-b', textB);
-registerIcon('text-italic', textItalic);
-registerIcon('text-strikethrough', textStrikethrough);
-registerIcon('text-underline', textUnderline);
-registerIcon('trash', trash);
-registerIcon('trend-down', trendDown);
-registerIcon('trend-up', trendUp);
-registerIcon('user', user);
-registerIcon('user-plus', userPlus);
-registerIcon('users', users);
-registerIcon('warning', warning);
-registerIcon('warning-circle', warningCircle);
-registerIcon('x', x);
-registerIcon('x-circle', xCircle);
-registerIcon('compass', compass);
-registerIcon('cpu', cpu);
-registerIcon('cube', cube);
-registerIcon('moon', moon);
-registerIcon('sidebar-simple', sidebarSimple);
-registerIcon('sparkle', sparkle);
-registerIcon('squares-four', squaresFour);
-registerIcon('sun', sun);
-registerIcon('chat-dots-fill', chatDotsFill);
-registerIcon('code-fill', codeFill);
-registerIcon('dots-three-outline-fill', dotsThreeOutlineFill);
-registerIcon('sidebar-simple-fill', sidebarSimpleFill);
-registerIcon('sliders-horizontal', slidersHorizontal);
-registerIcon('sliders-horizontal-fill', slidersHorizontalFill);
+// Register all — single map + loop to keep registration in sync with imports.
+const icons: Record<string, string> = {
+  'arrow-clockwise': arrowClockwise,
+  'arrow-counter-clockwise': arrowCounterClockwise,
+  'arrow-down': arrowDown,
+  'arrow-left': arrowLeft,
+  'arrow-right': arrowRight,
+  'arrow-up': arrowUp,
+  'arrows-out': arrowsOut,
+  'bell': bell,
+  'book-open': bookOpen,
+  'calendar': calendar,
+  'caret-down': caretDown,
+  'caret-left': caretLeft,
+  'caret-right': caretRight,
+  'caret-up': caretUp,
+  'caret-up-down': caretUpDown,
+  'chart-bar': chartBar,
+  'chat-circle': chatCircle,
+  'chat-dots': chatDots,
+  'check': check,
+  'check-circle': checkCircle,
+  'clipboard': clipboard,
+  'clipboard-text': clipboardText,
+  'code': code,
+  'compass': compass,
+  'copy': copy,
+  'cpu': cpu,
+  'credit-card': creditCard,
+  'cube': cube,
+  'currency-dollar': currencyDollar,
+  'dots-three': dotsThree,
+  'download': download,
+  'envelope': envelope,
+  'envelope-simple': envelopeSimple,
+  'eye': eye,
+  'file-text': fileText,
+  'floppy-disk': floppyDisk,
+  'folder': folder,
+  'folder-open': folderOpen,
+  'funnel': funnel,
+  'gear': gear,
+  'github-logo': githubLogo,
+  'google-logo': googleLogo,
+  'grid-four': gridFour,
+  'heart': heart,
+  'house': house,
+  'info': info,
+  'lightning': lightning,
+  'list': list,
+  'list-bullets': listBullets,
+  'list-numbers': listNumbers,
+  'lock': lock,
+  'magnifying-glass': magnifyingGlass,
+  'magnifying-glass-minus': magnifyingGlassMinus,
+  'magnifying-glass-plus': magnifyingGlassPlus,
+  'map-pin': mapPin,
+  'microphone': microphone,
+  'moon': moon,
+  'package': pkg,
+  'pencil-simple': pencilSimple,
+  'percent': percent,
+  'phone': phone,
+  'play': play,
+  'plus': plus,
+  'printer': printer,
+  'pulse': pulse,
+  'receipt': receipt,
+  'repeat': repeat,
+  'rocket-launch': rocketLaunch,
+  'scissors': scissors,
+  'selection-all': selectionAll,
+  'shield-check': shieldCheck,
+  'shopping-bag': shoppingBag,
+  'shopping-cart': shoppingCart,
+  'shuffle': shuffle,
+  'sidebar-simple': sidebarSimple,
+  'sign-out': signOut,
+  'skip-back': skipBack,
+  'skip-forward': skipForward,
+  'sliders-horizontal': slidersHorizontal,
+  'sort-ascending': sortAscending,
+  'sparkle': sparkle,
+  'speaker-high': speakerHigh,
+  'squares-four': squaresFour,
+  'star': star,
+  'sun': sun,
+  'terminal': terminal,
+  'text-align-center': textAlignCenter,
+  'text-align-left': textAlignLeft,
+  'text-align-right': textAlignRight,
+  'text-b': textB,
+  'text-italic': textItalic,
+  'text-strikethrough': textStrikethrough,
+  'text-underline': textUnderline,
+  'trash': trash,
+  'trend-down': trendDown,
+  'trend-up': trendUp,
+  'user': user,
+  'user-plus': userPlus,
+  'users': users,
+  'warning': warning,
+  'warning-circle': warningCircle,
+  'x': x,
+  'x-circle': xCircle,
+  'chat-dots-fill': chatDotsFill,
+  'code-fill': codeFill,
+  'dots-three-outline-fill': dotsThreeOutlineFill,
+  'sidebar-simple-fill': sidebarSimpleFill,
+  'sliders-horizontal-fill': slidersHorizontalFill,
+};
+
+for (const [name, svg] of Object.entries(icons)) {
+  registerIcon(name, svg);
+}

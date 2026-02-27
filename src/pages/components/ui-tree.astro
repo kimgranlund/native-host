@@ -201,6 +201,7 @@ tree.querySelectorAll('ui-tree-item').forEach((item) =&gt; {
 
   <script>
 import '../../scripts/copy-buttons';
+import { logPrepend } from '../../scripts/event-log';
 
       // Event log for tree interactions
       const tree = document.getElementById('event-tree');
@@ -215,17 +216,11 @@ import '../../scripts/copy-buttons';
           const label = item.querySelector(':scope > [slot="label"]')?.textContent?.trim() ?? '?';
           if (m.attributeName === 'selected' && item.hasAttribute('selected')) {
             count++;
-            const entry = document.createElement('div');
-            entry.className = 'log-entry';
-            entry.textContent = `#${count} selected — "${label}"`;
-            log.prepend(entry);
+            logPrepend(log, `#${count} selected — "${label}"`);
           } else if (m.attributeName === 'expanded') {
             count++;
             const expanded = item.hasAttribute('expanded');
-            const entry = document.createElement('div');
-            entry.className = 'log-entry';
-            entry.textContent = `#${count} ${expanded ? 'expanded' : 'collapsed'} — "${label}"`;
-            log.prepend(entry);
+            logPrepend(log, `#${count} ${expanded ? 'expanded' : 'collapsed'} — "${label}"`);
           }
         }
       });

@@ -233,17 +233,7 @@ const detailRange = `{ startIndex, endIndex, items }`;
 
   <script>
 import '../../scripts/copy-buttons';
-
-      // ── Helper: event logging ──
-
-      function appendLog(el, msg) {
-        if (!el) return;
-        const line = document.createElement('div');
-        line.textContent = msg;
-        el.appendChild(line);
-        el.scrollTop = el.scrollHeight;
-        while (el.children.length > 20) el.removeChild(el.firstChild);
-      }
+import { logAppend as appendLog } from '../../scripts/event-log';
 
       // ── Stamp 28 cells into grids ──
 
@@ -420,9 +410,6 @@ import '../../scripts/copy-buttons';
     }
 
     /* ── Code Blocks ── */
-
-
-
 
     /* ── API Reference ── */
 

@@ -535,6 +535,7 @@ const codeExamples = {
 
   <script>
 import '../../scripts/copy-buttons';
+import { logPrepend } from '../../scripts/event-log';
 // Press event logging
       const pressBtn = document.getElementById('press-btn');
       const pressLog = document.getElementById('press-log');
@@ -542,10 +543,7 @@ import '../../scripts/copy-buttons';
 
       pressBtn.addEventListener('ui-press', (e) => {
         pressCount++;
-        const entry = document.createElement('div');
-        entry.className = 'log-entry';
-        entry.textContent = `#${pressCount} ui-press — pointerType: ${e.detail.pointerType}`;
-        pressLog.prepend(entry);
+        logPrepend(pressLog, `#${pressCount} ui-press — pointerType: ${e.detail.pointerType}`);
       });
 
       // Form logging
@@ -554,17 +552,11 @@ import '../../scripts/copy-buttons';
 
       form.addEventListener('submit', (e) => {
         e.preventDefault();
-        const entry = document.createElement('div');
-        entry.className = 'log-entry';
-        entry.textContent = `submit — value: "${new FormData(form).get('demo')}"`;
-        formLog.prepend(entry);
+        logPrepend(formLog, `submit — value: "${new FormData(form).get('demo')}"`);
       });
 
       form.addEventListener('reset', () => {
-        const entry = document.createElement('div');
-        entry.className = 'log-entry';
-        entry.textContent = 'reset';
-        formLog.prepend(entry);
+        logPrepend(formLog, 'reset');
       });
   </script>
 </SidebarLayout>

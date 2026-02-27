@@ -547,6 +547,7 @@ const codeExamples = {
 
   <script>
 import '../../scripts/copy-buttons';
+import { logPrepend } from '../../scripts/event-log';
 // Event logging
       const eventSelect = document.getElementById('event-select');
       const eventLog = document.getElementById('event-log');
@@ -554,10 +555,7 @@ import '../../scripts/copy-buttons';
 
       eventSelect.addEventListener('ui-change', (e) => {
         count++;
-        const entry = document.createElement('div');
-        entry.className = 'log-entry';
-        entry.textContent = `#${count} ui-change — value: "${e.detail.value}", label: "${e.detail.label}"`;
-        eventLog.prepend(entry);
+        logPrepend(eventLog, `#${count} ui-change — value: "${e.detail.value}", label: "${e.detail.label}"`);
       });
 
       // Form logging
@@ -567,17 +565,11 @@ import '../../scripts/copy-buttons';
       form.addEventListener('submit', (e) => {
         e.preventDefault();
         const data = new FormData(form);
-        const entry = document.createElement('div');
-        entry.className = 'log-entry';
-        entry.textContent = `submit — ${[...data.entries()].map(([k, v]) => `${k}: "${v}"`).join(', ')}`;
-        formLog.prepend(entry);
+        logPrepend(formLog, `submit — ${[...data.entries()].map(([k, v]) => `${k}: "${v}"`).join(', ')}`);
       });
 
       form.addEventListener('reset', () => {
-        const entry = document.createElement('div');
-        entry.className = 'log-entry';
-        entry.textContent = 'reset';
-        formLog.prepend(entry);
+        logPrepend(formLog, 'reset');
       });
 
       // Dynamic update demo
@@ -604,10 +596,7 @@ import '../../scripts/copy-buttons';
       });
 
       dynamicSelect.addEventListener('ui-change', (e) => {
-        const entry = document.createElement('div');
-        entry.className = 'log-entry';
-        entry.textContent = `ui-change — value: "${e.detail.value}", label: "${e.detail.label}"`;
-        dynamicLog.prepend(entry);
+        logPrepend(dynamicLog, `ui-change — value: "${e.detail.value}", label: "${e.detail.label}"`);
       });
   </script>
 </SidebarLayout>

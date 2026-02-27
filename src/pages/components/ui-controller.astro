@@ -772,21 +772,11 @@ ctrl.setAttribute('hoverable-delay', '800');</code><ui-button class="copy-btn" s
   <script>
 import { Trait } from "@nonoun/native-ui";
 import '../../scripts/copy-buttons';
+import { logAppend as appendLog } from '../../scripts/event-log';
 // ── Minimal UIElement for injection demos ──
 
       class InjectDemo extends UIElement {}
       define('inject-demo', InjectDemo);
-
-      // ── Helper: event logging ──
-
-      function appendLog(el, msg) {
-        if (!el) return;
-        const line = document.createElement('div');
-        line.textContent = msg;
-        el.appendChild(line);
-        el.scrollTop = el.scrollHeight;
-        while (el.children.length > 20) el.removeChild(el.firstChild);
-      }
 
       // ═══════════════════════════════════════════
       // INJECTION — SIMPLE
@@ -1055,9 +1045,6 @@ import '../../scripts/copy-buttons';
   <style is:global>
     /* ── Code Blocks ── */
 
-
-
-
     /* ── Pattern Badges ── */
 
     .pattern-badge {
@@ -1083,9 +1070,6 @@ import '../../scripts/copy-buttons';
     }
 
     /* ── Hover/Press demo items ── */
-
-
-
 
     /* ── Drag items ── */
 

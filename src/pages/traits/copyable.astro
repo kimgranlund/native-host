@@ -177,21 +177,11 @@ el.addEventListener('ui-press', () =&gt; copy.copy());`,
   <script>
 import { Trait } from "@nonoun/native-ui";
 import '../../scripts/copy-buttons';
+import { logAppend as appendLog } from '../../scripts/event-log';
 // ── Minimal UIElement shell for injection demos ──
 
       class CopyDemo extends UIElement {}
       define('copy-demo', CopyDemo);
-
-      // ── Helper: event logging ──
-
-      function appendLog(el, msg) {
-        if (!el) return;
-        const line = document.createElement('div');
-        line.textContent = msg;
-        el.appendChild(line);
-        el.scrollTop = el.scrollHeight;
-        while (el.children.length > 20) el.removeChild(el.firstChild);
-      }
 
       // ── Basic Copy (injection) — wire ui-press → copy ──
 
@@ -303,9 +293,6 @@ import '../../scripts/copy-buttons';
     }
 
     /* ── Code Blocks ── */
-
-
-
 
     /* ── Pattern Badges ── */
 

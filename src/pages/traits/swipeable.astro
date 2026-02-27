@@ -254,17 +254,7 @@ const detailSwipe = `{ direction, distance, velocity }`;
 
   <script>
 import '../../scripts/copy-buttons';
-
-      // ── Helper: event logging ──
-
-      function appendLog(el, msg) {
-        if (!el) return;
-        const line = document.createElement('div');
-        line.textContent = msg;
-        el.appendChild(line);
-        el.scrollTop = el.scrollHeight;
-        while (el.children.length > 20) el.removeChild(el.firstChild);
-      }
+import { logAppend as appendLog } from '../../scripts/event-log';
 
       // ── Horizontal Swipe (provider) ──
 
@@ -388,9 +378,6 @@ import '../../scripts/copy-buttons';
     }
 
     /* ── Code Blocks ── */
-
-
-
 
     /* ── Pattern Badges ── */
 

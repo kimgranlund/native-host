@@ -1,9 +1,9 @@
 ---
 import SidebarLayout from '../layouts/SidebarLayout.astro';
-import sitemap from '../data/sitemap.json';
+import { sitemap, type PageEntry } from '../data/pages';
 
 // Count items per group
-const groups = new Map<string, typeof sitemap>();
+const groups = new Map<string, PageEntry[]>();
 for (const entry of sitemap) {
   if (!groups.has(entry.group)) groups.set(entry.group, []);
   groups.get(entry.group)!.push(entry);

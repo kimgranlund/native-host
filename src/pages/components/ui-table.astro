@@ -609,6 +609,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
   <script>
 import '../../scripts/copy-buttons';
+import { logPrepend } from '../../scripts/event-log';
 // ── Sortable demo: populate + sort logic ──
       const repos = [
         { name: 'React', language: 'JavaScript', stars: 228 },
@@ -660,10 +661,7 @@ import '../../scripts/copy-buttons';
       document.querySelector('ui-table[selectable]').addEventListener('ui-table-select', (e) => {
         selCount++;
         const { allSelected } = e.detail;
-        const entry = document.createElement('div');
-        entry.className = 'log-entry';
-        entry.textContent = `#${selCount} ui-table-select — ${allSelected.length ? allSelected.join(', ') : '(none)'}`;
-        selectionLog.prepend(entry);
+        logPrepend(selectionLog, `#${selCount} ui-table-select — ${allSelected.length ? allSelected.join(', ') : '(none)'}`);
       });
 
       // ── Colspan demo: sort logic ──
@@ -774,10 +772,7 @@ import '../../scripts/copy-buttons';
       document.querySelector('ui-table[reorderable]').addEventListener('ui-table-reorder', (e) => {
         reorderCount++;
         const { fromIndex, toIndex } = e.detail;
-        const entry = document.createElement('div');
-        entry.className = 'log-entry';
-        entry.textContent = `#${reorderCount} ui-table-reorder — row ${fromIndex} → ${toIndex}`;
-        reorderLog.prepend(entry);
+        logPrepend(reorderLog, `#${reorderCount} ui-table-reorder — row ${fromIndex} → ${toIndex}`);
       });
 
       // ── Resize demo: log events ──
@@ -786,10 +781,7 @@ import '../../scripts/copy-buttons';
       document.querySelector('ui-table[resizable]').addEventListener('ui-table-resize-end', (e) => {
         resizeCount++;
         const { column, width, allWidths } = e.detail;
-        const entry = document.createElement('div');
-        entry.className = 'log-entry';
-        entry.textContent = `#${resizeCount} col ${column} → ${Math.round(width)}px  [${allWidths.map(w => Math.round(w)).join(', ')}]`;
-        resizeLog.prepend(entry);
+        logPrepend(resizeLog, `#${resizeCount} col ${column} → ${Math.round(width)}px  [${allWidths.map(w => Math.round(w)).join(', ')}]`);
       });
 
       // ── Sortable + Resizable demo: populate + sort ──

@@ -230,17 +230,7 @@ const detailValuePrev = `{ value, previousValue }`;
   <script>
 import { EditController } from "@nonoun/native-ui";
 import '../../scripts/copy-buttons';
-
-      // ── Helper: event logging ──
-
-      function appendLog(el, msg) {
-        if (!el) return;
-        const line = document.createElement('div');
-        line.textContent = msg;
-        el.appendChild(line);
-        el.scrollTop = el.scrollHeight;
-        while (el.children.length > 20) el.removeChild(el.firstChild);
-      }
+import { logAppend as appendLog } from '../../scripts/event-log';
 
       // ── Double-Click to Edit (provider) ──
       // ui-controller with for=".edit-item" applies EditController to each item.
@@ -338,9 +328,6 @@ import '../../scripts/copy-buttons';
     }
 
     /* ── Code Blocks ── */
-
-
-
 
     /* ── Pattern Badges ── */
 

@@ -232,6 +232,7 @@ const codeExamples = {
 
   <script>
 import '../../scripts/copy-buttons';
+import { logPrepend } from '../../scripts/event-log';
 // Basic nav value tracking
       const basicNav = document.getElementById('basic-nav');
       const basicValue = document.getElementById('basic-value');
@@ -253,10 +254,7 @@ import '../../scripts/copy-buttons';
 
       eventNav.addEventListener('ui-change', (e) => {
         eventCount++;
-        const entry = document.createElement('div');
-        entry.className = 'log-entry';
-        entry.textContent = `#${eventCount} ui-change — value: "${e.detail.value}"`;
-        eventLog.prepend(entry);
+        logPrepend(eventLog, `#${eventCount} ui-change — value: "${e.detail.value}"`);
       });
   </script>
   <style is:global>

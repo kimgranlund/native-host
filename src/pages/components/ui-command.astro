@@ -418,6 +418,7 @@ const codeExamples = {
 
   <script>
 import '../../scripts/copy-buttons';
+import { logPrepend } from '../../scripts/event-log';
 // Basic command event logging
       const basicCommand = document.getElementById('basic-command');
       const basicLog = document.getElementById('basic-log');
@@ -425,18 +426,12 @@ import '../../scripts/copy-buttons';
 
       basicCommand.addEventListener('ui-change', (e) => {
         count++;
-        const entry = document.createElement('div');
-        entry.className = 'log-entry';
-        entry.textContent = `#${count} ui-change — value: "${e.detail.value}", label: "${e.detail.label}"`;
-        basicLog.prepend(entry);
+        logPrepend(basicLog, `#${count} ui-change — value: "${e.detail.value}", label: "${e.detail.label}"`);
       });
 
       basicCommand.addEventListener('ui-dismiss', () => {
         count++;
-        const entry = document.createElement('div');
-        entry.className = 'log-entry';
-        entry.textContent = `#${count} ui-dismiss`;
-        basicLog.prepend(entry);
+        logPrepend(basicLog, `#${count} ui-dismiss`);
       });
   </script>
   <style is:global>

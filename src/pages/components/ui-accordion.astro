@@ -226,6 +226,7 @@ el.multiple = true;</code></pre>
 
   <script>
 import '../../scripts/copy-buttons';
+import { logPrepend } from '../../scripts/event-log';
 // Event log for accordion toggle events
       const accordion = document.getElementById('event-accordion');
       const log = document.getElementById('accordion-log');
@@ -237,10 +238,7 @@ import '../../scripts/copy-buttons';
         const heading = item.querySelector('[slot="heading"]')?.textContent?.trim() ?? '?';
         const isOpen = item.hasAttribute('open');
         count++;
-        const entry = document.createElement('div');
-        entry.className = 'log-entry';
-        entry.textContent = `#${count} ${isOpen ? 'opened' : 'closed'} — "${heading}"`;
-        log.prepend(entry);
+        logPrepend(log, `#${count} ${isOpen ? 'opened' : 'closed'} — "${heading}"`);
       }, true);
   </script>
 </SidebarLayout>

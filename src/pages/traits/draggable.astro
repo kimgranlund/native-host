@@ -280,6 +280,7 @@ const detailItem = `{ item }`;
 
   <script>
 import '../../scripts/copy-buttons';
+import { logAppend as appendLog } from '../../scripts/event-log';
 
       // ── Drop mode — swap ──
 
@@ -337,15 +338,6 @@ import '../../scripts/copy-buttons';
           cardRow.appendChild(item);
         }
       });
-
-      // ── Event logging ──
-
-      function appendLog(el, msg) {
-        const line = document.createElement('div');
-        line.textContent = msg;
-        el.appendChild(line);
-        el.scrollTop = el.scrollHeight;
-      }
 
       const swapLogEl = document.getElementById('swap-log');
       function swapLog(msg) { appendLog(swapLogEl, msg); }
@@ -487,9 +479,6 @@ import '../../scripts/copy-buttons';
     }
 
     /* ── Code Blocks ── */
-
-
-
 
     /* ── API Reference ── */
 

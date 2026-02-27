@@ -334,6 +334,7 @@ const codeExamples = {
 
   <script>
 import '../../scripts/copy-buttons';
+import { logPrepend } from '../../scripts/event-log';
 // Event logging
       const eventTextarea = document.getElementById('event-textarea');
       const eventLog = document.getElementById('event-log');
@@ -341,18 +342,12 @@ import '../../scripts/copy-buttons';
 
       eventTextarea.addEventListener('ui-input', (e) => {
         count++;
-        const entry = document.createElement('div');
-        entry.className = 'log-entry';
-        entry.textContent = `#${count} ui-input — value: "${e.detail.value}"`;
-        eventLog.prepend(entry);
+        logPrepend(eventLog, `#${count} ui-input — value: "${e.detail.value}"`);
       });
 
       eventTextarea.addEventListener('ui-change', (e) => {
         count++;
-        const entry = document.createElement('div');
-        entry.className = 'log-entry';
-        entry.textContent = `#${count} ui-change — value: "${e.detail.value}"`;
-        eventLog.prepend(entry);
+        logPrepend(eventLog, `#${count} ui-change — value: "${e.detail.value}"`);
       });
 
       // Form logging
@@ -362,17 +357,11 @@ import '../../scripts/copy-buttons';
       form.addEventListener('submit', (e) => {
         e.preventDefault();
         const data = new FormData(form);
-        const entry = document.createElement('div');
-        entry.className = 'log-entry';
-        entry.textContent = `submit — ${[...data.entries()].map(([k, v]) => `${k}: "${v}"`).join(', ')}`;
-        formLog.prepend(entry);
+        logPrepend(formLog, `submit — ${[...data.entries()].map(([k, v]) => `${k}: "${v}"`).join(', ')}`);
       });
 
       form.addEventListener('reset', () => {
-        const entry = document.createElement('div');
-        entry.className = 'log-entry';
-        entry.textContent = 'reset';
-        formLog.prepend(entry);
+        logPrepend(formLog, 'reset');
       });
   </script>
 </SidebarLayout>
