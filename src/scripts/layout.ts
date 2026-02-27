@@ -12,11 +12,10 @@ const CODE_STORAGE = 'demo-show-code';
 const layout = document.getElementById('layout-sidebar') as HTMLElement | null;
 const sidebarToggle = document.getElementById('sidebar-toggle') as HTMLElement | null;
 
-if (layout && localStorage.getItem(STORAGE_COLLAPSED) === 'true') {
-  layout.setAttribute('collapsed', '');
-  if (sidebarToggle) {
-    sidebarToggle.innerHTML = '<ui-icon name="sidebar-simple-fill" size="md"></ui-icon>';
-  }
+// Collapsed state is set by an is:inline script in SidebarLayout.astro
+// (runs before element upgrade). Here we just sync the toggle icon.
+if (layout?.hasAttribute('collapsed') && sidebarToggle) {
+  sidebarToggle.innerHTML = '<ui-icon name="sidebar-simple-fill" size="md"></ui-icon>';
 }
 
 sidebarToggle?.addEventListener('click', () => {
@@ -36,8 +35,7 @@ sidebarToggle?.addEventListener('click', () => {
 // ── Theme toggle ──
 
 const themeToggle = document.getElementById('theme-toggle') as HTMLElement | null;
-const storedScheme = localStorage.getItem(STORAGE_COLOR_SCHEME);
-if (storedScheme) document.documentElement.style.colorScheme = storedScheme;
+// Color scheme is restored by an is:inline script in BaseLayout.astro (before paint).
 
 function updateThemeIcon() {
   if (!themeToggle) return;

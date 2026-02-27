@@ -17,8 +17,14 @@ const { title } = Astro.props;
       @import '@nonoun/native-ui/css/components';
 
     </style>
-    <!-- FOUC prevention — keep page hidden until custom elements are defined -->
-    <script is:inline>document.documentElement.classList.add('ce-pending')</script>
+    <!-- Restore persisted state before first paint -->
+    <script is:inline>
+      document.documentElement.classList.add('ce-pending');
+      try {
+        if (localStorage.getItem('nav-color-scheme'))
+          document.documentElement.style.colorScheme = localStorage.getItem('nav-color-scheme');
+      } catch(e) {}
+    </script>
     <style is:inline>html.ce-pending { visibility: hidden; }</style>
   </head>
   <body>
