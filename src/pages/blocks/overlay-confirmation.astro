@@ -35,7 +35,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <!-- -- Info Confirmation Dialog -- -->
 
     <ui-dialog id="info-dialog">
-      <ui-card>
+      <ui-card class="dialog-card">
         <ui-body>
           <div class="dialog-icon dialog-icon-info">
             <ui-icon name="info" aria-hidden="true"></ui-icon>
@@ -61,7 +61,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <!-- -- Warning Confirmation Dialog -- -->
 
     <ui-dialog id="warning-dialog">
-      <ui-card>
+      <ui-card class="dialog-card">
         <ui-body>
           <div class="dialog-icon dialog-icon-warning">
             <ui-icon name="warning" aria-hidden="true"></ui-icon>
@@ -86,7 +86,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <!-- -- Danger Confirmation Dialog -- -->
 
     <ui-dialog id="danger-dialog">
-      <ui-card>
+      <ui-card class="dialog-card">
         <ui-body>
           <div class="dialog-icon dialog-icon-danger">
             <ui-icon name="trash" aria-hidden="true"></ui-icon>
@@ -125,7 +125,8 @@ function wire(openId, dialogId, closeIds) {
       wire('open-danger', 'danger-dialog', ['danger-cancel', 'danger-confirm']);
   </script>
   <style is:global>
-    ui-dialog > ui-card {
+
+    .dialog-card {
       width: min(26rem, calc(100vw - 2rem));
       box-shadow:
         0 8px 30px oklch(0% 0 0 / 0.12),

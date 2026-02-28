@@ -99,21 +99,21 @@ pointer-events: none;</code><ui-button class="copy-btn" size="sm" variant="ghost
       gap: calc(var(--_space) * 3);
     }
 
-    /* ── Card state overrides ── */
-    .state-grid > ui-card {
+    /* ── Card state classes (applied by JS) ── */
+    .state-grid > .comp-card {
       transition: box-shadow 0.2s, border-color 0.2s, opacity 0.2s;
     }
 
-    .state-grid > ui-card.dimmed {
+    .state-grid > .dimmed {
       opacity: 0.35;
     }
 
-    .state-grid > ui-card.highlighted {
+    .state-grid > .highlighted {
       border-color: var(--accent-surface);
       box-shadow: 0 0 0 2px var(--accent-surface);
     }
 
-    .state-grid > ui-card.cat-hidden {
+    .state-grid > .cat-hidden {
       display: none;
     }
 

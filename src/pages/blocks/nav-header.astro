@@ -18,7 +18,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <h2>With Breadcrumb Navigation</h2>
     <nav class="nav-bar" aria-label="Main navigation">
       <div class="nav-brand">
-        <ui-icon name="house" aria-hidden="true"></ui-icon>
+        <ui-icon name="house" aria-hidden="true" style="color: var(--accent-ink-strong);"></ui-icon>
         Acme Inc
       </div>
 
@@ -58,7 +58,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <h2>With Search Input</h2>
     <nav class="nav-bar" aria-label="Main navigation with search">
       <div class="nav-brand">
-        <ui-icon name="house" aria-hidden="true"></ui-icon>
+        <ui-icon name="house" aria-hidden="true" style="color: var(--accent-ink-strong);"></ui-icon>
         Acme Inc
       </div>
 
@@ -95,7 +95,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <h2>Compact (density)</h2>
     <nav class="nav-bar" aria-label="Compact navigation" density="compact">
       <div class="nav-brand">
-        <ui-icon name="house" aria-hidden="true"></ui-icon>
+        <ui-icon name="house" aria-hidden="true" style="color: var(--accent-ink-strong);"></ui-icon>
         Acme Inc
       </div>
 
@@ -149,9 +149,6 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       flex-shrink: 0;
     }
 
-    .nav-brand ui-icon {
-      color: var(--accent-ink-strong);
-    }
 
     .nav-center {
       flex: 1;

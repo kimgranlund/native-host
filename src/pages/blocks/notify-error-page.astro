@@ -52,7 +52,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <ui-stack gap="4">
     <h2>Maintenance</h2>
     <div class="error-page">
-      <ui-icon name="gear" size="xl" aria-hidden="true"></ui-icon>
+      <ui-icon name="gear" size="xl" aria-hidden="true" style="color: var(--neutral-ink-muted); margin-bottom: 1rem;"></ui-icon>
       <h3>We'll be back soon</h3>
       <p>We're performing scheduled maintenance to improve your experience. This usually takes less than 30 minutes. Thank you for your patience.</p>
       <ui-button>
@@ -100,10 +100,6 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       line-height: 1.5;
     }
 
-    .error-page ui-icon {
-      color: var(--neutral-ink-muted);
-      margin-bottom: 1rem;
-    }
 </style>
 
 </SidebarLayout>

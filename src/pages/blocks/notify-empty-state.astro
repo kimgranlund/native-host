@@ -17,7 +17,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <ui-stack gap="4">
     <h2>No Data</h2>
     <div class="empty-state">
-      <ui-icon name="folder" size="xl" aria-hidden="true"></ui-icon>
+      <ui-icon name="folder" size="xl" aria-hidden="true" style="color: var(--neutral-ink-muted); margin-bottom: 1rem;"></ui-icon>
       <h3>No projects yet</h3>
       <p>Create your first project to get started. Projects help you organize tasks, track progress, and collaborate with your team.</p>
       <ui-button intent="accent">
@@ -32,7 +32,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <ui-stack gap="4">
     <h2>No Search Results</h2>
     <div class="empty-state">
-      <ui-icon name="magnifying-glass" size="xl" aria-hidden="true"></ui-icon>
+      <ui-icon name="magnifying-glass" size="xl" aria-hidden="true" style="color: var(--neutral-ink-muted); margin-bottom: 1rem;"></ui-icon>
       <h3>No results found</h3>
       <p>We couldn't find anything matching "quarterly report". Try adjusting your search terms or clearing filters.</p>
       <ui-stack direction="row" gap="3">
@@ -52,7 +52,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <ui-stack gap="4">
     <h2>Error State</h2>
     <div class="empty-state">
-      <ui-icon name="warning" size="xl" aria-hidden="true" style="color: var(--danger-ink-strong);"></ui-icon>
+      <ui-icon name="warning" size="xl" aria-hidden="true" style="color: var(--danger-ink-strong); margin-bottom: 1rem;"></ui-icon>
       <h3>Something went wrong</h3>
       <p>We couldn't load your projects. This might be a temporary issue. Please check your connection and try again.</p>
       <ui-stack direction="row" gap="3">
@@ -79,10 +79,6 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       border-radius: 0.75rem;
     }
 
-    .empty-state ui-icon {
-      color: var(--neutral-ink-muted);
-      margin-bottom: 1rem;
-    }
 
     .empty-state h3 {
       font-size: 1.0625rem;

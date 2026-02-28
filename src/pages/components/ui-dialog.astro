@@ -14,7 +14,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <div class="layout-section">
       <ui-button id="open-basic">Open Dialog</ui-button>
       <ui-dialog id="basic-dialog">
-        <ui-card>
+        <ui-card class="dialog-card">
           <ui-header><span slot="label">Confirm Action</span></ui-header>
           <ui-body>
             <p style="font-size: 0.875rem; color: var(--neutral-ink-muted); margin: 0; line-height: 1.5;">Are you sure you want to continue? This action cannot be undone.</p>
@@ -57,7 +57,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <div class="layout-section">
       <ui-button id="open-form">Edit Profile</ui-button>
       <ui-dialog id="form-dialog">
-        <ui-card>
+        <ui-card class="dialog-card">
           <ui-header><span slot="label">Edit Profile</span></ui-header>
           <ui-body>
             <p style="font-size: 0.875rem; color: var(--neutral-ink-muted); margin: 0 0 0.75rem; line-height: 1.5;">Update your display name and email address.</p>
@@ -110,7 +110,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       </p>
       <ui-button id="open-persistent">Open Persistent Dialog</ui-button>
       <ui-dialog id="persistent-dialog" no-close-on-backdrop>
-        <ui-card>
+        <ui-card class="dialog-card">
           <ui-header><span slot="label">Important Notice</span></ui-header>
           <ui-body>
             <p style="font-size: 0.875rem; color: var(--neutral-ink-muted); margin: 0; line-height: 1.5;">This dialog can only be closed by clicking the button below. Clicking the backdrop or pressing Escape won't dismiss it.</p>
@@ -140,7 +140,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       </p>
       <ui-button id="open-no-esc">Open (no Escape close)</ui-button>
       <ui-dialog id="no-esc-dialog" no-close-on-escape>
-        <ui-card>
+        <ui-card class="dialog-card">
           <ui-header><span slot="label">Escape Disabled</span></ui-header>
           <ui-body>
             <p style="font-size: 0.875rem; color: var(--neutral-ink-muted); margin: 0; line-height: 1.5;">Press Escape — nothing happens. Click the backdrop or the button to close.</p>
@@ -158,7 +158,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <div class="layout-section">
       <ui-button id="open-danger" intent="danger">Delete Account</ui-button>
       <ui-dialog id="danger-dialog">
-        <ui-card>
+        <ui-card class="dialog-card">
           <ui-header><span slot="label" style="color: var(--danger-ink-strong);">Delete Account</span></ui-header>
           <ui-body>
             <p style="font-size: 0.875rem; color: var(--neutral-ink-muted); margin: 0; line-height: 1.5;">This will permanently delete your account and all associated data. This action cannot be reversed.</p>
@@ -205,7 +205,7 @@ function wire(openId, dialogId, closeIds) {
       wire('open-danger', 'danger-dialog', ['danger-cancel', 'danger-confirm']);
   </script>
   <style is:global>
-    ui-dialog > ui-card {
+    .dialog-card {
       width: min(28rem, calc(100vw - 2rem));
       box-shadow:
         0 8px 30px oklch(0% 0 0 / 0.12),

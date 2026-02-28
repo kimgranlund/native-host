@@ -37,7 +37,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <h2>Sidebar Layout</h2>
     <div class="layout-section">
       <div class="sidebar-demo">
-        <ui-panel bordered>
+        <ui-panel bordered style="width: 14rem; flex-shrink: 0;">
           <ui-stack gap="1">
             <ui-button variant="ghost" justify="spread" style="width: 100%;"><ui-icon name="house" slot="leading"></ui-icon><span slot="label">Dashboard</span></ui-button>
             <ui-button variant="ghost" justify="spread" style="width: 100%;"><ui-icon name="folder" slot="leading"></ui-icon><span slot="label">Projects</span></ui-button>
@@ -101,11 +101,6 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       display: flex;
       gap: 1rem;
       height: 16rem;
-    }
-
-    .sidebar-demo > ui-panel {
-      width: 14rem;
-      flex-shrink: 0;
     }
 
     .sidebar-demo > .content-area {

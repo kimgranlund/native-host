@@ -24,14 +24,14 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         </div>
 
         <a href="#" class="sidebar-nav-item" aria-current="page">
-          <ui-icon name="house"></ui-icon>
+          <ui-icon name="house" style="flex-shrink: 0;"></ui-icon>
           Dashboard
         </a>
 
         <span class="sidebar-section-label">Workspace</span>
 
         <a href="#" class="sidebar-nav-item">
-          <ui-icon name="folder"></ui-icon>
+          <ui-icon name="folder" style="flex-shrink: 0;"></ui-icon>
           Projects
           <ui-badge class="sidebar-badge" size="xs">12</ui-badge>
         </a>
@@ -42,24 +42,24 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         </div>
 
         <a href="#" class="sidebar-nav-item">
-          <ui-icon name="users"></ui-icon>
+          <ui-icon name="users" style="flex-shrink: 0;"></ui-icon>
           Team Members
         </a>
 
         <a href="#" class="sidebar-nav-item">
-          <ui-icon name="chart-bar"></ui-icon>
+          <ui-icon name="chart-bar" style="flex-shrink: 0;"></ui-icon>
           Reports
         </a>
 
         <a href="#" class="sidebar-nav-item">
-          <ui-icon name="calendar"></ui-icon>
+          <ui-icon name="calendar" style="flex-shrink: 0;"></ui-icon>
           Calendar
         </a>
 
         <span class="sidebar-section-label">Settings</span>
 
         <a href="#" class="sidebar-nav-item">
-          <ui-icon name="gear"></ui-icon>
+          <ui-icon name="gear" style="flex-shrink: 0;"></ui-icon>
           Settings
         </a>
 
@@ -198,10 +198,6 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     .sidebar-nav-item[aria-current="page"] {
       background: var(--accent-surface);
       color: var(--accent-surface-ink);
-    }
-
-    .sidebar-nav-item ui-icon {
-      flex-shrink: 0;
     }
 
     .sidebar-badge {
