@@ -394,14 +394,20 @@ import { logAppend as appendLog } from '../../scripts/event-log';
       // ── Preview mode — grid reorder ──
 
       const previewGrid = document.getElementById('preview-grid');
-      for (const [i, cell] of [...previewGrid.querySelectorAll('.grid-cell')].entries()) {
-        cell.style.viewTransitionName = `grid-cell-${i}`;
+      function assignGridTransitionNames() {
+        for (const [i, cell] of [...previewGrid.querySelectorAll('.grid-cell')].entries()) {
+          cell.style.viewTransitionName = cell.hasAttribute('dragging') ? 'none' : `grid-cell-${i}`;
+        }
       }
+      assignGridTransitionNames();
+      previewGrid.addEventListener('ui-drag-start', () => assignGridTransitionNames());
       previewGrid.addEventListener('ui-drop', (e) => {
+        assignGridTransitionNames();
         const { item, fromIndex, toIndex } = e.detail;
         previewLog(`Moved cell ${item.textContent.trim()} from position ${fromIndex} → ${toIndex}`);
       });
       previewGrid.addEventListener('ui-drag-cancel', (e) => {
+        assignGridTransitionNames();
         previewLog(`Cancelled: cell ${e.detail.item.textContent.trim()} restored`);
       });
 
