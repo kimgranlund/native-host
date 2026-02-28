@@ -64,7 +64,7 @@ const groupIcons: Record<string, string> = {
           </ui-listbox>
         </ui-layout-sidebar-item>
         <ui-layout-sidebar-item>
-          <ui-icon name="magnifying-glass" slot="icon"></ui-icon>
+          <span slot="icon"><ui-icon name="magnifying-glass"></ui-icon></span>
           <ui-button
             class="nav-search-hint"
             justify="spread"
@@ -100,7 +100,7 @@ const groupIcons: Record<string, string> = {
 
       <ui-layout-sidebar-footer>
         <ui-layout-sidebar-item>
-          <ui-icon name="user" slot="icon"></ui-icon>
+          <span slot="icon"><ui-icon name="user-circle"></ui-icon></span>
           <span slot="label">User</span>
           <ui-icon name="caret-up-down" slot="trailing"></ui-icon>
           <ui-listbox popover="manual">

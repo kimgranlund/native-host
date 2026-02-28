@@ -10,6 +10,7 @@ import arrowLeft from '@phosphor-icons/core/assets/regular/arrow-left.svg?raw';
 import arrowRight from '@phosphor-icons/core/assets/regular/arrow-right.svg?raw';
 import arrowUp from '@phosphor-icons/core/assets/regular/arrow-up.svg?raw';
 import arrowsOut from '@phosphor-icons/core/assets/regular/arrows-out.svg?raw';
+import backspace from '@phosphor-icons/core/assets/regular/backspace.svg?raw';
 import bell from '@phosphor-icons/core/assets/regular/bell.svg?raw';
 import bookOpen from '@phosphor-icons/core/assets/regular/book-open.svg?raw';
 import calendar from '@phosphor-icons/core/assets/regular/calendar.svg?raw';
@@ -26,7 +27,9 @@ import checkCircle from '@phosphor-icons/core/assets/regular/check-circle.svg?ra
 import clipboard from '@phosphor-icons/core/assets/regular/clipboard.svg?raw';
 import clipboardText from '@phosphor-icons/core/assets/regular/clipboard-text.svg?raw';
 import code from '@phosphor-icons/core/assets/regular/code.svg?raw';
+import command from '@phosphor-icons/core/assets/regular/command.svg?raw';
 import compass from '@phosphor-icons/core/assets/regular/compass.svg?raw';
+import control from '@phosphor-icons/core/assets/regular/control.svg?raw';
 import copy from '@phosphor-icons/core/assets/regular/copy.svg?raw';
 import cpu from '@phosphor-icons/core/assets/regular/cpu.svg?raw';
 import creditCard from '@phosphor-icons/core/assets/regular/credit-card.svg?raw';
@@ -48,6 +51,7 @@ import googleLogo from '@phosphor-icons/core/assets/regular/google-logo.svg?raw'
 import gridFour from '@phosphor-icons/core/assets/regular/grid-four.svg?raw';
 import heart from '@phosphor-icons/core/assets/regular/heart.svg?raw';
 import house from '@phosphor-icons/core/assets/regular/house.svg?raw';
+import keyReturn from '@phosphor-icons/core/assets/regular/key-return.svg?raw';
 import info from '@phosphor-icons/core/assets/regular/info.svg?raw';
 import lightning from '@phosphor-icons/core/assets/regular/lightning.svg?raw';
 import list from '@phosphor-icons/core/assets/regular/list.svg?raw';
@@ -60,6 +64,7 @@ import magnifyingGlassPlus from '@phosphor-icons/core/assets/regular/magnifying-
 import mapPin from '@phosphor-icons/core/assets/regular/map-pin.svg?raw';
 import microphone from '@phosphor-icons/core/assets/regular/microphone.svg?raw';
 import moon from '@phosphor-icons/core/assets/regular/moon.svg?raw';
+import option from '@phosphor-icons/core/assets/regular/option.svg?raw';
 import pkg from '@phosphor-icons/core/assets/regular/package.svg?raw';
 import pencilSimple from '@phosphor-icons/core/assets/regular/pencil-simple.svg?raw';
 import percent from '@phosphor-icons/core/assets/regular/percent.svg?raw';
@@ -100,6 +105,7 @@ import trash from '@phosphor-icons/core/assets/regular/trash.svg?raw';
 import trendDown from '@phosphor-icons/core/assets/regular/trend-down.svg?raw';
 import trendUp from '@phosphor-icons/core/assets/regular/trend-up.svg?raw';
 import user from '@phosphor-icons/core/assets/regular/user.svg?raw';
+import userCircle from '@phosphor-icons/core/assets/regular/user-circle.svg?raw';
 import userPlus from '@phosphor-icons/core/assets/regular/user-plus.svg?raw';
 import users from '@phosphor-icons/core/assets/regular/users.svg?raw';
 import warning from '@phosphor-icons/core/assets/regular/warning.svg?raw';
@@ -123,6 +129,7 @@ const icons: Record<string, string> = {
   'arrow-right': arrowRight,
   'arrow-up': arrowUp,
   'arrows-out': arrowsOut,
+  'backspace': backspace,
   'bell': bell,
   'book-open': bookOpen,
   'calendar': calendar,
@@ -139,7 +146,9 @@ const icons: Record<string, string> = {
   'clipboard': clipboard,
   'clipboard-text': clipboardText,
   'code': code,
+  'command': command,
   'compass': compass,
+  'control': control,
   'copy': copy,
   'cpu': cpu,
   'credit-card': creditCard,
@@ -161,6 +170,7 @@ const icons: Record<string, string> = {
   'grid-four': gridFour,
   'heart': heart,
   'house': house,
+  'key-return': keyReturn,
   'info': info,
   'lightning': lightning,
   'list': list,
@@ -173,6 +183,7 @@ const icons: Record<string, string> = {
   'map-pin': mapPin,
   'microphone': microphone,
   'moon': moon,
+  'option': option,
   'package': pkg,
   'pencil-simple': pencilSimple,
   'percent': percent,
@@ -213,6 +224,7 @@ const icons: Record<string, string> = {
   'trend-down': trendDown,
   'trend-up': trendUp,
   'user': user,
+  'user-circle': userCircle,
   'user-plus': userPlus,
   'users': users,
   'warning': warning,
