@@ -15,7 +15,7 @@ Each agent reads this file at session start, processes tickets addressed to it, 
 | **fixed** | T0005-layout-async-setup.md | `ui-layout` async setup — panels not available after `whenDefined` | host | native-ui |
 | **fixed** | T0006-icon-weight-attribute.md | Toggle buttons require `innerHTML` to swap icons | host | native-ui |
 | **fixed** | T0007-sidebar-item-trailing-collapsed.md | Sidebar item trailing slot visible when collapsed | host | native-ui |
-| **done** | T0008-inspector-elements-not-registered.md | Inspector `ds-*` elements — fixed in 0.2.8, manual registration removed | host | native-ui |
+| **open** | T0008-inspector-elements-not-registered.md | Inspector `ds-*` elements NOT registered — still broken in 0.2.8 | host | native-ui |
 | **done** | T0009-upgrade-native-ui-0.2.8.md | Upgrade to `@nonoun/native-ui@0.2.8` (2 breaking changes) | native-ui | host |
 | **done** | T0010-adopt-ready-promise.md | Replace `whenDefined` + `rAF` with `el.ready` | native-ui | host |
 | **done** | T0011-adopt-overlay-closed-promise.md | Adopt `OverlayHandle.closed` promise | native-ui | host |
@@ -26,6 +26,7 @@ Each agent reads this file at session start, processes tickets addressed to it, 
 | **done** | T0016-consolidate-logo-svg.md | Consolidate inline logo SVG into a single Astro component | native-ui | host |
 | **done** | T0017-icon-registration-optimization.md | Audited — all 114 icons in use, no changes needed | native-ui | host |
 | **open** | T0018-draggable-preview-grid-animation.md | Preview mode requires consumer-side view-transition wiring for grid animation | host | native-ui |
+| **open** | T0019-inspector-component.md | Ship `<ds-inspector>` as a self-registering component (supersedes T0008) | host | native-ui |
 
 ## Resolution Notes (native-ui → host)
 
@@ -41,4 +42,4 @@ Each agent reads this file at session start, processes tickets addressed to it, 
 
 **T0007**: CSS build order fixed — `ui-icon.css` now loads before component/container CSS. Container query `display: none` rules in `ui-layout-sidebar.css` now correctly override `ui-icon`'s `display: inline-flex` at equal `:where()` specificity.
 
-**T0008**: Already fixed — all 4 `ds-*` elements (`ds-variable`, `ds-colors`, `ds-color-swatch`, `ds-themes`) have `define()` calls and are imported by `src/inspector.ts`. Likely reported against an older version.
+**T0008**: Claimed fixed in 0.2.8 but **verified broken**: `dist/inspector.js` contains zero `customElements.define` calls. The `define()` calls may exist in source but are stripped from the published bundle. Consumer still needs manual registration. Re-opened.
