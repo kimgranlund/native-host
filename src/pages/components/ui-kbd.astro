@@ -1,0 +1,132 @@
+---
+import SidebarLayout from '../../layouts/SidebarLayout.astro';
+---
+<SidebarLayout title="ui-kbd">
+  <main>
+<h1>&lt;ui-kbd&gt;</h1>
+    <p style="color: var(--neutral-ink-muted); font-size: 0.875rem; margin-bottom: 1.5rem;">
+      Keyboard shortcut indicator. Own font/size scale like ui-badge.
+    </p>
+
+    <!-- ── Sizes ── -->
+
+    <h2>Sizes</h2>
+    <div class="layout-section">
+      <div class="layout-row">
+        <span class="layout-label">xs</span>
+        <ui-kbd size="xs"><ui-icon name="command"></ui-icon></ui-kbd>
+        <ui-kbd size="xs">K</ui-kbd>
+        <ui-kbd size="xs">Shift</ui-kbd>
+        <ui-kbd size="xs"><ui-icon name="command"></ui-icon>K</ui-kbd>
+      </div>
+      <div class="layout-row">
+        <span class="layout-label">sm</span>
+        <ui-kbd size="sm"><ui-icon name="command"></ui-icon></ui-kbd>
+        <ui-kbd size="sm">K</ui-kbd>
+        <ui-kbd size="sm">Shift</ui-kbd>
+        <ui-kbd size="sm"><ui-icon name="command"></ui-icon>K</ui-kbd>
+      </div>
+      <div class="layout-row">
+        <span class="layout-label">md</span>
+        <ui-kbd size="md"><ui-icon name="command"></ui-icon></ui-kbd>
+        <ui-kbd size="md">K</ui-kbd>
+        <ui-kbd size="md">Shift</ui-kbd>
+        <ui-kbd size="md"><ui-icon name="command"></ui-icon>K</ui-kbd>
+      </div>
+      <div class="layout-row">
+        <span class="layout-label">lg</span>
+        <ui-kbd size="lg"><ui-icon name="command"></ui-icon></ui-kbd>
+        <ui-kbd size="lg">K</ui-kbd>
+        <ui-kbd size="lg">Shift</ui-kbd>
+        <ui-kbd size="lg"><ui-icon name="command"></ui-icon>K</ui-kbd>
+      </div>
+      <div class="layout-row">
+        <span class="layout-label">xl</span>
+        <ui-kbd size="xl"><ui-icon name="command"></ui-icon></ui-kbd>
+        <ui-kbd size="xl">K</ui-kbd>
+        <ui-kbd size="xl">Shift</ui-kbd>
+        <ui-kbd size="xl"><ui-icon name="command"></ui-icon>K</ui-kbd>
+      </div>
+      <pre class="layout-code"><code>&lt;ui-kbd size="sm"&gt;&lt;ui-icon name="command"&gt;&lt;/ui-icon&gt;K&lt;/ui-kbd&gt;
+&lt;ui-kbd size="md"&gt;Shift&lt;/ui-kbd&gt;
+&lt;ui-kbd size="lg"&gt;K&lt;/ui-kbd&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+    </div>
+
+    <!-- ── Standalone (default = md) ── -->
+
+    <h2>Standalone</h2>
+    <div class="layout-section">
+      <div class="layout-row">
+        <ui-kbd><ui-icon name="command"></ui-icon></ui-kbd>
+        <ui-kbd>K</ui-kbd>
+        <ui-kbd>Shift</ui-kbd>
+        <ui-kbd><ui-icon name="key-return"></ui-icon></ui-kbd>
+        <ui-kbd>Esc</ui-kbd>
+        <ui-kbd><ui-icon name="command"></ui-icon>K</ui-kbd>
+        <ui-kbd><ui-icon name="option"></ui-icon></ui-kbd>
+        <ui-kbd><ui-icon name="control"></ui-icon></ui-kbd>
+        <ui-kbd><ui-icon name="backspace"></ui-icon></ui-kbd>
+      </div>
+      <pre class="layout-code"><code>&lt;ui-kbd&gt;&lt;ui-icon name="command"&gt;&lt;/ui-icon&gt;&lt;/ui-kbd&gt;
+&lt;ui-kbd&gt;K&lt;/ui-kbd&gt;
+&lt;ui-kbd&gt;Shift&lt;/ui-kbd&gt;
+&lt;ui-kbd&gt;&lt;ui-icon name="key-return"&gt;&lt;/ui-icon&gt;&lt;/ui-kbd&gt;
+&lt;ui-kbd&gt;Esc&lt;/ui-kbd&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+    </div>
+
+    <!-- ── Combinations ── -->
+
+    <h2>Combinations</h2>
+    <div class="layout-section">
+      <div class="layout-row">
+        <span><ui-kbd><ui-icon name="command"></ui-icon></ui-kbd> + <ui-kbd>C</ui-kbd> — Copy</span>
+      </div>
+      <div class="layout-row">
+        <span><ui-kbd><ui-icon name="command"></ui-icon></ui-kbd> + <ui-kbd>V</ui-kbd> — Paste</span>
+      </div>
+      <div class="layout-row">
+        <span><ui-kbd><ui-icon name="control"></ui-icon></ui-kbd> + <ui-kbd>Shift</ui-kbd> + <ui-kbd>P</ui-kbd> — Command palette</span>
+      </div>
+      <pre class="layout-code"><code>&lt;ui-kbd&gt;&lt;ui-icon name="command"&gt;&lt;/ui-icon&gt;&lt;/ui-kbd&gt; + &lt;ui-kbd&gt;C&lt;/ui-kbd&gt; — Copy
+&lt;ui-kbd&gt;&lt;ui-icon name="command"&gt;&lt;/ui-icon&gt;&lt;/ui-kbd&gt; + &lt;ui-kbd&gt;V&lt;/ui-kbd&gt; — Paste</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+    </div>
+
+    <!-- ── Inside buttons ── -->
+
+    <h2>Inside buttons</h2>
+    <div class="layout-section">
+      <div class="layout-row">
+        <ui-button size="sm">Search <ui-kbd size="xs"><ui-icon name="command"></ui-icon>K</ui-kbd></ui-button>
+        <ui-button size="md">Save <ui-kbd size="sm"><ui-icon name="command"></ui-icon>S</ui-kbd></ui-button>
+        <ui-button size="lg">Open <ui-kbd size="sm"><ui-icon name="command"></ui-icon>O</ui-kbd></ui-button>
+      </div>
+      <div class="layout-row">
+        <ui-button size="md" intent="accent">Copy <ui-kbd size="sm"><ui-icon name="command"></ui-icon>C</ui-kbd></ui-button>
+        <ui-button size="md" intent="danger">Delete <ui-kbd size="sm"><ui-icon name="backspace"></ui-icon></ui-kbd></ui-button>
+      </div>
+      <pre class="layout-code"><code>&lt;ui-button size="sm"&gt;
+  Search &lt;ui-kbd size="xs"&gt;&lt;ui-icon name="command"&gt;&lt;/ui-icon&gt;K&lt;/ui-kbd&gt;
+&lt;/ui-button&gt;
+&lt;ui-button size="md" intent="accent"&gt;
+  Copy &lt;ui-kbd size="sm"&gt;&lt;ui-icon name="command"&gt;&lt;/ui-icon&gt;C&lt;/ui-kbd&gt;
+&lt;/ui-button&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+    </div>
+
+    <!-- ── Inline with text ── -->
+
+    <h2>Inline with text</h2>
+    <div class="layout-section">
+      <p style="font-size: 0.875rem; line-height: 1.5;">
+        Press <ui-kbd><ui-icon name="command"></ui-icon>K</ui-kbd> to open search, <ui-kbd>Esc</ui-kbd> to close.
+      </p>
+      <pre class="layout-code"><code>&lt;p&gt;
+  Press &lt;ui-kbd&gt;&lt;ui-icon name="command"&gt;&lt;/ui-icon&gt;K&lt;/ui-kbd&gt; to open search,
+  &lt;ui-kbd&gt;Esc&lt;/ui-kbd&gt; to close.
+&lt;/p&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+    </div>
+  </main>
+
+  <script>
+  import '../../scripts/copy-buttons';
+</script>
+</SidebarLayout>
