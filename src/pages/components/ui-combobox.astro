@@ -35,7 +35,7 @@ const codeExamples = {
           <ui-input placeholder="Search fruits...">
             <ui-icon name="magnifying-glass" slot="leading"></ui-icon>
           </ui-input>
-          <ui-listbox popover>
+          <ui-listbox popover="manual">
             <ui-option value="apple" label="Apple">Apple</ui-option>
             <ui-option value="banana" label="Banana">Banana</ui-option>
             <ui-option value="cherry" label="Cherry">Cherry</ui-option>
@@ -69,7 +69,7 @@ const codeExamples = {
         <span class="layout-label">sm</span>
         <ui-combobox size="sm">
           <ui-input placeholder="Small..."></ui-input>
-          <ui-listbox popover>
+          <ui-listbox popover="manual">
             <ui-option value="a" label="Alpha">Alpha</ui-option>
             <ui-option value="b" label="Bravo">Bravo</ui-option>
             <ui-option value="c" label="Charlie">Charlie</ui-option>
@@ -80,7 +80,7 @@ const codeExamples = {
         <span class="layout-label">md</span>
         <ui-combobox size="md">
           <ui-input placeholder="Medium..."></ui-input>
-          <ui-listbox popover>
+          <ui-listbox popover="manual">
             <ui-option value="a" label="Alpha">Alpha</ui-option>
             <ui-option value="b" label="Bravo">Bravo</ui-option>
             <ui-option value="c" label="Charlie">Charlie</ui-option>
@@ -91,7 +91,7 @@ const codeExamples = {
         <span class="layout-label">lg</span>
         <ui-combobox size="lg">
           <ui-input placeholder="Large..."></ui-input>
-          <ui-listbox popover>
+          <ui-listbox popover="manual">
             <ui-option value="a" label="Alpha">Alpha</ui-option>
             <ui-option value="b" label="Bravo">Bravo</ui-option>
             <ui-option value="c" label="Charlie">Charlie</ui-option>
@@ -108,14 +108,14 @@ const codeExamples = {
       <div class="layout-row" density="compact">
         <ui-combobox size="sm">
           <ui-input placeholder="Small compact..."></ui-input>
-          <ui-listbox popover>
+          <ui-listbox popover="manual">
             <ui-option value="a" label="Alpha">Alpha</ui-option>
             <ui-option value="b" label="Bravo">Bravo</ui-option>
           </ui-listbox>
         </ui-combobox>
         <ui-combobox>
           <ui-input placeholder="Medium compact..."></ui-input>
-          <ui-listbox popover>
+          <ui-listbox popover="manual">
             <ui-option value="a" label="Alpha">Alpha</ui-option>
             <ui-option value="b" label="Bravo">Bravo</ui-option>
           </ui-listbox>
@@ -125,14 +125,14 @@ const codeExamples = {
       <div class="layout-row">
         <ui-combobox size="sm">
           <ui-input placeholder="Small default..."></ui-input>
-          <ui-listbox popover>
+          <ui-listbox popover="manual">
             <ui-option value="a" label="Alpha">Alpha</ui-option>
             <ui-option value="b" label="Bravo">Bravo</ui-option>
           </ui-listbox>
         </ui-combobox>
         <ui-combobox>
           <ui-input placeholder="Medium default..."></ui-input>
-          <ui-listbox popover>
+          <ui-listbox popover="manual">
             <ui-option value="a" label="Alpha">Alpha</ui-option>
             <ui-option value="b" label="Bravo">Bravo</ui-option>
           </ui-listbox>
@@ -142,14 +142,14 @@ const codeExamples = {
       <div class="layout-row" density="loose">
         <ui-combobox size="sm">
           <ui-input placeholder="Small loose..."></ui-input>
-          <ui-listbox popover>
+          <ui-listbox popover="manual">
             <ui-option value="a" label="Alpha">Alpha</ui-option>
             <ui-option value="b" label="Bravo">Bravo</ui-option>
           </ui-listbox>
         </ui-combobox>
         <ui-combobox>
           <ui-input placeholder="Medium loose..."></ui-input>
-          <ui-listbox popover>
+          <ui-listbox popover="manual">
             <ui-option value="a" label="Alpha">Alpha</ui-option>
             <ui-option value="b" label="Bravo">Bravo</ui-option>
           </ui-listbox>
@@ -166,7 +166,7 @@ const codeExamples = {
           <ui-input placeholder="Search countries...">
             <ui-icon name="magnifying-glass" slot="leading"></ui-icon>
           </ui-input>
-          <ui-listbox popover>
+          <ui-listbox popover="manual">
             <ui-option value="ar" label="Argentina">Argentina</ui-option>
             <ui-option value="au" label="Australia">Australia</ui-option>
             <ui-option value="br" label="Brazil">Brazil</ui-option>
@@ -197,7 +197,7 @@ const codeExamples = {
       <div class="layout-row">
         <ui-combobox disabled>
           <ui-input placeholder="Disabled combobox..."></ui-input>
-          <ui-listbox popover>
+          <ui-listbox popover="manual">
             <ui-option value="a" label="Alpha">Alpha</ui-option>
             <ui-option value="b" label="Bravo">Bravo</ui-option>
           </ui-listbox>
@@ -208,7 +208,7 @@ const codeExamples = {
       <div class="layout-row">
         <ui-combobox>
           <ui-input placeholder="Some options disabled..."></ui-input>
-          <ui-listbox popover>
+          <ui-listbox popover="manual">
             <ui-option value="available" label="Available">Available</ui-option>
             <ui-option value="unavailable" label="Unavailable" disabled>Unavailable</ui-option>
             <ui-option value="restricted" label="Restricted" disabled>Restricted</ui-option>
@@ -225,7 +225,7 @@ const codeExamples = {
       <div class="layout-row">
         <ui-combobox value="cherry">
           <ui-input placeholder="Search fruits..."></ui-input>
-          <ui-listbox popover>
+          <ui-listbox popover="manual">
             <ui-option value="apple" label="Apple">Apple</ui-option>
             <ui-option value="banana" label="Banana">Banana</ui-option>
             <ui-option value="cherry" label="Cherry">Cherry</ui-option>
@@ -248,7 +248,7 @@ const codeExamples = {
     <div class="layout-section" size="sm">
       <ui-combobox id="event-combobox">
         <ui-input placeholder="Type to filter..."></ui-input>
-        <ui-listbox popover>
+        <ui-listbox popover="manual">
           <ui-option value="red" label="Red">Red</ui-option>
           <ui-option value="green" label="Green">Green</ui-option>
           <ui-option value="blue" label="Blue">Blue</ui-option>
@@ -270,7 +270,7 @@ const codeExamples = {
             <ui-input placeholder="Country...">
               <ui-icon name="magnifying-glass" slot="leading"></ui-icon>
             </ui-input>
-            <ui-listbox popover>
+            <ui-listbox popover="manual">
               <ui-option value="us" label="United States">United States</ui-option>
               <ui-option value="gb" label="United Kingdom">United Kingdom</ui-option>
               <ui-option value="ca" label="Canada">Canada</ui-option>
@@ -279,7 +279,7 @@ const codeExamples = {
           </ui-combobox>
           <ui-combobox name="language">
             <ui-input placeholder="Language..."></ui-input>
-            <ui-listbox popover>
+            <ui-listbox popover="manual">
               <ui-option value="en" label="English">English</ui-option>
               <ui-option value="es" label="Spanish">Spanish</ui-option>
               <ui-option value="fr" label="French">French</ui-option>
