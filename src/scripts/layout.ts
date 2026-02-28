@@ -24,16 +24,17 @@ const sidebarToggle = document.getElementById('sidebar-toggle') as HTMLElement |
 sidebarToggle?.addEventListener('click', () => {
   if (!layout) return;
   const collapsed = layout.hasAttribute('collapsed');
+  const icon = sidebarToggle.querySelector('ui-icon');
   if (collapsed) {
     layout.removeAttribute('collapsed');
     localStorage.setItem(PREF_SIDEBAR_COLLAPSED, 'false');
     setCookie(PREF_SIDEBAR_COLLAPSED, 'false');
-    sidebarToggle.innerHTML = '<ui-icon name="sidebar-simple" size="md"></ui-icon>';
+    icon?.removeAttribute('weight');
   } else {
     layout.setAttribute('collapsed', '');
     localStorage.setItem(PREF_SIDEBAR_COLLAPSED, 'true');
     setCookie(PREF_SIDEBAR_COLLAPSED, 'true');
-    sidebarToggle.innerHTML = '<ui-icon name="sidebar-simple-fill" size="md"></ui-icon>';
+    icon?.setAttribute('weight', 'fill');
   }
 });
 
@@ -67,10 +68,10 @@ const codeToggle = document.getElementById('code-toggle') as HTMLElement | null;
 function syncCodeState(show: boolean) {
   localStorage.setItem(PREF_SHOW_CODE, String(show));
   setCookie(PREF_SHOW_CODE, String(show));
-  if (codeToggle) {
-    codeToggle.innerHTML = show
-      ? '<ui-icon name="code-fill" size="md"></ui-icon>'
-      : '<ui-icon name="code" size="md"></ui-icon>';
+  const icon = codeToggle?.querySelector('ui-icon');
+  if (icon) {
+    if (show) icon.setAttribute('weight', 'fill');
+    else icon.removeAttribute('weight');
   }
   for (const block of document.querySelectorAll('.layout-code')) {
     if (show) block.setAttribute('visible', '');
@@ -91,13 +92,7 @@ codeToggle?.addEventListener('click', () => {
 
 // ── Inspector toggle ──
 
-import { DSVariable, DSColors, DSColorSwatch, DSThemes, buildInspector } from '@nonoun/native-ui/inspector';
-
-// Inspector module exports classes but doesn't register them (TICKET-008)
-if (!customElements.get('ds-variable')) customElements.define('ds-variable', DSVariable);
-if (!customElements.get('ds-colors')) customElements.define('ds-colors', DSColors);
-if (!customElements.get('ds-color-swatch')) customElements.define('ds-color-swatch', DSColorSwatch);
-if (!customElements.get('ds-themes')) customElements.define('ds-themes', DSThemes);
+import { buildInspector } from '@nonoun/native-ui/inspector';
 
 const inspectorToggle = document.getElementById('inspector-toggle') as HTMLElement | null;
 const inspector = document.querySelector('ui-layout-inspector') as HTMLElement & { toggle(): void } | null;
@@ -112,11 +107,10 @@ inspectorToggle?.addEventListener('click', () => {
 
 if (inspector) {
   new MutationObserver(() => {
-    if (!inspectorToggle) return;
-    const isOpen = inspector.hasAttribute('open');
-    inspectorToggle.innerHTML = isOpen
-      ? '<ui-icon name="sliders-horizontal-fill" size="md"></ui-icon>'
-      : '<ui-icon name="sliders-horizontal" size="md"></ui-icon>';
+    const icon = inspectorToggle?.querySelector('ui-icon');
+    if (!icon) return;
+    if (inspector.hasAttribute('open')) icon.setAttribute('weight', 'fill');
+    else icon.removeAttribute('weight');
   }).observe(inspector, { attributes: true, attributeFilter: ['open'] });
 }
 
@@ -131,19 +125,14 @@ chatToggle?.addEventListener('click', () => {
 
 if (chat) {
   new MutationObserver(() => {
-    if (!chatToggle) return;
-    const isOpen = chat.hasAttribute('open');
-    chatToggle.innerHTML = isOpen
-      ? '<ui-icon name="chat-dots-fill" size="md"></ui-icon>'
-      : '<ui-icon name="chat-dots" size="md"></ui-icon>';
+    const icon = chatToggle?.querySelector('ui-icon');
+    if (!icon) return;
+    if (chat.hasAttribute('open')) icon.setAttribute('weight', 'fill');
+    else icon.removeAttribute('weight');
   }).observe(chat, { attributes: true, attributeFilter: ['open'] });
 }
 
 // ── Nav group persistence ──
-// ui-nav-group defaults to open=true in its constructor signal, so the server
-// can render `open` for open groups but CANNOT render a closed state (absence
-// of `open` still defaults to open after upgrade). We must apply closed states
-// client-side after element upgrade, then observe future changes.
 
 let groupStates: Record<string, boolean> = {};
 try {
@@ -203,9 +192,6 @@ const searchBtn = document.getElementById('nav-search-btn');
 function openDialog() {
   if (!dialog) return;
   dialog.showModal();
-  requestAnimationFrame(() => {
-    dialog.querySelector<HTMLInputElement>('ui-command-input input')?.focus();
-  });
 }
 
 searchBtn?.addEventListener('click', openDialog);

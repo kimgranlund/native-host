@@ -64,12 +64,12 @@ const codeExamples = {
         <div class="layout-col">
           <span class="layout-col-label">Sidebar nav pattern</span>
           <ui-nav id="grouped-nav" size="sm">
-            <ui-nav-group>
+            <ui-nav-group open>
               <ui-nav-group-header><ui-icon name="house"></ui-icon> Getting Started</ui-nav-group-header>
               <ui-nav-item value="install">Installation</ui-nav-item>
               <ui-nav-item value="structure">Project Structure</ui-nav-item>
             </ui-nav-group>
-            <ui-nav-group>
+            <ui-nav-group open>
               <ui-nav-group-header><ui-icon name="rocket-launch"></ui-icon> Build Your Application</ui-nav-group-header>
               <ui-nav-item value="routing">Routing</ui-nav-item>
               <ui-nav-item value="data">Data Fetching</ui-nav-item>
@@ -77,7 +77,7 @@ const codeExamples = {
               <ui-nav-item value="styling">Styling</ui-nav-item>
               <ui-nav-item value="optimizing">Optimizing</ui-nav-item>
             </ui-nav-group>
-            <ui-nav-group>
+            <ui-nav-group open>
               <ui-nav-group-header><ui-icon name="book-open"></ui-icon> Reference</ui-nav-group-header>
               <ui-nav-item value="api">API Reference</ui-nav-item>
               <ui-nav-item value="config">Configuration</ui-nav-item>
@@ -90,13 +90,13 @@ const codeExamples = {
         <div class="layout-col">
           <span class="layout-col-label">Without icons</span>
           <ui-nav size="sm">
-            <ui-nav-group>
+            <ui-nav-group open>
               <ui-nav-group-header>Fruits</ui-nav-group-header>
               <ui-nav-item value="apple">Apple</ui-nav-item>
               <ui-nav-item value="banana">Banana</ui-nav-item>
               <ui-nav-item value="cherry">Cherry</ui-nav-item>
             </ui-nav-group>
-            <ui-nav-group>
+            <ui-nav-group open>
               <ui-nav-group-header>Vegetables</ui-nav-group-header>
               <ui-nav-item value="carrot">Carrot</ui-nav-item>
               <ui-nav-item value="broccoli">Broccoli</ui-nav-item>
@@ -122,14 +122,14 @@ const codeExamples = {
     <div class="layout-section">
       <div class="layout-grid">
         <div class="layout-col">
-          <span class="layout-col-label">Default open (all groups)</span>
+          <span class="layout-col-label">Expanded (all groups open)</span>
           <ui-nav size="sm">
-            <ui-nav-group>
+            <ui-nav-group open>
               <ui-nav-group-header><ui-icon name="house"></ui-icon> Overview</ui-nav-group-header>
               <ui-nav-item value="intro">Introduction</ui-nav-item>
               <ui-nav-item value="quickstart">Quick Start</ui-nav-item>
             </ui-nav-group>
-            <ui-nav-group>
+            <ui-nav-group open>
               <ui-nav-group-header><ui-icon name="book-open"></ui-icon> Guides</ui-nav-group-header>
               <ui-nav-item value="auth">Authentication</ui-nav-item>
               <ui-nav-item value="deploy">Deployment</ui-nav-item>
@@ -139,7 +139,7 @@ const codeExamples = {
         </div>
 
         <div class="layout-col">
-          <span class="layout-col-label">Without icons (text-only headers)</span>
+          <span class="layout-col-label">Collapsed (default state)</span>
           <ui-nav size="sm">
             <ui-nav-group>
               <ui-nav-group-header>Section A</ui-nav-group-header>

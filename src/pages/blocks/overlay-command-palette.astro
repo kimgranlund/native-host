@@ -132,11 +132,6 @@ const dialog = document.getElementById('palette-dialog');
       // Open via button
       document.getElementById('open-palette').addEventListener('ui-press', () => {
         dialog.showModal();
-        // Focus the input after dialog opens
-        requestAnimationFrame(() => {
-          const input = command.querySelector('input');
-          if (input) input.focus();
-        });
       });
 
       // Open via Ctrl+K global shortcut
@@ -144,10 +139,6 @@ const dialog = document.getElementById('palette-dialog');
         if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
           e.preventDefault();
           dialog.showModal();
-          requestAnimationFrame(() => {
-            const input = command.querySelector('input');
-            if (input) input.focus();
-          });
         }
       });
 

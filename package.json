@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@astrojs/vercel": "^9.0.4",
-    "@nonoun/native-ui": "^0.2.7",
+    "@nonoun/native-ui": "^0.2.8",
     "astro": "^5.17.1"
   },
   "devDependencies": {

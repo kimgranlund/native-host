@@ -169,17 +169,9 @@ import { Kernel, Planner, resetKernel } from "@nonoun/native-ui/kernel";
       const typeCountEl = document.getElementById('type-count');
       const emitOutput = document.getElementById('emit-output');
 
-      // WHY: UILayout.setup() is async — wait for the chat panel to exist.
       const layout = document.querySelector('ui-layout');
-      await customElements.whenDefined('ui-layout');
-      const chatPanel = await new Promise(resolve => {
-        const check = () => {
-          const el = layout.chatPanel;
-          if (el) return resolve(el);
-          requestAnimationFrame(check);
-        };
-        check();
-      });
+      await layout.ready;
+      const chatPanel = layout.chatPanel;
       const chatContent = chatPanel.querySelector('ui-chat-content');
 
       const adapter = createA2UIAdapter(kernel, {

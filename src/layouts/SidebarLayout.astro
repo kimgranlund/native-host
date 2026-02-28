@@ -1,5 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import Logo from '../components/Logo.astro';
 import { sitemap, type PageEntry } from '../data/pages';
 import { parsePreferences } from '../lib/preferences';
 
@@ -39,24 +40,14 @@ const groupIcons: Record<string, string> = {
     <aside slot="sidebar">
       <ui-layout-sidebar-header>
         <ui-layout-sidebar-item>
-          <span class="nav-logo" slot="icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="3" y="3" width="18" height="18" rx="4" stroke="currentColor" stroke-width="2"/>
-              <path d="M8 16V8l8 8V8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </span>
+          <span class="nav-logo" slot="icon"><Logo /></span>
           <span slot="label">NativeUI</span>
           <ui-icon name="caret-up-down" slot="trailing"></ui-icon>
           <ui-listbox popover="manual">
             <ui-option-group>
               <ui-option-group-header>Teams</ui-option-group-header>
               <ui-option value="native-ui" selected>
-                <span class="nav-logo">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="3" y="3" width="18" height="18" rx="4" stroke="currentColor" stroke-width="2"/>
-                    <path d="M8 16V8l8 8V8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </span>
+                <span class="nav-logo"><Logo size={16} /></span>
                 NativeUI
               </ui-option>
             </ui-option-group>
@@ -133,7 +124,7 @@ const groupIcons: Record<string, string> = {
           aria-label="Toggle sidebar"
           id="sidebar-toggle"
         >
-          <ui-icon name={prefs.sidebarCollapsed ? 'sidebar-simple-fill' : 'sidebar-simple'} size="md"></ui-icon>
+          <ui-icon name="sidebar-simple" size="md" weight={prefs.sidebarCollapsed ? 'fill' : undefined}></ui-icon>
         </ui-button>
 
         <ui-breadcrumb>

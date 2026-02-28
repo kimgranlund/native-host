@@ -409,11 +409,9 @@ import { logPrepend } from '../../scripts/event-log';
       // Pre-select "medium"
       const preListbox = document.getElementById('preselected-listbox');
       preListbox.addEventListener('ui-change', () => {});
-      // Programmatic select after registration
-      customElements.whenDefined('ui-listbox').then(() => {
-        requestAnimationFrame(() => {
-          preListbox.controller.select('medium');
-        });
+      // Programmatic select after element setup
+      preListbox.ready.then(() => {
+        preListbox.controller.select('medium');
       });
 
       // Event logging

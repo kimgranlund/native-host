@@ -46,13 +46,7 @@ const codeExamples = {
 
   <script>
     import '../../scripts/copy-buttons';
-    import { DSVariable, DSColors, DSColorSwatch, DSThemes, buildInspector } from '@nonoun/native-ui/inspector';
-
-    // Inspector module exports classes but doesn't register them (TICKET-008)
-    if (!customElements.get('ds-variable')) customElements.define('ds-variable', DSVariable);
-    if (!customElements.get('ds-colors')) customElements.define('ds-colors', DSColors);
-    if (!customElements.get('ds-color-swatch')) customElements.define('ds-color-swatch', DSColorSwatch);
-    if (!customElements.get('ds-themes')) customElements.define('ds-themes', DSThemes);
+    import { buildInspector } from '@nonoun/native-ui/inspector';
 
     const panel = document.getElementById('color-panel');
     if (panel) buildInspector(panel);

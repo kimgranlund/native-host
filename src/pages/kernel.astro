@@ -621,22 +621,16 @@ import { effect } from "@nonoun/native-ui";
 
         document.body.appendChild(box);
         const trigger = document.getElementById(`overlay-open-${type}`);
-        const id = kernel.overlays.open({ type, element: box, owner: trigger });
+        const { id, closed } = kernel.overlays.open({ type, element: box, owner: trigger });
 
         box.style.zIndex = String(kernel.overlays.getEntry(id)?.zIndex ?? 1000);
 
         closeBtn.addEventListener('ui-press', () => {
           kernel.overlays.close(id);
-          box.remove();
         });
 
-        // Clean up when overlay is closed externally (Escape, click outside)
-        const checkInterval = setInterval(() => {
-          if (!kernel.overlays.isOpen(id)) {
-            box.remove();
-            clearInterval(checkInterval);
-          }
-        }, 100);
+        // Clean up when overlay is closed (Escape, click outside, close button)
+        closed.then(() => box.remove());
 
         return id;
       }
