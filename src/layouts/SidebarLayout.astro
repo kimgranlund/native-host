@@ -78,7 +78,7 @@ const groupIcons: Record<string, string> = {
       </ui-layout-sidebar-header>
 
       <ui-layout-sidebar-content>
-        <ui-nav size="sm" value={currentEntry?.path}>
+        <ui-nav value={currentEntry?.path}>
           {[...groups.entries()].map(([groupName, entries]) => (
             <ui-nav-group>
               <ui-nav-group-header>
