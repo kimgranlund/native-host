@@ -17,6 +17,7 @@ pnpm-debug.log*
 docs/snippets
 bugs
 CLAUDE.md
+TICKETS
 
 # environment variables
 .env
