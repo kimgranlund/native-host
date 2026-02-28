@@ -167,7 +167,7 @@ if (customElements.get('ui-nav-group')) {
 
 // ── Nav item navigation ──
 
-const nav = document.querySelector('.nav-links');
+const nav = document.querySelector('ui-layout-sidebar-content ui-nav');
 nav?.addEventListener('ui-change', ((e: CustomEvent) => {
   window.location.href = e.detail.value;
 }) as EventListener);
