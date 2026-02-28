@@ -41,20 +41,11 @@ const codeExamples = {
       <pre class="layout-code"><code set:html={codeExamples.example} /><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
     </div>
 
-    <div id="color-panel"></div>
+    <ds-inspector></ds-inspector>
   </main>
 
   <script>
     import '../../scripts/copy-buttons';
-    import { DSVariable, DSColors, DSColorSwatch, DSThemes, buildInspector } from '@nonoun/native-ui/inspector';
-
-    // Inspector module exports classes but doesn't register them
-    if (!customElements.get('ds-variable')) customElements.define('ds-variable', DSVariable);
-    if (!customElements.get('ds-colors')) customElements.define('ds-colors', DSColors);
-    if (!customElements.get('ds-color-swatch')) customElements.define('ds-color-swatch', DSColorSwatch);
-    if (!customElements.get('ds-themes')) customElements.define('ds-themes', DSThemes);
-
-    const panel = document.getElementById('color-panel');
-    if (panel) buildInspector(panel);
+    import '@nonoun/native-ui/inspector';
   </script>
 </SidebarLayout>

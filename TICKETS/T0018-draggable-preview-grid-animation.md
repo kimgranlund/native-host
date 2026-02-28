@@ -69,6 +69,10 @@ No JS event wiring for animation, no `::view-transition-group` CSS.
 
 Every consumer using `preview` mode with grid or flex layouts needs to duplicate this view-transition boilerplate. The pattern is generic enough to live inside the controller.
 
+## Additional: Unhandled AbortError on rapid drag
+
+When dragging quickly, `document.startViewTransition()` is called in rapid succession. Each new transition aborts the previous one, and the rejected promise surfaces as an uncaught `AbortError: Transition was skipped` in the console. The DragController should catch `AbortError` rejections from `startViewTransition()` — they are expected when transitions overlap and are functionally harmless.
+
 ## Where
 
 `src/pages/traits/draggable.astro:397-412` (JS) and `:538-541` (CSS)

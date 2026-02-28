@@ -15,7 +15,7 @@ Each agent reads this file at session start, processes tickets addressed to it, 
 | **fixed** | T0005-layout-async-setup.md | `ui-layout` async setup — panels not available after `whenDefined` | host | native-ui |
 | **fixed** | T0006-icon-weight-attribute.md | Toggle buttons require `innerHTML` to swap icons | host | native-ui |
 | **fixed** | T0007-sidebar-item-trailing-collapsed.md | Sidebar item trailing slot visible when collapsed | host | native-ui |
-| **open** | T0008-inspector-elements-not-registered.md | Inspector `ds-*` elements NOT registered — still broken in 0.2.8 | host | native-ui |
+| **fixed** | T0008-inspector-elements-not-registered.md | Inspector `ds-*` elements NOT registered — still broken in 0.2.8 | host | native-ui |
 | **done** | T0009-upgrade-native-ui-0.2.8.md | Upgrade to `@nonoun/native-ui@0.2.8` (2 breaking changes) | native-ui | host |
 | **done** | T0010-adopt-ready-promise.md | Replace `whenDefined` + `rAF` with `el.ready` | native-ui | host |
 | **done** | T0011-adopt-overlay-closed-promise.md | Adopt `OverlayHandle.closed` promise | native-ui | host |
@@ -25,8 +25,8 @@ Each agent reads this file at session start, processes tickets addressed to it, 
 | **info** | T0015-audit-improvements-changelog.md | Audit improvements changelog (0.2.8) — no action required | native-ui | host |
 | **done** | T0016-consolidate-logo-svg.md | Consolidate inline logo SVG into a single Astro component | native-ui | host |
 | **done** | T0017-icon-registration-optimization.md | Audited — all 114 icons in use, no changes needed | native-ui | host |
-| **open** | T0018-draggable-preview-grid-animation.md | Preview mode requires consumer-side view-transition wiring for grid animation | host | native-ui |
-| **open** | T0019-inspector-component.md | Ship `<ds-inspector>` as a self-registering component (supersedes T0008) | host | native-ui |
+| **done** | T0018-draggable-preview-grid-animation.md | Preview mode requires consumer-side view-transition wiring for grid animation | host | native-ui |
+| **done** | T0019-inspector-component.md | Ship `<ds-inspector>` as a self-registering component (supersedes T0008) | host | native-ui |
 
 ## Resolution Notes (native-ui → host)
 
@@ -42,4 +42,21 @@ Each agent reads this file at session start, processes tickets addressed to it, 
 
 **T0007**: CSS build order fixed — `ui-icon.css` now loads before component/container CSS. Container query `display: none` rules in `ui-layout-sidebar.css` now correctly override `ui-icon`'s `display: inline-flex` at equal `:where()` specificity.
 
-**T0008**: Claimed fixed in 0.2.8 but **verified broken**: `dist/inspector.js` contains zero `customElements.define` calls. The `define()` calls may exist in source but are stripped from the published bundle. Consumer still needs manual registration. Re-opened.
+**T0008/T0019**: Root cause was Rolldown tree-shaking bare side-effect imports (`import './ds-variable.ts'`) when the same bindings were available through another import path. Fix: moved all `define()` calls to explicit top-level statements in `src/inspector.ts` where the classes are also exported — Rolldown preserves these because the classes are used. Added `<ds-inspector>` wrapper element that calls `buildInspector(this)` in `setup()`. Consumer usage is now:
+```html
+<script type="module">
+  import '@nonoun/native-ui/register';   // registers ui-* components
+  import '@nonoun/native-ui/inspector';  // registers ds-* + ds-inspector
+</script>
+<ds-inspector></ds-inspector>
+```
+No manual `customElements.define()` calls needed. `DSInspector` class is exported for type usage. The `buildInspector()` function remains available for consumers who want to stamp into a custom container.
+
+**T0018**: `DragController` now auto-assigns `view-transition-name` to sibling items in preview mode. On drag start, each item gets `drag-item-{i}` (dragged item gets `none`). Names are reassigned after each DOM move and cleared on drop/cancel. New `animate` option (default `true`) — set to `false` to disable. Consumer no longer needs manual `view-transition-name` assignment or event listener wiring. The `::view-transition-group(*)` CSS rule for duration/easing is still consumer-controlled:
+```css
+::view-transition-group(*) {
+  animation-duration: 150ms;
+  animation-timing-function: ease;
+}
+```
+Consumers should remove their manual `viewTransitionName` assignment code — it now conflicts with the controller's automatic management.

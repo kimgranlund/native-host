@@ -92,20 +92,10 @@ codeToggle?.addEventListener('click', () => {
 
 // ── Inspector toggle ──
 
-import { DSVariable, DSColors, DSColorSwatch, DSThemes, buildInspector } from '@nonoun/native-ui/inspector';
-
-// Inspector module exports classes but doesn't register them
-if (!customElements.get('ds-variable')) customElements.define('ds-variable', DSVariable);
-if (!customElements.get('ds-colors')) customElements.define('ds-colors', DSColors);
-if (!customElements.get('ds-color-swatch')) customElements.define('ds-color-swatch', DSColorSwatch);
-if (!customElements.get('ds-themes')) customElements.define('ds-themes', DSThemes);
+import '@nonoun/native-ui/inspector';
 
 const inspectorToggle = document.getElementById('inspector-toggle') as HTMLElement | null;
 const inspector = document.querySelector('ui-layout-inspector') as HTMLElement & { toggle(): void } | null;
-
-if (inspector) {
-  buildInspector(inspector);
-}
 
 inspectorToggle?.addEventListener('click', () => {
   inspector?.toggle();
