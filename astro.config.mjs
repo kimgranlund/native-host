@@ -1,10 +1,11 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import vercel from '@astrojs/vercel';
 
 // https://astro.build/config
 export default defineConfig({
-  // Static output for a docs site — all pages pre-rendered at build time.
-  output: 'static',
+  output: 'server',
+  adapter: vercel(),
   vite: {
     css: {
       // Allow @import of npm packages in <style> blocks

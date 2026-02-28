@@ -1,11 +1,13 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import { sitemap, type PageEntry } from '../data/pages';
+import { parsePreferences } from '../lib/preferences';
 
 interface Props {
   title: string;
 }
 const { title } = Astro.props;
+const prefs = parsePreferences(Astro.cookies);
 
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 const currentEntry = sitemap.find(e => e.path === currentPath);
@@ -33,7 +35,7 @@ const groupIcons: Record<string, string> = {
     @import '@nonoun/native-ui/css/inspector';
   </style>
 
-  <ui-layout-sidebar id="layout-sidebar">
+  <ui-layout-sidebar id="layout-sidebar" collapsed={prefs.sidebarCollapsed ? '' : undefined}>
     <aside slot="sidebar">
       <ui-layout-sidebar-header>
         <ui-layout-sidebar-item>
@@ -79,8 +81,10 @@ const groupIcons: Record<string, string> = {
 
       <ui-layout-sidebar-content>
         <ui-nav value={currentEntry?.path}>
-          {[...groups.entries()].map(([groupName, entries]) => (
-            <ui-nav-group>
+          {[...groups.entries()].map(([groupName, entries]) => {
+            const isOpen = prefs.groupStates[groupName] ?? (groupName === 'Components');
+            return (
+            <ui-nav-group open={isOpen ? '' : undefined}>
               <ui-nav-group-header>
                 <ui-icon name={groupIcons[groupName] || 'compass'}></ui-icon>
                 {groupName}
@@ -94,7 +98,8 @@ const groupIcons: Record<string, string> = {
                 </ui-nav-item>
               ))}
             </ui-nav-group>
-          ))}
+            );
+          })}
         </ui-nav>
       </ui-layout-sidebar-content>
 
@@ -128,7 +133,7 @@ const groupIcons: Record<string, string> = {
           aria-label="Toggle sidebar"
           id="sidebar-toggle"
         >
-          <ui-icon name="sidebar-simple" size="md"></ui-icon>
+          <ui-icon name={prefs.sidebarCollapsed ? 'sidebar-simple-fill' : 'sidebar-simple'} size="md"></ui-icon>
         </ui-button>
 
         <ui-breadcrumb>
@@ -151,7 +156,7 @@ const groupIcons: Record<string, string> = {
             <ui-icon name="code" size="md"></ui-icon>
           </ui-button>
           <ui-button variant="ghost" size="sm" aria-label="Toggle color scheme" id="theme-toggle">
-            <ui-icon name="moon" size="md"></ui-icon>
+            <ui-icon name={prefs.colorScheme === 'dark' ? 'sun' : 'moon'} size="md"></ui-icon>
           </ui-button>
         </div>
       </ui-layout-breadcrumb>

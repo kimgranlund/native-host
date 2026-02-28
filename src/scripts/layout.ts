@@ -2,32 +2,37 @@
 // Handles: sidebar collapse/expand, theme toggle, command palette (Cmd+K),
 // code toggle, inspector toggle, chat toggle, nav group persistence, and navigation.
 
-const STORAGE_COLLAPSED = 'nav-sidebar-collapsed';
-const STORAGE_COLOR_SCHEME = 'nav-color-scheme';
-const STORAGE_GROUP_STATES = 'nav-group-states';
-const CODE_STORAGE = 'demo-show-code';
+import {
+  PREF_COLOR_SCHEME,
+  PREF_SIDEBAR_COLLAPSED,
+  PREF_GROUP_STATES,
+  PREF_SHOW_CODE,
+} from '../lib/preferences';
+
+function setCookie(name: string, value: string, days = 365) {
+  const expires = new Date(Date.now() + days * 864e5).toUTCString();
+  document.cookie = `${name}=${encodeURIComponent(value)};path=/;expires=${expires};SameSite=Lax`;
+}
 
 // ── Sidebar collapse/expand ──
 
 const layout = document.getElementById('layout-sidebar') as HTMLElement | null;
 const sidebarToggle = document.getElementById('sidebar-toggle') as HTMLElement | null;
 
-// Collapsed state is set by an is:inline script in SidebarLayout.astro
-// (runs before element upgrade). Here we just sync the toggle icon.
-if (layout?.hasAttribute('collapsed') && sidebarToggle) {
-  sidebarToggle.innerHTML = '<ui-icon name="sidebar-simple-fill" size="md"></ui-icon>';
-}
+// Server renders correct collapsed state and icon — no client-side init needed.
 
 sidebarToggle?.addEventListener('click', () => {
   if (!layout) return;
   const collapsed = layout.hasAttribute('collapsed');
   if (collapsed) {
     layout.removeAttribute('collapsed');
-    localStorage.setItem(STORAGE_COLLAPSED, 'false');
+    localStorage.setItem(PREF_SIDEBAR_COLLAPSED, 'false');
+    setCookie(PREF_SIDEBAR_COLLAPSED, 'false');
     sidebarToggle.innerHTML = '<ui-icon name="sidebar-simple" size="md"></ui-icon>';
   } else {
     layout.setAttribute('collapsed', '');
-    localStorage.setItem(STORAGE_COLLAPSED, 'true');
+    localStorage.setItem(PREF_SIDEBAR_COLLAPSED, 'true');
+    setCookie(PREF_SIDEBAR_COLLAPSED, 'true');
     sidebarToggle.innerHTML = '<ui-icon name="sidebar-simple-fill" size="md"></ui-icon>';
   }
 });
@@ -35,7 +40,6 @@ sidebarToggle?.addEventListener('click', () => {
 // ── Theme toggle ──
 
 const themeToggle = document.getElementById('theme-toggle') as HTMLElement | null;
-// Color scheme is restored by an is:inline script in BaseLayout.astro (before paint).
 
 function updateThemeIcon() {
   if (!themeToggle) return;
@@ -45,14 +49,14 @@ function updateThemeIcon() {
     ? '<ui-icon name="sun" size="md"></ui-icon>'
     : '<ui-icon name="moon" size="md"></ui-icon>';
 }
-updateThemeIcon();
 
 themeToggle?.addEventListener('click', () => {
   const current = document.documentElement.style.colorScheme;
   const isDark = current === 'dark' || (!current && window.matchMedia('(prefers-color-scheme: dark)').matches);
   const next = isDark ? 'light' : 'dark';
   document.documentElement.style.colorScheme = next;
-  localStorage.setItem(STORAGE_COLOR_SCHEME, next);
+  localStorage.setItem(PREF_COLOR_SCHEME, next);
+  setCookie(PREF_COLOR_SCHEME, next);
   updateThemeIcon();
 });
 
@@ -61,7 +65,8 @@ themeToggle?.addEventListener('click', () => {
 const codeToggle = document.getElementById('code-toggle') as HTMLElement | null;
 
 function syncCodeState(show: boolean) {
-  localStorage.setItem(CODE_STORAGE, String(show));
+  localStorage.setItem(PREF_SHOW_CODE, String(show));
+  setCookie(PREF_SHOW_CODE, String(show));
   if (codeToggle) {
     codeToggle.innerHTML = show
       ? '<ui-icon name="code-fill" size="md"></ui-icon>'
@@ -76,11 +81,11 @@ function syncCodeState(show: boolean) {
 // Show code toggle button only if page has code blocks
 if (codeToggle && document.querySelectorAll('.layout-code').length > 0) {
   codeToggle.style.display = '';
-  if (localStorage.getItem(CODE_STORAGE) === 'true') syncCodeState(true);
+  if (localStorage.getItem(PREF_SHOW_CODE) === 'true') syncCodeState(true);
 }
 
 codeToggle?.addEventListener('click', () => {
-  const willShow = localStorage.getItem(CODE_STORAGE) !== 'true';
+  const willShow = localStorage.getItem(PREF_SHOW_CODE) !== 'true';
   syncCodeState(willShow);
 });
 
@@ -129,14 +134,26 @@ if (chat) {
 }
 
 // ── Nav group persistence ──
+// ui-nav-group defaults to open=true in its constructor signal, so the server
+// can render `open` for open groups but CANNOT render a closed state (absence
+// of `open` still defaults to open after upgrade). We must apply closed states
+// client-side after element upgrade, then observe future changes.
 
 let groupStates: Record<string, boolean> = {};
 try {
-  const stored = localStorage.getItem(STORAGE_GROUP_STATES);
+  const stored = localStorage.getItem(PREF_GROUP_STATES);
   if (stored) groupStates = JSON.parse(stored);
 } catch { /* ignore */ }
 
-function applyGroupStates() {
+// Also read from cookie if localStorage is empty (fresh browser, cookies from SSR)
+if (Object.keys(groupStates).length === 0) {
+  try {
+    const match = document.cookie.match(new RegExp(`(?:^|;\\s*)${PREF_GROUP_STATES}=([^;]*)`));
+    if (match) groupStates = JSON.parse(decodeURIComponent(match[1]));
+  } catch { /* ignore */ }
+}
+
+function applyAndObserveGroups() {
   for (const group of document.querySelectorAll('ui-nav-group')) {
     const header = group.querySelector('ui-nav-group-header');
     const name = header?.textContent?.trim();
@@ -147,22 +164,22 @@ function applyGroupStates() {
     const shouldBeOpen = groupStates[name] ?? defaultOpen;
     (group as any).open = shouldBeOpen;
 
-    // Observe user-driven changes (skip the initial sync)
-    let syncing = false;
-    const obs = new MutationObserver(() => {
-      if (syncing) return;
+    // Observe future user-driven changes
+    let skipNext = true; // skip the mutation from the apply above
+    new MutationObserver(() => {
+      if (skipNext) { skipNext = false; return; }
       groupStates[name] = group.hasAttribute('open');
-      localStorage.setItem(STORAGE_GROUP_STATES, JSON.stringify(groupStates));
-    });
-    obs.observe(group, { attributes: true, attributeFilter: ['open'] });
+      const json = JSON.stringify(groupStates);
+      localStorage.setItem(PREF_GROUP_STATES, json);
+      setCookie(PREF_GROUP_STATES, json);
+    }).observe(group, { attributes: true, attributeFilter: ['open'] });
   }
 }
 
-// Wait for ui-nav-group to be defined so .open property is available
 if (customElements.get('ui-nav-group')) {
-  applyGroupStates();
+  applyAndObserveGroups();
 } else {
-  customElements.whenDefined('ui-nav-group').then(applyGroupStates);
+  customElements.whenDefined('ui-nav-group').then(applyAndObserveGroups);
 }
 
 // ── Nav item navigation ──
