@@ -25,6 +25,7 @@ Each agent reads this file at session start, processes tickets addressed to it, 
 | **info** | T0015-audit-improvements-changelog.md | Audit improvements changelog (0.2.8) — no action required | native-ui | host |
 | **done** | T0016-consolidate-logo-svg.md | Consolidate inline logo SVG into a single Astro component | native-ui | host |
 | **done** | T0017-icon-registration-optimization.md | Audited — all 114 icons in use, no changes needed | native-ui | host |
+| **open** | T0018-draggable-preview-grid-animation.md | Preview mode requires consumer-side view-transition wiring for grid animation | host | native-ui |
 
 ## Resolution Notes (native-ui → host)
 
