@@ -177,27 +177,32 @@ el.addEventListener('native:press', () =&gt; copy.copy());`,
   <script>
 import { NativeElement, define, CopyController } from "@nonoun/native-ui";
 import { logAppend as appendLog } from '../../scripts/event-log';
-// ── Minimal NativeElement shell for injection demos ──
 
+// ── Minimal NativeElement shell for injection demos ──
+if (!customElements.get('copy-demo')) {
       class CopyDemo extends NativeElement {}
       define('copy-demo', CopyDemo);
+}
+
+document.addEventListener('astro:page-load', () => {
+      if (!document.getElementById('basic-log')) return;
 
       // ── Basic Copy (injection) — wire native:press → copy ──
 
       for (const el of document.querySelectorAll('copy-demo[traits*="copyable"]')) {
         el.addEventListener('native:press', () => {
-          el.getTraitController('copyable')?.copy();
+          (el as any).getTraitController('copyable')?.copy();
         });
       }
 
       const basicLogEl = document.getElementById('basic-log');
-      document.querySelector('copy-demo[copyable-value="npm install native-ui"]').addEventListener('native:copy', (e) => {
+      document.querySelector('copy-demo[copyable-value="npm install native-ui"]')?.addEventListener('native:copy', (e: CustomEvent) => {
         appendLog(basicLogEl, `Copied: "${e.detail.value}"`);
       });
 
       // ── Copy with Getter (CopyController direct) ──
 
-      const getterEl = document.getElementById('getter-demo');
+      const getterEl = document.getElementById('getter-demo')!;
       const getterCopy = new CopyController(getterEl, {
         value: () => new Date().toISOString(),
       });
@@ -205,14 +210,14 @@ import { logAppend as appendLog } from '../../scripts/event-log';
       getterEl.addEventListener('native:press', () => getterCopy.copy());
 
       const getterLogEl = document.getElementById('getter-log');
-      getterEl.addEventListener('native:copy', (e) => {
+      getterEl.addEventListener('native:copy', (e: CustomEvent) => {
         appendLog(getterLogEl, `Copied: "${e.detail.value}"`);
       });
 
       // ── Custom Duration (injection) — log ──
 
       const fastLogEl = document.getElementById('fast-log');
-      document.querySelector('copy-demo[copyable-feedback-duration="500"]').addEventListener('native:copy', (e) => {
+      document.querySelector('copy-demo[copyable-feedback-duration="500"]')?.addEventListener('native:copy', (e: CustomEvent) => {
         appendLog(fastLogEl, `Copied: "${e.detail.value}"`);
       });
 
@@ -222,8 +227,8 @@ import { logAppend as appendLog } from '../../scripts/event-log';
       // the controller attribute and invoke clipboard API directly.
 
       const providerCard = document.getElementById('provider-card');
-      providerCard.addEventListener('click', async () => {
-        const value = document.getElementById('provider-ctrl').getAttribute('copyable-value') ?? '';
+      providerCard?.addEventListener('click', async () => {
+        const value = document.getElementById('provider-ctrl')?.getAttribute('copyable-value') ?? '';
         await navigator.clipboard.writeText(value);
         providerCard.toggleAttribute('copied', true);
         setTimeout(() => providerCard.removeAttribute('copied'), 2000);
@@ -231,9 +236,10 @@ import { logAppend as appendLog } from '../../scripts/event-log';
       });
 
       const providerLogEl = document.getElementById('provider-log');
-      providerCard.addEventListener('native:copy', (e) => {
+      providerCard?.addEventListener('native:copy', (e: CustomEvent) => {
         appendLog(providerLogEl, `Copied: "${e.detail.value}"`);
       });
+});
   </script>
   <style is:global>
     /* ── Copy Cards ── */

@@ -216,35 +216,39 @@ const detailSelectedCount = `{ selected, count }`;
   <script>
 import { logAppend as appendLog } from '../../scripts/event-log';
 
+document.addEventListener('astro:page-load', () => {
+      if (!document.getElementById('copy-list')) return;
+
       // ── Copy & Paste list ──
 
-      const copyList = document.getElementById('copy-list');
+      const copyList = document.getElementById('copy-list')!;
       const copyLogEl = document.getElementById('copy-log');
 
-      copyList.addEventListener('native:selection-change', (e) => {
+      copyList.addEventListener('native:selection-change', (e: CustomEvent) => {
         appendLog(copyLogEl, `Selected ${e.detail.count} item(s)`);
       });
 
-      copyList.addEventListener('native:clip-copy', (e) => {
+      copyList.addEventListener('native:clip-copy', (e: CustomEvent) => {
         appendLog(copyLogEl, `Copied ${e.detail.items.length} item(s): "${e.detail.data}"`);
       });
 
       // ── Cut & Paste list ──
 
-      const cutList = document.getElementById('cut-list');
+      const cutList = document.getElementById('cut-list')!;
       const cutLogEl = document.getElementById('cut-log');
 
-      cutList.addEventListener('native:selection-change', (e) => {
+      cutList.addEventListener('native:selection-change', (e: CustomEvent) => {
         appendLog(cutLogEl, `Selected ${e.detail.count} item(s)`);
       });
 
-      cutList.addEventListener('native:clip-cut', (e) => {
+      cutList.addEventListener('native:clip-cut', (e: CustomEvent) => {
         appendLog(cutLogEl, `Cut ${e.detail.items.length} item(s) — marked with [clip-cut]`);
       });
 
-      cutList.addEventListener('native:clip-paste', (e) => {
+      cutList.addEventListener('native:clip-paste', (e: CustomEvent) => {
         appendLog(cutLogEl, `Paste received: "${e.detail.data}"`);
       });
+});
   </script>
   <style is:global>
     /* ── Clipboard Items ── */

@@ -235,84 +235,88 @@ const detailRange = `{ startIndex, endIndex, items }`;
 import { RangeSelectController } from '@nonoun/native-ui';
 import { logAppend as appendLog } from '../../scripts/event-log';
 
-      // ── Stamp 28 cells into grids ──
+document.addEventListener('astro:page-load', () => {
+  if (!document.getElementById('drag-grid')) return;
 
-      function stampCells(container) {
-        for (let i = 1; i <= 28; i++) {
-          const cell = document.createElement('div');
-          cell.className = 'cell';
-          cell.textContent = String(i);
-          container.appendChild(cell);
-        }
-      }
+  // ── Stamp 28 cells into grids ──
 
-      // Drag mode grid (cells inside n-controller child div)
-      const dragGrid = document.getElementById('drag-grid');
-      stampCells(dragGrid);
+  function stampCells(container: HTMLElement) {
+    for (let i = 1; i <= 28; i++) {
+      const cell = document.createElement('div');
+      cell.className = 'cell';
+      cell.textContent = String(i);
+      container.appendChild(cell);
+    }
+  }
 
-      // Click mode grid (cells inside plain div)
-      const clickGrid = document.getElementById('click-grid');
-      stampCells(clickGrid);
+  // Drag mode grid (cells inside n-controller child div)
+  const dragGrid = document.getElementById('drag-grid')!;
+  stampCells(dragGrid);
 
-      // ── Drag Mode: Calendar Grid (Provider) ──
+  // Click mode grid (cells inside plain div)
+  const clickGrid = document.getElementById('click-grid')!;
+  stampCells(clickGrid);
 
-      const dragOutput = document.getElementById('drag-output');
-      dragGrid.addEventListener('native:range-select', (e) => {
-        const { startIndex, endIndex } = e.detail;
-        appendLog(dragOutput, `Selected days ${startIndex + 1}\u2013${endIndex + 1}`);
-      });
-      dragGrid.addEventListener('native:range-change', (e) => {
-        const { startIndex, endIndex } = e.detail;
-        dragOutput.textContent = `Dragging: days ${startIndex + 1}\u2013${endIndex + 1}`;
-      });
+  // ── Drag Mode: Calendar Grid (Provider) ──
 
-      // ── Click Mode: Calendar Grid (RangeSelectController) ──
+  const dragOutput = document.getElementById('drag-output');
+  dragGrid.addEventListener('native:range-select', (e: CustomEvent) => {
+    const { startIndex, endIndex } = e.detail;
+    appendLog(dragOutput, `Selected days ${startIndex + 1}\u2013${endIndex + 1}`);
+  });
+  dragGrid.addEventListener('native:range-change', (e: CustomEvent) => {
+    const { startIndex, endIndex } = e.detail;
+    if (dragOutput) dragOutput.textContent = `Dragging: days ${startIndex + 1}\u2013${endIndex + 1}`;
+  });
 
-      const clickCtrl = new RangeSelectController(clickGrid, {
-        selector: '.cell',
-        mode: 'click',
-      });
+  // ── Click Mode: Calendar Grid (RangeSelectController) ──
 
-      const clickOutput = document.getElementById('click-output');
+  const clickCtrl = new RangeSelectController(clickGrid, {
+    selector: '.cell',
+    mode: 'click',
+  });
 
-      clickGrid.addEventListener('native:range-change', (e) => {
-        const { startIndex, endIndex } = e.detail;
-        clickOutput.textContent = `Preview: days ${startIndex + 1}\u2013${endIndex + 1}`;
-      });
+  const clickOutput = document.getElementById('click-output');
 
-      clickGrid.addEventListener('native:range-select', (e) => {
-        const { startIndex, endIndex } = e.detail;
-        appendLog(clickOutput, `Committed: days ${startIndex + 1}\u2013${endIndex + 1}`);
-      });
+  clickGrid.addEventListener('native:range-change', (e: CustomEvent) => {
+    const { startIndex, endIndex } = e.detail;
+    if (clickOutput) clickOutput.textContent = `Preview: days ${startIndex + 1}\u2013${endIndex + 1}`;
+  });
 
-      document.getElementById('clear-btn').addEventListener('native:press', () => {
-        clickCtrl.clearRange();
-        clickOutput.textContent = 'Range cleared. Click a start date.';
-      });
+  clickGrid.addEventListener('native:range-select', (e: CustomEvent) => {
+    const { startIndex, endIndex } = e.detail;
+    appendLog(clickOutput, `Committed: days ${startIndex + 1}\u2013${endIndex + 1}`);
+  });
 
-      // ── Drag Mode: Vertical List (Provider) ──
+  document.getElementById('clear-btn')?.addEventListener('native:press', () => {
+    clickCtrl.clearRange();
+    if (clickOutput) clickOutput.textContent = 'Range cleared. Click a start date.';
+  });
 
-      const listOutput = document.getElementById('list-output');
-      const list = document.getElementById('list');
+  // ── Drag Mode: Vertical List (Provider) ──
 
-      list.addEventListener('native:range-select', (e) => {
-        const { startIndex, endIndex, items } = e.detail;
-        appendLog(listOutput, `Selected ${items.length} items (${startIndex}\u2013${endIndex})`);
-      });
+  const listOutput = document.getElementById('list-output');
+  const list = document.getElementById('list');
 
-      // ── RangeSelectController: Attach to Any Element ──
+  list?.addEventListener('native:range-select', ((e: CustomEvent) => {
+    const { startIndex, endIndex, items } = e.detail;
+    appendLog(listOutput, `Selected ${items.length} items (${startIndex}\u2013${endIndex})`);
+  }) as EventListener);
 
-      const ctrlList = document.getElementById('ctrl-list');
-      const ctrl = new RangeSelectController(ctrlList, {
-        selector: '.list-item',
-        mode: 'drag',
-      });
+  // ── RangeSelectController: Attach to Any Element ──
 
-      const ctrlOutput = document.getElementById('ctrl-output');
-      ctrlList.addEventListener('native:range-select', (e) => {
-        const { startIndex, endIndex, items } = e.detail;
-        appendLog(ctrlOutput, `Selected ${items.length} items (${startIndex}\u2013${endIndex})`);
-      });
+  const ctrlList = document.getElementById('ctrl-list')!;
+  const ctrl = new RangeSelectController(ctrlList, {
+    selector: '.list-item',
+    mode: 'drag',
+  });
+
+  const ctrlOutput = document.getElementById('ctrl-output');
+  ctrlList.addEventListener('native:range-select', (e: CustomEvent) => {
+    const { startIndex, endIndex, items } = e.detail;
+    appendLog(ctrlOutput, `Selected ${items.length} items (${startIndex}\u2013${endIndex})`);
+  });
+});
   </script>
   <style is:global>
     /* ── Grid ── */

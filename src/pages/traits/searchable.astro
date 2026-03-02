@@ -279,72 +279,77 @@ const detailQueryMatchTotal = `{ query, matchCount, total }`;
 import { SearchController } from '@nonoun/native-ui';
 import { logAppend as appendLog } from '../../scripts/event-log';
 
-      // ── Basic Filter ──
+document.addEventListener('astro:page-load', () => {
+  if (!document.getElementById('basic-wrap')) return;
 
-      const basicWrap = document.getElementById('basic-wrap');
-      const basicSearch = new SearchController(basicWrap, {
-        selector: '.search-item',
-      });
+  // ── Basic Filter ──
 
-      const basicInput = document.getElementById('basic-input');
-      basicInput.addEventListener('native:input', (e) => {
-        basicSearch.filter(e.detail.value);
-      });
+  const basicWrap = document.getElementById('basic-wrap')!;
+  const basicSearch = new SearchController(basicWrap, {
+    selector: '.search-item',
+  });
 
-      const basicLogEl = document.getElementById('basic-log');
-      basicWrap.addEventListener('native:search', (e) => {
-        const { query, matchCount, total } = e.detail;
-        appendLog(basicLogEl, `"${query}" — ${matchCount}/${total} matches`);
-      });
+  const basicInput = document.getElementById('basic-input');
+  basicInput?.addEventListener('native:input', ((e: CustomEvent) => {
+    basicSearch.filter(e.detail.value);
+  }) as EventListener);
 
-      // ── Custom Text Field ──
+  const basicLogEl = document.getElementById('basic-log');
+  basicWrap.addEventListener('native:search', (e: CustomEvent) => {
+    const { query, matchCount, total } = e.detail;
+    appendLog(basicLogEl, `"${query}" — ${matchCount}/${total} matches`);
+  });
 
-      const fieldWrap = document.getElementById('field-wrap');
-      const fieldSearch = new SearchController(fieldWrap, {
-        selector: '.search-item',
-        textField: 'data-search',
-      });
+  // ── Custom Text Field ──
 
-      const fieldInput = document.getElementById('field-input');
-      fieldInput.addEventListener('native:input', (e) => {
-        fieldSearch.filter(e.detail.value);
-      });
+  const fieldWrap = document.getElementById('field-wrap')!;
+  const fieldSearch = new SearchController(fieldWrap, {
+    selector: '.search-item',
+    textField: 'data-search',
+  });
 
-      // ── Highlight Matches ──
+  const fieldInput = document.getElementById('field-input');
+  fieldInput?.addEventListener('native:input', ((e: CustomEvent) => {
+    fieldSearch.filter(e.detail.value);
+  }) as EventListener);
 
-      const highlightWrap = document.getElementById('highlight-wrap');
-      const highlightSearch = new SearchController(highlightWrap, {
-        selector: '.search-item',
-      });
+  // ── Highlight Matches ──
 
-      const highlightInput = document.getElementById('highlight-input');
-      highlightInput.addEventListener('native:input', (e) => {
-        const query = e.detail.value;
-        highlightSearch.filter(query);
-        for (const item of highlightWrap.querySelectorAll('.search-item')) {
-          const original = item.getAttribute('data-original');
-          item.innerHTML = SearchController.highlight(original, query);
-        }
-      });
+  const highlightWrap = document.getElementById('highlight-wrap')!;
+  const highlightSearch = new SearchController(highlightWrap, {
+    selector: '.search-item',
+  });
 
-      // ── SearchController — Attach to Any Element ──
+  const highlightInput = document.getElementById('highlight-input');
+  highlightInput?.addEventListener('native:input', ((e: CustomEvent) => {
+    const query = e.detail.value;
+    highlightSearch.filter(query);
+    for (const item of highlightWrap.querySelectorAll('.search-item')) {
+      const original = item.getAttribute('data-original');
+      item.innerHTML = SearchController.highlight(original!, query);
+    }
+  }) as EventListener);
 
-      const ctrlList = document.getElementById('controller-list');
-      const ctrlSearch = new SearchController(ctrlList, {
-        selector: '.search-item',
-      });
+  // ── SearchController — Attach to Any Element ──
 
-      const ctrlInput = document.getElementById('ctrl-input');
-      ctrlInput.addEventListener('native:input', (e) => {
-        const { matches, hidden, total } = ctrlSearch.filter(e.detail.value);
-        appendLog(ctrlLogEl, `${matches.length}/${total} matches`);
-      });
+  const ctrlList = document.getElementById('controller-list')!;
+  const ctrlSearch = new SearchController(ctrlList, {
+    selector: '.search-item',
+  });
 
-      const ctrlLogEl = document.getElementById('ctrl-log');
-      ctrlList.addEventListener('native:search', (e) => {
-        const { query, matchCount, total } = e.detail;
-        appendLog(ctrlLogEl, `"${query}" — ${matchCount}/${total} matches`);
-      });
+  const ctrlLogEl = document.getElementById('ctrl-log');
+
+  const ctrlInput = document.getElementById('ctrl-input');
+  ctrlInput?.addEventListener('native:input', ((e: CustomEvent) => {
+    const { matches, hidden, total } = ctrlSearch.filter(e.detail.value);
+    appendLog(ctrlLogEl, `${matches.length}/${total} matches`);
+  }) as EventListener);
+
+  ctrlList.addEventListener('native:search', (e: CustomEvent) => {
+    const { query, matchCount, total } = e.detail;
+    appendLog(ctrlLogEl, `"${query}" — ${matchCount}/${total} matches`);
+  });
+});
   </script>
   <style is:global>
     /* ── Search Items ── */

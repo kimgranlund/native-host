@@ -166,11 +166,14 @@ const detailMessage = `{ message }`;
   <script>
 import { ValidateController } from '@nonoun/native-ui';
 
+document.addEventListener('astro:page-load', () => {
+      if (!document.getElementById('required-field')) return;
+
       // ── Wire validation field ──
 
-      function wireField(field) {
+      function wireField(field: HTMLElement) {
         const errorEl = field.querySelector('.error-msg');
-        field.addEventListener('native:invalid', (e) => {
+        field.addEventListener('native:invalid', (e: CustomEvent) => {
           if (errorEl) errorEl.textContent = e.detail.message;
         });
         field.addEventListener('native:valid', () => {
@@ -180,20 +183,21 @@ import { ValidateController } from '@nonoun/native-ui';
 
       // ── Required Field ──
 
-      const reqField = document.getElementById('required-field');
+      const reqField = document.getElementById('required-field')!;
       const reqValidator = new ValidateController(reqField);
       reqValidator.rules = [
         ValidateController.required('Name is required'),
       ];
       wireField(reqField);
-      document.getElementById('validate-required').addEventListener('native:press', () => {
+      document.getElementById('validate-required')?.addEventListener('native:press', () => {
         const ok = reqValidator.validate();
-        document.getElementById('required-output').textContent = ok ? 'Valid!' : `Invalid: ${reqValidator.errorMessage}`;
+        const reqOutput = document.getElementById('required-output');
+        if (reqOutput) reqOutput.textContent = ok ? 'Valid!' : `Invalid: ${reqValidator.errorMessage}`;
       });
 
       // ── Password Field ──
 
-      const pwField = document.getElementById('password-field');
+      const pwField = document.getElementById('password-field')!;
       const pwValidator = new ValidateController(pwField);
       pwValidator.rules = [
         ValidateController.required('Password is required'),
@@ -202,14 +206,15 @@ import { ValidateController } from '@nonoun/native-ui';
         ValidateController.pattern(/[0-9]/, 'Must contain a number'),
       ];
       wireField(pwField);
-      document.getElementById('validate-password').addEventListener('native:press', () => {
+      document.getElementById('validate-password')?.addEventListener('native:press', () => {
         const ok = pwValidator.validate();
-        document.getElementById('password-output').textContent = ok ? 'Valid!' : `Invalid: ${pwValidator.errorMessage}`;
+        const pwOutput = document.getElementById('password-output');
+        if (pwOutput) pwOutput.textContent = ok ? 'Valid!' : `Invalid: ${pwValidator.errorMessage}`;
       });
 
       // ── Email Field (blur validation) ──
 
-      const emailField = document.getElementById('email-field');
+      const emailField = document.getElementById('email-field')!;
       const emailValidator = new ValidateController(emailField);
       emailValidator.rules = [
         ValidateController.required('Email is required'),
@@ -217,9 +222,10 @@ import { ValidateController } from '@nonoun/native-ui';
       ];
       wireField(emailField);
       const emailInput = emailField.querySelector('n-input');
-      emailInput.addEventListener('focusout', () => {
+      emailInput?.addEventListener('focusout', () => {
         emailValidator.validate();
       });
+});
   </script>
   <style is:global>
     .field-wrapper {

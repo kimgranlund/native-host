@@ -205,9 +205,12 @@ host.addEventListener('native:virtual-change', (e) =&gt; {
   <script>
 import { VirtualScrollController } from '@nonoun/native-ui';
 
+document.addEventListener('astro:page-load', () => {
+      if (!document.getElementById('host1')) return;
+
       // ── Helper: render rows into a content container ──
 
-      function renderRows(container, start, end, prefix) {
+      function renderRows(container: HTMLElement, start: number, end: number, prefix: string) {
         const old = container.querySelectorAll('.virtual-row');
         for (const r of old) r.remove();
 
@@ -226,9 +229,9 @@ import { VirtualScrollController } from '@nonoun/native-ui';
       // ── 10,000 Items Demo ──
 
       const TOTAL1 = 10000;
-      const host1 = document.getElementById('host1');
-      const viewport1 = document.getElementById('viewport1');
-      const content1 = document.getElementById('content1');
+      const host1 = document.getElementById('host1')!;
+      const viewport1 = document.getElementById('viewport1')!;
+      const content1 = document.getElementById('content1')!;
       const renderedEl = document.getElementById('rendered-count');
       const rangeEl = document.getElementById('range-display');
 
@@ -238,24 +241,24 @@ import { VirtualScrollController } from '@nonoun/native-ui';
       });
       vctrl1.enable(viewport1, content1, TOTAL1);
 
-      host1.addEventListener('native:virtual-change', (e) => {
+      host1.addEventListener('native:virtual-change', (e: CustomEvent) => {
         const { start, end } = e.detail;
         renderRows(content1, start, end, 'Row');
-        renderedEl.textContent = String(end - start);
-        rangeEl.textContent = `${start}\u2013${end}`;
+        if (renderedEl) renderedEl.textContent = String(end - start);
+        if (rangeEl) rangeEl.textContent = `${start}\u2013${end}`;
       });
 
       // Initial render
       renderRows(content1, vctrl1.start, vctrl1.end, 'Row');
-      renderedEl.textContent = String(vctrl1.end - vctrl1.start);
-      rangeEl.textContent = `${vctrl1.start}\u2013${vctrl1.end}`;
+      if (renderedEl) renderedEl.textContent = String(vctrl1.end - vctrl1.start);
+      if (rangeEl) rangeEl.textContent = `${vctrl1.start}\u2013${vctrl1.end}`;
 
       // ── Dynamic Count Demo ──
 
       let dynamicCount = 100;
-      const host2 = document.getElementById('host2');
-      const viewport2 = document.getElementById('viewport2');
-      const content2 = document.getElementById('content2');
+      const host2 = document.getElementById('host2')!;
+      const viewport2 = document.getElementById('viewport2')!;
+      const content2 = document.getElementById('content2')!;
       const dynOut = document.getElementById('dynamic-output');
 
       const vctrl2 = new VirtualScrollController(host2, {
@@ -264,33 +267,33 @@ import { VirtualScrollController } from '@nonoun/native-ui';
       });
       vctrl2.enable(viewport2, content2, dynamicCount);
 
-      host2.addEventListener('native:virtual-change', (e) => {
+      host2.addEventListener('native:virtual-change', (e: CustomEvent) => {
         const { start, end, totalCount } = e.detail;
         renderRows(content2, start, end, 'Dynamic row');
-        dynOut.textContent = `${totalCount} items \u2014 showing ${start}\u2013${end}`;
+        if (dynOut) dynOut.textContent = `${totalCount} items \u2014 showing ${start}\u2013${end}`;
       });
 
       // Initial render
       renderRows(content2, vctrl2.start, vctrl2.end, 'Dynamic row');
 
-      document.getElementById('add-btn').addEventListener('native:press', () => {
+      document.getElementById('add-btn')?.addEventListener('native:press', () => {
         dynamicCount += 1000;
         vctrl2.updateCount(dynamicCount);
-        dynOut.textContent = `${dynamicCount} items`;
+        if (dynOut) dynOut.textContent = `${dynamicCount} items`;
       });
 
-      document.getElementById('reset-btn').addEventListener('native:press', () => {
+      document.getElementById('reset-btn')?.addEventListener('native:press', () => {
         dynamicCount = 100;
         vctrl2.updateCount(dynamicCount);
-        dynOut.textContent = `${dynamicCount} items`;
+        if (dynOut) dynOut.textContent = `${dynamicCount} items`;
       });
 
       // ── VirtualScrollController — Attach to Any Element ──
 
       const CTRL_TOTAL = 5000;
-      const ctrlHost = document.getElementById('ctrl-host');
-      const ctrlViewport = document.getElementById('ctrl-viewport');
-      const ctrlContent = document.getElementById('ctrl-content');
+      const ctrlHost = document.getElementById('ctrl-host')!;
+      const ctrlViewport = document.getElementById('ctrl-viewport')!;
+      const ctrlContent = document.getElementById('ctrl-content')!;
       const ctrlRendered = document.getElementById('ctrl-rendered');
       const ctrlRange = document.getElementById('ctrl-range');
 
@@ -300,17 +303,18 @@ import { VirtualScrollController } from '@nonoun/native-ui';
       });
       vctrl3.enable(ctrlViewport, ctrlContent, CTRL_TOTAL);
 
-      ctrlHost.addEventListener('native:virtual-change', (e) => {
+      ctrlHost.addEventListener('native:virtual-change', (e: CustomEvent) => {
         const { start, end } = e.detail;
         renderRows(ctrlContent, start, end, 'Controller row');
-        ctrlRendered.textContent = String(end - start);
-        ctrlRange.textContent = `${start}\u2013${end}`;
+        if (ctrlRendered) ctrlRendered.textContent = String(end - start);
+        if (ctrlRange) ctrlRange.textContent = `${start}\u2013${end}`;
       });
 
       // Initial render
       renderRows(ctrlContent, vctrl3.start, vctrl3.end, 'Controller row');
-      ctrlRendered.textContent = String(vctrl3.end - vctrl3.start);
-      ctrlRange.textContent = `${vctrl3.start}\u2013${vctrl3.end}`;
+      if (ctrlRendered) ctrlRendered.textContent = String(vctrl3.end - vctrl3.start);
+      if (ctrlRange) ctrlRange.textContent = `${vctrl3.start}\u2013${vctrl3.end}`;
+});
   </script>
   <style is:global>
     .scroll-viewport {

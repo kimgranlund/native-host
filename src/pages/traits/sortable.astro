@@ -210,19 +210,22 @@ const detailColumnDirection = `{ column, direction }`;
   <script>
 import { logAppend as appendLog } from '../../scripts/event-log';
 
+document.addEventListener('astro:page-load', () => {
+      if (!document.getElementById('basic-wrapper')) return;
+
       // ── Basic Table Sort ──
 
-      const basicWrapper = document.getElementById('basic-wrapper');
-      basicWrapper.addEventListener('native:sort', (e) => {
+      const basicWrapper = document.getElementById('basic-wrapper')!;
+      basicWrapper.addEventListener('native:sort', (e: CustomEvent) => {
         const { column, direction } = e.detail;
-        const tbody = basicWrapper.querySelector('tbody');
+        const tbody = basicWrapper.querySelector('tbody')!;
         const rows = [...tbody.querySelectorAll('tr')];
         const headers = [...basicWrapper.querySelectorAll('th')];
-        const colIndex = headers.findIndex(h => h.textContent.trim() === column);
+        const colIndex = headers.findIndex(h => h.textContent!.trim() === column);
         if (direction === 'none') return;
         rows.sort((a, b) => {
-          const aVal = a.children[colIndex].textContent;
-          const bVal = b.children[colIndex].textContent;
+          const aVal = a.children[colIndex].textContent!;
+          const bVal = b.children[colIndex].textContent!;
           const cmp = aVal.localeCompare(bVal, undefined, { numeric: true });
           return direction === 'asc' ? cmp : -cmp;
         });
@@ -231,17 +234,17 @@ import { logAppend as appendLog } from '../../scripts/event-log';
 
       // ── Custom Selector Sort ──
 
-      const customWrapper = document.getElementById('custom-wrapper');
-      customWrapper.addEventListener('native:sort', (e) => {
+      const customWrapper = document.getElementById('custom-wrapper')!;
+      customWrapper.addEventListener('native:sort', (e: CustomEvent) => {
         const { column, direction } = e.detail;
-        const tbody = customWrapper.querySelector('tbody');
+        const tbody = customWrapper.querySelector('tbody')!;
         const rows = [...tbody.querySelectorAll('tr')];
-        const headers = [...customWrapper.querySelectorAll('[data-column]')];
+        const headers = [...customWrapper.querySelectorAll('[data-column]')] as HTMLElement[];
         const colIndex = headers.findIndex(h => h.dataset.column === column);
         if (direction === 'none') return;
         rows.sort((a, b) => {
-          const aVal = a.children[colIndex].textContent;
-          const bVal = b.children[colIndex].textContent;
+          const aVal = a.children[colIndex].textContent!;
+          const bVal = b.children[colIndex].textContent!;
           const cmp = aVal.localeCompare(bVal, undefined, { numeric: true });
           return direction === 'asc' ? cmp : -cmp;
         });
@@ -249,14 +252,15 @@ import { logAppend as appendLog } from '../../scripts/event-log';
       });
 
       const basicLogEl = document.getElementById('basic-log');
-      basicWrapper.addEventListener('native:sort', (e) => {
+      basicWrapper.addEventListener('native:sort', (e: CustomEvent) => {
         appendLog(basicLogEl, `Sort: ${e.detail.column} ${e.detail.direction}`);
       });
 
       const customLogEl = document.getElementById('custom-log');
-      customWrapper.addEventListener('native:sort', (e) => {
+      customWrapper.addEventListener('native:sort', (e: CustomEvent) => {
         appendLog(customLogEl, `Sort: ${e.detail.column} ${e.detail.direction}`);
       });
+});
   </script>
   <style is:global>
     /* ── Sort Table ── */

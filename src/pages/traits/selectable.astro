@@ -195,29 +195,33 @@ const handleClickSig = `handleClick(item, { shift, ctrl })`;
   <script>
 import { logAppend as appendLog } from '../../scripts/event-log';
 
+document.addEventListener('astro:page-load', () => {
+      if (!document.getElementById('multi-log')) return;
+
       // ── Multiple Selection ──
 
       const multiList = document.querySelector('n-controller[selectable-mode="multiple"] > .select-list');
-      multiList.addEventListener('native:selection-change', (e) => {
+      multiList?.addEventListener('native:selection-change', (e: CustomEvent) => {
         const { selected, count } = e.detail;
-        const names = selected.map(el => el.textContent).join(', ');
+        const names = selected.map((el: Element) => el.textContent).join(', ');
         multiLog(`Selected ${count}: ${names || 'none'}`);
       });
 
       // ── Single Selection ──
 
       const singleList = document.querySelector('n-controller[selectable-mode="single"] > .select-list');
-      singleList.addEventListener('native:selection-change', (e) => {
+      singleList?.addEventListener('native:selection-change', (e: CustomEvent) => {
         const { selected } = e.detail;
         const name = selected[0]?.textContent ?? 'none';
         singleLog(`Selected: ${name}`);
       });
 
       const multiLogEl = document.getElementById('multi-log');
-      function multiLog(msg) { appendLog(multiLogEl, msg); }
+      function multiLog(msg: string) { appendLog(multiLogEl, msg); }
 
       const singleLogEl = document.getElementById('single-log');
-      function singleLog(msg) { appendLog(singleLogEl, msg); }
+      function singleLog(msg: string) { appendLog(singleLogEl, msg); }
+});
   </script>
   <style is:global>
     /* ── Selectable Items ── */

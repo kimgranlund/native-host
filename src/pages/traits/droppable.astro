@@ -192,13 +192,17 @@ const detailText = `{ text }`;
   <script>
 import { logAppend as appendLog } from '../../scripts/event-log';
 
-      function formatSize(bytes) {
+document.addEventListener('astro:page-load', () => {
+      if (!document.getElementById('files-zone')) return;
+
+      function formatSize(bytes: number) {
         if (bytes < 1024) return bytes + ' B';
         if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
         return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
       }
 
-      function renderFiles(listEl, files) {
+      function renderFiles(listEl: HTMLElement | null, files: File[]) {
+        if (!listEl) return;
         listEl.innerHTML = '';
         listEl.style.display = 'flex';
         for (const file of files) {
@@ -211,8 +215,7 @@ import { logAppend as appendLog } from '../../scripts/event-log';
 
       // ── File Drop Zone ──
 
-      const filesZone = document.getElementById('files-zone');
-      filesZone.addEventListener('native:file-drop', (e) => {
+      document.getElementById('files-zone')?.addEventListener('native:file-drop', (e: CustomEvent) => {
         renderFiles(document.getElementById('files-list'), e.detail.files);
         for (const file of e.detail.files) {
           appendLog(document.getElementById('files-log'), `${file.name} (${formatSize(file.size)})`);
@@ -221,8 +224,7 @@ import { logAppend as appendLog } from '../../scripts/event-log';
 
       // ── Image Only ──
 
-      const imagesZone = document.getElementById('images-zone');
-      imagesZone.addEventListener('native:file-drop', (e) => {
+      document.getElementById('images-zone')?.addEventListener('native:file-drop', (e: CustomEvent) => {
         renderFiles(document.getElementById('images-list'), e.detail.files);
         for (const file of e.detail.files) {
           appendLog(document.getElementById('images-log'), `${file.name} (${file.type}, ${formatSize(file.size)})`);
@@ -231,22 +233,23 @@ import { logAppend as appendLog } from '../../scripts/event-log';
 
       // ── Text Drop ──
 
-      const textZone = document.getElementById('text-zone');
-      textZone.addEventListener('native:text-drop', (e) => {
-        const contentEl = document.getElementById('text-content');
-        contentEl.style.display = 'block';
-        contentEl.textContent = e.detail.text;
+      document.getElementById('text-zone')?.addEventListener('native:text-drop', (e: CustomEvent) => {
+        const contentEl = document.getElementById('text-content') as HTMLElement | null;
+        if (contentEl) {
+          contentEl.style.display = 'block';
+          contentEl.textContent = e.detail.text;
+        }
         appendLog(document.getElementById('text-log'), `Dropped ${e.detail.text.length} characters`);
       });
 
       // ── Single File ──
 
-      const singleZone = document.getElementById('single-zone');
-      singleZone.addEventListener('native:file-drop', (e) => {
+      document.getElementById('single-zone')?.addEventListener('native:file-drop', (e: CustomEvent) => {
         renderFiles(document.getElementById('single-list'), e.detail.files);
         const file = e.detail.files[0];
         appendLog(document.getElementById('single-log'), `${file.name} (${formatSize(file.size)}) — only 1 file accepted`);
       });
+});
   </script>
   <style is:global>
     /* ── Drop Zones ── */

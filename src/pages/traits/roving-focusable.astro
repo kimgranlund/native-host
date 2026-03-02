@@ -148,14 +148,17 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   </main>
 
   <script>
+document.addEventListener('astro:page-load', () => {
+  if (!document.getElementById('tabbar')) return;
 
-      // ── Tab bar: active class switching ──
+  // ── Tab bar: active class switching ──
 
-      const tabbar = document.getElementById('tabbar');
-      tabbar.addEventListener('focusin', (e) => {
-        for (const item of tabbar.querySelectorAll('.tab-item')) item.classList.remove('active');
-        if (e.target !== tabbar) e.target.classList.add('active');
-      });
+  const tabbar = document.getElementById('tabbar')!;
+  tabbar.addEventListener('focusin', (e: FocusEvent) => {
+    for (const item of tabbar.querySelectorAll('.tab-item')) item.classList.remove('active');
+    if (e.target !== tabbar) (e.target as HTMLElement).classList.add('active');
+  });
+});
   </script>
   <style is:global>
     /* ── Vertical toolbar ── */

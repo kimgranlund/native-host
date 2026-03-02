@@ -137,35 +137,39 @@ const detailPointerType = `{ pointerType }`;
   <script>
 import { logAppend as appendLog } from '../../scripts/event-log';
 
-      // ── Basic Press log ──
+document.addEventListener('astro:page-load', () => {
+  if (!document.getElementById('log')) return;
 
-      let count = 0;
-      const logEl = document.getElementById('log');
-      for (const box of document.querySelectorAll('.press-box')) {
-        box.addEventListener('native:press', (e) => {
-          count++;
-          appendLog(logEl, `#${count} native:press — pointerType: "${e.detail.pointerType}"`);
-        });
-      }
+  // ── Basic Press log ──
 
-      // ── Button Press log ──
+  let count = 0;
+  const logEl = document.getElementById('log');
+  for (const box of document.querySelectorAll('.press-box')) {
+    box.addEventListener('native:press', (e: CustomEvent) => {
+      count++;
+      appendLog(logEl, `#${count} native:press — pointerType: "${e.detail.pointerType}"`);
+    });
+  }
 
-      let btnCount = 0;
-      const btnLogEl = document.getElementById('btn-log');
-      for (const btn of [document.getElementById('btn-1'), document.getElementById('btn-2'), document.getElementById('btn-3')]) {
-        btn.addEventListener('native:press', (e) => {
-          btnCount++;
-          appendLog(btnLogEl, `#${btnCount} native:press — pointerType: "${e.detail.pointerType}"`);
-        });
-      }
+  // ── Button Press log ──
 
-      // ── Pointer Type log ──
+  let btnCount = 0;
+  const btnLogEl = document.getElementById('btn-log');
+  for (const btn of [document.getElementById('btn-1'), document.getElementById('btn-2'), document.getElementById('btn-3')]) {
+    btn?.addEventListener('native:press', ((e: CustomEvent) => {
+      btnCount++;
+      appendLog(btnLogEl, `#${btnCount} native:press — pointerType: "${e.detail.pointerType}"`);
+    }) as EventListener);
+  }
 
-      const typeBox = document.getElementById('type-box');
-      const typeLogEl = document.getElementById('type-log');
-      typeBox.addEventListener('native:press', (e) => {
-        appendLog(typeLogEl, `pointerType: "${e.detail.pointerType}"`);
-      });
+  // ── Pointer Type log ──
+
+  const typeBox = document.getElementById('type-box');
+  const typeLogEl = document.getElementById('type-log');
+  typeBox?.addEventListener('native:press', ((e: CustomEvent) => {
+    appendLog(typeLogEl, `pointerType: "${e.detail.pointerType}"`);
+  }) as EventListener);
+});
   </script>
   <style is:global>
     .press-box {

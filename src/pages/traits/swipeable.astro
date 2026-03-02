@@ -256,45 +256,48 @@ const detailSwipe = `{ direction, distance, velocity }`;
 import { SwipeController } from '@nonoun/native-ui';
 import { logAppend as appendLog } from '../../scripts/event-log';
 
+document.addEventListener('astro:page-load', () => {
+      if (!document.getElementById('h-card')) return;
+
       // ── Horizontal Swipe (provider) ──
 
-      const hCard = document.getElementById('h-card');
+      const hCard = document.getElementById('h-card')!;
       const hLogEl = document.getElementById('h-log');
-      hCard.addEventListener('native:swipe', (e) => {
+      hCard.addEventListener('native:swipe', (e: CustomEvent) => {
         const { direction, distance, velocity } = e.detail;
         appendLog(hLogEl, `${direction} — ${Math.round(distance)}px @ ${velocity.toFixed(2)}px/ms`);
       });
 
       // ── Vertical Swipe (provider) ──
 
-      const vCard = document.getElementById('v-card');
+      const vCard = document.getElementById('v-card')!;
       const vLogEl = document.getElementById('v-log');
-      vCard.addEventListener('native:swipe', (e) => {
+      vCard.addEventListener('native:swipe', (e: CustomEvent) => {
         const { direction, distance, velocity } = e.detail;
         appendLog(vLogEl, `${direction} — ${Math.round(distance)}px @ ${velocity.toFixed(2)}px/ms`);
       });
 
       // ── Both Axes (provider) ──
 
-      const bCard = document.getElementById('b-card');
+      const bCard = document.getElementById('b-card')!;
       const bLogEl = document.getElementById('b-log');
-      bCard.addEventListener('native:swipe', (e) => {
+      bCard.addEventListener('native:swipe', (e: CustomEvent) => {
         const { direction, distance, velocity } = e.detail;
         appendLog(bLogEl, `${direction} — ${Math.round(distance)}px @ ${velocity.toFixed(2)}px/ms`);
       });
 
       // ── Custom Threshold (provider) ──
 
-      const cCard = document.getElementById('c-card');
+      const cCard = document.getElementById('c-card')!;
       const cLogEl = document.getElementById('c-log');
-      cCard.addEventListener('native:swipe', (e) => {
+      cCard.addEventListener('native:swipe', (e: CustomEvent) => {
         const { direction, distance, velocity } = e.detail;
         appendLog(cLogEl, `${direction} — ${Math.round(distance)}px @ ${velocity.toFixed(2)}px/ms`);
       });
 
       // ── SwipeController — attach to plain element ──
 
-      const ctrlCard = document.getElementById('controller-card');
+      const ctrlCard = document.getElementById('controller-card')!;
       const swipe = new SwipeController(ctrlCard, {
         threshold: 50,
         velocityThreshold: 0.3,
@@ -302,10 +305,11 @@ import { logAppend as appendLog } from '../../scripts/event-log';
       });
 
       const ctrlLogEl = document.getElementById('ctrl-log');
-      ctrlCard.addEventListener('native:swipe', (e) => {
+      ctrlCard.addEventListener('native:swipe', (e: CustomEvent) => {
         const { direction, distance, velocity } = e.detail;
         appendLog(ctrlLogEl, `${direction} — ${Math.round(distance)}px @ ${velocity.toFixed(2)}px/ms`);
       });
+});
   </script>
   <style is:global>
     /* ── Swipe Cards ── */
