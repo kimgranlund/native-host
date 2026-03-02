@@ -10,12 +10,12 @@
   },
   "dependencies": {
     "@astrojs/vercel": "^9.0.4",
-    "@nonoun/native-app": "^0.2.1",
-    "@nonoun/native-codemirror": "^0.2.3",
-    "@nonoun/native-editor": "^0.2.3",
-    "@nonoun/native-playground": "^0.2.2",
+    "@nonoun/native-app": "^0.2.2",
+    "@nonoun/native-codemirror": "^0.2.4",
+    "@nonoun/native-editor": "^0.2.4",
+    "@nonoun/native-playground": "^0.2.3",
     "@nonoun/native-tokens": "^0.4.2",
-    "@nonoun/native-ui": "^0.5.3",
+    "@nonoun/native-ui": "^0.5.4",
     "astro": "^5.17.1"
   },
   "devDependencies": {
