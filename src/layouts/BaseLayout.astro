@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from 'astro:transitions';
 import { parsePreferences } from '../lib/preferences';
 
 interface Props {
@@ -15,6 +16,7 @@ const prefs = parsePreferences(Astro.cookies);
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     <title>{title} — native-ui</title>
+    <ClientRouter />
     <style is:global>
       @import '@nonoun/native-ui/css/foundation';
       @import '@nonoun/native-ui/css/components';

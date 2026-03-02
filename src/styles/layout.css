@@ -1,3 +1,5 @@
+@import './demo.css';
+
 @layer ui {
   /* ── Universal Reset ── */
 
@@ -28,8 +30,6 @@
   }
 }
 
-@import './demo.css';
-
 /* Layout chrome styles — app-specific sidebar content & command dialog */
 
 /* Logo */
@@ -37,6 +37,11 @@
   display: flex;
   flex-shrink: 0;
   color: var(--n-ink-strong-neutral);
+}
+
+.nav-logo ~ [slot="label"] {
+  color: var(--n-ink-strong-neutral);
+  font-weight: 600;
 }
 
 /* Search hint */

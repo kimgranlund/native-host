@@ -38,7 +38,7 @@ const groupIcons: Record<string, string> = {
   </style>
 
   <n-sidebar id="layout-sidebar" collapsed={prefs.sidebarCollapsed ? '' : undefined}>
-    <aside slot="sidebar">
+    <aside slot="sidebar" transition:animate="none">
       <n-sidebar-header>
         <n-sidebar-item>
           <span class="nav-logo" slot="icon"><Logo /></span>
@@ -156,7 +156,7 @@ const groupIcons: Record<string, string> = {
       </n-app-breadcrumb>
 
       <n-app-canvas>
-        <n-app-panel>
+        <n-app-panel transition:animate="fade">
           <slot />
         </n-app-panel>
         <n-app-panel aside id="inspector-panel">
@@ -174,7 +174,7 @@ const groupIcons: Record<string, string> = {
   </n-sidebar>
 
   <!-- Command palette dialog -->
-  <n-dialog class="nav-cmd-dialog" id="nav-cmd-dialog">
+  <n-dialog class="nav-cmd-dialog" id="nav-cmd-dialog" transition:animate="none">
     <n-command>
       <n-command-input>
         <n-icon name="magnifying-glass"></n-icon>
