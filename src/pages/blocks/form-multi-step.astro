@@ -175,11 +175,14 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   </main>
 
   <script>
-const steps = ['personal', 'address', 'review'];
-      const indicator = document.getElementById('step-indicator');
+    document.addEventListener('astro:page-load', () => {
+      const indicator = document.getElementById('step-indicator') as any;
+      if (!indicator) return;
+
+      const steps = ['personal', 'address', 'review'];
       let currentStep = 0;
 
-      function goToStep(index) {
+      function goToStep(index: number) {
         currentStep = index;
         const stepName = steps[index];
 
@@ -192,26 +195,34 @@ const steps = ['personal', 'address', 'review'];
 
         // Populate review if going to step 3
         if (stepName === 'review') {
-          document.getElementById('review-name').textContent =
-            document.getElementById('input-name')?.value || '--';
-          document.getElementById('review-email').textContent =
-            document.getElementById('input-email')?.value || '--';
-          document.getElementById('review-phone').textContent =
-            document.getElementById('input-phone')?.value || '--';
-          document.getElementById('review-address').textContent =
-            document.getElementById('input-address')?.value || '--';
-          document.getElementById('review-city').textContent =
-            document.getElementById('input-city')?.value || '--';
-          const stateSelect = document.getElementById('input-state');
-          document.getElementById('review-state').textContent =
+          const reviewName = document.getElementById('review-name');
+          const reviewEmail = document.getElementById('review-email');
+          const reviewPhone = document.getElementById('review-phone');
+          const reviewAddress = document.getElementById('review-address');
+          const reviewCity = document.getElementById('review-city');
+          const reviewState = document.getElementById('review-state');
+          const reviewZip = document.getElementById('review-zip');
+
+          if (reviewName) reviewName.textContent =
+            (document.getElementById('input-name') as HTMLInputElement)?.value || '--';
+          if (reviewEmail) reviewEmail.textContent =
+            (document.getElementById('input-email') as HTMLInputElement)?.value || '--';
+          if (reviewPhone) reviewPhone.textContent =
+            (document.getElementById('input-phone') as HTMLInputElement)?.value || '--';
+          if (reviewAddress) reviewAddress.textContent =
+            (document.getElementById('input-address') as HTMLInputElement)?.value || '--';
+          if (reviewCity) reviewCity.textContent =
+            (document.getElementById('input-city') as HTMLInputElement)?.value || '--';
+          const stateSelect = document.getElementById('input-state') as any;
+          if (reviewState) reviewState.textContent =
             stateSelect?.value || '--';
-          document.getElementById('review-zip').textContent =
-            document.getElementById('input-zip')?.value || '--';
+          if (reviewZip) reviewZip.textContent =
+            (document.getElementById('input-zip') as HTMLInputElement)?.value || '--';
         }
       }
 
       // Segmented control click navigation
-      indicator.addEventListener('native:change', (e) => {
+      indicator.addEventListener('native:change', (e: CustomEvent) => {
         const idx = steps.indexOf(e.detail.value);
         if (idx >= 0) goToStep(idx);
       });
@@ -224,6 +235,7 @@ const steps = ['personal', 'address', 'review'];
       document.getElementById('btn-submit')?.addEventListener('native:press', () => {
         alert('Account created successfully!');
       });
+    });
   </script>
   <style is:global>
     .wizard-wrapper {

@@ -79,9 +79,12 @@ import Logo from '../../components/Logo.astro';
   </main>
 
   <script>
-    for (const form of document.querySelectorAll('form')) {
-      form.addEventListener('submit', (e) => e.preventDefault());
-    }
+    document.addEventListener('astro:page-load', () => {
+      if (!document.querySelector('.terms-text')) return;
+      for (const form of document.querySelectorAll('form')) {
+        form.addEventListener('submit', (e) => e.preventDefault());
+      }
+    });
   </script>
   <style is:global>
     .auth-centered {

@@ -311,28 +311,32 @@ const codeExamples = {
 
   <script>
 import { logPrepend } from '../../scripts/event-log';
-// Event logging
-      const eventCombobox = document.getElementById('event-combobox');
-      const eventLog = document.getElementById('event-log');
-      let count = 0;
 
-      eventCombobox.addEventListener('native:change', (e) => {
-        count++;
-        logPrepend(eventLog, `#${count} native:change — value: "${e.detail.value}", label: "${e.detail.label}"`);
-      });
+document.addEventListener('astro:page-load', () => {
+  const eventCombobox = document.getElementById('event-combobox');
+  if (!eventCombobox) return;
 
-      // Form logging
-      const form = document.getElementById('demo-form');
-      const formLog = document.getElementById('form-log');
+  const eventLog = document.getElementById('event-log');
+  let count = 0;
 
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const data = new FormData(form);
-        logPrepend(formLog, `submit — ${[...data.entries()].map(([k, v]) => `${k}: "${v}"`).join(', ')}`);
-      });
+  eventCombobox.addEventListener('native:change', (e) => {
+    count++;
+    logPrepend(eventLog, `#${count} native:change — value: "${e.detail.value}", label: "${e.detail.label}"`);
+  });
 
-      form.addEventListener('reset', () => {
-        logPrepend(formLog, 'reset');
-      });
+  // Form logging
+  const form = document.getElementById('demo-form');
+  const formLog = document.getElementById('form-log');
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    logPrepend(formLog, `submit — ${[...data.entries()].map(([k, v]) => `${k}: "${v}"`).join(', ')}`);
+  });
+
+  form?.addEventListener('reset', () => {
+    logPrepend(formLog, 'reset');
+  });
+});
   </script>
 </SidebarLayout>

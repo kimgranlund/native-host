@@ -418,20 +418,24 @@ const codeExamples = {
 
   <script>
 import { logPrepend } from '../../scripts/event-log';
-// Basic command event logging
-      const basicCommand = document.getElementById('basic-command');
-      const basicLog = document.getElementById('basic-log');
-      let count = 0;
 
-      basicCommand.addEventListener('native:change', (e) => {
-        count++;
-        logPrepend(basicLog, `#${count} native:change — value: "${e.detail.value}", label: "${e.detail.label}"`);
-      });
+document.addEventListener('astro:page-load', () => {
+  const basicCommand = document.getElementById('basic-command');
+  if (!basicCommand) return;
 
-      basicCommand.addEventListener('native:dismiss', () => {
-        count++;
-        logPrepend(basicLog, `#${count} native:dismiss`);
-      });
+  const basicLog = document.getElementById('basic-log');
+  let count = 0;
+
+  basicCommand.addEventListener('native:change', (e) => {
+    count++;
+    logPrepend(basicLog, `#${count} native:change — value: "${e.detail.value}", label: "${e.detail.label}"`);
+  });
+
+  basicCommand.addEventListener('native:dismiss', () => {
+    count++;
+    logPrepend(basicLog, `#${count} native:dismiss`);
+  });
+});
   </script>
   <style is:global>
     .shortcut {

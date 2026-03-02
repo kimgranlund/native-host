@@ -48,9 +48,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   </main>
 
   <script>
-    for (const form of document.querySelectorAll('form')) {
-      form.addEventListener('submit', (e) => e.preventDefault());
-    }
+    document.addEventListener('astro:page-load', () => {
+      if (!document.querySelector('.otp-center')) return;
+      for (const form of document.querySelectorAll('form')) {
+        form.addEventListener('submit', (e) => e.preventDefault());
+      }
+    });
   </script>
   <style is:global>
     .auth-centered {

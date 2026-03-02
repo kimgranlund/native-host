@@ -186,65 +186,69 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     </n-stack>
   </main>
   <script>
-    const table = document.getElementById('users-table')!;
-    const body = table.querySelector('n-table-body')!;
-    const columnMap: Record<string, number> = { name: 0, email: 1, role: 3 };
-    const searchInput = document.getElementById('table-search') as HTMLInputElement;
-    const statusFilter = document.getElementById('table-status-filter') as HTMLSelectElement;
-    const roleFilter = document.getElementById('table-role-filter') as HTMLSelectElement;
-    const pagination = document.querySelector('n-pagination')!;
-    const showingText = document.querySelector('.demo-text-sm')!;
+    document.addEventListener('astro:page-load', () => {
+      const table = document.getElementById('users-table');
+      if (!table) return;
+      const body = table.querySelector('n-table-body');
+      if (!body) return;
+      const columnMap: Record<string, number> = { name: 0, email: 1, role: 3 };
+      const searchInput = document.getElementById('table-search') as HTMLInputElement;
+      const statusFilter = document.getElementById('table-status-filter') as HTMLSelectElement;
+      const roleFilter = document.getElementById('table-role-filter') as HTMLSelectElement;
+      const pagination = document.querySelector('n-pagination');
+      const showingText = document.querySelector('.demo-text-sm');
 
-    // Sort
-    table.addEventListener('native:table-sort', (e: any) => {
-      const { column, direction } = e.detail;
-      if (direction === 'none') return;
-      const colIndex = columnMap[column];
-      if (colIndex === undefined) return;
-      const rows = [...body.querySelectorAll('n-table-row')];
-      rows.sort((a, b) => {
-        const aVal = a.querySelectorAll('n-table-cell')[colIndex].textContent!.trim();
-        const bVal = b.querySelectorAll('n-table-cell')[colIndex].textContent!.trim();
-        const cmp = aVal.localeCompare(bVal, undefined, { numeric: true });
-        return direction === 'asc' ? cmp : -cmp;
+      // Sort
+      table.addEventListener('native:table-sort', (e: any) => {
+        const { column, direction } = e.detail;
+        if (direction === 'none') return;
+        const colIndex = columnMap[column];
+        if (colIndex === undefined) return;
+        const rows = [...body.querySelectorAll('n-table-row')];
+        rows.sort((a, b) => {
+          const aVal = a.querySelectorAll('n-table-cell')[colIndex]?.textContent?.trim() ?? '';
+          const bVal = b.querySelectorAll('n-table-cell')[colIndex]?.textContent?.trim() ?? '';
+          const cmp = aVal.localeCompare(bVal, undefined, { numeric: true });
+          return direction === 'asc' ? cmp : -cmp;
+        });
+        for (const row of rows) body.appendChild(row);
       });
-      for (const row of rows) body.appendChild(row);
-    });
 
-    // Filter rows by search, status, and role
-    function filterRows() {
-      const query = (searchInput?.value || '').toLowerCase();
-      const status = (statusFilter?.value || 'all').toLowerCase();
-      const role = (roleFilter?.value || 'all').toLowerCase();
-      const rows = body.querySelectorAll('n-table-row');
-      let visible = 0;
-      for (const row of rows) {
-        const cells = row.querySelectorAll('n-table-cell');
-        const name = cells[0]?.textContent?.trim().toLowerCase() || '';
-        const email = cells[1]?.textContent?.trim().toLowerCase() || '';
-        const rowStatus = cells[2]?.textContent?.trim().toLowerCase() || '';
-        const rowRole = cells[3]?.textContent?.trim().toLowerCase() || '';
-        const matchesSearch = !query || name.includes(query) || email.includes(query);
-        const matchesStatus = status === 'all' || rowStatus === status;
-        const matchesRole = role === 'all' || rowRole === role;
-        const show = matchesSearch && matchesStatus && matchesRole;
-        (row as HTMLElement).style.display = show ? '' : 'none';
-        if (show) visible++;
+      // Filter rows by search, status, and role
+      function filterRows() {
+        const query = (searchInput?.value || '').toLowerCase();
+        const status = (statusFilter?.value || 'all').toLowerCase();
+        const role = (roleFilter?.value || 'all').toLowerCase();
+        const rows = body.querySelectorAll('n-table-row');
+        let visible = 0;
+        for (const row of rows) {
+          const cells = row.querySelectorAll('n-table-cell');
+          const name = cells[0]?.textContent?.trim().toLowerCase() || '';
+          const email = cells[1]?.textContent?.trim().toLowerCase() || '';
+          const rowStatus = cells[2]?.textContent?.trim().toLowerCase() || '';
+          const rowRole = cells[3]?.textContent?.trim().toLowerCase() || '';
+          const matchesSearch = !query || name.includes(query) || email.includes(query);
+          const matchesStatus = status === 'all' || rowStatus === status;
+          const matchesRole = role === 'all' || rowRole === role;
+          const show = matchesSearch && matchesStatus && matchesRole;
+          (row as HTMLElement).style.display = show ? '' : 'none';
+          if (show) visible++;
+        }
+        if (showingText) showingText.textContent = `Showing ${visible} of ${rows.length} users`;
       }
-      showingText.textContent = `Showing ${visible} of ${rows.length} users`;
-    }
 
-    searchInput?.addEventListener('input', filterRows);
-    statusFilter?.addEventListener('native:change', filterRows);
-    roleFilter?.addEventListener('native:change', filterRows);
+      searchInput?.addEventListener('input', filterRows);
+      statusFilter?.addEventListener('native:change', filterRows);
+      roleFilter?.addEventListener('native:change', filterRows);
 
-    // Pagination (decorative — updates label text)
-    pagination?.addEventListener('native:change', (e: any) => {
-      const page = e.detail.value;
-      const perPage = 10;
-      const start = (page - 1) * perPage + 1;
-      const end = Math.min(page * perPage, 87);
-      showingText.textContent = `Showing ${start}-${end} of 87 users`;
+      // Pagination (decorative — updates label text)
+      pagination?.addEventListener('native:change', (e: any) => {
+        const page = e.detail.value;
+        const perPage = 10;
+        const start = (page - 1) * perPage + 1;
+        const end = Math.min(page * perPage, 87);
+        if (showingText) showingText.textContent = `Showing ${start}-${end} of 87 users`;
+      });
     });
   </script>
   <style is:global>

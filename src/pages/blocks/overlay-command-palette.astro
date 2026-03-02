@@ -126,11 +126,13 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   </main>
 
   <script>
-const dialog = document.getElementById('palette-dialog');
+    document.addEventListener('astro:page-load', () => {
+      const dialog = document.getElementById('palette-dialog') as any;
+      if (!dialog) return;
       const command = document.getElementById('palette-command');
 
       // Open via button
-      document.getElementById('open-palette').addEventListener('native:press', () => {
+      document.getElementById('open-palette')?.addEventListener('native:press', () => {
         dialog.showModal();
       });
 
@@ -143,14 +145,15 @@ const dialog = document.getElementById('palette-dialog');
       });
 
       // Close dialog on command selection
-      command.addEventListener('native:change', (e) => {
+      command?.addEventListener('native:change', () => {
         dialog.close();
       });
 
       // Close dialog on Escape (native:dismiss from command)
-      command.addEventListener('native:dismiss', () => {
+      command?.addEventListener('native:dismiss', () => {
         dialog.close();
       });
+    });
   </script>
   <style is:global>
     .dialog-panel {

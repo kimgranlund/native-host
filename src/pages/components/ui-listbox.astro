@@ -397,36 +397,41 @@ const codeExamples = {
 
   <script>
 import { logPrepend } from '../../scripts/event-log';
-// Basic listbox value tracking
-      const basicListbox = document.getElementById('basic-listbox');
-      const basicValue = document.getElementById('basic-value');
 
-      basicListbox.addEventListener('native:change', (e) => {
-        basicValue.textContent = e.detail.value;
-      });
+document.addEventListener('astro:page-load', () => {
+  const basicListbox = document.getElementById('basic-listbox');
+  if (!basicListbox) return;
 
-      // Pre-select "medium"
-      const preListbox = document.getElementById('preselected-listbox');
-      preListbox.addEventListener('native:change', () => {});
-      // Programmatic select after element setup
-      preListbox.ready.then(() => {
-        preListbox.controller.select('medium');
-      });
+  // Basic listbox value tracking
+  const basicValue = document.getElementById('basic-value');
 
-      // Event logging
-      const eventListbox = document.getElementById('event-listbox');
-      const eventLog = document.getElementById('event-log');
-      let eventCount = 0;
+  basicListbox.addEventListener('native:change', (e) => {
+    if (basicValue) basicValue.textContent = e.detail.value;
+  });
 
-      eventListbox.addEventListener('native:select', (e) => {
-        eventCount++;
-        logPrepend(eventLog, `#${eventCount} native:select — value: "${e.detail.value}", label: "${e.detail.label}"`);
-      });
+  // Pre-select "medium"
+  const preListbox = document.getElementById('preselected-listbox');
+  preListbox?.addEventListener('native:change', () => {});
+  // Programmatic select after element setup
+  preListbox?.ready.then(() => {
+    preListbox.controller.select('medium');
+  });
 
-      eventListbox.addEventListener('native:change', (e) => {
-        eventCount++;
-        logPrepend(eventLog, `#${eventCount} native:change — value: "${e.detail.value}", label: "${e.detail.label}"`);
-      });
+  // Event logging
+  const eventListbox = document.getElementById('event-listbox');
+  const eventLog = document.getElementById('event-log');
+  let eventCount = 0;
+
+  eventListbox?.addEventListener('native:select', (e) => {
+    eventCount++;
+    logPrepend(eventLog, `#${eventCount} native:select — value: "${e.detail.value}", label: "${e.detail.label}"`);
+  });
+
+  eventListbox?.addEventListener('native:change', (e) => {
+    eventCount++;
+    logPrepend(eventLog, `#${eventCount} native:change — value: "${e.detail.value}", label: "${e.detail.label}"`);
+  });
+});
   </script>
   <style is:global>
     .value-display {

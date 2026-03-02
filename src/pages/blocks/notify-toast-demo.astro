@@ -109,42 +109,46 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   </main>
 
   <script>
-import { NativeElement, define, ToastController } from '@nonoun/native-ui';
-// Custom element with ToastController to host toast calls
-      class ToastDemo extends NativeElement {
-        #toaster;
-        setup() {
-          super.setup();
-          this.#toaster = new ToastController(this);
-        }
-        toast(options) { return this.#toaster.toast(options); }
-        dismissAllToasts() { this.#toaster.dismissAllToasts(); }
-        teardown() { this.#toaster.destroy(); super.teardown(); }
-      }
-      define('toast-demo', ToastDemo);
+    import { NativeElement, define, ToastController } from '@nonoun/native-ui';
 
-      const host = document.createElement('toast-demo');
+    // Custom element with ToastController to host toast calls
+    class ToastDemo extends NativeElement {
+      #toaster: ToastController;
+      setup() {
+        super.setup();
+        this.#toaster = new ToastController(this);
+      }
+      toast(options: any) { return this.#toaster.toast(options); }
+      dismissAllToasts() { this.#toaster.dismissAllToasts(); }
+      teardown() { this.#toaster.destroy(); super.teardown(); }
+    }
+    define('toast-demo', ToastDemo);
+
+    document.addEventListener('astro:page-load', () => {
+      if (!document.getElementById('toast-default')) return;
+
+      const host = document.createElement('toast-demo') as ToastDemo;
       document.body.appendChild(host);
 
       // Intent variant buttons
-      document.getElementById('toast-default').addEventListener('native:press', () => {
+      document.getElementById('toast-default')?.addEventListener('native:press', () => {
         host.toast({ message: 'This is a default notification.' });
       });
-      document.getElementById('toast-info').addEventListener('native:press', () => {
+      document.getElementById('toast-info')?.addEventListener('native:press', () => {
         host.toast({ message: 'A new version is available. Refresh to update.', intent: 'info' });
       });
-      document.getElementById('toast-success').addEventListener('native:press', () => {
+      document.getElementById('toast-success')?.addEventListener('native:press', () => {
         host.toast({ message: 'Project saved successfully!', intent: 'success' });
       });
-      document.getElementById('toast-warning').addEventListener('native:press', () => {
+      document.getElementById('toast-warning')?.addEventListener('native:press', () => {
         host.toast({ message: 'Your session will expire in 5 minutes.', intent: 'warning' });
       });
-      document.getElementById('toast-danger').addEventListener('native:press', () => {
+      document.getElementById('toast-danger')?.addEventListener('native:press', () => {
         host.toast({ message: 'Failed to delete the resource. Please try again.', intent: 'danger' });
       });
 
       // Long message
-      document.getElementById('toast-long').addEventListener('native:press', () => {
+      document.getElementById('toast-long')?.addEventListener('native:press', () => {
         host.toast({
           message: 'This is a much longer toast notification message designed to test how the toast component handles multi-line content and text wrapping behavior within the container.',
           intent: 'info',
@@ -153,7 +157,7 @@ import { NativeElement, define, ToastController } from '@nonoun/native-ui';
       });
 
       // Non-dismissible (sticky) toast
-      document.getElementById('toast-sticky').addEventListener('native:press', () => {
+      document.getElementById('toast-sticky')?.addEventListener('native:press', () => {
         host.toast({
           message: 'This toast will not auto-dismiss. You must close it manually.',
           intent: 'warning',
@@ -162,7 +166,7 @@ import { NativeElement, define, ToastController } from '@nonoun/native-ui';
       });
 
       // Batch spawn
-      document.getElementById('toast-batch').addEventListener('native:press', () => {
+      document.getElementById('toast-batch')?.addEventListener('native:press', () => {
         const intents = ['info', 'success', 'warning', 'danger', 'info'];
         const messages = [
           'Syncing project data...',
@@ -179,9 +183,10 @@ import { NativeElement, define, ToastController } from '@nonoun/native-ui';
       });
 
       // Dismiss all
-      document.getElementById('toast-clear').addEventListener('native:press', () => {
+      document.getElementById('toast-clear')?.addEventListener('native:press', () => {
         host.dismissAllToasts();
       });
+    });
   </script>
   <style is:global>
     .toast-trigger-btn {

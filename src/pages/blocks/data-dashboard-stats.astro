@@ -339,16 +339,19 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     </n-stack>
   </main>
   <script>
-    const pagination = document.querySelector('n-pagination')!;
-    const tableInfo = document.querySelector('.table-info')!;
+    document.addEventListener('astro:page-load', () => {
+      const pagination = document.querySelector('n-pagination');
+      const tableInfo = document.querySelector('.table-info');
+      if (!pagination || !tableInfo) return;
 
-    pagination?.addEventListener('native:change', (e: any) => {
-      const page = e.detail.value;
-      const perPage = 6;
-      const total = 48;
-      const start = (page - 1) * perPage + 1;
-      const end = Math.min(page * perPage, total);
-      tableInfo.textContent = `Showing ${start}-${end} of ${total} orders`;
+      pagination.addEventListener('native:change', (e: any) => {
+        const page = e.detail.value;
+        const perPage = 6;
+        const total = 48;
+        const start = (page - 1) * perPage + 1;
+        const end = Math.min(page * perPage, total);
+        tableInfo.textContent = `Showing ${start}-${end} of ${total} orders`;
+      });
     });
   </script>
   <style is:global>

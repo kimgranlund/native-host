@@ -227,44 +227,47 @@ const codeExamples = {
 
   <script>
 import { logPrepend } from '../../scripts/event-log';
-// Change event logging
-      const eventSw = document.getElementById('event-sw');
-      const eventLog = document.getElementById('event-log');
-      let count = 0;
 
-      eventSw.addEventListener('native:change', (e) => {
-        count++;
-        logPrepend(eventLog, `#${count} native:change — checked: ${e.detail.checked}, value: "${e.detail.value}"`);
-      });
+document.addEventListener('astro:page-load', () => {
+  const eventSw = document.getElementById('event-sw');
+  if (!eventSw) return;
+  const eventLog = document.getElementById('event-log');
+  let count = 0;
 
-      // Form logging
-      const form = document.getElementById('demo-form');
-      const formLog = document.getElementById('form-log');
+  eventSw.addEventListener('native:change', (e) => {
+    count++;
+    logPrepend(eventLog, `#${count} native:change — checked: ${e.detail.checked}, value: "${e.detail.value}"`);
+  });
 
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const data = new FormData(form);
-        const entries = [...data.entries()].map(([k, v]) => `${k}=${v}`).join(', ');
-        logPrepend(formLog, `submit — ${entries || '(empty)'}`);
-      });
+  // Form logging
+  const form = document.getElementById('demo-form');
+  const formLog = document.getElementById('form-log');
 
-      form.addEventListener('reset', () => {
-        logPrepend(formLog, 'reset');
-      });
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const entries = [...data.entries()].map(([k, v]) => `${k}=${v}`).join(', ');
+    logPrepend(formLog, `submit — ${entries || '(empty)'}`);
+  });
 
-      // Terms form logging
-      const termsForm = document.getElementById('terms-form');
-      const termsLog = document.getElementById('terms-log');
+  form?.addEventListener('reset', () => {
+    logPrepend(formLog, 'reset');
+  });
 
-      termsForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const data = new FormData(termsForm);
-        const entries = [...data.entries()].map(([k, v]) => `${k}=${v}`).join(', ');
-        logPrepend(termsLog, `submit — ${entries || '(empty)'}`);
-      });
+  // Terms form logging
+  const termsForm = document.getElementById('terms-form');
+  const termsLog = document.getElementById('terms-log');
 
-      termsForm.addEventListener('reset', () => {
-        logPrepend(termsLog, 'reset');
-      });
+  termsForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const data = new FormData(termsForm);
+    const entries = [...data.entries()].map(([k, v]) => `${k}=${v}`).join(', ');
+    logPrepend(termsLog, `submit — ${entries || '(empty)'}`);
+  });
+
+  termsForm?.addEventListener('reset', () => {
+    logPrepend(termsLog, 'reset');
+  });
+});
   </script>
 </SidebarLayout>

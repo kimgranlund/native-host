@@ -181,88 +181,91 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   </main>
 
   <script>
-    const board = document.getElementById('kanban-board')!;
-    const filterInput = document.querySelector('.kanban-filter') as HTMLInputElement;
-    let lastPointerX = 0;
-    let lastPointerY = 0;
+    document.addEventListener('astro:page-load', () => {
+      const board = document.getElementById('kanban-board');
+      if (!board) return;
+      const filterInput = document.querySelector('.kanban-filter') as HTMLInputElement;
+      let lastPointerX = 0;
+      let lastPointerY = 0;
 
-    // Filter cards by title text
-    filterInput?.addEventListener('input', () => {
-      const query = (filterInput.value || '').toLowerCase();
-      for (const card of board.querySelectorAll('.kanban-card')) {
-        const title = card.querySelector('.kanban-card-title')?.textContent?.toLowerCase() || '';
-        (card as HTMLElement).style.display = title.includes(query) ? '' : 'none';
-      }
-      updateCounts();
-    });
-
-    function updateCounts() {
-      board.querySelectorAll('.kanban-column').forEach((col) => {
-        const cards = col.querySelectorAll('.kanban-card');
-        let count = 0;
-        for (const c of cards) if ((c as HTMLElement).style.display !== 'none') count++;
-        const badge = col.querySelector('.kanban-count');
-        if (badge) badge.textContent = String(count);
+      // Filter cards by title text
+      filterInput?.addEventListener('input', () => {
+        const query = (filterInput.value || '').toLowerCase();
+        for (const card of board.querySelectorAll('.kanban-card')) {
+          const title = card.querySelector('.kanban-card-title')?.textContent?.toLowerCase() || '';
+          (card as HTMLElement).style.display = title.includes(query) ? '' : 'none';
+        }
+        updateCounts();
       });
-    }
 
-    function findClosestColumn(x) {
-      const columns = board.querySelectorAll('.kanban-column-body');
-      let closest = null;
-      let closestDist = Infinity;
-      for (const col of columns) {
-        const rect = col.getBoundingClientRect();
-        const dist = Math.abs(rect.left + rect.width / 2 - x);
-        if (dist < closestDist) {
-          closestDist = dist;
-          closest = col;
-        }
+      function updateCounts() {
+        board.querySelectorAll('.kanban-column').forEach((col) => {
+          const cards = col.querySelectorAll('.kanban-card');
+          let count = 0;
+          for (const c of cards) if ((c as HTMLElement).style.display !== 'none') count++;
+          const badge = col.querySelector('.kanban-count');
+          if (badge) badge.textContent = String(count);
+        });
       }
-      return closest;
-    }
 
-    function clearHighlights() {
-      board.querySelectorAll('[drag-target]').forEach((el) => el.removeAttribute('drag-target'));
-    }
-
-    // Track pointer and highlight target column
-    board.addEventListener('native:drag-move', (e) => {
-      const { x, y } = e.detail;
-      lastPointerX = x;
-      lastPointerY = y;
-      clearHighlights();
-      const target = findClosestColumn(x);
-      if (target) target.setAttribute('drag-target', '');
-    });
-
-    board.addEventListener('native:drag-cancel', clearHighlights);
-
-    board.addEventListener('native:drop', (e) => {
-      clearHighlights();
-      const { item, insertBefore } = e.detail;
-      if (!item) return;
-
-      if (insertBefore) {
-        insertBefore.before(item);
-      } else {
-        // Use tracked pointer position to find the target column
-        const target = findClosestColumn(lastPointerX);
-        if (target) {
-          // Find insertion position within the column based on pointer Y
-          const cards = [...target.querySelectorAll('.kanban-card')].filter((c) => c !== item);
-          let inserted = false;
-          for (const card of cards) {
-            const rect = card.getBoundingClientRect();
-            if (lastPointerY < rect.top + rect.height / 2) {
-              card.before(item);
-              inserted = true;
-              break;
-            }
+      function findClosestColumn(x: number) {
+        const columns = board.querySelectorAll('.kanban-column-body');
+        let closest: Element | null = null;
+        let closestDist = Infinity;
+        for (const col of columns) {
+          const rect = col.getBoundingClientRect();
+          const dist = Math.abs(rect.left + rect.width / 2 - x);
+          if (dist < closestDist) {
+            closestDist = dist;
+            closest = col;
           }
-          if (!inserted) target.appendChild(item);
         }
+        return closest;
       }
-      updateCounts();
+
+      function clearHighlights() {
+        board.querySelectorAll('[drag-target]').forEach((el) => el.removeAttribute('drag-target'));
+      }
+
+      // Track pointer and highlight target column
+      board.addEventListener('native:drag-move', ((e: CustomEvent) => {
+        const { x, y } = e.detail;
+        lastPointerX = x;
+        lastPointerY = y;
+        clearHighlights();
+        const target = findClosestColumn(x);
+        if (target) target.setAttribute('drag-target', '');
+      }) as EventListener);
+
+      board.addEventListener('native:drag-cancel', clearHighlights);
+
+      board.addEventListener('native:drop', ((e: CustomEvent) => {
+        clearHighlights();
+        const { item, insertBefore } = e.detail;
+        if (!item) return;
+
+        if (insertBefore) {
+          insertBefore.before(item);
+        } else {
+          // Use tracked pointer position to find the target column
+          const target = findClosestColumn(lastPointerX);
+          if (target) {
+            // Find insertion position within the column based on pointer Y
+            const cards = [...target.querySelectorAll('.kanban-card')].filter((c) => c !== item);
+            let inserted = false;
+            for (const card of cards) {
+              const rect = card.getBoundingClientRect();
+              if (lastPointerY < rect.top + rect.height / 2) {
+                card.before(item);
+                inserted = true;
+                break;
+              }
+            }
+            if (!inserted) target.appendChild(item);
+          }
+        }
+        updateCounts();
+      }) as EventListener);
     });
   </script>
   <style is:global>

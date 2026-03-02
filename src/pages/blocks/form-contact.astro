@@ -71,7 +71,11 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   </main>
 
   <script>
-    document.getElementById('contact-form')?.addEventListener('submit', (e) => e.preventDefault());
+    document.addEventListener('astro:page-load', () => {
+      const form = document.getElementById('contact-form');
+      if (!form) return;
+      form.addEventListener('submit', (e) => e.preventDefault());
+    });
   </script>
   <style is:global>
     .form-wrapper {

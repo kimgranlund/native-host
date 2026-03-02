@@ -232,29 +232,34 @@ const codeExamples = {
 
   <script>
 import { logPrepend } from '../../scripts/event-log';
-// Basic nav value tracking
-      const basicNav = document.getElementById('basic-nav');
-      const basicValue = document.getElementById('basic-value');
-      basicNav.addEventListener('native:change', (e) => {
-        basicValue.textContent = e.detail.value;
-      });
 
-      // Grouped nav value tracking
-      const groupedNav = document.getElementById('grouped-nav');
-      const groupedValue = document.getElementById('grouped-value');
-      groupedNav.addEventListener('native:change', (e) => {
-        groupedValue.textContent = e.detail.value;
-      });
+document.addEventListener('astro:page-load', () => {
+  const basicNav = document.getElementById('basic-nav');
+  if (!basicNav) return;
 
-      // Event logging
-      const eventNav = document.getElementById('event-nav');
-      const eventLog = document.getElementById('event-log');
-      let eventCount = 0;
+  // Basic nav value tracking
+  const basicValue = document.getElementById('basic-value');
+  basicNav.addEventListener('native:change', (e) => {
+    if (basicValue) basicValue.textContent = e.detail.value;
+  });
 
-      eventNav.addEventListener('native:change', (e) => {
-        eventCount++;
-        logPrepend(eventLog, `#${eventCount} native:change — value: "${e.detail.value}"`);
-      });
+  // Grouped nav value tracking
+  const groupedNav = document.getElementById('grouped-nav');
+  const groupedValue = document.getElementById('grouped-value');
+  groupedNav?.addEventListener('native:change', (e) => {
+    if (groupedValue) groupedValue.textContent = e.detail.value;
+  });
+
+  // Event logging
+  const eventNav = document.getElementById('event-nav');
+  const eventLog = document.getElementById('event-log');
+  let eventCount = 0;
+
+  eventNav?.addEventListener('native:change', (e) => {
+    eventCount++;
+    logPrepend(eventLog, `#${eventCount} native:change — value: "${e.detail.value}"`);
+  });
+});
   </script>
   <style is:global>
     .value-display {

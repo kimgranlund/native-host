@@ -112,17 +112,22 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   </main>
 
   <script>
-function wire(openId, dialogId, closeIds) {
-        const dialog = document.getElementById(dialogId);
-        document.getElementById(openId).addEventListener('native:press', () => dialog.showModal());
+    document.addEventListener('astro:page-load', () => {
+      if (!document.getElementById('info-dialog')) return;
+
+      function wire(openId: string, dialogId: string, closeIds: string[]) {
+        const dialog = document.getElementById(dialogId) as any;
+        if (!dialog) return;
+        document.getElementById(openId)?.addEventListener('native:press', () => dialog.showModal());
         for (const id of closeIds) {
-          document.getElementById(id).addEventListener('native:press', () => dialog.close());
+          document.getElementById(id)?.addEventListener('native:press', () => dialog.close());
         }
       }
 
       wire('open-info', 'info-dialog', ['info-cancel', 'info-confirm']);
       wire('open-warning', 'warning-dialog', ['warning-discard', 'warning-save']);
       wire('open-danger', 'danger-dialog', ['danger-cancel', 'danger-confirm']);
+    });
   </script>
   <style is:global>
 
