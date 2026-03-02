@@ -36,6 +36,7 @@
 .nav-logo {
   display: flex;
   flex-shrink: 0;
+  color: var(--n-ink-strong-neutral);
 }
 
 /* Search hint */
