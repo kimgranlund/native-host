@@ -6,19 +6,25 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
     "@astrojs/vercel": "^9.0.4",
+    "@libsql/client": "^0.17.0",
     "@nonoun/native-app": "^0.2.2",
     "@nonoun/native-codemirror": "^0.2.5",
     "@nonoun/native-editor": "^0.2.4",
     "@nonoun/native-playground": "^0.2.4",
     "@nonoun/native-tokens": "^0.4.2",
     "@nonoun/native-ui": "^0.5.7",
-    "astro": "^5.17.1"
+    "astro": "^5.17.1",
+    "drizzle-orm": "^0.45.1"
   },
   "devDependencies": {
-    "@phosphor-icons/core": "^2.1.1"
+    "@phosphor-icons/core": "^2.1.1",
+    "drizzle-kit": "^0.31.9"
   }
 }
