@@ -141,65 +141,53 @@ const codeExamples = {
   </main>
 
   <script>
-import { NativeElement, define } from "@nonoun/native-ui";
-// ── Minimal NativeElement shell for injection demos ──
-      // No custom logic — traits="collapsible" does all the work.
-      // getTraitController('collapsible') provides programmatic access.
+    import { NativeElement, define } from '@nonoun/native-ui';
 
+    // Define once — guard for view-transition re-visits
+    if (!customElements.get('collapse-demo')) {
       class CollapseDemo extends NativeElement {}
       define('collapse-demo', CollapseDemo);
+    }
 
-      // ── Event logging ──
+    // Re-wire on every navigation (view transitions)
+    document.addEventListener('astro:page-load', () => {
+      const section1 = document.getElementById('section1');
+      if (!section1) return; // not on this page
 
+      // Event logging
       const logEl = document.getElementById('log');
       let count = 0;
-      function log(msg) {
+      function log(msg: string) {
         count++;
         const line = document.createElement('div');
         line.textContent = `#${count} ${msg}`;
-        logEl.appendChild(line);
-        logEl.scrollTop = logEl.scrollHeight;
+        logEl?.appendChild(line);
+        if (logEl) logEl.scrollTop = logEl.scrollHeight;
       }
 
-      // ── Basic toggle ──
-
-      const section1 = document.getElementById('section1');
-      document.getElementById('toggle-btn').addEventListener('native:press', () => {
-        section1.getTraitController('collapsible').toggle();
+      // Basic toggle
+      document.getElementById('toggle-btn')?.addEventListener('native:press', () => {
+        (section1 as any).getTraitController('collapsible').toggle();
       });
       section1.addEventListener('native:expand', () => log('Expanded'));
       section1.addEventListener('native:collapse', () => log('Collapsed'));
 
-      // ── Initially collapsed ──
-
+      // Initially collapsed
       const section2 = document.getElementById('section2');
-      document.getElementById('expand-btn').addEventListener('native:press', () => {
-        const ctrl = section2.getTraitController('collapsible');
-        if (ctrl.collapsed) {
-          ctrl.expand();
-        } else {
-          ctrl.collapse();
-        }
+      document.getElementById('expand-btn')?.addEventListener('native:press', () => {
+        const ctrl = (section2 as any).getTraitController('collapsible');
+        if (ctrl.collapsed) ctrl.expand();
+        else ctrl.collapse();
       });
 
-      // ── Custom duration (500ms) ──
-
+      // Custom duration (500ms)
       const section3 = document.getElementById('section3');
-      document.getElementById('slow-btn').addEventListener('native:press', () => {
-        section3.getTraitController('collapsible').toggle();
+      document.getElementById('slow-btn')?.addEventListener('native:press', () => {
+        (section3 as any).getTraitController('collapsible').toggle();
       });
+    });
   </script>
   <style is:global>
-    .collapse-section {
-      display: block;
-      overflow: hidden;
-    }
-
-    .collapse-section[collapsed] {
-      height: 0;
-      overflow: clip;
-    }
-
     .collapse-content {
       padding: 1rem;
       background: var(--n-surface-accent);
@@ -222,7 +210,14 @@ import { NativeElement, define } from "@nonoun/native-ui";
       border-radius: 0.25rem;
     }
 
-    /* ── Code Blocks ── */
+    collapse-demo {
+      display: block;
+    }
+
+    collapse-demo[collapsed] {
+      height: 0;
+      overflow: clip;
+    }
 </style>
 
 </SidebarLayout>

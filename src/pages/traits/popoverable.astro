@@ -143,37 +143,43 @@ popover.syncPopover(open.value);`,
   </main>
 
   <script>
-import { effect, signal, PopoverController } from "@nonoun/native-ui";
+    import { effect, signal, PopoverController } from '@nonoun/native-ui';
 
-      // ── Helper: wire a popover instance ──
+    // ── Helper: wire a popover instance ──
 
-      function wirePopDemo(hostId, triggerId, contentId) {
-        const host = document.getElementById(hostId);
-        const trigger = document.getElementById(triggerId);
-        const content = document.getElementById(contentId);
-        const popover = new PopoverController(host);
-        const open = signal(false);
+    function wirePopDemo(hostId: string, triggerId: string, contentId: string) {
+      const host = document.getElementById(hostId);
+      const trigger = document.getElementById(triggerId);
+      const content = document.getElementById(contentId);
+      if (!host || !trigger || !content) return;
 
-        popover.wirePopover(trigger, content);
+      const popover = new PopoverController(host);
+      const open = signal(false);
 
-        trigger.addEventListener('native:press', () => {
-          open.value = !open.value;
-        });
+      popover.wirePopover(trigger, content);
 
-        host.addEventListener('native:dismiss', () => {
-          open.value = false;
-        });
+      trigger.addEventListener('native:press', () => {
+        open.value = !open.value;
+      });
 
-        effect(() => {
-          popover.syncPopover(open.value);
-        });
-      }
+      host.addEventListener('native:dismiss', () => {
+        open.value = false;
+      });
 
-      // ── Wire all popover demos ──
+      effect(() => {
+        popover.syncPopover(open.value);
+      });
+    }
+
+    // ── Wire all popover demos ──
+
+    document.addEventListener('astro:page-load', () => {
+      if (!document.getElementById('pop-1')) return;
 
       wirePopDemo('pop-1', 'pop-trigger-1', 'pop-content-1');
       wirePopDemo('pop-2', 'pop-trigger-2', 'pop-content-2');
       wirePopDemo('pop-3', 'pop-trigger-3', 'pop-content-3');
+    });
   </script>
   <style is:global>
     .pop-content {

@@ -24,10 +24,10 @@ const prefs = parsePreferences(Astro.cookies);
     </style>
   </head>
   <body>
-    <slot />
     <script>
       import '../scripts/icons';
       import '../scripts/setup';
     </script>
+    <slot />
   </body>
 </html>

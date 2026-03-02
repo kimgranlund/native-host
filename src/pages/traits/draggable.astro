@@ -331,12 +331,31 @@ const detailItem = `{ item }`;
   </main>
 
   <script>
-import { logAppend as appendLog } from '../../scripts/event-log';
+    import { logAppend as appendLog } from '../../scripts/event-log';
+
+    // Helper: listen on the n-controller parent (events dispatch on the host,
+    // not on children — they bubble UP, not down).
+    function ctrl(child: Element | null) {
+      return child?.closest('n-controller') ?? null;
+    }
+
+    document.addEventListener('astro:page-load', () => {
+      const swapList = document.getElementById('swap-list');
+      if (!swapList) return; // not on this page
+
+      const swapLogEl = document.getElementById('swap-log');
+      const replaceLogEl = document.getElementById('replace-log');
+      const slotLogEl = document.getElementById('slot-log');
+      const previewLogEl = document.getElementById('preview-log');
+
+      function swapLog(msg: string) { appendLog(swapLogEl!, msg); }
+      function replaceLog(msg: string) { appendLog(replaceLogEl!, msg); }
+      function slotLog(msg: string) { appendLog(slotLogEl!, msg); }
+      function previewLog(msg: string) { appendLog(previewLogEl!, msg); }
 
       // ── Drop mode — swap ──
 
-      const swapList = document.getElementById('swap-list');
-      swapList.addEventListener('native:drop', (e) => {
+      ctrl(swapList)?.addEventListener('native:drop', ((e: CustomEvent) => {
         const { item, target } = e.detail;
         if (!target || target === item) return;
         const itemLabel = item.querySelector('.label').textContent;
@@ -346,15 +365,15 @@ import { logAppend as appendLog } from '../../scripts/event-log';
         target.before(item);
         placeholder.replaceWith(target);
         swapLog(`Swapped "${itemLabel}" ↔ "${targetLabel}"`);
-      });
-      swapList.addEventListener('native:drag-cancel', (e) => {
+      }) as EventListener);
+      ctrl(swapList)?.addEventListener('native:drag-cancel', ((e: CustomEvent) => {
         swapLog(`Cancelled: "${e.detail.item.querySelector('.label').textContent}"`);
-      });
+      }) as EventListener);
 
       // ── Drop mode — replace ──
 
       const replaceList = document.getElementById('replace-list');
-      replaceList.addEventListener('native:drop', (e) => {
+      ctrl(replaceList)?.addEventListener('native:drop', ((e: CustomEvent) => {
         const { item, target } = e.detail;
         if (!target) return;
         const slot = target.querySelector('.role-assignee');
@@ -362,56 +381,45 @@ import { logAppend as appendLog } from '../../scripts/event-log';
         const role = target.querySelector('.role-name').textContent;
         slot.textContent = name;
         replaceLog(`Assigned "${name}" → ${role}`);
-      });
+      }) as EventListener);
 
       // ── Slot mode — vertical list ──
 
       const slotList = document.getElementById('slot-list');
-      slotList.addEventListener('native:drop', (e) => {
+      ctrl(slotList)?.addEventListener('native:drop', ((e: CustomEvent) => {
         const { item, insertBefore, fromIndex, toIndex } = e.detail;
         if (toIndex === -1) return;
         if (insertBefore) {
           insertBefore.before(item);
         } else {
-          slotList.appendChild(item);
+          slotList!.appendChild(item);
         }
         slotLog(`Inserted "${item.querySelector('.label').textContent}" at position ${toIndex}`);
-      });
+      }) as EventListener);
 
       // ── Slot mode — horizontal cards ──
 
       const cardRow = document.getElementById('card-row');
-      cardRow.addEventListener('native:drop', (e) => {
+      ctrl(cardRow)?.addEventListener('native:drop', ((e: CustomEvent) => {
         const { item, insertBefore } = e.detail;
         if (insertBefore) {
           insertBefore.before(item);
         } else {
-          cardRow.appendChild(item);
+          cardRow!.appendChild(item);
         }
-      });
+      }) as EventListener);
 
       // ── Preview mode — grid reorder ──
 
       const previewGrid = document.getElementById('preview-grid');
-      previewGrid.addEventListener('native:drop', (e) => {
+      ctrl(previewGrid)?.addEventListener('native:drop', ((e: CustomEvent) => {
         const { item, fromIndex, toIndex } = e.detail;
         previewLog(`Moved cell ${item.textContent.trim()} from position ${fromIndex} → ${toIndex}`);
-      });
-      previewGrid.addEventListener('native:drag-cancel', (e) => {
+      }) as EventListener);
+      ctrl(previewGrid)?.addEventListener('native:drag-cancel', ((e: CustomEvent) => {
         previewLog(`Cancelled: cell ${e.detail.item.textContent.trim()} restored`);
-      });
-
-      const swapLogEl = document.getElementById('swap-log');
-      function swapLog(msg) { appendLog(swapLogEl, msg); }
-
-      const replaceLogEl = document.getElementById('replace-log');
-      function replaceLog(msg) { appendLog(replaceLogEl, msg); }
-
-      const slotLogEl = document.getElementById('slot-log');
-      function slotLog(msg) { appendLog(slotLogEl, msg); }
-
-      const previewLogEl = document.getElementById('preview-log');
-      function previewLog(msg) { appendLog(previewLogEl, msg); }
+      }) as EventListener);
+    });
   </script>
   <style is:global>
     /* ── Sortable List ── */
