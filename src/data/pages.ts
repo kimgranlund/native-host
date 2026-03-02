@@ -14,20 +14,22 @@ const dirGroup: Record<string, string> = {
   traits: 'Traits',
   blocks: 'Blocks',
   core: 'Core',
+  packages: 'Packages',
   styles: 'Other',
   a2ui: 'Other',
 };
 
 // Group display order
-const groupOrder = ['Components', 'Containers', 'Traits', 'Blocks', 'Core', 'Other'];
+const groupOrder = ['Components', 'Containers', 'Traits', 'Blocks', 'Core', 'Packages', 'Other'];
 
 // Title overrides for pages where filename ≠ display title
 const titleOverrides: Record<string, string> = {
   '/containers/ui-header': 'Header / Body / Footer',
   '/components/ui-input-otp': 'Input OTP',
   '/components/ui-kbd': 'Kbd',
-  '/components/native-editor': 'Editor',
-  '/components/native-playground': 'Playground',
+  '/packages/native-editor': 'Editor',
+  '/packages/native-playground': 'Playground',
+  '/packages/native-codemirror': 'CodeMirror',
   '/traits/roving-focusable': 'RovingFocusable',
   '/traits/focus-trappable': 'FocusTrappable',
   '/traits/range-selectable': 'RangeSelectable',

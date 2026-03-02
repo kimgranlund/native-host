@@ -51,9 +51,11 @@ import googleLogo from '@phosphor-icons/core/assets/regular/google-logo.svg?raw'
 import gridFour from '@phosphor-icons/core/assets/regular/grid-four.svg?raw';
 import heart from '@phosphor-icons/core/assets/regular/heart.svg?raw';
 import house from '@phosphor-icons/core/assets/regular/house.svg?raw';
+import image from '@phosphor-icons/core/assets/regular/image.svg?raw';
 import keyReturn from '@phosphor-icons/core/assets/regular/key-return.svg?raw';
 import info from '@phosphor-icons/core/assets/regular/info.svg?raw';
 import lightning from '@phosphor-icons/core/assets/regular/lightning.svg?raw';
+import link from '@phosphor-icons/core/assets/regular/link.svg?raw';
 import list from '@phosphor-icons/core/assets/regular/list.svg?raw';
 import listBullets from '@phosphor-icons/core/assets/regular/list-bullets.svg?raw';
 import listNumbers from '@phosphor-icons/core/assets/regular/list-numbers.svg?raw';
@@ -66,6 +68,7 @@ import microphone from '@phosphor-icons/core/assets/regular/microphone.svg?raw';
 import moon from '@phosphor-icons/core/assets/regular/moon.svg?raw';
 import option from '@phosphor-icons/core/assets/regular/option.svg?raw';
 import pkg from '@phosphor-icons/core/assets/regular/package.svg?raw';
+import quotes from '@phosphor-icons/core/assets/regular/quotes.svg?raw';
 import pencilSimple from '@phosphor-icons/core/assets/regular/pencil-simple.svg?raw';
 import percent from '@phosphor-icons/core/assets/regular/percent.svg?raw';
 import phone from '@phosphor-icons/core/assets/regular/phone.svg?raw';
@@ -91,10 +94,14 @@ import sortAscending from '@phosphor-icons/core/assets/regular/sort-ascending.sv
 import sparkle from '@phosphor-icons/core/assets/regular/sparkle.svg?raw';
 import speakerHigh from '@phosphor-icons/core/assets/regular/speaker-high.svg?raw';
 import squaresFour from '@phosphor-icons/core/assets/regular/squares-four.svg?raw';
+import stackSimple from '@phosphor-icons/core/assets/regular/stack-simple.svg?raw';
 import star from '@phosphor-icons/core/assets/regular/star.svg?raw';
 import sun from '@phosphor-icons/core/assets/regular/sun.svg?raw';
 import terminal from '@phosphor-icons/core/assets/regular/terminal.svg?raw';
 import textAlignCenter from '@phosphor-icons/core/assets/regular/text-align-center.svg?raw';
+import textHOne from '@phosphor-icons/core/assets/regular/text-h-one.svg?raw';
+import textHTwo from '@phosphor-icons/core/assets/regular/text-h-two.svg?raw';
+import textHThree from '@phosphor-icons/core/assets/regular/text-h-three.svg?raw';
 import textAlignLeft from '@phosphor-icons/core/assets/regular/text-align-left.svg?raw';
 import textAlignRight from '@phosphor-icons/core/assets/regular/text-align-right.svg?raw';
 import textB from '@phosphor-icons/core/assets/regular/text-b.svg?raw';
@@ -170,9 +177,11 @@ const icons: Record<string, string> = {
   'grid-four': gridFour,
   'heart': heart,
   'house': house,
+  'image': image,
   'key-return': keyReturn,
   'info': info,
   'lightning': lightning,
+  'link': link,
   'list': list,
   'list-bullets': listBullets,
   'list-numbers': listNumbers,
@@ -185,6 +194,7 @@ const icons: Record<string, string> = {
   'moon': moon,
   'option': option,
   'package': pkg,
+  'quotes': quotes,
   'pencil-simple': pencilSimple,
   'percent': percent,
   'phone': phone,
@@ -210,10 +220,14 @@ const icons: Record<string, string> = {
   'sparkle': sparkle,
   'speaker-high': speakerHigh,
   'squares-four': squaresFour,
+  'stack-simple': stackSimple,
   'star': star,
   'sun': sun,
   'terminal': terminal,
   'text-align-center': textAlignCenter,
+  'text-h-one': textHOne,
+  'text-h-two': textHTwo,
+  'text-h-three': textHThree,
   'text-align-left': textAlignLeft,
   'text-align-right': textAlignRight,
   'text-b': textB,
