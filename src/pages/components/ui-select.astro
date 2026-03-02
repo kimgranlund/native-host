@@ -2,37 +2,37 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
 const codeExamples = {
-  events: `&lt;ui-select id="color-select"&gt;
-  &lt;ui-button justify="spread"&gt;
+  events: `&lt;n-select id="color-select"&gt;
+  &lt;n-button justify="spread"&gt;
     &lt;span slot="label"&gt;Choose color&lt;/span&gt;
-    &lt;ui-icon name="caret-up-down" slot="trailing"&gt;&lt;/ui-icon&gt;
-  &lt;/ui-button&gt;
-  &lt;ui-listbox popover&gt;
-    &lt;ui-option value="red"&gt;Red&lt;/ui-option&gt;
-    &lt;ui-option value="blue"&gt;Blue&lt;/ui-option&gt;
-  &lt;/ui-listbox&gt;
-&lt;/ui-select&gt;
+    &lt;n-icon name="caret-up-down" slot="trailing"&gt;&lt;/n-icon&gt;
+  &lt;/n-button&gt;
+  &lt;n-listbox popover&gt;
+    &lt;n-option value="red"&gt;Red&lt;/n-option&gt;
+    &lt;n-option value="blue"&gt;Blue&lt;/n-option&gt;
+  &lt;/n-listbox&gt;
+&lt;/n-select&gt;
 
 &lt;script&gt;
   document.getElementById('color-select')
-    .addEventListener('ui-change', (e) =&gt; {
+    .addEventListener('native:change', (e) =&gt; {
       console.log(e.detail.value, e.detail.label);
     });
 &lt;/script&gt;`,
-  dataDrivenInlineJson: `&lt;ui-select
+  dataDrivenInlineJson: `&lt;n-select
   placeholder="Choose a country"
   options='[{"value":"us","label":"United States"},{"value":"gb","label":"United Kingdom"}]'
-&gt;&lt;/ui-select&gt;`,
-  dataDrivenPreSelectedValue: `&lt;ui-select
+&gt;&lt;/n-select&gt;`,
+  dataDrivenPreSelectedValue: `&lt;n-select
   placeholder="Choose a country"
   value="de"
   options='[{"value":"us","label":"United States"},{"value":"de","label":"Germany"}]'
-&gt;&lt;/ui-select&gt;`,
-  dataDrivenDisabledOptions: `&lt;ui-select
+&gt;&lt;/n-select&gt;`,
+  dataDrivenDisabledOptions: `&lt;n-select
   placeholder="Choose a role"
   options='[{"value":"viewer","label":"Viewer"},{"value":"admin","label":"Admin","disabled":true}]'
-&gt;&lt;/ui-select&gt;`,
-  dataDrivenDynamicUpdate: `&lt;ui-select id="my-select" placeholder="Choose a fruit" options="[]"&gt;&lt;/ui-select&gt;
+&gt;&lt;/n-select&gt;`,
+  dataDrivenDynamicUpdate: `&lt;n-select id="my-select" placeholder="Choose a fruit" options="[]"&gt;&lt;/n-select&gt;
 
 &lt;script&gt;
   const sel = document.getElementById('my-select');
@@ -43,10 +43,10 @@ const codeExamples = {
 &lt;/script&gt;`,
 };
 ---
-<SidebarLayout title="ui-select">
+<SidebarLayout title="Select">
   <main>
-<h1>&lt;ui-select&gt;</h1>
-    <p style="color: var(--neutral-ink-muted); font-size: 0.875rem; margin-bottom: 1.5rem;">
+<h1>&lt;n-select&gt;</h1>
+    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
       Coordinator element that wires a button trigger + popover listbox into a dropdown select.
     </p>
 
@@ -55,31 +55,31 @@ const codeExamples = {
     <h2>Basic Usage</h2>
     <div class="layout-section">
       <div class="layout-row">
-        <ui-select>
-          <ui-button justify="spread">
+        <n-select>
+          <n-button justify="spread">
             <span slot="label">Choose a fruit</span>
-            <ui-icon name="caret-up-down" slot="trailing"></ui-icon>
-          </ui-button>
-          <ui-listbox popover="manual">
-            <ui-option value="apple">Apple</ui-option>
-            <ui-option value="banana">Banana</ui-option>
-            <ui-option value="cherry">Cherry</ui-option>
-            <ui-option value="grape">Grape</ui-option>
-            <ui-option value="orange">Orange</ui-option>
-          </ui-listbox>
-        </ui-select>
+            <n-icon name="caret-up-down" slot="trailing"></n-icon>
+          </n-button>
+          <n-listbox popover="manual">
+            <n-option value="apple">Apple</n-option>
+            <n-option value="banana">Banana</n-option>
+            <n-option value="cherry">Cherry</n-option>
+            <n-option value="grape">Grape</n-option>
+            <n-option value="orange">Orange</n-option>
+          </n-listbox>
+        </n-select>
       </div>
-      <pre class="layout-code"><code>&lt;ui-select&gt;
-  &lt;ui-button justify="spread"&gt;
+      <pre class="layout-code"><code>&lt;n-select&gt;
+  &lt;n-button justify="spread"&gt;
     &lt;span slot="label"&gt;Choose a fruit&lt;/span&gt;
-    &lt;ui-icon name="caret-up-down" slot="trailing"&gt;&lt;/ui-icon&gt;
-  &lt;/ui-button&gt;
-  &lt;ui-listbox popover&gt;
-    &lt;ui-option value="apple"&gt;Apple&lt;/ui-option&gt;
-    &lt;ui-option value="banana"&gt;Banana&lt;/ui-option&gt;
-    &lt;ui-option value="cherry"&gt;Cherry&lt;/ui-option&gt;
-  &lt;/ui-listbox&gt;
-&lt;/ui-select&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+    &lt;n-icon name="caret-up-down" slot="trailing"&gt;&lt;/n-icon&gt;
+  &lt;/n-button&gt;
+  &lt;n-listbox popover&gt;
+    &lt;n-option value="apple"&gt;Apple&lt;/n-option&gt;
+    &lt;n-option value="banana"&gt;Banana&lt;/n-option&gt;
+    &lt;n-option value="cherry"&gt;Cherry&lt;/n-option&gt;
+  &lt;/n-listbox&gt;
+&lt;/n-select&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Pre-selected Value ── -->
@@ -87,28 +87,28 @@ const codeExamples = {
     <h2>Pre-selected Value</h2>
     <div class="layout-section">
       <div class="layout-row">
-        <ui-select value="banana">
-          <ui-button justify="spread">
+        <n-select value="banana">
+          <n-button justify="spread">
             <span slot="label">Choose a fruit</span>
-            <ui-icon name="caret-up-down" slot="trailing"></ui-icon>
-          </ui-button>
-          <ui-listbox popover="manual">
-            <ui-option value="apple">Apple</ui-option>
-            <ui-option value="banana">Banana</ui-option>
-            <ui-option value="cherry">Cherry</ui-option>
-          </ui-listbox>
-        </ui-select>
+            <n-icon name="caret-up-down" slot="trailing"></n-icon>
+          </n-button>
+          <n-listbox popover="manual">
+            <n-option value="apple">Apple</n-option>
+            <n-option value="banana">Banana</n-option>
+            <n-option value="cherry">Cherry</n-option>
+          </n-listbox>
+        </n-select>
       </div>
-      <pre class="layout-code"><code>&lt;ui-select value="banana"&gt;
-  &lt;ui-button justify="spread"&gt;
+      <pre class="layout-code"><code>&lt;n-select value="banana"&gt;
+  &lt;n-button justify="spread"&gt;
     &lt;span slot="label"&gt;Choose a fruit&lt;/span&gt;
-    &lt;ui-icon name="caret-up-down" slot="trailing"&gt;&lt;/ui-icon&gt;
-  &lt;/ui-button&gt;
-  &lt;ui-listbox popover&gt;
-    &lt;ui-option value="apple"&gt;Apple&lt;/ui-option&gt;
-    &lt;ui-option value="banana"&gt;Banana&lt;/ui-option&gt;
-  &lt;/ui-listbox&gt;
-&lt;/ui-select&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+    &lt;n-icon name="caret-up-down" slot="trailing"&gt;&lt;/n-icon&gt;
+  &lt;/n-button&gt;
+  &lt;n-listbox popover&gt;
+    &lt;n-option value="apple"&gt;Apple&lt;/n-option&gt;
+    &lt;n-option value="banana"&gt;Banana&lt;/n-option&gt;
+  &lt;/n-listbox&gt;
+&lt;/n-select&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Sizes ── -->
@@ -117,65 +117,65 @@ const codeExamples = {
     <div class="layout-section">
       <div class="layout-row">
         <span class="layout-label">xs</span>
-        <ui-select size="xs">
-          <ui-button justify="spread">
+        <n-select size="xs">
+          <n-button justify="spread">
             <span slot="label">Extra small</span>
-            <ui-icon name="caret-up-down" slot="trailing"></ui-icon>
-          </ui-button>
-          <ui-listbox popover="manual">
-            <ui-option value="a">Option A</ui-option>
-            <ui-option value="b">Option B</ui-option>
-          </ui-listbox>
-        </ui-select>
+            <n-icon name="caret-up-down" slot="trailing"></n-icon>
+          </n-button>
+          <n-listbox popover="manual">
+            <n-option value="a">Option A</n-option>
+            <n-option value="b">Option B</n-option>
+          </n-listbox>
+        </n-select>
       </div>
       <div class="layout-row">
         <span class="layout-label">sm</span>
-        <ui-select size="sm">
-          <ui-button justify="spread">
+        <n-select size="sm">
+          <n-button justify="spread">
             <span slot="label">Small</span>
-            <ui-icon name="caret-up-down" slot="trailing"></ui-icon>
-          </ui-button>
-          <ui-listbox popover="manual">
-            <ui-option value="a">Option A</ui-option>
-            <ui-option value="b">Option B</ui-option>
-          </ui-listbox>
-        </ui-select>
+            <n-icon name="caret-up-down" slot="trailing"></n-icon>
+          </n-button>
+          <n-listbox popover="manual">
+            <n-option value="a">Option A</n-option>
+            <n-option value="b">Option B</n-option>
+          </n-listbox>
+        </n-select>
       </div>
       <div class="layout-row">
         <span class="layout-label">md</span>
-        <ui-select size="md">
-          <ui-button justify="spread">
+        <n-select size="md">
+          <n-button justify="spread">
             <span slot="label">Medium</span>
-            <ui-icon name="caret-up-down" slot="trailing"></ui-icon>
-          </ui-button>
-          <ui-listbox popover="manual">
-            <ui-option value="a">Option A</ui-option>
-            <ui-option value="b">Option B</ui-option>
-          </ui-listbox>
-        </ui-select>
+            <n-icon name="caret-up-down" slot="trailing"></n-icon>
+          </n-button>
+          <n-listbox popover="manual">
+            <n-option value="a">Option A</n-option>
+            <n-option value="b">Option B</n-option>
+          </n-listbox>
+        </n-select>
       </div>
       <div class="layout-row">
         <span class="layout-label">lg</span>
-        <ui-select size="lg">
-          <ui-button justify="spread">
+        <n-select size="lg">
+          <n-button justify="spread">
             <span slot="label">Large</span>
-            <ui-icon name="caret-up-down" slot="trailing"></ui-icon>
-          </ui-button>
-          <ui-listbox popover="manual">
-            <ui-option value="a">Option A</ui-option>
-            <ui-option value="b">Option B</ui-option>
-          </ui-listbox>
-        </ui-select>
+            <n-icon name="caret-up-down" slot="trailing"></n-icon>
+          </n-button>
+          <n-listbox popover="manual">
+            <n-option value="a">Option A</n-option>
+            <n-option value="b">Option B</n-option>
+          </n-listbox>
+        </n-select>
       </div>
-      <pre class="layout-code"><code>&lt;ui-select size="sm"&gt;
-  &lt;ui-button justify="spread"&gt;
+      <pre class="layout-code"><code>&lt;n-select size="sm"&gt;
+  &lt;n-button justify="spread"&gt;
     &lt;span slot="label"&gt;Small&lt;/span&gt;
-    &lt;ui-icon name="caret-up-down" slot="trailing"&gt;&lt;/ui-icon&gt;
-  &lt;/ui-button&gt;
-  &lt;ui-listbox popover&gt;
-    &lt;ui-option value="a"&gt;Option A&lt;/ui-option&gt;
-  &lt;/ui-listbox&gt;
-&lt;/ui-select&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+    &lt;n-icon name="caret-up-down" slot="trailing"&gt;&lt;/n-icon&gt;
+  &lt;/n-button&gt;
+  &lt;n-listbox popover&gt;
+    &lt;n-option value="a"&gt;Option A&lt;/n-option&gt;
+  &lt;/n-listbox&gt;
+&lt;/n-select&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Density ── -->
@@ -185,124 +185,124 @@ const codeExamples = {
       <h3>xs</h3>
       <div class="layout-row" size="xs" density="compact">
         <span class="layout-label">compact</span>
-        <ui-select>
-          <ui-button justify="spread"><span slot="label">Compact</span><ui-icon name="caret-up-down" slot="trailing"></ui-icon></ui-button>
-          <ui-listbox popover="manual"><ui-option value="a">Alpha</ui-option><ui-option value="b">Bravo</ui-option></ui-listbox>
-        </ui-select>
+        <n-select>
+          <n-button justify="spread"><span slot="label">Compact</span><n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
+          <n-listbox popover="manual"><n-option value="a">Alpha</n-option><n-option value="b">Bravo</n-option></n-listbox>
+        </n-select>
       </div>
       <div class="layout-row" size="xs" density="default">
         <span class="layout-label">default</span>
-        <ui-select>
-          <ui-button justify="spread"><span slot="label">Default</span><ui-icon name="caret-up-down" slot="trailing"></ui-icon></ui-button>
-          <ui-listbox popover="manual"><ui-option value="a">Alpha</ui-option><ui-option value="b">Bravo</ui-option></ui-listbox>
-        </ui-select>
+        <n-select>
+          <n-button justify="spread"><span slot="label">Default</span><n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
+          <n-listbox popover="manual"><n-option value="a">Alpha</n-option><n-option value="b">Bravo</n-option></n-listbox>
+        </n-select>
       </div>
       <div class="layout-row" size="xs" density="loose">
         <span class="layout-label">loose</span>
-        <ui-select>
-          <ui-button justify="spread"><span slot="label">Loose</span><ui-icon name="caret-up-down" slot="trailing"></ui-icon></ui-button>
-          <ui-listbox popover="manual"><ui-option value="a">Alpha</ui-option><ui-option value="b">Bravo</ui-option></ui-listbox>
-        </ui-select>
+        <n-select>
+          <n-button justify="spread"><span slot="label">Loose</span><n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
+          <n-listbox popover="manual"><n-option value="a">Alpha</n-option><n-option value="b">Bravo</n-option></n-listbox>
+        </n-select>
       </div>
 
       <h3>sm</h3>
       <div class="layout-row" size="sm" density="compact">
         <span class="layout-label">compact</span>
-        <ui-select>
-          <ui-button justify="spread"><span slot="label">Compact</span><ui-icon name="caret-up-down" slot="trailing"></ui-icon></ui-button>
-          <ui-listbox popover="manual"><ui-option value="a">Alpha</ui-option><ui-option value="b">Bravo</ui-option></ui-listbox>
-        </ui-select>
+        <n-select>
+          <n-button justify="spread"><span slot="label">Compact</span><n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
+          <n-listbox popover="manual"><n-option value="a">Alpha</n-option><n-option value="b">Bravo</n-option></n-listbox>
+        </n-select>
       </div>
       <div class="layout-row" size="sm" density="default">
         <span class="layout-label">default</span>
-        <ui-select>
-          <ui-button justify="spread"><span slot="label">Default</span><ui-icon name="caret-up-down" slot="trailing"></ui-icon></ui-button>
-          <ui-listbox popover="manual"><ui-option value="a">Alpha</ui-option><ui-option value="b">Bravo</ui-option></ui-listbox>
-        </ui-select>
+        <n-select>
+          <n-button justify="spread"><span slot="label">Default</span><n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
+          <n-listbox popover="manual"><n-option value="a">Alpha</n-option><n-option value="b">Bravo</n-option></n-listbox>
+        </n-select>
       </div>
       <div class="layout-row" size="sm" density="loose">
         <span class="layout-label">loose</span>
-        <ui-select>
-          <ui-button justify="spread"><span slot="label">Loose</span><ui-icon name="caret-up-down" slot="trailing"></ui-icon></ui-button>
-          <ui-listbox popover="manual"><ui-option value="a">Alpha</ui-option><ui-option value="b">Bravo</ui-option></ui-listbox>
-        </ui-select>
+        <n-select>
+          <n-button justify="spread"><span slot="label">Loose</span><n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
+          <n-listbox popover="manual"><n-option value="a">Alpha</n-option><n-option value="b">Bravo</n-option></n-listbox>
+        </n-select>
       </div>
 
       <h3>md</h3>
       <div class="layout-row" size="md" density="compact">
         <span class="layout-label">compact</span>
-        <ui-select>
-          <ui-button justify="spread"><span slot="label">Compact</span><ui-icon name="caret-up-down" slot="trailing"></ui-icon></ui-button>
-          <ui-listbox popover="manual"><ui-option value="a">Alpha</ui-option><ui-option value="b">Bravo</ui-option></ui-listbox>
-        </ui-select>
+        <n-select>
+          <n-button justify="spread"><span slot="label">Compact</span><n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
+          <n-listbox popover="manual"><n-option value="a">Alpha</n-option><n-option value="b">Bravo</n-option></n-listbox>
+        </n-select>
       </div>
       <div class="layout-row" size="md" density="default">
         <span class="layout-label">default</span>
-        <ui-select>
-          <ui-button justify="spread"><span slot="label">Default</span><ui-icon name="caret-up-down" slot="trailing"></ui-icon></ui-button>
-          <ui-listbox popover="manual"><ui-option value="a">Alpha</ui-option><ui-option value="b">Bravo</ui-option></ui-listbox>
-        </ui-select>
+        <n-select>
+          <n-button justify="spread"><span slot="label">Default</span><n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
+          <n-listbox popover="manual"><n-option value="a">Alpha</n-option><n-option value="b">Bravo</n-option></n-listbox>
+        </n-select>
       </div>
       <div class="layout-row" size="md" density="loose">
         <span class="layout-label">loose</span>
-        <ui-select>
-          <ui-button justify="spread"><span slot="label">Loose</span><ui-icon name="caret-up-down" slot="trailing"></ui-icon></ui-button>
-          <ui-listbox popover="manual"><ui-option value="a">Alpha</ui-option><ui-option value="b">Bravo</ui-option></ui-listbox>
-        </ui-select>
+        <n-select>
+          <n-button justify="spread"><span slot="label">Loose</span><n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
+          <n-listbox popover="manual"><n-option value="a">Alpha</n-option><n-option value="b">Bravo</n-option></n-listbox>
+        </n-select>
       </div>
 
       <h3>lg</h3>
       <div class="layout-row" size="lg" density="compact">
         <span class="layout-label">compact</span>
-        <ui-select>
-          <ui-button justify="spread"><span slot="label">Compact</span><ui-icon name="caret-up-down" slot="trailing"></ui-icon></ui-button>
-          <ui-listbox popover="manual"><ui-option value="a">Alpha</ui-option><ui-option value="b">Bravo</ui-option></ui-listbox>
-        </ui-select>
+        <n-select>
+          <n-button justify="spread"><span slot="label">Compact</span><n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
+          <n-listbox popover="manual"><n-option value="a">Alpha</n-option><n-option value="b">Bravo</n-option></n-listbox>
+        </n-select>
       </div>
       <div class="layout-row" size="lg" density="default">
         <span class="layout-label">default</span>
-        <ui-select>
-          <ui-button justify="spread"><span slot="label">Default</span><ui-icon name="caret-up-down" slot="trailing"></ui-icon></ui-button>
-          <ui-listbox popover="manual"><ui-option value="a">Alpha</ui-option><ui-option value="b">Bravo</ui-option></ui-listbox>
-        </ui-select>
+        <n-select>
+          <n-button justify="spread"><span slot="label">Default</span><n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
+          <n-listbox popover="manual"><n-option value="a">Alpha</n-option><n-option value="b">Bravo</n-option></n-listbox>
+        </n-select>
       </div>
       <div class="layout-row" size="lg" density="loose">
         <span class="layout-label">loose</span>
-        <ui-select>
-          <ui-button justify="spread"><span slot="label">Loose</span><ui-icon name="caret-up-down" slot="trailing"></ui-icon></ui-button>
-          <ui-listbox popover="manual"><ui-option value="a">Alpha</ui-option><ui-option value="b">Bravo</ui-option></ui-listbox>
-        </ui-select>
+        <n-select>
+          <n-button justify="spread"><span slot="label">Loose</span><n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
+          <n-listbox popover="manual"><n-option value="a">Alpha</n-option><n-option value="b">Bravo</n-option></n-listbox>
+        </n-select>
       </div>
 
       <h3>xl</h3>
       <div class="layout-row" size="xl" density="compact">
         <span class="layout-label">compact</span>
-        <ui-select>
-          <ui-button justify="spread"><span slot="label">Compact</span><ui-icon name="caret-up-down" slot="trailing"></ui-icon></ui-button>
-          <ui-listbox popover="manual"><ui-option value="a">Alpha</ui-option><ui-option value="b">Bravo</ui-option></ui-listbox>
-        </ui-select>
+        <n-select>
+          <n-button justify="spread"><span slot="label">Compact</span><n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
+          <n-listbox popover="manual"><n-option value="a">Alpha</n-option><n-option value="b">Bravo</n-option></n-listbox>
+        </n-select>
       </div>
       <div class="layout-row" size="xl" density="default">
         <span class="layout-label">default</span>
-        <ui-select>
-          <ui-button justify="spread"><span slot="label">Default</span><ui-icon name="caret-up-down" slot="trailing"></ui-icon></ui-button>
-          <ui-listbox popover="manual"><ui-option value="a">Alpha</ui-option><ui-option value="b">Bravo</ui-option></ui-listbox>
-        </ui-select>
+        <n-select>
+          <n-button justify="spread"><span slot="label">Default</span><n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
+          <n-listbox popover="manual"><n-option value="a">Alpha</n-option><n-option value="b">Bravo</n-option></n-listbox>
+        </n-select>
       </div>
       <div class="layout-row" size="xl" density="loose">
         <span class="layout-label">loose</span>
-        <ui-select>
-          <ui-button justify="spread"><span slot="label">Loose</span><ui-icon name="caret-up-down" slot="trailing"></ui-icon></ui-button>
-          <ui-listbox popover="manual"><ui-option value="a">Alpha</ui-option><ui-option value="b">Bravo</ui-option></ui-listbox>
-        </ui-select>
+        <n-select>
+          <n-button justify="spread"><span slot="label">Loose</span><n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
+          <n-listbox popover="manual"><n-option value="a">Alpha</n-option><n-option value="b">Bravo</n-option></n-listbox>
+        </n-select>
       </div>
       <pre class="layout-code"><code>&lt;div density="compact"&gt;
-  &lt;ui-select&gt;...&lt;/ui-select&gt;
+  &lt;n-select&gt;...&lt;/n-select&gt;
 &lt;/div&gt;
 
 &lt;div density="loose"&gt;
-  &lt;ui-select&gt;...&lt;/ui-select&gt;
-&lt;/div&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+  &lt;n-select&gt;...&lt;/n-select&gt;
+&lt;/div&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Variants ── -->
@@ -310,56 +310,56 @@ const codeExamples = {
     <h2>Button Variants</h2>
     <div class="layout-section" size="sm">
       <div class="layout-row">
-        <ui-select>
-          <ui-button justify="spread">
+        <n-select>
+          <n-button justify="spread">
             <span slot="label">Outline</span>
-            <ui-icon name="caret-up-down" slot="trailing"></ui-icon>
-          </ui-button>
-          <ui-listbox popover="manual">
-            <ui-option value="a">Alpha</ui-option>
-            <ui-option value="b">Bravo</ui-option>
-          </ui-listbox>
-        </ui-select>
-        <ui-select>
-          <ui-button variant="secondary" justify="spread">
+            <n-icon name="caret-up-down" slot="trailing"></n-icon>
+          </n-button>
+          <n-listbox popover="manual">
+            <n-option value="a">Alpha</n-option>
+            <n-option value="b">Bravo</n-option>
+          </n-listbox>
+        </n-select>
+        <n-select>
+          <n-button variant="secondary" justify="spread">
             <span slot="label">Secondary</span>
-            <ui-icon name="caret-up-down" slot="trailing"></ui-icon>
-          </ui-button>
-          <ui-listbox popover="manual">
-            <ui-option value="a">Alpha</ui-option>
-            <ui-option value="b">Bravo</ui-option>
-          </ui-listbox>
-        </ui-select>
-        <ui-select>
-          <ui-button variant="default" justify="spread">
+            <n-icon name="caret-up-down" slot="trailing"></n-icon>
+          </n-button>
+          <n-listbox popover="manual">
+            <n-option value="a">Alpha</n-option>
+            <n-option value="b">Bravo</n-option>
+          </n-listbox>
+        </n-select>
+        <n-select>
+          <n-button variant="default" justify="spread">
             <span slot="label">Default</span>
-            <ui-icon name="caret-up-down" slot="trailing"></ui-icon>
-          </ui-button>
-          <ui-listbox popover="manual">
-            <ui-option value="a">Alpha</ui-option>
-            <ui-option value="b">Bravo</ui-option>
-          </ui-listbox>
-        </ui-select>
-        <ui-select>
-          <ui-button variant="ghost" justify="spread">
+            <n-icon name="caret-up-down" slot="trailing"></n-icon>
+          </n-button>
+          <n-listbox popover="manual">
+            <n-option value="a">Alpha</n-option>
+            <n-option value="b">Bravo</n-option>
+          </n-listbox>
+        </n-select>
+        <n-select>
+          <n-button variant="ghost" justify="spread">
             <span slot="label">Ghost</span>
-            <ui-icon name="caret-up-down" slot="trailing"></ui-icon>
-          </ui-button>
-          <ui-listbox popover="manual">
-            <ui-option value="a">Alpha</ui-option>
-            <ui-option value="b">Bravo</ui-option>
-          </ui-listbox>
-        </ui-select>
+            <n-icon name="caret-up-down" slot="trailing"></n-icon>
+          </n-button>
+          <n-listbox popover="manual">
+            <n-option value="a">Alpha</n-option>
+            <n-option value="b">Bravo</n-option>
+          </n-listbox>
+        </n-select>
       </div>
-      <pre class="layout-code"><code>&lt;ui-select&gt;
-  &lt;ui-button variant="secondary" justify="spread"&gt;
+      <pre class="layout-code"><code>&lt;n-select&gt;
+  &lt;n-button variant="secondary" justify="spread"&gt;
     &lt;span slot="label"&gt;Secondary&lt;/span&gt;
-    &lt;ui-icon name="caret-up-down" slot="trailing"&gt;&lt;/ui-icon&gt;
-  &lt;/ui-button&gt;
-  &lt;ui-listbox popover&gt;
-    &lt;ui-option value="a"&gt;Alpha&lt;/ui-option&gt;
-  &lt;/ui-listbox&gt;
-&lt;/ui-select&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+    &lt;n-icon name="caret-up-down" slot="trailing"&gt;&lt;/n-icon&gt;
+  &lt;/n-button&gt;
+  &lt;n-listbox popover&gt;
+    &lt;n-option value="a"&gt;Alpha&lt;/n-option&gt;
+  &lt;/n-listbox&gt;
+&lt;/n-select&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Disabled ── -->
@@ -367,25 +367,25 @@ const codeExamples = {
     <h2>Disabled</h2>
     <div class="layout-section" size="sm">
       <div class="layout-row">
-        <ui-select disabled>
-          <ui-button disabled justify="spread">
+        <n-select disabled>
+          <n-button disabled justify="spread">
             <span slot="label">Disabled</span>
-            <ui-icon name="caret-up-down" slot="trailing"></ui-icon>
-          </ui-button>
-          <ui-listbox popover="manual">
-            <ui-option value="a">Alpha</ui-option>
-          </ui-listbox>
-        </ui-select>
+            <n-icon name="caret-up-down" slot="trailing"></n-icon>
+          </n-button>
+          <n-listbox popover="manual">
+            <n-option value="a">Alpha</n-option>
+          </n-listbox>
+        </n-select>
       </div>
-      <pre class="layout-code"><code>&lt;ui-select disabled&gt;
-  &lt;ui-button disabled justify="spread"&gt;
+      <pre class="layout-code"><code>&lt;n-select disabled&gt;
+  &lt;n-button disabled justify="spread"&gt;
     &lt;span slot="label"&gt;Disabled&lt;/span&gt;
-    &lt;ui-icon name="caret-up-down" slot="trailing"&gt;&lt;/ui-icon&gt;
-  &lt;/ui-button&gt;
-  &lt;ui-listbox popover&gt;
-    &lt;ui-option value="a"&gt;Alpha&lt;/ui-option&gt;
-  &lt;/ui-listbox&gt;
-&lt;/ui-select&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+    &lt;n-icon name="caret-up-down" slot="trailing"&gt;&lt;/n-icon&gt;
+  &lt;/n-button&gt;
+  &lt;n-listbox popover&gt;
+    &lt;n-option value="a"&gt;Alpha&lt;/n-option&gt;
+  &lt;/n-listbox&gt;
+&lt;/n-select&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Disabled Options ── -->
@@ -393,48 +393,48 @@ const codeExamples = {
     <h2>Disabled Options</h2>
     <div class="layout-section" size="sm">
       <div class="layout-row">
-        <ui-select>
-          <ui-button justify="spread">
+        <n-select>
+          <n-button justify="spread">
             <span slot="label">Choose role</span>
-            <ui-icon name="caret-up-down" slot="trailing"></ui-icon>
-          </ui-button>
-          <ui-listbox popover="manual">
-            <ui-option value="viewer">Viewer</ui-option>
-            <ui-option value="editor">Editor</ui-option>
-            <ui-option value="admin" disabled>Admin (restricted)</ui-option>
-            <ui-option value="owner" disabled>Owner (restricted)</ui-option>
-          </ui-listbox>
-        </ui-select>
+            <n-icon name="caret-up-down" slot="trailing"></n-icon>
+          </n-button>
+          <n-listbox popover="manual">
+            <n-option value="viewer">Viewer</n-option>
+            <n-option value="editor">Editor</n-option>
+            <n-option value="admin" disabled>Admin (restricted)</n-option>
+            <n-option value="owner" disabled>Owner (restricted)</n-option>
+          </n-listbox>
+        </n-select>
       </div>
-      <pre class="layout-code"><code>&lt;ui-select&gt;
-  &lt;ui-button justify="spread"&gt;
+      <pre class="layout-code"><code>&lt;n-select&gt;
+  &lt;n-button justify="spread"&gt;
     &lt;span slot="label"&gt;Choose role&lt;/span&gt;
-    &lt;ui-icon name="caret-up-down" slot="trailing"&gt;&lt;/ui-icon&gt;
-  &lt;/ui-button&gt;
-  &lt;ui-listbox popover&gt;
-    &lt;ui-option value="viewer"&gt;Viewer&lt;/ui-option&gt;
-    &lt;ui-option value="admin" disabled&gt;Admin&lt;/ui-option&gt;
-  &lt;/ui-listbox&gt;
-&lt;/ui-select&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+    &lt;n-icon name="caret-up-down" slot="trailing"&gt;&lt;/n-icon&gt;
+  &lt;/n-button&gt;
+  &lt;n-listbox popover&gt;
+    &lt;n-option value="viewer"&gt;Viewer&lt;/n-option&gt;
+    &lt;n-option value="admin" disabled&gt;Admin&lt;/n-option&gt;
+  &lt;/n-listbox&gt;
+&lt;/n-select&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Events ── -->
 
     <h2>Events</h2>
     <div class="layout-section" size="sm">
-      <ui-select id="event-select">
-        <ui-button justify="spread">
+      <n-select id="event-select">
+        <n-button justify="spread">
           <span slot="label">Choose color</span>
-          <ui-icon name="caret-up-down" slot="trailing"></ui-icon>
-        </ui-button>
-        <ui-listbox popover="manual">
-          <ui-option value="red" label="Red">Red</ui-option>
-          <ui-option value="green" label="Green">Green</ui-option>
-          <ui-option value="blue" label="Blue">Blue</ui-option>
-        </ui-listbox>
-      </ui-select>
+          <n-icon name="caret-up-down" slot="trailing"></n-icon>
+        </n-button>
+        <n-listbox popover="manual">
+          <n-option value="red" label="Red">Red</n-option>
+          <n-option value="green" label="Green">Green</n-option>
+          <n-option value="blue" label="Blue">Blue</n-option>
+        </n-listbox>
+      </n-select>
       <div class="log" id="event-log"></div>
-    <pre class="layout-code"><code set:html={codeExamples.events} /><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+    <pre class="layout-code"><code set:html={codeExamples.events} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Form Association ── -->
@@ -443,50 +443,50 @@ const codeExamples = {
     <div class="layout-section" size="sm">
       <form id="demo-form">
         <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0.75rem;">
-          <ui-select name="color">
-            <ui-button justify="spread">
+          <n-select name="color">
+            <n-button justify="spread">
               <span slot="label">Favorite color</span>
-              <ui-icon name="caret-up-down" slot="trailing"></ui-icon>
-            </ui-button>
-            <ui-listbox popover="manual">
-              <ui-option value="red">Red</ui-option>
-              <ui-option value="green">Green</ui-option>
-              <ui-option value="blue">Blue</ui-option>
-            </ui-listbox>
-          </ui-select>
-          <ui-select name="size">
-            <ui-button justify="spread">
+              <n-icon name="caret-up-down" slot="trailing"></n-icon>
+            </n-button>
+            <n-listbox popover="manual">
+              <n-option value="red">Red</n-option>
+              <n-option value="green">Green</n-option>
+              <n-option value="blue">Blue</n-option>
+            </n-listbox>
+          </n-select>
+          <n-select name="size">
+            <n-button justify="spread">
               <span slot="label">T-Shirt size</span>
-              <ui-icon name="caret-up-down" slot="trailing"></ui-icon>
-            </ui-button>
-            <ui-listbox popover="manual">
-              <ui-option value="xs">Extra Small</ui-option>
-              <ui-option value="sm">Small</ui-option>
-              <ui-option value="md">Medium</ui-option>
-              <ui-option value="lg">Large</ui-option>
-              <ui-option value="xl">Extra Large</ui-option>
-            </ui-listbox>
-          </ui-select>
+              <n-icon name="caret-up-down" slot="trailing"></n-icon>
+            </n-button>
+            <n-listbox popover="manual">
+              <n-option value="xs">Extra Small</n-option>
+              <n-option value="sm">Small</n-option>
+              <n-option value="md">Medium</n-option>
+              <n-option value="lg">Large</n-option>
+              <n-option value="xl">Extra Large</n-option>
+            </n-listbox>
+          </n-select>
         </div>
         <div class="layout-row">
-          <ui-button variant="primary" type="submit"><span slot="label">Submit</span></ui-button>
-          <ui-button variant="secondary" type="reset"><span slot="label">Reset</span></ui-button>
+          <n-button variant="primary" type="submit"><span slot="label">Submit</span></n-button>
+          <n-button variant="secondary" type="reset"><span slot="label">Reset</span></n-button>
         </div>
       </form>
       <div class="log" id="form-log"></div>
     <pre class="layout-code"><code>&lt;form&gt;
-  &lt;ui-select name="color"&gt;
-    &lt;ui-button justify="spread"&gt;
+  &lt;n-select name="color"&gt;
+    &lt;n-button justify="spread"&gt;
       &lt;span slot="label"&gt;Favorite color&lt;/span&gt;
-      &lt;ui-icon name="caret-up-down" slot="trailing"&gt;&lt;/ui-icon&gt;
-    &lt;/ui-button&gt;
-    &lt;ui-listbox popover&gt;
-      &lt;ui-option value="red"&gt;Red&lt;/ui-option&gt;
-      &lt;ui-option value="blue"&gt;Blue&lt;/ui-option&gt;
-    &lt;/ui-listbox&gt;
-  &lt;/ui-select&gt;
+      &lt;n-icon name="caret-up-down" slot="trailing"&gt;&lt;/n-icon&gt;
+    &lt;/n-button&gt;
+    &lt;n-listbox popover&gt;
+      &lt;n-option value="red"&gt;Red&lt;/n-option&gt;
+      &lt;n-option value="blue"&gt;Blue&lt;/n-option&gt;
+    &lt;/n-listbox&gt;
+  &lt;/n-select&gt;
   &lt;button type="submit"&gt;Submit&lt;/button&gt;
-&lt;/form&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+&lt;/form&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Data-Driven: Inline JSON ── -->
@@ -494,12 +494,12 @@ const codeExamples = {
     <h2>Data-Driven: Inline JSON</h2>
     <div class="layout-section" size="sm">
       <div class="layout-row">
-        <ui-select
+        <n-select
           placeholder="Choose a country"
           options='[{"value":"us","label":"United States"},{"value":"gb","label":"United Kingdom"},{"value":"de","label":"Germany"},{"value":"fr","label":"France"},{"value":"jp","label":"Japan"}]'
-        ></ui-select>
+        ></n-select>
       </div>
-      <pre class="layout-code"><code set:html={codeExamples.dataDrivenInlineJson} /><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+      <pre class="layout-code"><code set:html={codeExamples.dataDrivenInlineJson} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Data-Driven: Pre-selected ── -->
@@ -507,13 +507,13 @@ const codeExamples = {
     <h2>Data-Driven: Pre-selected Value</h2>
     <div class="layout-section" size="sm">
       <div class="layout-row">
-        <ui-select
+        <n-select
           placeholder="Choose a country"
           value="de"
           options='[{"value":"us","label":"United States"},{"value":"gb","label":"United Kingdom"},{"value":"de","label":"Germany"},{"value":"fr","label":"France"}]'
-        ></ui-select>
+        ></n-select>
       </div>
-      <pre class="layout-code"><code set:html={codeExamples.dataDrivenPreSelectedValue} /><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+      <pre class="layout-code"><code set:html={codeExamples.dataDrivenPreSelectedValue} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Data-Driven: Disabled Options ── -->
@@ -521,12 +521,12 @@ const codeExamples = {
     <h2>Data-Driven: Disabled Options</h2>
     <div class="layout-section" size="sm">
       <div class="layout-row">
-        <ui-select
+        <n-select
           placeholder="Choose a role"
           options='[{"value":"viewer","label":"Viewer"},{"value":"editor","label":"Editor"},{"value":"admin","label":"Admin (restricted)","disabled":true},{"value":"owner","label":"Owner (restricted)","disabled":true}]'
-        ></ui-select>
+        ></n-select>
       </div>
-      <pre class="layout-code"><code set:html={codeExamples.dataDrivenDisabledOptions} /><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+      <pre class="layout-code"><code set:html={codeExamples.dataDrivenDisabledOptions} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Data-Driven: Dynamic Update ── -->
@@ -534,14 +534,14 @@ const codeExamples = {
     <h2>Data-Driven: Dynamic Update</h2>
     <div class="layout-section" size="sm">
       <div class="layout-row">
-        <ui-select id="dynamic-select" placeholder="Choose a fruit" options="[]"></ui-select>
+        <n-select id="dynamic-select" placeholder="Choose a fruit" options="[]"></n-select>
       </div>
       <div class="layout-row" style="margin-top: 0.75rem;">
-        <ui-button id="load-fruits" size="sm" variant="secondary"><span slot="label">Load fruits</span></ui-button>
-        <ui-button id="load-colors" size="sm" variant="secondary"><span slot="label">Load colors</span></ui-button>
+        <n-button id="load-fruits" size="sm" variant="secondary"><span slot="label">Load fruits</span></n-button>
+        <n-button id="load-colors" size="sm" variant="secondary"><span slot="label">Load colors</span></n-button>
       </div>
       <div class="log" id="dynamic-log"></div>
-    <pre class="layout-code"><code set:html={codeExamples.dataDrivenDynamicUpdate} /><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+    <pre class="layout-code"><code set:html={codeExamples.dataDrivenDynamicUpdate} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
   </main>
 
@@ -553,9 +553,9 @@ import { logPrepend } from '../../scripts/event-log';
       const eventLog = document.getElementById('event-log');
       let count = 0;
 
-      eventSelect.addEventListener('ui-change', (e) => {
+      eventSelect.addEventListener('native:change', (e) => {
         count++;
-        logPrepend(eventLog, `#${count} ui-change — value: "${e.detail.value}", label: "${e.detail.label}"`);
+        logPrepend(eventLog, `#${count} native:change — value: "${e.detail.value}", label: "${e.detail.label}"`);
       });
 
       // Form logging
@@ -576,7 +576,7 @@ import { logPrepend } from '../../scripts/event-log';
       const dynamicSelect = document.getElementById('dynamic-select');
       const dynamicLog = document.getElementById('dynamic-log');
 
-      document.getElementById('load-fruits').addEventListener('ui-press', () => {
+      document.getElementById('load-fruits').addEventListener('native:press', () => {
         dynamicSelect.options = [
           { value: 'apple', label: 'Apple' },
           { value: 'banana', label: 'Banana' },
@@ -586,7 +586,7 @@ import { logPrepend } from '../../scripts/event-log';
         dynamicSelect.placeholder = 'Choose a fruit';
       });
 
-      document.getElementById('load-colors').addEventListener('ui-press', () => {
+      document.getElementById('load-colors').addEventListener('native:press', () => {
         dynamicSelect.options = [
           { value: 'red', label: 'Red' },
           { value: 'green', label: 'Green' },
@@ -595,8 +595,8 @@ import { logPrepend } from '../../scripts/event-log';
         dynamicSelect.placeholder = 'Choose a color';
       });
 
-      dynamicSelect.addEventListener('ui-change', (e) => {
-        logPrepend(dynamicLog, `ui-change — value: "${e.detail.value}", label: "${e.detail.label}"`);
+      dynamicSelect.addEventListener('native:change', (e) => {
+        logPrepend(dynamicLog, `native:change — value: "${e.detail.value}", label: "${e.detail.label}"`);
       });
   </script>
 </SidebarLayout>

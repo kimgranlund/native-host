@@ -2,23 +2,23 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
 const codeExamples = {
-  events: `&lt;ui-textarea id="my-textarea" placeholder="Type..."&gt;&lt;/ui-textarea&gt;
+  events: `&lt;n-textarea id="my-textarea" placeholder="Type..."&gt;&lt;/n-textarea&gt;
 
 &lt;script&gt;
   const ta = document.getElementById('my-textarea');
-  ta.addEventListener('ui-input', (e) =&gt; {
+  ta.addEventListener('native:input', (e) =&gt; {
     console.log('input:', e.detail.value);
   });
-  ta.addEventListener('ui-change', (e) =&gt; {
+  ta.addEventListener('native:change', (e) =&gt; {
     console.log('change:', e.detail.value);
   });
 &lt;/script&gt;`,
 };
 ---
-<SidebarLayout title="ui-textarea">
+<SidebarLayout title="Textarea">
   <main>
-<h1>&lt;ui-textarea&gt;</h1>
-    <p style="color: var(--neutral-ink-muted); font-size: 0.875rem; margin-bottom: 1.5rem;">
+<h1>&lt;n-textarea&gt;</h1>
+    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
       Multi-line text input with contenteditable, autogrow, rows presets, and maxlength.
     </p>
 
@@ -26,16 +26,16 @@ const codeExamples = {
 
     <h2>Basic</h2>
     <div class="layout-section">
-      <ui-textarea placeholder="Tell us about yourself..."></ui-textarea>
-        <pre class="layout-code"><code>&lt;ui-textarea placeholder="Tell us about yourself..."&gt;&lt;/ui-textarea&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+      <n-textarea placeholder="Tell us about yourself..."></n-textarea>
+        <pre class="layout-code"><code>&lt;n-textarea placeholder="Tell us about yourself..."&gt;&lt;/n-textarea&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── With Value ── -->
 
     <h2>With Value</h2>
     <div class="layout-section">
-      <ui-textarea rows="4">This is a textarea with some initial content. It supports multi-line text editing with all the same styling as ui-input.</ui-textarea>
-        <pre class="layout-code"><code>&lt;ui-textarea rows="4"&gt;Initial content here.&lt;/ui-textarea&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+      <n-textarea rows="4">This is a textarea with some initial content. It supports multi-line text editing with all the same styling as n-input.</n-textarea>
+        <pre class="layout-code"><code>&lt;n-textarea rows="4"&gt;Initial content here.&lt;/n-textarea&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Variants ── -->
@@ -45,20 +45,20 @@ const codeExamples = {
       <div class="layout-row">
         <div>
           <div class="layout-label">secondary (default)</div>
-          <ui-textarea placeholder="Secondary textarea"></ui-textarea>
+          <n-textarea placeholder="Secondary textarea"></n-textarea>
         </div>
         <div>
           <div class="layout-label">outline</div>
-          <ui-textarea variant="outline" placeholder="Outline textarea"></ui-textarea>
+          <n-textarea variant="outline" placeholder="Outline textarea"></n-textarea>
         </div>
         <div>
           <div class="layout-label">ghost</div>
-          <ui-textarea variant="ghost" placeholder="Ghost textarea"></ui-textarea>
+          <n-textarea variant="ghost" placeholder="Ghost textarea"></n-textarea>
         </div>
       </div>
-      <pre class="layout-code"><code>&lt;ui-textarea placeholder="Secondary (default)"&gt;&lt;/ui-textarea&gt;
-&lt;ui-textarea variant="outline" placeholder="Outline"&gt;&lt;/ui-textarea&gt;
-&lt;ui-textarea variant="ghost" placeholder="Ghost"&gt;&lt;/ui-textarea&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+      <pre class="layout-code"><code>&lt;n-textarea placeholder="Secondary (default)"&gt;&lt;/n-textarea&gt;
+&lt;n-textarea variant="outline" placeholder="Outline"&gt;&lt;/n-textarea&gt;
+&lt;n-textarea variant="ghost" placeholder="Ghost"&gt;&lt;/n-textarea&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Sizes ── -->
@@ -68,24 +68,24 @@ const codeExamples = {
       <div class="layout-row">
         <div size="sm">
           <div class="layout-label">sm</div>
-          <ui-textarea placeholder="Small textarea"></ui-textarea>
+          <n-textarea placeholder="Small textarea"></n-textarea>
         </div>
         <div>
           <div class="layout-label">md (default)</div>
-          <ui-textarea placeholder="Medium textarea"></ui-textarea>
+          <n-textarea placeholder="Medium textarea"></n-textarea>
         </div>
         <div size="lg">
           <div class="layout-label">lg</div>
-          <ui-textarea placeholder="Large textarea"></ui-textarea>
+          <n-textarea placeholder="Large textarea"></n-textarea>
         </div>
       </div>
       <pre class="layout-code"><code>&lt;div size="sm"&gt;
-  &lt;ui-textarea placeholder="Small"&gt;&lt;/ui-textarea&gt;
+  &lt;n-textarea placeholder="Small"&gt;&lt;/n-textarea&gt;
 &lt;/div&gt;
-&lt;ui-textarea placeholder="Medium (default)"&gt;&lt;/ui-textarea&gt;
+&lt;n-textarea placeholder="Medium (default)"&gt;&lt;/n-textarea&gt;
 &lt;div size="lg"&gt;
-  &lt;ui-textarea placeholder="Large"&gt;&lt;/ui-textarea&gt;
-&lt;/div&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+  &lt;n-textarea placeholder="Large"&gt;&lt;/n-textarea&gt;
+&lt;/div&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Density ── -->
@@ -95,24 +95,24 @@ const codeExamples = {
       <div class="layout-row">
         <div density="compact">
           <div class="layout-label">compact</div>
-          <ui-textarea placeholder="Compact textarea"></ui-textarea>
+          <n-textarea placeholder="Compact textarea"></n-textarea>
         </div>
         <div>
           <div class="layout-label">default</div>
-          <ui-textarea placeholder="Default textarea"></ui-textarea>
+          <n-textarea placeholder="Default textarea"></n-textarea>
         </div>
         <div density="loose">
           <div class="layout-label">loose</div>
-          <ui-textarea placeholder="Loose textarea"></ui-textarea>
+          <n-textarea placeholder="Loose textarea"></n-textarea>
         </div>
       </div>
       <pre class="layout-code"><code>&lt;div density="compact"&gt;
-  &lt;ui-textarea placeholder="Compact"&gt;&lt;/ui-textarea&gt;
+  &lt;n-textarea placeholder="Compact"&gt;&lt;/n-textarea&gt;
 &lt;/div&gt;
-&lt;ui-textarea placeholder="Default"&gt;&lt;/ui-textarea&gt;
+&lt;n-textarea placeholder="Default"&gt;&lt;/n-textarea&gt;
 &lt;div density="loose"&gt;
-  &lt;ui-textarea placeholder="Loose"&gt;&lt;/ui-textarea&gt;
-&lt;/div&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+  &lt;n-textarea placeholder="Loose"&gt;&lt;/n-textarea&gt;
+&lt;/div&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Rows ── -->
@@ -122,46 +122,55 @@ const codeExamples = {
       <div class="layout-row">
         <div>
           <div class="layout-label">rows="1"</div>
-          <ui-textarea rows="1" placeholder="Single line height"></ui-textarea>
+          <n-textarea rows="1" placeholder="Single line height"></n-textarea>
         </div>
         <div>
           <div class="layout-label">rows="2"</div>
-          <ui-textarea rows="2" placeholder="Two rows"></ui-textarea>
+          <n-textarea rows="2" placeholder="Two rows"></n-textarea>
         </div>
         <div>
           <div class="layout-label">rows="3" (default)</div>
-          <ui-textarea placeholder="Three rows (default)"></ui-textarea>
+          <n-textarea placeholder="Three rows (default)"></n-textarea>
         </div>
         <div>
           <div class="layout-label">rows="5"</div>
-          <ui-textarea rows="5" placeholder="Five rows"></ui-textarea>
+          <n-textarea rows="5" placeholder="Five rows"></n-textarea>
         </div>
         <div>
           <div class="layout-label">rows="8"</div>
-          <ui-textarea rows="8" placeholder="Eight rows"></ui-textarea>
+          <n-textarea rows="8" placeholder="Eight rows"></n-textarea>
         </div>
       </div>
-      <pre class="layout-code"><code>&lt;ui-textarea rows="1" placeholder="Single line"&gt;&lt;/ui-textarea&gt;
-&lt;ui-textarea rows="3" placeholder="Three rows (default)"&gt;&lt;/ui-textarea&gt;
-&lt;ui-textarea rows="5" placeholder="Five rows"&gt;&lt;/ui-textarea&gt;
-&lt;ui-textarea rows="8" placeholder="Eight rows"&gt;&lt;/ui-textarea&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+      <pre class="layout-code"><code>&lt;n-textarea rows="1" placeholder="Single line"&gt;&lt;/n-textarea&gt;
+&lt;n-textarea rows="3" placeholder="Three rows (default)"&gt;&lt;/n-textarea&gt;
+&lt;n-textarea rows="5" placeholder="Five rows"&gt;&lt;/n-textarea&gt;
+&lt;n-textarea rows="8" placeholder="Eight rows"&gt;&lt;/n-textarea&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Autogrow ── -->
 
     <h2>Autogrow</h2>
     <div class="layout-section">
-      <ui-textarea placeholder="Type here — grows as you type..." autogrow></ui-textarea>
-        <pre class="layout-code"><code>&lt;ui-textarea placeholder="Type here..." autogrow&gt;&lt;/ui-textarea&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+      <n-textarea placeholder="Type here — grows as you type..." autogrow></n-textarea>
+        <pre class="layout-code"><code>&lt;n-textarea placeholder="Type here..." autogrow&gt;&lt;/n-textarea&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Maxlength ── -->
 
     <h2>Maxlength</h2>
     <div class="layout-section">
-      <ui-textarea placeholder="Max 100 characters..." maxlength="100"></ui-textarea>
-      <p style="font-size: 0.75rem; color: var(--neutral-ink-muted); margin-top: 0.5rem;">Limited to 100 characters. Excess input is truncated.</p>
-        <pre class="layout-code"><code>&lt;ui-textarea placeholder="Max 100 characters..." maxlength="100"&gt;&lt;/ui-textarea&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+      <n-field>
+        <label slot="label">Bio</label>
+        <n-textarea placeholder="Max 100 characters..." maxlength="100"></n-textarea>
+        <span slot="description">100 character limit</span>
+        <span slot="error">Exceeds maximum length</span>
+      </n-field>
+      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-top: 0.5rem;">Reports <code>tooLong</code> via the Constraint Validation API when the limit is exceeded. The value is not truncated.</p>
+        <pre class="layout-code"><code>&lt;n-field&gt;
+  &lt;label slot="label"&gt;Bio&lt;/label&gt;
+  &lt;n-textarea placeholder="Max 100 characters..." maxlength="100"&gt;&lt;/n-textarea&gt;
+  &lt;span slot="error"&gt;Exceeds maximum length&lt;/span&gt;
+&lt;/n-field&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Intents ── -->
@@ -171,38 +180,38 @@ const codeExamples = {
       <div class="layout-row">
         <div intent="neutral">
           <div class="layout-label">neutral</div>
-          <ui-textarea placeholder="Neutral"></ui-textarea>
+          <n-textarea placeholder="Neutral"></n-textarea>
         </div>
         <div intent="accent">
           <div class="layout-label">accent</div>
-          <ui-textarea placeholder="Accent"></ui-textarea>
+          <n-textarea placeholder="Accent"></n-textarea>
         </div>
         <div intent="info">
           <div class="layout-label">info</div>
-          <ui-textarea placeholder="Info"></ui-textarea>
+          <n-textarea placeholder="Info"></n-textarea>
         </div>
         <div intent="success">
           <div class="layout-label">success</div>
-          <ui-textarea placeholder="Success"></ui-textarea>
+          <n-textarea placeholder="Success"></n-textarea>
         </div>
         <div intent="warning">
           <div class="layout-label">warning</div>
-          <ui-textarea placeholder="Warning"></ui-textarea>
+          <n-textarea placeholder="Warning"></n-textarea>
         </div>
         <div intent="danger">
           <div class="layout-label">danger</div>
-          <ui-textarea placeholder="Danger"></ui-textarea>
+          <n-textarea placeholder="Danger"></n-textarea>
         </div>
       </div>
       <pre class="layout-code"><code>&lt;div intent="accent"&gt;
-  &lt;ui-textarea placeholder="Accent"&gt;&lt;/ui-textarea&gt;
+  &lt;n-textarea placeholder="Accent"&gt;&lt;/n-textarea&gt;
 &lt;/div&gt;
 &lt;div intent="success"&gt;
-  &lt;ui-textarea placeholder="Success"&gt;&lt;/ui-textarea&gt;
+  &lt;n-textarea placeholder="Success"&gt;&lt;/n-textarea&gt;
 &lt;/div&gt;
 &lt;div intent="danger"&gt;
-  &lt;ui-textarea placeholder="Danger"&gt;&lt;/ui-textarea&gt;
-&lt;/div&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+  &lt;n-textarea placeholder="Danger"&gt;&lt;/n-textarea&gt;
+&lt;/div&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Disabled & Readonly ── -->
@@ -212,15 +221,15 @@ const codeExamples = {
       <div class="layout-row">
         <div>
           <div class="layout-label">disabled</div>
-          <ui-textarea disabled>This content cannot be edited.</ui-textarea>
+          <n-textarea disabled>This content cannot be edited.</n-textarea>
         </div>
         <div>
           <div class="layout-label">readonly</div>
-          <ui-textarea readonly>This content is read-only but selectable.</ui-textarea>
+          <n-textarea readonly>This content is read-only but selectable.</n-textarea>
         </div>
       </div>
-      <pre class="layout-code"><code>&lt;ui-textarea disabled&gt;Cannot be edited.&lt;/ui-textarea&gt;
-&lt;ui-textarea readonly&gt;Read-only but selectable.&lt;/ui-textarea&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+      <pre class="layout-code"><code>&lt;n-textarea disabled&gt;Cannot be edited.&lt;/n-textarea&gt;
+&lt;n-textarea readonly&gt;Read-only but selectable.&lt;/n-textarea&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Radius ── -->
@@ -230,33 +239,33 @@ const codeExamples = {
       <div class="layout-row">
         <div radius="sharp">
           <div class="layout-label">sharp</div>
-          <ui-textarea placeholder="Sharp radius"></ui-textarea>
+          <n-textarea placeholder="Sharp radius"></n-textarea>
         </div>
         <div>
           <div class="layout-label">default</div>
-          <ui-textarea placeholder="Default radius"></ui-textarea>
+          <n-textarea placeholder="Default radius"></n-textarea>
         </div>
         <div radius="round">
           <div class="layout-label">round</div>
-          <ui-textarea placeholder="Round radius"></ui-textarea>
+          <n-textarea placeholder="Round radius"></n-textarea>
         </div>
       </div>
       <pre class="layout-code"><code>&lt;div radius="sharp"&gt;
-  &lt;ui-textarea placeholder="Sharp"&gt;&lt;/ui-textarea&gt;
+  &lt;n-textarea placeholder="Sharp"&gt;&lt;/n-textarea&gt;
 &lt;/div&gt;
-&lt;ui-textarea placeholder="Default"&gt;&lt;/ui-textarea&gt;
+&lt;n-textarea placeholder="Default"&gt;&lt;/n-textarea&gt;
 &lt;div radius="round"&gt;
-  &lt;ui-textarea placeholder="Round"&gt;&lt;/ui-textarea&gt;
-&lt;/div&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+  &lt;n-textarea placeholder="Round"&gt;&lt;/n-textarea&gt;
+&lt;/div&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Events ── -->
 
     <h2>Events</h2>
     <div class="layout-section">
-      <ui-textarea id="event-textarea" placeholder="Type to see events..."></ui-textarea>
+      <n-textarea id="event-textarea" placeholder="Type to see events..."></n-textarea>
       <div class="log" id="event-log"></div>
-    <pre class="layout-code"><code set:html={codeExamples.events} /><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+    <pre class="layout-code"><code set:html={codeExamples.events} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Form Association ── -->
@@ -265,68 +274,68 @@ const codeExamples = {
     <div class="layout-section">
       <form id="demo-form">
         <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 0.75rem;">
-          <ui-textarea name="bio" placeholder="Write your bio..."></ui-textarea>
-          <ui-textarea name="notes" placeholder="Additional notes..." rows="2"></ui-textarea>
+          <n-textarea name="bio" placeholder="Write your bio..."></n-textarea>
+          <n-textarea name="notes" placeholder="Additional notes..." rows="2"></n-textarea>
         </div>
         <div style="display: flex; gap: 0.5rem;">
-          <ui-button variant="primary" type="submit"><span slot="label">Submit</span></ui-button>
-          <ui-button variant="secondary" type="reset"><span slot="label">Reset</span></ui-button>
+          <n-button variant="primary" type="submit"><span slot="label">Submit</span></n-button>
+          <n-button variant="secondary" type="reset"><span slot="label">Reset</span></n-button>
         </div>
       </form>
       <div class="log" id="form-log"></div>
     <pre class="layout-code"><code>&lt;form&gt;
-  &lt;ui-textarea name="bio" placeholder="Write your bio..."&gt;&lt;/ui-textarea&gt;
-  &lt;ui-button variant="primary" type="submit"&gt;
+  &lt;n-textarea name="bio" placeholder="Write your bio..."&gt;&lt;/n-textarea&gt;
+  &lt;n-button variant="primary" type="submit"&gt;
     &lt;span slot="label"&gt;Submit&lt;/span&gt;
-  &lt;/ui-button&gt;
-&lt;/form&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+  &lt;/n-button&gt;
+&lt;/form&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
-    <!-- ── With ui-field ── -->
+    <!-- ── With n-field ── -->
 
-    <h2>With ui-field</h2>
+    <h2>With n-field</h2>
     <div class="layout-section">
-      <ui-stack gap="4">
-        <ui-field>
+      <n-stack gap="4">
+        <n-field>
           <label slot="label">Bio</label>
-          <ui-textarea placeholder="Tell us about yourself..."></ui-textarea>
-        </ui-field>
-        <ui-field required>
+          <n-textarea placeholder="Tell us about yourself..."></n-textarea>
+        </n-field>
+        <n-field required>
           <label slot="label">Feedback</label>
-          <ui-textarea placeholder="Required field..." rows="4"></ui-textarea>
+          <n-textarea placeholder="Required field..." rows="4"></n-textarea>
           <span slot="description">We appreciate your feedback.</span>
-        </ui-field>
-        <ui-field disabled>
+        </n-field>
+        <n-field disabled>
           <label slot="label">Locked</label>
-          <ui-textarea>This field is disabled via ui-field.</ui-textarea>
-        </ui-field>
-      </ui-stack>
-    <pre class="layout-code"><code>&lt;ui-field&gt;
+          <n-textarea>This field is disabled via n-field.</n-textarea>
+        </n-field>
+      </n-stack>
+    <pre class="layout-code"><code>&lt;n-field&gt;
   &lt;label slot="label"&gt;Bio&lt;/label&gt;
-  &lt;ui-textarea placeholder="Tell us about yourself..."&gt;&lt;/ui-textarea&gt;
-&lt;/ui-field&gt;
-&lt;ui-field required&gt;
+  &lt;n-textarea placeholder="Tell us about yourself..."&gt;&lt;/n-textarea&gt;
+&lt;/n-field&gt;
+&lt;n-field required&gt;
   &lt;label slot="label"&gt;Feedback&lt;/label&gt;
-  &lt;ui-textarea placeholder="Required..." rows="4"&gt;&lt;/ui-textarea&gt;
+  &lt;n-textarea placeholder="Required..." rows="4"&gt;&lt;/n-textarea&gt;
   &lt;span slot="description"&gt;We appreciate your feedback.&lt;/span&gt;
-&lt;/ui-field&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+&lt;/n-field&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Debug States (force-*) ── -->
 
     <h2>Debug States (<code>force-*</code>)</h2>
     <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--neutral-ink-muted); margin: 0 0 1rem;">
+      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin: 0 0 1rem;">
         Attribute-driven pseudo-state overrides for DevTools debugging and visual testing.
       </p>
       <div class="layout-row">
         <div>
           <div class="layout-label">force-hover</div>
-          <ui-textarea force-hover placeholder="Force hover"></ui-textarea>
+          <n-textarea force-hover placeholder="Force hover"></n-textarea>
         </div>
         <div>
           <div class="layout-label">force-focus</div>
-          <ui-textarea force-focus placeholder="Force focus"></ui-textarea>
+          <n-textarea force-focus placeholder="Force focus"></n-textarea>
         </div>
       </div>
     </div>
@@ -340,14 +349,14 @@ import { logPrepend } from '../../scripts/event-log';
       const eventLog = document.getElementById('event-log');
       let count = 0;
 
-      eventTextarea.addEventListener('ui-input', (e) => {
+      eventTextarea.addEventListener('native:input', (e) => {
         count++;
-        logPrepend(eventLog, `#${count} ui-input — value: "${e.detail.value}"`);
+        logPrepend(eventLog, `#${count} native:input — value: "${e.detail.value}"`);
       });
 
-      eventTextarea.addEventListener('ui-change', (e) => {
+      eventTextarea.addEventListener('native:change', (e) => {
         count++;
-        logPrepend(eventLog, `#${count} ui-change — value: "${e.detail.value}"`);
+        logPrepend(eventLog, `#${count} native:change — value: "${e.detail.value}"`);
       });
 
       // Form logging

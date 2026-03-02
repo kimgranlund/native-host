@@ -19,33 +19,33 @@ const codeExamples = {
 
 /* ── Using Semantic Tokens ── */
 .card {
-  background: var(--accent-panel);
-  color: var(--accent-ink);
-  border: 1px solid var(--accent-border-muted);
+  background: var(--n-panel-accent);
+  color: var(--n-ink-accent);
+  border: 1px solid var(--n-border-muted-accent);
 }
 
 .surface-fill {
-  background: var(--accent-surface);
-  color: var(--accent-surface-ink);
+  background: var(--n-surface-accent);
+  color: var(--n-surface-ink-accent);
 }`,
 };
 ---
 <SidebarLayout title="Colors">
   <main>
     <h1>Colors</h1>
-    <p style="color: var(--neutral-ink-muted); margin-bottom: 1.5rem;">
+    <p style="color: var(--n-ink-muted-neutral); margin-bottom: 1.5rem;">
       Interactive color environment explorer. Adjust global and per-family parameters to see live changes across all tokens.
     </p>
 
     <div class="layout-section">
-      <pre class="layout-code"><code set:html={codeExamples.example} /><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+      <pre class="layout-code"><code set:html={codeExamples.example} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
-    <ds-inspector></ds-inspector>
+    <native-tokens></native-tokens>
   </main>
 
   <script>
     import '../../scripts/copy-buttons';
-    import '@nonoun/native-ui/inspector';
+    import '@nonoun/native-tokens';
   </script>
 </SidebarLayout>

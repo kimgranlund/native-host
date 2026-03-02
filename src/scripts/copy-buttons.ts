@@ -7,7 +7,7 @@ for (const btn of document.querySelectorAll('.copy-btn')) {
     const code = btn.closest('.layout-code')?.querySelector('code');
     if (!code) return;
     await navigator.clipboard.writeText(code.textContent ?? '');
-    const icon = btn.querySelector('ui-icon');
+    const icon = btn.querySelector('n-icon');
     if (icon) {
       icon.setAttribute('name', 'check');
       setTimeout(() => icon.setAttribute('name', 'copy'), 1500);

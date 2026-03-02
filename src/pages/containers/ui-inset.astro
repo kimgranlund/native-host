@@ -1,10 +1,10 @@
 ---
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
-<SidebarLayout title="ui-inset">
+<SidebarLayout title="Inset">
   <main>
-<h1>&lt;ui-inset&gt;</h1>
-    <p style="color: var(--neutral-ink-muted); font-size: 0.875rem; margin-bottom: 1.5rem;">
+<h1>&lt;n-inset&gt;</h1>
+    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
       Content indentation container. Adds consistent inline-start padding without visual surface. CSS-only container.
     </p>
 
@@ -13,35 +13,35 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <h2>Basic</h2>
     <div class="layout-section">
       <span style="font-weight: 500;">Parent heading</span>
-      <ui-inset>
+      <n-inset>
         <span>Indented child 1</span>
         <span>Indented child 2</span>
         <span>Indented child 3</span>
-      </ui-inset>
+      </n-inset>
     <pre class="layout-code"><code>&lt;span&gt;Parent heading&lt;/span&gt;
-&lt;ui-inset&gt;
+&lt;n-inset&gt;
   &lt;span&gt;Indented child 1&lt;/span&gt;
   &lt;span&gt;Indented child 2&lt;/span&gt;
   &lt;span&gt;Indented child 3&lt;/span&gt;
-&lt;/ui-inset&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+&lt;/n-inset&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── With Checkboxes ── -->
 
     <h2>Nested Checkboxes</h2>
     <div class="layout-section">
-      <ui-checkbox checked>Select all</ui-checkbox>
-      <ui-inset>
-        <ui-checkbox checked>Option A</ui-checkbox>
-        <ui-checkbox checked>Option B</ui-checkbox>
-        <ui-checkbox>Option C</ui-checkbox>
-      </ui-inset>
-    <pre class="layout-code"><code>&lt;ui-checkbox checked&gt;Select all&lt;/ui-checkbox&gt;
-&lt;ui-inset&gt;
-  &lt;ui-checkbox checked&gt;Option A&lt;/ui-checkbox&gt;
-  &lt;ui-checkbox checked&gt;Option B&lt;/ui-checkbox&gt;
-  &lt;ui-checkbox&gt;Option C&lt;/ui-checkbox&gt;
-&lt;/ui-inset&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+      <n-checkbox checked>Select all</n-checkbox>
+      <n-inset>
+        <n-checkbox checked>Option A</n-checkbox>
+        <n-checkbox checked>Option B</n-checkbox>
+        <n-checkbox>Option C</n-checkbox>
+      </n-inset>
+    <pre class="layout-code"><code>&lt;n-checkbox checked&gt;Select all&lt;/n-checkbox&gt;
+&lt;n-inset&gt;
+  &lt;n-checkbox checked&gt;Option A&lt;/n-checkbox&gt;
+  &lt;n-checkbox checked&gt;Option B&lt;/n-checkbox&gt;
+  &lt;n-checkbox&gt;Option C&lt;/n-checkbox&gt;
+&lt;/n-inset&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Sizes ── -->
@@ -50,22 +50,22 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <div class="layout-section">
       <div size="sm">
         <span style="font-weight: 500; font-size: 0.8125rem;">sm parent</span>
-        <ui-inset>
+        <n-inset>
           <span style="font-size: 0.8125rem;">sm indented content</span>
-        </ui-inset>
+        </n-inset>
       </div>
       <div size="lg" style="margin-top: 1rem;">
         <span style="font-weight: 500;">lg parent</span>
-        <ui-inset>
+        <n-inset>
           <span>lg indented content</span>
-        </ui-inset>
+        </n-inset>
       </div>
       <pre class="layout-code"><code>&lt;div size="sm"&gt;
   &lt;span&gt;sm parent&lt;/span&gt;
-  &lt;ui-inset&gt;
+  &lt;n-inset&gt;
     &lt;span&gt;sm indented content&lt;/span&gt;
-  &lt;/ui-inset&gt;
-&lt;/div&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+  &lt;/n-inset&gt;
+&lt;/div&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
   </main>
 

@@ -24,7 +24,7 @@ const sidebarToggle = document.getElementById('sidebar-toggle') as HTMLElement |
 sidebarToggle?.addEventListener('click', () => {
   if (!layout) return;
   const collapsed = layout.hasAttribute('collapsed');
-  const icon = sidebarToggle.querySelector('ui-icon');
+  const icon = sidebarToggle.querySelector('n-icon');
   if (collapsed) {
     layout.removeAttribute('collapsed');
     localStorage.setItem(PREF_SIDEBAR_COLLAPSED, 'false');
@@ -47,8 +47,8 @@ function updateThemeIcon() {
   const scheme = document.documentElement.style.colorScheme;
   const isDark = scheme === 'dark' || (!scheme && window.matchMedia('(prefers-color-scheme: dark)').matches);
   themeToggle.innerHTML = isDark
-    ? '<ui-icon name="sun" size="md"></ui-icon>'
-    : '<ui-icon name="moon" size="md"></ui-icon>';
+    ? '<n-icon name="sun" size="md"></n-icon>'
+    : '<n-icon name="moon" size="md"></n-icon>';
 }
 
 themeToggle?.addEventListener('click', () => {
@@ -68,7 +68,7 @@ const codeToggle = document.getElementById('code-toggle') as HTMLElement | null;
 function syncCodeState(show: boolean) {
   localStorage.setItem(PREF_SHOW_CODE, String(show));
   setCookie(PREF_SHOW_CODE, String(show));
-  const icon = codeToggle?.querySelector('ui-icon');
+  const icon = codeToggle?.querySelector('n-icon');
   if (icon) {
     if (show) icon.setAttribute('weight', 'fill');
     else icon.removeAttribute('weight');
@@ -92,10 +92,10 @@ codeToggle?.addEventListener('click', () => {
 
 // ── Inspector toggle ──
 
-import '@nonoun/native-ui/inspector';
+import '@nonoun/native-tokens';
 
 const inspectorToggle = document.getElementById('inspector-toggle') as HTMLElement | null;
-const inspector = document.querySelector('ui-layout-inspector') as HTMLElement & { toggle(): void } | null;
+const inspector = document.getElementById('inspector-panel') as HTMLElement & { toggle(): void } | null;
 
 inspectorToggle?.addEventListener('click', () => {
   inspector?.toggle();
@@ -103,7 +103,7 @@ inspectorToggle?.addEventListener('click', () => {
 
 if (inspector) {
   new MutationObserver(() => {
-    const icon = inspectorToggle?.querySelector('ui-icon');
+    const icon = inspectorToggle?.querySelector('n-icon');
     if (!icon) return;
     if (inspector.hasAttribute('open')) icon.setAttribute('weight', 'fill');
     else icon.removeAttribute('weight');
@@ -113,7 +113,7 @@ if (inspector) {
 // ── Chat toggle ──
 
 const chatToggle = document.getElementById('chat-toggle') as HTMLElement | null;
-const chat = document.querySelector('ui-layout-chat') as HTMLElement & { toggle(): void } | null;
+const chat = document.getElementById('chat-panel') as HTMLElement & { toggle(): void } | null;
 
 chatToggle?.addEventListener('click', () => {
   chat?.toggle();
@@ -121,7 +121,7 @@ chatToggle?.addEventListener('click', () => {
 
 if (chat) {
   new MutationObserver(() => {
-    const icon = chatToggle?.querySelector('ui-icon');
+    const icon = chatToggle?.querySelector('n-icon');
     if (!icon) return;
     if (chat.hasAttribute('open')) icon.setAttribute('weight', 'fill');
     else icon.removeAttribute('weight');
@@ -145,8 +145,8 @@ if (Object.keys(groupStates).length === 0) {
 }
 
 function applyAndObserveGroups() {
-  for (const group of document.querySelectorAll('ui-nav-group')) {
-    const header = group.querySelector('ui-nav-group-header');
+  for (const group of document.querySelectorAll('n-sidebar-group')) {
+    const header = group.querySelector('n-sidebar-group-header');
     const name = header?.textContent?.trim();
     if (!name) continue;
 
@@ -167,16 +167,16 @@ function applyAndObserveGroups() {
   }
 }
 
-if (customElements.get('ui-nav-group')) {
+if (customElements.get('n-sidebar-group')) {
   applyAndObserveGroups();
 } else {
-  customElements.whenDefined('ui-nav-group').then(applyAndObserveGroups);
+  customElements.whenDefined('n-sidebar-group').then(applyAndObserveGroups);
 }
 
 // ── Nav item navigation ──
 
-const nav = document.querySelector('ui-layout-sidebar-content ui-nav');
-nav?.addEventListener('ui-change', ((e: CustomEvent) => {
+const nav = document.querySelector('n-sidebar-content n-sidebar-nav');
+nav?.addEventListener('native:change', ((e: CustomEvent) => {
   window.location.href = e.detail.value;
 }) as EventListener);
 
@@ -193,15 +193,15 @@ function openDialog() {
 searchBtn?.addEventListener('click', openDialog);
 
 dialog?.addEventListener('close', () => {
-  const input = dialog.querySelector<HTMLInputElement>('ui-command-input input');
+  const input = dialog.querySelector<HTMLInputElement>('n-command-input input');
   if (input) {
     input.value = '';
     input.dispatchEvent(new Event('input', { bubbles: true }));
   }
 });
 
-const uiCommand = dialog?.querySelector('ui-command');
-uiCommand?.addEventListener('ui-change', ((e: CustomEvent) => {
+const uiCommand = dialog?.querySelector('n-command');
+uiCommand?.addEventListener('native:change', ((e: CustomEvent) => {
   dialog!.close();
   window.location.href = e.detail.value;
 }) as EventListener);

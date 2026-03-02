@@ -2,24 +2,24 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
 const codeExamples = {
-  events: `&lt;ui-nav id="my-nav"&gt;
-  &lt;ui-nav-item value="home"&gt;Home&lt;/ui-nav-item&gt;
-  &lt;ui-nav-item value="docs"&gt;Documentation&lt;/ui-nav-item&gt;
-  &lt;ui-nav-item value="api"&gt;API Reference&lt;/ui-nav-item&gt;
-&lt;/ui-nav&gt;
+  events: `&lt;n-sidebar-nav id="my-nav"&gt;
+  &lt;n-sidebar-nav-item value="home"&gt;Home&lt;/n-sidebar-nav-item&gt;
+  &lt;n-sidebar-nav-item value="docs"&gt;Documentation&lt;/n-sidebar-nav-item&gt;
+  &lt;n-sidebar-nav-item value="api"&gt;API Reference&lt;/n-sidebar-nav-item&gt;
+&lt;/n-sidebar-nav&gt;
 
 &lt;script&gt;
-  myNav.addEventListener('ui-change', (e) =&gt; {
+  myNav.addEventListener('native:change', (e) =&gt; {
     console.log(e.detail.value);
   });
 &lt;/script&gt;`,
 };
 ---
-<SidebarLayout title="ui-nav">
+<SidebarLayout title="Nav">
   <main>
-<h1>&lt;ui-nav&gt;</h1>
-    <p style="color: var(--neutral-ink-muted); font-size: 0.875rem; margin-bottom: 1.5rem;">
-      Navigation list with keyboard nav and selection. Transparent wrapper — items sit flush with no inline padding.
+<h1>&lt;n-sidebar-nav&gt;</h1>
+    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
+      Sidebar navigation list with keyboard nav and selection. Transparent wrapper — items sit flush with no inline padding.
     </p>
 
     <!-- ── Basic ── -->
@@ -29,31 +29,31 @@ const codeExamples = {
       <div class="layout-grid">
         <div class="layout-col">
           <span class="layout-col-label">Flat items</span>
-          <ui-nav id="basic-nav" size="sm">
-            <ui-nav-item value="home">Home</ui-nav-item>
-            <ui-nav-item value="about">About</ui-nav-item>
-            <ui-nav-item value="blog">Blog</ui-nav-item>
-            <ui-nav-item value="contact">Contact</ui-nav-item>
-          </ui-nav>
+          <n-sidebar-nav id="basic-nav" size="sm">
+            <n-sidebar-nav-item value="home">Home</n-sidebar-nav-item>
+            <n-sidebar-nav-item value="about">About</n-sidebar-nav-item>
+            <n-sidebar-nav-item value="blog">Blog</n-sidebar-nav-item>
+            <n-sidebar-nav-item value="contact">Contact</n-sidebar-nav-item>
+          </n-sidebar-nav>
           <div>Selected: <span class="value-display" id="basic-value">none</span></div>
         </div>
 
         <div class="layout-col">
           <span class="layout-col-label">With disabled item</span>
-          <ui-nav size="sm">
-            <ui-nav-item value="dashboard">Dashboard</ui-nav-item>
-            <ui-nav-item value="settings">Settings</ui-nav-item>
-            <ui-nav-item value="admin" disabled>Admin (restricted)</ui-nav-item>
-            <ui-nav-item value="logout">Log Out</ui-nav-item>
-          </ui-nav>
+          <n-sidebar-nav size="sm">
+            <n-sidebar-nav-item value="dashboard">Dashboard</n-sidebar-nav-item>
+            <n-sidebar-nav-item value="settings">Settings</n-sidebar-nav-item>
+            <n-sidebar-nav-item value="admin" disabled>Admin (restricted)</n-sidebar-nav-item>
+            <n-sidebar-nav-item value="logout">Log Out</n-sidebar-nav-item>
+          </n-sidebar-nav>
         </div>
       </div>
-      <pre class="layout-code"><code>&lt;ui-nav&gt;
-  &lt;ui-nav-item value="home"&gt;Home&lt;/ui-nav-item&gt;
-  &lt;ui-nav-item value="about"&gt;About&lt;/ui-nav-item&gt;
-  &lt;ui-nav-item value="blog"&gt;Blog&lt;/ui-nav-item&gt;
-  &lt;ui-nav-item value="contact" disabled&gt;Contact&lt;/ui-nav-item&gt;
-&lt;/ui-nav&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+      <pre class="layout-code"><code>&lt;n-sidebar-nav&gt;
+  &lt;n-sidebar-nav-item value="home"&gt;Home&lt;/n-sidebar-nav-item&gt;
+  &lt;n-sidebar-nav-item value="about"&gt;About&lt;/n-sidebar-nav-item&gt;
+  &lt;n-sidebar-nav-item value="blog"&gt;Blog&lt;/n-sidebar-nav-item&gt;
+  &lt;n-sidebar-nav-item value="contact" disabled&gt;Contact&lt;/n-sidebar-nav-item&gt;
+&lt;/n-sidebar-nav&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Grouped with Icons ── -->
@@ -63,57 +63,57 @@ const codeExamples = {
       <div class="layout-grid">
         <div class="layout-col">
           <span class="layout-col-label">Sidebar nav pattern</span>
-          <ui-nav id="grouped-nav" size="sm">
-            <ui-nav-group open>
-              <ui-nav-group-header><ui-icon name="house"></ui-icon> Getting Started</ui-nav-group-header>
-              <ui-nav-item value="install">Installation</ui-nav-item>
-              <ui-nav-item value="structure">Project Structure</ui-nav-item>
-            </ui-nav-group>
-            <ui-nav-group open>
-              <ui-nav-group-header><ui-icon name="rocket-launch"></ui-icon> Build Your Application</ui-nav-group-header>
-              <ui-nav-item value="routing">Routing</ui-nav-item>
-              <ui-nav-item value="data">Data Fetching</ui-nav-item>
-              <ui-nav-item value="caching">Caching</ui-nav-item>
-              <ui-nav-item value="styling">Styling</ui-nav-item>
-              <ui-nav-item value="optimizing">Optimizing</ui-nav-item>
-            </ui-nav-group>
-            <ui-nav-group open>
-              <ui-nav-group-header><ui-icon name="book-open"></ui-icon> Reference</ui-nav-group-header>
-              <ui-nav-item value="api">API Reference</ui-nav-item>
-              <ui-nav-item value="config">Configuration</ui-nav-item>
-              <ui-nav-item value="examples">Examples</ui-nav-item>
-            </ui-nav-group>
-          </ui-nav>
+          <n-sidebar-nav id="grouped-nav" size="sm">
+            <n-sidebar-group open>
+              <n-sidebar-group-header><n-icon name="house"></n-icon> Getting Started</n-sidebar-group-header>
+              <n-sidebar-nav-item value="install">Installation</n-sidebar-nav-item>
+              <n-sidebar-nav-item value="structure">Project Structure</n-sidebar-nav-item>
+            </n-sidebar-group>
+            <n-sidebar-group open>
+              <n-sidebar-group-header><n-icon name="rocket-launch"></n-icon> Build Your Application</n-sidebar-group-header>
+              <n-sidebar-nav-item value="routing">Routing</n-sidebar-nav-item>
+              <n-sidebar-nav-item value="data">Data Fetching</n-sidebar-nav-item>
+              <n-sidebar-nav-item value="caching">Caching</n-sidebar-nav-item>
+              <n-sidebar-nav-item value="styling">Styling</n-sidebar-nav-item>
+              <n-sidebar-nav-item value="optimizing">Optimizing</n-sidebar-nav-item>
+            </n-sidebar-group>
+            <n-sidebar-group open>
+              <n-sidebar-group-header><n-icon name="book-open"></n-icon> Reference</n-sidebar-group-header>
+              <n-sidebar-nav-item value="api">API Reference</n-sidebar-nav-item>
+              <n-sidebar-nav-item value="config">Configuration</n-sidebar-nav-item>
+              <n-sidebar-nav-item value="examples">Examples</n-sidebar-nav-item>
+            </n-sidebar-group>
+          </n-sidebar-nav>
           <div>Selected: <span class="value-display" id="grouped-value">none</span></div>
         </div>
 
         <div class="layout-col">
           <span class="layout-col-label">Without icons</span>
-          <ui-nav size="sm">
-            <ui-nav-group open>
-              <ui-nav-group-header>Fruits</ui-nav-group-header>
-              <ui-nav-item value="apple">Apple</ui-nav-item>
-              <ui-nav-item value="banana">Banana</ui-nav-item>
-              <ui-nav-item value="cherry">Cherry</ui-nav-item>
-            </ui-nav-group>
-            <ui-nav-group open>
-              <ui-nav-group-header>Vegetables</ui-nav-group-header>
-              <ui-nav-item value="carrot">Carrot</ui-nav-item>
-              <ui-nav-item value="broccoli">Broccoli</ui-nav-item>
-              <ui-nav-item value="spinach">Spinach</ui-nav-item>
-            </ui-nav-group>
-          </ui-nav>
+          <n-sidebar-nav size="sm">
+            <n-sidebar-group open>
+              <n-sidebar-group-header>Fruits</n-sidebar-group-header>
+              <n-sidebar-nav-item value="apple">Apple</n-sidebar-nav-item>
+              <n-sidebar-nav-item value="banana">Banana</n-sidebar-nav-item>
+              <n-sidebar-nav-item value="cherry">Cherry</n-sidebar-nav-item>
+            </n-sidebar-group>
+            <n-sidebar-group open>
+              <n-sidebar-group-header>Vegetables</n-sidebar-group-header>
+              <n-sidebar-nav-item value="carrot">Carrot</n-sidebar-nav-item>
+              <n-sidebar-nav-item value="broccoli">Broccoli</n-sidebar-nav-item>
+              <n-sidebar-nav-item value="spinach">Spinach</n-sidebar-nav-item>
+            </n-sidebar-group>
+          </n-sidebar-nav>
         </div>
       </div>
-      <pre class="layout-code"><code>&lt;ui-nav size="sm"&gt;
-  &lt;ui-nav-group&gt;
-    &lt;ui-nav-group-header&gt;
-      &lt;ui-icon name="house"&gt;&lt;/ui-icon&gt; Getting Started
-    &lt;/ui-nav-group-header&gt;
-    &lt;ui-nav-item value="install"&gt;Installation&lt;/ui-nav-item&gt;
-    &lt;ui-nav-item value="structure"&gt;Project Structure&lt;/ui-nav-item&gt;
-  &lt;/ui-nav-group&gt;
-&lt;/ui-nav&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+      <pre class="layout-code"><code>&lt;n-sidebar-nav size="sm"&gt;
+  &lt;n-sidebar-group&gt;
+    &lt;n-sidebar-group-header&gt;
+      &lt;n-icon name="house"&gt;&lt;/n-icon&gt; Getting Started
+    &lt;/n-sidebar-group-header&gt;
+    &lt;n-sidebar-nav-item value="install"&gt;Installation&lt;/n-sidebar-nav-item&gt;
+    &lt;n-sidebar-nav-item value="structure"&gt;Project Structure&lt;/n-sidebar-nav-item&gt;
+  &lt;/n-sidebar-group&gt;
+&lt;/n-sidebar-nav&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Collapsible Groups ── -->
@@ -123,36 +123,36 @@ const codeExamples = {
       <div class="layout-grid">
         <div class="layout-col">
           <span class="layout-col-label">Expanded (all groups open)</span>
-          <ui-nav size="sm">
-            <ui-nav-group open>
-              <ui-nav-group-header><ui-icon name="house"></ui-icon> Overview</ui-nav-group-header>
-              <ui-nav-item value="intro">Introduction</ui-nav-item>
-              <ui-nav-item value="quickstart">Quick Start</ui-nav-item>
-            </ui-nav-group>
-            <ui-nav-group open>
-              <ui-nav-group-header><ui-icon name="book-open"></ui-icon> Guides</ui-nav-group-header>
-              <ui-nav-item value="auth">Authentication</ui-nav-item>
-              <ui-nav-item value="deploy">Deployment</ui-nav-item>
-              <ui-nav-item value="testing">Testing</ui-nav-item>
-            </ui-nav-group>
-          </ui-nav>
+          <n-sidebar-nav size="sm">
+            <n-sidebar-group open>
+              <n-sidebar-group-header><n-icon name="house"></n-icon> Overview</n-sidebar-group-header>
+              <n-sidebar-nav-item value="intro">Introduction</n-sidebar-nav-item>
+              <n-sidebar-nav-item value="quickstart">Quick Start</n-sidebar-nav-item>
+            </n-sidebar-group>
+            <n-sidebar-group open>
+              <n-sidebar-group-header><n-icon name="book-open"></n-icon> Guides</n-sidebar-group-header>
+              <n-sidebar-nav-item value="auth">Authentication</n-sidebar-nav-item>
+              <n-sidebar-nav-item value="deploy">Deployment</n-sidebar-nav-item>
+              <n-sidebar-nav-item value="testing">Testing</n-sidebar-nav-item>
+            </n-sidebar-group>
+          </n-sidebar-nav>
         </div>
 
         <div class="layout-col">
           <span class="layout-col-label">Collapsed (default state)</span>
-          <ui-nav size="sm">
-            <ui-nav-group>
-              <ui-nav-group-header>Section A</ui-nav-group-header>
-              <ui-nav-item value="a1">Item A1</ui-nav-item>
-              <ui-nav-item value="a2">Item A2</ui-nav-item>
-            </ui-nav-group>
-            <ui-nav-group>
-              <ui-nav-group-header>Section B</ui-nav-group-header>
-              <ui-nav-item value="b1">Item B1</ui-nav-item>
-              <ui-nav-item value="b2">Item B2</ui-nav-item>
-              <ui-nav-item value="b3">Item B3</ui-nav-item>
-            </ui-nav-group>
-          </ui-nav>
+          <n-sidebar-nav size="sm">
+            <n-sidebar-group>
+              <n-sidebar-group-header>Section A</n-sidebar-group-header>
+              <n-sidebar-nav-item value="a1">Item A1</n-sidebar-nav-item>
+              <n-sidebar-nav-item value="a2">Item A2</n-sidebar-nav-item>
+            </n-sidebar-group>
+            <n-sidebar-group>
+              <n-sidebar-group-header>Section B</n-sidebar-group-header>
+              <n-sidebar-nav-item value="b1">Item B1</n-sidebar-nav-item>
+              <n-sidebar-nav-item value="b2">Item B2</n-sidebar-nav-item>
+              <n-sidebar-nav-item value="b3">Item B3</n-sidebar-nav-item>
+            </n-sidebar-group>
+          </n-sidebar-nav>
         </div>
       </div>
     </div>
@@ -164,69 +164,69 @@ const codeExamples = {
       <div class="layout-grid">
         <div class="layout-col">
           <span class="layout-col-label">xs</span>
-          <ui-nav size="xs">
-            <ui-nav-item value="a">Item A</ui-nav-item>
-            <ui-nav-item value="b">Item B</ui-nav-item>
-            <ui-nav-item value="c">Item C</ui-nav-item>
-          </ui-nav>
+          <n-sidebar-nav size="xs">
+            <n-sidebar-nav-item value="a">Item A</n-sidebar-nav-item>
+            <n-sidebar-nav-item value="b">Item B</n-sidebar-nav-item>
+            <n-sidebar-nav-item value="c">Item C</n-sidebar-nav-item>
+          </n-sidebar-nav>
         </div>
         <div class="layout-col">
           <span class="layout-col-label">sm</span>
-          <ui-nav size="sm">
-            <ui-nav-item value="a">Item A</ui-nav-item>
-            <ui-nav-item value="b">Item B</ui-nav-item>
-            <ui-nav-item value="c">Item C</ui-nav-item>
-          </ui-nav>
+          <n-sidebar-nav size="sm">
+            <n-sidebar-nav-item value="a">Item A</n-sidebar-nav-item>
+            <n-sidebar-nav-item value="b">Item B</n-sidebar-nav-item>
+            <n-sidebar-nav-item value="c">Item C</n-sidebar-nav-item>
+          </n-sidebar-nav>
         </div>
         <div class="layout-col">
           <span class="layout-col-label">md</span>
-          <ui-nav size="md">
-            <ui-nav-item value="a">Item A</ui-nav-item>
-            <ui-nav-item value="b">Item B</ui-nav-item>
-            <ui-nav-item value="c">Item C</ui-nav-item>
-          </ui-nav>
+          <n-sidebar-nav size="md">
+            <n-sidebar-nav-item value="a">Item A</n-sidebar-nav-item>
+            <n-sidebar-nav-item value="b">Item B</n-sidebar-nav-item>
+            <n-sidebar-nav-item value="c">Item C</n-sidebar-nav-item>
+          </n-sidebar-nav>
         </div>
         <div class="layout-col">
           <span class="layout-col-label">lg</span>
-          <ui-nav size="lg">
-            <ui-nav-item value="a">Item A</ui-nav-item>
-            <ui-nav-item value="b">Item B</ui-nav-item>
-            <ui-nav-item value="c">Item C</ui-nav-item>
-          </ui-nav>
+          <n-sidebar-nav size="lg">
+            <n-sidebar-nav-item value="a">Item A</n-sidebar-nav-item>
+            <n-sidebar-nav-item value="b">Item B</n-sidebar-nav-item>
+            <n-sidebar-nav-item value="c">Item C</n-sidebar-nav-item>
+          </n-sidebar-nav>
         </div>
       </div>
-      <pre class="layout-code"><code>&lt;ui-nav size="sm"&gt;...&lt;/ui-nav&gt;
-&lt;ui-nav size="md"&gt;...&lt;/ui-nav&gt;
-&lt;ui-nav size="lg"&gt;...&lt;/ui-nav&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+      <pre class="layout-code"><code>&lt;n-sidebar-nav size="sm"&gt;...&lt;/n-sidebar-nav&gt;
+&lt;n-sidebar-nav size="md"&gt;...&lt;/n-sidebar-nav&gt;
+&lt;n-sidebar-nav size="lg"&gt;...&lt;/n-sidebar-nav&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Events ── -->
 
     <h2>Events</h2>
     <div class="layout-section" size="sm">
-      <ui-nav id="event-nav" style="max-width: 220px;">
-        <ui-nav-item value="home">Home</ui-nav-item>
-        <ui-nav-item value="docs">Documentation</ui-nav-item>
-        <ui-nav-item value="api">API Reference</ui-nav-item>
-        <ui-nav-item value="changelog">Changelog</ui-nav-item>
-      </ui-nav>
+      <n-sidebar-nav id="event-nav" style="max-width: 220px;">
+        <n-sidebar-nav-item value="home">Home</n-sidebar-nav-item>
+        <n-sidebar-nav-item value="docs">Documentation</n-sidebar-nav-item>
+        <n-sidebar-nav-item value="api">API Reference</n-sidebar-nav-item>
+        <n-sidebar-nav-item value="changelog">Changelog</n-sidebar-nav-item>
+      </n-sidebar-nav>
       <div class="log" id="event-log"></div>
-      <pre class="layout-code"><code set:html={codeExamples.events} /><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+      <pre class="layout-code"><code set:html={codeExamples.events} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Debug States (force-*) ── -->
 
     <h2>Debug States (<code>force-*</code>)</h2>
     <div class="layout-section" size="sm">
-      <p style="font-size: 0.75rem; color: var(--neutral-ink-muted); margin: 0 0 1rem;">
-        Attribute-driven pseudo-state overrides for DevTools debugging and visual testing. Applied to individual <code>ui-nav-item</code> elements.
+      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin: 0 0 1rem;">
+        Attribute-driven pseudo-state overrides for DevTools debugging and visual testing. Applied to individual <code>n-sidebar-nav-item</code> elements.
       </p>
-      <ui-nav style="max-width: 220px;">
-        <ui-nav-item value="hover" force-hover>Force hover</ui-nav-item>
-        <ui-nav-item value="active" force-active>Force active</ui-nav-item>
-        <ui-nav-item value="focus" force-focus-visible>Force focus-visible</ui-nav-item>
-        <ui-nav-item value="normal">Normal</ui-nav-item>
-      </ui-nav>
+      <n-sidebar-nav style="max-width: 220px;">
+        <n-sidebar-nav-item value="hover" force-hover>Force hover</n-sidebar-nav-item>
+        <n-sidebar-nav-item value="active" force-active>Force active</n-sidebar-nav-item>
+        <n-sidebar-nav-item value="focus" force-focus-visible>Force focus-visible</n-sidebar-nav-item>
+        <n-sidebar-nav-item value="normal">Normal</n-sidebar-nav-item>
+      </n-sidebar-nav>
     </div>
   </main>
 
@@ -236,14 +236,14 @@ import { logPrepend } from '../../scripts/event-log';
 // Basic nav value tracking
       const basicNav = document.getElementById('basic-nav');
       const basicValue = document.getElementById('basic-value');
-      basicNav.addEventListener('ui-change', (e) => {
+      basicNav.addEventListener('native:change', (e) => {
         basicValue.textContent = e.detail.value;
       });
 
       // Grouped nav value tracking
       const groupedNav = document.getElementById('grouped-nav');
       const groupedValue = document.getElementById('grouped-value');
-      groupedNav.addEventListener('ui-change', (e) => {
+      groupedNav.addEventListener('native:change', (e) => {
         groupedValue.textContent = e.detail.value;
       });
 
@@ -252,17 +252,17 @@ import { logPrepend } from '../../scripts/event-log';
       const eventLog = document.getElementById('event-log');
       let eventCount = 0;
 
-      eventNav.addEventListener('ui-change', (e) => {
+      eventNav.addEventListener('native:change', (e) => {
         eventCount++;
-        logPrepend(eventLog, `#${eventCount} ui-change — value: "${e.detail.value}"`);
+        logPrepend(eventLog, `#${eventCount} native:change — value: "${e.detail.value}"`);
       });
   </script>
   <style is:global>
     .value-display {
       font-family: ui-monospace, monospace;
       font-size: 0.75rem;
-      color: var(--accent-ink);
-      background: var(--accent-panel);
+      color: var(--n-ink-accent);
+      background: var(--n-panel-accent);
       border-radius: 0.25rem;
       padding: 0.25rem 0.5rem;
       display: inline-block;

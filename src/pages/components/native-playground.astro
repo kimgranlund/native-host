@@ -1,0 +1,322 @@
+---
+import SidebarLayout from '../../layouts/SidebarLayout.astro';
+
+/* ── Playground content blocks ──
+   Defined as strings to avoid Astro's <script> processing.
+   Injected via set:html on each <native-playground>. */
+
+const basicPlayground = `
+<script type="playground/html">
+<button class="btn primary">Hello Playground</button>
+<button class="btn outline">Outline</button>
+</script>
+<script type="playground/css">
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  gap: 0.5rem;
+  font-family: system-ui, sans-serif;
+  margin: 0;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: opacity 150ms;
+}
+
+.btn:hover { opacity: 0.85; }
+
+.btn.primary {
+  background: #6366f1;
+  color: #fff;
+}
+
+.btn.outline {
+  background: transparent;
+  color: #6366f1;
+  border: 1px solid #6366f1;
+}
+</script>
+<script type="playground/js">
+document.querySelector('.btn.primary')
+  .addEventListener('click', (e) => {
+    console.log('Pressed!', e.type);
+  });
+</script>`;
+
+const verticalPlayground = `
+<script type="playground/html">
+<div style="padding: 2rem; text-align: center; display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;">
+  <span class="badge">Badge</span>
+  <span class="badge accent">Accent</span>
+  <span class="badge success">Success</span>
+  <span class="badge danger">Danger</span>
+</div>
+</script>
+<script type="playground/css">
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  margin: 0;
+  font-family: system-ui, sans-serif;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.badge.accent { background: #e0e7ff; color: #4338ca; }
+.badge.success { background: #dcfce7; color: #166534; }
+.badge.danger { background: #fee2e2; color: #991b1b; }
+</script>`;
+
+const consolePlayground = `
+<script type="playground/html">
+<div style="padding: 2rem; text-align: center;">
+  <button class="log-btn" id="log-btn">Log Something</button>
+</div>
+</script>
+<script type="playground/css">
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  margin: 0;
+  font-family: system-ui, sans-serif;
+}
+
+.log-btn {
+  padding: 0.5rem 1.25rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background: #6366f1;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: opacity 150ms;
+}
+
+.log-btn:hover { opacity: 0.85; }
+</script>
+<script type="playground/js">
+let count = 0;
+document.getElementById('log-btn')
+  .addEventListener('click', () => {
+    count++;
+    console.log('Button pressed ' + count + ' time(s)');
+    if (count % 3 === 0) console.warn('Every 3rd press triggers a warning');
+    if (count % 5 === 0) console.error('Every 5th press triggers an error');
+  });
+</script>`;
+
+const readonlyPlayground = `
+<script type="playground/html">
+<input class="search-input" type="text" placeholder="Type here..." />
+</script>
+<script type="playground/css">
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+  margin: 0;
+  font-family: system-ui, sans-serif;
+}
+
+.search-input {
+  max-width: 20rem;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  outline: none;
+  transition: border-color 150ms;
+}
+
+.search-input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
+}
+</script>`;
+
+const activeTabPlayground = `
+<script type="playground/html">
+<div class="card">
+  <h2>Styled Card</h2>
+  <p>Edit the CSS to change the card appearance.</p>
+</div>
+</script>
+<script type="playground/css">
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #f9fafb;
+}
+
+.card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  max-width: 20rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.card h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  color: #111827;
+}
+
+.card p {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+</script>`;
+---
+<SidebarLayout title="Playground">
+  <main>
+<h1>&lt;native-playground&gt;</h1>
+    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
+      Embeddable live code sandbox with tabbed CodeMirror editors, sandboxed iframe preview, and console capture.
+    </p>
+
+    <!-- ── Basic ── -->
+
+    <h2>Basic</h2>
+    <div class="layout-section">
+      <native-playground auto-run set:html={basicPlayground} />
+      <pre class="layout-code"><code>&lt;native-playground auto-run&gt;
+  &lt;script type="playground/html"&gt;
+    &lt;button class="btn primary"&gt;Hello Playground&lt;/button&gt;
+  &lt;/script&gt;
+  &lt;script type="playground/css"&gt;
+    .btn &#123; padding: 0.5rem 1rem; ... &#125;
+  &lt;/script&gt;
+  &lt;script type="playground/js"&gt;
+    document.querySelector('.btn')
+      .addEventListener('click', (e) =&gt; &#123; ... &#125;);
+  &lt;/script&gt;
+&lt;/native-playground&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </div>
+
+    <!-- ── Vertical Orientation ── -->
+
+    <h2>Vertical Orientation</h2>
+    <div class="layout-section">
+      <native-playground orientation="vertical" auto-run set:html={verticalPlayground} />
+      <pre class="layout-code"><code>&lt;native-playground orientation="vertical" auto-run&gt;
+  &lt;script type="playground/html"&gt;
+    &lt;span class="badge"&gt;Badge&lt;/span&gt;
+    &lt;span class="badge accent"&gt;Accent&lt;/span&gt;
+  &lt;/script&gt;
+  &lt;script type="playground/css"&gt;
+    .badge &#123; ... &#125;
+  &lt;/script&gt;
+&lt;/native-playground&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </div>
+
+    <!-- ── Console Capture ── -->
+
+    <h2>Console Capture</h2>
+    <p class="layout-hint">Click "Console" in the toolbar, then press the button to see captured logs.</p>
+    <div class="layout-section">
+      <native-playground auto-run console-open set:html={consolePlayground} />
+      <pre class="layout-code"><code>&lt;native-playground auto-run console-open&gt;
+  &lt;script type="playground/html"&gt;
+    &lt;button id="log-btn"&gt;Log Something&lt;/button&gt;
+  &lt;/script&gt;
+  &lt;script type="playground/js"&gt;
+    let count = 0;
+    document.getElementById('log-btn')
+      .addEventListener('click', () =&gt; &#123;
+        count++;
+        console.log('Button pressed ' + count + ' time(s)');
+        if (count % 3 === 0) console.warn('Warning');
+        if (count % 5 === 0) console.error('Error');
+      &#125;);
+  &lt;/script&gt;
+&lt;/native-playground&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </div>
+
+    <!-- ── Read-only ── -->
+
+    <h2>Read-only</h2>
+    <p class="layout-hint">Editors are non-editable. Useful for documentation showcases.</p>
+    <div class="layout-section">
+      <native-playground readonly auto-run set:html={readonlyPlayground} />
+      <pre class="layout-code"><code>&lt;native-playground readonly auto-run&gt;
+  &lt;script type="playground/html"&gt;
+    &lt;input type="text" placeholder="Type here..." /&gt;
+  &lt;/script&gt;
+  &lt;script type="playground/css"&gt;
+    .search-input &#123; ... &#125;
+  &lt;/script&gt;
+&lt;/native-playground&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </div>
+
+    <!-- ── Active Tab: CSS ── -->
+
+    <h2>Active Tab: CSS</h2>
+    <p class="layout-hint">Opens with the CSS tab pre-selected.</p>
+    <div class="layout-section">
+      <native-playground active-tab="css" auto-run set:html={activeTabPlayground} />
+      <pre class="layout-code"><code>&lt;native-playground active-tab="css" auto-run&gt;
+  &lt;script type="playground/html"&gt;
+    &lt;div class="card"&gt;
+      &lt;h2&gt;Styled Card&lt;/h2&gt;
+      &lt;p&gt;Edit the CSS to change the card appearance.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/script&gt;
+  &lt;script type="playground/css"&gt;
+    .card &#123;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+    &#125;
+  &lt;/script&gt;
+&lt;/native-playground&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </div>
+  </main>
+
+  <script>
+  import '../../scripts/copy-buttons';
+  import '@nonoun/native-playground/register';
+</script>
+  <style is:global>
+    @import '@nonoun/native-codemirror/css';
+    @import '@nonoun/native-playground/css';
+
+    /* Playground demo overrides */
+    native-playground {
+      margin-bottom: 1rem;
+    }
+</style>
+
+</SidebarLayout>

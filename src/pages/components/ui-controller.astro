@@ -8,19 +8,19 @@ const codeExamples = {
   Swipe left or right
 &lt;/inject-demo&gt;
 
-el.addEventListener('ui-swipe', (e) =&gt; {
+el.addEventListener('native:swipe', (e) =&gt; {
   const { direction, distance, velocity } = e.detail;
 });`,
-  providerComplexTraitsProvider: `&lt;ui-controller
+  providerComplexTraitsProvider: `&lt;n-controller
   traits="draggable"
   for="#list"
   draggable-selector=".drag-item"
   draggable-mode="drop"
 &gt;
   ...
-&lt;/ui-controller&gt;
+&lt;/n-controller&gt;
 
-list.addEventListener('ui-drop', (e) =&gt; {
+list.addEventListener('native:drop', (e) =&gt; {
   const { item, target } = e.detail;
   // Swap DOM positions
   const ph = document.createElement('div');
@@ -28,7 +28,7 @@ list.addEventListener('ui-drop', (e) =&gt; {
   target.before(item);
   ph.replaceWith(target);
 });`,
-  providerComplexTraitsProvider2: `&lt;ui-controller
+  providerComplexTraitsProvider2: `&lt;n-controller
   traits="selectable"
   for="#list"
   selectable-selector=".select-item"
@@ -39,12 +39,12 @@ list.addEventListener('ui-drop', (e) =&gt; {
     &lt;div class="select-item"&gt;Sent&lt;/div&gt;
     ...
   &lt;/div&gt;
-&lt;/ui-controller&gt;
+&lt;/n-controller&gt;
 
-list.addEventListener('ui-selection-change', (e) =&gt; {
+list.addEventListener('native:selection-change', (e) =&gt; {
   const { selected, count } = e.detail;
 });`,
-  providerComplexTraitsProvider3: `&lt;ui-controller
+  providerComplexTraitsProvider3: `&lt;n-controller
   traits="sortable"
   for="#table"
   sortable-selector="th"
@@ -58,13 +58,13 @@ list.addEventListener('ui-selection-change', (e) =&gt; {
     &lt;/thead&gt;
     &lt;tbody&gt;...&lt;/tbody&gt;
   &lt;/table&gt;
-&lt;/ui-controller&gt;
+&lt;/n-controller&gt;
 
-table.addEventListener('ui-sort', (e) =&gt; {
+table.addEventListener('native:sort', (e) =&gt; {
   const { column, direction } = e.detail;
   // Sort rows by column...
 });`,
-  providerComplexTraitsProvider4: `&lt;ui-controller
+  providerComplexTraitsProvider4: `&lt;n-controller
   traits="editable"
   for="#list"
   editable-trigger="dblclick"
@@ -73,32 +73,32 @@ table.addEventListener('ui-sort', (e) =&gt; {
     &lt;div class="edit-item"&gt;Todo: Write documentation&lt;/div&gt;
     &lt;div class="edit-item"&gt;Todo: Review pull requests&lt;/div&gt;
   &lt;/div&gt;
-&lt;/ui-controller&gt;
+&lt;/n-controller&gt;
 
-list.addEventListener('ui-edit-commit', (e) =&gt; {
+list.addEventListener('native:edit-commit', (e) =&gt; {
   const { value, previousValue } = e.detail;
 });`,
   providerComplexTraitsProvider5: `&lt;div class="collapse-trigger" id="trigger"&gt;Section 1&lt;/div&gt;
-&lt;ui-controller traits="collapsible" collapsible-duration="300"&gt;
+&lt;n-controller traits="collapsible" collapsible-duration="300"&gt;
   &lt;div class="collapse-content" id="content"&gt;
     Content here...
   &lt;/div&gt;
-&lt;/ui-controller&gt;
+&lt;/n-controller&gt;
 
 trigger.addEventListener('click', () =&gt; {
   const ctrl = content
-    .closest('ui-controller')
+    .closest('n-controller')
     .querySelector(':scope &gt; *');
   // Toggle via controller
 });`,
 };
 ---
-<SidebarLayout title="ui-controller">
+<SidebarLayout title="Controller">
   <main>
-<h1>ui-controller</h1>
-    <p style="color: var(--neutral-ink-muted); font-size: 0.875rem; margin-bottom: 1.5rem;">
+<h1>n-controller</h1>
+    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
       Two patterns for applying traits declaratively. <strong>Injection</strong> adds <code>traits="..."</code> directly on a component.
-      <strong>Provider</strong> uses <code>&lt;ui-controller&gt;</code> to apply traits to children, with options on the controller element.
+      <strong>Provider</strong> uses <code>&lt;n-controller&gt;</code> to apply traits to children, with options on the controller element.
     </p>
 
     <!-- ══════════════════════════════════════════════
@@ -112,7 +112,7 @@ trigger.addEventListener('click', () =&gt; {
     <h3>Hoverable</h3>
     <div class="layout-section">
       <p class="layout-hint">
-        <code>traits="hoverable"</code> on a UIElement subclass. Options come from the element's own attributes.
+        <code>traits="hoverable"</code> on a NativeElement subclass. Options come from the element's own attributes.
       </p>
       <div class="flex-row">
         <inject-demo traits="hoverable" class="layout-card" style="flex: 1;">
@@ -136,7 +136,7 @@ trigger.addEventListener('click', () =&gt; {
 
 &lt;inject-demo traits="hoverable" hoverable-leave-delay="300"&gt;
   300ms sticky
-&lt;/inject-demo&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+&lt;/inject-demo&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Pressable + Multi-trait ── -->
@@ -161,7 +161,7 @@ trigger.addEventListener('click', () =&gt; {
 
 &lt;inject-demo traits="hoverable pressable"&gt;
   Hoverable + Pressable
-&lt;/inject-demo&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+&lt;/inject-demo&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── getTraitController ── -->
@@ -175,12 +175,12 @@ trigger.addEventListener('click', () =&gt; {
         <inject-demo id="runtime-ctrl" traits="hoverable" class="layout-card" style="flex: 1;">
           Hover me (delay changes at runtime)
         </inject-demo>
-        <ui-button id="set-delay-btn" size="sm">Set delay 1000ms</ui-button>
-        <ui-button id="reset-delay-btn" size="sm" variant="ghost">Reset</ui-button>
+        <n-button id="set-delay-btn" size="sm">Set delay 1000ms</n-button>
+        <n-button id="reset-delay-btn" size="sm" variant="ghost">Reset</n-button>
       </div>
       <div id="inject-runtime-log" class="output"></div>
       <pre class="layout-code"><code>const hover = el.getTraitController('hoverable');
-hover.delay = 1000; // now requires 1s hover intent</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+hover.delay = 1000; // now requires 1s hover intent</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ══════════════════════════════════════════════
@@ -216,7 +216,7 @@ hover.delay = 1000; // now requires 1s hover intent</code><ui-button class="copy
   copyable-value="sk-proj-abc123..."
   copyable-feedback-duration="3000"&gt;
   sk-proj-abc123...
-&lt;/inject-demo&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+&lt;/inject-demo&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Editable ── -->
@@ -241,7 +241,7 @@ hover.delay = 1000; // now requires 1s hover intent</code><ui-button class="copy
 
 &lt;inject-demo traits="editable" editable-trigger="click"&gt;
   Single click to edit
-&lt;/inject-demo&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+&lt;/inject-demo&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Swipeable ── -->
@@ -260,7 +260,7 @@ hover.delay = 1000; // now requires 1s hover intent</code><ui-button class="copy
         </div>
       </inject-demo>
       <div id="swipe-log" class="output"></div>
-      <pre class="layout-code"><code set:html={codeExamples.injectionComplexTraitsInjection} /><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+      <pre class="layout-code"><code set:html={codeExamples.injectionComplexTraitsInjection} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ══════════════════════════════════════════════
@@ -274,19 +274,19 @@ hover.delay = 1000; // now requires 1s hover intent</code><ui-button class="copy
     <h3>Wrapper Mode (default)</h3>
     <div class="layout-section">
       <p class="layout-hint">
-        No <code>for</code> — traits apply to first element child. Options live on the <code>&lt;ui-controller&gt;</code>.
+        No <code>for</code> — traits apply to first element child. Options live on the <code>&lt;n-controller&gt;</code>.
       </p>
-      <ui-controller traits="hoverable" hoverable-delay="200">
+      <n-controller traits="hoverable" hoverable-delay="200">
         <div class="layout-card">
           Wrapped child gets hoverable (200ms delay)
         </div>
-      </ui-controller>
+      </n-controller>
       <div id="wrapper-log" class="output"></div>
-      <pre class="layout-code"><code>&lt;ui-controller traits="hoverable" hoverable-delay="200"&gt;
+      <pre class="layout-code"><code>&lt;n-controller traits="hoverable" hoverable-delay="200"&gt;
   &lt;div class="layout-card"&gt;
     Wrapped child gets hoverable (200ms delay)
   &lt;/div&gt;
-&lt;/ui-controller&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+&lt;/n-controller&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Selector mode: hoverable ── -->
@@ -296,21 +296,21 @@ hover.delay = 1000; // now requires 1s hover intent</code><ui-button class="copy
       <p class="layout-hint">
         <code>for=".card"</code> applies <code>hoverable</code> to all matching descendants. One controller, many targets.
       </p>
-      <ui-controller traits="hoverable" hoverable-delay="100" for=".card">
+      <n-controller traits="hoverable" hoverable-delay="100" for=".card">
         <div class="flex-row">
           <div class="card layout-card" style="flex: 1;">Card A</div>
           <div class="card layout-card" style="flex: 1;">Card B</div>
           <div class="card layout-card" style="flex: 1;">Card C</div>
         </div>
-      </ui-controller>
+      </n-controller>
       <div id="selector-hover-log" class="output"></div>
-      <pre class="layout-code"><code>&lt;ui-controller traits="hoverable" hoverable-delay="100" for=".card"&gt;
+      <pre class="layout-code"><code>&lt;n-controller traits="hoverable" hoverable-delay="100" for=".card"&gt;
   &lt;div class="flex-row"&gt;
     &lt;div class="card"&gt;Card A&lt;/div&gt;
     &lt;div class="card"&gt;Card B&lt;/div&gt;
     &lt;div class="card"&gt;Card C&lt;/div&gt;
   &lt;/div&gt;
-&lt;/ui-controller&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+&lt;/n-controller&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Dynamic children ── -->
@@ -320,22 +320,22 @@ hover.delay = 1000; // now requires 1s hover intent</code><ui-button class="copy
       <p class="layout-hint">
         MutationObserver auto-wires traits when new children matching the selector are added.
       </p>
-      <ui-controller traits="hoverable pressable" for=".dynamic-item">
+      <n-controller traits="hoverable pressable" for=".dynamic-item">
         <div id="dynamic-list" class="flex-col"></div>
-      </ui-controller>
+      </n-controller>
       <div style="margin-top: 0.75rem;">
-        <ui-button id="add-item-btn" size="sm">Add Item</ui-button>
-        <ui-button id="clear-items-btn" size="sm" variant="ghost">Clear</ui-button>
+        <n-button id="add-item-btn" size="sm">Add Item</n-button>
+        <n-button id="clear-items-btn" size="sm" variant="ghost">Clear</n-button>
       </div>
       <div id="dynamic-log" class="output"></div>
-      <pre class="layout-code"><code>&lt;ui-controller traits="hoverable pressable" for=".dynamic-item"&gt;
+      <pre class="layout-code"><code>&lt;n-controller traits="hoverable pressable" for=".dynamic-item"&gt;
   &lt;div id="dynamic-list"&gt;&lt;/div&gt;
-&lt;/ui-controller&gt;
+&lt;/n-controller&gt;
 
 // New items automatically get hoverable + pressable
 const item = document.createElement('div');
 item.className = 'dynamic-item';
-list.appendChild(item);</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+list.appendChild(item);</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Live option updates ── -->
@@ -345,24 +345,24 @@ list.appendChild(item);</code><ui-button class="copy-btn" size="sm" variant="gho
       <p class="layout-hint">
         Changing <code>hoverable-delay</code> on the controller updates all managed targets via <code>update()</code>.
       </p>
-      <ui-controller id="live-ctrl" traits="hoverable" hoverable-delay="0" for=".live-target">
+      <n-controller id="live-ctrl" traits="hoverable" hoverable-delay="0" for=".live-target">
         <div class="flex-row">
           <div class="live-target layout-card" style="flex: 1;">Target A</div>
           <div class="live-target layout-card" style="flex: 1;">Target B</div>
         </div>
-      </ui-controller>
+      </n-controller>
       <div style="margin-top: 0.75rem; display: flex; gap: 0.5rem; align-items: center;">
-        <span style="font-size: 0.75rem; color: var(--neutral-ink-muted);">Hover delay:</span>
-        <ui-button id="delay-0" size="sm" variant="ghost">0ms</ui-button>
-        <ui-button id="delay-300" size="sm" variant="ghost">300ms</ui-button>
-        <ui-button id="delay-800" size="sm" variant="ghost">800ms</ui-button>
+        <span style="font-size: 0.75rem; color: var(--n-ink-muted-neutral);">Hover delay:</span>
+        <n-button id="delay-0" size="sm" variant="ghost">0ms</n-button>
+        <n-button id="delay-300" size="sm" variant="ghost">300ms</n-button>
+        <n-button id="delay-800" size="sm" variant="ghost">800ms</n-button>
       </div>
-      <pre class="layout-code"><code>&lt;ui-controller id="ctrl" traits="hoverable" hoverable-delay="0" for=".target"&gt;
+      <pre class="layout-code"><code>&lt;n-controller id="ctrl" traits="hoverable" hoverable-delay="0" for=".target"&gt;
   ...
-&lt;/ui-controller&gt;
+&lt;/n-controller&gt;
 
 // Change delay at runtime — all targets update
-ctrl.setAttribute('hoverable-delay', '800');</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+ctrl.setAttribute('hoverable-delay', '800');</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ══════════════════════════════════════════════
@@ -378,7 +378,7 @@ ctrl.setAttribute('hoverable-delay', '800');</code><ui-button class="copy-btn" s
       <p class="layout-hint">
         <code>draggable-mode="slot"</code> shows a gap indicator. Drop inserts at that position. All options on the controller.
       </p>
-      <ui-controller
+      <n-controller
         traits="draggable"
         for="#drag-provider-list"
         draggable-selector=".drag-item"
@@ -392,9 +392,9 @@ ctrl.setAttribute('hoverable-delay', '800');</code><ui-button class="copy-btn" s
           <div class="drag-item"><span class="handle">&#x2807;</span><span class="label">Test</span></div>
           <div class="drag-item"><span class="handle">&#x2807;</span><span class="label">Ship</span></div>
         </div>
-      </ui-controller>
+      </n-controller>
       <div id="drag-provider-log" class="output"></div>
-      <pre class="layout-code"><code>&lt;ui-controller
+      <pre class="layout-code"><code>&lt;n-controller
   traits="draggable"
   for="#list"
   draggable-selector=".drag-item"
@@ -406,7 +406,7 @@ ctrl.setAttribute('hoverable-delay', '800');</code><ui-button class="copy-btn" s
     &lt;div class="drag-item"&gt;Prototype&lt;/div&gt;
     ...
   &lt;/div&gt;
-&lt;/ui-controller&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+&lt;/n-controller&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Draggable: horizontal ── -->
@@ -416,7 +416,7 @@ ctrl.setAttribute('hoverable-delay', '800');</code><ui-button class="copy-btn" s
       <p class="layout-hint">
         <code>draggable-axis="horizontal"</code> for a row of cards. Same slot mode — vertical placeholder becomes horizontal.
       </p>
-      <ui-controller
+      <n-controller
         traits="draggable"
         for="#drag-horiz-list"
         draggable-selector=".drag-card"
@@ -429,8 +429,8 @@ ctrl.setAttribute('hoverable-delay', '800');</code><ui-button class="copy-btn" s
           <div class="drag-card">C</div>
           <div class="drag-card">D</div>
         </div>
-      </ui-controller>
-      <pre class="layout-code"><code>&lt;ui-controller
+      </n-controller>
+      <pre class="layout-code"><code>&lt;n-controller
   traits="draggable"
   for="#row"
   draggable-selector=".drag-card"
@@ -442,7 +442,7 @@ ctrl.setAttribute('hoverable-delay', '800');</code><ui-button class="copy-btn" s
     &lt;div class="drag-card"&gt;B&lt;/div&gt;
     ...
   &lt;/div&gt;
-&lt;/ui-controller&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+&lt;/n-controller&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Draggable: drop swap ── -->
@@ -450,9 +450,9 @@ ctrl.setAttribute('hoverable-delay', '800');</code><ui-button class="copy-btn" s
     <h3>Draggable — Swap (drop)</h3>
     <div class="layout-section">
       <p class="layout-hint">
-        <code>draggable-mode="drop"</code> highlights the target. Consumer decides the swap logic on <code>ui-drop</code>.
+        <code>draggable-mode="drop"</code> highlights the target. Consumer decides the swap logic on <code>native:drop</code>.
       </p>
-      <ui-controller
+      <n-controller
         traits="draggable"
         for="#drag-swap-list"
         draggable-selector=".drag-item"
@@ -464,9 +464,9 @@ ctrl.setAttribute('hoverable-delay', '800');</code><ui-button class="copy-btn" s
           <div class="drag-item"><span class="handle">&#x2807;</span><span class="label">Develop</span></div>
           <div class="drag-item"><span class="handle">&#x2807;</span><span class="label">Deploy</span></div>
         </div>
-      </ui-controller>
+      </n-controller>
       <div id="drag-swap-log" class="output"></div>
-      <pre class="layout-code"><code set:html={codeExamples.providerComplexTraitsProvider} /><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+      <pre class="layout-code"><code set:html={codeExamples.providerComplexTraitsProvider} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Resizable ── -->
@@ -477,7 +477,7 @@ ctrl.setAttribute('hoverable-delay', '800');</code><ui-button class="copy-btn" s
         <code>traits="resizable"</code> with <code>resizable-handle-selector</code>, <code>resizable-axis</code>, <code>resizable-min</code>, <code>resizable-max</code>. Drag the edge handle to resize.
       </p>
       <div class="flex-col" style="gap: 1rem;">
-        <ui-controller
+        <n-controller
           traits="resizable"
           for="#resize-h"
           resizable-handle-selector=".resize-handle"
@@ -487,12 +487,12 @@ ctrl.setAttribute('hoverable-delay', '800');</code><ui-button class="copy-btn" s
         >
           <div id="resize-h" class="resize-box">
             <div>Horizontal resize</div>
-            <div style="font-size: 0.75rem; color: var(--neutral-ink-muted); margin-top: 0.25rem;">min: 120px, max: 500px</div>
+            <div style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-top: 0.25rem;">min: 120px, max: 500px</div>
             <div class="resize-handle"></div>
           </div>
-        </ui-controller>
+        </n-controller>
 
-        <ui-controller
+        <n-controller
           traits="resizable"
           for="#resize-v"
           resizable-handle-selector=".resize-handle-v"
@@ -502,13 +502,13 @@ ctrl.setAttribute('hoverable-delay', '800');</code><ui-button class="copy-btn" s
         >
           <div id="resize-v" class="resize-box-v">
             <div>Vertical resize</div>
-            <div style="font-size: 0.75rem; color: var(--neutral-ink-muted); margin-top: 0.25rem;">min: 60px, max: 300px</div>
+            <div style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-top: 0.25rem;">min: 60px, max: 300px</div>
             <div class="resize-handle-v"></div>
           </div>
-        </ui-controller>
+        </n-controller>
       </div>
       <div id="resize-log" class="output"></div>
-      <pre class="layout-code"><code>&lt;ui-controller
+      <pre class="layout-code"><code>&lt;n-controller
   traits="resizable"
   for="#panel"
   resizable-handle-selector=".resize-handle"
@@ -520,7 +520,7 @@ ctrl.setAttribute('hoverable-delay', '800');</code><ui-button class="copy-btn" s
     Horizontal resize
     &lt;div class="resize-handle"&gt;&lt;/div&gt;
   &lt;/div&gt;
-&lt;/ui-controller&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+&lt;/n-controller&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Selectable ── -->
@@ -530,7 +530,7 @@ ctrl.setAttribute('hoverable-delay', '800');</code><ui-button class="copy-btn" s
       <p class="layout-hint">
         <code>traits="selectable"</code> with <code>selectable-mode="multiple"</code>. Click to select, Ctrl+click to toggle, Shift+click for range. Sets <code>aria-selected</code> on items.
       </p>
-      <ui-controller
+      <n-controller
         traits="selectable"
         for="#select-list"
         selectable-selector=".select-item"
@@ -544,9 +544,9 @@ ctrl.setAttribute('hoverable-delay', '800');</code><ui-button class="copy-btn" s
           <div class="select-item" data-value="spam">Spam</div>
           <div class="select-item" data-value="trash">Trash</div>
         </div>
-      </ui-controller>
+      </n-controller>
       <div id="select-log" class="output"></div>
-      <pre class="layout-code"><code set:html={codeExamples.providerComplexTraitsProvider2} /><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+      <pre class="layout-code"><code set:html={codeExamples.providerComplexTraitsProvider2} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Sortable ── -->
@@ -556,7 +556,7 @@ ctrl.setAttribute('hoverable-delay', '800');</code><ui-button class="copy-btn" s
       <p class="layout-hint">
         <code>traits="sortable"</code> with <code>sortable-selector="th"</code>. Click headers to cycle: ascending → descending → none. Sets <code>aria-sort</code> on the active header.
       </p>
-      <ui-controller
+      <n-controller
         traits="sortable"
         for="#sort-table"
         sortable-selector="th"
@@ -577,9 +577,9 @@ ctrl.setAttribute('hoverable-delay', '800');</code><ui-button class="copy-btn" s
             <tr><td>Eve</td><td>Designer</td><td>Active</td></tr>
           </tbody>
         </table>
-      </ui-controller>
+      </n-controller>
       <div id="sort-log" class="output"></div>
-      <pre class="layout-code"><code set:html={codeExamples.providerComplexTraitsProvider3} /><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+      <pre class="layout-code"><code set:html={codeExamples.providerComplexTraitsProvider3} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Editable (provider) ── -->
@@ -589,7 +589,7 @@ ctrl.setAttribute('hoverable-delay', '800');</code><ui-button class="copy-btn" s
       <p class="layout-hint">
         <code>traits="editable"</code> via provider makes every <code>.edit-item</code> editable. Double-click to edit, Enter to commit, Escape to cancel.
       </p>
-      <ui-controller
+      <n-controller
         traits="editable"
         for="#edit-list"
         editable-trigger="dblclick"
@@ -599,9 +599,9 @@ ctrl.setAttribute('hoverable-delay', '800');</code><ui-button class="copy-btn" s
           <div class="edit-item">Todo: Review pull requests</div>
           <div class="edit-item">Todo: Update dependencies</div>
         </div>
-      </ui-controller>
+      </n-controller>
       <div id="edit-provider-log" class="output"></div>
-      <pre class="layout-code"><code set:html={codeExamples.providerComplexTraitsProvider4} /><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+      <pre class="layout-code"><code set:html={codeExamples.providerComplexTraitsProvider4} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Collapsible (provider) ── -->
@@ -617,39 +617,39 @@ ctrl.setAttribute('hoverable-delay', '800');</code><ui-button class="copy-btn" s
             <span>Section 1 — Getting Started</span>
             <span class="arrow">&#x25BC;</span>
           </div>
-          <ui-controller traits="collapsible" collapsible-duration="300">
+          <n-controller traits="collapsible" collapsible-duration="300">
             <div class="collapse-content" id="c-content-1">
               Install the package, import the components you need, and add the CSS to your page.
               The design system works with any framework or vanilla HTML.
             </div>
-          </ui-controller>
+          </n-controller>
         </div>
         <div>
           <div class="collapse-trigger" id="c-trigger-2">
             <span>Section 2 — Configuration</span>
             <span class="arrow">&#x25BC;</span>
           </div>
-          <ui-controller traits="collapsible" collapsible-duration="300">
+          <n-controller traits="collapsible" collapsible-duration="300">
             <div class="collapse-content" id="c-content-2">
               Configure colors via CSS custom properties on <code>:root</code>. All components inherit
               from the semantic token system automatically.
             </div>
-          </ui-controller>
+          </n-controller>
         </div>
         <div>
           <div class="collapse-trigger" id="c-trigger-3">
             <span>Section 3 — Advanced</span>
             <span class="arrow">&#x25BC;</span>
           </div>
-          <ui-controller traits="collapsible" collapsible-duration="300">
+          <n-controller traits="collapsible" collapsible-duration="300">
             <div class="collapse-content" id="c-content-3">
               Use trait controllers for drag-and-drop, selection, editing, and more.
               Compose multiple traits on a single element for complex interactions.
             </div>
-          </ui-controller>
+          </n-controller>
         </div>
       </div>
-      <pre class="layout-code"><code set:html={codeExamples.providerComplexTraitsProvider5} /><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+      <pre class="layout-code"><code set:html={codeExamples.providerComplexTraitsProvider5} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Multi-trait provider ── -->
@@ -659,19 +659,19 @@ ctrl.setAttribute('hoverable-delay', '800');</code><ui-button class="copy-btn" s
       <p class="layout-hint">
         <code>traits="hoverable pressable"</code> applies both traits to every matching descendant.
       </p>
-      <ui-controller traits="hoverable pressable" for=".multi-target">
+      <n-controller traits="hoverable pressable" for=".multi-target">
         <div class="flex-row">
           <div class="multi-target layout-card" style="flex: 1; cursor: pointer;">Alpha</div>
           <div class="multi-target layout-card" style="flex: 1; cursor: pointer;">Bravo</div>
           <div class="multi-target layout-card" style="flex: 1; cursor: pointer;">Charlie</div>
         </div>
-      </ui-controller>
+      </n-controller>
       <div id="multi-provider-log" class="output"></div>
-      <pre class="layout-code"><code>&lt;ui-controller traits="hoverable pressable" for=".multi-target"&gt;
+      <pre class="layout-code"><code>&lt;n-controller traits="hoverable pressable" for=".multi-target"&gt;
   &lt;div class="multi-target"&gt;Alpha&lt;/div&gt;
   &lt;div class="multi-target"&gt;Bravo&lt;/div&gt;
   &lt;div class="multi-target"&gt;Charlie&lt;/div&gt;
-&lt;/ui-controller&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+&lt;/n-controller&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ══════════════════════════════════════════════
@@ -689,12 +689,12 @@ ctrl.setAttribute('hoverable-delay', '800');</code><ui-button class="copy-btn" s
           <tr>
             <td>Syntax</td>
             <td><code>&lt;el traits="hoverable"&gt;</code></td>
-            <td><code>&lt;ui-controller traits="hoverable" for=".x"&gt;</code></td>
+            <td><code>&lt;n-controller traits="hoverable" for=".x"&gt;</code></td>
           </tr>
           <tr>
             <td>Options source</td>
             <td>On the element itself</td>
-            <td>On the <code>&lt;ui-controller&gt;</code></td>
+            <td>On the <code>&lt;n-controller&gt;</code></td>
           </tr>
           <tr>
             <td>Targets</td>
@@ -707,7 +707,7 @@ ctrl.setAttribute('hoverable-delay', '800');</code><ui-button class="copy-btn" s
             <td>Watches child additions/removals</td>
           </tr>
           <tr>
-            <td>Requires UIElement</td>
+            <td>Requires NativeElement</td>
             <td>Yes (connectedCallback reads <code>traits</code>)</td>
             <td>No — targets can be plain <code>HTMLElement</code></td>
           </tr>
@@ -770,12 +770,12 @@ ctrl.setAttribute('hoverable-delay', '800');</code><ui-button class="copy-btn" s
   </main>
 
   <script>
-import { UIElement, define } from "@nonoun/native-ui";
+import { NativeElement, define } from "@nonoun/native-ui";
 import '../../scripts/copy-buttons';
 import { logAppend as appendLog } from '../../scripts/event-log';
-// ── Minimal UIElement for injection demos ──
+// ── Minimal NativeElement for injection demos ──
 
-      class InjectDemo extends UIElement {}
+      class InjectDemo extends NativeElement {}
       define('inject-demo', InjectDemo);
 
       // ═══════════════════════════════════════════
@@ -786,8 +786,8 @@ import { logAppend as appendLog } from '../../scripts/event-log';
 
       const injectHoverLog = document.getElementById('inject-hover-log');
       for (const el of document.querySelectorAll('inject-demo[traits*="hoverable"]:not([traits*="pressable"])')) {
-        el.addEventListener('ui-hover-enter', () => appendLog(injectHoverLog, `Enter: "${el.textContent.trim()}"`));
-        el.addEventListener('ui-hover-leave', () => appendLog(injectHoverLog, `Leave: "${el.textContent.trim()}"`));
+        el.addEventListener('native:hover-enter', () => appendLog(injectHoverLog, `Enter: "${el.textContent.trim()}"`));
+        el.addEventListener('native:hover-leave', () => appendLog(injectHoverLog, `Leave: "${el.textContent.trim()}"`));
       }
 
       // ── Pressable + multi log ──
@@ -795,9 +795,9 @@ import { logAppend as appendLog } from '../../scripts/event-log';
       const injectPressLog = document.getElementById('inject-press-log');
       for (const el of document.querySelectorAll('#inject-press-log').values()) break; // skip
       document.querySelectorAll('inject-demo[traits="pressable"], inject-demo[traits="hoverable pressable"]').forEach((el) => {
-        el.addEventListener('ui-press', () => appendLog(injectPressLog, `Press: "${el.textContent.trim()}"`));
-        el.addEventListener('ui-hover-enter', () => appendLog(injectPressLog, `Hover: "${el.textContent.trim()}"`));
-        el.addEventListener('ui-hover-leave', () => appendLog(injectPressLog, `Leave: "${el.textContent.trim()}"`));
+        el.addEventListener('native:press', () => appendLog(injectPressLog, `Press: "${el.textContent.trim()}"`));
+        el.addEventListener('native:hover-enter', () => appendLog(injectPressLog, `Hover: "${el.textContent.trim()}"`));
+        el.addEventListener('native:hover-leave', () => appendLog(injectPressLog, `Leave: "${el.textContent.trim()}"`));
       });
 
       // ── Runtime access ──
@@ -805,15 +805,15 @@ import { logAppend as appendLog } from '../../scripts/event-log';
       const runtimeEl = document.getElementById('runtime-ctrl');
       const runtimeLog = document.getElementById('inject-runtime-log');
 
-      runtimeEl.addEventListener('ui-hover-enter', () => appendLog(runtimeLog, 'Hover enter'));
-      runtimeEl.addEventListener('ui-hover-leave', () => appendLog(runtimeLog, 'Hover leave'));
+      runtimeEl.addEventListener('native:hover-enter', () => appendLog(runtimeLog, 'Hover enter'));
+      runtimeEl.addEventListener('native:hover-leave', () => appendLog(runtimeLog, 'Hover leave'));
 
-      document.getElementById('set-delay-btn').addEventListener('ui-press', () => {
+      document.getElementById('set-delay-btn').addEventListener('native:press', () => {
         const hover = runtimeEl.getTraitController('hoverable');
         if (hover) { hover.delay = 1000; appendLog(runtimeLog, 'Set delay to 1000ms'); }
       });
 
-      document.getElementById('reset-delay-btn').addEventListener('ui-press', () => {
+      document.getElementById('reset-delay-btn').addEventListener('native:press', () => {
         const hover = runtimeEl.getTraitController('hoverable');
         if (hover) { hover.delay = 0; appendLog(runtimeLog, 'Reset delay to 0ms'); }
       });
@@ -826,11 +826,11 @@ import { logAppend as appendLog } from '../../scripts/event-log';
 
       const copyLog = document.getElementById('copy-log');
       for (const el of document.querySelectorAll('inject-demo[traits*="copyable"]')) {
-        el.addEventListener('ui-press', () => {
+        el.addEventListener('native:press', () => {
           const ctrl = el.getTraitController('copyable');
           if (ctrl) ctrl.copy();
         });
-        el.addEventListener('ui-copy', (e) => {
+        el.addEventListener('native:copy', (e) => {
           appendLog(copyLog, `Copied: "${e.detail.value}"`);
         });
       }
@@ -839,9 +839,9 @@ import { logAppend as appendLog } from '../../scripts/event-log';
 
       const editLog = document.getElementById('edit-log');
       for (const el of document.querySelectorAll('inject-demo[traits*="editable"]')) {
-        el.addEventListener('ui-edit-start', () => appendLog(editLog, 'Editing started'));
-        el.addEventListener('ui-edit-commit', (e) => appendLog(editLog, `Committed: "${e.detail.value}"`));
-        el.addEventListener('ui-edit-cancel', () => appendLog(editLog, 'Edit cancelled'));
+        el.addEventListener('native:edit-start', () => appendLog(editLog, 'Editing started'));
+        el.addEventListener('native:edit-commit', (e) => appendLog(editLog, `Committed: "${e.detail.value}"`));
+        el.addEventListener('native:edit-cancel', () => appendLog(editLog, 'Edit cancelled'));
       }
 
       // ── Swipeable ──
@@ -857,7 +857,7 @@ import { logAppend as appendLog } from '../../scripts/event-log';
         dots.forEach((d, i) => d.classList.toggle('active', i === swipeIndex));
       }
 
-      document.getElementById('swipe-demo').addEventListener('ui-swipe', (e) => {
+      document.getElementById('swipe-demo').addEventListener('native:swipe', (e) => {
         const { direction, distance, velocity } = e.detail;
         appendLog(swipeLog, `Swipe ${direction} (dist: ${Math.round(distance)}px, vel: ${velocity.toFixed(2)})`);
         if (direction === 'left' && swipeIndex < 2) swipeIndex++;
@@ -872,18 +872,18 @@ import { logAppend as appendLog } from '../../scripts/event-log';
       // ── Wrapper mode ──
 
       const wrapperLog = document.getElementById('wrapper-log');
-      const wrapperCard = document.querySelector('ui-controller[traits="hoverable"][hoverable-delay="200"] > .layout-card');
+      const wrapperCard = document.querySelector('n-controller[traits="hoverable"][hoverable-delay="200"] > .layout-card');
       if (wrapperCard) {
-        wrapperCard.addEventListener('ui-hover-enter', () => appendLog(wrapperLog, 'Hover enter'));
-        wrapperCard.addEventListener('ui-hover-leave', () => appendLog(wrapperLog, 'Hover leave'));
+        wrapperCard.addEventListener('native:hover-enter', () => appendLog(wrapperLog, 'Hover enter'));
+        wrapperCard.addEventListener('native:hover-leave', () => appendLog(wrapperLog, 'Hover leave'));
       }
 
       // ── Selector hoverable ──
 
       const selectorHoverLog = document.getElementById('selector-hover-log');
       for (const card of document.querySelectorAll('.card.layout-card')) {
-        card.addEventListener('ui-hover-enter', () => appendLog(selectorHoverLog, `Enter: "${card.textContent.trim()}"`));
-        card.addEventListener('ui-hover-leave', () => appendLog(selectorHoverLog, `Leave: "${card.textContent.trim()}"`));
+        card.addEventListener('native:hover-enter', () => appendLog(selectorHoverLog, `Enter: "${card.textContent.trim()}"`));
+        card.addEventListener('native:hover-leave', () => appendLog(selectorHoverLog, `Leave: "${card.textContent.trim()}"`));
       }
 
       // ── Dynamic children ──
@@ -892,7 +892,7 @@ import { logAppend as appendLog } from '../../scripts/event-log';
       const dynamicList = document.getElementById('dynamic-list');
       let itemCounter = 0;
 
-      document.getElementById('add-item-btn').addEventListener('ui-press', () => {
+      document.getElementById('add-item-btn').addEventListener('native:press', () => {
         itemCounter++;
         const item = document.createElement('div');
         item.className = 'dynamic-item layout-card';
@@ -900,11 +900,11 @@ import { logAppend as appendLog } from '../../scripts/event-log';
         item.textContent = `Item ${itemCounter}`;
         dynamicList.appendChild(item);
         appendLog(dynamicLog, `Added "Item ${itemCounter}" — traits auto-wired`);
-        item.addEventListener('ui-hover-enter', () => appendLog(dynamicLog, `Hover: "${item.textContent}"`));
-        item.addEventListener('ui-press', () => appendLog(dynamicLog, `Press: "${item.textContent}"`));
+        item.addEventListener('native:hover-enter', () => appendLog(dynamicLog, `Hover: "${item.textContent}"`));
+        item.addEventListener('native:press', () => appendLog(dynamicLog, `Press: "${item.textContent}"`));
       });
 
-      document.getElementById('clear-items-btn').addEventListener('ui-press', () => {
+      document.getElementById('clear-items-btn').addEventListener('native:press', () => {
         dynamicList.innerHTML = '';
         itemCounter = 0;
         appendLog(dynamicLog, 'Cleared all items');
@@ -913,9 +913,9 @@ import { logAppend as appendLog } from '../../scripts/event-log';
       // ── Live option updates ──
 
       const liveCtrl = document.getElementById('live-ctrl');
-      document.getElementById('delay-0').addEventListener('ui-press', () => liveCtrl.setAttribute('hoverable-delay', '0'));
-      document.getElementById('delay-300').addEventListener('ui-press', () => liveCtrl.setAttribute('hoverable-delay', '300'));
-      document.getElementById('delay-800').addEventListener('ui-press', () => liveCtrl.setAttribute('hoverable-delay', '800'));
+      document.getElementById('delay-0').addEventListener('native:press', () => liveCtrl.setAttribute('hoverable-delay', '0'));
+      document.getElementById('delay-300').addEventListener('native:press', () => liveCtrl.setAttribute('hoverable-delay', '300'));
+      document.getElementById('delay-800').addEventListener('native:press', () => liveCtrl.setAttribute('hoverable-delay', '800'));
 
       // ═══════════════════════════════════════════
       // PROVIDER — COMPLEX
@@ -925,7 +925,7 @@ import { logAppend as appendLog } from '../../scripts/event-log';
 
       const dragProviderLog = document.getElementById('drag-provider-log');
       const dragList = document.getElementById('drag-provider-list');
-      dragList.addEventListener('ui-drop', (e) => {
+      dragList.addEventListener('native:drop', (e) => {
         const { item, insertBefore, fromIndex, toIndex } = e.detail;
         if (toIndex === -1) return;
         if (insertBefore) insertBefore.before(item);
@@ -936,7 +936,7 @@ import { logAppend as appendLog } from '../../scripts/event-log';
       // ── Draggable: horizontal slot ──
 
       const dragHorizList = document.getElementById('drag-horiz-list');
-      dragHorizList.addEventListener('ui-drop', (e) => {
+      dragHorizList.addEventListener('native:drop', (e) => {
         const { item, insertBefore } = e.detail;
         if (insertBefore) insertBefore.before(item);
         else dragHorizList.appendChild(item);
@@ -946,7 +946,7 @@ import { logAppend as appendLog } from '../../scripts/event-log';
 
       const dragSwapLog = document.getElementById('drag-swap-log');
       const dragSwapList = document.getElementById('drag-swap-list');
-      dragSwapList.addEventListener('ui-drop', (e) => {
+      dragSwapList.addEventListener('native:drop', (e) => {
         const { item, target } = e.detail;
         if (!target || target === item) return;
         const itemLabel = item.querySelector('.label').textContent;
@@ -964,11 +964,11 @@ import { logAppend as appendLog } from '../../scripts/event-log';
       const resizeH = document.getElementById('resize-h');
       const resizeV = document.getElementById('resize-v');
 
-      resizeH.addEventListener('ui-resize-move', (e) => {
+      resizeH.addEventListener('native:resize-move', (e) => {
         appendLog(resizeLog, `Horizontal: ${Math.round(e.detail.width)}px`);
       });
 
-      resizeV.addEventListener('ui-resize-move', (e) => {
+      resizeV.addEventListener('native:resize-move', (e) => {
         appendLog(resizeLog, `Vertical: ${Math.round(e.detail.height)}px`);
       });
 
@@ -976,7 +976,7 @@ import { logAppend as appendLog } from '../../scripts/event-log';
 
       const selectLog = document.getElementById('select-log');
       const selectList = document.getElementById('select-list');
-      selectList.addEventListener('ui-selection-change', (e) => {
+      selectList.addEventListener('native:selection-change', (e) => {
         const { selected, count } = e.detail;
         const names = selected.map(el => el.textContent.trim());
         appendLog(selectLog, `Selected (${count}): ${names.join(', ') || 'none'}`);
@@ -988,7 +988,7 @@ import { logAppend as appendLog } from '../../scripts/event-log';
       const sortTable = document.getElementById('sort-table');
       const sortTbody = document.getElementById('sort-tbody');
 
-      sortTable.addEventListener('ui-sort', (e) => {
+      sortTable.addEventListener('native:sort', (e) => {
         const { column, direction } = e.detail;
         appendLog(sortLog, `Sort: ${column} ${direction}`);
 
@@ -1013,9 +1013,9 @@ import { logAppend as appendLog } from '../../scripts/event-log';
 
       const editProviderLog = document.getElementById('edit-provider-log');
       const editList = document.getElementById('edit-list');
-      editList.addEventListener('ui-edit-start', () => appendLog(editProviderLog, 'Editing started'));
-      editList.addEventListener('ui-edit-commit', (e) => appendLog(editProviderLog, `Committed: "${e.detail.value}"`));
-      editList.addEventListener('ui-edit-cancel', () => appendLog(editProviderLog, 'Edit cancelled'));
+      editList.addEventListener('native:edit-start', () => appendLog(editProviderLog, 'Editing started'));
+      editList.addEventListener('native:edit-commit', (e) => appendLog(editProviderLog, `Committed: "${e.detail.value}"`));
+      editList.addEventListener('native:edit-cancel', () => appendLog(editProviderLog, 'Edit cancelled'));
 
       // ── Collapsible ──
 
@@ -1026,20 +1026,20 @@ import { logAppend as appendLog } from '../../scripts/event-log';
         // We listen for clicks on the trigger and toggle the content's controller.
         trigger.addEventListener('click', () => {
           // Dispatch toggle via the content's controller
-          content.dispatchEvent(new CustomEvent('ui-collapse-toggle', { bubbles: true }));
+          content.dispatchEvent(new CustomEvent('native:collapse-toggle', { bubbles: true }));
         });
 
-        content.addEventListener('ui-collapse', () => trigger.setAttribute('collapsed', ''));
-        content.addEventListener('ui-expand', () => trigger.removeAttribute('collapsed'));
+        content.addEventListener('native:collapse', () => trigger.setAttribute('collapsed', ''));
+        content.addEventListener('native:expand', () => trigger.removeAttribute('collapsed'));
       }
 
       // ── Multi-trait provider ──
 
       const multiProviderLog = document.getElementById('multi-provider-log');
       for (const el of document.querySelectorAll('.multi-target')) {
-        el.addEventListener('ui-hover-enter', () => appendLog(multiProviderLog, `Hover: "${el.textContent.trim()}"`));
-        el.addEventListener('ui-hover-leave', () => appendLog(multiProviderLog, `Leave: "${el.textContent.trim()}"`));
-        el.addEventListener('ui-press', () => appendLog(multiProviderLog, `Press: "${el.textContent.trim()}"`));
+        el.addEventListener('native:hover-enter', () => appendLog(multiProviderLog, `Hover: "${el.textContent.trim()}"`));
+        el.addEventListener('native:hover-leave', () => appendLog(multiProviderLog, `Leave: "${el.textContent.trim()}"`));
+        el.addEventListener('native:press', () => appendLog(multiProviderLog, `Press: "${el.textContent.trim()}"`));
       }
   </script>
   <style is:global>
@@ -1060,13 +1060,13 @@ import { logAppend as appendLog } from '../../scripts/event-log';
     }
 
     .pattern-badge.injection {
-      background: var(--accent-surface);
-      color: var(--accent-surface-ink);
+      background: var(--n-surface-accent);
+      color: var(--n-surface-ink-accent);
     }
 
     .pattern-badge.provider {
-      background: var(--info-surface);
-      color: var(--info-surface-ink);
+      background: var(--n-surface-info);
+      color: var(--n-surface-ink-info);
     }
 
     /* ── Hover/Press demo items ── */
@@ -1078,8 +1078,8 @@ import { logAppend as appendLog } from '../../scripts/event-log';
       align-items: center;
       gap: 0.75rem;
       padding: 0.625rem 0.75rem;
-      background: var(--neutral-panel);
-      border: 1px solid var(--neutral-border-muted);
+      background: var(--n-panel-neutral);
+      border: 1px solid var(--n-border-muted-neutral);
       border-radius: 0.375rem;
       cursor: grab;
       user-select: none;
@@ -1091,7 +1091,7 @@ import { logAppend as appendLog } from '../../scripts/event-log';
     }
 
     .drag-item .handle {
-      color: var(--neutral-ink-muted);
+      color: var(--n-ink-muted-neutral);
       font-size: 0.875rem;
     }
 
@@ -1101,7 +1101,7 @@ import { logAppend as appendLog } from '../../scripts/event-log';
 
     .drag-placeholder {
       height: 3px;
-      background: var(--accent-surface);
+      background: var(--n-surface-accent);
       border-radius: 2px;
       margin: 0.125rem 0;
     }
@@ -1114,8 +1114,8 @@ import { logAppend as appendLog } from '../../scripts/event-log';
       justify-content: center;
       width: 5rem;
       height: 5rem;
-      background: var(--accent-surface);
-      color: var(--accent-surface-ink);
+      background: var(--n-surface-accent);
+      color: var(--n-surface-ink-accent);
       border-radius: 0.5rem;
       font-weight: 700;
       cursor: grab;
@@ -1141,11 +1141,11 @@ import { logAppend as appendLog } from '../../scripts/event-log';
       min-height: 120px;
       padding: 1rem;
       padding-right: 1.5rem;
-      background: var(--neutral-panel);
-      border: 1px solid var(--neutral-border-muted);
+      background: var(--n-panel-neutral);
+      border: 1px solid var(--n-border-muted-neutral);
       border-radius: 0.375rem;
       font-size: 0.8125rem;
-      color: var(--neutral-ink);
+      color: var(--n-ink-neutral);
       overflow: hidden;
     }
 
@@ -1162,7 +1162,7 @@ import { logAppend as appendLog } from '../../scripts/event-log';
 
     .resize-handle:hover,
     .resize-box[resizing] .resize-handle {
-      background: var(--accent-surface);
+      background: var(--n-surface-accent);
     }
 
     .resize-box-v {
@@ -1171,11 +1171,11 @@ import { logAppend as appendLog } from '../../scripts/event-log';
       height: 120px;
       padding: 1rem;
       padding-bottom: 1.5rem;
-      background: var(--neutral-panel);
-      border: 1px solid var(--neutral-border-muted);
+      background: var(--n-panel-neutral);
+      border: 1px solid var(--n-border-muted-neutral);
       border-radius: 0.375rem;
       font-size: 0.8125rem;
-      color: var(--neutral-ink);
+      color: var(--n-ink-neutral);
       overflow: hidden;
     }
 
@@ -1192,7 +1192,7 @@ import { logAppend as appendLog } from '../../scripts/event-log';
 
     .resize-handle-v:hover,
     .resize-box-v[resizing] .resize-handle-v {
-      background: var(--accent-surface);
+      background: var(--n-surface-accent);
     }
 
     /* ── Selectable ── */
@@ -1202,8 +1202,8 @@ import { logAppend as appendLog } from '../../scripts/event-log';
       align-items: center;
       gap: 0.5rem;
       padding: 0.5rem 0.75rem;
-      background: var(--neutral-panel);
-      border: 1px solid var(--neutral-border-muted);
+      background: var(--n-panel-neutral);
+      border: 1px solid var(--n-border-muted-neutral);
       border-radius: 0.375rem;
       font-size: 0.8125rem;
       cursor: pointer;
@@ -1212,32 +1212,32 @@ import { logAppend as appendLog } from '../../scripts/event-log';
     }
 
     .select-item[aria-selected="true"] {
-      background: var(--accent-surface);
-      border-color: var(--accent-border);
-      color: var(--accent-surface-ink);
+      background: var(--n-surface-accent);
+      border-color: var(--n-border-accent);
+      color: var(--n-surface-ink-accent);
     }
 
     .select-item::before {
       content: '';
       width: 1rem;
       height: 1rem;
-      border: 2px solid var(--neutral-border);
+      border: 2px solid var(--n-border-neutral);
       border-radius: 0.25rem;
       flex-shrink: 0;
       transition: background 150ms ease, border-color 150ms ease;
     }
 
     .select-item[aria-selected="true"]::before {
-      background: var(--accent-ink);
-      border-color: var(--accent-ink);
+      background: var(--n-ink-accent);
+      border-color: var(--n-ink-accent);
     }
 
     /* ── Editable ── */
 
     .edit-item {
       padding: 0.5rem 0.75rem;
-      background: var(--neutral-panel);
-      border: 1px solid var(--neutral-border-muted);
+      background: var(--n-panel-neutral);
+      border: 1px solid var(--n-border-muted-neutral);
       border-radius: 0.375rem;
       font-size: 0.875rem;
       cursor: text;
@@ -1245,8 +1245,8 @@ import { logAppend as appendLog } from '../../scripts/event-log';
     }
 
     .edit-item[editing] {
-      border-color: var(--accent-border);
-      box-shadow: 0 0 0 3px var(--accent-surface);
+      border-color: var(--n-border-accent);
+      box-shadow: 0 0 0 3px var(--n-surface-accent);
       outline: none;
     }
 
@@ -1257,8 +1257,8 @@ import { logAppend as appendLog } from '../../scripts/event-log';
       align-items: center;
       gap: 0.75rem;
       padding: 0.625rem 0.75rem;
-      background: var(--neutral-panel);
-      border: 1px solid var(--neutral-border-muted);
+      background: var(--n-panel-neutral);
+      border: 1px solid var(--n-border-muted-neutral);
       border-radius: 0.375rem;
       font-family: ui-monospace, monospace;
       font-size: 0.8125rem;
@@ -1268,7 +1268,7 @@ import { logAppend as appendLog } from '../../scripts/event-log';
     }
 
     .copy-item[copied] {
-      border-color: var(--success-border);
+      border-color: var(--n-border-success);
     }
 
     .copy-item .copy-label {
@@ -1278,7 +1278,7 @@ import { logAppend as appendLog } from '../../scripts/event-log';
     .copy-item .copy-feedback {
       font-size: 0.6875rem;
       font-weight: 600;
-      color: var(--success-ink);
+      color: var(--n-ink-success);
       opacity: 0;
       transition: opacity 200ms ease;
     }
@@ -1299,15 +1299,15 @@ import { logAppend as appendLog } from '../../scripts/event-log';
       text-align: left;
       font-weight: 600;
       padding: 0.5rem 0.75rem;
-      border-bottom: 2px solid var(--neutral-border-muted);
-      color: var(--neutral-ink-strong);
+      border-bottom: 2px solid var(--n-border-muted-neutral);
+      color: var(--n-ink-strong-neutral);
       cursor: pointer;
       user-select: none;
       transition: color 150ms ease;
     }
 
     .sort-table th:hover {
-      color: var(--accent-ink);
+      color: var(--n-ink-accent);
     }
 
     .sort-table th[aria-sort]::after {
@@ -1325,7 +1325,7 @@ import { logAppend as appendLog } from '../../scripts/event-log';
 
     .sort-table td {
       padding: 0.5rem 0.75rem;
-      border-bottom: 1px solid var(--neutral-border-muted);
+      border-bottom: 1px solid var(--n-border-muted-neutral);
     }
 
     /* ── Collapsible ── */
@@ -1336,8 +1336,8 @@ import { logAppend as appendLog } from '../../scripts/event-log';
       justify-content: space-between;
       gap: 0.5rem;
       padding: 0.75rem;
-      background: var(--neutral-panel);
-      border: 1px solid var(--neutral-border-muted);
+      background: var(--n-panel-neutral);
+      border: 1px solid var(--n-border-muted-neutral);
       border-radius: 0.375rem 0.375rem 0 0;
       cursor: pointer;
       user-select: none;
@@ -1355,12 +1355,12 @@ import { logAppend as appendLog } from '../../scripts/event-log';
 
     .collapse-content {
       padding: 0.75rem;
-      background: var(--neutral-body);
-      border: 1px solid var(--neutral-border-muted);
+      background: var(--n-body-neutral);
+      border: 1px solid var(--n-border-muted-neutral);
       border-top: none;
       border-radius: 0 0 0.375rem 0.375rem;
       font-size: 0.8125rem;
-      color: var(--neutral-ink-muted);
+      color: var(--n-ink-muted-neutral);
       overflow: hidden;
     }
 
@@ -1369,8 +1369,8 @@ import { logAppend as appendLog } from '../../scripts/event-log';
     .swipe-card {
       position: relative;
       padding: 1.5rem 1rem;
-      background: var(--neutral-panel);
-      border: 1px solid var(--neutral-border-muted);
+      background: var(--n-panel-neutral);
+      border: 1px solid var(--n-border-muted-neutral);
       border-radius: 0.375rem;
       font-size: 0.875rem;
       text-align: center;
@@ -1386,19 +1386,19 @@ import { logAppend as appendLog } from '../../scripts/event-log';
       gap: 0.5rem;
       margin-top: 0.75rem;
       font-size: 0.75rem;
-      color: var(--neutral-ink-muted);
+      color: var(--n-ink-muted-neutral);
     }
 
     .swipe-dot {
       width: 0.5rem;
       height: 0.5rem;
       border-radius: 50%;
-      background: var(--neutral-border-muted);
+      background: var(--n-border-muted-neutral);
       transition: background 200ms ease;
     }
 
     .swipe-dot.active {
-      background: var(--accent-ink);
+      background: var(--n-ink-accent);
     }
 
     /* ── Flex containers ── */
@@ -1420,12 +1420,12 @@ import { logAppend as appendLog } from '../../scripts/event-log';
     .output {
       font-family: monospace;
       font-size: 0.75rem;
-      color: var(--neutral-ink-muted);
+      color: var(--n-ink-muted-neutral);
       max-height: 6rem;
       overflow-y: auto;
       margin-top: 0.75rem;
       padding: 0.5rem;
-      background: var(--neutral-panel);
+      background: var(--n-panel-neutral);
       border-radius: 0.25rem;
     }
 
@@ -1445,20 +1445,20 @@ import { logAppend as appendLog } from '../../scripts/event-log';
       text-align: left;
       font-weight: 600;
       padding: 0.5rem 0.75rem;
-      border-bottom: 2px solid var(--neutral-border-muted);
-      color: var(--neutral-ink-strong);
+      border-bottom: 2px solid var(--n-border-muted-neutral);
+      color: var(--n-ink-strong-neutral);
     }
 
     .api-table td {
       padding: 0.5rem 0.75rem;
-      border-bottom: 1px solid var(--neutral-border-muted);
+      border-bottom: 1px solid var(--n-border-muted-neutral);
       vertical-align: top;
     }
 
     .api-table code {
       font-family: ui-monospace, monospace;
       font-size: 0.75rem;
-      background: var(--neutral-panel);
+      background: var(--n-panel-neutral);
       padding: 0.0625rem 0.3125rem;
       border-radius: 0.1875rem;
     }

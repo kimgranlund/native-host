@@ -33,160 +33,160 @@ const groupIcons: Record<string, string> = {
   <style is:global>
     @import '../styles/layout.css';
     @import '../styles/layout-blocks.css';
-    @import '@nonoun/native-ui/css/inspector';
+    @import '@nonoun/native-tokens/css';
   </style>
 
-  <ui-layout-sidebar id="layout-sidebar" collapsed={prefs.sidebarCollapsed ? '' : undefined}>
+  <n-sidebar id="layout-sidebar" collapsed={prefs.sidebarCollapsed ? '' : undefined}>
     <aside slot="sidebar">
-      <ui-layout-sidebar-header>
-        <ui-layout-sidebar-item>
+      <n-sidebar-header>
+        <n-sidebar-item>
           <span class="nav-logo" slot="icon"><Logo /></span>
           <span slot="label">NativeUI</span>
-          <ui-icon name="caret-up-down" slot="trailing"></ui-icon>
-          <ui-listbox popover="manual">
-            <ui-option-group>
-              <ui-option-group-header>Teams</ui-option-group-header>
-              <ui-option value="native-ui" selected>
+          <n-icon name="caret-up-down" slot="trailing"></n-icon>
+          <n-listbox popover="manual">
+            <n-option-group>
+              <n-option-group-header>Teams</n-option-group-header>
+              <n-option value="native-ui" selected>
                 <span class="nav-logo"><Logo size={16} /></span>
                 NativeUI
-              </ui-option>
-            </ui-option-group>
-            <ui-option-group>
-              <ui-option value="add-team"><ui-icon name="plus"></ui-icon> Add team</ui-option>
-            </ui-option-group>
-          </ui-listbox>
-        </ui-layout-sidebar-item>
-        <ui-layout-sidebar-item>
-          <span slot="icon"><ui-icon name="magnifying-glass"></ui-icon></span>
-          <ui-button
+              </n-option>
+            </n-option-group>
+            <n-option-group>
+              <n-option value="add-team"><n-icon name="plus"></n-icon> Add team</n-option>
+            </n-option-group>
+          </n-listbox>
+        </n-sidebar-item>
+        <n-sidebar-item>
+          <span slot="icon"><n-icon name="magnifying-glass"></n-icon></span>
+          <n-button
             class="nav-search-hint"
             justify="spread"
             id="nav-search-btn"
           >
-            <ui-icon name="magnifying-glass" slot="leading"></ui-icon>
+            <n-icon name="magnifying-glass" slot="leading"></n-icon>
             <span slot="label">Search</span>
-            <ui-kbd slot="trailing"><ui-icon name="command"></ui-icon>K</ui-kbd>
-          </ui-button>
-        </ui-layout-sidebar-item>
-      </ui-layout-sidebar-header>
+            <n-kbd slot="trailing"><n-icon name="command"></n-icon>K</n-kbd>
+          </n-button>
+        </n-sidebar-item>
+      </n-sidebar-header>
 
-      <ui-layout-sidebar-content>
-        <ui-nav value={currentEntry?.path}>
+      <n-sidebar-content>
+        <n-sidebar-nav value={currentEntry?.path}>
           {[...groups.entries()].map(([groupName, entries]) => {
             const isOpen = prefs.groupStates[groupName] ?? (groupName === 'Components');
             return (
-            <ui-nav-group open={isOpen ? '' : undefined}>
-              <ui-nav-group-header>
-                <ui-icon name={groupIcons[groupName] || 'compass'}></ui-icon>
+            <n-sidebar-group open={isOpen ? '' : undefined}>
+              <n-sidebar-group-header>
+                <n-icon name={groupIcons[groupName] || 'compass'}></n-icon>
                 {groupName}
-              </ui-nav-group-header>
+              </n-sidebar-group-header>
               {entries.map(e => (
-                <ui-nav-item
+                <n-sidebar-nav-item
                   value={e.path}
                   aria-current={currentPath === e.path ? 'page' : undefined}
                 >
                   {e.title}
-                </ui-nav-item>
+                </n-sidebar-nav-item>
               ))}
-            </ui-nav-group>
+            </n-sidebar-group>
             );
           })}
-        </ui-nav>
-      </ui-layout-sidebar-content>
+        </n-sidebar-nav>
+      </n-sidebar-content>
 
-      <ui-layout-sidebar-footer>
-        <ui-layout-sidebar-item>
-          <span slot="icon"><ui-icon name="user-circle"></ui-icon></span>
+      <n-sidebar-footer>
+        <n-sidebar-item>
+          <span slot="icon"><n-icon name="user-circle"></n-icon></span>
           <span slot="label">User</span>
-          <ui-icon name="caret-up-down" slot="trailing"></ui-icon>
-          <ui-listbox popover="manual">
-            <ui-option-group>
-              <ui-option-group-header>Account</ui-option-group-header>
-              <ui-option value="upgrade"><ui-icon name="sparkle"></ui-icon> Upgrade to Pro</ui-option>
-              <ui-option value="account"><ui-icon name="gear"></ui-icon> Account</ui-option>
-              <ui-option value="billing"><ui-icon name="credit-card"></ui-icon> Billing</ui-option>
-              <ui-option value="notifications"><ui-icon name="bell"></ui-icon> Notifications</ui-option>
-            </ui-option-group>
-            <ui-option-group>
-              <ui-option value="sign-out"><ui-icon name="sign-out"></ui-icon> Log out</ui-option>
-            </ui-option-group>
-          </ui-listbox>
-        </ui-layout-sidebar-item>
-      </ui-layout-sidebar-footer>
+          <n-icon name="caret-up-down" slot="trailing"></n-icon>
+          <n-listbox popover="manual">
+            <n-option-group>
+              <n-option-group-header>Account</n-option-group-header>
+              <n-option value="upgrade"><n-icon name="sparkle"></n-icon> Upgrade to Pro</n-option>
+              <n-option value="account"><n-icon name="gear"></n-icon> Account</n-option>
+              <n-option value="billing"><n-icon name="credit-card"></n-icon> Billing</n-option>
+              <n-option value="notifications"><n-icon name="bell"></n-icon> Notifications</n-option>
+            </n-option-group>
+            <n-option-group>
+              <n-option value="sign-out"><n-icon name="sign-out"></n-icon> Log out</n-option>
+            </n-option-group>
+          </n-listbox>
+        </n-sidebar-item>
+      </n-sidebar-footer>
     </aside>
 
     <div>
-      <ui-layout-breadcrumb>
-        <ui-button
+      <n-app-breadcrumb>
+        <n-button
           variant="ghost"
           size="sm"
           slot="leading"
           aria-label="Toggle sidebar"
           id="sidebar-toggle"
         >
-          <ui-icon name="sidebar-simple" size="md" weight={prefs.sidebarCollapsed ? 'fill' : undefined}></ui-icon>
-        </ui-button>
+          <n-icon name="sidebar-simple" size="md" weight={prefs.sidebarCollapsed ? 'fill' : undefined}></n-icon>
+        </n-button>
 
-        <ui-breadcrumb>
+        <n-breadcrumb>
           {currentEntry && (
             <>
-              <ui-breadcrumb-item>{currentEntry.group}</ui-breadcrumb-item>
-              <ui-breadcrumb-item current>{currentEntry.title}</ui-breadcrumb-item>
+              <n-breadcrumb-item>{currentEntry.group}</n-breadcrumb-item>
+              <n-breadcrumb-item current>{currentEntry.title}</n-breadcrumb-item>
             </>
           )}
-        </ui-breadcrumb>
+        </n-breadcrumb>
 
         <div slot="trailing" style="display:flex;align-items:center;gap:0.125rem">
-          <ui-button variant="ghost" size="sm" aria-label="Toggle inspector" id="inspector-toggle">
-            <ui-icon name="sliders-horizontal" size="md"></ui-icon>
-          </ui-button>
-          <ui-button variant="ghost" size="sm" aria-label="Toggle chat" id="chat-toggle">
-            <ui-icon name="chat-dots" size="md"></ui-icon>
-          </ui-button>
-          <ui-button variant="ghost" size="sm" aria-label="Toggle source code" id="code-toggle" style="display:none">
-            <ui-icon name="code" size="md"></ui-icon>
-          </ui-button>
-          <ui-button variant="ghost" size="sm" aria-label="Toggle color scheme" id="theme-toggle">
-            <ui-icon name={prefs.colorScheme === 'dark' ? 'sun' : 'moon'} size="md"></ui-icon>
-          </ui-button>
+          <n-button variant="ghost" size="sm" aria-label="Toggle inspector" id="inspector-toggle">
+            <n-icon name="sliders-horizontal" size="md"></n-icon>
+          </n-button>
+          <n-button variant="ghost" size="sm" aria-label="Toggle chat" id="chat-toggle">
+            <n-icon name="chat-dots" size="md"></n-icon>
+          </n-button>
+          <n-button variant="ghost" size="sm" aria-label="Toggle source code" id="code-toggle" style="display:none">
+            <n-icon name="code" size="md"></n-icon>
+          </n-button>
+          <n-button variant="ghost" size="sm" aria-label="Toggle color scheme" id="theme-toggle">
+            <n-icon name={prefs.colorScheme === 'dark' ? 'sun' : 'moon'} size="md"></n-icon>
+          </n-button>
         </div>
-      </ui-layout-breadcrumb>
+      </n-app-breadcrumb>
 
-      <ui-layout-canvas>
-        <ui-layout-body>
+      <n-app-canvas>
+        <n-app-panel>
           <slot />
-        </ui-layout-body>
-        <ui-layout-inspector>
+        </n-app-panel>
+        <n-app-panel aside id="inspector-panel">
           <div class="layout-resize-handle"></div>
-          <ds-inspector></ds-inspector>
-        </ui-layout-inspector>
-        <ui-layout-chat>
+          <native-tokens></native-tokens>
+        </n-app-panel>
+        <n-app-panel aside id="chat-panel">
           <div class="layout-resize-handle"></div>
-          <ui-chat size="sm">
-            <ui-chat-content></ui-chat-content>
-          </ui-chat>
-        </ui-layout-chat>
-      </ui-layout-canvas>
+          <n-chat size="sm">
+            <n-chat-content></n-chat-content>
+          </n-chat>
+        </n-app-panel>
+      </n-app-canvas>
     </div>
-  </ui-layout-sidebar>
+  </n-sidebar>
 
   <!-- Command palette dialog -->
-  <ui-dialog class="nav-cmd-dialog" id="nav-cmd-dialog">
-    <ui-command>
-      <ui-command-input>
-        <ui-icon name="magnifying-glass"></ui-icon>
+  <n-dialog class="nav-cmd-dialog" id="nav-cmd-dialog">
+    <n-command>
+      <n-command-input>
+        <n-icon name="magnifying-glass"></n-icon>
         <input type="text" placeholder="Search pages..." />
-      </ui-command-input>
-      <ui-command-list>
+      </n-command-input>
+      <n-command-list>
         {sitemap.map(entry => (
-          <ui-command-item value={entry.path} keywords={entry.group}>
+          <n-command-item value={entry.path} keywords={entry.group}>
             {entry.title}
-          </ui-command-item>
+          </n-command-item>
         ))}
-      </ui-command-list>
-      <ui-command-empty>No pages found.</ui-command-empty>
-    </ui-command>
-  </ui-dialog>
+      </n-command-list>
+      <n-command-empty>No pages found.</n-command-empty>
+    </n-command>
+  </n-dialog>
 
   <script>
     import '../scripts/layout.ts';

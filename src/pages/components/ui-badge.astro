@@ -1,10 +1,10 @@
 ---
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
-<SidebarLayout title="ui-badge">
+<SidebarLayout title="Badge">
   <main>
-<h1>&lt;ui-badge&gt;</h1>
-    <p style="color: var(--neutral-ink-muted); font-size: 0.875rem; margin-bottom: 1.5rem;">
+<h1>&lt;n-badge&gt;</h1>
+    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
       Small count or status indicator. Can be standalone, overlaid (floating), or a dot.
     </p>
 
@@ -14,37 +14,37 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <div class="layout-section">
       <div class="layout-row">
         <span class="layout-label">xs</span>
-        <ui-badge size="xs">3</ui-badge>
-        <ui-badge size="xs">42</ui-badge>
-        <ui-badge size="xs">New</ui-badge>
+        <n-badge size="xs">3</n-badge>
+        <n-badge size="xs">42</n-badge>
+        <n-badge size="xs">New</n-badge>
       </div>
       <div class="layout-row">
         <span class="layout-label">sm</span>
-        <ui-badge size="sm">3</ui-badge>
-        <ui-badge size="sm">42</ui-badge>
-        <ui-badge size="sm">New</ui-badge>
+        <n-badge size="sm">3</n-badge>
+        <n-badge size="sm">42</n-badge>
+        <n-badge size="sm">New</n-badge>
       </div>
       <div class="layout-row">
         <span class="layout-label">md</span>
-        <ui-badge size="md">3</ui-badge>
-        <ui-badge size="md">42</ui-badge>
-        <ui-badge size="md">New</ui-badge>
+        <n-badge size="md">3</n-badge>
+        <n-badge size="md">42</n-badge>
+        <n-badge size="md">New</n-badge>
       </div>
       <div class="layout-row">
         <span class="layout-label">lg</span>
-        <ui-badge size="lg">3</ui-badge>
-        <ui-badge size="lg">42</ui-badge>
-        <ui-badge size="lg">New</ui-badge>
+        <n-badge size="lg">3</n-badge>
+        <n-badge size="lg">42</n-badge>
+        <n-badge size="lg">New</n-badge>
       </div>
       <div class="layout-row">
         <span class="layout-label">xl</span>
-        <ui-badge size="xl">3</ui-badge>
-        <ui-badge size="xl">42</ui-badge>
-        <ui-badge size="xl">New</ui-badge>
+        <n-badge size="xl">3</n-badge>
+        <n-badge size="xl">42</n-badge>
+        <n-badge size="xl">New</n-badge>
       </div>
-      <pre class="layout-code"><code>&lt;ui-badge size="sm"&gt;3&lt;/ui-badge&gt;
-&lt;ui-badge size="md"&gt;42&lt;/ui-badge&gt;
-&lt;ui-badge size="lg"&gt;New&lt;/ui-badge&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+      <pre class="layout-code"><code>&lt;n-badge size="sm"&gt;3&lt;/n-badge&gt;
+&lt;n-badge size="md"&gt;42&lt;/n-badge&gt;
+&lt;n-badge size="lg"&gt;New&lt;/n-badge&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Intents ── -->
@@ -52,17 +52,17 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <h2>Intents</h2>
     <div class="layout-section">
       <div class="layout-row">
-        <ui-badge>Default</ui-badge>
-        <ui-badge intent="accent">Accent</ui-badge>
-        <ui-badge intent="info">Info</ui-badge>
-        <ui-badge intent="success">Success</ui-badge>
-        <ui-badge intent="warning">Warning</ui-badge>
-        <ui-badge intent="danger">Danger</ui-badge>
+        <n-badge>Default</n-badge>
+        <n-badge intent="accent">Accent</n-badge>
+        <n-badge intent="info">Info</n-badge>
+        <n-badge intent="success">Success</n-badge>
+        <n-badge intent="warning">Warning</n-badge>
+        <n-badge intent="danger">Danger</n-badge>
       </div>
-      <pre class="layout-code"><code>&lt;ui-badge&gt;Default&lt;/ui-badge&gt;
-&lt;ui-badge intent="accent"&gt;Accent&lt;/ui-badge&gt;
-&lt;ui-badge intent="success"&gt;Success&lt;/ui-badge&gt;
-&lt;ui-badge intent="danger"&gt;Danger&lt;/ui-badge&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+      <pre class="layout-code"><code>&lt;n-badge&gt;Default&lt;/n-badge&gt;
+&lt;n-badge intent="accent"&gt;Accent&lt;/n-badge&gt;
+&lt;n-badge intent="success"&gt;Success&lt;/n-badge&gt;
+&lt;n-badge intent="danger"&gt;Danger&lt;/n-badge&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Variants ── -->
@@ -71,41 +71,41 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <div class="layout-section">
       <div class="layout-row">
         <span class="layout-label">solid</span>
-        <ui-badge intent="accent">Accent</ui-badge>
-        <ui-badge intent="info">Info</ui-badge>
-        <ui-badge intent="success">Success</ui-badge>
-        <ui-badge intent="warning">Warning</ui-badge>
-        <ui-badge intent="danger">Danger</ui-badge>
+        <n-badge intent="accent">Accent</n-badge>
+        <n-badge intent="info">Info</n-badge>
+        <n-badge intent="success">Success</n-badge>
+        <n-badge intent="warning">Warning</n-badge>
+        <n-badge intent="danger">Danger</n-badge>
       </div>
       <div class="layout-row">
         <span class="layout-label">outline</span>
-        <ui-badge variant="outline" intent="accent">Accent</ui-badge>
-        <ui-badge variant="outline" intent="info">Info</ui-badge>
-        <ui-badge variant="outline" intent="success">Success</ui-badge>
-        <ui-badge variant="outline" intent="warning">Warning</ui-badge>
-        <ui-badge variant="outline" intent="danger">Danger</ui-badge>
+        <n-badge variant="outline" intent="accent">Accent</n-badge>
+        <n-badge variant="outline" intent="info">Info</n-badge>
+        <n-badge variant="outline" intent="success">Success</n-badge>
+        <n-badge variant="outline" intent="warning">Warning</n-badge>
+        <n-badge variant="outline" intent="danger">Danger</n-badge>
       </div>
       <div class="layout-row">
         <span class="layout-label">ghost</span>
-        <ui-badge variant="ghost" intent="accent">Accent</ui-badge>
-        <ui-badge variant="ghost" intent="info">Info</ui-badge>
-        <ui-badge variant="ghost" intent="success">Success</ui-badge>
-        <ui-badge variant="ghost" intent="warning">Warning</ui-badge>
-        <ui-badge variant="ghost" intent="danger">Danger</ui-badge>
+        <n-badge variant="ghost" intent="accent">Accent</n-badge>
+        <n-badge variant="ghost" intent="info">Info</n-badge>
+        <n-badge variant="ghost" intent="success">Success</n-badge>
+        <n-badge variant="ghost" intent="warning">Warning</n-badge>
+        <n-badge variant="ghost" intent="danger">Danger</n-badge>
       </div>
       <div class="layout-row">
         <span class="layout-label">default</span>
-        <ui-badge variant="default">Default</ui-badge>
-        <ui-badge variant="default" intent="accent">Accent</ui-badge>
-        <ui-badge variant="default" intent="info">Info</ui-badge>
-        <ui-badge variant="default" intent="success">Success</ui-badge>
-        <ui-badge variant="default" intent="warning">Warning</ui-badge>
-        <ui-badge variant="default" intent="danger">Danger</ui-badge>
+        <n-badge variant="default">Default</n-badge>
+        <n-badge variant="default" intent="accent">Accent</n-badge>
+        <n-badge variant="default" intent="info">Info</n-badge>
+        <n-badge variant="default" intent="success">Success</n-badge>
+        <n-badge variant="default" intent="warning">Warning</n-badge>
+        <n-badge variant="default" intent="danger">Danger</n-badge>
       </div>
-      <pre class="layout-code"><code>&lt;ui-badge intent="accent"&gt;Solid (default)&lt;/ui-badge&gt;
-&lt;ui-badge variant="outline" intent="accent"&gt;Outline&lt;/ui-badge&gt;
-&lt;ui-badge variant="ghost" intent="accent"&gt;Ghost&lt;/ui-badge&gt;
-&lt;ui-badge variant="default"&gt;Default&lt;/ui-badge&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+      <pre class="layout-code"><code>&lt;n-badge intent="accent"&gt;Solid (default)&lt;/n-badge&gt;
+&lt;n-badge variant="outline" intent="accent"&gt;Outline&lt;/n-badge&gt;
+&lt;n-badge variant="ghost" intent="accent"&gt;Ghost&lt;/n-badge&gt;
+&lt;n-badge variant="default"&gt;Default&lt;/n-badge&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Sizes × Intents ── -->
@@ -114,48 +114,48 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <div class="layout-section">
       <div class="layout-row">
         <span class="layout-label">xs</span>
-        <ui-badge size="xs">7</ui-badge>
-        <ui-badge size="xs" intent="accent">3</ui-badge>
-        <ui-badge size="xs" intent="info">New</ui-badge>
-        <ui-badge size="xs" intent="success">OK</ui-badge>
-        <ui-badge size="xs" intent="warning">!</ui-badge>
-        <ui-badge size="xs" intent="danger">5</ui-badge>
+        <n-badge size="xs">7</n-badge>
+        <n-badge size="xs" intent="accent">3</n-badge>
+        <n-badge size="xs" intent="info">New</n-badge>
+        <n-badge size="xs" intent="success">OK</n-badge>
+        <n-badge size="xs" intent="warning">!</n-badge>
+        <n-badge size="xs" intent="danger">5</n-badge>
       </div>
       <div class="layout-row">
         <span class="layout-label">sm</span>
-        <ui-badge size="sm">7</ui-badge>
-        <ui-badge size="sm" intent="accent">3</ui-badge>
-        <ui-badge size="sm" intent="info">New</ui-badge>
-        <ui-badge size="sm" intent="success">OK</ui-badge>
-        <ui-badge size="sm" intent="warning">!</ui-badge>
-        <ui-badge size="sm" intent="danger">5</ui-badge>
+        <n-badge size="sm">7</n-badge>
+        <n-badge size="sm" intent="accent">3</n-badge>
+        <n-badge size="sm" intent="info">New</n-badge>
+        <n-badge size="sm" intent="success">OK</n-badge>
+        <n-badge size="sm" intent="warning">!</n-badge>
+        <n-badge size="sm" intent="danger">5</n-badge>
       </div>
       <div class="layout-row">
         <span class="layout-label">md</span>
-        <ui-badge size="md">7</ui-badge>
-        <ui-badge size="md" intent="accent">3</ui-badge>
-        <ui-badge size="md" intent="info">New</ui-badge>
-        <ui-badge size="md" intent="success">OK</ui-badge>
-        <ui-badge size="md" intent="warning">!</ui-badge>
-        <ui-badge size="md" intent="danger">5</ui-badge>
+        <n-badge size="md">7</n-badge>
+        <n-badge size="md" intent="accent">3</n-badge>
+        <n-badge size="md" intent="info">New</n-badge>
+        <n-badge size="md" intent="success">OK</n-badge>
+        <n-badge size="md" intent="warning">!</n-badge>
+        <n-badge size="md" intent="danger">5</n-badge>
       </div>
       <div class="layout-row">
         <span class="layout-label">lg</span>
-        <ui-badge size="lg">7</ui-badge>
-        <ui-badge size="lg" intent="accent">3</ui-badge>
-        <ui-badge size="lg" intent="info">New</ui-badge>
-        <ui-badge size="lg" intent="success">OK</ui-badge>
-        <ui-badge size="lg" intent="warning">!</ui-badge>
-        <ui-badge size="lg" intent="danger">5</ui-badge>
+        <n-badge size="lg">7</n-badge>
+        <n-badge size="lg" intent="accent">3</n-badge>
+        <n-badge size="lg" intent="info">New</n-badge>
+        <n-badge size="lg" intent="success">OK</n-badge>
+        <n-badge size="lg" intent="warning">!</n-badge>
+        <n-badge size="lg" intent="danger">5</n-badge>
       </div>
       <div class="layout-row">
         <span class="layout-label">xl</span>
-        <ui-badge size="xl">7</ui-badge>
-        <ui-badge size="xl" intent="accent">3</ui-badge>
-        <ui-badge size="xl" intent="info">New</ui-badge>
-        <ui-badge size="xl" intent="success">OK</ui-badge>
-        <ui-badge size="xl" intent="warning">!</ui-badge>
-        <ui-badge size="xl" intent="danger">5</ui-badge>
+        <n-badge size="xl">7</n-badge>
+        <n-badge size="xl" intent="accent">3</n-badge>
+        <n-badge size="xl" intent="info">New</n-badge>
+        <n-badge size="xl" intent="success">OK</n-badge>
+        <n-badge size="xl" intent="warning">!</n-badge>
+        <n-badge size="xl" intent="danger">5</n-badge>
       </div>
     </div>
 
@@ -165,15 +165,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <div class="layout-section">
       <div class="layout-row">
         <span class="layout-label">sharp</span>
-        <ui-badge radius="sharp" intent="accent">3</ui-badge>
-        <ui-badge radius="sharp" intent="info">New</ui-badge>
-        <ui-badge radius="sharp" intent="danger">5</ui-badge>
+        <n-badge radius="sharp" intent="accent">3</n-badge>
+        <n-badge radius="sharp" intent="info">New</n-badge>
+        <n-badge radius="sharp" intent="danger">5</n-badge>
       </div>
       <div class="layout-row">
         <span class="layout-label">default (pill)</span>
-        <ui-badge intent="accent">3</ui-badge>
-        <ui-badge intent="info">New</ui-badge>
-        <ui-badge intent="danger">5</ui-badge>
+        <n-badge intent="accent">3</n-badge>
+        <n-badge intent="info">New</n-badge>
+        <n-badge intent="danger">5</n-badge>
       </div>
     </div>
 
@@ -183,33 +183,33 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <div class="layout-section">
       <div class="layout-row">
         <div class="icon-badge-wrapper">
-          <ui-button variant="ghost"><ui-icon name="bell"></ui-icon></ui-button>
-          <ui-badge intent="danger" floating>5</ui-badge>
+          <n-button variant="ghost"><n-icon name="bell"></n-icon></n-button>
+          <n-badge intent="danger" floating>5</n-badge>
         </div>
         <div class="icon-badge-wrapper">
-          <ui-button variant="ghost"><ui-icon name="envelope-simple"></ui-icon></ui-button>
-          <ui-badge intent="accent" floating>12</ui-badge>
+          <n-button variant="ghost"><n-icon name="envelope-simple"></n-icon></n-button>
+          <n-badge intent="accent" floating>12</n-badge>
         </div>
         <div class="icon-badge-wrapper">
-          <ui-button variant="ghost"><ui-icon name="chat-circle"></ui-icon></ui-button>
-          <ui-badge intent="success" floating dot></ui-badge>
+          <n-button variant="ghost"><n-icon name="chat-circle"></n-icon></n-button>
+          <n-badge intent="success" floating dot></n-badge>
         </div>
       </div>
       <pre class="layout-code"><code>&lt;!-- Position: relative wrapper + floating badge --&gt;
 &lt;div style="position: relative; display: inline-flex;"&gt;
-  &lt;ui-button variant="ghost"&gt;
-    &lt;ui-icon name="bell"&gt;&lt;/ui-icon&gt;
-  &lt;/ui-button&gt;
-  &lt;ui-badge intent="danger" floating&gt;5&lt;/ui-badge&gt;
+  &lt;n-button variant="ghost"&gt;
+    &lt;n-icon name="bell"&gt;&lt;/n-icon&gt;
+  &lt;/n-button&gt;
+  &lt;n-badge intent="danger" floating&gt;5&lt;/n-badge&gt;
 &lt;/div&gt;
 
 &lt;!-- Dot indicator (no content) --&gt;
 &lt;div style="position: relative; display: inline-flex;"&gt;
-  &lt;ui-button variant="ghost"&gt;
-    &lt;ui-icon name="chat-circle"&gt;&lt;/ui-icon&gt;
-  &lt;/ui-button&gt;
-  &lt;ui-badge intent="success" floating dot&gt;&lt;/ui-badge&gt;
-&lt;/div&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+  &lt;n-button variant="ghost"&gt;
+    &lt;n-icon name="chat-circle"&gt;&lt;/n-icon&gt;
+  &lt;/n-button&gt;
+  &lt;n-badge intent="success" floating dot&gt;&lt;/n-badge&gt;
+&lt;/div&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Floating on Avatar ── -->
@@ -218,16 +218,16 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <div class="layout-section">
       <div class="layout-row">
         <div class="icon-badge-wrapper">
-          <ui-avatar name="Kim Granlund"></ui-avatar>
-          <ui-badge intent="success" floating dot></ui-badge>
+          <n-avatar name="Kim Granlund"></n-avatar>
+          <n-badge intent="success" floating dot></n-badge>
         </div>
         <div class="icon-badge-wrapper">
-          <ui-avatar name="Jane Doe"></ui-avatar>
-          <ui-badge intent="danger" floating>3</ui-badge>
+          <n-avatar name="Jane Doe"></n-avatar>
+          <n-badge intent="danger" floating>3</n-badge>
         </div>
         <div class="icon-badge-wrapper">
-          <ui-avatar name="Alex Smith"></ui-avatar>
-          <ui-badge intent="warning" floating>!</ui-badge>
+          <n-avatar name="Alex Smith"></n-avatar>
+          <n-badge intent="warning" floating>!</n-badge>
         </div>
       </div>
     </div>
@@ -237,16 +237,16 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <h2>Dot indicator</h2>
     <div class="layout-section">
       <div class="layout-row">
-        <ui-badge dot></ui-badge>
-        <ui-badge intent="accent" dot></ui-badge>
-        <ui-badge intent="info" dot></ui-badge>
-        <ui-badge intent="success" dot></ui-badge>
-        <ui-badge intent="warning" dot></ui-badge>
-        <ui-badge intent="danger" dot></ui-badge>
+        <n-badge dot></n-badge>
+        <n-badge intent="accent" dot></n-badge>
+        <n-badge intent="info" dot></n-badge>
+        <n-badge intent="success" dot></n-badge>
+        <n-badge intent="warning" dot></n-badge>
+        <n-badge intent="danger" dot></n-badge>
       </div>
-      <pre class="layout-code"><code>&lt;ui-badge dot&gt;&lt;/ui-badge&gt;
-&lt;ui-badge intent="success" dot&gt;&lt;/ui-badge&gt;
-&lt;ui-badge intent="danger" dot&gt;&lt;/ui-badge&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+      <pre class="layout-code"><code>&lt;n-badge dot&gt;&lt;/n-badge&gt;
+&lt;n-badge intent="success" dot&gt;&lt;/n-badge&gt;
+&lt;n-badge intent="danger" dot&gt;&lt;/n-badge&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Max ── -->
@@ -254,14 +254,14 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <h2>Max (truncation)</h2>
     <div class="layout-section">
       <div class="layout-row">
-        <ui-badge max="99">150</ui-badge>
-        <ui-badge max="9" intent="danger">12</ui-badge>
-        <ui-badge max="99" intent="accent">5</ui-badge>
-        <ui-badge max="999" intent="info">1234</ui-badge>
+        <n-badge max="99">150</n-badge>
+        <n-badge max="9" intent="danger">12</n-badge>
+        <n-badge max="99" intent="accent">5</n-badge>
+        <n-badge max="999" intent="info">1234</n-badge>
       </div>
       <pre class="layout-code"><code>&lt;!-- Clamps display to max value --&gt;
-&lt;ui-badge max="99"&gt;150&lt;/ui-badge&gt;   &lt;!-- shows "99+" --&gt;
-&lt;ui-badge max="9" intent="danger"&gt;12&lt;/ui-badge&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+&lt;n-badge max="99"&gt;150&lt;/n-badge&gt;   &lt;!-- shows "99+" --&gt;
+&lt;n-badge max="9" intent="danger"&gt;12&lt;/n-badge&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Inline with text ── -->
@@ -269,10 +269,10 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <h2>Inline with text</h2>
     <div class="layout-section">
       <p style="font-size: 0.875rem; line-height: 1.5;">
-        Messages <ui-badge intent="accent">3</ui-badge> &nbsp;
-        Notifications <ui-badge intent="danger">12</ui-badge> &nbsp;
-        Updates <ui-badge intent="info">New</ui-badge> &nbsp;
-        Status <ui-badge intent="success">OK</ui-badge>
+        Messages <n-badge intent="accent">3</n-badge> &nbsp;
+        Notifications <n-badge intent="danger">12</n-badge> &nbsp;
+        Updates <n-badge intent="info">New</n-badge> &nbsp;
+        Status <n-badge intent="success">OK</n-badge>
       </p>
     </div>
 
@@ -281,13 +281,13 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <h2>Inline with buttons</h2>
     <div class="layout-section">
       <div class="layout-row">
-        <ui-button size="sm">Inbox <ui-badge intent="accent" size="xs">3</ui-badge></ui-button>
-        <ui-button size="md">Alerts <ui-badge intent="danger" size="xs">7</ui-badge></ui-button>
-        <ui-button size="lg" intent="accent">Tasks <ui-badge variant="outline" size="sm">12</ui-badge></ui-button>
+        <n-button size="sm">Inbox <n-badge intent="accent" size="xs">3</n-badge></n-button>
+        <n-button size="md">Alerts <n-badge intent="danger" size="xs">7</n-badge></n-button>
+        <n-button size="lg" intent="accent">Tasks <n-badge variant="outline" size="sm">12</n-badge></n-button>
       </div>
-      <pre class="layout-code"><code>&lt;ui-button&gt;
-  Inbox &lt;ui-badge intent="accent" size="xs"&gt;3&lt;/ui-badge&gt;
-&lt;/ui-button&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+      <pre class="layout-code"><code>&lt;n-button&gt;
+  Inbox &lt;n-badge intent="accent" size="xs"&gt;3&lt;/n-badge&gt;
+&lt;/n-button&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
   </main>
 

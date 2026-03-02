@@ -1,74 +1,75 @@
 ---
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
+import Logo from '../../components/Logo.astro';
 ---
 <SidebarLayout title="Auth Register">
   <main>
 <h1>Sign Up</h1>
-    <p style="color: var(--neutral-ink-muted); font-size: 0.875rem; margin-bottom: 1.5rem;">
+    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
       Registration form with name, email, password, confirmation, and terms acceptance.
     </p>
 
     <!-- ── Registration Form ── -->
 
     <h2>Create Account</h2>
-    <div style="background: var(--neutral-body); border: 1px solid var(--neutral-border-muted); border-radius: 0.5rem; overflow: hidden; margin-bottom: 1rem;">
+    <div style="background: var(--n-body-neutral); border: 1px solid var(--n-border-muted-neutral); border-radius: 0.5rem; overflow: hidden; margin-bottom: 1rem;">
       <div class="auth-centered" style="min-height: 48rem;">
         <div class="auth-card-wrapper">
           <div class="auth-logo">
-            <div class="auth-logo-mark">N</div>
+            <Logo size={40} />
           </div>
           <p class="auth-heading">Create your account</p>
           <p class="auth-subheading">Start your free 14-day trial, no credit card required</p>
-          <ui-card>
-            <ui-stack gap="4">
+          <n-card>
+            <n-stack gap="4">
               <form>
-                <ui-stack gap="4">
-                  <ui-field required>
+                <n-stack gap="4">
+                  <n-field required>
                     <label slot="label">Full name</label>
-                    <ui-input placeholder="Kim Granlund" name="name">
-                      <ui-icon name="user" slot="leading"></ui-icon>
-                    </ui-input>
-                  </ui-field>
-                  <ui-field required>
+                    <n-input placeholder="Kim Granlund" name="name">
+                      <n-icon name="user" slot="leading"></n-icon>
+                    </n-input>
+                  </n-field>
+                  <n-field required>
                     <label slot="label">Email</label>
-                    <ui-input type="email" placeholder="kim@example.com" name="email">
-                      <ui-icon name="envelope" slot="leading"></ui-icon>
-                    </ui-input>
-                  </ui-field>
-                  <ui-field required>
+                    <n-input type="email" placeholder="kim@example.com" name="email">
+                      <n-icon name="envelope" slot="leading"></n-icon>
+                    </n-input>
+                  </n-field>
+                  <n-field required>
                     <label slot="label">Password</label>
-                    <ui-input type="password" placeholder="At least 8 characters" name="password">
-                      <ui-icon name="lock" slot="leading"></ui-icon>
-                    </ui-input>
+                    <n-input type="password" placeholder="At least 8 characters" name="password">
+                      <n-icon name="lock" slot="leading"></n-icon>
+                    </n-input>
                     <span slot="description">Must contain at least 8 characters, one uppercase letter, and one number.</span>
-                  </ui-field>
-                  <ui-field required>
+                  </n-field>
+                  <n-field required>
                     <label slot="label">Confirm password</label>
-                    <ui-input type="password" placeholder="Repeat your password" name="password_confirm">
-                      <ui-icon name="lock" slot="leading"></ui-icon>
-                    </ui-input>
-                  </ui-field>
-                  <ui-checkbox name="terms" required>
+                    <n-input type="password" placeholder="Repeat your password" name="password_confirm">
+                      <n-icon name="lock" slot="leading"></n-icon>
+                    </n-input>
+                  </n-field>
+                  <n-checkbox name="terms" required>
                     <span class="terms-text">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></span>
-                  </ui-checkbox>
-                  <ui-button variant="primary" intent="accent" type="submit">
+                  </n-checkbox>
+                  <n-button variant="primary" intent="accent" type="submit">
                     <span slot="label">Create Account</span>
-                  </ui-button>
-                </ui-stack>
+                  </n-button>
+                </n-stack>
               </form>
-              <ui-divider>or continue with</ui-divider>
+              <n-divider>or continue with</n-divider>
               <div class="oauth-row">
-                <ui-button>
-                  <ui-icon name="google-logo" slot="leading"></ui-icon>
+                <n-button>
+                  <n-icon name="google-logo" slot="leading"></n-icon>
                   <span slot="label">Google</span>
-                </ui-button>
-                <ui-button>
-                  <ui-icon name="github-logo" slot="leading"></ui-icon>
+                </n-button>
+                <n-button>
+                  <n-icon name="github-logo" slot="leading"></n-icon>
                   <span slot="label">GitHub</span>
-                </ui-button>
+                </n-button>
               </div>
-            </ui-stack>
-          </ui-card>
+            </n-stack>
+          </n-card>
           <p class="auth-footer-text">
             Already have an account? <a href="#">Sign in</a>
           </p>
@@ -95,19 +96,6 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       margin-bottom: 1.5rem;
     }
 
-    .auth-logo-mark {
-      width: 2.5rem;
-      height: 2.5rem;
-      border-radius: 0.5rem;
-      background: var(--accent-surface);
-      color: var(--accent-surface-ink);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 1.125rem;
-    }
-
     .auth-heading {
       text-align: center;
       margin-bottom: 0.25rem;
@@ -117,7 +105,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
     .auth-subheading {
       text-align: center;
-      color: var(--neutral-ink-muted);
+      color: var(--n-ink-muted-neutral);
       font-size: 0.875rem;
       margin-bottom: 1.5rem;
     }
@@ -125,12 +113,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     .auth-footer-text {
       text-align: center;
       font-size: 0.8125rem;
-      color: var(--neutral-ink-muted);
+      color: var(--n-ink-muted-neutral);
       margin-top: 1.5rem;
     }
 
     .auth-footer-text a {
-      color: var(--accent-ink);
+      color: var(--n-ink-accent);
       text-decoration: none;
       font-weight: 500;
     }
@@ -141,11 +129,11 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
     .terms-text {
       font-size: 0.8125rem;
-      color: var(--neutral-ink-muted);
+      color: var(--n-ink-muted-neutral);
     }
 
     .terms-text a {
-      color: var(--accent-ink);
+      color: var(--n-ink-accent);
       text-decoration: none;
     }
 
@@ -155,7 +143,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
     .oauth-row {
       display: flex;
-      gap: calc(var(--_space) * 3);
+      gap: calc(var(--n-space) * 3);
     }
 
     .oauth-row > * {

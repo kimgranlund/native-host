@@ -46,15 +46,15 @@ const groupMeta: Record<string, { icon: string; description: string }> = {
       </h1>
       <p class="hero-tagline">Zero-dependency web component library with an OKLCH design system, signal-based reactivity, and composable trait controllers.</p>
       <div class="hero-actions">
-        <ui-button variant="solid" size="md" onclick="location.href='/components/ui-button'">
-          <ui-icon name="cube" slot="leading"></ui-icon>
+        <n-button variant="solid" size="md" onclick="location.href='/components/ui-button'">
+          <n-icon name="cube" slot="leading"></n-icon>
           Browse Components
-        </ui-button>
-        <ui-button variant="ghost" size="md" class="install-btn" id="install-btn">
-          <ui-icon name="terminal" slot="leading"></ui-icon>
+        </n-button>
+        <n-button variant="ghost" size="md" class="install-btn" id="install-btn">
+          <n-icon name="terminal" slot="leading"></n-icon>
           npm i @nonoun/native-ui
-          <ui-icon name="copy" slot="trailing"></ui-icon>
-        </ui-button>
+          <n-icon name="copy" slot="trailing"></n-icon>
+        </n-button>
       </div>
     </div>
 
@@ -65,7 +65,7 @@ const groupMeta: Record<string, { icon: string; description: string }> = {
         return (
           <a class="group-card" href={firstPath}>
             <div class="group-card-header">
-              <ui-icon name={meta.icon}></ui-icon>
+              <n-icon name={meta.icon}></n-icon>
               <span class="group-card-title">{name}</span>
               <span class="group-card-count">{entries.length}</span>
             </div>
@@ -83,22 +83,22 @@ const groupMeta: Record<string, { icon: string; description: string }> = {
 
     <div class="features">
       <div class="feature">
-        <ui-icon name="drop" size="lg" style="color: var(--accent-ink); margin-bottom: 0.25rem;"></ui-icon>
+        <n-icon name="drop" size="lg" style="color: var(--n-ink-accent); margin-bottom: 0.25rem;"></n-icon>
         <h3>Light DOM Only</h3>
         <p>No shadow DOM. Style everything with plain CSS. Full access to component internals.</p>
       </div>
       <div class="feature">
-        <ui-icon name="palette" size="lg" style="color: var(--accent-ink); margin-bottom: 0.25rem;"></ui-icon>
+        <n-icon name="palette" size="lg" style="color: var(--n-ink-accent); margin-bottom: 0.25rem;"></n-icon>
         <h3>OKLCH Color System</h3>
         <p>Perceptually uniform colors. Automatic dark mode. Accessible contrast ratios by default.</p>
       </div>
       <div class="feature">
-        <ui-icon name="lightning" size="lg" style="color: var(--accent-ink); margin-bottom: 0.25rem;"></ui-icon>
+        <n-icon name="lightning" size="lg" style="color: var(--n-ink-accent); margin-bottom: 0.25rem;"></n-icon>
         <h3>Trait Controllers</h3>
         <p>Composable behaviors — add drag, copy, validate, or sort to any element with a single attribute.</p>
       </div>
       <div class="feature">
-        <ui-icon name="graph" size="lg" style="color: var(--accent-ink); margin-bottom: 0.25rem;"></ui-icon>
+        <n-icon name="graph" size="lg" style="color: var(--n-ink-accent); margin-bottom: 0.25rem;"></n-icon>
         <h3>Signal Reactivity</h3>
         <p>Built-in signals and computed values. No framework dependency. Fine-grained DOM updates.</p>
       </div>
@@ -136,7 +136,7 @@ const groupMeta: Record<string, { icon: string; description: string }> = {
     }
 
     .hero-tagline {
-      color: var(--neutral-ink-muted);
+      color: var(--n-ink-muted-neutral);
       font-size: 0.9375rem;
       max-width: 520px;
       margin: 0 auto 1.5rem;
@@ -170,8 +170,8 @@ const groupMeta: Record<string, { icon: string; description: string }> = {
       flex-direction: column;
       gap: 0.5rem;
       padding: 1rem;
-      background: var(--neutral-panel);
-      border: 1px solid var(--neutral-border-muted);
+      background: var(--n-panel-neutral);
+      border: 1px solid var(--n-border-muted-neutral);
       border-radius: 0.5rem;
       text-decoration: none;
       color: inherit;
@@ -179,7 +179,7 @@ const groupMeta: Record<string, { icon: string; description: string }> = {
     }
 
     .group-card:hover {
-      border-color: var(--neutral-border);
+      border-color: var(--n-border-neutral);
       box-shadow: 0 2px 8px oklch(0 0 0 / 0.06);
     }
 
@@ -198,15 +198,15 @@ const groupMeta: Record<string, { icon: string; description: string }> = {
       margin-left: auto;
       font-size: 0.6875rem;
       font-weight: 600;
-      color: var(--neutral-ink-muted);
-      background: var(--neutral-body);
+      color: var(--n-ink-muted-neutral);
+      background: var(--n-body-neutral);
       padding: 0.0625rem 0.375rem;
       border-radius: 9999px;
     }
 
     .group-card-desc {
       font-size: 0.75rem;
-      color: var(--neutral-ink-muted);
+      color: var(--n-ink-muted-neutral);
       line-height: 1.4;
     }
 
@@ -218,7 +218,7 @@ const groupMeta: Record<string, { icon: string; description: string }> = {
       padding: 0;
       margin: 0;
       font-size: 0.6875rem;
-      color: var(--neutral-ink-muted);
+      color: var(--n-ink-muted-neutral);
     }
 
     .group-card-more {
@@ -232,7 +232,7 @@ const groupMeta: Record<string, { icon: string; description: string }> = {
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       gap: 1.5rem;
       padding: 1rem 1rem 3rem;
-      border-top: 1px solid var(--neutral-border-muted);
+      border-top: 1px solid var(--n-border-muted-neutral);
     }
 
     .feature {
@@ -249,7 +249,7 @@ const groupMeta: Record<string, { icon: string; description: string }> = {
 
     .feature p {
       font-size: 0.75rem;
-      color: var(--neutral-ink-muted);
+      color: var(--n-ink-muted-neutral);
       line-height: 1.4;
       margin: 0;
     }

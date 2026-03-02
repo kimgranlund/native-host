@@ -17,48 +17,48 @@ function hidePanel() {
   panel.setAttribute('hidden', '');
 }
 
-panel.addEventListener('ui-dismiss', () =&gt; hidePanel());`,
+panel.addEventListener('native:dismiss', () =&gt; hidePanel());`,
 };
 ---
 <SidebarLayout title="Dismissable">
   <main>
 <h1>Dismissable</h1>
-    <p style="color: var(--neutral-ink-muted); font-size: 0.875rem; margin-bottom: 1.5rem;">
-      Composable trait that manages a global layer stack. When enabled, clicking outside the element or pressing Escape dispatches a <code>ui-dismiss</code> event. Only the topmost layer in the stack receives dismiss events.
+    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
+      Composable trait that manages a global layer stack. When enabled, clicking outside the element or pressing Escape dispatches a <code>native:dismiss</code> event. Only the topmost layer in the stack receives dismiss events.
     </p>
 
     <!-- ── Click Outside to Dismiss ── -->
 
     <h2>Click Outside to Dismiss</h2>
     <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--neutral-ink-muted); margin-bottom: 0.75rem;">
+      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
         Uses <code>DismissController</code> directly on a plain element. Call <code>enable()</code> to join the dismiss stack, <code>disable()</code> to leave.
       </p>
-      <ui-button id="open-btn">Open Panel</ui-button>
+      <n-button id="open-btn">Open Panel</n-button>
       <div class="dismiss-panel" id="panel" hidden>
         This panel is dismissable. Click anywhere outside it or press <strong>Escape</strong> to close.
         <br><br>
         Clicking inside the panel will not dismiss it.
       </div>
       <div id="log" class="output"></div>
-      <pre class="layout-code"><code set:html={codeExamples.clickOutsideToDismiss} /><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+      <pre class="layout-code"><code set:html={codeExamples.clickOutsideToDismiss} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Nested Layers ── -->
 
     <h2>Nested Layers (Stack)</h2>
     <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--neutral-ink-muted); margin-bottom: 0.75rem;">
+      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
         Open both panels. Only the topmost one receives dismiss events. After the top panel is dismissed, the bottom panel becomes the new top.
       </p>
       <div style="display: flex; gap: 0.5rem;">
-        <ui-button id="open-a">Open Panel A</ui-button>
-        <ui-button id="open-b">Open Panel B</ui-button>
+        <n-button id="open-a">Open Panel A</n-button>
+        <n-button id="open-b">Open Panel B</n-button>
       </div>
       <div class="dismiss-panel" id="panel-a" hidden>
         <strong>Panel A</strong> — I'm the first layer.
       </div>
-      <div class="dismiss-panel" id="panel-b" hidden style="background: var(--info-surface); color: var(--info-surface-ink);">
+      <div class="dismiss-panel" id="panel-b" hidden style="background: var(--n-surface-info); color: var(--n-surface-ink-info);">
         <strong>Panel B</strong> — I'm on top of Panel A.
       </div>
       <pre class="layout-code"><code>&lt;!-- Each panel has its own DismissController --&gt;
@@ -73,35 +73,35 @@ dismissA.enable();
 panelB.removeAttribute('hidden');
 dismissB.enable();
 
-// Escape/click-outside dismisses B first, then A</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+// Escape/click-outside dismisses B first, then A</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
-    <!-- ── Built-in: ui-dialog ── -->
+    <!-- ── Built-in: n-dialog ── -->
 
-    <h2>Built-in: ui-dialog</h2>
+    <h2>Built-in: n-dialog</h2>
     <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--neutral-ink-muted); margin-bottom: 0.75rem;">
-        <code>ui-dialog</code> uses Dismissable internally. Escape and backdrop click close the dialog automatically.
+      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+        <code>n-dialog</code> uses Dismissable internally. Escape and backdrop click close the dialog automatically.
       </p>
-      <ui-button id="open-dialog">Open Dialog</ui-button>
-      <ui-dialog id="demo-dialog">
-        <ui-card style="width: 20rem; padding: 1.5rem;">
+      <n-button id="open-dialog">Open Dialog</n-button>
+      <n-dialog id="demo-dialog">
+        <n-card style="width: 20rem; padding: 1.5rem;">
           <p style="margin: 0 0 1rem;">This dialog uses Dismissable internally. Press Escape or click the backdrop to close.</p>
-          <ui-button id="close-dialog" intent="accent">Close</ui-button>
-        </ui-card>
-      </ui-dialog>
-      <pre class="layout-code"><code>&lt;ui-button id="open"&gt;Open Dialog&lt;/ui-button&gt;
-&lt;ui-dialog id="dialog"&gt;
-  &lt;ui-card&gt;
+          <n-button id="close-dialog" intent="accent">Close</n-button>
+        </n-card>
+      </n-dialog>
+      <pre class="layout-code"><code>&lt;n-button id="open"&gt;Open Dialog&lt;/n-button&gt;
+&lt;n-dialog id="dialog"&gt;
+  &lt;n-card&gt;
     &lt;p&gt;Dialog content&lt;/p&gt;
-    &lt;ui-button id="close"&gt;Close&lt;/ui-button&gt;
-  &lt;/ui-card&gt;
-&lt;/ui-dialog&gt;
+    &lt;n-button id="close"&gt;Close&lt;/n-button&gt;
+  &lt;/n-card&gt;
+&lt;/n-dialog&gt;
 
 &lt;script&gt;
-  open.addEventListener('ui-press', () =&gt; dialog.showModal());
-  close.addEventListener('ui-press', () =&gt; dialog.close());
-&lt;/script&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+  open.addEventListener('native:press', () =&gt; dialog.showModal());
+  close.addEventListener('native:press', () =&gt; dialog.close());
+&lt;/script&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── API Reference ── -->
@@ -115,7 +115,7 @@ dismissB.enable();
         <tbody>
           <tr>
             <td><code>enable()</code></td>
-            <td>Pushes the element onto the global dismiss stack. Click-outside and Escape will fire <code>ui-dismiss</code> on this element.</td>
+            <td>Pushes the element onto the global dismiss stack. Click-outside and Escape will fire <code>native:dismiss</code> on this element.</td>
           </tr>
           <tr>
             <td><code>disable()</code></td>
@@ -135,7 +135,7 @@ dismissB.enable();
         <thead><tr><th>Event</th><th>Detail</th><th>Description</th></tr></thead>
         <tbody>
           <tr>
-            <td><code>ui-dismiss</code></td>
+            <td><code>native:dismiss</code></td>
             <td>—</td>
             <td>Fired when click-outside or Escape occurs while this element is the topmost layer. Consumer handles hiding.</td>
           </tr>
@@ -168,8 +168,8 @@ import { logAppend as appendLog } from '../../scripts/event-log';
         panel.setAttribute('hidden', '');
       }
 
-      document.getElementById('open-btn').addEventListener('ui-press', () => showPanel());
-      panel.addEventListener('ui-dismiss', () => {
+      document.getElementById('open-btn').addEventListener('native:press', () => showPanel());
+      panel.addEventListener('native:dismiss', () => {
         count++;
         appendLog(logEl, `#${count} Panel dismissed`);
         hidePanel();
@@ -192,23 +192,23 @@ import { logAppend as appendLog } from '../../scripts/event-log';
         el.setAttribute('hidden', '');
       }
 
-      document.getElementById('open-a').addEventListener('ui-press', () => showPanelEl(panelA, dismissA));
-      document.getElementById('open-b').addEventListener('ui-press', () => showPanelEl(panelB, dismissB));
-      panelA.addEventListener('ui-dismiss', () => hidePanelEl(panelA, dismissA));
-      panelB.addEventListener('ui-dismiss', () => hidePanelEl(panelB, dismissB));
+      document.getElementById('open-a').addEventListener('native:press', () => showPanelEl(panelA, dismissA));
+      document.getElementById('open-b').addEventListener('native:press', () => showPanelEl(panelB, dismissB));
+      panelA.addEventListener('native:dismiss', () => hidePanelEl(panelA, dismissA));
+      panelB.addEventListener('native:dismiss', () => hidePanelEl(panelB, dismissB));
 
       // ── Dialog Demo ──
 
       const dialog = document.getElementById('demo-dialog');
-      document.getElementById('open-dialog').addEventListener('ui-press', () => dialog.showModal());
-      document.getElementById('close-dialog').addEventListener('ui-press', () => dialog.close());
+      document.getElementById('open-dialog').addEventListener('native:press', () => dialog.showModal());
+      document.getElementById('close-dialog').addEventListener('native:press', () => dialog.close());
   </script>
   <style is:global>
     .dismiss-panel {
       display: block;
       padding: 1rem;
-      background: var(--accent-surface);
-      color: var(--accent-surface-ink);
+      background: var(--n-surface-accent);
+      color: var(--n-surface-ink-accent);
       border-radius: 0.5rem;
       margin-top: 0.75rem;
       font-size: 0.875rem;
@@ -221,12 +221,12 @@ import { logAppend as appendLog } from '../../scripts/event-log';
     .output {
       font-family: monospace;
       font-size: 0.75rem;
-      color: var(--neutral-ink-muted);
+      color: var(--n-ink-muted-neutral);
       max-height: 6rem;
       overflow-y: auto;
       margin-top: 0.75rem;
       padding: 0.5rem;
-      background: var(--neutral-panel);
+      background: var(--n-panel-neutral);
       border-radius: 0.25rem;
     }
 
@@ -248,20 +248,20 @@ import { logAppend as appendLog } from '../../scripts/event-log';
       text-align: left;
       font-weight: 600;
       padding: 0.5rem 0.75rem;
-      border-bottom: 2px solid var(--neutral-border-muted);
-      color: var(--neutral-ink-strong);
+      border-bottom: 2px solid var(--n-border-muted-neutral);
+      color: var(--n-ink-strong-neutral);
     }
 
     .api-table td {
       padding: 0.5rem 0.75rem;
-      border-bottom: 1px solid var(--neutral-border-muted);
+      border-bottom: 1px solid var(--n-border-muted-neutral);
       vertical-align: top;
     }
 
     .api-table code {
       font-family: ui-monospace, monospace;
       font-size: 0.75rem;
-      background: var(--neutral-panel);
+      background: var(--n-panel-neutral);
       padding: 0.0625rem 0.3125rem;
       border-radius: 0.1875rem;
     }

@@ -5,7 +5,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   <main>
 <div class="nav-main">
         <h1>A2UI Styled Components</h1>
-        <p style="color: var(--neutral-ink-muted); margin-bottom: 1.5rem; font-size: 0.8125rem;">
+        <p style="color: var(--n-ink-muted-neutral); margin-bottom: 1.5rem; font-size: 0.8125rem;">
           All components below are rendered through the A2UI protocol adapter into the chat panel.
           Each element carries a <code>[data-a2ui]</code> attribute and is styled via <code>a2ui.css</code>.
         </p>
@@ -20,10 +20,10 @@ import { Kernel, resetKernel } from "@nonoun/native-ui/kernel";
       resetKernel();
       const kernel = new Kernel({ allowUnregistered: true });
       const messages = [];
-      const layout = document.querySelector('ui-layout');
+      const layout = document.querySelector('n-layout');
       await layout.ready;
       const chatPanel = layout.chatPanel;
-      const target = chatPanel.querySelector('ui-chat-content');
+      const target = chatPanel.querySelector('n-chat-content');
 
       const adapter = createA2UIAdapter(kernel, {
         onClientMessage: (msg) => {

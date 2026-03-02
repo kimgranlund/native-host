@@ -2,25 +2,25 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
 const codeExamples = {
-  eventLog: `&lt;ui-tree id="event-tree"&gt;
-  &lt;ui-tree-item expanded&gt;
+  eventLog: `&lt;n-tree id="event-tree"&gt;
+  &lt;n-tree-item expanded&gt;
     &lt;span slot="label"&gt;Documents&lt;/span&gt;
-    &lt;ui-tree-item&gt;
+    &lt;n-tree-item&gt;
       &lt;span slot="label"&gt;report.pdf&lt;/span&gt;
-    &lt;/ui-tree-item&gt;
-  &lt;/ui-tree-item&gt;
-&lt;/ui-tree&gt;
+    &lt;/n-tree-item&gt;
+  &lt;/n-tree-item&gt;
+&lt;/n-tree&gt;
 
 const tree = document.getElementById('event-tree');
-tree.querySelectorAll('ui-tree-item').forEach((item) =&gt; {
+tree.querySelectorAll('n-tree-item').forEach((item) =&gt; {
   observer.observe(item, { attributes: true });
 });`,
 };
 ---
-<SidebarLayout title="ui-tree">
+<SidebarLayout title="Tree">
   <main>
-<h1>&lt;ui-tree&gt;</h1>
-    <p style="color: var(--neutral-ink-muted); font-size: 0.875rem; margin-bottom: 1.5rem;">
+<h1>&lt;n-tree&gt;</h1>
+    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
       Hierarchical expandable tree. Arrow keys expand/collapse, Enter/Space select.
     </p>
 
@@ -28,174 +28,174 @@ tree.querySelectorAll('ui-tree-item').forEach((item) =&gt; {
 
     <h2>File Browser</h2>
     <div class="layout-section">
-      <ui-tree>
-        <ui-tree-item expanded>
+      <n-tree>
+        <n-tree-item expanded>
           <span slot="label">src</span>
-          <ui-tree-item>
+          <n-tree-item>
             <span slot="label">index.ts</span>
-          </ui-tree-item>
-          <ui-tree-item expanded>
+          </n-tree-item>
+          <n-tree-item expanded>
             <span slot="label">components</span>
-            <ui-tree-item>
-              <span slot="label">ui-button.ts</span>
-            </ui-tree-item>
-            <ui-tree-item>
-              <span slot="label">ui-input.ts</span>
-            </ui-tree-item>
-            <ui-tree-item>
-              <span slot="label">ui-select.ts</span>
-            </ui-tree-item>
-          </ui-tree-item>
-          <ui-tree-item>
+            <n-tree-item>
+              <span slot="label">n-button.ts</span>
+            </n-tree-item>
+            <n-tree-item>
+              <span slot="label">n-input.ts</span>
+            </n-tree-item>
+            <n-tree-item>
+              <span slot="label">n-select.ts</span>
+            </n-tree-item>
+          </n-tree-item>
+          <n-tree-item>
             <span slot="label">styles</span>
-            <ui-tree-item>
+            <n-tree-item>
               <span slot="label">index.css</span>
-            </ui-tree-item>
-            <ui-tree-item>
+            </n-tree-item>
+            <n-tree-item>
               <span slot="label">colors.css</span>
-            </ui-tree-item>
-          </ui-tree-item>
-        </ui-tree-item>
-        <ui-tree-item>
+            </n-tree-item>
+          </n-tree-item>
+        </n-tree-item>
+        <n-tree-item>
           <span slot="label">package.json</span>
-        </ui-tree-item>
-        <ui-tree-item>
+        </n-tree-item>
+        <n-tree-item>
           <span slot="label">tsconfig.json</span>
-        </ui-tree-item>
-      </ui-tree>
-    <pre class="layout-code"><code>&lt;ui-tree&gt;
-  &lt;ui-tree-item expanded&gt;
+        </n-tree-item>
+      </n-tree>
+    <pre class="layout-code"><code>&lt;n-tree&gt;
+  &lt;n-tree-item expanded&gt;
     &lt;span slot="label"&gt;src&lt;/span&gt;
-    &lt;ui-tree-item&gt;
+    &lt;n-tree-item&gt;
       &lt;span slot="label"&gt;index.ts&lt;/span&gt;
-    &lt;/ui-tree-item&gt;
-    &lt;ui-tree-item expanded&gt;
+    &lt;/n-tree-item&gt;
+    &lt;n-tree-item expanded&gt;
       &lt;span slot="label"&gt;components&lt;/span&gt;
-      &lt;ui-tree-item&gt;
-        &lt;span slot="label"&gt;ui-button.ts&lt;/span&gt;
-      &lt;/ui-tree-item&gt;
-    &lt;/ui-tree-item&gt;
-  &lt;/ui-tree-item&gt;
-&lt;/ui-tree&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+      &lt;n-tree-item&gt;
+        &lt;span slot="label"&gt;n-button.ts&lt;/span&gt;
+      &lt;/n-tree-item&gt;
+    &lt;/n-tree-item&gt;
+  &lt;/n-tree-item&gt;
+&lt;/n-tree&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Navigation ── -->
 
     <h2>Navigation</h2>
     <div class="layout-section">
-      <ui-tree>
-        <ui-tree-item expanded>
+      <n-tree>
+        <n-tree-item expanded>
           <span slot="label">Getting Started</span>
-          <ui-tree-item selected>
+          <n-tree-item selected>
             <span slot="label">Installation</span>
-          </ui-tree-item>
-          <ui-tree-item>
+          </n-tree-item>
+          <n-tree-item>
             <span slot="label">Quick Start</span>
-          </ui-tree-item>
-        </ui-tree-item>
-        <ui-tree-item>
+          </n-tree-item>
+        </n-tree-item>
+        <n-tree-item>
           <span slot="label">Components</span>
-          <ui-tree-item>
+          <n-tree-item>
             <span slot="label">Buttons</span>
-          </ui-tree-item>
-          <ui-tree-item>
+          </n-tree-item>
+          <n-tree-item>
             <span slot="label">Inputs</span>
-          </ui-tree-item>
-          <ui-tree-item>
+          </n-tree-item>
+          <n-tree-item>
             <span slot="label">Selects</span>
-          </ui-tree-item>
-        </ui-tree-item>
-        <ui-tree-item>
+          </n-tree-item>
+        </n-tree-item>
+        <n-tree-item>
           <span slot="label">Theming</span>
-          <ui-tree-item>
+          <n-tree-item>
             <span slot="label">Colors</span>
-          </ui-tree-item>
-          <ui-tree-item>
+          </n-tree-item>
+          <n-tree-item>
             <span slot="label">Typography</span>
-          </ui-tree-item>
-        </ui-tree-item>
-      </ui-tree>
-    <pre class="layout-code"><code>&lt;ui-tree&gt;
-  &lt;ui-tree-item expanded&gt;
+          </n-tree-item>
+        </n-tree-item>
+      </n-tree>
+    <pre class="layout-code"><code>&lt;n-tree&gt;
+  &lt;n-tree-item expanded&gt;
     &lt;span slot="label"&gt;Getting Started&lt;/span&gt;
-    &lt;ui-tree-item selected&gt;
+    &lt;n-tree-item selected&gt;
       &lt;span slot="label"&gt;Installation&lt;/span&gt;
-    &lt;/ui-tree-item&gt;
-    &lt;ui-tree-item&gt;
+    &lt;/n-tree-item&gt;
+    &lt;n-tree-item&gt;
       &lt;span slot="label"&gt;Quick Start&lt;/span&gt;
-    &lt;/ui-tree-item&gt;
-  &lt;/ui-tree-item&gt;
-&lt;/ui-tree&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+    &lt;/n-tree-item&gt;
+  &lt;/n-tree-item&gt;
+&lt;/n-tree&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Event Log ── -->
 
     <h2>Event Log</h2>
     <div class="layout-section">
-      <ui-tree id="event-tree">
-        <ui-tree-item expanded>
+      <n-tree id="event-tree">
+        <n-tree-item expanded>
           <span slot="label">Documents</span>
-          <ui-tree-item>
+          <n-tree-item>
             <span slot="label">report.pdf</span>
-          </ui-tree-item>
-          <ui-tree-item>
+          </n-tree-item>
+          <n-tree-item>
             <span slot="label">notes.txt</span>
-          </ui-tree-item>
-        </ui-tree-item>
-        <ui-tree-item>
+          </n-tree-item>
+        </n-tree-item>
+        <n-tree-item>
           <span slot="label">Images</span>
-          <ui-tree-item>
+          <n-tree-item>
             <span slot="label">photo.jpg</span>
-          </ui-tree-item>
-        </ui-tree-item>
-      </ui-tree>
+          </n-tree-item>
+        </n-tree-item>
+      </n-tree>
       <div class="log" id="tree-log"></div>
-    <pre class="layout-code"><code set:html={codeExamples.eventLog} /><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+    <pre class="layout-code"><code set:html={codeExamples.eventLog} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Disabled ── -->
 
     <h2>Disabled</h2>
     <div class="layout-section">
-      <ui-tree disabled>
-        <ui-tree-item expanded>
+      <n-tree disabled>
+        <n-tree-item expanded>
           <span slot="label">Project</span>
-          <ui-tree-item>
+          <n-tree-item>
             <span slot="label">README.md</span>
-          </ui-tree-item>
-          <ui-tree-item>
+          </n-tree-item>
+          <n-tree-item>
             <span slot="label">package.json</span>
-          </ui-tree-item>
-        </ui-tree-item>
-      </ui-tree>
-    <pre class="layout-code"><code>&lt;ui-tree disabled&gt;
-  &lt;ui-tree-item expanded&gt;
+          </n-tree-item>
+        </n-tree-item>
+      </n-tree>
+    <pre class="layout-code"><code>&lt;n-tree disabled&gt;
+  &lt;n-tree-item expanded&gt;
     &lt;span slot="label"&gt;Project&lt;/span&gt;
-    &lt;ui-tree-item&gt;
+    &lt;n-tree-item&gt;
       &lt;span slot="label"&gt;README.md&lt;/span&gt;
-    &lt;/ui-tree-item&gt;
-  &lt;/ui-tree-item&gt;
-&lt;/ui-tree&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+    &lt;/n-tree-item&gt;
+  &lt;/n-tree-item&gt;
+&lt;/n-tree&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Debug States (force-*) ── -->
 
     <h2>Debug States (<code>force-*</code>)</h2>
     <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--neutral-ink-muted); margin: 0 0 1rem;">
-        Attribute-driven pseudo-state overrides for DevTools debugging and visual testing. Applied to individual <code>ui-tree-item</code> elements.
+      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin: 0 0 1rem;">
+        Attribute-driven pseudo-state overrides for DevTools debugging and visual testing. Applied to individual <code>n-tree-item</code> elements.
       </p>
-      <ui-tree>
-        <ui-tree-item force-hover>
+      <n-tree>
+        <n-tree-item force-hover>
           <span slot="label">Force hover</span>
-        </ui-tree-item>
-        <ui-tree-item force-focus-visible>
+        </n-tree-item>
+        <n-tree-item force-focus-visible>
           <span slot="label">Force focus-visible</span>
-        </ui-tree-item>
-        <ui-tree-item>
+        </n-tree-item>
+        <n-tree-item>
           <span slot="label">Normal</span>
-        </ui-tree-item>
-      </ui-tree>
+        </n-tree-item>
+      </n-tree>
     </div>
   </main>
 
@@ -225,7 +225,7 @@ import { logPrepend } from '../../scripts/event-log';
         }
       });
 
-      tree.querySelectorAll('ui-tree-item').forEach((item) => {
+      tree.querySelectorAll('n-tree-item').forEach((item) => {
         observer.observe(item, { attributes: true, attributeFilter: ['selected', 'expanded'] });
       });
   </script>

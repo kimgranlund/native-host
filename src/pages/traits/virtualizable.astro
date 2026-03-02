@@ -15,7 +15,7 @@ const vctrl = new VirtualScrollController(host, {
 });
 vctrl.enable(viewport, content, 10000);
 
-host.addEventListener('ui-virtual-change', (e) =&gt; {
+host.addEventListener('native:virtual-change', (e) =&gt; {
   renderRows(e.detail.start, e.detail.end);
 });
 
@@ -27,12 +27,12 @@ renderRows(vctrl.start, vctrl.end);`,
 });
 vctrl2.enable(viewport2, content2, 100);
 
-addBtn.addEventListener('ui-press', () =&gt; {
+addBtn.addEventListener('native:press', () =&gt; {
   dynamicCount += 1000;
   vctrl2.updateCount(dynamicCount);
 });
 
-resetBtn.addEventListener('ui-press', () =&gt; {
+resetBtn.addEventListener('native:press', () =&gt; {
   dynamicCount = 100;
   vctrl2.updateCount(dynamicCount);
 });`,
@@ -48,7 +48,7 @@ const vctrl = new VirtualScrollController(host, {
 });
 vctrl.enable(viewport, content, 5000);
 
-host.addEventListener('ui-virtual-change', (e) =&gt; {
+host.addEventListener('native:virtual-change', (e) =&gt; {
   renderRows(e.detail.start, e.detail.end);
 });`,
 };
@@ -56,8 +56,8 @@ host.addEventListener('ui-virtual-change', (e) =&gt; {
 <SidebarLayout title="Virtualizable">
   <main>
 <h1>Virtualizable</h1>
-    <p style="color: var(--neutral-ink-muted); font-size: 0.875rem; margin-bottom: 1.5rem;">
-      Composable trait for windowed rendering of large lists. Only renders visible items plus an overscan buffer. Dispatches <code>ui-virtual-change</code> with the visible range so you can render only what's needed. All demos use <code>VirtualScrollController</code> directly since <code>enable(scrollEl, container, totalCount)</code> must be called to start virtualization. <code>ui-controller</code> can create the controller declaratively, but <code>enable()</code> must still be called to begin.
+    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
+      Composable trait for windowed rendering of large lists. Only renders visible items plus an overscan buffer. Dispatches <code>native:virtual-change</code> with the visible range so you can render only what's needed. All demos use <code>VirtualScrollController</code> directly since <code>enable(scrollEl, container, totalCount)</code> must be called to start virtualization. <code>n-controller</code> can create the controller declaratively, but <code>enable()</code> must still be called to begin.
     </p>
 
     <!-- ── 10,000 Items ── -->
@@ -74,7 +74,7 @@ host.addEventListener('ui-virtual-change', (e) =&gt; {
           <div class="scroll-content" id="content1"></div>
         </div>
       </div>
-      <pre class="layout-code"><code set:html={codeExamples.tenThousandItems} /><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+      <pre class="layout-code"><code set:html={codeExamples.tenThousandItems} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Dynamic Count ── -->
@@ -82,8 +82,8 @@ host.addEventListener('ui-virtual-change', (e) =&gt; {
     <h2>Dynamic Count</h2>
     <div class="layout-section">
       <div style="display: flex; gap: 0.5rem; margin-bottom: 0.75rem;">
-        <ui-button id="add-btn" size="sm">Add 1,000</ui-button>
-        <ui-button id="reset-btn" size="sm">Reset to 100</ui-button>
+        <n-button id="add-btn" size="sm">Add 1,000</n-button>
+        <n-button id="reset-btn" size="sm">Reset to 100</n-button>
       </div>
       <div id="host2">
         <div class="scroll-viewport" id="viewport2">
@@ -91,14 +91,14 @@ host.addEventListener('ui-virtual-change', (e) =&gt; {
         </div>
       </div>
       <div id="dynamic-output" class="output">100 items</div>
-      <pre class="layout-code"><code set:html={codeExamples.dynamicCount} /><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+      <pre class="layout-code"><code set:html={codeExamples.dynamicCount} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── VirtualScrollController: Attach to Any Element ── -->
 
     <h2>VirtualScrollController — Attach to Any Element</h2>
     <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--neutral-ink-muted); margin-bottom: 0.75rem;">
+      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
         Use <code>VirtualScrollController</code> to add virtual scrolling to an existing element without subclassing. Same events, same API — no trait mixin required.
       </p>
       <div class="stats">
@@ -111,7 +111,7 @@ host.addEventListener('ui-virtual-change', (e) =&gt; {
           <div class="scroll-content" id="ctrl-content"></div>
         </div>
       </div>
-      <pre class="layout-code"><code set:html={codeExamples.virtualscrollcontrollerAttachToAnyElement} /><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+      <pre class="layout-code"><code set:html={codeExamples.virtualscrollcontrollerAttachToAnyElement} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── API Reference ── -->
@@ -174,7 +174,7 @@ host.addEventListener('ui-virtual-change', (e) =&gt; {
         <thead><tr><th>Event</th><th>Detail</th><th>Description</th></tr></thead>
         <tbody>
           <tr>
-            <td><code>ui-virtual-change</code></td>
+            <td><code>native:virtual-change</code></td>
             <td><code set:html={virtualChangeDetail} /></td>
             <td>Dispatched on the host element when the visible range changes. <code>start</code> is the first visible index, <code>end</code> is one past the last visible index. Render rows for indices <code>[start, end)</code>.</td>
           </tr>
@@ -239,7 +239,7 @@ import '../../scripts/copy-buttons';
       });
       vctrl1.enable(viewport1, content1, TOTAL1);
 
-      host1.addEventListener('ui-virtual-change', (e) => {
+      host1.addEventListener('native:virtual-change', (e) => {
         const { start, end } = e.detail;
         renderRows(content1, start, end, 'Row');
         renderedEl.textContent = String(end - start);
@@ -265,7 +265,7 @@ import '../../scripts/copy-buttons';
       });
       vctrl2.enable(viewport2, content2, dynamicCount);
 
-      host2.addEventListener('ui-virtual-change', (e) => {
+      host2.addEventListener('native:virtual-change', (e) => {
         const { start, end, totalCount } = e.detail;
         renderRows(content2, start, end, 'Dynamic row');
         dynOut.textContent = `${totalCount} items \u2014 showing ${start}\u2013${end}`;
@@ -274,13 +274,13 @@ import '../../scripts/copy-buttons';
       // Initial render
       renderRows(content2, vctrl2.start, vctrl2.end, 'Dynamic row');
 
-      document.getElementById('add-btn').addEventListener('ui-press', () => {
+      document.getElementById('add-btn').addEventListener('native:press', () => {
         dynamicCount += 1000;
         vctrl2.updateCount(dynamicCount);
         dynOut.textContent = `${dynamicCount} items`;
       });
 
-      document.getElementById('reset-btn').addEventListener('ui-press', () => {
+      document.getElementById('reset-btn').addEventListener('native:press', () => {
         dynamicCount = 100;
         vctrl2.updateCount(dynamicCount);
         dynOut.textContent = `${dynamicCount} items`;
@@ -301,7 +301,7 @@ import '../../scripts/copy-buttons';
       });
       vctrl3.enable(ctrlViewport, ctrlContent, CTRL_TOTAL);
 
-      ctrlHost.addEventListener('ui-virtual-change', (e) => {
+      ctrlHost.addEventListener('native:virtual-change', (e) => {
         const { start, end } = e.detail;
         renderRows(ctrlContent, start, end, 'Controller row');
         ctrlRendered.textContent = String(end - start);
@@ -317,7 +317,7 @@ import '../../scripts/copy-buttons';
     .scroll-viewport {
       height: 300px;
       overflow-y: auto;
-      border: 1px solid var(--neutral-border-muted);
+      border: 1px solid var(--n-border-muted-neutral);
       border-radius: 0.375rem;
     }
 
@@ -331,32 +331,32 @@ import '../../scripts/copy-buttons';
       padding: 0 1rem;
       height: 40px;
       font-size: 0.875rem;
-      border-bottom: 1px solid var(--neutral-border-muted);
+      border-bottom: 1px solid var(--n-border-muted-neutral);
     }
 
     .virtual-row:nth-child(even of .virtual-row) {
-      background: var(--neutral-panel);
+      background: var(--n-panel-neutral);
     }
 
     .stats {
       display: flex;
       gap: 1.5rem;
       font-size: 0.8125rem;
-      color: var(--neutral-ink-muted);
+      color: var(--n-ink-muted-neutral);
       margin-bottom: 0.75rem;
     }
 
     .stats strong {
-      color: var(--neutral-ink);
+      color: var(--n-ink-neutral);
     }
 
     .output {
       font-family: monospace;
       font-size: 0.75rem;
-      color: var(--neutral-ink-muted);
+      color: var(--n-ink-muted-neutral);
       margin-top: 0.75rem;
       padding: 0.5rem;
-      background: var(--neutral-panel);
+      background: var(--n-panel-neutral);
       border-radius: 0.25rem;
       min-height: 1.5rem;
     }
@@ -382,20 +382,20 @@ import '../../scripts/copy-buttons';
       text-align: left;
       font-weight: 600;
       padding: 0.5rem 0.75rem;
-      border-bottom: 2px solid var(--neutral-border-muted);
-      color: var(--neutral-ink-strong);
+      border-bottom: 2px solid var(--n-border-muted-neutral);
+      color: var(--n-ink-strong-neutral);
     }
 
     .api-table td {
       padding: 0.5rem 0.75rem;
-      border-bottom: 1px solid var(--neutral-border-muted);
+      border-bottom: 1px solid var(--n-border-muted-neutral);
       vertical-align: top;
     }
 
     .api-table code {
       font-family: ui-monospace, monospace;
       font-size: 0.75rem;
-      background: var(--neutral-panel);
+      background: var(--n-panel-neutral);
       padding: 0.0625rem 0.3125rem;
       border-radius: 0.1875rem;
     }

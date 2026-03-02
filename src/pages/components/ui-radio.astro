@@ -2,24 +2,24 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
 const codeExamples = {
-  changeEvents: `&lt;ui-radio-group id="my-radios"&gt;
-  &lt;ui-radio value="red"&gt;Red&lt;/ui-radio&gt;
-  &lt;ui-radio value="green"&gt;Green&lt;/ui-radio&gt;
-  &lt;ui-radio value="blue"&gt;Blue&lt;/ui-radio&gt;
-&lt;/ui-radio-group&gt;
+  changeEvents: `&lt;n-radio-group id="my-radios"&gt;
+  &lt;n-radio value="red"&gt;Red&lt;/n-radio&gt;
+  &lt;n-radio value="green"&gt;Green&lt;/n-radio&gt;
+  &lt;n-radio value="blue"&gt;Blue&lt;/n-radio&gt;
+&lt;/n-radio-group&gt;
 
 &lt;script&gt;
   document.getElementById('my-radios')
-    .addEventListener('ui-change', (e) =&gt; {
+    .addEventListener('native:change', (e) =&gt; {
       console.log(e.detail.value, e.detail.label);
     });
 &lt;/script&gt;`,
 };
 ---
-<SidebarLayout title="ui-radio">
+<SidebarLayout title="Radio">
   <main>
-<h1>&lt;ui-radio-group&gt; + &lt;ui-radio&gt;</h1>
-    <p style="color: var(--neutral-ink-muted); font-size: 0.875rem; margin-bottom: 1.5rem;">
+<h1>&lt;n-radio-group&gt; + &lt;n-radio&gt;</h1>
+    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
       Exclusive single-select radio group with roving focus, form association, and arrow-key navigation.
     </p>
 
@@ -27,34 +27,34 @@ const codeExamples = {
 
     <h2>Basic (Vertical)</h2>
     <div class="layout-section">
-      <ui-radio-group value="banana">
-        <ui-radio value="apple">Apple</ui-radio>
-        <ui-radio value="banana">Banana</ui-radio>
-        <ui-radio value="cherry">Cherry</ui-radio>
-        <ui-radio value="date">Date</ui-radio>
-      </ui-radio-group>
-    <pre class="layout-code"><code>&lt;ui-radio-group value="banana"&gt;
-  &lt;ui-radio value="apple"&gt;Apple&lt;/ui-radio&gt;
-  &lt;ui-radio value="banana"&gt;Banana&lt;/ui-radio&gt;
-  &lt;ui-radio value="cherry"&gt;Cherry&lt;/ui-radio&gt;
-&lt;/ui-radio-group&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+      <n-radio-group value="banana">
+        <n-radio value="apple">Apple</n-radio>
+        <n-radio value="banana">Banana</n-radio>
+        <n-radio value="cherry">Cherry</n-radio>
+        <n-radio value="date">Date</n-radio>
+      </n-radio-group>
+    <pre class="layout-code"><code>&lt;n-radio-group value="banana"&gt;
+  &lt;n-radio value="apple"&gt;Apple&lt;/n-radio&gt;
+  &lt;n-radio value="banana"&gt;Banana&lt;/n-radio&gt;
+  &lt;n-radio value="cherry"&gt;Cherry&lt;/n-radio&gt;
+&lt;/n-radio-group&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Horizontal ── -->
 
     <h2>Horizontal</h2>
     <div class="layout-section">
-      <ui-radio-group orientation="horizontal" value="monthly">
-        <ui-radio value="daily">Daily</ui-radio>
-        <ui-radio value="weekly">Weekly</ui-radio>
-        <ui-radio value="monthly">Monthly</ui-radio>
-        <ui-radio value="yearly">Yearly</ui-radio>
-      </ui-radio-group>
-    <pre class="layout-code"><code>&lt;ui-radio-group orientation="horizontal" value="monthly"&gt;
-  &lt;ui-radio value="daily"&gt;Daily&lt;/ui-radio&gt;
-  &lt;ui-radio value="weekly"&gt;Weekly&lt;/ui-radio&gt;
-  &lt;ui-radio value="monthly"&gt;Monthly&lt;/ui-radio&gt;
-&lt;/ui-radio-group&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+      <n-radio-group orientation="horizontal" value="monthly">
+        <n-radio value="daily">Daily</n-radio>
+        <n-radio value="weekly">Weekly</n-radio>
+        <n-radio value="monthly">Monthly</n-radio>
+        <n-radio value="yearly">Yearly</n-radio>
+      </n-radio-group>
+    <pre class="layout-code"><code>&lt;n-radio-group orientation="horizontal" value="monthly"&gt;
+  &lt;n-radio value="daily"&gt;Daily&lt;/n-radio&gt;
+  &lt;n-radio value="weekly"&gt;Weekly&lt;/n-radio&gt;
+  &lt;n-radio value="monthly"&gt;Monthly&lt;/n-radio&gt;
+&lt;/n-radio-group&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Sizes ── -->
@@ -62,32 +62,32 @@ const codeExamples = {
     <h2>Sizes</h2>
     <div class="layout-section">
       <div class="layout-row">
-        <ui-radio-group size="xs" value="a">
-          <ui-radio value="a">Extra small A</ui-radio>
-          <ui-radio value="b">Extra small B</ui-radio>
-        </ui-radio-group>
-        <ui-radio-group size="sm" value="a">
-          <ui-radio value="a">Small A</ui-radio>
-          <ui-radio value="b">Small B</ui-radio>
-        </ui-radio-group>
-        <ui-radio-group size="md" value="a">
-          <ui-radio value="a">Medium A</ui-radio>
-          <ui-radio value="b">Medium B</ui-radio>
-        </ui-radio-group>
-        <ui-radio-group size="lg" value="a">
-          <ui-radio value="a">Large A</ui-radio>
-          <ui-radio value="b">Large B</ui-radio>
-        </ui-radio-group>
+        <n-radio-group size="xs" value="a">
+          <n-radio value="a">Extra small A</n-radio>
+          <n-radio value="b">Extra small B</n-radio>
+        </n-radio-group>
+        <n-radio-group size="sm" value="a">
+          <n-radio value="a">Small A</n-radio>
+          <n-radio value="b">Small B</n-radio>
+        </n-radio-group>
+        <n-radio-group size="md" value="a">
+          <n-radio value="a">Medium A</n-radio>
+          <n-radio value="b">Medium B</n-radio>
+        </n-radio-group>
+        <n-radio-group size="lg" value="a">
+          <n-radio value="a">Large A</n-radio>
+          <n-radio value="b">Large B</n-radio>
+        </n-radio-group>
       </div>
-      <pre class="layout-code"><code>&lt;ui-radio-group size="sm" value="a"&gt;
-  &lt;ui-radio value="a"&gt;Small A&lt;/ui-radio&gt;
-  &lt;ui-radio value="b"&gt;Small B&lt;/ui-radio&gt;
-&lt;/ui-radio-group&gt;
+      <pre class="layout-code"><code>&lt;n-radio-group size="sm" value="a"&gt;
+  &lt;n-radio value="a"&gt;Small A&lt;/n-radio&gt;
+  &lt;n-radio value="b"&gt;Small B&lt;/n-radio&gt;
+&lt;/n-radio-group&gt;
 
-&lt;ui-radio-group size="lg" value="a"&gt;
-  &lt;ui-radio value="a"&gt;Large A&lt;/ui-radio&gt;
-  &lt;ui-radio value="b"&gt;Large B&lt;/ui-radio&gt;
-&lt;/ui-radio-group&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+&lt;n-radio-group size="lg" value="a"&gt;
+  &lt;n-radio value="a"&gt;Large A&lt;/n-radio&gt;
+  &lt;n-radio value="b"&gt;Large B&lt;/n-radio&gt;
+&lt;/n-radio-group&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Density ── -->
@@ -96,44 +96,44 @@ const codeExamples = {
     <div class="layout-section">
       <h3>compact</h3>
       <div class="layout-row" density="compact">
-        <ui-radio-group size="sm" value="a">
-          <ui-radio value="a">Small A</ui-radio>
-          <ui-radio value="b">Small B</ui-radio>
-        </ui-radio-group>
-        <ui-radio-group value="a">
-          <ui-radio value="a">Medium A</ui-radio>
-          <ui-radio value="b">Medium B</ui-radio>
-        </ui-radio-group>
+        <n-radio-group size="sm" value="a">
+          <n-radio value="a">Small A</n-radio>
+          <n-radio value="b">Small B</n-radio>
+        </n-radio-group>
+        <n-radio-group value="a">
+          <n-radio value="a">Medium A</n-radio>
+          <n-radio value="b">Medium B</n-radio>
+        </n-radio-group>
       </div>
       <h3>default</h3>
       <div class="layout-row">
-        <ui-radio-group size="sm" value="a">
-          <ui-radio value="a">Small A</ui-radio>
-          <ui-radio value="b">Small B</ui-radio>
-        </ui-radio-group>
-        <ui-radio-group value="a">
-          <ui-radio value="a">Medium A</ui-radio>
-          <ui-radio value="b">Medium B</ui-radio>
-        </ui-radio-group>
+        <n-radio-group size="sm" value="a">
+          <n-radio value="a">Small A</n-radio>
+          <n-radio value="b">Small B</n-radio>
+        </n-radio-group>
+        <n-radio-group value="a">
+          <n-radio value="a">Medium A</n-radio>
+          <n-radio value="b">Medium B</n-radio>
+        </n-radio-group>
       </div>
       <h3>loose</h3>
       <div class="layout-row" density="loose">
-        <ui-radio-group size="sm" value="a">
-          <ui-radio value="a">Small A</ui-radio>
-          <ui-radio value="b">Small B</ui-radio>
-        </ui-radio-group>
-        <ui-radio-group value="a">
-          <ui-radio value="a">Medium A</ui-radio>
-          <ui-radio value="b">Medium B</ui-radio>
-        </ui-radio-group>
+        <n-radio-group size="sm" value="a">
+          <n-radio value="a">Small A</n-radio>
+          <n-radio value="b">Small B</n-radio>
+        </n-radio-group>
+        <n-radio-group value="a">
+          <n-radio value="a">Medium A</n-radio>
+          <n-radio value="b">Medium B</n-radio>
+        </n-radio-group>
       </div>
       <pre class="layout-code"><code>&lt;div density="compact"&gt;
-  &lt;ui-radio-group value="a"&gt;...&lt;/ui-radio-group&gt;
+  &lt;n-radio-group value="a"&gt;...&lt;/n-radio-group&gt;
 &lt;/div&gt;
 
 &lt;div density="loose"&gt;
-  &lt;ui-radio-group value="a"&gt;...&lt;/ui-radio-group&gt;
-&lt;/div&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+  &lt;n-radio-group value="a"&gt;...&lt;/n-radio-group&gt;
+&lt;/div&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Radius ── -->
@@ -141,28 +141,28 @@ const codeExamples = {
     <h2>Radius</h2>
     <div class="layout-section">
       <div class="layout-row">
-        <ui-radio-group value="a">
-          <ui-radio value="a">Default A</ui-radio>
-          <ui-radio value="b">Default B</ui-radio>
-        </ui-radio-group>
-        <ui-radio-group radius="rounded" value="a">
-          <ui-radio value="a">Rounded A</ui-radio>
-          <ui-radio value="b">Rounded B</ui-radio>
-        </ui-radio-group>
-        <ui-radio-group radius="sharp" value="a">
-          <ui-radio value="a">Sharp A</ui-radio>
-          <ui-radio value="b">Sharp B</ui-radio>
-        </ui-radio-group>
+        <n-radio-group value="a">
+          <n-radio value="a">Default A</n-radio>
+          <n-radio value="b">Default B</n-radio>
+        </n-radio-group>
+        <n-radio-group radius="rounded" value="a">
+          <n-radio value="a">Rounded A</n-radio>
+          <n-radio value="b">Rounded B</n-radio>
+        </n-radio-group>
+        <n-radio-group radius="sharp" value="a">
+          <n-radio value="a">Sharp A</n-radio>
+          <n-radio value="b">Sharp B</n-radio>
+        </n-radio-group>
       </div>
-      <pre class="layout-code"><code>&lt;ui-radio-group radius="rounded" value="a"&gt;
-  &lt;ui-radio value="a"&gt;Rounded A&lt;/ui-radio&gt;
-  &lt;ui-radio value="b"&gt;Rounded B&lt;/ui-radio&gt;
-&lt;/ui-radio-group&gt;
+      <pre class="layout-code"><code>&lt;n-radio-group radius="rounded" value="a"&gt;
+  &lt;n-radio value="a"&gt;Rounded A&lt;/n-radio&gt;
+  &lt;n-radio value="b"&gt;Rounded B&lt;/n-radio&gt;
+&lt;/n-radio-group&gt;
 
-&lt;ui-radio-group radius="sharp" value="a"&gt;
-  &lt;ui-radio value="a"&gt;Sharp A&lt;/ui-radio&gt;
-  &lt;ui-radio value="b"&gt;Sharp B&lt;/ui-radio&gt;
-&lt;/ui-radio-group&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+&lt;n-radio-group radius="sharp" value="a"&gt;
+  &lt;n-radio value="a"&gt;Sharp A&lt;/n-radio&gt;
+  &lt;n-radio value="b"&gt;Sharp B&lt;/n-radio&gt;
+&lt;/n-radio-group&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Intents ── -->
@@ -170,32 +170,32 @@ const codeExamples = {
     <h2>Intents</h2>
     <div class="layout-section">
       <div class="layout-row">
-        <ui-radio-group intent="neutral" value="a">
-          <ui-radio value="a">Neutral A</ui-radio>
-          <ui-radio value="b">Neutral B</ui-radio>
-        </ui-radio-group>
-        <ui-radio-group intent="accent" value="a">
-          <ui-radio value="a">Accent A</ui-radio>
-          <ui-radio value="b">Accent B</ui-radio>
-        </ui-radio-group>
-        <ui-radio-group intent="success" value="a">
-          <ui-radio value="a">Success A</ui-radio>
-          <ui-radio value="b">Success B</ui-radio>
-        </ui-radio-group>
-        <ui-radio-group intent="danger" value="a">
-          <ui-radio value="a">Danger A</ui-radio>
-          <ui-radio value="b">Danger B</ui-radio>
-        </ui-radio-group>
+        <n-radio-group intent="neutral" value="a">
+          <n-radio value="a">Neutral A</n-radio>
+          <n-radio value="b">Neutral B</n-radio>
+        </n-radio-group>
+        <n-radio-group intent="accent" value="a">
+          <n-radio value="a">Accent A</n-radio>
+          <n-radio value="b">Accent B</n-radio>
+        </n-radio-group>
+        <n-radio-group intent="success" value="a">
+          <n-radio value="a">Success A</n-radio>
+          <n-radio value="b">Success B</n-radio>
+        </n-radio-group>
+        <n-radio-group intent="danger" value="a">
+          <n-radio value="a">Danger A</n-radio>
+          <n-radio value="b">Danger B</n-radio>
+        </n-radio-group>
       </div>
-      <pre class="layout-code"><code>&lt;ui-radio-group intent="accent" value="a"&gt;
-  &lt;ui-radio value="a"&gt;Accent A&lt;/ui-radio&gt;
-  &lt;ui-radio value="b"&gt;Accent B&lt;/ui-radio&gt;
-&lt;/ui-radio-group&gt;
+      <pre class="layout-code"><code>&lt;n-radio-group intent="accent" value="a"&gt;
+  &lt;n-radio value="a"&gt;Accent A&lt;/n-radio&gt;
+  &lt;n-radio value="b"&gt;Accent B&lt;/n-radio&gt;
+&lt;/n-radio-group&gt;
 
-&lt;ui-radio-group intent="danger" value="a"&gt;
-  &lt;ui-radio value="a"&gt;Danger A&lt;/ui-radio&gt;
-  &lt;ui-radio value="b"&gt;Danger B&lt;/ui-radio&gt;
-&lt;/ui-radio-group&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+&lt;n-radio-group intent="danger" value="a"&gt;
+  &lt;n-radio value="a"&gt;Danger A&lt;/n-radio&gt;
+  &lt;n-radio value="b"&gt;Danger B&lt;/n-radio&gt;
+&lt;/n-radio-group&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Disabled ── -->
@@ -203,42 +203,42 @@ const codeExamples = {
     <h2>Disabled</h2>
     <div class="layout-section">
       <div class="layout-row">
-        <ui-radio-group disabled value="b">
-          <ui-radio value="a">Option A</ui-radio>
-          <ui-radio value="b">Option B (selected)</ui-radio>
-          <ui-radio value="c">Option C</ui-radio>
-        </ui-radio-group>
+        <n-radio-group disabled value="b">
+          <n-radio value="a">Option A</n-radio>
+          <n-radio value="b">Option B (selected)</n-radio>
+          <n-radio value="c">Option C</n-radio>
+        </n-radio-group>
 
-        <ui-radio-group value="a">
-          <ui-radio value="a">Enabled</ui-radio>
-          <ui-radio value="b" disabled>Disabled option</ui-radio>
-          <ui-radio value="c">Enabled</ui-radio>
-        </ui-radio-group>
+        <n-radio-group value="a">
+          <n-radio value="a">Enabled</n-radio>
+          <n-radio value="b" disabled>Disabled option</n-radio>
+          <n-radio value="c">Enabled</n-radio>
+        </n-radio-group>
       </div>
       <pre class="layout-code"><code>&lt;!-- Entire group disabled --&gt;
-&lt;ui-radio-group disabled value="b"&gt;
-  &lt;ui-radio value="a"&gt;Option A&lt;/ui-radio&gt;
-  &lt;ui-radio value="b"&gt;Option B&lt;/ui-radio&gt;
-&lt;/ui-radio-group&gt;
+&lt;n-radio-group disabled value="b"&gt;
+  &lt;n-radio value="a"&gt;Option A&lt;/n-radio&gt;
+  &lt;n-radio value="b"&gt;Option B&lt;/n-radio&gt;
+&lt;/n-radio-group&gt;
 
 &lt;!-- Single option disabled --&gt;
-&lt;ui-radio-group value="a"&gt;
-  &lt;ui-radio value="a"&gt;Enabled&lt;/ui-radio&gt;
-  &lt;ui-radio value="b" disabled&gt;Disabled&lt;/ui-radio&gt;
-&lt;/ui-radio-group&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+&lt;n-radio-group value="a"&gt;
+  &lt;n-radio value="a"&gt;Enabled&lt;/n-radio&gt;
+  &lt;n-radio value="b" disabled&gt;Disabled&lt;/n-radio&gt;
+&lt;/n-radio-group&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Events ── -->
 
     <h2>Change Events</h2>
     <div class="layout-section">
-      <ui-radio-group id="event-rg">
-        <ui-radio value="red">Red</ui-radio>
-        <ui-radio value="green">Green</ui-radio>
-        <ui-radio value="blue">Blue</ui-radio>
-      </ui-radio-group>
+      <n-radio-group id="event-rg">
+        <n-radio value="red">Red</n-radio>
+        <n-radio value="green">Green</n-radio>
+        <n-radio value="blue">Blue</n-radio>
+      </n-radio-group>
       <div class="log" id="event-log"></div>
-    <pre class="layout-code"><code set:html={codeExamples.changeEvents} /><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+    <pre class="layout-code"><code set:html={codeExamples.changeEvents} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Form Association ── -->
@@ -246,39 +246,39 @@ const codeExamples = {
     <h2>Form Association</h2>
     <div class="layout-section">
       <form id="demo-form">
-        <ui-radio-group name="plan" value="pro" style="margin-bottom: 1rem;">
-          <ui-radio value="free">Free</ui-radio>
-          <ui-radio value="pro">Pro</ui-radio>
-          <ui-radio value="enterprise">Enterprise</ui-radio>
-        </ui-radio-group>
+        <n-radio-group name="plan" value="pro" style="margin-bottom: 1rem;">
+          <n-radio value="free">Free</n-radio>
+          <n-radio value="pro">Pro</n-radio>
+          <n-radio value="enterprise">Enterprise</n-radio>
+        </n-radio-group>
         <div style="display: flex; gap: 0.5rem;">
-          <ui-button variant="primary" type="submit"><span slot="label">Submit</span></ui-button>
-          <ui-button variant="secondary" type="reset"><span slot="label">Reset</span></ui-button>
+          <n-button variant="primary" type="submit"><span slot="label">Submit</span></n-button>
+          <n-button variant="secondary" type="reset"><span slot="label">Reset</span></n-button>
         </div>
       </form>
       <div class="log" id="form-log"></div>
     <pre class="layout-code"><code>&lt;form&gt;
-  &lt;ui-radio-group name="plan" value="pro"&gt;
-    &lt;ui-radio value="free"&gt;Free&lt;/ui-radio&gt;
-    &lt;ui-radio value="pro"&gt;Pro&lt;/ui-radio&gt;
-    &lt;ui-radio value="enterprise"&gt;Enterprise&lt;/ui-radio&gt;
-  &lt;/ui-radio-group&gt;
+  &lt;n-radio-group name="plan" value="pro"&gt;
+    &lt;n-radio value="free"&gt;Free&lt;/n-radio&gt;
+    &lt;n-radio value="pro"&gt;Pro&lt;/n-radio&gt;
+    &lt;n-radio value="enterprise"&gt;Enterprise&lt;/n-radio&gt;
+  &lt;/n-radio-group&gt;
   &lt;button type="submit"&gt;Submit&lt;/button&gt;
-&lt;/form&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+&lt;/form&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Debug States (force-*) ── -->
 
     <h2>Debug States (<code>force-*</code>)</h2>
     <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--neutral-ink-muted); margin: 0 0 1rem;">
+      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin: 0 0 1rem;">
         Attribute-driven pseudo-state overrides for DevTools debugging and visual testing.
       </p>
       <div class="layout-row">
-        <ui-radio force-hover checked>Force hover (checked)</ui-radio>
-        <ui-radio force-hover>Force hover</ui-radio>
-        <ui-radio force-focus-visible checked>Force focus-visible (checked)</ui-radio>
-        <ui-radio force-focus-visible>Force focus-visible</ui-radio>
+        <n-radio force-hover checked>Force hover (checked)</n-radio>
+        <n-radio force-hover>Force hover</n-radio>
+        <n-radio force-focus-visible checked>Force focus-visible (checked)</n-radio>
+        <n-radio force-focus-visible>Force focus-visible</n-radio>
       </div>
     </div>
   </main>
@@ -291,9 +291,9 @@ import { logPrepend } from '../../scripts/event-log';
       const eventLog = document.getElementById('event-log');
       let count = 0;
 
-      eventRg.addEventListener('ui-change', (e) => {
+      eventRg.addEventListener('native:change', (e) => {
         count++;
-        logPrepend(eventLog, `#${count} ui-change — value: "${e.detail.value}", label: "${e.detail.label}"`);
+        logPrepend(eventLog, `#${count} native:change — value: "${e.detail.value}", label: "${e.detail.label}"`);
       });
 
       // Form logging

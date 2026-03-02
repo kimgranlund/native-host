@@ -2,23 +2,23 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
 const codeExamples = {
-  events: `&lt;ui-input id="event-input" placeholder="Type to see events..."&gt;&lt;/ui-input&gt;
+  events: `&lt;n-input id="event-input" placeholder="Type to see events..."&gt;&lt;/n-input&gt;
 
 &lt;script&gt;
   const input = document.getElementById('event-input');
-  input.addEventListener('ui-input', (e) =&gt; {
-    console.log('ui-input', e.detail.value);
+  input.addEventListener('native:input', (e) =&gt; {
+    console.log('native:input', e.detail.value);
   });
-  input.addEventListener('ui-change', (e) =&gt; {
-    console.log('ui-change', e.detail.value);
+  input.addEventListener('native:change', (e) =&gt; {
+    console.log('native:change', e.detail.value);
   });
 &lt;/script&gt;`,
 };
 ---
-<SidebarLayout title="ui-input">
+<SidebarLayout title="Input">
   <main>
-<h1>&lt;ui-input&gt;</h1>
-    <p style="color: var(--neutral-ink-muted); font-size: 0.875rem; margin-bottom: 1.5rem;">
+<h1>&lt;n-input&gt;</h1>
+    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
       Form-associated contenteditable custom element with token/variant/size cascade. No internal native elements.
     </p>
 
@@ -28,19 +28,19 @@ const codeExamples = {
     <div class="layout-section" size="sm">
       <div class="layout-row">
         <span class="layout-label">outline</span>
-        <ui-input variant="outline" placeholder="Outline input"></ui-input>
+        <n-input variant="outline" placeholder="Outline input"></n-input>
       </div>
       <div class="layout-row">
         <span class="layout-label">default</span>
-        <ui-input variant="default" placeholder="Default input"></ui-input>
+        <n-input variant="default" placeholder="Default input"></n-input>
       </div>
       <div class="layout-row">
         <span class="layout-label">ghost</span>
-        <ui-input variant="ghost" placeholder="Ghost input"></ui-input>
+        <n-input variant="ghost" placeholder="Ghost input"></n-input>
       </div>
-      <pre class="layout-code"><code>&lt;ui-input variant="outline" placeholder="Outline input"&gt;&lt;/ui-input&gt;
-&lt;ui-input variant="default" placeholder="Default input"&gt;&lt;/ui-input&gt;
-&lt;ui-input variant="ghost" placeholder="Ghost input"&gt;&lt;/ui-input&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+      <pre class="layout-code"><code>&lt;n-input variant="outline" placeholder="Outline input"&gt;&lt;/n-input&gt;
+&lt;n-input variant="default" placeholder="Default input"&gt;&lt;/n-input&gt;
+&lt;n-input variant="ghost" placeholder="Ghost input"&gt;&lt;/n-input&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Sizes ── -->
@@ -49,27 +49,27 @@ const codeExamples = {
     <div class="layout-section">
       <div class="layout-row">
         <span class="layout-label">xs</span>
-        <ui-input size="xs" placeholder="Extra small"></ui-input>
+        <n-input size="xs" placeholder="Extra small"></n-input>
       </div>
       <div class="layout-row">
         <span class="layout-label">sm</span>
-        <ui-input size="sm" placeholder="Small"></ui-input>
+        <n-input size="sm" placeholder="Small"></n-input>
       </div>
       <div class="layout-row">
         <span class="layout-label">md</span>
-        <ui-input size="md" placeholder="Medium"></ui-input>
+        <n-input size="md" placeholder="Medium"></n-input>
       </div>
       <div class="layout-row">
         <span class="layout-label">lg</span>
-        <ui-input size="lg" placeholder="Large"></ui-input>
+        <n-input size="lg" placeholder="Large"></n-input>
       </div>
       <div class="layout-row">
         <span class="layout-label">xl</span>
-        <ui-input size="xl" placeholder="Extra large"></ui-input>
+        <n-input size="xl" placeholder="Extra large"></n-input>
       </div>
-      <pre class="layout-code"><code>&lt;ui-input size="sm" placeholder="Small"&gt;&lt;/ui-input&gt;
-&lt;ui-input size="md" placeholder="Medium"&gt;&lt;/ui-input&gt;
-&lt;ui-input size="lg" placeholder="Large"&gt;&lt;/ui-input&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+      <pre class="layout-code"><code>&lt;n-input size="sm" placeholder="Small"&gt;&lt;/n-input&gt;
+&lt;n-input size="md" placeholder="Medium"&gt;&lt;/n-input&gt;
+&lt;n-input size="lg" placeholder="Large"&gt;&lt;/n-input&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Intents ── -->
@@ -77,14 +77,14 @@ const codeExamples = {
     <h2>Intents</h2>
     <div class="layout-section" size="sm">
       <div class="layout-row">
-        <ui-input intent="neutral" placeholder="Neutral"></ui-input>
-        <ui-input intent="accent" placeholder="Accent"></ui-input>
-        <ui-input intent="info" placeholder="Info"></ui-input>
+        <n-input intent="neutral" placeholder="Neutral"></n-input>
+        <n-input intent="accent" placeholder="Accent"></n-input>
+        <n-input intent="info" placeholder="Info"></n-input>
       </div>
       <div class="layout-row">
-        <ui-input intent="success" placeholder="Success"></ui-input>
-        <ui-input intent="warning" placeholder="Warning"></ui-input>
-        <ui-input intent="danger" placeholder="Danger"></ui-input>
+        <n-input intent="success" placeholder="Success"></n-input>
+        <n-input intent="warning" placeholder="Warning"></n-input>
+        <n-input intent="danger" placeholder="Danger"></n-input>
       </div>
     </div>
 
@@ -94,11 +94,11 @@ const codeExamples = {
     <div class="layout-section" size="sm">
       <div class="layout-row">
         <span class="layout-label">disabled</span>
-        <ui-input disabled placeholder="Disabled"></ui-input>
+        <n-input disabled placeholder="Disabled"></n-input>
       </div>
       <div class="layout-row">
         <span class="layout-label">readonly</span>
-        <ui-input readonly value="Read-only value"></ui-input>
+        <n-input readonly value="Read-only value"></n-input>
       </div>
     </div>
 
@@ -108,37 +108,37 @@ const codeExamples = {
     <div class="layout-section" size="sm">
       <h3>Leading icon</h3>
       <div class="layout-row">
-        <ui-input placeholder="Search...">
-          <ui-icon name="magnifying-glass" slot="leading"></ui-icon>
-        </ui-input>
-        <ui-input placeholder="Email address">
-          <ui-icon name="envelope" slot="leading"></ui-icon>
-        </ui-input>
+        <n-input placeholder="Search...">
+          <n-icon name="magnifying-glass" slot="leading"></n-icon>
+        </n-input>
+        <n-input placeholder="Email address">
+          <n-icon name="envelope" slot="leading"></n-icon>
+        </n-input>
       </div>
 
       <h3>Trailing icon</h3>
       <div class="layout-row">
-        <ui-input placeholder="Password">
-          <ui-icon name="lock" slot="leading"></ui-icon>
-          <ui-icon name="eye" slot="trailing"></ui-icon>
-        </ui-input>
+        <n-input placeholder="Password">
+          <n-icon name="lock" slot="leading"></n-icon>
+          <n-icon name="eye" slot="trailing"></n-icon>
+        </n-input>
       </div>
 
       <h3>Leading + Trailing</h3>
       <div class="layout-row">
-        <ui-input placeholder="Search users...">
-          <ui-icon name="magnifying-glass" slot="leading"></ui-icon>
-          <ui-icon name="user" slot="trailing"></ui-icon>
-        </ui-input>
+        <n-input placeholder="Search users...">
+          <n-icon name="magnifying-glass" slot="leading"></n-icon>
+          <n-icon name="user" slot="trailing"></n-icon>
+        </n-input>
       </div>
-      <pre class="layout-code"><code>&lt;ui-input placeholder="Search..."&gt;
-  &lt;ui-icon name="magnifying-glass" slot="leading"&gt;&lt;/ui-icon&gt;
-&lt;/ui-input&gt;
+      <pre class="layout-code"><code>&lt;n-input placeholder="Search..."&gt;
+  &lt;n-icon name="magnifying-glass" slot="leading"&gt;&lt;/n-icon&gt;
+&lt;/n-input&gt;
 
-&lt;ui-input placeholder="Password"&gt;
-  &lt;ui-icon name="lock" slot="leading"&gt;&lt;/ui-icon&gt;
-  &lt;ui-icon name="eye" slot="trailing"&gt;&lt;/ui-icon&gt;
-&lt;/ui-input&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+&lt;n-input placeholder="Password"&gt;
+  &lt;n-icon name="lock" slot="leading"&gt;&lt;/n-icon&gt;
+  &lt;n-icon name="eye" slot="trailing"&gt;&lt;/n-icon&gt;
+&lt;/n-input&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Ghost Composability ── -->
@@ -147,13 +147,13 @@ const codeExamples = {
     <div class="layout-section" size="sm">
       <h3>Ghost input standalone</h3>
       <div class="layout-row">
-        <ui-input variant="ghost" placeholder="Ghost input — no chrome"></ui-input>
+        <n-input variant="ghost" placeholder="Ghost input — no chrome"></n-input>
       </div>
 
       <h3>Ghost input inside a container</h3>
-      <div style="background: var(--neutral-panel); border: 1px solid var(--neutral-border-muted); border-radius: 0.5rem; padding: 0.25rem 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
-        <ui-icon name="magnifying-glass" style="color: var(--neutral-ink-muted);"></ui-icon>
-        <ui-input variant="ghost" placeholder="Search inside container..." style="flex: 1;"></ui-input>
+      <div style="background: var(--n-panel-neutral); border: 1px solid var(--n-border-muted-neutral); border-radius: 0.5rem; padding: 0.25rem 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+        <n-icon name="magnifying-glass" style="color: var(--n-ink-muted-neutral);"></n-icon>
+        <n-input variant="ghost" placeholder="Search inside container..." style="flex: 1;"></n-input>
       </div>
     </div>
 
@@ -164,71 +164,71 @@ const codeExamples = {
       <h3>xs</h3>
       <div class="layout-row" size="xs" density="compact">
         <span class="layout-label">compact</span>
-        <ui-input placeholder="Compact"></ui-input>
+        <n-input placeholder="Compact"></n-input>
       </div>
       <div class="layout-row" size="xs" density="default">
         <span class="layout-label">default</span>
-        <ui-input placeholder="Default"></ui-input>
+        <n-input placeholder="Default"></n-input>
       </div>
       <div class="layout-row" size="xs" density="loose">
         <span class="layout-label">loose</span>
-        <ui-input placeholder="Loose"></ui-input>
+        <n-input placeholder="Loose"></n-input>
       </div>
 
       <h3>sm</h3>
       <div class="layout-row" size="sm" density="compact">
         <span class="layout-label">compact</span>
-        <ui-input placeholder="Compact"></ui-input>
+        <n-input placeholder="Compact"></n-input>
       </div>
       <div class="layout-row" size="sm" density="default">
         <span class="layout-label">default</span>
-        <ui-input placeholder="Default"></ui-input>
+        <n-input placeholder="Default"></n-input>
       </div>
       <div class="layout-row" size="sm" density="loose">
         <span class="layout-label">loose</span>
-        <ui-input placeholder="Loose"></ui-input>
+        <n-input placeholder="Loose"></n-input>
       </div>
 
       <h3>md</h3>
       <div class="layout-row" size="md" density="compact">
         <span class="layout-label">compact</span>
-        <ui-input placeholder="Compact"></ui-input>
+        <n-input placeholder="Compact"></n-input>
       </div>
       <div class="layout-row" size="md" density="default">
         <span class="layout-label">default</span>
-        <ui-input placeholder="Default"></ui-input>
+        <n-input placeholder="Default"></n-input>
       </div>
       <div class="layout-row" size="md" density="loose">
         <span class="layout-label">loose</span>
-        <ui-input placeholder="Loose"></ui-input>
+        <n-input placeholder="Loose"></n-input>
       </div>
 
       <h3>lg</h3>
       <div class="layout-row" size="lg" density="compact">
         <span class="layout-label">compact</span>
-        <ui-input placeholder="Compact"></ui-input>
+        <n-input placeholder="Compact"></n-input>
       </div>
       <div class="layout-row" size="lg" density="default">
         <span class="layout-label">default</span>
-        <ui-input placeholder="Default"></ui-input>
+        <n-input placeholder="Default"></n-input>
       </div>
       <div class="layout-row" size="lg" density="loose">
         <span class="layout-label">loose</span>
-        <ui-input placeholder="Loose"></ui-input>
+        <n-input placeholder="Loose"></n-input>
       </div>
 
       <h3>xl</h3>
       <div class="layout-row" size="xl" density="compact">
         <span class="layout-label">compact</span>
-        <ui-input placeholder="Compact"></ui-input>
+        <n-input placeholder="Compact"></n-input>
       </div>
       <div class="layout-row" size="xl" density="default">
         <span class="layout-label">default</span>
-        <ui-input placeholder="Default"></ui-input>
+        <n-input placeholder="Default"></n-input>
       </div>
       <div class="layout-row" size="xl" density="loose">
         <span class="layout-label">loose</span>
-        <ui-input placeholder="Loose"></ui-input>
+        <n-input placeholder="Loose"></n-input>
       </div>
     </div>
 
@@ -237,9 +237,9 @@ const codeExamples = {
     <h2>Inline</h2>
     <div class="layout-section" size="sm">
       <p style="margin: 0 0 0.5rem; font-size: 0.875rem;">
-        Enter your name: <ui-input inline placeholder="Name" style="width: 12rem;"></ui-input> and submit.
+        Enter your name: <n-input inline placeholder="Name" style="width: 12rem;"></n-input> and submit.
       </p>
-      <p style="margin: 0; font-size: 0.75rem; color: var(--neutral-ink-muted);">
+      <p style="margin: 0; font-size: 0.75rem; color: var(--n-ink-muted-neutral);">
         The <code>inline</code> attribute restores shrink-wrap sizing for inputs placed inline with text.
       </p>
     </div>
@@ -250,15 +250,15 @@ const codeExamples = {
     <div class="layout-section" size="md">
       <div class="layout-row" radius="sharp">
         <span class="layout-label">sharp</span>
-        <ui-input placeholder="Sharp radius"></ui-input>
+        <n-input placeholder="Sharp radius"></n-input>
       </div>
       <div class="layout-row" radius="default">
         <span class="layout-label">default</span>
-        <ui-input placeholder="Default radius"></ui-input>
+        <n-input placeholder="Default radius"></n-input>
       </div>
       <div class="layout-row" radius="round">
         <span class="layout-label">round</span>
-        <ui-input placeholder="Round radius"></ui-input>
+        <n-input placeholder="Round radius"></n-input>
       </div>
     </div>
 
@@ -266,9 +266,9 @@ const codeExamples = {
 
     <h2>Events</h2>
     <div class="layout-section" size="sm">
-      <ui-input id="event-input" placeholder="Type to see events..."></ui-input>
+      <n-input id="event-input" placeholder="Type to see events..."></n-input>
       <div class="log" id="event-log"></div>
-      <pre class="layout-code"><code set:html={codeExamples.events} /><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+      <pre class="layout-code"><code set:html={codeExamples.events} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Form Association ── -->
@@ -277,32 +277,72 @@ const codeExamples = {
     <div class="layout-section" size="sm">
       <form id="demo-form">
         <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0.75rem;">
-          <ui-input name="username" placeholder="Username">
-            <ui-icon name="user" slot="leading"></ui-icon>
-          </ui-input>
-          <ui-input name="email" placeholder="Email">
-            <ui-icon name="envelope" slot="leading"></ui-icon>
-          </ui-input>
-          <ui-input name="message" placeholder="Message">
-            <ui-icon name="pencil-simple" slot="leading"></ui-icon>
-          </ui-input>
+          <n-input name="username" placeholder="Username">
+            <n-icon name="user" slot="leading"></n-icon>
+          </n-input>
+          <n-input name="email" placeholder="Email">
+            <n-icon name="envelope" slot="leading"></n-icon>
+          </n-input>
+          <n-input name="message" placeholder="Message">
+            <n-icon name="pencil-simple" slot="leading"></n-icon>
+          </n-input>
         </div>
         <div class="layout-row">
-          <ui-button variant="primary" type="submit"><span slot="label">Submit</span></ui-button>
-          <ui-button variant="secondary" type="reset"><span slot="label">Reset</span></ui-button>
+          <n-button variant="primary" type="submit"><span slot="label">Submit</span></n-button>
+          <n-button variant="secondary" type="reset"><span slot="label">Reset</span></n-button>
         </div>
       </form>
       <div class="log" id="form-log"></div>
       <pre class="layout-code"><code>&lt;form id="demo-form"&gt;
-  &lt;ui-input name="username" placeholder="Username"&gt;
-    &lt;ui-icon name="user" slot="leading"&gt;&lt;/ui-icon&gt;
-  &lt;/ui-input&gt;
-  &lt;ui-input name="email" placeholder="Email"&gt;
-    &lt;ui-icon name="envelope" slot="leading"&gt;&lt;/ui-icon&gt;
-  &lt;/ui-input&gt;
-  &lt;ui-button variant="primary" type="submit"&gt;Submit&lt;/ui-button&gt;
-  &lt;ui-button variant="secondary" type="reset"&gt;Reset&lt;/ui-button&gt;
-&lt;/form&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+  &lt;n-input name="username" placeholder="Username"&gt;
+    &lt;n-icon name="user" slot="leading"&gt;&lt;/n-icon&gt;
+  &lt;/n-input&gt;
+  &lt;n-input name="email" placeholder="Email"&gt;
+    &lt;n-icon name="envelope" slot="leading"&gt;&lt;/n-icon&gt;
+  &lt;/n-input&gt;
+  &lt;n-button variant="primary" type="submit"&gt;Submit&lt;/n-button&gt;
+  &lt;n-button variant="secondary" type="reset"&gt;Reset&lt;/n-button&gt;
+&lt;/form&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </div>
+
+    <!-- ── Validation (pattern) ── -->
+
+    <h2>Validation</h2>
+    <div class="layout-section" size="sm">
+      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+        The <code>pattern</code> attribute accepts a regex. Reports <code>patternMismatch</code> via the Constraint Validation API.
+        Wrap in <code>n-field</code> to show the error slot on invalid input.
+      </p>
+      <form id="validation-form" novalidate>
+        <n-stack gap="4" style="margin-bottom: 0.75rem;">
+          <n-field>
+            <label slot="label">Email</label>
+            <n-input name="email" pattern="[^@]+@[^@]+\.[^@]+" required placeholder="you@example.com">
+              <n-icon name="envelope" slot="leading"></n-icon>
+            </n-input>
+            <span slot="error">Please enter a valid email</span>
+          </n-field>
+          <n-field>
+            <label slot="label">Phone</label>
+            <n-input name="phone" pattern="\+?[0-9\s\-]{7,}" placeholder="+1 555-1234">
+              <n-icon name="phone" slot="leading"></n-icon>
+            </n-input>
+            <span slot="error">Enter a valid phone number (7+ digits)</span>
+          </n-field>
+        </n-stack>
+        <div class="layout-row">
+          <n-button variant="primary" type="submit"><span slot="label">Submit</span></n-button>
+          <n-button variant="secondary" type="reset"><span slot="label">Reset</span></n-button>
+        </div>
+      </form>
+      <div class="log" id="validation-log"></div>
+      <pre class="layout-code"><code>&lt;n-field&gt;
+  &lt;label slot="label"&gt;Email&lt;/label&gt;
+  &lt;n-input pattern="[^@]+@[^@]+\.[^@]+" required placeholder="you@example.com"&gt;
+    &lt;n-icon name="envelope" slot="leading"&gt;&lt;/n-icon&gt;
+  &lt;/n-input&gt;
+  &lt;span slot="error"&gt;Please enter a valid email&lt;/span&gt;
+&lt;/n-field&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Cascading ── -->
@@ -311,17 +351,17 @@ const codeExamples = {
     <div class="layout-section">
       <h3>Parent size="md", child overrides</h3>
       <div class="layout-row" size="md">
-        <ui-input placeholder="Inherited md"></ui-input>
-        <ui-input size="xs" placeholder="Override xs"></ui-input>
-        <ui-input size="lg" placeholder="Override lg"></ui-input>
+        <n-input placeholder="Inherited md"></n-input>
+        <n-input size="xs" placeholder="Override xs"></n-input>
+        <n-input size="lg" placeholder="Override lg"></n-input>
       </div>
 
       <h3>Section cascading all attributes</h3>
       <section size="sm" density="compact" radius="round" intent="accent">
         <div class="layout-row">
-          <ui-input variant="outline" placeholder="All inherited"></ui-input>
-          <ui-input variant="default" placeholder="All inherited"></ui-input>
-          <ui-input variant="ghost" placeholder="All inherited"></ui-input>
+          <n-input variant="outline" placeholder="All inherited"></n-input>
+          <n-input variant="default" placeholder="All inherited"></n-input>
+          <n-input variant="ghost" placeholder="All inherited"></n-input>
         </div>
       </section>
     </div>
@@ -332,30 +372,30 @@ const codeExamples = {
     <div class="layout-section" size="sm">
       <h3>Outline</h3>
       <div class="layout-row">
-        <ui-input variant="outline" intent="neutral" placeholder="Neutral"></ui-input>
-        <ui-input variant="outline" intent="accent" placeholder="Accent"></ui-input>
-        <ui-input variant="outline" intent="info" placeholder="Info"></ui-input>
-        <ui-input variant="outline" intent="success" placeholder="Success"></ui-input>
-        <ui-input variant="outline" intent="warning" placeholder="Warning"></ui-input>
-        <ui-input variant="outline" intent="danger" placeholder="Danger"></ui-input>
+        <n-input variant="outline" intent="neutral" placeholder="Neutral"></n-input>
+        <n-input variant="outline" intent="accent" placeholder="Accent"></n-input>
+        <n-input variant="outline" intent="info" placeholder="Info"></n-input>
+        <n-input variant="outline" intent="success" placeholder="Success"></n-input>
+        <n-input variant="outline" intent="warning" placeholder="Warning"></n-input>
+        <n-input variant="outline" intent="danger" placeholder="Danger"></n-input>
       </div>
       <h3>Default</h3>
       <div class="layout-row">
-        <ui-input variant="default" intent="neutral" placeholder="Neutral"></ui-input>
-        <ui-input variant="default" intent="accent" placeholder="Accent"></ui-input>
-        <ui-input variant="default" intent="info" placeholder="Info"></ui-input>
-        <ui-input variant="default" intent="success" placeholder="Success"></ui-input>
-        <ui-input variant="default" intent="warning" placeholder="Warning"></ui-input>
-        <ui-input variant="default" intent="danger" placeholder="Danger"></ui-input>
+        <n-input variant="default" intent="neutral" placeholder="Neutral"></n-input>
+        <n-input variant="default" intent="accent" placeholder="Accent"></n-input>
+        <n-input variant="default" intent="info" placeholder="Info"></n-input>
+        <n-input variant="default" intent="success" placeholder="Success"></n-input>
+        <n-input variant="default" intent="warning" placeholder="Warning"></n-input>
+        <n-input variant="default" intent="danger" placeholder="Danger"></n-input>
       </div>
       <h3>Ghost</h3>
       <div class="layout-row">
-        <ui-input variant="ghost" intent="neutral" placeholder="Neutral"></ui-input>
-        <ui-input variant="ghost" intent="accent" placeholder="Accent"></ui-input>
-        <ui-input variant="ghost" intent="info" placeholder="Info"></ui-input>
-        <ui-input variant="ghost" intent="success" placeholder="Success"></ui-input>
-        <ui-input variant="ghost" intent="warning" placeholder="Warning"></ui-input>
-        <ui-input variant="ghost" intent="danger" placeholder="Danger"></ui-input>
+        <n-input variant="ghost" intent="neutral" placeholder="Neutral"></n-input>
+        <n-input variant="ghost" intent="accent" placeholder="Accent"></n-input>
+        <n-input variant="ghost" intent="info" placeholder="Info"></n-input>
+        <n-input variant="ghost" intent="success" placeholder="Success"></n-input>
+        <n-input variant="ghost" intent="warning" placeholder="Warning"></n-input>
+        <n-input variant="ghost" intent="danger" placeholder="Danger"></n-input>
       </div>
     </div>
 
@@ -363,27 +403,27 @@ const codeExamples = {
 
     <h2>Debug States (<code>force-*</code>)</h2>
     <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--neutral-ink-muted); margin: 0 0 1rem;">
+      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin: 0 0 1rem;">
         Attribute-driven pseudo-state overrides for DevTools debugging and visual testing.
       </p>
-      <ui-stack gap="4">
+      <n-stack gap="4">
         <div>
-          <p style="font-size: 0.75rem; color: var(--neutral-ink-muted); margin: 0 0 0.5rem;">force-hover (empty)</p>
-          <ui-input force-hover placeholder="Hovered input"></ui-input>
+          <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin: 0 0 0.5rem;">force-hover (empty)</p>
+          <n-input force-hover placeholder="Hovered input"></n-input>
         </div>
         <div>
-          <p style="font-size: 0.75rem; color: var(--neutral-ink-muted); margin: 0 0 0.5rem;">force-focus (empty)</p>
-          <ui-input force-focus placeholder="Focused input"></ui-input>
+          <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin: 0 0 0.5rem;">force-focus (empty)</p>
+          <n-input force-focus placeholder="Focused input"></n-input>
         </div>
         <div>
-          <p style="font-size: 0.75rem; color: var(--neutral-ink-muted); margin: 0 0 0.5rem;">force-hover (filled)</p>
-          <ui-input force-hover value="Filled + hovered"></ui-input>
+          <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin: 0 0 0.5rem;">force-hover (filled)</p>
+          <n-input force-hover value="Filled + hovered"></n-input>
         </div>
         <div>
-          <p style="font-size: 0.75rem; color: var(--neutral-ink-muted); margin: 0 0 0.5rem;">force-focus (filled)</p>
-          <ui-input force-focus value="Filled + focused"></ui-input>
+          <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin: 0 0 0.5rem;">force-focus (filled)</p>
+          <n-input force-focus value="Filled + focused"></n-input>
         </div>
-      </ui-stack>
+      </n-stack>
     </div>
   </main>
 
@@ -395,14 +435,14 @@ import { logPrepend } from '../../scripts/event-log';
       const eventLog = document.getElementById('event-log');
       let count = 0;
 
-      eventInput.addEventListener('ui-input', (e) => {
+      eventInput.addEventListener('native:input', (e) => {
         count++;
-        logPrepend(eventLog, `#${count} ui-input — value: "${e.detail.value}"`);
+        logPrepend(eventLog, `#${count} native:input — value: "${e.detail.value}"`);
       });
 
-      eventInput.addEventListener('ui-change', (e) => {
+      eventInput.addEventListener('native:change', (e) => {
         count++;
-        logPrepend(eventLog, `#${count} ui-change — value: "${e.detail.value}"`);
+        logPrepend(eventLog, `#${count} native:change — value: "${e.detail.value}"`);
       });
 
       // Form logging
@@ -417,6 +457,20 @@ import { logPrepend } from '../../scripts/event-log';
 
       form.addEventListener('reset', () => {
         logPrepend(formLog, 'reset');
+      });
+
+      // Validation form logging
+      const validationForm = document.getElementById('validation-form');
+      const validationLog = document.getElementById('validation-log');
+
+      validationForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const data = new FormData(validationForm);
+        logPrepend(validationLog, `submit — ${[...data.entries()].map(([k, v]) => `${k}: "${v}"`).join(', ')}`);
+      });
+
+      validationForm.addEventListener('reset', () => {
+        logPrepend(validationLog, 'reset');
       });
   </script>
 </SidebarLayout>

@@ -1,0 +1,295 @@
+---
+import SidebarLayout from '../../layouts/SidebarLayout.astro';
+---
+<SidebarLayout title="Editor">
+  <main>
+<h1>&lt;native-editor&gt;</h1>
+    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
+      Markdown content editor with live preview and source modes.
+      Built on CodeMirror 6, renders a toolbar with formatting commands and an Obsidian-style live preview.
+    </p>
+
+    <!-- ── Default (Live Preview) ── -->
+
+    <h2>Default — Live Preview Mode</h2>
+    <div class="layout-section">
+      <native-editor id="demo-default"></native-editor>
+    <pre class="layout-code"><code>&lt;native-editor&gt;
+  &lt;script type="text/markdown"&gt;
+# Hello World
+
+This is a **bold** and *italic* text.
+  &lt;/script&gt;
+&lt;/native-editor&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </div>
+
+    <!-- ── Source Mode ── -->
+
+    <h2>Source Mode</h2>
+    <div class="layout-section">
+      <native-editor id="demo-source" mode="source"></native-editor>
+    <pre class="layout-code"><code>&lt;native-editor mode="source"&gt;
+  &lt;script type="text/markdown"&gt;
+# Source Mode
+Raw markdown without decorations.
+  &lt;/script&gt;
+&lt;/native-editor&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </div>
+
+    <!-- ── Placeholder ── -->
+
+    <h2>Placeholder</h2>
+    <div class="layout-section">
+      <native-editor id="demo-placeholder" placeholder="Start typing your markdown here..."></native-editor>
+    <pre class="layout-code"><code>&lt;native-editor placeholder="Start typing..."&gt;&lt;/native-editor&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </div>
+
+    <!-- ── Read-only ── -->
+
+    <h2>Read-only</h2>
+    <div class="layout-section">
+      <native-editor id="demo-readonly" readonly></native-editor>
+    <pre class="layout-code"><code>&lt;native-editor readonly&gt;
+  &lt;script type="text/markdown"&gt;
+# Read-only Document
+Content is not editable.
+  &lt;/script&gt;
+&lt;/native-editor&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </div>
+
+    <!-- ── Disabled ── -->
+
+    <h2>Disabled</h2>
+    <div class="layout-section">
+      <native-editor id="demo-disabled" disabled></native-editor>
+    <pre class="layout-code"><code>&lt;native-editor disabled&gt;...&lt;/native-editor&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </div>
+
+    <!-- ── Form Integration ── -->
+
+    <h2>Form Integration</h2>
+    <div class="layout-section">
+      <form id="demo-form" style="display: flex; flex-direction: column; gap: 1rem;">
+        <native-editor id="demo-form-editor" name="content" class="editor-short"></native-editor>
+        <div style="display: flex; gap: 0.5rem;">
+          <n-button type="submit" variant="primary">Submit</n-button>
+          <n-button type="reset" variant="secondary">Reset</n-button>
+        </div>
+      </form>
+      <div class="log" id="form-output"></div>
+    <pre class="layout-code"><code>&lt;form&gt;
+  &lt;native-editor name="content"&gt;...&lt;/native-editor&gt;
+  &lt;n-button type="submit"&gt;Submit&lt;/n-button&gt;
+  &lt;n-button type="reset"&gt;Reset&lt;/n-button&gt;
+&lt;/form&gt;
+
+&lt;script&gt;
+  form.addEventListener('submit', (e) =&gt; &#123;
+    e.preventDefault();
+    const data = new FormData(form);
+    console.log(data.get('content'));
+  &#125;);
+&lt;/script&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </div>
+
+    <!-- ── Change Events ── -->
+
+    <h2>Change Events</h2>
+    <div class="layout-section">
+      <native-editor id="demo-events" class="editor-compact"></native-editor>
+      <div class="log" id="event-log" style="max-height: 100px;"></div>
+    <pre class="layout-code"><code>&lt;native-editor id="editor"&gt;...&lt;/native-editor&gt;
+
+&lt;script&gt;
+  editor.addEventListener('change', (e) =&gt; &#123;
+    console.log(e.detail.value.length, 'chars');
+  &#125;);
+&lt;/script&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </div>
+
+    <!-- ── Data Gateway (src) ── -->
+
+    <h2>Data Gateway — Load from URL</h2>
+    <div class="layout-section">
+      <native-editor id="demo-gateway"></native-editor>
+      <div style="display: flex; gap: 0.5rem; align-items: center; margin-top: 0.75rem;">
+        <n-button id="gateway-save" variant="primary" disabled>Save</n-button>
+        <n-button id="gateway-reload" variant="secondary">Reload</n-button>
+        <span id="gateway-status" style="font-size: 0.75rem; color: var(--n-ink-muted-neutral);"></span>
+      </div>
+    <pre class="layout-code"><code>&lt;native-editor id="editor" src="/api/content"&gt;&lt;/native-editor&gt;
+
+&lt;script&gt;
+  editor.addEventListener('dirty-change', (e) =&gt; &#123;
+    saveBtn.disabled = !e.detail.dirty;
+  &#125;);
+  saveBtn.addEventListener('native:press', () =&gt; editor.save());
+  reloadBtn.addEventListener('native:press', () =&gt; editor.reload());
+&lt;/script&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </div>
+  </main>
+
+  <script>
+  import '../../scripts/copy-buttons';
+  import '@nonoun/native-editor/register';
+  import { logPrepend } from '../../scripts/event-log';
+
+  // ── Seed editor content via .value ──
+
+  const demoDefault = document.getElementById('demo-default');
+  if (demoDefault) {
+    demoDefault.value = [
+      '# Hello World',
+      '',
+      'This is a **bold** and *italic* text with `inline code`.',
+      '',
+      '## Features',
+      '',
+      '- Toolbar with formatting commands',
+      '- Live preview with decorations',
+      '- Source mode toggle',
+      '',
+      '> Blockquotes are styled with a blue left border.',
+      '',
+      '### Links & Images',
+      '',
+      'Check out [NativeUI](https://github.com/nonoun/native-ui) for more info.',
+      '',
+      '---',
+      '',
+      '```js',
+      "console.log('Code blocks are highlighted');",
+      '```',
+      '',
+      '1. Ordered lists',
+      '2. Work too',
+      '3. With proper numbering',
+    ].join('\n');
+  }
+
+  const demoSource = document.getElementById('demo-source');
+  if (demoSource) {
+    demoSource.value = [
+      '# Source Mode',
+      '',
+      'In source mode, you see the **raw markdown** without live preview decorations.',
+      'Syntax highlighting is provided by `@codemirror/lang-markdown`.',
+      '',
+      '- No inline styling',
+      '- Just syntax colors',
+      '- Full editing power',
+    ].join('\n');
+  }
+
+  const demoReadonly = document.getElementById('demo-readonly');
+  if (demoReadonly) {
+    demoReadonly.value = [
+      '# Read-only Document',
+      '',
+      'This editor is in **read-only** mode. You can select text but cannot edit.',
+      '',
+      '- Toolbar buttons are disabled',
+      '- Content is not editable',
+      '- Useful for preview/display',
+    ].join('\n');
+  }
+
+  const demoDisabled = document.getElementById('demo-disabled');
+  if (demoDisabled) {
+    demoDisabled.value = [
+      '# Disabled Editor',
+      '',
+      'This editor is completely disabled.',
+    ].join('\n');
+  }
+
+  const demoFormEditor = document.getElementById('demo-form-editor');
+  if (demoFormEditor) {
+    demoFormEditor.value = [
+      '# Form Field',
+      '',
+      'This editor participates in form submission via `FormData`.',
+    ].join('\n');
+  }
+
+  const demoEvents = document.getElementById('demo-events');
+  if (demoEvents) {
+    demoEvents.value = [
+      '# Try editing',
+      '',
+      'Type something to see change events in the log below.',
+    ].join('\n');
+  }
+
+  const gatewayEditor = document.getElementById('demo-gateway');
+  if (gatewayEditor) {
+    gatewayEditor.value = [
+      '# Data Gateway Demo',
+      '',
+      'Edit this content, then observe the **dirty** state.',
+      '',
+      'The save and reload buttons wire to `editor.save()` and `editor.reload()`.',
+    ].join('\n');
+  }
+
+  // ── Form demo ──
+
+  const form = document.getElementById('demo-form');
+  const formOutput = document.getElementById('form-output');
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const content = data.get('content');
+    logPrepend(formOutput, `FormData "content": ${content?.toString().slice(0, 100)}...`);
+  });
+
+  // ── Event log demo ──
+
+  const eventLog = document.getElementById('event-log');
+  let count = 0;
+  demoEvents?.addEventListener('change', (e) => {
+    count++;
+    const detail = e.detail;
+    logPrepend(eventLog, `#${count} change — ${detail.value.length} chars`);
+  });
+
+  // ── Gateway demo ──
+
+  const gatewayStatus = document.getElementById('gateway-status');
+  const saveBtn = document.getElementById('gateway-save');
+  const reloadBtn = document.getElementById('gateway-reload');
+
+  gatewayEditor?.addEventListener('dirty-change', (e) => {
+    const dirty = e.detail.dirty;
+    if (saveBtn) saveBtn.disabled = !dirty;
+    if (gatewayStatus) gatewayStatus.textContent = dirty ? 'Unsaved changes' : 'Clean';
+  });
+
+  gatewayEditor?.addEventListener('native:save', () => {
+    if (gatewayStatus) gatewayStatus.textContent = 'Saved!';
+  });
+
+  gatewayEditor?.addEventListener('native:error', (e) => {
+    if (gatewayStatus) gatewayStatus.textContent = `Error: ${e.detail.error}`;
+  });
+
+  saveBtn?.addEventListener('native:press', () => gatewayEditor?.save());
+  reloadBtn?.addEventListener('native:press', () => gatewayEditor?.reload());
+</script>
+  <style is:global>
+    @import '@nonoun/native-editor/css';
+
+    native-editor {
+      height: 400px;
+    }
+
+    .editor-short {
+      height: 250px;
+    }
+
+    .editor-compact {
+      height: 200px;
+    }
+</style>
+
+</SidebarLayout>

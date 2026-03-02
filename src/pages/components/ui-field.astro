@@ -2,24 +2,24 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
 const codeExamples = {
-  withOtherControls: `&lt;ui-field&gt;
+  withOtherControls: `&lt;n-field&gt;
   &lt;label slot="label"&gt;Theme preference&lt;/label&gt;
-  &lt;ui-select placeholder="Select theme"
+  &lt;n-select placeholder="Select theme"
     options='[{"value":"system","label":"System"},...]'&gt;
-  &lt;/ui-select&gt;
+  &lt;/n-select&gt;
   &lt;span slot="description"&gt;Choose how the app appears.&lt;/span&gt;
-&lt;/ui-field&gt;
+&lt;/n-field&gt;
 
-&lt;ui-field&gt;
+&lt;n-field&gt;
   &lt;label slot="label"&gt;Notifications&lt;/label&gt;
-  &lt;ui-switch&gt;Enable push notifications&lt;/ui-switch&gt;
-&lt;/ui-field&gt;`,
+  &lt;n-switch&gt;Enable push notifications&lt;/n-switch&gt;
+&lt;/n-field&gt;`,
 };
 ---
-<SidebarLayout title="ui-field">
+<SidebarLayout title="Field">
   <main>
-<h1>&lt;ui-field&gt;</h1>
-    <p style="color: var(--neutral-ink-muted); font-size: 0.875rem; margin-bottom: 1.5rem;">
+<h1>&lt;n-field&gt;</h1>
+    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
       Form field wrapper with label, description, error message, and ARIA wiring.
     </p>
 
@@ -27,153 +27,153 @@ const codeExamples = {
 
     <h2>Basic</h2>
     <div class="layout-section">
-      <ui-stack gap="4">
-        <ui-field>
+      <n-stack gap="4">
+        <n-field>
           <label slot="label">Email address</label>
-          <ui-input placeholder="you@example.com"></ui-input>
+          <n-input placeholder="you@example.com"></n-input>
           <span slot="description">We'll never share your email.</span>
-        </ui-field>
-        <ui-field>
+        </n-field>
+        <n-field>
           <label slot="label">Password</label>
-          <ui-input placeholder="Enter password" type="password"></ui-input>
-        </ui-field>
-      </ui-stack>
-      <pre class="layout-code"><code>&lt;ui-field&gt;
+          <n-input placeholder="Enter password" type="password"></n-input>
+        </n-field>
+      </n-stack>
+      <pre class="layout-code"><code>&lt;n-field&gt;
   &lt;label slot="label"&gt;Email address&lt;/label&gt;
-  &lt;ui-input placeholder="you@example.com"&gt;&lt;/ui-input&gt;
+  &lt;n-input placeholder="you@example.com"&gt;&lt;/n-input&gt;
   &lt;span slot="description"&gt;We'll never share your email.&lt;/span&gt;
-&lt;/ui-field&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+&lt;/n-field&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Required ── -->
 
     <h2>Required</h2>
     <div class="layout-section">
-      <ui-stack gap="4">
-        <ui-field required>
+      <n-stack gap="4">
+        <n-field required>
           <label slot="label">Full name</label>
-          <ui-input placeholder="Jane Doe"></ui-input>
+          <n-input placeholder="Jane Doe"></n-input>
           <span slot="description">As it appears on your ID.</span>
-        </ui-field>
-        <ui-field required>
+        </n-field>
+        <n-field required>
           <label slot="label">Email</label>
-          <ui-input placeholder="you@example.com"></ui-input>
-        </ui-field>
-      </ui-stack>
-      <pre class="layout-code"><code>&lt;ui-field required&gt;
+          <n-input placeholder="you@example.com"></n-input>
+        </n-field>
+      </n-stack>
+      <pre class="layout-code"><code>&lt;n-field required&gt;
   &lt;label slot="label"&gt;Full name&lt;/label&gt;
-  &lt;ui-input placeholder="Jane Doe"&gt;&lt;/ui-input&gt;
+  &lt;n-input placeholder="Jane Doe"&gt;&lt;/n-input&gt;
   &lt;span slot="description"&gt;As it appears on your ID.&lt;/span&gt;
-&lt;/ui-field&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+&lt;/n-field&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── With Error ── -->
 
     <h2>With Error</h2>
     <div class="layout-section">
-      <ui-stack gap="4">
-        <ui-field required invalid>
+      <n-stack gap="4">
+        <n-field required invalid>
           <label slot="label">Username</label>
-          <ui-input placeholder="Choose a username" invalid></ui-input>
+          <n-input placeholder="Choose a username" invalid></n-input>
           <span slot="error">Username is already taken.</span>
-        </ui-field>
-        <ui-field invalid>
+        </n-field>
+        <n-field invalid>
           <label slot="label">Website</label>
-          <ui-input placeholder="https://example.com"></ui-input>
+          <n-input placeholder="https://example.com"></n-input>
           <span slot="description">Your personal website or blog.</span>
           <span slot="error">Please enter a valid URL.</span>
-        </ui-field>
-      </ui-stack>
-      <pre class="layout-code"><code>&lt;ui-field required invalid&gt;
+        </n-field>
+      </n-stack>
+      <pre class="layout-code"><code>&lt;n-field required invalid&gt;
   &lt;label slot="label"&gt;Username&lt;/label&gt;
-  &lt;ui-input placeholder="Choose a username" invalid&gt;&lt;/ui-input&gt;
+  &lt;n-input placeholder="Choose a username" invalid&gt;&lt;/n-input&gt;
   &lt;span slot="error"&gt;Username is already taken.&lt;/span&gt;
-&lt;/ui-field&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+&lt;/n-field&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Disabled ── -->
 
     <h2>Disabled</h2>
     <div class="layout-section">
-      <ui-field disabled>
+      <n-field disabled>
         <label slot="label">Account ID</label>
-        <ui-input placeholder="Auto-generated" value="acct_29x8f"></ui-input>
+        <n-input placeholder="Auto-generated" value="acct_29x8f"></n-input>
         <span slot="description">This field cannot be changed.</span>
-      </ui-field>
+      </n-field>
     </div>
 
     <!-- ── With Other Controls ── -->
 
     <h2>With Other Controls</h2>
     <div class="layout-section">
-      <ui-stack gap="4">
-        <ui-field>
+      <n-stack gap="4">
+        <n-field>
           <label slot="label">Theme preference</label>
-          <ui-select value="system" placeholder="Select theme" options='[{"value":"system","label":"System"},{"value":"light","label":"Light"},{"value":"dark","label":"Dark"}]'></ui-select>
+          <n-select value="system" placeholder="Select theme" options='[{"value":"system","label":"System"},{"value":"light","label":"Light"},{"value":"dark","label":"Dark"}]'></n-select>
           <span slot="description">Choose how the app appears.</span>
-        </ui-field>
-        <ui-field>
+        </n-field>
+        <n-field>
           <label slot="label">Marketing emails</label>
-          <ui-checkbox>Send me product updates</ui-checkbox>
-        </ui-field>
-        <ui-field>
+          <n-checkbox>Send me product updates</n-checkbox>
+        </n-field>
+        <n-field>
           <label slot="label">Notifications</label>
-          <ui-switch>Enable push notifications</ui-switch>
-        </ui-field>
-      </ui-stack>
-      <pre class="layout-code"><code set:html={codeExamples.withOtherControls} /><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+          <n-switch>Enable push notifications</n-switch>
+        </n-field>
+      </n-stack>
+      <pre class="layout-code"><code set:html={codeExamples.withOtherControls} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Sizes ── -->
 
     <h2>Sizes</h2>
     <div class="layout-section">
-      <ui-stack gap="4">
-        <ui-field size="sm">
+      <n-stack gap="4">
+        <n-field size="sm">
           <label slot="label">Small field</label>
-          <ui-input placeholder="Small input"></ui-input>
-        </ui-field>
-        <ui-field>
+          <n-input placeholder="Small input"></n-input>
+        </n-field>
+        <n-field>
           <label slot="label">Default field</label>
-          <ui-input placeholder="Default input"></ui-input>
-        </ui-field>
-        <ui-field size="lg">
+          <n-input placeholder="Default input"></n-input>
+        </n-field>
+        <n-field size="lg">
           <label slot="label">Large field</label>
-          <ui-input placeholder="Large input"></ui-input>
-        </ui-field>
-      </ui-stack>
+          <n-input placeholder="Large input"></n-input>
+        </n-field>
+      </n-stack>
     </div>
 
     <!-- ── Form Composition ── -->
 
     <h2>Form Composition</h2>
     <div class="layout-section" style="max-width: 28rem;">
-      <ui-card>
-        <ui-header>
+      <n-card>
+        <n-header>
           <span slot="label">Create Account</span>
-        </ui-header>
-        <ui-body>
-          <ui-stack gap="4">
-            <ui-field required>
+        </n-header>
+        <n-body>
+          <n-stack gap="4">
+            <n-field required>
               <label slot="label">Full name</label>
-              <ui-input placeholder="Jane Doe"></ui-input>
-            </ui-field>
-            <ui-field required>
+              <n-input placeholder="Jane Doe"></n-input>
+            </n-field>
+            <n-field required>
               <label slot="label">Email</label>
-              <ui-input placeholder="you@example.com"></ui-input>
+              <n-input placeholder="you@example.com"></n-input>
               <span slot="description">We'll send a confirmation link.</span>
-            </ui-field>
-            <ui-field required>
+            </n-field>
+            <n-field required>
               <label slot="label">Password</label>
-              <ui-input placeholder="At least 8 characters" type="password"></ui-input>
-            </ui-field>
-          </ui-stack>
-        </ui-body>
-        <ui-footer>
-          <ui-button variant="ghost"><span slot="label">Cancel</span></ui-button>
-          <ui-button variant="primary" intent="accent"><span slot="label">Create Account</span></ui-button>
-        </ui-footer>
-      </ui-card>
+              <n-input placeholder="At least 8 characters" type="password"></n-input>
+            </n-field>
+          </n-stack>
+        </n-body>
+        <n-footer>
+          <n-button variant="ghost"><span slot="label">Cancel</span></n-button>
+          <n-button variant="primary" intent="accent"><span slot="label">Create Account</span></n-button>
+        </n-footer>
+      </n-card>
     </div>
   </main>
 

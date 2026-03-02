@@ -1,32 +1,33 @@
 /* Shared layout-block styles — documentation layout, not component styling */
-/* Scoped to ui-layout-body to avoid leaking into sidebar/breadcrumb/dialog */
+/* Scoped to n-app-panel to avoid leaking into sidebar/breadcrumb/dialog */
 
-ui-layout-body > main {
+n-app-panel > main {
   padding: 2rem;
 }
 
-ui-layout-body h1 {
+n-app-panel h1 {
   font-size: 1.25rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
+  color: var(--n-ink-strong-neutral);
 }
 
-ui-layout-body h2 {
+n-app-panel h2 {
   font-size: 1rem;
   font-weight: 700;
   margin-bottom: 1rem;
   margin-top: 2rem;
-  color: var(--neutral-ink-strong);
+  color: var(--n-ink-strong-neutral);
 }
 
-ui-layout-body h3 {
+n-app-panel h3 {
   font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: 0.5rem;
   margin-top: 1.5rem;
-  color: var(--neutral-ink-muted);
+  color: var(--n-ink-neutral);
 }
 
 .layout-row {
@@ -44,13 +45,13 @@ ui-layout-body h3 {
   letter-spacing: 0.04em;
   width: 5rem;
   flex-shrink: 0;
-  color: var(--neutral-ink-muted);
+  color: var(--n-ink-muted-neutral);
 }
 
 .layout-section {
-  background: var(--neutral-body);
-  border: 1px solid var(--neutral-border-muted);
-  border-radius: var(--_radius);
+  background: var(--n-body-neutral);
+  border: 1px solid var(--n-border-muted-neutral);
+  border-radius: var(--n-radius);
   padding: 1.5rem;
   margin-bottom: 1rem;
 }
@@ -58,8 +59,8 @@ ui-layout-body h3 {
 .log {
   font-family: ui-monospace, monospace;
   font-size: 0.75rem;
-  background: var(--neutral-panel);
-  border: 1px solid var(--neutral-border-muted);
+  background: var(--n-panel-neutral);
+  border: 1px solid var(--n-border-muted-neutral);
   border-radius: 0.375rem;
   padding: 0.75rem;
   max-height: 10rem;
@@ -69,7 +70,7 @@ ui-layout-body h3 {
 
 .log-entry {
   padding: 0.125rem 0;
-  border-bottom: 1px solid var(--neutral-border-muted);
+  border-bottom: 1px solid var(--n-border-muted-neutral);
 }
 
 .log-entry:last-child {
@@ -92,8 +93,8 @@ ui-layout-body h3 {
   font-family: ui-monospace, monospace;
   font-size: 0.75rem;
   line-height: 1.5;
-  background: var(--neutral-panel);
-  border: 1px solid var(--neutral-border-muted);
+  background: var(--n-panel-neutral);
+  border: 1px solid var(--n-border-muted-neutral);
   border-radius: 0.375rem;
   padding: 1rem;
   overflow-x: auto;
@@ -124,12 +125,12 @@ ui-layout-body h3 {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  color: var(--neutral-ink-muted);
+  color: var(--n-ink-muted-neutral);
 }
 
 .layout-box {
-  background: var(--neutral-panel);
-  border: 1px solid var(--neutral-border-muted);
+  background: var(--n-panel-neutral);
+  border: 1px solid var(--n-border-muted-neutral);
   border-radius: 0.375rem;
   padding: 0.75rem 1rem;
   font-size: 0.8125rem;
@@ -141,32 +142,32 @@ ui-layout-body h3 {
   align-items: center;
   justify-content: center;
   padding: 1.25rem 1rem;
-  background: var(--neutral-panel);
-  border: 1px solid var(--neutral-border-muted);
+  background: var(--n-panel-neutral);
+  border: 1px solid var(--n-border-muted-neutral);
   border-radius: 0.375rem;
   font-size: 0.875rem;
-  color: var(--neutral-ink);
+  color: var(--n-ink-neutral);
   transition: background 200ms ease, border-color 200ms ease, color 200ms ease, box-shadow 200ms ease, transform 100ms ease;
   user-select: none;
   cursor: default;
 }
 
 .layout-card[hovered] {
-  background: var(--accent-surface);
-  border-color: var(--accent-border);
-  color: var(--accent-surface-ink);
-  box-shadow: 0 0 0 3px var(--accent-surface);
+  background: var(--n-surface-accent);
+  border-color: var(--n-border-accent);
+  color: var(--n-surface-ink-accent);
+  box-shadow: 0 0 0 3px var(--n-surface-accent);
 }
 
 .layout-card[pressed] {
-  background: var(--accent-surface);
-  border-color: var(--accent-border);
-  color: var(--accent-surface-ink);
+  background: var(--n-surface-accent);
+  border-color: var(--n-border-accent);
+  color: var(--n-surface-ink-accent);
   transform: scale(0.97);
 }
 
 .layout-hint {
   font-size: 0.75rem;
-  color: var(--neutral-ink-muted);
+  color: var(--n-ink-muted-neutral);
   margin-bottom: 0.75rem;
 }

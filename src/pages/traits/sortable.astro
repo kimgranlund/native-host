@@ -2,7 +2,7 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
 const codeExamples = {
-  basicTableSort: `&lt;ui-controller traits="sortable" sortable-selector="th"&gt;
+  basicTableSort: `&lt;n-controller traits="sortable" sortable-selector="th"&gt;
   &lt;div&gt;
     &lt;table class="sort-table"&gt;
       &lt;thead&gt;
@@ -18,11 +18,11 @@ const codeExamples = {
       &lt;/tbody&gt;
     &lt;/table&gt;
   &lt;/div&gt;
-&lt;/ui-controller&gt;
+&lt;/n-controller&gt;
 
 &lt;script&gt;
   const wrapper = document.getElementById('basic-wrapper');
-  wrapper.addEventListener('ui-sort', (e) =&gt; {
+  wrapper.addEventListener('native:sort', (e) =&gt; {
     const { column, direction } = e.detail;
     const tbody = wrapper.querySelector('tbody');
     const rows = [...tbody.querySelectorAll('tr')];
@@ -40,7 +40,7 @@ const codeExamples = {
     for (const row of rows) tbody.appendChild(row);
   });
 &lt;/script&gt;`,
-  customSelector: `&lt;ui-controller traits="sortable" sortable-selector="[data-column]"&gt;
+  customSelector: `&lt;n-controller traits="sortable" sortable-selector="[data-column]"&gt;
   &lt;div&gt;
     &lt;table class="sort-table"&gt;
       &lt;thead&gt;
@@ -56,11 +56,11 @@ const codeExamples = {
       &lt;/tbody&gt;
     &lt;/table&gt;
   &lt;/div&gt;
-&lt;/ui-controller&gt;
+&lt;/n-controller&gt;
 
 &lt;script&gt;
   const wrapper = document.getElementById('custom-wrapper');
-  wrapper.addEventListener('ui-sort', (e) =&gt; {
+  wrapper.addEventListener('native:sort', (e) =&gt; {
     const { column, direction } = e.detail;
     const tbody = wrapper.querySelector('tbody');
     const rows = [...tbody.querySelectorAll('tr')];
@@ -84,18 +84,18 @@ const detailColumnDirection = `{ column, direction }`;
 <SidebarLayout title="Sortable">
   <main>
 <h1>Sortable</h1>
-    <p style="color: var(--neutral-ink-muted); font-size: 0.875rem; margin-bottom: 1.5rem;">
-      Column sort state cycling (asc &rarr; desc &rarr; none) with ARIA sync. Click a header to cycle sort direction. The consumer handles actual data reordering in the <code>ui-sort</code> event.
+    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
+      Column sort state cycling (asc &rarr; desc &rarr; none) with ARIA sync. Click a header to cycle sort direction. The consumer handles actual data reordering in the <code>native:sort</code> event.
     </p>
 
     <!-- ── Basic Table Sort ── -->
 
     <h2>Basic Table Sort</h2>
     <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--neutral-ink-muted); margin-bottom: 0.75rem;">
-        <code>&lt;ui-controller&gt;</code> wraps a plain <code>&lt;div&gt;</code> and applies the sortable trait. Click column headers to cycle sort direction. ARIA <code>aria-sort</code> is synced automatically.
+      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+        <code>&lt;n-controller&gt;</code> wraps a plain <code>&lt;div&gt;</code> and applies the sortable trait. Click column headers to cycle sort direction. ARIA <code>aria-sort</code> is synced automatically.
       </p>
-      <ui-controller traits="sortable" sortable-selector="th">
+      <n-controller traits="sortable" sortable-selector="th">
         <div id="basic-wrapper">
           <table class="sort-table">
             <thead>
@@ -114,19 +114,19 @@ const detailColumnDirection = `{ column, direction }`;
             </tbody>
           </table>
         </div>
-      </ui-controller>
+      </n-controller>
       <div id="basic-log" class="output"></div>
-      <pre class="layout-code"><code set:html={codeExamples.basicTableSort} /><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+      <pre class="layout-code"><code set:html={codeExamples.basicTableSort} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Custom Selector ── -->
 
     <h2>Custom Selector</h2>
     <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--neutral-ink-muted); margin-bottom: 0.75rem;">
+      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
         Using <code>data-column</code> attributes on headers with a <code>[data-column]</code> selector. Column identity comes from the attribute rather than text content.
       </p>
-      <ui-controller traits="sortable" sortable-selector="[data-column]">
+      <n-controller traits="sortable" sortable-selector="[data-column]">
         <div id="custom-wrapper">
           <table class="sort-table">
             <thead>
@@ -145,9 +145,9 @@ const detailColumnDirection = `{ column, direction }`;
             </tbody>
           </table>
         </div>
-      </ui-controller>
+      </n-controller>
       <div id="custom-log" class="output"></div>
-      <pre class="layout-code"><code set:html={codeExamples.customSelector} /><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+      <pre class="layout-code"><code set:html={codeExamples.customSelector} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── API Reference ── -->
@@ -181,7 +181,7 @@ const detailColumnDirection = `{ column, direction }`;
         <thead><tr><th>Event</th><th>Detail</th><th>Description</th></tr></thead>
         <tbody>
           <tr>
-            <td><code>ui-sort</code></td>
+            <td><code>native:sort</code></td>
             <td><code set:html={detailColumnDirection} /></td>
             <td>Fired when sort state changes. <code>column</code> is the column name (from <code>data-column</code> or text content), <code>direction</code> is <code>'asc'</code>, <code>'desc'</code>, or <code>'none'</code>. Consumer handles actual data reordering.</td>
           </tr>
@@ -214,7 +214,7 @@ import { logAppend as appendLog } from '../../scripts/event-log';
       // ── Basic Table Sort ──
 
       const basicWrapper = document.getElementById('basic-wrapper');
-      basicWrapper.addEventListener('ui-sort', (e) => {
+      basicWrapper.addEventListener('native:sort', (e) => {
         const { column, direction } = e.detail;
         const tbody = basicWrapper.querySelector('tbody');
         const rows = [...tbody.querySelectorAll('tr')];
@@ -233,7 +233,7 @@ import { logAppend as appendLog } from '../../scripts/event-log';
       // ── Custom Selector Sort ──
 
       const customWrapper = document.getElementById('custom-wrapper');
-      customWrapper.addEventListener('ui-sort', (e) => {
+      customWrapper.addEventListener('native:sort', (e) => {
         const { column, direction } = e.detail;
         const tbody = customWrapper.querySelector('tbody');
         const rows = [...tbody.querySelectorAll('tr')];
@@ -250,12 +250,12 @@ import { logAppend as appendLog } from '../../scripts/event-log';
       });
 
       const basicLogEl = document.getElementById('basic-log');
-      basicWrapper.addEventListener('ui-sort', (e) => {
+      basicWrapper.addEventListener('native:sort', (e) => {
         appendLog(basicLogEl, `Sort: ${e.detail.column} ${e.detail.direction}`);
       });
 
       const customLogEl = document.getElementById('custom-log');
-      customWrapper.addEventListener('ui-sort', (e) => {
+      customWrapper.addEventListener('native:sort', (e) => {
         appendLog(customLogEl, `Sort: ${e.detail.column} ${e.detail.direction}`);
       });
   </script>
@@ -272,15 +272,15 @@ import { logAppend as appendLog } from '../../scripts/event-log';
       text-align: left;
       font-weight: 600;
       padding: 0.625rem 0.75rem;
-      border-bottom: 2px solid var(--neutral-border-muted);
-      color: var(--neutral-ink-strong);
+      border-bottom: 2px solid var(--n-border-muted-neutral);
+      color: var(--n-ink-strong-neutral);
       cursor: pointer;
       user-select: none;
       white-space: nowrap;
     }
 
     .sort-table th:hover {
-      color: var(--accent-ink);
+      color: var(--n-ink-accent);
     }
 
     .sort-table th::after {
@@ -289,22 +289,22 @@ import { logAppend as appendLog } from '../../scripts/event-log';
       width: 1em;
       text-align: center;
       margin-left: 0.25rem;
-      color: var(--neutral-ink-muted);
+      color: var(--n-ink-muted-neutral);
     }
 
     .sort-table th[aria-sort="ascending"]::after {
       content: '\2191';
-      color: var(--accent-ink);
+      color: var(--n-ink-accent);
     }
 
     .sort-table th[aria-sort="descending"]::after {
       content: '\2193';
-      color: var(--accent-ink);
+      color: var(--n-ink-accent);
     }
 
     .sort-table td {
       padding: 0.625rem 0.75rem;
-      border-bottom: 1px solid var(--neutral-border-muted);
+      border-bottom: 1px solid var(--n-border-muted-neutral);
     }
 
     .sort-table tbody tr {
@@ -312,18 +312,18 @@ import { logAppend as appendLog } from '../../scripts/event-log';
     }
 
     .sort-table tbody tr:hover {
-      background: var(--neutral-panel);
+      background: var(--n-panel-neutral);
     }
 
     .output {
       font-family: monospace;
       font-size: 0.75rem;
-      color: var(--neutral-ink-muted);
+      color: var(--n-ink-muted-neutral);
       max-height: 6rem;
       overflow-y: auto;
       margin-top: 0.75rem;
       padding: 0.5rem;
-      background: var(--neutral-panel);
+      background: var(--n-panel-neutral);
       border-radius: 0.25rem;
     }
 
@@ -345,20 +345,20 @@ import { logAppend as appendLog } from '../../scripts/event-log';
       text-align: left;
       font-weight: 600;
       padding: 0.5rem 0.75rem;
-      border-bottom: 2px solid var(--neutral-border-muted);
-      color: var(--neutral-ink-strong);
+      border-bottom: 2px solid var(--n-border-muted-neutral);
+      color: var(--n-ink-strong-neutral);
     }
 
     .api-table td {
       padding: 0.5rem 0.75rem;
-      border-bottom: 1px solid var(--neutral-border-muted);
+      border-bottom: 1px solid var(--n-border-muted-neutral);
       vertical-align: top;
     }
 
     .api-table code {
       font-family: ui-monospace, monospace;
       font-size: 0.75rem;
-      background: var(--neutral-panel);
+      background: var(--n-panel-neutral);
       padding: 0.0625rem 0.3125rem;
       border-radius: 0.1875rem;
     }

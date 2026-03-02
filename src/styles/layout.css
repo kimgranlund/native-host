@@ -1,18 +1,56 @@
+@layer ui {
+  /* ── Universal Reset ── */
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  :where(body) {
+    color-scheme: light dark;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+
+    font-family: var(--n-font-family);
+    line-height: var(--n-text-line-height);
+    background: var(--n-doc-neutral);
+    color: var(--n-ink-neutral);
+    min-height: 100dvh;
+  }
+
+  /* ── Reduced Motion ── */
+
+  @media (prefers-reduced-motion: reduce) {
+    :root {
+      --n-duration: 0s;
+    }
+  }
+}
+
 /* Layout chrome styles — app-specific sidebar content & command dialog */
 
 /* Logo */
-.nav-logo { display: flex; flex-shrink: 0; }
+.nav-logo {
+  display: flex;
+  flex-shrink: 0;
+}
 
 /* Search hint */
-.nav-search-hint { color: var(--neutral-ink-muted); }
-
+.nav-search-hint {
+  color: var(--n-ink-muted-neutral);
+}
 
 /* Command Dialog — app-specific overrides */
-.nav-cmd-dialog { --ui-backdrop-opacity: 0.5; }
-.nav-cmd-dialog > dialog { place-items: start center; }
-.nav-cmd-dialog ui-command {
+.nav-cmd-dialog {
+  --n-backdrop-opacity: 0.5;
+}
+.nav-cmd-dialog > dialog {
+  place-items: start center;
+}
+.nav-cmd-dialog n-command {
   margin-top: 120px;
   width: min(480px, 90vw);
   max-height: min(400px, 80vh);
-  box-shadow: var(--ui-shadow-xl);
+  box-shadow: var(--n-shadow-xl);
 }

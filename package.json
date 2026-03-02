@@ -10,7 +10,13 @@
   },
   "dependencies": {
     "@astrojs/vercel": "^9.0.4",
-    "@nonoun/native-ui": "^0.2.9",
+    "@nonoun/native-app": "^0.2.1",
+    "@nonoun/native-cdn": "^0.2.1",
+    "@nonoun/native-codemirror": "^0.2.1",
+    "@nonoun/native-editor": "^0.2.1",
+    "@nonoun/native-playground": "^0.2.1",
+    "@nonoun/native-tokens": "^0.4.1",
+    "@nonoun/native-ui": "^0.5.1",
     "astro": "^5.17.1"
   },
   "devDependencies": {

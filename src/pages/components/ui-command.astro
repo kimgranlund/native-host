@@ -2,30 +2,30 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
 const codeExamples = {
-  basicCommandPalette: `&lt;ui-command&gt;
-  &lt;ui-command-input&gt;
-    &lt;ui-icon name="magnifying-glass"&gt;&lt;/ui-icon&gt;
+  basicCommandPalette: `&lt;n-command&gt;
+  &lt;n-command-input&gt;
+    &lt;n-icon name="magnifying-glass"&gt;&lt;/n-icon&gt;
     &lt;input type="text" placeholder="Type to search..." /&gt;
-  &lt;/ui-command-input&gt;
-  &lt;ui-command-list&gt;
-    &lt;ui-command-item value="new-file"&gt;&lt;ui-icon name="plus"&gt;&lt;/ui-icon&gt; New File&lt;/ui-command-item&gt;
-    &lt;ui-command-item value="open-file"&gt;&lt;ui-icon name="folder-open"&gt;&lt;/ui-icon&gt; Open File&lt;/ui-command-item&gt;
-    &lt;ui-command-item value="save"&gt;&lt;ui-icon name="floppy-disk"&gt;&lt;/ui-icon&gt; Save&lt;/ui-command-item&gt;
-  &lt;/ui-command-list&gt;
-  &lt;ui-command-empty&gt;No results found.&lt;/ui-command-empty&gt;
-&lt;/ui-command&gt;
+  &lt;/n-command-input&gt;
+  &lt;n-command-list&gt;
+    &lt;n-command-item value="new-file"&gt;&lt;n-icon name="plus"&gt;&lt;/n-icon&gt; New File&lt;/n-command-item&gt;
+    &lt;n-command-item value="open-file"&gt;&lt;n-icon name="folder-open"&gt;&lt;/n-icon&gt; Open File&lt;/n-command-item&gt;
+    &lt;n-command-item value="save"&gt;&lt;n-icon name="floppy-disk"&gt;&lt;/n-icon&gt; Save&lt;/n-command-item&gt;
+  &lt;/n-command-list&gt;
+  &lt;n-command-empty&gt;No results found.&lt;/n-command-empty&gt;
+&lt;/n-command&gt;
 
 &lt;script&gt;
-  command.addEventListener('ui-change', (e) =&gt; {
+  command.addEventListener('native:change', (e) =&gt; {
     console.log(e.detail.value, e.detail.label);
   });
 &lt;/script&gt;`,
 };
 ---
-<SidebarLayout title="ui-command">
+<SidebarLayout title="Command">
   <main>
-<h1>&lt;ui-command&gt;</h1>
-    <p style="color: var(--neutral-ink-muted); font-size: 0.875rem; margin-bottom: 1.5rem;">
+<h1>&lt;n-command&gt;</h1>
+    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
       Command palette with search filtering, keyboard navigation, and grouped items.
     </p>
 
@@ -36,25 +36,25 @@ const codeExamples = {
       <div class="layout-grid">
         <div class="layout-col">
           <span class="layout-col-label">Simple list</span>
-          <ui-command id="basic-command">
-            <ui-command-input>
-              <ui-icon name="magnifying-glass"></ui-icon>
+          <n-command id="basic-command">
+            <n-command-input>
+              <n-icon name="magnifying-glass"></n-icon>
               <input type="text" placeholder="Type to search..." />
-            </ui-command-input>
-            <ui-command-list>
-              <ui-command-item value="new-file"><ui-icon name="plus"></ui-icon> New File</ui-command-item>
-              <ui-command-item value="open-file"><ui-icon name="folder-open"></ui-icon> Open File</ui-command-item>
-              <ui-command-item value="save"><ui-icon name="floppy-disk"></ui-icon> Save</ui-command-item>
-              <ui-command-item value="save-as"><ui-icon name="floppy-disk"></ui-icon> Save As...</ui-command-item>
-              <ui-command-item value="close"><ui-icon name="x"></ui-icon> Close Tab</ui-command-item>
-              <ui-command-item value="settings"><ui-icon name="gear"></ui-icon> Settings</ui-command-item>
-            </ui-command-list>
-            <ui-command-empty>No results found.</ui-command-empty>
-          </ui-command>
+            </n-command-input>
+            <n-command-list>
+              <n-command-item value="new-file"><n-icon name="plus"></n-icon> New File</n-command-item>
+              <n-command-item value="open-file"><n-icon name="folder-open"></n-icon> Open File</n-command-item>
+              <n-command-item value="save"><n-icon name="floppy-disk"></n-icon> Save</n-command-item>
+              <n-command-item value="save-as"><n-icon name="floppy-disk"></n-icon> Save As...</n-command-item>
+              <n-command-item value="close"><n-icon name="x"></n-icon> Close Tab</n-command-item>
+              <n-command-item value="settings"><n-icon name="gear"></n-icon> Settings</n-command-item>
+            </n-command-list>
+            <n-command-empty>No results found.</n-command-empty>
+          </n-command>
           <div class="log" id="basic-log"></div>
         </div>
       </div>
-      <pre class="layout-code"><code set:html={codeExamples.basicCommandPalette} /><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+      <pre class="layout-code"><code set:html={codeExamples.basicCommandPalette} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Grouped ── -->
@@ -64,80 +64,80 @@ const codeExamples = {
       <div class="layout-grid">
         <div class="layout-col">
           <span class="layout-col-label">With groups and shortcuts</span>
-          <ui-command id="grouped-command">
-            <ui-command-input>
-              <ui-icon name="magnifying-glass"></ui-icon>
+          <n-command id="grouped-command">
+            <n-command-input>
+              <n-icon name="magnifying-glass"></n-icon>
               <input type="text" placeholder="Search commands..." />
-            </ui-command-input>
-            <ui-command-list>
-              <ui-command-group>
+            </n-command-input>
+            <n-command-list>
+              <n-command-group>
                 <div slot="heading">File</div>
-                <ui-command-item value="new-file" keywords="create">
-                  <ui-icon name="plus"></ui-icon> New File <span class="shortcut">Cmd+N</span>
-                </ui-command-item>
-                <ui-command-item value="open-file" keywords="browse load">
-                  <ui-icon name="folder-open"></ui-icon> Open File <span class="shortcut">Cmd+O</span>
-                </ui-command-item>
-                <ui-command-item value="save" keywords="write store">
-                  <ui-icon name="floppy-disk"></ui-icon> Save <span class="shortcut">Cmd+S</span>
-                </ui-command-item>
-              </ui-command-group>
-              <ui-command-group>
+                <n-command-item value="new-file" keywords="create">
+                  <n-icon name="plus"></n-icon> New File <span class="shortcut">Cmd+N</span>
+                </n-command-item>
+                <n-command-item value="open-file" keywords="browse load">
+                  <n-icon name="folder-open"></n-icon> Open File <span class="shortcut">Cmd+O</span>
+                </n-command-item>
+                <n-command-item value="save" keywords="write store">
+                  <n-icon name="floppy-disk"></n-icon> Save <span class="shortcut">Cmd+S</span>
+                </n-command-item>
+              </n-command-group>
+              <n-command-group>
                 <div slot="heading">Edit</div>
-                <ui-command-item value="undo" keywords="revert">
-                  <ui-icon name="arrow-counter-clockwise"></ui-icon> Undo <span class="shortcut">Cmd+Z</span>
-                </ui-command-item>
-                <ui-command-item value="redo">
-                  <ui-icon name="arrow-clockwise"></ui-icon> Redo <span class="shortcut">Cmd+Shift+Z</span>
-                </ui-command-item>
-                <ui-command-item value="copy" keywords="clipboard">
-                  <ui-icon name="copy"></ui-icon> Copy <span class="shortcut">Cmd+C</span>
-                </ui-command-item>
-                <ui-command-item value="paste" keywords="clipboard">
-                  <ui-icon name="clipboard-text"></ui-icon> Paste <span class="shortcut">Cmd+V</span>
-                </ui-command-item>
-              </ui-command-group>
-              <ui-command-group>
+                <n-command-item value="undo" keywords="revert">
+                  <n-icon name="arrow-counter-clockwise"></n-icon> Undo <span class="shortcut">Cmd+Z</span>
+                </n-command-item>
+                <n-command-item value="redo">
+                  <n-icon name="arrow-clockwise"></n-icon> Redo <span class="shortcut">Cmd+Shift+Z</span>
+                </n-command-item>
+                <n-command-item value="copy" keywords="clipboard">
+                  <n-icon name="copy"></n-icon> Copy <span class="shortcut">Cmd+C</span>
+                </n-command-item>
+                <n-command-item value="paste" keywords="clipboard">
+                  <n-icon name="clipboard-text"></n-icon> Paste <span class="shortcut">Cmd+V</span>
+                </n-command-item>
+              </n-command-group>
+              <n-command-group>
                 <div slot="heading">View</div>
-                <ui-command-item value="zoom-in" keywords="magnify enlarge">
-                  <ui-icon name="magnifying-glass-plus"></ui-icon> Zoom In <span class="shortcut">Cmd++</span>
-                </ui-command-item>
-                <ui-command-item value="zoom-out" keywords="shrink reduce">
-                  <ui-icon name="magnifying-glass-minus"></ui-icon> Zoom Out <span class="shortcut">Cmd+-</span>
-                </ui-command-item>
-                <ui-command-item value="fullscreen" keywords="maximize expand">
-                  <ui-icon name="arrows-out"></ui-icon> Toggle Fullscreen <span class="shortcut">F11</span>
-                </ui-command-item>
-              </ui-command-group>
-            </ui-command-list>
-            <ui-command-empty>No matching commands.</ui-command-empty>
-          </ui-command>
+                <n-command-item value="zoom-in" keywords="magnify enlarge">
+                  <n-icon name="magnifying-glass-plus"></n-icon> Zoom In <span class="shortcut">Cmd++</span>
+                </n-command-item>
+                <n-command-item value="zoom-out" keywords="shrink reduce">
+                  <n-icon name="magnifying-glass-minus"></n-icon> Zoom Out <span class="shortcut">Cmd+-</span>
+                </n-command-item>
+                <n-command-item value="fullscreen" keywords="maximize expand">
+                  <n-icon name="arrows-out"></n-icon> Toggle Fullscreen <span class="shortcut">F11</span>
+                </n-command-item>
+              </n-command-group>
+            </n-command-list>
+            <n-command-empty>No matching commands.</n-command-empty>
+          </n-command>
         </div>
       </div>
-      <pre class="layout-code"><code>&lt;ui-command&gt;
-  &lt;ui-command-input&gt;
-    &lt;ui-icon name="magnifying-glass"&gt;&lt;/ui-icon&gt;
+      <pre class="layout-code"><code>&lt;n-command&gt;
+  &lt;n-command-input&gt;
+    &lt;n-icon name="magnifying-glass"&gt;&lt;/n-icon&gt;
     &lt;input type="text" placeholder="Search commands..." /&gt;
-  &lt;/ui-command-input&gt;
-  &lt;ui-command-list&gt;
-    &lt;ui-command-group&gt;
+  &lt;/n-command-input&gt;
+  &lt;n-command-list&gt;
+    &lt;n-command-group&gt;
       &lt;div slot="heading"&gt;File&lt;/div&gt;
-      &lt;ui-command-item value="new-file" keywords="create"&gt;
-        &lt;ui-icon name="plus"&gt;&lt;/ui-icon&gt; New File
-      &lt;/ui-command-item&gt;
-      &lt;ui-command-item value="save" keywords="write store"&gt;
-        &lt;ui-icon name="floppy-disk"&gt;&lt;/ui-icon&gt; Save
-      &lt;/ui-command-item&gt;
-    &lt;/ui-command-group&gt;
-    &lt;ui-command-group&gt;
+      &lt;n-command-item value="new-file" keywords="create"&gt;
+        &lt;n-icon name="plus"&gt;&lt;/n-icon&gt; New File
+      &lt;/n-command-item&gt;
+      &lt;n-command-item value="save" keywords="write store"&gt;
+        &lt;n-icon name="floppy-disk"&gt;&lt;/n-icon&gt; Save
+      &lt;/n-command-item&gt;
+    &lt;/n-command-group&gt;
+    &lt;n-command-group&gt;
       &lt;div slot="heading"&gt;Edit&lt;/div&gt;
-      &lt;ui-command-item value="undo"&gt;
-        &lt;ui-icon name="arrow-counter-clockwise"&gt;&lt;/ui-icon&gt; Undo
-      &lt;/ui-command-item&gt;
-    &lt;/ui-command-group&gt;
-  &lt;/ui-command-list&gt;
-  &lt;ui-command-empty&gt;No matching commands.&lt;/ui-command-empty&gt;
-&lt;/ui-command&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+      &lt;n-command-item value="undo"&gt;
+        &lt;n-icon name="arrow-counter-clockwise"&gt;&lt;/n-icon&gt; Undo
+      &lt;/n-command-item&gt;
+    &lt;/n-command-group&gt;
+  &lt;/n-command-list&gt;
+  &lt;n-command-empty&gt;No matching commands.&lt;/n-command-empty&gt;
+&lt;/n-command&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── With Disabled Items ── -->
@@ -147,24 +147,24 @@ const codeExamples = {
       <div class="layout-grid">
         <div class="layout-col">
           <span class="layout-col-label">Some items disabled</span>
-          <ui-command>
-            <ui-command-input>
-              <ui-icon name="magnifying-glass"></ui-icon>
+          <n-command>
+            <n-command-input>
+              <n-icon name="magnifying-glass"></n-icon>
               <input type="text" placeholder="Search..." />
-            </ui-command-input>
-            <ui-command-list>
-              <ui-command-item value="cut"><ui-icon name="scissors"></ui-icon> Cut</ui-command-item>
-              <ui-command-item value="copy"><ui-icon name="copy"></ui-icon> Copy</ui-command-item>
-              <ui-command-item value="paste" disabled><ui-icon name="clipboard-text"></ui-icon> Paste (clipboard empty)</ui-command-item>
-              <ui-command-item value="delete"><ui-icon name="trash"></ui-icon> Delete</ui-command-item>
-              <ui-command-item value="select-all"><ui-icon name="selection-all"></ui-icon> Select All</ui-command-item>
-            </ui-command-list>
-          </ui-command>
+            </n-command-input>
+            <n-command-list>
+              <n-command-item value="cut"><n-icon name="scissors"></n-icon> Cut</n-command-item>
+              <n-command-item value="copy"><n-icon name="copy"></n-icon> Copy</n-command-item>
+              <n-command-item value="paste" disabled><n-icon name="clipboard-text"></n-icon> Paste (clipboard empty)</n-command-item>
+              <n-command-item value="delete"><n-icon name="trash"></n-icon> Delete</n-command-item>
+              <n-command-item value="select-all"><n-icon name="selection-all"></n-icon> Select All</n-command-item>
+            </n-command-list>
+          </n-command>
         </div>
       </div>
-      <pre class="layout-code"><code>&lt;ui-command-item value="paste" disabled&gt;
-  &lt;ui-icon name="clipboard-text"&gt;&lt;/ui-icon&gt; Paste (clipboard empty)
-&lt;/ui-command-item&gt;</code><ui-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><ui-icon name="copy"></ui-icon></ui-button></pre>
+      <pre class="layout-code"><code>&lt;n-command-item value="paste" disabled&gt;
+  &lt;n-icon name="clipboard-text"&gt;&lt;/n-icon&gt; Paste (clipboard empty)
+&lt;/n-command-item&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
 
     <!-- ── Sizes ── -->
@@ -174,42 +174,42 @@ const codeExamples = {
       <div class="layout-grid">
         <div class="layout-col">
           <span class="layout-col-label">sm</span>
-          <ui-command size="sm">
-            <ui-command-input>
+          <n-command size="sm">
+            <n-command-input>
               <input type="text" placeholder="Search..." />
-            </ui-command-input>
-            <ui-command-list>
-              <ui-command-item value="a">Alpha</ui-command-item>
-              <ui-command-item value="b">Bravo</ui-command-item>
-              <ui-command-item value="c">Charlie</ui-command-item>
-            </ui-command-list>
-          </ui-command>
+            </n-command-input>
+            <n-command-list>
+              <n-command-item value="a">Alpha</n-command-item>
+              <n-command-item value="b">Bravo</n-command-item>
+              <n-command-item value="c">Charlie</n-command-item>
+            </n-command-list>
+          </n-command>
         </div>
         <div class="layout-col">
           <span class="layout-col-label">md (default)</span>
-          <ui-command size="md">
-            <ui-command-input>
+          <n-command size="md">
+            <n-command-input>
               <input type="text" placeholder="Search..." />
-            </ui-command-input>
-            <ui-command-list>
-              <ui-command-item value="a">Alpha</ui-command-item>
-              <ui-command-item value="b">Bravo</ui-command-item>
-              <ui-command-item value="c">Charlie</ui-command-item>
-            </ui-command-list>
-          </ui-command>
+            </n-command-input>
+            <n-command-list>
+              <n-command-item value="a">Alpha</n-command-item>
+              <n-command-item value="b">Bravo</n-command-item>
+              <n-command-item value="c">Charlie</n-command-item>
+            </n-command-list>
+          </n-command>
         </div>
         <div class="layout-col">
           <span class="layout-col-label">lg</span>
-          <ui-command size="lg">
-            <ui-command-input>
+          <n-command size="lg">
+            <n-command-input>
               <input type="text" placeholder="Search..." />
-            </ui-command-input>
-            <ui-command-list>
-              <ui-command-item value="a">Alpha</ui-command-item>
-              <ui-command-item value="b">Bravo</ui-command-item>
-              <ui-command-item value="c">Charlie</ui-command-item>
-            </ui-command-list>
-          </ui-command>
+            </n-command-input>
+            <n-command-list>
+              <n-command-item value="a">Alpha</n-command-item>
+              <n-command-item value="b">Bravo</n-command-item>
+              <n-command-item value="c">Charlie</n-command-item>
+            </n-command-list>
+          </n-command>
         </div>
       </div>
     </div>
@@ -221,42 +221,42 @@ const codeExamples = {
       <div class="layout-grid">
         <div class="layout-col">
           <span class="layout-col-label">secondary</span>
-          <ui-command variant="secondary">
-            <ui-command-input>
+          <n-command variant="secondary">
+            <n-command-input>
               <input type="text" placeholder="Search..." />
-            </ui-command-input>
-            <ui-command-list>
-              <ui-command-item value="a">Alpha</ui-command-item>
-              <ui-command-item value="b">Bravo</ui-command-item>
-              <ui-command-item value="c">Charlie</ui-command-item>
-            </ui-command-list>
-          </ui-command>
+            </n-command-input>
+            <n-command-list>
+              <n-command-item value="a">Alpha</n-command-item>
+              <n-command-item value="b">Bravo</n-command-item>
+              <n-command-item value="c">Charlie</n-command-item>
+            </n-command-list>
+          </n-command>
         </div>
         <div class="layout-col">
           <span class="layout-col-label">outline</span>
-          <ui-command variant="outline">
-            <ui-command-input>
+          <n-command variant="outline">
+            <n-command-input>
               <input type="text" placeholder="Search..." />
-            </ui-command-input>
-            <ui-command-list>
-              <ui-command-item value="a">Alpha</ui-command-item>
-              <ui-command-item value="b">Bravo</ui-command-item>
-              <ui-command-item value="c">Charlie</ui-command-item>
-            </ui-command-list>
-          </ui-command>
+            </n-command-input>
+            <n-command-list>
+              <n-command-item value="a">Alpha</n-command-item>
+              <n-command-item value="b">Bravo</n-command-item>
+              <n-command-item value="c">Charlie</n-command-item>
+            </n-command-list>
+          </n-command>
         </div>
         <div class="layout-col">
           <span class="layout-col-label">default</span>
-          <ui-command variant="default">
-            <ui-command-input>
+          <n-command variant="default">
+            <n-command-input>
               <input type="text" placeholder="Search..." />
-            </ui-command-input>
-            <ui-command-list>
-              <ui-command-item value="a">Alpha</ui-command-item>
-              <ui-command-item value="b">Bravo</ui-command-item>
-              <ui-command-item value="c">Charlie</ui-command-item>
-            </ui-command-list>
-          </ui-command>
+            </n-command-input>
+            <n-command-list>
+              <n-command-item value="a">Alpha</n-command-item>
+              <n-command-item value="b">Bravo</n-command-item>
+              <n-command-item value="c">Charlie</n-command-item>
+            </n-command-list>
+          </n-command>
         </div>
       </div>
     </div>
@@ -268,42 +268,42 @@ const codeExamples = {
       <div class="layout-grid">
         <div class="layout-col" density="loose">
           <span class="layout-col-label">loose</span>
-          <ui-command>
-            <ui-command-input>
+          <n-command>
+            <n-command-input>
               <input type="text" placeholder="Search..." />
-            </ui-command-input>
-            <ui-command-list>
-              <ui-command-item value="a">Alpha</ui-command-item>
-              <ui-command-item value="b">Bravo</ui-command-item>
-              <ui-command-item value="c">Charlie</ui-command-item>
-            </ui-command-list>
-          </ui-command>
+            </n-command-input>
+            <n-command-list>
+              <n-command-item value="a">Alpha</n-command-item>
+              <n-command-item value="b">Bravo</n-command-item>
+              <n-command-item value="c">Charlie</n-command-item>
+            </n-command-list>
+          </n-command>
         </div>
         <div class="layout-col" density="default">
           <span class="layout-col-label">default</span>
-          <ui-command>
-            <ui-command-input>
+          <n-command>
+            <n-command-input>
               <input type="text" placeholder="Search..." />
-            </ui-command-input>
-            <ui-command-list>
-              <ui-command-item value="a">Alpha</ui-command-item>
-              <ui-command-item value="b">Bravo</ui-command-item>
-              <ui-command-item value="c">Charlie</ui-command-item>
-            </ui-command-list>
-          </ui-command>
+            </n-command-input>
+            <n-command-list>
+              <n-command-item value="a">Alpha</n-command-item>
+              <n-command-item value="b">Bravo</n-command-item>
+              <n-command-item value="c">Charlie</n-command-item>
+            </n-command-list>
+          </n-command>
         </div>
         <div class="layout-col" density="compact">
           <span class="layout-col-label">compact</span>
-          <ui-command>
-            <ui-command-input>
+          <n-command>
+            <n-command-input>
               <input type="text" placeholder="Search..." />
-            </ui-command-input>
-            <ui-command-list>
-              <ui-command-item value="a">Alpha</ui-command-item>
-              <ui-command-item value="b">Bravo</ui-command-item>
-              <ui-command-item value="c">Charlie</ui-command-item>
-            </ui-command-list>
-          </ui-command>
+            </n-command-input>
+            <n-command-list>
+              <n-command-item value="a">Alpha</n-command-item>
+              <n-command-item value="b">Bravo</n-command-item>
+              <n-command-item value="c">Charlie</n-command-item>
+            </n-command-list>
+          </n-command>
         </div>
       </div>
     </div>
@@ -315,42 +315,42 @@ const codeExamples = {
       <div class="layout-grid">
         <div class="layout-col" radius="sharp">
           <span class="layout-col-label">sharp</span>
-          <ui-command>
-            <ui-command-input>
+          <n-command>
+            <n-command-input>
               <input type="text" placeholder="Search..." />
-            </ui-command-input>
-            <ui-command-list>
-              <ui-command-item value="a">Alpha</ui-command-item>
-              <ui-command-item value="b">Bravo</ui-command-item>
-              <ui-command-item value="c">Charlie</ui-command-item>
-            </ui-command-list>
-          </ui-command>
+            </n-command-input>
+            <n-command-list>
+              <n-command-item value="a">Alpha</n-command-item>
+              <n-command-item value="b">Bravo</n-command-item>
+              <n-command-item value="c">Charlie</n-command-item>
+            </n-command-list>
+          </n-command>
         </div>
         <div class="layout-col" radius="default">
           <span class="layout-col-label">default</span>
-          <ui-command>
-            <ui-command-input>
+          <n-command>
+            <n-command-input>
               <input type="text" placeholder="Search..." />
-            </ui-command-input>
-            <ui-command-list>
-              <ui-command-item value="a">Alpha</ui-command-item>
-              <ui-command-item value="b">Bravo</ui-command-item>
-              <ui-command-item value="c">Charlie</ui-command-item>
-            </ui-command-list>
-          </ui-command>
+            </n-command-input>
+            <n-command-list>
+              <n-command-item value="a">Alpha</n-command-item>
+              <n-command-item value="b">Bravo</n-command-item>
+              <n-command-item value="c">Charlie</n-command-item>
+            </n-command-list>
+          </n-command>
         </div>
         <div class="layout-col" radius="round">
           <span class="layout-col-label">round</span>
-          <ui-command>
-            <ui-command-input>
+          <n-command>
+            <n-command-input>
               <input type="text" placeholder="Search..." />
-            </ui-command-input>
-            <ui-command-list>
-              <ui-command-item value="a">Alpha</ui-command-item>
-              <ui-command-item value="b">Bravo</ui-command-item>
-              <ui-command-item value="c">Charlie</ui-command-item>
-            </ui-command-list>
-          </ui-command>
+            </n-command-input>
+            <n-command-list>
+              <n-command-item value="a">Alpha</n-command-item>
+              <n-command-item value="b">Bravo</n-command-item>
+              <n-command-item value="c">Charlie</n-command-item>
+            </n-command-list>
+          </n-command>
         </div>
       </div>
     </div>
@@ -364,29 +364,29 @@ const codeExamples = {
         <div class="layout-grid">
           <div class="layout-col">
             <span class="layout-col-label">All inherited (secondary)</span>
-            <ui-command variant="secondary">
-              <ui-command-input>
+            <n-command variant="secondary">
+              <n-command-input>
                 <input type="text" placeholder="Search..." />
-              </ui-command-input>
-              <ui-command-list>
-                <ui-command-item value="a">Alpha</ui-command-item>
-                <ui-command-item value="b">Bravo</ui-command-item>
-                <ui-command-item value="c">Charlie</ui-command-item>
-              </ui-command-list>
-            </ui-command>
+              </n-command-input>
+              <n-command-list>
+                <n-command-item value="a">Alpha</n-command-item>
+                <n-command-item value="b">Bravo</n-command-item>
+                <n-command-item value="c">Charlie</n-command-item>
+              </n-command-list>
+            </n-command>
           </div>
           <div class="layout-col">
             <span class="layout-col-label">All inherited (outline)</span>
-            <ui-command variant="outline">
-              <ui-command-input>
+            <n-command variant="outline">
+              <n-command-input>
                 <input type="text" placeholder="Search..." />
-              </ui-command-input>
-              <ui-command-list>
-                <ui-command-item value="a">Alpha</ui-command-item>
-                <ui-command-item value="b">Bravo</ui-command-item>
-                <ui-command-item value="c">Charlie</ui-command-item>
-              </ui-command-list>
-            </ui-command>
+              </n-command-input>
+              <n-command-list>
+                <n-command-item value="a">Alpha</n-command-item>
+                <n-command-item value="b">Bravo</n-command-item>
+                <n-command-item value="c">Charlie</n-command-item>
+              </n-command-list>
+            </n-command>
           </div>
         </div>
       </section>
@@ -398,18 +398,18 @@ const codeExamples = {
     <div class="layout-section">
       <table style="font-size: 0.8125rem; border-collapse: collapse; width: 100%;">
         <thead>
-          <tr style="text-align: left; border-bottom: 1px solid var(--neutral-border-muted);">
+          <tr style="text-align: left; border-bottom: 1px solid var(--n-border-muted-neutral);">
             <th style="padding: 0.5rem; font-weight: 600;">Key</th>
             <th style="padding: 0.5rem; font-weight: 600;">Action</th>
           </tr>
         </thead>
-        <tbody style="color: var(--neutral-ink-muted);">
+        <tbody style="color: var(--n-ink-muted-neutral);">
           <tr><td style="padding: 0.375rem 0.5rem;"><code>Arrow Down</code></td><td style="padding: 0.375rem 0.5rem;">Move to next item</td></tr>
           <tr><td style="padding: 0.375rem 0.5rem;"><code>Arrow Up</code></td><td style="padding: 0.375rem 0.5rem;">Move to previous item</td></tr>
           <tr><td style="padding: 0.375rem 0.5rem;"><code>Home</code></td><td style="padding: 0.375rem 0.5rem;">Jump to first item</td></tr>
           <tr><td style="padding: 0.375rem 0.5rem;"><code>End</code></td><td style="padding: 0.375rem 0.5rem;">Jump to last item</td></tr>
           <tr><td style="padding: 0.375rem 0.5rem;"><code>Enter</code></td><td style="padding: 0.375rem 0.5rem;">Select active item</td></tr>
-          <tr><td style="padding: 0.375rem 0.5rem;"><code>Escape</code></td><td style="padding: 0.375rem 0.5rem;">Dismiss (fires ui-dismiss event)</td></tr>
+          <tr><td style="padding: 0.375rem 0.5rem;"><code>Escape</code></td><td style="padding: 0.375rem 0.5rem;">Dismiss (fires native:dismiss event)</td></tr>
           <tr><td style="padding: 0.375rem 0.5rem;"><code>Type</code></td><td style="padding: 0.375rem 0.5rem;">Filter items by search text</td></tr>
         </tbody>
       </table>
@@ -424,26 +424,26 @@ import { logPrepend } from '../../scripts/event-log';
       const basicLog = document.getElementById('basic-log');
       let count = 0;
 
-      basicCommand.addEventListener('ui-change', (e) => {
+      basicCommand.addEventListener('native:change', (e) => {
         count++;
-        logPrepend(basicLog, `#${count} ui-change — value: "${e.detail.value}", label: "${e.detail.label}"`);
+        logPrepend(basicLog, `#${count} native:change — value: "${e.detail.value}", label: "${e.detail.label}"`);
       });
 
-      basicCommand.addEventListener('ui-dismiss', () => {
+      basicCommand.addEventListener('native:dismiss', () => {
         count++;
-        logPrepend(basicLog, `#${count} ui-dismiss`);
+        logPrepend(basicLog, `#${count} native:dismiss`);
       });
   </script>
   <style is:global>
     .shortcut {
       font-family: ui-monospace, monospace;
       font-size: 0.625rem;
-      background: var(--neutral-panel);
-      border: 1px solid var(--neutral-border-muted);
+      background: var(--n-panel-neutral);
+      border: 1px solid var(--n-border-muted-neutral);
       border-radius: 0.25rem;
       padding: 0.125rem 0.375rem;
       margin-left: auto;
-      color: var(--neutral-ink-muted);
+      color: var(--n-ink-muted-neutral);
     }
 
     /* ── Code Blocks ── */

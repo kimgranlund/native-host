@@ -23,7 +23,11 @@ const groupOrder = ['Components', 'Containers', 'Traits', 'Blocks', 'Core', 'Oth
 
 // Title overrides for pages where filename ≠ display title
 const titleOverrides: Record<string, string> = {
-  '/containers/ui-header': 'ui-header / body / footer',
+  '/containers/ui-header': 'Header / Body / Footer',
+  '/components/ui-input-otp': 'Input OTP',
+  '/components/ui-kbd': 'Kbd',
+  '/components/native-editor': 'Editor',
+  '/components/native-playground': 'Playground',
   '/traits/roving-focusable': 'RovingFocusable',
   '/traits/focus-trappable': 'FocusTrappable',
   '/traits/range-selectable': 'RangeSelectable',
@@ -42,10 +46,13 @@ const titleOverrides: Record<string, string> = {
   '/kernel': 'Kernel',
 };
 
-// Derive title from slug: "auth-login" → "Auth Login", "ui-button" → "ui-button"
+// Derive title from slug: "auth-login" → "Auth Login", "ui-button" → "Button"
 function slugToTitle(slug: string, group: string): string {
-  // Components & Containers keep their element names as-is
-  if (group === 'Components' || group === 'Containers') return slug;
+  // Components & Containers: strip "ui-" prefix, Title Case
+  if (group === 'Components' || group === 'Containers') {
+    const name = slug.replace(/^ui-/, '');
+    return name.split('-').map(w => w[0].toUpperCase() + w.slice(1)).join(' ');
+  }
   // Traits: PascalCase from slug
   if (group === 'Traits') {
     return slug.split('-').map(w => w[0].toUpperCase() + w.slice(1)).join('');

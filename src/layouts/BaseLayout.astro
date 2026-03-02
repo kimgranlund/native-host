@@ -18,6 +18,7 @@ const prefs = parsePreferences(Astro.cookies);
     <style is:global>
       @import '@nonoun/native-ui/css/foundation';
       @import '@nonoun/native-ui/css/components';
+      @import '@nonoun/native-app/css';
     </style>
     <!-- One-time migration: copy localStorage prefs into cookies for SSR -->
     <script is:inline>
