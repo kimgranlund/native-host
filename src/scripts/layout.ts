@@ -57,11 +57,29 @@ document.addEventListener('astro:before-swap', ((e: any) => {
     swapFunctions.swapHeadElements(e.newDocument);
     const restore = swapFunctions.saveFocus();
 
-    // Swap the main content panel (preserves view-transition-name for fade)
-    const currentPanel = currentSidebar.querySelector(':scope > div > n-app-canvas > n-app-panel:not([aside])');
-    const newPanel = newSidebar.querySelector(':scope > div > n-app-canvas > n-app-panel:not([aside])');
-    if (currentPanel && newPanel) {
-      currentPanel.replaceWith(document.adoptNode(newPanel));
+    // Compare aside panel config between current and incoming pages
+    const currentCanvas = currentSidebar.querySelector(':scope > div > n-app-canvas');
+    const newCanvas = newSidebar.querySelector(':scope > div > n-app-canvas');
+    const currentAsides = currentCanvas?.querySelectorAll('n-app-panel[aside]').length ?? 0;
+    const newAsides = newCanvas?.querySelectorAll('n-app-panel[aside]').length ?? 0;
+
+    if (currentAsides !== newAsides && currentCanvas && newCanvas) {
+      // Panel config changed — swap entire canvas so panels appear/disappear
+      currentCanvas.replaceWith(document.adoptNode(newCanvas));
+    } else {
+      // Same panel structure — swap only the main content panel
+      const currentPanel = currentCanvas?.querySelector('n-app-panel:not([aside])');
+      const newPanel = newCanvas?.querySelector('n-app-panel:not([aside])');
+      if (currentPanel && newPanel) {
+        currentPanel.replaceWith(document.adoptNode(newPanel));
+      }
+    }
+
+    // Swap breadcrumb trailing buttons (panel toggles may differ)
+    const currentTrailing = currentSidebar.querySelector('n-app-breadcrumb [slot="trailing"]');
+    const newTrailing = newSidebar.querySelector('n-app-breadcrumb [slot="trailing"]');
+    if (currentTrailing && newTrailing) {
+      currentTrailing.replaceWith(document.adoptNode(newTrailing));
     }
 
     // Swap breadcrumb text
@@ -157,25 +175,6 @@ function wireSidebar(layout: HTMLElement) {
     }
   });
 
-  // ── Panel toggles (inspector + chat) ──
-
-  function wireToggle(btnId: string, panelId: string) {
-    const btn = document.getElementById(btnId);
-    const panel = document.getElementById(panelId) as HTMLElement & { toggle(): void } | null;
-    btn?.addEventListener('click', () => panel?.toggle());
-    if (panel) {
-      new MutationObserver(() => {
-        const icon = btn?.querySelector('n-icon');
-        if (!icon) return;
-        if (panel.hasAttribute('open')) icon.setAttribute('weight', 'fill');
-        else icon.removeAttribute('weight');
-      }).observe(panel, { attributes: true, attributeFilter: ['open'] });
-    }
-  }
-
-  wireToggle('inspector-toggle', 'inspector-panel');
-  wireToggle('chat-toggle', 'chat-panel');
-
   // ── Nav group state persistence (write-only for SSR cookies) ──
   // The sidebar DOM persists across navigations, so we never need to read
   // and reapply group states — groups stay open/closed as the user left them.
@@ -232,6 +231,26 @@ function wireSidebar(layout: HTMLElement) {
   }) as EventListener);
 }
 
+// ── Panel toggle wiring ──
+// Panels can change between navigations (pages opt in via `panels` prop),
+// so we wire per-page but track wired elements to avoid duplicate listeners.
+
+const wiredPanels = new WeakSet<HTMLElement>();
+
+function wireToggle(btnId: string, panelId: string) {
+  const btn = document.getElementById(btnId);
+  const panel = document.getElementById(panelId) as HTMLElement & { toggle(): void } | null;
+  if (!panel || wiredPanels.has(panel)) return;
+  wiredPanels.add(panel);
+  btn?.addEventListener('click', () => panel.toggle());
+  new MutationObserver(() => {
+    const icon = btn?.querySelector('n-icon');
+    if (!icon) return;
+    if (panel.hasAttribute('open')) icon.setAttribute('weight', 'fill');
+    else icon.removeAttribute('weight');
+  }).observe(panel, { attributes: true, attributeFilter: ['open'] });
+}
+
 // ── Per-page setup (runs on initial load + every client-side navigation) ──
 
 function setupPage() {
@@ -242,6 +261,11 @@ function setupPage() {
     wiredLayout = layout;
     wireSidebar(layout);
   }
+
+  // ── Panel toggles (per-page: panels may differ between pages) ──
+
+  wireToggle('inspector-toggle', 'inspector-panel');
+  wireToggle('chat-toggle', 'chat-panel');
 
   // ── Code toggle visibility (per-page: depends on page content) ──
 

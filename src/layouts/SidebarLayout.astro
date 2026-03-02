@@ -6,8 +6,11 @@ import { parsePreferences } from '../lib/preferences';
 
 interface Props {
   title: string;
+  panels?: ('inspector' | 'chat')[];
 }
-const { title } = Astro.props;
+const { title, panels = ['inspector', 'chat'] } = Astro.props;
+const showInspector = panels.includes('inspector');
+const showChat = panels.includes('chat');
 const prefs = parsePreferences(Astro.cookies);
 
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
@@ -140,12 +143,16 @@ const groupIcons: Record<string, string> = {
         </n-breadcrumb>
 
         <div slot="trailing" style="display:flex;align-items:center;gap:0.125rem">
-          <n-button variant="ghost" size="sm" aria-label="Toggle inspector" id="inspector-toggle">
-            <n-icon name="sliders-horizontal" size="md"></n-icon>
-          </n-button>
-          <n-button variant="ghost" size="sm" aria-label="Toggle chat" id="chat-toggle">
-            <n-icon name="chat-dots" size="md"></n-icon>
-          </n-button>
+          {showInspector && (
+            <n-button variant="ghost" size="sm" aria-label="Toggle inspector" id="inspector-toggle">
+              <n-icon name="sliders-horizontal" size="md"></n-icon>
+            </n-button>
+          )}
+          {showChat && (
+            <n-button variant="ghost" size="sm" aria-label="Toggle chat" id="chat-toggle">
+              <n-icon name="chat-dots" size="md"></n-icon>
+            </n-button>
+          )}
           <n-button variant="ghost" size="sm" aria-label="Toggle source code" id="code-toggle" style="display:none">
             <n-icon name="code" size="md"></n-icon>
           </n-button>
@@ -159,16 +166,22 @@ const groupIcons: Record<string, string> = {
         <n-app-panel transition:animate="fade">
           <slot />
         </n-app-panel>
-        <n-app-panel aside id="inspector-panel">
-          <div class="layout-resize-handle"></div>
-          <native-tokens></native-tokens>
-        </n-app-panel>
-        <n-app-panel aside id="chat-panel">
-          <div class="layout-resize-handle"></div>
-          <n-chat size="sm">
-            <n-chat-content></n-chat-content>
-          </n-chat>
-        </n-app-panel>
+        {showInspector && (
+          <n-app-panel aside id="inspector-panel">
+            <div class="layout-resize-handle"></div>
+            <slot name="inspector"><native-tokens></native-tokens></slot>
+          </n-app-panel>
+        )}
+        {showChat && (
+          <n-app-panel aside id="chat-panel">
+            <div class="layout-resize-handle"></div>
+            <slot name="chat">
+              <n-chat size="sm">
+                <n-chat-content></n-chat-content>
+              </n-chat>
+            </slot>
+          </n-app-panel>
+        )}
       </n-app-canvas>
     </div>
   </n-sidebar>
