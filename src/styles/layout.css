@@ -33,6 +33,7 @@
 /* Layout chrome styles — app-specific sidebar content & command dialog */
 
 /* Logo */
+.auth-logo,
 .nav-logo {
   display: flex;
   flex-shrink: 0;

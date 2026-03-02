@@ -6,10 +6,45 @@ import Logo from '../../components/Logo.astro';
   <main>
 <h1>Sign In</h1>
     <p class="demo-desc">
-      Login block with centered card and split layout variants.
+      Login block with provider login, centered card, and split layout variants.
     </p>
 
-    <!-- ── Variant 1: Centered Card ── -->
+    <!-- ── Variant 1: Provider Login ── -->
+
+    <h2>Provider Login</h2>
+    <div class="demo-section">
+      <div class="auth-centered auth-centered-tall">
+        <div class="auth-card-wrapper">
+          <div class="auth-logo">
+            <Logo size={48} />
+          </div>
+          <p class="auth-heading">Log in to NativeUI</p>
+          <n-stack gap="4" class="auth-provider-stack">
+            <n-button variant="primary" intent="accent" size="lg">
+              <n-icon name="google-logo" slot="leading"></n-icon>
+              <span slot="label">Continue with Google</span>
+            </n-button>
+            <n-button size="lg">
+              <n-icon name="envelope" slot="leading"></n-icon>
+              <span slot="label">Continue with email</span>
+            </n-button>
+            <n-button size="lg">
+              <n-icon name="shield-check" slot="leading"></n-icon>
+              <span slot="label">Continue with SAML SSO</span>
+            </n-button>
+            <n-button size="lg">
+              <n-icon name="lock" slot="leading"></n-icon>
+              <span slot="label">Log in with passkey</span>
+            </n-button>
+          </n-stack>
+          <p class="auth-footer-text">
+            Don't have an account? <a href="#">Sign up</a> or <a href="#">learn more</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Variant 2: Centered Card ── -->
 
     <h2>Centered Card</h2>
     <div class="demo-section">
@@ -65,7 +100,7 @@ import Logo from '../../components/Logo.astro';
       </div>
     </div>
 
-    <!-- ── Variant 2: Split Layout ── -->
+    <!-- ── Variant 3: Split Layout ── -->
 
     <h2>Split Layout</h2>
     <div class="demo-section">
@@ -273,6 +308,11 @@ import Logo from '../../components/Logo.astro';
 
     .auth-hero-subtitle {
       opacity: 0.8;
+    }
+
+    /* Provider login */
+    .auth-provider-stack {
+      margin-top: 0.5rem;
     }
 </style>
 

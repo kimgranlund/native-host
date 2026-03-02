@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Logo from '../components/Logo.astro';
 ---
-<BaseLayout title="Log In">
+<BaseLayout title="Sign Up">
   <style is:global>
     @import '../styles/layout.css';
   </style>
@@ -12,26 +12,48 @@ import Logo from '../components/Logo.astro';
       <div class="login-logo">
         <Logo size={48} />
       </div>
-      <h1 class="login-heading">Log in to NativeUI</h1>
-      <p class="login-subheading">Choose a method to continue</p>
+      <h1 class="login-heading">Create your account</h1>
+      <p class="login-subheading">Get started with NativeUI for free</p>
 
       <n-stack gap="3" class="login-buttons">
         <n-button variant="primary" intent="accent" size="lg">
-          <span slot="label">Continue with Google</span>
+          <span slot="label">Sign up with Google</span>
         </n-button>
         <n-button size="lg">
-          <span slot="label">Continue with email</span>
-        </n-button>
-        <n-button size="lg">
-          <span slot="label">Continue with SAML SSO</span>
-        </n-button>
-        <n-button size="lg">
-          <span slot="label">Log in with passkey</span>
+          <span slot="label">Sign up with GitHub</span>
         </n-button>
       </n-stack>
 
+      <n-divider class="signup-divider">or</n-divider>
+
+      <form class="signup-form">
+        <n-stack gap="6">
+          <n-field required>
+            <label slot="label">Full name</label>
+            <n-input placeholder="Kim Granlund" name="name">
+              <n-icon name="user" slot="leading"></n-icon>
+            </n-input>
+          </n-field>
+          <n-field required>
+            <label slot="label">Email</label>
+            <n-input type="email" placeholder="kim@example.com" name="email">
+              <n-icon name="envelope" slot="leading"></n-icon>
+            </n-input>
+          </n-field>
+          <n-field required>
+            <label slot="label">Password</label>
+            <n-input type="password" placeholder="At least 8 characters" name="password">
+              <n-icon name="lock" slot="leading"></n-icon>
+            </n-input>
+          </n-field>
+          <n-button variant="primary" intent="accent" size="lg" type="submit" class="signup-submit">
+            <span slot="label">Create account</span>
+          </n-button>
+        </n-stack>
+      </form>
+
       <p class="login-footer">
-        Don't have an account? <a href="/signup">Sign up</a> or <a href="#">learn more</a>
+        Already have an account? <a href="/">Log in</a>
       </p>
     </div>
 
@@ -46,6 +68,12 @@ import Logo from '../components/Logo.astro';
     document.addEventListener('astro:page-load', () => {
       for (const btn of document.querySelectorAll('.login-buttons n-button')) {
         btn.addEventListener('click', () => {
+          navigate('/blocks/data-dashboard-stats');
+        });
+      }
+      for (const form of document.querySelectorAll('.signup-form')) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
           navigate('/blocks/data-dashboard-stats');
         });
       }
@@ -85,6 +113,14 @@ import Logo from '../components/Logo.astro';
       font-size: 0.875rem;
       color: var(--n-ink-muted-neutral);
       margin: 0 0 1.5rem;
+    }
+
+    .signup-divider {
+      margin: 1.5rem 0;
+    }
+
+    .signup-form n-field {
+      gap: calc(var(--n-space) * 2);
     }
 
     .login-footer {

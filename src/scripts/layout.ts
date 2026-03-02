@@ -1,11 +1,14 @@
 // Client-side interactivity for the sidebar layout shell.
 // Handles: sidebar collapse/expand, theme toggle, command palette (Cmd+K),
-// code toggle, copy-buttons, inspector toggle, chat toggle, nav group persistence, and navigation.
+// code toggle, copy-buttons, inspector toggle, chat toggle, and navigation.
 //
 // With Astro View Transitions (<ClientRouter />), this module runs once.
-// All DOM wiring is in setupPage(), which runs via astro:page-load on every navigation.
+// Custom swap keeps the sidebar DOM intact across navigations — only the
+// content panel and breadcrumb are replaced.  Sidebar-level wiring runs once
+// per DOM instance; per-page wiring (copy buttons, code state) runs on every
+// astro:page-load.
 
-import { navigate } from 'astro:transitions/client';
+import { navigate, swapFunctions } from 'astro:transitions/client';
 import {
   PREF_COLOR_SCHEME,
   PREF_SIDEBAR_COLLAPSED,
@@ -34,16 +37,69 @@ document.addEventListener('keydown', (e: KeyboardEvent) => {
 
 import '@nonoun/native-tokens';
 
-// ── Per-page setup (runs on initial load + every client-side navigation) ──
+// ── Custom swap — preserve sidebar DOM across navigations ──
+//
+// When both the current and incoming pages use the sidebar layout, we swap
+// only the content panel and breadcrumb text.  The sidebar aside (nav groups,
+// scroll position, open/closed states) stays untouched in the live DOM.
+// For sidebar ↔ non-sidebar transitions the default full-body swap is used.
 
-function setupPage() {
-  const layout = document.getElementById('layout-sidebar') as HTMLElement | null;
+document.addEventListener('astro:before-swap', ((e: any) => {
+  const currentSidebar = document.getElementById('layout-sidebar');
+  const newSidebar = (e.newDocument as Document).getElementById('layout-sidebar');
+
+  // Fall through to default swap when either page lacks the sidebar layout
+  if (!currentSidebar || !newSidebar) return;
+
+  e.swap = () => {
+    swapFunctions.deselectScripts(e.newDocument);
+    swapFunctions.swapRootAttributes(e.newDocument);
+    swapFunctions.swapHeadElements(e.newDocument);
+    const restore = swapFunctions.saveFocus();
+
+    // Swap the main content panel (preserves view-transition-name for fade)
+    const currentPanel = currentSidebar.querySelector(':scope > div > n-app-canvas > n-app-panel:not([aside])');
+    const newPanel = newSidebar.querySelector(':scope > div > n-app-canvas > n-app-panel:not([aside])');
+    if (currentPanel && newPanel) {
+      currentPanel.replaceWith(document.adoptNode(newPanel));
+    }
+
+    // Swap breadcrumb text
+    const currentBreadcrumb = currentSidebar.querySelector('n-app-breadcrumb n-breadcrumb');
+    const newBreadcrumb = newSidebar.querySelector('n-app-breadcrumb n-breadcrumb');
+    if (currentBreadcrumb && newBreadcrumb) {
+      currentBreadcrumb.replaceWith(document.adoptNode(newBreadcrumb));
+    }
+
+    // Update nav active item + aria-current
+    const nav = currentSidebar.querySelector('n-sidebar-nav');
+    const newNav = newSidebar.querySelector('n-sidebar-nav');
+    if (nav && newNav) {
+      const newValue = newNav.getAttribute('value');
+      if (newValue) {
+        nav.setAttribute('value', newValue);
+        for (const item of nav.querySelectorAll('n-sidebar-nav-item[aria-current]')) {
+          item.removeAttribute('aria-current');
+        }
+        nav.querySelector(`n-sidebar-nav-item[value="${CSS.escape(newValue)}"]`)
+          ?.setAttribute('aria-current', 'page');
+      }
+    }
+
+    restore();
+  };
+}) as EventListener);
+
+// ── Sidebar wiring — runs once per sidebar DOM instance ──
+
+let wiredLayout: HTMLElement | null = null;
+
+function wireSidebar(layout: HTMLElement) {
 
   // ── Sidebar collapse toggle ──
 
-  const sidebarToggle = document.getElementById('sidebar-toggle') as HTMLElement | null;
+  const sidebarToggle = document.getElementById('sidebar-toggle');
   sidebarToggle?.addEventListener('click', () => {
-    if (!layout) return;
     const collapsed = layout.hasAttribute('collapsed');
     const icon = sidebarToggle.querySelector('n-icon');
     if (collapsed) {
@@ -61,7 +117,7 @@ function setupPage() {
 
   // ── Theme toggle ──
 
-  const themeToggle = document.getElementById('theme-toggle') as HTMLElement | null;
+  const themeToggle = document.getElementById('theme-toggle');
 
   function updateThemeIcon() {
     if (!themeToggle) return;
@@ -82,38 +138,29 @@ function setupPage() {
     updateThemeIcon();
   });
 
-  // ── Code toggle ──
+  // ── Code toggle (click handler — visibility set per-page in setupPage) ──
 
-  const codeToggle = document.getElementById('code-toggle') as HTMLElement | null;
-
-  function syncCodeState(show: boolean) {
-    localStorage.setItem(PREF_SHOW_CODE, String(show));
-    setCookie(PREF_SHOW_CODE, String(show));
-    const icon = codeToggle?.querySelector('n-icon');
-    if (icon) {
-      if (show) icon.setAttribute('weight', 'fill');
-      else icon.removeAttribute('weight');
-    }
-    for (const block of document.querySelectorAll('.layout-code')) {
-      if (show) block.setAttribute('visible', '');
-      else block.removeAttribute('visible');
-    }
-  }
-
-  if (codeToggle && document.querySelectorAll('.layout-code').length > 0) {
-    codeToggle.style.display = '';
-    if (localStorage.getItem(PREF_SHOW_CODE) === 'true') syncCodeState(true);
-  }
+  const codeToggle = document.getElementById('code-toggle');
 
   codeToggle?.addEventListener('click', () => {
     const willShow = localStorage.getItem(PREF_SHOW_CODE) !== 'true';
-    syncCodeState(willShow);
+    localStorage.setItem(PREF_SHOW_CODE, String(willShow));
+    setCookie(PREF_SHOW_CODE, String(willShow));
+    const icon = codeToggle.querySelector('n-icon');
+    if (icon) {
+      if (willShow) icon.setAttribute('weight', 'fill');
+      else icon.removeAttribute('weight');
+    }
+    for (const block of document.querySelectorAll('.layout-code')) {
+      if (willShow) block.setAttribute('visible', '');
+      else block.removeAttribute('visible');
+    }
   });
 
   // ── Panel toggles (inspector + chat) ──
 
   function wireToggle(btnId: string, panelId: string) {
-    const btn = document.getElementById(btnId) as HTMLElement | null;
+    const btn = document.getElementById(btnId);
     const panel = document.getElementById(panelId) as HTMLElement & { toggle(): void } | null;
     btn?.addEventListener('click', () => panel?.toggle());
     if (panel) {
@@ -129,37 +176,21 @@ function setupPage() {
   wireToggle('inspector-toggle', 'inspector-panel');
   wireToggle('chat-toggle', 'chat-panel');
 
-  // ── Nav group persistence ──
+  // ── Nav group state persistence (write-only for SSR cookies) ──
+  // The sidebar DOM persists across navigations, so we never need to read
+  // and reapply group states — groups stay open/closed as the user left them.
+  // We only observe mutations to keep cookies in sync for the next hard load.
 
-  let groupStates: Record<string, boolean> = {};
-  try {
-    const stored = localStorage.getItem(PREF_GROUP_STATES);
-    if (stored) groupStates = JSON.parse(stored);
-  } catch { /* ignore */ }
-
-  if (Object.keys(groupStates).length === 0) {
-    try {
-      const match = document.cookie.match(new RegExp(`(?:^|;\\s*)${PREF_GROUP_STATES}=([^;]*)`));
-      if (match) groupStates = JSON.parse(decodeURIComponent(match[1]));
-    } catch { /* ignore */ }
-  }
-
-  function applyAndObserveGroups() {
-    if (!layout) return;
+  function observeGroups() {
     for (const group of layout.querySelectorAll('n-sidebar-group')) {
-      const header = group.querySelector('n-sidebar-group-header');
-      const name = header?.textContent?.trim();
-      if (!name) continue;
-
-      const defaultOpen = name === 'Components';
-      const shouldBeOpen = groupStates[name] ?? defaultOpen;
-      (group as any).open = shouldBeOpen;
-
-      let skipNext = true;
       new MutationObserver(() => {
-        if (skipNext) { skipNext = false; return; }
-        groupStates[name] = group.hasAttribute('open');
-        const json = JSON.stringify(groupStates);
+        const states: Record<string, boolean> = {};
+        for (const g of layout.querySelectorAll('n-sidebar-group')) {
+          const h = g.querySelector('n-sidebar-group-header');
+          const n = h?.textContent?.trim();
+          if (n) states[n] = g.hasAttribute('open');
+        }
+        const json = JSON.stringify(states);
         localStorage.setItem(PREF_GROUP_STATES, json);
         setCookie(PREF_GROUP_STATES, json);
       }).observe(group, { attributes: true, attributeFilter: ['open'] });
@@ -167,14 +198,14 @@ function setupPage() {
   }
 
   if (customElements.get('n-sidebar-group')) {
-    applyAndObserveGroups();
+    observeGroups();
   } else {
-    customElements.whenDefined('n-sidebar-group').then(applyAndObserveGroups);
+    customElements.whenDefined('n-sidebar-group').then(observeGroups);
   }
 
   // ── Nav item navigation ──
 
-  const nav = document.querySelector('n-sidebar-content n-sidebar-nav');
+  const nav = layout.querySelector('n-sidebar-content n-sidebar-nav');
   nav?.addEventListener('native:change', ((e: CustomEvent) => {
     navigate(e.detail.value);
   }) as EventListener);
@@ -199,8 +230,35 @@ function setupPage() {
     dialog!.close();
     navigate(e.detail.value);
   }) as EventListener);
+}
 
-  // ── Copy buttons ──
+// ── Per-page setup (runs on initial load + every client-side navigation) ──
+
+function setupPage() {
+  const layout = document.getElementById('layout-sidebar') as HTMLElement | null;
+
+  // Wire sidebar once per DOM instance (skipped when sidebar persists)
+  if (layout && layout !== wiredLayout) {
+    wiredLayout = layout;
+    wireSidebar(layout);
+  }
+
+  // ── Code toggle visibility (per-page: depends on page content) ──
+
+  const codeToggle = document.getElementById('code-toggle') as HTMLElement | null;
+  if (codeToggle) {
+    const hasCode = document.querySelectorAll('.layout-code').length > 0;
+    codeToggle.style.display = hasCode ? '' : 'none';
+    if (hasCode && localStorage.getItem(PREF_SHOW_CODE) === 'true') {
+      for (const block of document.querySelectorAll('.layout-code')) {
+        block.setAttribute('visible', '');
+      }
+      const icon = codeToggle.querySelector('n-icon');
+      if (icon) icon.setAttribute('weight', 'fill');
+    }
+  }
+
+  // ── Copy buttons (per-page: new content has new buttons) ──
 
   for (const btn of document.querySelectorAll('.copy-btn')) {
     btn.addEventListener('click', async () => {
