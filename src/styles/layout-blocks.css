@@ -9,11 +9,12 @@ n-app-panel h1 {
   font-size: 1.25rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
+  margin-top: 0.0rem;
   color: var(--n-ink-strong-neutral);
 }
 
 n-app-panel h2 {
-  font-size: 1rem;
+  font-size: 1.00rem;
   font-weight: 700;
   margin-bottom: 1rem;
   margin-top: 2rem;

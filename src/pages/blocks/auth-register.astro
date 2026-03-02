@@ -5,25 +5,25 @@ import Logo from '../../components/Logo.astro';
 <SidebarLayout title="Auth Register">
   <main>
 <h1>Sign Up</h1>
-    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
+    <p class="demo-desc">
       Registration form with name, email, password, confirmation, and terms acceptance.
     </p>
 
     <!-- ── Registration Form ── -->
 
     <h2>Create Account</h2>
-    <div style="background: var(--n-body-neutral); border: 1px solid var(--n-border-muted-neutral); border-radius: 0.5rem; overflow: hidden; margin-bottom: 1rem;">
-      <div class="auth-centered" style="min-height: 48rem;">
+    <div class="demo-section">
+      <div class="auth-centered auth-centered-tall">
         <div class="auth-card-wrapper">
           <div class="auth-logo">
             <Logo size={40} />
           </div>
           <p class="auth-heading">Create your account</p>
           <p class="auth-subheading">Start your free 14-day trial, no credit card required</p>
-          <n-card>
-            <n-stack gap="4">
+          <n-card class="auth-card">
+            <n-stack gap="8">
               <form>
-                <n-stack gap="4">
+                <n-stack gap="6">
                   <n-field required>
                     <label slot="label">Full name</label>
                     <n-input placeholder="Kim Granlund" name="name">
@@ -87,7 +87,15 @@ import Logo from '../../components/Logo.astro';
 
     .auth-card-wrapper {
       width: 100%;
-      max-width: 24rem;
+      max-width: 26rem;
+    }
+
+    .auth-card {
+      padding: 2.25rem;
+    }
+
+    .auth-card n-field {
+      gap: calc(var(--n-space) * 2);
     }
 
     .auth-logo {
@@ -148,6 +156,10 @@ import Logo from '../../components/Logo.astro';
 
     .oauth-row > * {
       flex: 1;
+    }
+
+    .auth-centered-tall {
+      min-height: 48rem;
     }
 </style>
 

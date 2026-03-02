@@ -4,7 +4,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 <SidebarLayout title="Account Settings">
   <main>
 <h1>Account Settings</h1>
-    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
+    <p class="demo-desc">
       Full account settings page with profile, notification, security, and danger zone sections.
     </p>
 
@@ -12,19 +12,19 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
       <!-- ── Profile Section ── -->
 
-      <n-stack gap="0">
+      <n-stack gap="6">
         <n-section>
           <span slot="heading">Profile</span>
           <span slot="description">Your public profile information. This is visible to other users.</span>
 
-          <n-stack gap="4">
+          <n-stack gap="6">
             <div class="avatar-row">
               <n-avatar name="Kim Granlund" size="lg" intent="accent"></n-avatar>
               <div class="avatar-info">
                 <span class="avatar-name">Kim Granlund</span>
                 <span class="avatar-hint">JPG, PNG or GIF. 1MB max.</span>
               </div>
-              <n-button size="sm">
+              <n-button size="sm" variant="outline">
                 <span slot="label">Change</span>
               </n-button>
             </div>
@@ -61,27 +61,27 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           <span slot="heading">Notifications</span>
           <span slot="description">Choose how and when you want to be notified.</span>
 
-          <n-stack gap="0">
+          <n-stack gap="1">
             <div class="notification-row">
               <div>
                 <div class="notification-label">Email notifications</div>
                 <div class="notification-description">Receive email updates about account activity and mentions.</div>
               </div>
-              <n-switch name="notif_email" checked </n-switch>
+              <n-switch name="notif_email" checked></n-switch>
             </div>
             <div class="notification-row">
               <div>
                 <div class="notification-label">Push notifications</div>
                 <div class="notification-description">Get push notifications on your desktop and mobile devices.</div>
               </div>
-              <n-switch name="notif_push" </n-switch>
+              <n-switch name="notif_push"></n-switch>
             </div>
             <div class="notification-row">
               <div>
                 <div class="notification-label">Marketing emails</div>
                 <div class="notification-description">Receive tips, product updates, and promotional offers.</div>
               </div>
-              <n-switch name="notif_marketing" </n-switch>
+              <n-switch name="notif_marketing"></n-switch>
             </div>
 
             <div class="section-actions">
@@ -99,7 +99,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           <span slot="description">Update your password. We recommend using a strong, unique password.</span>
 
           <form>
-            <n-stack gap="4">
+            <n-stack gap="6">
               <n-field required>
                 <label slot="label">Current password</label>
                 <n-input type="password" placeholder="Enter current password" name="current_password">
@@ -154,19 +154,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   </main>
   <style is:global>
     .settings-container {
-      max-width: 40rem;
-    }
-
-    .settings-section-heading {
-      font-size: 1rem;
-      font-weight: 700;
-      margin: 0;
-    }
-
-    .settings-section-description {
-      font-size: 0.8125rem;
-      color: var(--n-ink-muted-neutral);
-      margin: calc(var(--n-space) * 1) 0 0;
+      max-width: 44rem;
     }
 
     .avatar-row {
@@ -178,7 +166,8 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     .avatar-info {
       display: flex;
       flex-direction: column;
-      gap: 0.125rem;
+      gap: 0.375rem;
+      flex: 1;
     }
 
     .avatar-name {
@@ -195,7 +184,8 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding-block: calc(var(--n-space) * 3);
+      gap: 1rem;
+      padding-block: calc(var(--n-space) * 4);
     }
 
     .notification-row + .notification-row {
@@ -210,13 +200,13 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     .notification-description {
       font-size: 0.75rem;
       color: var(--n-ink-muted-neutral);
-      margin-top: 0.125rem;
+      margin-top: 0.25rem;
     }
 
     .section-actions {
       display: flex;
       justify-content: flex-end;
-      padding-top: calc(var(--n-space) * 2);
+      padding-top: calc(var(--n-space) * 4);
     }
 
     .danger-zone {
@@ -250,6 +240,10 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       font-size: 0.75rem;
       color: var(--n-ink-muted-danger);
       margin: calc(var(--n-space) * 1) 0 0;
+    }
+
+    .settings-container n-field {
+      gap: calc(var(--n-space) * 2);
     }
 </style>
 

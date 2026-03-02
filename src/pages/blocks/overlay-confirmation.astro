@@ -6,7 +6,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 <n-stack gap="6">
     <div>
       <h1>Confirmation Dialogs</h1>
-      <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem;">
+      <p class="demo-desc">
         Modal confirmation patterns for different severity levels. Each dialog
         clearly communicates the action, its consequences, and provides cancel/confirm options.
       </p>
@@ -40,8 +40,8 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           <div class="dialog-icon dialog-icon-info">
             <n-icon name="info" aria-hidden="true"></n-icon>
           </div>
-          <h3 style="font-size: 1.0625rem; font-weight: 700; margin: 0 0 0.25rem;">Archive project?</h3>
-          <p style="font-size: 0.875rem; color: var(--n-ink-muted-neutral); margin: 0; line-height: 1.5;">
+          <h3 class="dialog-title">Archive project?</h3>
+          <p class="demo-text">
             This project will be moved to the archive. Team members will lose edit access,
             but all data and history will be preserved. You can restore it at any time from
             the archive.
@@ -66,8 +66,8 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           <div class="dialog-icon dialog-icon-warning">
             <n-icon name="warning" aria-hidden="true"></n-icon>
           </div>
-          <h3 style="font-size: 1.0625rem; font-weight: 700; margin: 0 0 0.25rem;">Unsaved changes</h3>
-          <p style="font-size: 0.875rem; color: var(--n-ink-muted-neutral); margin: 0; line-height: 1.5;">
+          <h3 class="dialog-title">Unsaved changes</h3>
+          <p class="demo-text">
             You have unsaved changes that will be lost if you leave this page.
             Would you like to save your work before continuing?
           </p>
@@ -91,8 +91,8 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           <div class="dialog-icon dialog-icon-danger">
             <n-icon name="trash" aria-hidden="true"></n-icon>
           </div>
-          <h3 style="font-size: 1.0625rem; font-weight: 700; margin: 0 0 0.25rem; color: var(--n-ink-strong-danger);">Delete account?</h3>
-          <p style="font-size: 0.875rem; color: var(--n-ink-muted-neutral); margin: 0; line-height: 1.5;">
+          <h3 class="dialog-title danger">Delete account?</h3>
+          <p class="demo-text">
             This action cannot be undone. All your data, projects, and settings
             will be permanently removed. Any active subscriptions will be cancelled immediately.
           </p>
@@ -155,6 +155,16 @@ function wire(openId, dialogId, closeIds) {
     .dialog-icon-danger {
       background: var(--n-surface-danger);
       color: var(--n-surface-ink-danger);
+    }
+
+    .dialog-title {
+      font-size: 1.0625rem;
+      font-weight: 700;
+      margin: 0 0 0.5rem;
+    }
+
+    .dialog-title.danger {
+      color: var(--n-ink-strong-danger);
     }
 
     .trigger-row {

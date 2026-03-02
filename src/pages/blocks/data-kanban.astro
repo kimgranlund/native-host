@@ -1,0 +1,396 @@
+---
+import SidebarLayout from '../../layouts/SidebarLayout.astro';
+---
+<SidebarLayout title="Kanban Board">
+  <main>
+<n-stack gap="6">
+    <div>
+      <h1>Kanban Board</h1>
+      <p class="demo-desc">
+        Project task board with draggable cards across status columns.
+        Uses the <code>draggable</code> trait in <code>slot</code> mode — drag a card to see the
+        insertion indicator showing exactly where it will land.
+      </p>
+    </div>
+
+    <n-stack direction="row" gap="3" align="center" wrap>
+      <n-input size="sm" placeholder="Filter tasks..." class="kanban-filter">
+        <n-icon name="magnifying-glass" slot="leading"></n-icon>
+      </n-input>
+      <n-button size="sm" intent="accent">
+        <n-icon name="plus" slot="leading"></n-icon>
+        <span slot="label">New Task</span>
+      </n-button>
+    </n-stack>
+
+    <n-controller traits="draggable"
+      draggable-selector=".kanban-card"
+      draggable-axis="both"
+      draggable-mode="slot">
+
+      <div class="board" id="kanban-board">
+        <!-- ── To Do ── -->
+        <div class="kanban-column">
+          <div class="kanban-column-header">
+            <span class="kanban-column-title">
+              <span class="kanban-dot todo"></span>
+              To Do
+            </span>
+            <n-badge class="kanban-count">4</n-badge>
+          </div>
+          <div class="kanban-column-body" data-column="todo">
+            <div class="kanban-card">
+              <div class="kanban-card-header">
+                <n-badge intent="info" size="sm">Feature</n-badge>
+                <span class="kanban-id">KAN-12</span>
+              </div>
+              <p class="kanban-card-title">Add keyboard shortcuts to command palette</p>
+              <div class="kanban-card-footer">
+                <n-avatar name="Kim Granlund" size="xs" intent="accent"></n-avatar>
+                <span class="kanban-meta"><n-icon name="chat-circle" size="sm"></n-icon> 3</span>
+              </div>
+            </div>
+            <div class="kanban-card">
+              <div class="kanban-card-header">
+                <n-badge intent="warning" size="sm">Bug</n-badge>
+                <span class="kanban-id">KAN-15</span>
+              </div>
+              <p class="kanban-card-title">Fix tooltip positioning on scroll</p>
+              <div class="kanban-card-footer">
+                <n-avatar name="Alex Morgan" size="xs" intent="info"></n-avatar>
+                <span class="kanban-meta"><n-icon name="chat-circle" size="sm"></n-icon> 1</span>
+              </div>
+            </div>
+            <div class="kanban-card">
+              <div class="kanban-card-header">
+                <n-badge size="sm">Task</n-badge>
+                <span class="kanban-id">KAN-18</span>
+              </div>
+              <p class="kanban-card-title">Write unit tests for validation trait</p>
+              <div class="kanban-card-footer">
+                <n-avatar name="Sara Chen" size="xs" intent="success"></n-avatar>
+              </div>
+            </div>
+            <div class="kanban-card">
+              <div class="kanban-card-header">
+                <n-badge intent="info" size="sm">Feature</n-badge>
+                <span class="kanban-id">KAN-21</span>
+              </div>
+              <p class="kanban-card-title">Design dark mode color tokens</p>
+              <div class="kanban-card-footer">
+                <n-avatar name="Kim Granlund" size="xs" intent="accent"></n-avatar>
+                <span class="kanban-meta"><n-icon name="chat-circle" size="sm"></n-icon> 5</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── In Progress ── -->
+        <div class="kanban-column">
+          <div class="kanban-column-header">
+            <span class="kanban-column-title">
+              <span class="kanban-dot progress"></span>
+              In Progress
+            </span>
+            <n-badge class="kanban-count">3</n-badge>
+          </div>
+          <div class="kanban-column-body" data-column="progress">
+            <div class="kanban-card">
+              <div class="kanban-card-header">
+                <n-badge intent="info" size="sm">Feature</n-badge>
+                <span class="kanban-id">KAN-09</span>
+              </div>
+              <p class="kanban-card-title">Implement accordion animation transitions</p>
+              <div class="kanban-card-footer">
+                <n-avatar name="James Rivera" size="xs" intent="warning"></n-avatar>
+                <span class="kanban-meta"><n-icon name="chat-circle" size="sm"></n-icon> 7</span>
+              </div>
+            </div>
+            <div class="kanban-card">
+              <div class="kanban-card-header">
+                <n-badge intent="warning" size="sm">Bug</n-badge>
+                <span class="kanban-id">KAN-11</span>
+              </div>
+              <p class="kanban-card-title">Table overflow on narrow viewports</p>
+              <div class="kanban-card-footer">
+                <n-avatar name="Alex Morgan" size="xs" intent="info"></n-avatar>
+                <span class="kanban-meta"><n-icon name="chat-circle" size="sm"></n-icon> 2</span>
+              </div>
+            </div>
+            <div class="kanban-card">
+              <div class="kanban-card-header">
+                <n-badge size="sm">Task</n-badge>
+                <span class="kanban-id">KAN-14</span>
+              </div>
+              <p class="kanban-card-title">Update component documentation with new API</p>
+              <div class="kanban-card-footer">
+                <n-avatar name="Sara Chen" size="xs" intent="success"></n-avatar>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Done ── -->
+        <div class="kanban-column">
+          <div class="kanban-column-header">
+            <span class="kanban-column-title">
+              <span class="kanban-dot done"></span>
+              Done
+            </span>
+            <n-badge class="kanban-count">3</n-badge>
+          </div>
+          <div class="kanban-column-body" data-column="done">
+            <div class="kanban-card">
+              <div class="kanban-card-header">
+                <n-badge intent="info" size="sm">Feature</n-badge>
+                <span class="kanban-id">KAN-03</span>
+              </div>
+              <p class="kanban-card-title">Add segmented control component</p>
+              <div class="kanban-card-footer">
+                <n-avatar name="Kim Granlund" size="xs" intent="accent"></n-avatar>
+                <span class="kanban-meta"><n-icon name="check" size="sm" class="kanban-done-icon"></n-icon></span>
+              </div>
+            </div>
+            <div class="kanban-card">
+              <div class="kanban-card-header">
+                <n-badge intent="warning" size="sm">Bug</n-badge>
+                <span class="kanban-id">KAN-06</span>
+              </div>
+              <p class="kanban-card-title">Fix dialog autofocus on showModal()</p>
+              <div class="kanban-card-footer">
+                <n-avatar name="James Rivera" size="xs" intent="warning"></n-avatar>
+                <span class="kanban-meta"><n-icon name="check" size="sm" class="kanban-done-icon"></n-icon></span>
+              </div>
+            </div>
+            <div class="kanban-card">
+              <div class="kanban-card-header">
+                <n-badge size="sm">Task</n-badge>
+                <span class="kanban-id">KAN-07</span>
+              </div>
+              <p class="kanban-card-title">Migrate CSS tokens to OKLCH color space</p>
+              <div class="kanban-card-footer">
+                <n-avatar name="Alex Morgan" size="xs" intent="info"></n-avatar>
+                <span class="kanban-meta"><n-icon name="check" size="sm" class="kanban-done-icon"></n-icon></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </n-controller>
+    </n-stack>
+  </main>
+
+  <script>
+    const board = document.getElementById('kanban-board');
+    let lastPointerX = 0;
+    let lastPointerY = 0;
+
+    function updateCounts() {
+      board.querySelectorAll('.kanban-column').forEach((col) => {
+        const count = col.querySelectorAll('.kanban-card').length;
+        const badge = col.querySelector('.kanban-count');
+        if (badge) badge.textContent = String(count);
+      });
+    }
+
+    function findClosestColumn(x) {
+      const columns = board.querySelectorAll('.kanban-column-body');
+      let closest = null;
+      let closestDist = Infinity;
+      for (const col of columns) {
+        const rect = col.getBoundingClientRect();
+        const dist = Math.abs(rect.left + rect.width / 2 - x);
+        if (dist < closestDist) {
+          closestDist = dist;
+          closest = col;
+        }
+      }
+      return closest;
+    }
+
+    function clearHighlights() {
+      board.querySelectorAll('[drag-target]').forEach((el) => el.removeAttribute('drag-target'));
+    }
+
+    // Track pointer and highlight target column
+    board.addEventListener('native:drag-move', (e) => {
+      const { x, y } = e.detail;
+      lastPointerX = x;
+      lastPointerY = y;
+      clearHighlights();
+      const target = findClosestColumn(x);
+      if (target) target.setAttribute('drag-target', '');
+    });
+
+    board.addEventListener('native:drag-cancel', clearHighlights);
+
+    board.addEventListener('native:drop', (e) => {
+      clearHighlights();
+      const { item, insertBefore } = e.detail;
+      if (!item) return;
+
+      if (insertBefore) {
+        insertBefore.before(item);
+      } else {
+        // Use tracked pointer position to find the target column
+        const target = findClosestColumn(lastPointerX);
+        if (target) {
+          // Find insertion position within the column based on pointer Y
+          const cards = [...target.querySelectorAll('.kanban-card')].filter((c) => c !== item);
+          let inserted = false;
+          for (const card of cards) {
+            const rect = card.getBoundingClientRect();
+            if (lastPointerY < rect.top + rect.height / 2) {
+              card.before(item);
+              inserted = true;
+              break;
+            }
+          }
+          if (!inserted) target.appendChild(item);
+        }
+      }
+      updateCounts();
+    });
+  </script>
+  <style is:global>
+    .board {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      min-height: 24rem;
+    }
+
+    @media (max-width: 48rem) {
+      .board {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .kanban-column {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      background: var(--n-body-neutral);
+      border: 1px solid var(--n-border-muted-neutral);
+      border-radius: 0.5rem;
+      padding: 0.75rem;
+    }
+
+    .kanban-column-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.25rem 0.25rem 0.5rem;
+    }
+
+    .kanban-column-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8125rem;
+      font-weight: 700;
+    }
+
+    .kanban-dot {
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 50%;
+    }
+
+    .kanban-dot.todo { background: var(--n-color-neutral-400); }
+    .kanban-dot.progress { background: var(--n-color-accent-500); }
+    .kanban-dot.done { background: var(--n-color-success-500); }
+
+    .kanban-column-body {
+      display: flex;
+      flex-direction: column;
+      gap: 0.625rem;
+      min-height: 4rem;
+      padding: 0.25rem;
+      border-radius: 0.375rem;
+      transition: outline-color 150ms ease, background 150ms ease;
+      outline: 2px dashed transparent;
+      outline-offset: -2px;
+    }
+
+    .kanban-column-body[drag-target] {
+      outline-color: var(--n-color-accent-400);
+      background: oklch(from var(--n-color-accent-500) l c h / 0.04);
+    }
+
+    /* Slot mode gap indicator */
+    .kanban-column-body > .drag-placeholder {
+      height: 3px;
+      background: var(--n-color-accent-500);
+      border-radius: 2px;
+      margin: 0.125rem 0;
+    }
+
+    .kanban-card {
+      display: flex;
+      flex-direction: column;
+      gap: 0.625rem;
+      padding: 0.75rem;
+      background: var(--n-panel-neutral);
+      border: 1px solid var(--n-border-muted-neutral);
+      border-radius: 0.375rem;
+      cursor: grab;
+      user-select: none;
+      transition: box-shadow 150ms ease, border-color 150ms ease, opacity 150ms ease;
+    }
+
+    .kanban-card:hover {
+      border-color: var(--n-border-neutral);
+      box-shadow: 0 2px 8px oklch(0 0 0 / 0.06);
+    }
+
+    .kanban-card[dragging] {
+      opacity: 0.3;
+      cursor: grabbing;
+    }
+
+    .kanban-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .kanban-id {
+      font-size: 0.6875rem;
+      color: var(--n-ink-muted-neutral);
+      font-family: ui-monospace, monospace;
+    }
+
+    .kanban-card-title {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      line-height: 1.4;
+      margin: 0;
+    }
+
+    .kanban-card-footer {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.25rem;
+    }
+
+    .kanban-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.6875rem;
+      color: var(--n-ink-muted-neutral);
+      margin-left: auto;
+    }
+
+    .kanban-filter {
+      max-width: 16rem;
+    }
+
+    .kanban-done-icon {
+      color: var(--n-ink-strong-success);
+    }
+</style>
+
+</SidebarLayout>

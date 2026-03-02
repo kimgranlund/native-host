@@ -3,140 +3,161 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Nav Header">
   <main>
-<n-stack gap="6">
+<n-stack gap="8">
     <div>
       <h1>Top Navigation Bar</h1>
-      <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem;">
+      <p class="demo-desc">
         Horizontal application header with brand, navigation, search, and user controls.
-        Demonstrates two layout variants: breadcrumb-centered and search-centered.
+        Three layout variants for different use cases.
       </p>
     </div>
 
-    <!-- -- With Breadcrumb -- -->
+    <!-- ── With Breadcrumb ── -->
 
     <n-stack gap="4">
-    <h2>With Breadcrumb Navigation</h2>
-    <nav class="nav-bar" aria-label="Main navigation">
-      <div class="nav-brand">
-        <n-icon name="house" aria-hidden="true" style="color: var(--n-ink-strong-accent);"></n-icon>
-        Acme Inc
+      <div>
+        <h2>Breadcrumb Navigation</h2>
+        <p class="variant-description">Best for deep-linked apps where the user needs to see and navigate the page hierarchy. The breadcrumb fills the center area and adapts to the current route depth.</p>
       </div>
-
-      <n-divider orientation="vertical"></n-divider>
-
-      <div class="nav-center">
-        <n-breadcrumb size="sm">
-          <n-breadcrumb-item href="/">Dashboard</n-breadcrumb-item>
-          <n-breadcrumb-item href="/projects">Projects</n-breadcrumb-item>
-          <n-breadcrumb-item current>Alpha</n-breadcrumb-item>
-        </n-breadcrumb>
-      </div>
-
-      <div class="nav-actions">
-        <n-button variant="ghost" size="sm" aria-label="Search">
-          <n-icon name="magnifying-glass"></n-icon>
-        </n-button>
-        <div class="icon-badge-wrapper">
-          <n-button variant="ghost" size="sm" aria-label="Notifications">
-            <n-icon name="bell"></n-icon>
-          </n-button>
-          <n-badge intent="danger" floating>3</n-badge>
+      <nav class="nav-bar" aria-label="Main navigation">
+        <div class="nav-brand">
+          <n-icon name="house" aria-hidden="true" class="nav-brand-icon"></n-icon>
+          Acme Inc
         </div>
+
         <n-divider orientation="vertical"></n-divider>
-        <div class="nav-user">
-          <n-avatar name="Kim Granlund" size="sm"></n-avatar>
-          <span class="nav-user-name">Kim Granlund</span>
-          <n-icon name="caret-down" aria-hidden="true" style="color: var(--n-ink-muted-neutral);"></n-icon>
+
+        <div class="nav-center">
+          <n-breadcrumb size="sm">
+            <n-breadcrumb-item href="/">Dashboard</n-breadcrumb-item>
+            <n-breadcrumb-item href="/projects">Projects</n-breadcrumb-item>
+            <n-breadcrumb-item current>Alpha</n-breadcrumb-item>
+          </n-breadcrumb>
         </div>
-      </div>
-    </nav>
+
+        <div class="nav-actions">
+          <n-button variant="ghost" size="sm" aria-label="Search">
+            <n-icon name="magnifying-glass"></n-icon>
+          </n-button>
+          <div class="icon-badge-wrapper">
+            <n-button variant="ghost" size="sm" aria-label="Notifications">
+              <n-icon name="bell"></n-icon>
+            </n-button>
+            <n-badge intent="danger" floating>3</n-badge>
+          </div>
+          <n-divider orientation="vertical"></n-divider>
+          <div class="nav-user">
+            <n-avatar name="Kim Granlund" size="sm"></n-avatar>
+            <span class="nav-user-name">Kim Granlund</span>
+            <n-icon name="caret-down" aria-hidden="true" class="nav-caret"></n-icon>
+          </div>
+        </div>
+      </nav>
     </n-stack>
 
-    <!-- -- With Search Input -- -->
+    <!-- ── With Search Input ── -->
 
     <n-stack gap="4">
-    <h2>With Search Input</h2>
-    <nav class="nav-bar" aria-label="Main navigation with search">
-      <div class="nav-brand">
-        <n-icon name="house" aria-hidden="true" style="color: var(--n-ink-strong-accent);"></n-icon>
-        Acme Inc
+      <div>
+        <h2>Search-Centered</h2>
+        <p class="variant-description">Ideal for content-heavy apps (docs, dashboards, knowledge bases) where search is the primary navigation method. The search input expands to fill the center area.</p>
       </div>
-
-      <n-divider orientation="vertical"></n-divider>
-
-      <div class="nav-center">
-        <div class="search-input-wrapper">
-          <n-input size="sm" placeholder="Search projects, people, tasks...">
-            <n-icon name="magnifying-glass" slot="leading"></n-icon>
-          </n-input>
+      <nav class="nav-bar" aria-label="Main navigation with search">
+        <div class="nav-brand">
+          <n-icon name="house" aria-hidden="true" class="nav-brand-icon"></n-icon>
+          Acme Inc
         </div>
-      </div>
 
-      <div class="nav-actions">
-        <div class="icon-badge-wrapper">
-          <n-button variant="ghost" size="sm" aria-label="Notifications">
-            <n-icon name="bell"></n-icon>
-          </n-button>
-          <n-badge intent="danger" floating>3</n-badge>
-        </div>
         <n-divider orientation="vertical"></n-divider>
-        <div class="nav-user">
-          <n-avatar name="Kim Granlund" size="sm"></n-avatar>
-          <span class="nav-user-name">Kim Granlund</span>
-          <n-icon name="caret-down" aria-hidden="true" style="color: var(--n-ink-muted-neutral);"></n-icon>
+
+        <div class="nav-center">
+          <div class="search-input-wrapper">
+            <n-input size="sm" placeholder="Search projects, people, tasks...">
+              <n-icon name="magnifying-glass" slot="leading"></n-icon>
+            </n-input>
+          </div>
         </div>
-      </div>
-    </nav>
+
+        <div class="nav-actions">
+          <div class="icon-badge-wrapper">
+            <n-button variant="ghost" size="sm" aria-label="Notifications">
+              <n-icon name="bell"></n-icon>
+            </n-button>
+            <n-badge intent="danger" floating>3</n-badge>
+          </div>
+          <n-divider orientation="vertical"></n-divider>
+          <div class="nav-user">
+            <n-avatar name="Kim Granlund" size="sm"></n-avatar>
+            <span class="nav-user-name">Kim Granlund</span>
+            <n-icon name="caret-down" aria-hidden="true" class="nav-caret"></n-icon>
+          </div>
+        </div>
+      </nav>
     </n-stack>
 
-    <!-- -- Compact Variant -- -->
+    <!-- ── Compact Variant ── -->
 
     <n-stack gap="4">
-    <h2>Compact (density)</h2>
-    <nav class="nav-bar" aria-label="Compact navigation" density="compact">
-      <div class="nav-brand">
-        <n-icon name="house" aria-hidden="true" style="color: var(--n-ink-strong-accent);"></n-icon>
-        Acme Inc
+      <div>
+        <h2>Compact</h2>
+        <p class="variant-description">Minimal-height variant for admin panels and tool UIs where vertical space is at a premium. Reduces padding and hides the user name, showing only the avatar.</p>
       </div>
-
-      <n-divider orientation="vertical"></n-divider>
-
-      <div class="nav-center">
-        <n-breadcrumb size="sm">
-          <n-breadcrumb-item href="/">Dashboard</n-breadcrumb-item>
-          <n-breadcrumb-item current>Overview</n-breadcrumb-item>
-        </n-breadcrumb>
-      </div>
-
-      <div class="nav-actions">
-        <n-button variant="ghost" size="sm" aria-label="Search">
-          <n-icon name="magnifying-glass"></n-icon>
-        </n-button>
-        <div class="icon-badge-wrapper">
-          <n-button variant="ghost" size="sm" aria-label="Notifications">
-            <n-icon name="bell"></n-icon>
-          </n-button>
-          <n-badge intent="danger" floating>3</n-badge>
+      <nav class="nav-bar nav-bar-compact" aria-label="Compact navigation">
+        <div class="nav-brand">
+          <n-icon name="house" aria-hidden="true" class="nav-brand-icon"></n-icon>
+          Acme Inc
         </div>
+
         <n-divider orientation="vertical"></n-divider>
-        <div class="nav-user">
-          <n-avatar name="Kim Granlund" size="xs"></n-avatar>
+
+        <div class="nav-center">
+          <n-breadcrumb size="sm">
+            <n-breadcrumb-item href="/">Dashboard</n-breadcrumb-item>
+            <n-breadcrumb-item current>Overview</n-breadcrumb-item>
+          </n-breadcrumb>
         </div>
-      </div>
-    </nav>
+
+        <div class="nav-actions">
+          <n-button variant="ghost" size="sm" aria-label="Search">
+            <n-icon name="magnifying-glass"></n-icon>
+          </n-button>
+          <div class="icon-badge-wrapper">
+            <n-button variant="ghost" size="sm" aria-label="Notifications">
+              <n-icon name="bell"></n-icon>
+            </n-button>
+            <n-badge intent="danger" floating>3</n-badge>
+          </div>
+          <n-divider orientation="vertical"></n-divider>
+          <div class="nav-user">
+            <n-avatar name="Kim Granlund" size="xs"></n-avatar>
+          </div>
+        </div>
+      </nav>
     </n-stack>
     </n-stack>
   </main>
   <style is:global>
+    .variant-description {
+      font-size: 0.8125rem;
+      color: var(--n-ink-muted-neutral);
+      line-height: 1.5;
+      max-width: 44rem;
+    }
+
     .nav-bar {
       display: flex;
       align-items: center;
       gap: 0.75rem;
-      padding: 0.5rem 1rem;
+      padding: 0.75rem 1.25rem;
       background: var(--n-body-neutral);
       border: 1px solid var(--n-border-muted-neutral);
       border-radius: var(--n-radius);
-      min-height: 3rem;
+      min-height: 3.25rem;
+    }
+
+    .nav-bar-compact {
+      padding: 0.5rem 1rem;
+      min-height: 2.75rem;
     }
 
     .nav-brand {
@@ -149,7 +170,6 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       flex-shrink: 0;
     }
 
-
     .nav-center {
       flex: 1;
       display: flex;
@@ -161,7 +181,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     .nav-actions {
       display: flex;
       align-items: center;
-      gap: 0.25rem;
+      gap: 0.5rem;
       flex-shrink: 0;
     }
 
@@ -185,8 +205,16 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     }
 
     .search-input-wrapper {
-      max-width: 20rem;
+      max-width: 24rem;
       width: 100%;
+    }
+
+    .nav-brand-icon {
+      color: var(--n-ink-strong-accent);
+    }
+
+    .nav-caret {
+      color: var(--n-ink-muted-neutral);
     }
 </style>
 

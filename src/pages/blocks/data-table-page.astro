@@ -6,223 +6,211 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 <n-stack gap="6">
 
     <!-- ── Page Header ── -->
-    <div class="page-header">
-      <div class="page-header-text">
-        <h1 style="margin-bottom: 0;">Users</h1>
-        <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem;">
+    <n-stack direction="row" align="center" justify="between" wrap gap="4">
+      <n-stack gap="1">
+        <h1>Users</h1>
+        <p class="demo-desc">
           Manage your team members and their account permissions.
         </p>
-      </div>
+      </n-stack>
       <n-button variant="primary" intent="accent" size="sm">
         <n-icon name="plus" slot="leading"></n-icon>
         <span slot="label">New User</span>
       </n-button>
-    </div>
+    </n-stack>
 
-    <!-- ── Toolbar ── -->
+    <!-- ── Table Card ── -->
     <n-card>
-      <div class="toolbar-row">
-        <div class="search-input">
-          <n-input size="sm" placeholder="Search users...">
+      <n-header>
+        <n-icon name="users" slot="leading"></n-icon>
+        <span slot="label">All Users</span>
+      </n-header>
+
+      <n-body>
+        <!-- ── Toolbar ── -->
+        <n-stack direction="row" gap="3" align="center" wrap>
+          <n-input size="sm" placeholder="Search users..." style="flex: 1; min-width: 12rem;">
             <n-icon name="magnifying-glass" slot="leading"></n-icon>
           </n-input>
+          <n-select size="sm" placeholder="All statuses"
+            options='[{"value":"all","label":"All Statuses"},{"value":"active","label":"Active"},{"value":"inactive","label":"Inactive"}]'>
+          </n-select>
+          <n-select size="sm" placeholder="All roles"
+            options='[{"value":"all","label":"All Roles"},{"value":"admin","label":"Admin"},{"value":"editor","label":"Editor"},{"value":"viewer","label":"Viewer"}]'>
+          </n-select>
+        </n-stack>
+
+        <!-- ── Data Table ── -->
+        <div class="table-scroll">
+          <n-table id="users-table" style="grid-template-columns: 2fr 2fr 100px 100px 120px;">
+            <n-table-head>
+              <n-table-row>
+                <n-table-header sortable column="name">Name</n-table-header>
+                <n-table-header sortable column="email">Email</n-table-header>
+                <n-table-header>Status</n-table-header>
+                <n-table-header sortable column="role">Role</n-table-header>
+                <n-table-header>Actions</n-table-header>
+              </n-table-row>
+            </n-table-head>
+            <n-table-body>
+              <n-table-row>
+                <n-table-cell>Emma Thompson</n-table-cell>
+                <n-table-cell>emma.thompson@company.com</n-table-cell>
+                <n-table-cell><n-badge intent="success">Active</n-badge></n-table-cell>
+                <n-table-cell>Admin</n-table-cell>
+                <n-table-cell>
+                  <n-stack direction="row" gap="2">
+                    <n-button variant="ghost" size="xs" aria-label="Edit"><n-icon name="pencil-simple"></n-icon></n-button>
+                    <n-button variant="ghost" size="xs" intent="danger" aria-label="Delete"><n-icon name="trash"></n-icon></n-button>
+                  </n-stack>
+                </n-table-cell>
+              </n-table-row>
+              <n-table-row>
+                <n-table-cell>Liam Chen</n-table-cell>
+                <n-table-cell>liam.chen@company.com</n-table-cell>
+                <n-table-cell><n-badge intent="success">Active</n-badge></n-table-cell>
+                <n-table-cell>Editor</n-table-cell>
+                <n-table-cell>
+                  <n-stack direction="row" gap="2">
+                    <n-button variant="ghost" size="xs" aria-label="Edit"><n-icon name="pencil-simple"></n-icon></n-button>
+                    <n-button variant="ghost" size="xs" intent="danger" aria-label="Delete"><n-icon name="trash"></n-icon></n-button>
+                  </n-stack>
+                </n-table-cell>
+              </n-table-row>
+              <n-table-row>
+                <n-table-cell>Olivia Martinez</n-table-cell>
+                <n-table-cell>olivia.martinez@company.com</n-table-cell>
+                <n-table-cell><n-badge intent="success">Active</n-badge></n-table-cell>
+                <n-table-cell>Viewer</n-table-cell>
+                <n-table-cell>
+                  <n-stack direction="row" gap="2">
+                    <n-button variant="ghost" size="xs" aria-label="Edit"><n-icon name="pencil-simple"></n-icon></n-button>
+                    <n-button variant="ghost" size="xs" intent="danger" aria-label="Delete"><n-icon name="trash"></n-icon></n-button>
+                  </n-stack>
+                </n-table-cell>
+              </n-table-row>
+              <n-table-row>
+                <n-table-cell>Noah Williams</n-table-cell>
+                <n-table-cell>noah.williams@company.com</n-table-cell>
+                <n-table-cell><n-badge>Inactive</n-badge></n-table-cell>
+                <n-table-cell>Editor</n-table-cell>
+                <n-table-cell>
+                  <n-stack direction="row" gap="2">
+                    <n-button variant="ghost" size="xs" aria-label="Edit"><n-icon name="pencil-simple"></n-icon></n-button>
+                    <n-button variant="ghost" size="xs" intent="danger" aria-label="Delete"><n-icon name="trash"></n-icon></n-button>
+                  </n-stack>
+                </n-table-cell>
+              </n-table-row>
+              <n-table-row>
+                <n-table-cell>Ava Johansson</n-table-cell>
+                <n-table-cell>ava.johansson@company.com</n-table-cell>
+                <n-table-cell><n-badge intent="success">Active</n-badge></n-table-cell>
+                <n-table-cell>Admin</n-table-cell>
+                <n-table-cell>
+                  <n-stack direction="row" gap="2">
+                    <n-button variant="ghost" size="xs" aria-label="Edit"><n-icon name="pencil-simple"></n-icon></n-button>
+                    <n-button variant="ghost" size="xs" intent="danger" aria-label="Delete"><n-icon name="trash"></n-icon></n-button>
+                  </n-stack>
+                </n-table-cell>
+              </n-table-row>
+              <n-table-row>
+                <n-table-cell>James Nakamura</n-table-cell>
+                <n-table-cell>james.nakamura@company.com</n-table-cell>
+                <n-table-cell><n-badge intent="success">Active</n-badge></n-table-cell>
+                <n-table-cell>Viewer</n-table-cell>
+                <n-table-cell>
+                  <n-stack direction="row" gap="2">
+                    <n-button variant="ghost" size="xs" aria-label="Edit"><n-icon name="pencil-simple"></n-icon></n-button>
+                    <n-button variant="ghost" size="xs" intent="danger" aria-label="Delete"><n-icon name="trash"></n-icon></n-button>
+                  </n-stack>
+                </n-table-cell>
+              </n-table-row>
+              <n-table-row>
+                <n-table-cell>Sofia Rossi</n-table-cell>
+                <n-table-cell>sofia.rossi@company.com</n-table-cell>
+                <n-table-cell><n-badge>Inactive</n-badge></n-table-cell>
+                <n-table-cell>Editor</n-table-cell>
+                <n-table-cell>
+                  <n-stack direction="row" gap="2">
+                    <n-button variant="ghost" size="xs" aria-label="Edit"><n-icon name="pencil-simple"></n-icon></n-button>
+                    <n-button variant="ghost" size="xs" intent="danger" aria-label="Delete"><n-icon name="trash"></n-icon></n-button>
+                  </n-stack>
+                </n-table-cell>
+              </n-table-row>
+              <n-table-row>
+                <n-table-cell>Alexander Petrov</n-table-cell>
+                <n-table-cell>alex.petrov@company.com</n-table-cell>
+                <n-table-cell><n-badge intent="success">Active</n-badge></n-table-cell>
+                <n-table-cell>Viewer</n-table-cell>
+                <n-table-cell>
+                  <n-stack direction="row" gap="2">
+                    <n-button variant="ghost" size="xs" aria-label="Edit"><n-icon name="pencil-simple"></n-icon></n-button>
+                    <n-button variant="ghost" size="xs" intent="danger" aria-label="Delete"><n-icon name="trash"></n-icon></n-button>
+                  </n-stack>
+                </n-table-cell>
+              </n-table-row>
+              <n-table-row>
+                <n-table-cell>Mia Andersson</n-table-cell>
+                <n-table-cell>mia.andersson@company.com</n-table-cell>
+                <n-table-cell><n-badge intent="success">Active</n-badge></n-table-cell>
+                <n-table-cell>Editor</n-table-cell>
+                <n-table-cell>
+                  <n-stack direction="row" gap="2">
+                    <n-button variant="ghost" size="xs" aria-label="Edit"><n-icon name="pencil-simple"></n-icon></n-button>
+                    <n-button variant="ghost" size="xs" intent="danger" aria-label="Delete"><n-icon name="trash"></n-icon></n-button>
+                  </n-stack>
+                </n-table-cell>
+              </n-table-row>
+              <n-table-row>
+                <n-table-cell>Daniel O'Brien</n-table-cell>
+                <n-table-cell>daniel.obrien@company.com</n-table-cell>
+                <n-table-cell><n-badge intent="success">Active</n-badge></n-table-cell>
+                <n-table-cell>Viewer</n-table-cell>
+                <n-table-cell>
+                  <n-stack direction="row" gap="2">
+                    <n-button variant="ghost" size="xs" aria-label="Edit"><n-icon name="pencil-simple"></n-icon></n-button>
+                    <n-button variant="ghost" size="xs" intent="danger" aria-label="Delete"><n-icon name="trash"></n-icon></n-button>
+                  </n-stack>
+                </n-table-cell>
+              </n-table-row>
+            </n-table-body>
+          </n-table>
         </div>
-        <n-select size="sm" placeholder="All statuses"
-          options='[{"value":"all","label":"All Statuses"},{"value":"active","label":"Active"},{"value":"inactive","label":"Inactive"}]'>
-        </n-select>
-        <n-select size="sm" placeholder="All roles"
-          options='[{"value":"all","label":"All Roles"},{"value":"admin","label":"Admin"},{"value":"editor","label":"Editor"},{"value":"viewer","label":"Viewer"}]'>
-        </n-select>
-      </div>
+      </n-body>
 
-      <!-- ── Data Table ── -->
-      <n-table style="grid-template-columns: 2fr 2fr 100px 100px 120px;">
-        <n-table-head>
-          <n-table-row>
-            <n-table-header sortable column="name">Name</n-table-header>
-            <n-table-header sortable column="email">Email</n-table-header>
-            <n-table-header>Status</n-table-header>
-            <n-table-header sortable column="role">Role</n-table-header>
-            <n-table-header>Actions</n-table-header>
-          </n-table-row>
-        </n-table-head>
-        <n-table-body>
-          <n-table-row>
-            <n-table-cell>Emma Thompson</n-table-cell>
-            <n-table-cell>emma.thompson@company.com</n-table-cell>
-            <n-table-cell><n-badge intent="success">Active</n-badge></n-table-cell>
-            <n-table-cell>Admin</n-table-cell>
-            <n-table-cell>
-              <div class="action-cell">
-                <n-button variant="ghost" size="xs" aria-label="Edit"><n-icon name="pencil-simple"></n-icon></n-button>
-                <n-button variant="ghost" size="xs" intent="danger" aria-label="Delete"><n-icon name="trash"></n-icon></n-button>
-              </div>
-            </n-table-cell>
-          </n-table-row>
-          <n-table-row>
-            <n-table-cell>Liam Chen</n-table-cell>
-            <n-table-cell>liam.chen@company.com</n-table-cell>
-            <n-table-cell><n-badge intent="success">Active</n-badge></n-table-cell>
-            <n-table-cell>Editor</n-table-cell>
-            <n-table-cell>
-              <div class="action-cell">
-                <n-button variant="ghost" size="xs" aria-label="Edit"><n-icon name="pencil-simple"></n-icon></n-button>
-                <n-button variant="ghost" size="xs" intent="danger" aria-label="Delete"><n-icon name="trash"></n-icon></n-button>
-              </div>
-            </n-table-cell>
-          </n-table-row>
-          <n-table-row>
-            <n-table-cell>Olivia Martinez</n-table-cell>
-            <n-table-cell>olivia.martinez@company.com</n-table-cell>
-            <n-table-cell><n-badge intent="success">Active</n-badge></n-table-cell>
-            <n-table-cell>Viewer</n-table-cell>
-            <n-table-cell>
-              <div class="action-cell">
-                <n-button variant="ghost" size="xs" aria-label="Edit"><n-icon name="pencil-simple"></n-icon></n-button>
-                <n-button variant="ghost" size="xs" intent="danger" aria-label="Delete"><n-icon name="trash"></n-icon></n-button>
-              </div>
-            </n-table-cell>
-          </n-table-row>
-          <n-table-row>
-            <n-table-cell>Noah Williams</n-table-cell>
-            <n-table-cell>noah.williams@company.com</n-table-cell>
-            <n-table-cell><n-badge>Inactive</n-badge></n-table-cell>
-            <n-table-cell>Editor</n-table-cell>
-            <n-table-cell>
-              <div class="action-cell">
-                <n-button variant="ghost" size="xs" aria-label="Edit"><n-icon name="pencil-simple"></n-icon></n-button>
-                <n-button variant="ghost" size="xs" intent="danger" aria-label="Delete"><n-icon name="trash"></n-icon></n-button>
-              </div>
-            </n-table-cell>
-          </n-table-row>
-          <n-table-row>
-            <n-table-cell>Ava Johansson</n-table-cell>
-            <n-table-cell>ava.johansson@company.com</n-table-cell>
-            <n-table-cell><n-badge intent="success">Active</n-badge></n-table-cell>
-            <n-table-cell>Admin</n-table-cell>
-            <n-table-cell>
-              <div class="action-cell">
-                <n-button variant="ghost" size="xs" aria-label="Edit"><n-icon name="pencil-simple"></n-icon></n-button>
-                <n-button variant="ghost" size="xs" intent="danger" aria-label="Delete"><n-icon name="trash"></n-icon></n-button>
-              </div>
-            </n-table-cell>
-          </n-table-row>
-          <n-table-row>
-            <n-table-cell>James Nakamura</n-table-cell>
-            <n-table-cell>james.nakamura@company.com</n-table-cell>
-            <n-table-cell><n-badge intent="success">Active</n-badge></n-table-cell>
-            <n-table-cell>Viewer</n-table-cell>
-            <n-table-cell>
-              <div class="action-cell">
-                <n-button variant="ghost" size="xs" aria-label="Edit"><n-icon name="pencil-simple"></n-icon></n-button>
-                <n-button variant="ghost" size="xs" intent="danger" aria-label="Delete"><n-icon name="trash"></n-icon></n-button>
-              </div>
-            </n-table-cell>
-          </n-table-row>
-          <n-table-row>
-            <n-table-cell>Sofia Rossi</n-table-cell>
-            <n-table-cell>sofia.rossi@company.com</n-table-cell>
-            <n-table-cell><n-badge>Inactive</n-badge></n-table-cell>
-            <n-table-cell>Editor</n-table-cell>
-            <n-table-cell>
-              <div class="action-cell">
-                <n-button variant="ghost" size="xs" aria-label="Edit"><n-icon name="pencil-simple"></n-icon></n-button>
-                <n-button variant="ghost" size="xs" intent="danger" aria-label="Delete"><n-icon name="trash"></n-icon></n-button>
-              </div>
-            </n-table-cell>
-          </n-table-row>
-          <n-table-row>
-            <n-table-cell>Alexander Petrov</n-table-cell>
-            <n-table-cell>alex.petrov@company.com</n-table-cell>
-            <n-table-cell><n-badge intent="success">Active</n-badge></n-table-cell>
-            <n-table-cell>Viewer</n-table-cell>
-            <n-table-cell>
-              <div class="action-cell">
-                <n-button variant="ghost" size="xs" aria-label="Edit"><n-icon name="pencil-simple"></n-icon></n-button>
-                <n-button variant="ghost" size="xs" intent="danger" aria-label="Delete"><n-icon name="trash"></n-icon></n-button>
-              </div>
-            </n-table-cell>
-          </n-table-row>
-          <n-table-row>
-            <n-table-cell>Mia Andersson</n-table-cell>
-            <n-table-cell>mia.andersson@company.com</n-table-cell>
-            <n-table-cell><n-badge intent="success">Active</n-badge></n-table-cell>
-            <n-table-cell>Editor</n-table-cell>
-            <n-table-cell>
-              <div class="action-cell">
-                <n-button variant="ghost" size="xs" aria-label="Edit"><n-icon name="pencil-simple"></n-icon></n-button>
-                <n-button variant="ghost" size="xs" intent="danger" aria-label="Delete"><n-icon name="trash"></n-icon></n-button>
-              </div>
-            </n-table-cell>
-          </n-table-row>
-          <n-table-row>
-            <n-table-cell>Daniel O'Brien</n-table-cell>
-            <n-table-cell>daniel.obrien@company.com</n-table-cell>
-            <n-table-cell><n-badge intent="success">Active</n-badge></n-table-cell>
-            <n-table-cell>Viewer</n-table-cell>
-            <n-table-cell>
-              <div class="action-cell">
-                <n-button variant="ghost" size="xs" aria-label="Edit"><n-icon name="pencil-simple"></n-icon></n-button>
-                <n-button variant="ghost" size="xs" intent="danger" aria-label="Delete"><n-icon name="trash"></n-icon></n-button>
-              </div>
-            </n-table-cell>
-          </n-table-row>
-        </n-table-body>
-      </n-table>
-
-      <!-- ── Table Footer ── -->
-      <div class="table-footer">
-        <span class="table-info">Showing 1-10 of 87 users</span>
+      <n-footer justify="between">
+        <span class="demo-text-sm">Showing 1-10 of 87 users</span>
         <n-pagination total="9" value="1" size="sm"></n-pagination>
-      </div>
+      </n-footer>
     </n-card>
     </n-stack>
   </main>
+  <script>
+    const table = document.getElementById('users-table');
+    const body = table.querySelector('n-table-body');
+    const columnMap = { name: 0, email: 1, role: 3 };
+
+    table.addEventListener('native:table-sort', (e) => {
+      const { column, direction } = e.detail;
+      if (direction === 'none') return;
+
+      const colIndex = columnMap[column];
+      if (colIndex === undefined) return;
+
+      const rows = [...body.querySelectorAll('n-table-row')];
+      rows.sort((a, b) => {
+        const aVal = a.querySelectorAll('n-table-cell')[colIndex].textContent.trim();
+        const bVal = b.querySelectorAll('n-table-cell')[colIndex].textContent.trim();
+        const cmp = aVal.localeCompare(bVal, undefined, { numeric: true });
+        return direction === 'asc' ? cmp : -cmp;
+      });
+      for (const row of rows) body.appendChild(row);
+    });
+  </script>
   <style is:global>
-    .page-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .page-header-text {
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-    }
-
-    .toolbar-row {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-      margin-bottom: 1rem;
-    }
-
-    .toolbar-row .search-input {
-      flex: 1;
-      min-width: 12rem;
-    }
-
-    .table-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 1rem;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-    }
-
-    .table-info {
-      font-size: 0.8125rem;
-      color: var(--n-ink-muted-neutral);
-    }
-
-    .action-cell {
-      display: flex;
-      gap: 0.25rem;
+    .table-scroll {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
     }
 </style>
 

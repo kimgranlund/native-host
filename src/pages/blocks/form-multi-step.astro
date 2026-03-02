@@ -6,7 +6,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 <n-stack gap="6">
     <div>
       <h1>Create Account</h1>
-      <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem;">
+      <p class="demo-desc">
         Complete the steps below to set up your new account.
       </p>
     </div>
@@ -14,7 +14,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <div class="wizard-wrapper">
       <n-card>
         <n-header>
-          <n-segmented-control id="step-indicator" value="personal" slot="label" style="width: 100%;">
+          <n-segmented-control id="step-indicator" value="personal" slot="label" class="step-indicator-full">
             <n-segment value="personal">1. Personal</n-segment>
             <n-segment value="address">2. Address</n-segment>
             <n-segment value="review">3. Review</n-segment>
@@ -23,7 +23,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
         <!-- ── Step 1: Personal Information ── -->
         <div class="step-panel" id="step-personal" active>
-          <n-body><n-stack gap="4">
+          <n-body><n-stack gap="6">
             <n-field required>
               <label slot="label">Full name</label>
               <n-input placeholder="Jane Doe" id="input-name" name="name">
@@ -61,7 +61,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
         <!-- ── Step 2: Address ── -->
         <div class="step-panel" id="step-address">
-          <n-body><n-stack gap="4">
+          <n-body><n-stack gap="6">
             <n-field required>
               <label slot="label">Street address</label>
               <n-input placeholder="123 Main Street" id="input-address" name="address">
@@ -118,7 +118,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           <n-stack gap="4">
           <div>
             <h2>Review your information</h2>
-            <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem;">
+            <p class="demo-text">
             Please verify that all details are correct before submitting.
           </p>
           </div>
@@ -254,7 +254,7 @@ const steps = ['personal', 'address', 'review'];
     .review-row {
       display: flex;
       justify-content: space-between;
-      padding: 0.5rem 0;
+      padding: 0.625rem 0;
       border-bottom: 1px solid var(--n-border-muted-neutral);
       font-size: 0.875rem;
     }
@@ -269,6 +269,14 @@ const steps = ['personal', 'address', 'review'];
 
     .review-value {
       font-weight: 500;
+    }
+
+    .step-indicator-full {
+      width: 100%;
+    }
+
+    .wizard-wrapper n-field {
+      gap: calc(var(--n-space) * 2);
     }
 </style>
 

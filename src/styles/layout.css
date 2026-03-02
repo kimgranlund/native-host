@@ -28,6 +28,8 @@
   }
 }
 
+@import './demo.css';
+
 /* Layout chrome styles — app-specific sidebar content & command dialog */
 
 /* Logo */

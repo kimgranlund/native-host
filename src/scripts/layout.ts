@@ -128,8 +128,10 @@ if (Object.keys(groupStates).length === 0) {
   } catch { /* ignore */ }
 }
 
+const appSidebar = document.getElementById('layout-sidebar');
 function applyAndObserveGroups() {
-  for (const group of document.querySelectorAll('n-sidebar-group')) {
+  if (!appSidebar) return;
+  for (const group of appSidebar.querySelectorAll('n-sidebar-group')) {
     const header = group.querySelector('n-sidebar-group-header');
     const name = header?.textContent?.trim();
     if (!name) continue;

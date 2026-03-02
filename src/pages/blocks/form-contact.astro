@@ -6,7 +6,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 <n-stack gap="6">
     <div>
       <h1>Contact Us</h1>
-      <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem;">
+      <p class="demo-desc">
         Have a question or feedback? Fill out the form below and we'll get back to you within 24 hours.
       </p>
     </div>
@@ -18,7 +18,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         </n-header>
         <n-body>
           <form id="contact-form">
-            <n-stack gap="4">
+            <n-stack gap="8">
               <n-field required>
                 <label slot="label">Full name</label>
                 <n-input placeholder="Jane Doe" name="name">
@@ -71,7 +71,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   </main>
   <style is:global>
     .form-wrapper {
-      max-width: 32rem;
+      max-width: 36rem;
+    }
+
+    .form-wrapper n-body {
+      padding: 2.25rem;
+    }
+
+    .form-wrapper n-field {
+      gap: calc(var(--n-space) * 2);
     }
 </style>
 

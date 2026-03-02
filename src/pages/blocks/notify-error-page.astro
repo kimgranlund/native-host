@@ -6,7 +6,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 <n-stack gap="6">
     <div>
       <h1>Error Pages</h1>
-      <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem;">
+      <p class="demo-desc">
         Full-page error patterns for common HTTP errors and maintenance windows.
         Each variant provides clear messaging and an actionable recovery path.
       </p>
@@ -52,7 +52,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <n-stack gap="4">
     <h2>Maintenance</h2>
     <div class="error-page">
-      <n-icon name="gear" size="xl" aria-hidden="true" style="color: var(--n-ink-muted-neutral); margin-bottom: 1rem;"></n-icon>
+      <n-icon name="gear" size="xl" aria-hidden="true" class="error-icon"></n-icon>
       <h3>We'll be back soon</h3>
       <p>We're performing scheduled maintenance to improve your experience. This usually takes less than 30 minutes. Thank you for your patience.</p>
       <n-button>
@@ -98,6 +98,11 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       margin: 0 0 1.5rem;
       max-width: 28rem;
       line-height: 1.5;
+    }
+
+    .error-icon {
+      color: var(--n-ink-muted-neutral);
+      margin-bottom: 1rem;
     }
 
 </style>

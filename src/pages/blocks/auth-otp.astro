@@ -4,15 +4,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 <SidebarLayout title="Auth OTP">
   <main>
 <h1>OTP Verification</h1>
-    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
+    <p class="demo-desc">
       6-digit one-time password verification step with resend and back link.
     </p>
 
     <!-- ── OTP Verification Card ── -->
 
     <h2>Enter Verification Code</h2>
-    <div style="background: var(--n-body-neutral); border: 1px solid var(--n-border-muted-neutral); border-radius: 0.5rem; overflow: hidden; margin-bottom: 1rem;">
-      <div class="auth-centered" style="min-height: 32rem;">
+    <div class="demo-section">
+      <div class="auth-centered auth-centered-compact">
         <div class="auth-card-wrapper">
           <div class="auth-icon-circle">
             <n-icon name="shield-check" size="lg"></n-icon>
@@ -21,10 +21,10 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           <p class="auth-subheading">
             We sent a 6-digit code to <span class="auth-email-highlight">kim@example.com</span>. Enter it below to verify your identity.
           </p>
-          <n-card>
-            <n-stack gap="4">
+          <n-card class="auth-card">
+            <n-stack gap="8">
               <form>
-                <n-stack gap="4">
+                <n-stack gap="6">
                   <div class="otp-center">
                     <n-input-otp name="otp" length="6"></n-input-otp>
                   </div>
@@ -56,7 +56,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
     .auth-card-wrapper {
       width: 100%;
-      max-width: 24rem;
+      max-width: 26rem;
+    }
+
+    .auth-card {
+      padding: 2.25rem;
+    }
+
+    .auth-card n-field {
+      gap: calc(var(--n-space) * 2);
     }
 
     .auth-icon-circle {
@@ -125,6 +133,10 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
     .auth-back-link:hover {
       color: var(--n-ink-neutral);
+    }
+
+    .auth-centered-compact {
+      min-height: 32rem;
     }
 
     .otp-center {

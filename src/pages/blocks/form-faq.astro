@@ -1,0 +1,204 @@
+---
+import SidebarLayout from '../../layouts/SidebarLayout.astro';
+---
+<SidebarLayout title="FAQ">
+  <main>
+<n-stack gap="6">
+    <div>
+      <h1>FAQ</h1>
+      <p class="demo-desc">
+        Searchable knowledge base with categorized collapsible sections.
+        Demonstrates <code>n-accordion</code> with live filtering via <code>n-input</code>.
+      </p>
+    </div>
+
+    <div class="faq-wrapper">
+      <!-- ── Search ── -->
+      <div class="faq-search">
+        <n-input placeholder="Search questions..." id="faq-search">
+          <n-icon name="magnifying-glass" slot="leading"></n-icon>
+        </n-input>
+      </div>
+
+      <!-- ── Getting Started ── -->
+      <div class="faq-category" data-category>
+        <h2 class="faq-category-title">
+          <n-icon name="rocket-launch"></n-icon>
+          Getting Started
+        </h2>
+        <n-accordion>
+          <n-accordion-item open data-faq>
+            <span slot="heading">How do I install native-ui?</span>
+            <p>Install via npm with <code>npm install @nonoun/native-ui</code>. Then import the CSS foundation and register the components in your app entry point. See the quick start guide for framework-specific setup instructions.</p>
+          </n-accordion-item>
+          <n-accordion-item data-faq>
+            <span slot="heading">Does native-ui work with React, Vue, or Svelte?</span>
+            <p>Yes. Native-ui components are standard web components built on the Custom Elements API. They work in any framework that renders to the DOM. No wrapper libraries or adapters needed.</p>
+          </n-accordion-item>
+          <n-accordion-item data-faq>
+            <span slot="heading">What browsers are supported?</span>
+            <p>All modern evergreen browsers: Chrome, Firefox, Safari, and Edge. The library uses standard web platform APIs (Custom Elements, CSS custom properties, Popover API) and does not require polyfills in supported browsers.</p>
+          </n-accordion-item>
+        </n-accordion>
+      </div>
+
+      <!-- ── Styling ── -->
+      <div class="faq-category" data-category>
+        <h2 class="faq-category-title">
+          <n-icon name="sparkle"></n-icon>
+          Styling &amp; Theming
+        </h2>
+        <n-accordion>
+          <n-accordion-item data-faq>
+            <span slot="heading">How do I customize the color theme?</span>
+            <p>Override the OKLCH design tokens on your root element. The entire color system is derived from a single hue value, so changing <code>--n-hue-accent</code> recolors every accent-tinted component automatically. Dark mode is handled via <code>color-scheme</code> and requires no additional tokens.</p>
+          </n-accordion-item>
+          <n-accordion-item data-faq>
+            <span slot="heading">Why doesn't shadow DOM scoping work?</span>
+            <p>Native-ui uses light DOM exclusively. This means you style components with plain CSS selectors — no <code>::part()</code> or <code>::slotted()</code> needed. The tradeoff is that component styles aren't encapsulated, but the benefit is full control over every visual detail.</p>
+          </n-accordion-item>
+          <n-accordion-item data-faq>
+            <span slot="heading">Can I use Tailwind CSS alongside native-ui?</span>
+            <p>Absolutely. Since native-ui components are light DOM and use CSS custom properties, Tailwind utility classes work directly on component elements. You can mix design token values and Tailwind classes freely.</p>
+          </n-accordion-item>
+        </n-accordion>
+      </div>
+
+      <!-- ── Components ── -->
+      <div class="faq-category" data-category>
+        <h2 class="faq-category-title">
+          <n-icon name="cube"></n-icon>
+          Components
+        </h2>
+        <n-accordion>
+          <n-accordion-item data-faq>
+            <span slot="heading">How do I handle form validation?</span>
+            <p>Use the <code>required</code>, <code>pattern</code>, and <code>minlength</code> attributes on <code>n-field</code> wrappers. The validation trait handles constraint checking, error display, and form-level reset automatically. No JavaScript needed for basic validation.</p>
+          </n-accordion-item>
+          <n-accordion-item data-faq>
+            <span slot="heading">What's the difference between n-dialog and overlays?</span>
+            <p><code>n-dialog</code> is a native <code>&lt;dialog&gt;</code> wrapper with <code>showModal()</code> support, backdrop, and focus trapping. Overlays (via <code>PresentController</code>) are programmatic and return a <code>closed</code> promise, making them ideal for confirmation flows and transient UI.</p>
+          </n-accordion-item>
+          <n-accordion-item data-faq>
+            <span slot="heading">How do trait controllers work?</span>
+            <p>Traits are composable behaviors attached via the <code>traits</code> attribute on <code>n-controller</code>. Examples include <code>draggable</code>, <code>sortable</code>, <code>copyable</code>, and <code>validatable</code>. Each trait fires custom events (<code>native:*</code>) and sets runtime attributes for styling. Consumers handle the logic; the library manages the interaction.</p>
+          </n-accordion-item>
+        </n-accordion>
+      </div>
+
+      <!-- ── Troubleshooting ── -->
+      <div class="faq-category" data-category>
+        <h2 class="faq-category-title">
+          <n-icon name="warning"></n-icon>
+          Troubleshooting
+        </h2>
+        <n-accordion>
+          <n-accordion-item data-faq>
+            <span slot="heading">Components render but have no styling</span>
+            <p>CSS is not bundled with JavaScript. You must import the foundation stylesheet separately: <code>@import '@nonoun/native-ui/css/foundation'</code>. In Astro, use <code>&lt;style is:global&gt;</code> with <code>@import</code> — never <code>&lt;link&gt;</code> for npm packages.</p>
+          </n-accordion-item>
+          <n-accordion-item data-faq>
+            <span slot="heading">Icons are not rendering</span>
+            <p>Icons must be explicitly registered before use. Import the SVG files with <code>?raw</code> and call <code>registerIcon(name, svg)</code> for each icon you need. The library does not bundle icon SVGs — this keeps the bundle small and gives you full control over which icons are included.</p>
+          </n-accordion-item>
+          <n-accordion-item data-faq>
+            <span slot="heading">Server-side rendering throws HTMLElement errors</span>
+            <p>Component classes extend <code>HTMLElement</code>, which doesn't exist in Node.js. Never import component classes on the server. Use dynamic imports or ensure registration code only runs in the browser (e.g., inside <code>&lt;script&gt;</code> tags in Astro).</p>
+          </n-accordion-item>
+        </n-accordion>
+      </div>
+
+      <div class="faq-no-results" id="faq-no-results" hidden>
+        <n-icon name="magnifying-glass" size="lg" class="faq-no-results-icon"></n-icon>
+        <p>No matching questions found.</p>
+      </div>
+    </div>
+    </n-stack>
+  </main>
+
+  <script>
+    const searchInput = document.getElementById('faq-search');
+    const items = document.querySelectorAll('[data-faq]');
+    const categories = document.querySelectorAll('[data-category]');
+    const noResults = document.getElementById('faq-no-results');
+
+    searchInput?.addEventListener('input', () => {
+      const query = searchInput.value.toLowerCase().trim();
+      let visibleCount = 0;
+
+      items.forEach((item) => {
+        const heading = item.querySelector('[slot="heading"]')?.textContent?.toLowerCase() || '';
+        const body = item.querySelector('p')?.textContent?.toLowerCase() || '';
+        const matches = !query || heading.includes(query) || body.includes(query);
+        item.style.display = matches ? '' : 'none';
+        if (matches) visibleCount++;
+      });
+
+      // Show/hide entire categories based on whether they have visible items
+      categories.forEach((cat) => {
+        const hasVisible = cat.querySelector('[data-faq]:not([style*="display: none"])');
+        cat.style.display = hasVisible ? '' : 'none';
+      });
+
+      noResults.hidden = visibleCount > 0;
+    });
+  </script>
+  <style is:global>
+    .faq-wrapper {
+      max-width: 44rem;
+    }
+
+    .faq-search {
+      margin-bottom: 2rem;
+    }
+
+    .faq-category {
+      margin-bottom: 2rem;
+    }
+
+    .faq-category-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9375rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: var(--n-ink-strong-neutral);
+    }
+
+    .faq-no-results {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 3rem 2rem;
+    }
+
+    .faq-no-results-icon {
+      color: var(--n-ink-muted-neutral);
+      margin-bottom: 0.5rem;
+    }
+
+    .faq-no-results p {
+      font-size: 0.875rem;
+      color: var(--n-ink-muted-neutral);
+      margin: 0;
+    }
+
+    [data-faq] p {
+      font-size: 0.875rem;
+      color: var(--n-ink-muted-neutral);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    [data-faq] code {
+      font-size: 0.8125rem;
+      background: var(--n-panel-neutral);
+      padding: 0.0625rem 0.375rem;
+      border-radius: 0.25rem;
+      font-family: ui-monospace, monospace;
+    }
+</style>
+
+</SidebarLayout>

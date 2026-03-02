@@ -6,7 +6,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 <n-stack gap="6">
     <div>
       <h1>Command Palette</h1>
-      <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem;">
+      <p class="demo-desc">
         Quick-access command palette in a dialog overlay. Searchable, keyboard navigable,
         and grouped by category. Opens via button click or <kbd>Ctrl+K</kbd> shortcut.
       </p>
@@ -88,11 +88,11 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <n-stack gap="4">
     <div>
       <h2>Inline Preview</h2>
-      <p style="color: var(--n-ink-muted-neutral); font-size: 0.8125rem;">
+      <p class="demo-text-sm">
         The same command palette rendered inline for reference.
       </p>
     </div>
-    <div style="max-width: 32rem;">
+    <div class="inline-preview">
       <n-command>
         <n-command-input>
           <n-icon name="magnifying-glass"></n-icon>
@@ -190,6 +190,10 @@ const dialog = document.getElementById('palette-dialog');
     .trigger-hint {
       font-size: 0.8125rem;
       color: var(--n-ink-muted-neutral);
+    }
+
+    .inline-preview {
+      max-width: 32rem;
     }
 
     .trigger-hint kbd {

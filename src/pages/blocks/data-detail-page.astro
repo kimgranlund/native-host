@@ -14,318 +14,331 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
     <!-- ── Profile Header ── -->
     <n-card>
-      <div class="profile-header">
-        <n-avatar name="Kim Granlund" size="xl" intent="accent"></n-avatar>
-        <div class="profile-info">
-          <div class="profile-name">
-            Kim Granlund
-            <n-badge intent="success">Active</n-badge>
-          </div>
-          <div class="profile-meta">Senior Product Designer &middot; Design Team &middot; Joined Mar 2023</div>
-        </div>
-        <div class="profile-actions">
-          <n-button size="sm">
-            <n-icon name="pencil-simple" slot="leading"></n-icon>
-            <span slot="label">Edit</span>
-          </n-button>
-          <n-button size="sm" intent="danger">
-            <n-icon name="trash" slot="leading"></n-icon>
-            <span slot="label">Delete</span>
-          </n-button>
-        </div>
-      </div>
+      <n-body>
+        <n-stack direction="row" align="center" justify="between" gap="4" wrap>
+          <n-stack direction="row" align="center" gap="4">
+            <n-avatar name="Kim Granlund" size="xl" intent="accent"></n-avatar>
+            <n-stack gap="1">
+              <n-stack direction="row" align="center" gap="2">
+                <span class="profile-name">Kim Granlund</span>
+                <n-badge intent="success">Active</n-badge>
+              </n-stack>
+              <span class="demo-text">Senior Product Designer &middot; Design Team &middot; Joined Mar 2023</span>
+            </n-stack>
+          </n-stack>
+          <n-stack direction="row" gap="2">
+            <n-button size="sm">
+              <n-icon name="pencil-simple" slot="leading"></n-icon>
+              <span slot="label">Edit</span>
+            </n-button>
+            <n-button size="sm" intent="danger">
+              <n-icon name="trash" slot="leading"></n-icon>
+              <span slot="label">Delete</span>
+            </n-button>
+          </n-stack>
+        </n-stack>
+      </n-body>
     </n-card>
 
     <!-- ── Tabs ── -->
     <n-tabs value="overview">
-      <n-tab value="overview">Overview</n-tab>
-      <n-tab value="activity">Activity</n-tab>
-      <n-tab value="settings">Settings</n-tab>
+        <n-tab value="overview">Overview</n-tab>
+        <n-tab value="activity">Activity</n-tab>
+        <n-tab value="settings">Settings</n-tab>
 
-      <!-- ── Overview Panel ── -->
-      <n-tab-panel value="overview">
-        <n-stack gap="4">
-        <div class="detail-grid">
+        <n-tab-panels>
+        <!-- ── Overview Panel ── -->
+        <n-tab-panel value="overview">
+          <n-stack gap="4">
+            <n-grid cols="2" gap="4">
+              <n-card>
+                <n-header>
+                  <n-icon name="user" slot="leading"></n-icon>
+                  <span slot="label">Personal Information</span>
+                </n-header>
+                <n-body>
+                  <n-stack gap="3">
+                    <div class="detail-item">
+                      <span class="detail-label">Full Name</span>
+                      <span class="detail-value">Kim Granlund</span>
+                    </div>
+                    <div class="detail-item">
+                      <span class="detail-label">Email</span>
+                      <span class="detail-value">kim.granlund@company.com</span>
+                    </div>
+                    <div class="detail-item">
+                      <span class="detail-label">Phone</span>
+                      <span class="detail-value">+1 (555) 234-5678</span>
+                    </div>
+                    <div class="detail-item">
+                      <span class="detail-label">Location</span>
+                      <span class="detail-value">San Francisco, CA</span>
+                    </div>
+                  </n-stack>
+                </n-body>
+              </n-card>
+
+              <n-card>
+                <n-header>
+                  <n-icon name="clipboard-text" slot="leading"></n-icon>
+                  <span slot="label">Work Information</span>
+                </n-header>
+                <n-body>
+                  <n-stack gap="3">
+                    <div class="detail-item">
+                      <span class="detail-label">Department</span>
+                      <span class="detail-value">Design</span>
+                    </div>
+                    <div class="detail-item">
+                      <span class="detail-label">Role</span>
+                      <span class="detail-value">Admin</span>
+                    </div>
+                    <div class="detail-item">
+                      <span class="detail-label">Manager</span>
+                      <span class="detail-value">Sarah Mitchell</span>
+                    </div>
+                    <div class="detail-item">
+                      <span class="detail-label">Employee ID</span>
+                      <span class="detail-value">EMP-2023-0472</span>
+                    </div>
+                  </n-stack>
+                </n-body>
+              </n-card>
+            </n-grid>
+
+            <!-- ── Recent Projects ── -->
+            <n-card>
+              <n-header>
+                <n-icon name="lightning" slot="leading"></n-icon>
+                <span slot="label">Recent Projects</span>
+              </n-header>
+              <n-body>
+                <div class="table-scroll">
+                  <n-table style="grid-template-columns: 2fr 1fr 100px 80px;">
+                    <n-table-head>
+                      <n-table-row>
+                        <n-table-header>Project</n-table-header>
+                        <n-table-header>Team</n-table-header>
+                        <n-table-header>Status</n-table-header>
+                        <n-table-header>Hours</n-table-header>
+                      </n-table-row>
+                    </n-table-head>
+                    <n-table-body>
+                      <n-table-row>
+                        <n-table-cell>Design System v3.0</n-table-cell>
+                        <n-table-cell>Platform</n-table-cell>
+                        <n-table-cell><n-badge intent="success">Active</n-badge></n-table-cell>
+                        <n-table-cell>142</n-table-cell>
+                      </n-table-row>
+                      <n-table-row>
+                        <n-table-cell>Mobile App Redesign</n-table-cell>
+                        <n-table-cell>Mobile</n-table-cell>
+                        <n-table-cell><n-badge intent="info">In Review</n-badge></n-table-cell>
+                        <n-table-cell>86</n-table-cell>
+                      </n-table-row>
+                      <n-table-row>
+                        <n-table-cell>Dashboard Analytics</n-table-cell>
+                        <n-table-cell>Data</n-table-cell>
+                        <n-table-cell><n-badge>Completed</n-badge></n-table-cell>
+                        <n-table-cell>64</n-table-cell>
+                      </n-table-row>
+                      <n-table-row>
+                        <n-table-cell>Onboarding Flow</n-table-cell>
+                        <n-table-cell>Growth</n-table-cell>
+                        <n-table-cell><n-badge>Completed</n-badge></n-table-cell>
+                        <n-table-cell>38</n-table-cell>
+                      </n-table-row>
+                    </n-table-body>
+                  </n-table>
+                </div>
+              </n-body>
+            </n-card>
+          </n-stack>
+        </n-tab-panel>
+
+        <!-- ── Activity Panel ── -->
+        <n-tab-panel value="activity">
           <n-card>
-            <h2>Personal Information</h2>
-            <n-stack gap="3">
-              <div class="detail-item">
-                <span class="detail-label">Full Name</span>
-                <span class="detail-value">Kim Granlund</span>
-              </div>
-              <div class="detail-item">
-                <span class="detail-label">Email</span>
-                <span class="detail-value">kim.granlund@company.com</span>
-              </div>
-              <div class="detail-item">
-                <span class="detail-label">Phone</span>
-                <span class="detail-value">+1 (555) 234-5678</span>
-              </div>
-              <div class="detail-item">
-                <span class="detail-label">Location</span>
-                <span class="detail-value">San Francisco, CA</span>
-              </div>
-            </n-stack>
+            <n-header>
+              <n-icon name="pulse" slot="leading"></n-icon>
+              <span slot="label">Recent Activity</span>
+            </n-header>
+            <n-body>
+              <n-stack gap="0">
+                <div class="activity-item">
+                  <span class="activity-dot"></span>
+                  <div class="activity-content">
+                    <div>Updated the <strong>Design System v3.0</strong> project status to "Active"</div>
+                    <span class="activity-time">2 hours ago</span>
+                  </div>
+                </div>
+                <div class="activity-item">
+                  <span class="activity-dot"></span>
+                  <div class="activity-content">
+                    <div>Commented on <strong>Mobile App Redesign</strong> pull request #247</div>
+                    <span class="activity-time">5 hours ago</span>
+                  </div>
+                </div>
+                <div class="activity-item">
+                  <span class="activity-dot"></span>
+                  <div class="activity-content">
+                    <div>Completed code review for <strong>Dashboard Analytics</strong> feature branch</div>
+                    <span class="activity-time">Yesterday at 4:32 PM</span>
+                  </div>
+                </div>
+                <div class="activity-item">
+                  <span class="activity-dot"></span>
+                  <div class="activity-content">
+                    <div>Added 3 new components to the <strong>component library</strong></div>
+                    <span class="activity-time">Yesterday at 11:15 AM</span>
+                  </div>
+                </div>
+                <div class="activity-item">
+                  <span class="activity-dot"></span>
+                  <div class="activity-content">
+                    <div>Merged <strong>Onboarding Flow</strong> into production</div>
+                    <span class="activity-time">Feb 18, 2026</span>
+                  </div>
+                </div>
+                <div class="activity-item">
+                  <span class="activity-dot"></span>
+                  <div class="activity-content">
+                    <div>Updated profile information and avatar</div>
+                    <span class="activity-time">Feb 17, 2026</span>
+                  </div>
+                </div>
+                <div class="activity-item">
+                  <span class="activity-dot"></span>
+                  <div class="activity-content">
+                    <div>Joined the <strong>Platform</strong> team</div>
+                    <span class="activity-time">Feb 15, 2026</span>
+                  </div>
+                </div>
+              </n-stack>
+            </n-body>
           </n-card>
+        </n-tab-panel>
 
-          <n-card>
-            <h2>Work Information</h2>
-            <n-stack gap="3">
-              <div class="detail-item">
-                <span class="detail-label">Department</span>
-                <span class="detail-value">Design</span>
-              </div>
-              <div class="detail-item">
-                <span class="detail-label">Role</span>
-                <span class="detail-value">Admin</span>
-              </div>
-              <div class="detail-item">
-                <span class="detail-label">Manager</span>
-                <span class="detail-value">Sarah Mitchell</span>
-              </div>
-              <div class="detail-item">
-                <span class="detail-label">Employee ID</span>
-                <span class="detail-value">EMP-2023-0472</span>
-              </div>
-            </n-stack>
-          </n-card>
-        </div>
+        <!-- ── Settings Panel ── -->
+        <n-tab-panel value="settings">
+          <n-stack gap="4">
+            <n-grid cols="2" gap="4">
+              <n-card>
+                <n-header>
+                  <n-icon name="bell" slot="leading"></n-icon>
+                  <span slot="label">Notifications</span>
+                </n-header>
+                <n-body>
+                  <n-stack gap="0">
+                    <div class="settings-row">
+                      <div>
+                        <div class="settings-label">Email notifications</div>
+                        <div class="settings-description">Receive email updates about activity</div>
+                      </div>
+                      <n-switch checked></n-switch>
+                    </div>
+                    <div class="settings-row">
+                      <div>
+                        <div class="settings-label">Push notifications</div>
+                        <div class="settings-description">Receive push notifications on your device</div>
+                      </div>
+                      <n-switch checked></n-switch>
+                    </div>
+                    <div class="settings-row">
+                      <div>
+                        <div class="settings-label">Weekly digest</div>
+                        <div class="settings-description">Get a weekly summary of activity</div>
+                      </div>
+                      <n-switch></n-switch>
+                    </div>
+                  </n-stack>
+                </n-body>
+              </n-card>
 
-        <!-- ── Recent Projects ── -->
-        <n-card>
-          <h2>Recent Projects</h2>
-          <n-table style="grid-template-columns: 2fr 1fr 100px 100px;">
-            <n-table-head>
-              <n-table-row>
-                <n-table-header>Project</n-table-header>
-                <n-table-header>Team</n-table-header>
-                <n-table-header>Status</n-table-header>
-                <n-table-header>Hours</n-table-header>
-              </n-table-row>
-            </n-table-head>
-            <n-table-body>
-              <n-table-row>
-                <n-table-cell>Design System v3.0</n-table-cell>
-                <n-table-cell>Platform</n-table-cell>
-                <n-table-cell><n-badge intent="success">Active</n-badge></n-table-cell>
-                <n-table-cell>142</n-table-cell>
-              </n-table-row>
-              <n-table-row>
-                <n-table-cell>Mobile App Redesign</n-table-cell>
-                <n-table-cell>Mobile</n-table-cell>
-                <n-table-cell><n-badge intent="info">In Review</n-badge></n-table-cell>
-                <n-table-cell>86</n-table-cell>
-              </n-table-row>
-              <n-table-row>
-                <n-table-cell>Dashboard Analytics</n-table-cell>
-                <n-table-cell>Data</n-table-cell>
-                <n-table-cell><n-badge>Completed</n-badge></n-table-cell>
-                <n-table-cell>64</n-table-cell>
-              </n-table-row>
-              <n-table-row>
-                <n-table-cell>Onboarding Flow</n-table-cell>
-                <n-table-cell>Growth</n-table-cell>
-                <n-table-cell><n-badge>Completed</n-badge></n-table-cell>
-                <n-table-cell>38</n-table-cell>
-              </n-table-row>
-            </n-table-body>
-          </n-table>
-        </n-card>
-        </n-stack>
-      </n-tab-panel>
+              <n-card>
+                <n-header>
+                  <n-icon name="shield-check" slot="leading"></n-icon>
+                  <span slot="label">Security</span>
+                </n-header>
+                <n-body>
+                  <n-stack gap="0">
+                    <div class="settings-row">
+                      <div>
+                        <div class="settings-label">Two-factor authentication</div>
+                        <div class="settings-description">Add an extra layer of security</div>
+                      </div>
+                      <n-button size="xs">
+                        <span slot="label">Enable</span>
+                      </n-button>
+                    </div>
+                    <div class="settings-row">
+                      <div>
+                        <div class="settings-label">Password</div>
+                        <div class="settings-description">Last changed 30 days ago</div>
+                      </div>
+                      <n-button size="xs">
+                        <span slot="label">Change</span>
+                      </n-button>
+                    </div>
+                    <div class="settings-row">
+                      <div>
+                        <div class="settings-label">Active sessions</div>
+                        <div class="settings-description">2 devices currently signed in</div>
+                      </div>
+                      <n-button size="xs">
+                        <span slot="label">Manage</span>
+                      </n-button>
+                    </div>
+                  </n-stack>
+                </n-body>
+              </n-card>
+            </n-grid>
 
-      <!-- ── Activity Panel ── -->
-      <n-tab-panel value="activity">
-        <n-card>
-          <h2>Recent Activity</h2>
-          <div class="activity-item">
-            <span class="activity-dot"></span>
-            <div class="activity-content">
-              <div>Updated the <strong>Design System v3.0</strong> project status to "Active"</div>
-              <span class="activity-time">2 hours ago</span>
-            </div>
-          </div>
-          <div class="activity-item">
-            <span class="activity-dot"></span>
-            <div class="activity-content">
-              <div>Commented on <strong>Mobile App Redesign</strong> pull request #247</div>
-              <span class="activity-time">5 hours ago</span>
-            </div>
-          </div>
-          <div class="activity-item">
-            <span class="activity-dot"></span>
-            <div class="activity-content">
-              <div>Completed code review for <strong>Dashboard Analytics</strong> feature branch</div>
-              <span class="activity-time">Yesterday at 4:32 PM</span>
-            </div>
-          </div>
-          <div class="activity-item">
-            <span class="activity-dot"></span>
-            <div class="activity-content">
-              <div>Added 3 new components to the <strong>component library</strong></div>
-              <span class="activity-time">Yesterday at 11:15 AM</span>
-            </div>
-          </div>
-          <div class="activity-item">
-            <span class="activity-dot"></span>
-            <div class="activity-content">
-              <div>Merged <strong>Onboarding Flow</strong> into production</div>
-              <span class="activity-time">Feb 18, 2026</span>
-            </div>
-          </div>
-          <div class="activity-item">
-            <span class="activity-dot"></span>
-            <div class="activity-content">
-              <div>Updated profile information and avatar</div>
-              <span class="activity-time">Feb 17, 2026</span>
-            </div>
-          </div>
-          <div class="activity-item">
-            <span class="activity-dot"></span>
-            <div class="activity-content">
-              <div>Joined the <strong>Platform</strong> team</div>
-              <span class="activity-time">Feb 15, 2026</span>
-            </div>
-          </div>
-        </n-card>
-      </n-tab-panel>
-
-      <!-- ── Settings Panel ── -->
-      <n-tab-panel value="settings">
-        <n-stack gap="4">
-        <div class="detail-grid">
-          <n-card>
-            <h2>Notifications</h2>
-            <div class="settings-row">
-              <div>
-                <div class="settings-label">Email notifications</div>
-                <div class="settings-description">Receive email updates about activity</div>
-              </div>
-              <n-switch checked></n-switch>
-            </div>
-            <div class="settings-row">
-              <div>
-                <div class="settings-label">Push notifications</div>
-                <div class="settings-description">Receive push notifications on your device</div>
-              </div>
-              <n-switch checked></n-switch>
-            </div>
-            <div class="settings-row">
-              <div>
-                <div class="settings-label">Weekly digest</div>
-                <div class="settings-description">Get a weekly summary of activity</div>
-              </div>
-              <n-switch></n-switch>
-            </div>
-          </n-card>
-
-          <n-card>
-            <h2>Security</h2>
-            <div class="settings-row">
-              <div>
-                <div class="settings-label">Two-factor authentication</div>
-                <div class="settings-description">Add an extra layer of security</div>
-              </div>
-              <n-button size="xs">
-                <span slot="label">Enable</span>
-              </n-button>
-            </div>
-            <div class="settings-row">
-              <div>
-                <div class="settings-label">Password</div>
-                <div class="settings-description">Last changed 30 days ago</div>
-              </div>
-              <n-button size="xs">
-                <span slot="label">Change</span>
-              </n-button>
-            </div>
-            <div class="settings-row">
-              <div>
-                <div class="settings-label">Active sessions</div>
-                <div class="settings-description">2 devices currently signed in</div>
-              </div>
-              <n-button size="xs">
-                <span slot="label">Manage</span>
-              </n-button>
-            </div>
-          </n-card>
-        </div>
-
-        <n-card>
-          <h2 style="color: var(--n-ink-strong-danger);">Danger Zone</h2>
-          <div class="settings-row">
-            <div>
-              <div class="settings-label">Deactivate account</div>
-              <div class="settings-description">Temporarily disable this user's access to the platform</div>
-            </div>
-            <n-button size="xs" intent="danger">
-              <span slot="label">Deactivate</span>
-            </n-button>
-          </div>
-          <div class="settings-row">
-            <div>
-              <div class="settings-label">Delete account</div>
-              <div class="settings-description">Permanently remove this user and all associated data</div>
-            </div>
-            <n-button variant="primary" size="xs" intent="danger">
-              <n-icon name="trash" slot="leading"></n-icon>
-              <span slot="label">Delete Account</span>
-            </n-button>
-          </div>
-        </n-card>
-        </n-stack>
-      </n-tab-panel>
-    </n-tabs>
+            <n-card>
+              <n-header>
+                <n-icon name="warning" slot="leading"></n-icon>
+                <span slot="label" class="danger-label">Danger Zone</span>
+              </n-header>
+              <n-body>
+                <n-stack gap="0">
+                  <div class="settings-row">
+                    <div>
+                      <div class="settings-label">Deactivate account</div>
+                      <div class="settings-description">Temporarily disable this user's access to the platform</div>
+                    </div>
+                    <n-button size="xs" intent="danger">
+                      <span slot="label">Deactivate</span>
+                    </n-button>
+                  </div>
+                  <div class="settings-row">
+                    <div>
+                      <div class="settings-label">Delete account</div>
+                      <div class="settings-description">Permanently remove this user and all associated data</div>
+                    </div>
+                    <n-button variant="primary" size="xs" intent="danger">
+                      <n-icon name="trash" slot="leading"></n-icon>
+                      <span slot="label">Delete Account</span>
+                    </n-button>
+                  </div>
+                </n-stack>
+              </n-body>
+            </n-card>
+          </n-stack>
+        </n-tab-panel>
+        </n-tab-panels>
+      </n-tabs>
     </n-stack>
   </main>
   <style is:global>
-    .profile-header {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .profile-info {
-      flex: 1;
-      min-width: 12rem;
-    }
-
-    .profile-name {
-      font-size: 1.25rem;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .profile-meta {
-      font-size: 0.875rem;
-      color: var(--n-ink-muted-neutral);
-      margin-top: 0.25rem;
-    }
-
-    .profile-actions {
-      display: flex;
-      gap: 0.5rem;
-    }
-
-    .detail-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
-
-    @media (max-width: 40rem) {
-      .detail-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
     .detail-item {
       display: flex;
       flex-direction: column;
-      gap: 0.125rem;
+      gap: 0.375rem;
+    }
+
+    .table-scroll {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
     }
 
     .detail-label {
@@ -344,7 +357,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     .activity-item {
       display: flex;
       gap: 0.75rem;
-      padding: 0.75rem 0;
+      padding: 0.875rem 0;
       border-bottom: 1px solid var(--n-border-muted-neutral);
       font-size: 0.875rem;
     }
@@ -375,7 +388,8 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0.75rem 0;
+      gap: 1rem;
+      padding: 0.875rem 0;
       border-bottom: 1px solid var(--n-border-muted-neutral);
     }
 
@@ -391,6 +405,19 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     .settings-description {
       font-size: 0.75rem;
       color: var(--n-ink-muted-neutral);
+    }
+
+    .profile-name {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .danger-label {
+      color: var(--n-ink-strong-danger);
+    }
+
+    n-tab-panel {
+      padding-block: 0;
     }
 </style>
 

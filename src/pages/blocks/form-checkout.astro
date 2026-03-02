@@ -6,7 +6,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 <n-stack gap="6">
     <div>
       <h1>Checkout</h1>
-      <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem;">
+      <p class="demo-desc">
         Complete your purchase by filling in the details below.
       </p>
     </div>
@@ -22,7 +22,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
               <span slot="label">Shipping Information</span>
             </n-header>
             <n-body>
-              <n-stack gap="4">
+              <n-stack gap="6">
                 <div class="grid-2">
                   <n-field required>
                     <label slot="label">First name</label>
@@ -84,7 +84,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
               <span slot="label">Payment Method</span>
             </n-header>
             <n-body>
-              <n-stack gap="4">
+              <n-stack gap="6">
                 <n-field>
                   <label slot="label">Payment type</label>
                   <n-radio-group name="payment_method" value="credit-card" orientation="horizontal">
@@ -131,7 +131,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
               <span slot="label">Order Summary</span>
             </n-header>
             <n-body>
-              <n-stack gap="2">
+              <n-stack gap="3">
                 <div class="summary-line">
                   <div>
                     <span class="item-name">Wireless Headphones</span>
@@ -157,15 +157,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
                 <n-divider></n-divider>
 
                 <div class="summary-line">
-                  <span style="color: var(--n-ink-muted-neutral);">Subtotal</span>
+                  <span class="checkout-label">Subtotal</span>
                   <span class="item-price">$204.97</span>
                 </div>
                 <div class="summary-line">
-                  <span style="color: var(--n-ink-muted-neutral);">Shipping</span>
+                  <span class="checkout-label">Shipping</span>
                   <span class="item-price">$9.99</span>
                 </div>
                 <div class="summary-line">
-                  <span style="color: var(--n-ink-muted-neutral);">Tax</span>
+                  <span class="checkout-label">Tax</span>
                   <span class="item-price">$17.42</span>
                 </div>
 
@@ -181,7 +181,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
                   <n-icon name="shopping-cart" slot="leading"></n-icon>
                   <span slot="label">Place Order</span>
                 </n-button>
-                <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); text-align: center; margin: 0;">
+                <p class="demo-caption checkout-secure-note">
                   Your payment information is encrypted and secure.
                 </p>
               </n-stack>
@@ -238,7 +238,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0.5rem 0;
+      padding: 0.625rem 0;
       font-size: 0.875rem;
     }
 
@@ -262,6 +262,18 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     .item-qty {
       color: var(--n-ink-muted-neutral);
       font-size: 0.8125rem;
+    }
+
+    .checkout-label {
+      color: var(--n-ink-muted-neutral);
+    }
+
+    .checkout-secure-note {
+      text-align: center;
+    }
+
+    .checkout-layout n-field {
+      gap: calc(var(--n-space) * 2);
     }
 </style>
 
