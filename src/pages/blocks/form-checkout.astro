@@ -131,7 +131,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
               <span slot="label">Order Summary</span>
             </n-header>
             <n-body>
-              <n-stack gap="3">
+              <n-stack gap="4">
                 <div class="summary-line">
                   <div>
                     <span class="item-name">Wireless Headphones</span>
@@ -192,6 +192,10 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     </form>
     </n-stack>
   </main>
+
+  <script>
+    document.getElementById('checkout-form')?.addEventListener('submit', (e) => e.preventDefault());
+  </script>
   <style is:global>
     .checkout-layout {
       display: grid;

@@ -61,7 +61,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           <span slot="heading">Notifications</span>
           <span slot="description">Choose how and when you want to be notified.</span>
 
-          <n-stack gap="1">
+          <n-stack gap="2">
             <div class="notification-row">
               <div>
                 <div class="notification-label">Email notifications</div>
@@ -152,6 +152,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       </n-stack>
     </div>
   </main>
+
+  <script>
+    for (const form of document.querySelectorAll('form')) {
+      form.addEventListener('submit', (e) => e.preventDefault());
+    }
+  </script>
   <style is:global>
     .settings-container {
       max-width: 44rem;

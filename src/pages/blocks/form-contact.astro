@@ -69,6 +69,10 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     </div>
     </n-stack>
   </main>
+
+  <script>
+    document.getElementById('contact-form')?.addEventListener('submit', (e) => e.preventDefault());
+  </script>
   <style is:global>
     .form-wrapper {
       max-width: 36rem;

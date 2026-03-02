@@ -29,20 +29,20 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       <n-body>
         <!-- ── Toolbar ── -->
         <n-stack direction="row" gap="3" align="center" wrap>
-          <n-input size="sm" placeholder="Search users..." style="flex: 1; min-width: 12rem;">
+          <n-input id="table-search" size="sm" placeholder="Search users..." style="flex: 1; min-width: 12rem;">
             <n-icon name="magnifying-glass" slot="leading"></n-icon>
           </n-input>
-          <n-select size="sm" placeholder="All statuses"
+          <n-select id="table-status-filter" size="sm" placeholder="All statuses"
             options='[{"value":"all","label":"All Statuses"},{"value":"active","label":"Active"},{"value":"inactive","label":"Inactive"}]'>
           </n-select>
-          <n-select size="sm" placeholder="All roles"
+          <n-select id="table-role-filter" size="sm" placeholder="All roles"
             options='[{"value":"all","label":"All Roles"},{"value":"admin","label":"Admin"},{"value":"editor","label":"Editor"},{"value":"viewer","label":"Viewer"}]'>
           </n-select>
         </n-stack>
 
         <!-- ── Data Table ── -->
         <div class="table-scroll">
-          <n-table id="users-table" style="grid-template-columns: 2fr 2fr 100px 100px 120px;">
+          <n-table id="users-table">
             <n-table-head>
               <n-table-row>
                 <n-table-header sortable column="name">Name</n-table-header>
@@ -186,25 +186,65 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     </n-stack>
   </main>
   <script>
-    const table = document.getElementById('users-table');
-    const body = table.querySelector('n-table-body');
-    const columnMap = { name: 0, email: 1, role: 3 };
+    const table = document.getElementById('users-table')!;
+    const body = table.querySelector('n-table-body')!;
+    const columnMap: Record<string, number> = { name: 0, email: 1, role: 3 };
+    const searchInput = document.getElementById('table-search') as HTMLInputElement;
+    const statusFilter = document.getElementById('table-status-filter') as HTMLSelectElement;
+    const roleFilter = document.getElementById('table-role-filter') as HTMLSelectElement;
+    const pagination = document.querySelector('n-pagination')!;
+    const showingText = document.querySelector('.demo-text-sm')!;
 
-    table.addEventListener('native:table-sort', (e) => {
+    // Sort
+    table.addEventListener('native:table-sort', (e: any) => {
       const { column, direction } = e.detail;
       if (direction === 'none') return;
-
       const colIndex = columnMap[column];
       if (colIndex === undefined) return;
-
       const rows = [...body.querySelectorAll('n-table-row')];
       rows.sort((a, b) => {
-        const aVal = a.querySelectorAll('n-table-cell')[colIndex].textContent.trim();
-        const bVal = b.querySelectorAll('n-table-cell')[colIndex].textContent.trim();
+        const aVal = a.querySelectorAll('n-table-cell')[colIndex].textContent!.trim();
+        const bVal = b.querySelectorAll('n-table-cell')[colIndex].textContent!.trim();
         const cmp = aVal.localeCompare(bVal, undefined, { numeric: true });
         return direction === 'asc' ? cmp : -cmp;
       });
       for (const row of rows) body.appendChild(row);
+    });
+
+    // Filter rows by search, status, and role
+    function filterRows() {
+      const query = (searchInput?.value || '').toLowerCase();
+      const status = (statusFilter?.value || 'all').toLowerCase();
+      const role = (roleFilter?.value || 'all').toLowerCase();
+      const rows = body.querySelectorAll('n-table-row');
+      let visible = 0;
+      for (const row of rows) {
+        const cells = row.querySelectorAll('n-table-cell');
+        const name = cells[0]?.textContent?.trim().toLowerCase() || '';
+        const email = cells[1]?.textContent?.trim().toLowerCase() || '';
+        const rowStatus = cells[2]?.textContent?.trim().toLowerCase() || '';
+        const rowRole = cells[3]?.textContent?.trim().toLowerCase() || '';
+        const matchesSearch = !query || name.includes(query) || email.includes(query);
+        const matchesStatus = status === 'all' || rowStatus === status;
+        const matchesRole = role === 'all' || rowRole === role;
+        const show = matchesSearch && matchesStatus && matchesRole;
+        (row as HTMLElement).style.display = show ? '' : 'none';
+        if (show) visible++;
+      }
+      showingText.textContent = `Showing ${visible} of ${rows.length} users`;
+    }
+
+    searchInput?.addEventListener('input', filterRows);
+    statusFilter?.addEventListener('native:change', filterRows);
+    roleFilter?.addEventListener('native:change', filterRows);
+
+    // Pagination (decorative — updates label text)
+    pagination?.addEventListener('native:change', (e: any) => {
+      const page = e.detail.value;
+      const perPage = 10;
+      const start = (page - 1) * perPage + 1;
+      const end = Math.min(page * perPage, 87);
+      showingText.textContent = `Showing ${start}-${end} of 87 users`;
     });
   </script>
   <style is:global>

@@ -77,6 +77,12 @@ import Logo from '../../components/Logo.astro';
       </div>
     </div>
   </main>
+
+  <script>
+    for (const form of document.querySelectorAll('form')) {
+      form.addEventListener('submit', (e) => e.preventDefault());
+    }
+  </script>
   <style is:global>
     .auth-centered {
       display: flex;
