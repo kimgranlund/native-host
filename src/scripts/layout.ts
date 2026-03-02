@@ -1,7 +1,8 @@
 // Client-side interactivity for the sidebar layout shell.
 // Handles: sidebar collapse/expand, theme toggle, command palette (Cmd+K),
-// code toggle, inspector toggle, chat toggle, nav group persistence, and navigation.
+// code toggle, copy-buttons, inspector toggle, chat toggle, nav group persistence, and navigation.
 
+import '../scripts/copy-buttons';
 import {
   PREF_COLOR_SCHEME,
   PREF_SIDEBAR_COLLAPSED,
@@ -90,43 +91,26 @@ codeToggle?.addEventListener('click', () => {
   syncCodeState(willShow);
 });
 
-// ── Inspector toggle ──
+// ── Panel toggles (inspector + chat) ──
 
 import '@nonoun/native-tokens';
 
-const inspectorToggle = document.getElementById('inspector-toggle') as HTMLElement | null;
-const inspector = document.getElementById('inspector-panel') as HTMLElement & { toggle(): void } | null;
-
-inspectorToggle?.addEventListener('click', () => {
-  inspector?.toggle();
-});
-
-if (inspector) {
-  new MutationObserver(() => {
-    const icon = inspectorToggle?.querySelector('n-icon');
-    if (!icon) return;
-    if (inspector.hasAttribute('open')) icon.setAttribute('weight', 'fill');
-    else icon.removeAttribute('weight');
-  }).observe(inspector, { attributes: true, attributeFilter: ['open'] });
+function wireToggle(btnId: string, panelId: string) {
+  const btn = document.getElementById(btnId) as HTMLElement | null;
+  const panel = document.getElementById(panelId) as HTMLElement & { toggle(): void } | null;
+  btn?.addEventListener('click', () => panel?.toggle());
+  if (panel) {
+    new MutationObserver(() => {
+      const icon = btn?.querySelector('n-icon');
+      if (!icon) return;
+      if (panel.hasAttribute('open')) icon.setAttribute('weight', 'fill');
+      else icon.removeAttribute('weight');
+    }).observe(panel, { attributes: true, attributeFilter: ['open'] });
+  }
 }
 
-// ── Chat toggle ──
-
-const chatToggle = document.getElementById('chat-toggle') as HTMLElement | null;
-const chat = document.getElementById('chat-panel') as HTMLElement & { toggle(): void } | null;
-
-chatToggle?.addEventListener('click', () => {
-  chat?.toggle();
-});
-
-if (chat) {
-  new MutationObserver(() => {
-    const icon = chatToggle?.querySelector('n-icon');
-    if (!icon) return;
-    if (chat.hasAttribute('open')) icon.setAttribute('weight', 'fill');
-    else icon.removeAttribute('weight');
-  }).observe(chat, { attributes: true, attributeFilter: ['open'] });
-}
+wireToggle('inspector-toggle', 'inspector-panel');
+wireToggle('chat-toggle', 'chat-panel');
 
 // ── Nav group persistence ──
 

@@ -20,27 +20,6 @@ const prefs = parsePreferences(Astro.cookies);
       @import '@nonoun/native-ui/css/components';
       @import '@nonoun/native-app/css';
     </style>
-    <!-- One-time migration: copy localStorage prefs into cookies for SSR -->
-    <script is:inline>
-      try {
-        var keys = ['nav-color-scheme', 'nav-sidebar-collapsed', 'nav-group-states', 'demo-show-code'];
-        var needsMigration = false;
-        for (var i = 0; i < keys.length; i++) {
-          if (localStorage.getItem(keys[i]) && !document.cookie.includes(keys[i])) {
-            needsMigration = true;
-            break;
-          }
-        }
-        if (needsMigration) {
-          var exp = new Date(Date.now() + 365*864e5).toUTCString();
-          for (var i = 0; i < keys.length; i++) {
-            var v = localStorage.getItem(keys[i]);
-            if (v) document.cookie = keys[i] + '=' + encodeURIComponent(v) + ';path=/;expires=' + exp + ';SameSite=Lax';
-          }
-          location.reload();
-        }
-      } catch(e) {}
-    </script>
   </head>
   <body>
     <slot />
