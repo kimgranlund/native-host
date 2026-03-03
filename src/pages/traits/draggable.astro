@@ -321,12 +321,6 @@ const detailItem = `{ item }`;
   <script>
     import { logAppend as appendLog } from '../../scripts/event-log';
 
-    // Helper: listen on the n-controller parent (events dispatch on the host,
-    // not on children — they bubble UP, not down).
-    function ctrl(child: Element | null) {
-      return child?.closest('n-controller') ?? null;
-    }
-
     document.addEventListener('astro:page-load', () => {
       const swapList = document.getElementById('swap-list');
       if (!swapList) return; // not on this page
@@ -343,7 +337,7 @@ const detailItem = `{ item }`;
 
       // ── Drop mode — swap ──
 
-      ctrl(swapList)?.addEventListener('native:drop', ((e: CustomEvent) => {
+      swapList.addEventListener('native:drop', ((e: CustomEvent) => {
         const { item, target } = e.detail;
         if (!target || target === item) return;
         const itemLabel = item.querySelector('.label').textContent;
@@ -354,14 +348,14 @@ const detailItem = `{ item }`;
         placeholder.replaceWith(target);
         swapLog(`Swapped "${itemLabel}" ↔ "${targetLabel}"`);
       }) as EventListener);
-      ctrl(swapList)?.addEventListener('native:drag-cancel', ((e: CustomEvent) => {
+      swapList.addEventListener('native:drag-cancel', ((e: CustomEvent) => {
         swapLog(`Cancelled: "${e.detail.item.querySelector('.label').textContent}"`);
       }) as EventListener);
 
       // ── Drop mode — replace ──
 
       const replaceList = document.getElementById('replace-list');
-      ctrl(replaceList)?.addEventListener('native:drop', ((e: CustomEvent) => {
+      replaceList?.addEventListener('native:drop', ((e: CustomEvent) => {
         const { item, target } = e.detail;
         if (!target) return;
         const slot = target.querySelector('.role-assignee');
@@ -374,13 +368,13 @@ const detailItem = `{ item }`;
       // ── Slot mode — vertical list ──
 
       const slotList = document.getElementById('slot-list');
-      ctrl(slotList)?.addEventListener('native:drop', ((e: CustomEvent) => {
+      slotList?.addEventListener('native:drop', ((e: CustomEvent) => {
         const { item, insertBefore, fromIndex, toIndex } = e.detail;
         if (toIndex === -1) return;
         if (insertBefore) {
           insertBefore.before(item);
         } else {
-          slotList!.appendChild(item);
+          slotList.appendChild(item);
         }
         slotLog(`Inserted "${item.querySelector('.label').textContent}" at position ${toIndex}`);
       }) as EventListener);
@@ -388,23 +382,23 @@ const detailItem = `{ item }`;
       // ── Slot mode — horizontal cards ──
 
       const cardRow = document.getElementById('card-row');
-      ctrl(cardRow)?.addEventListener('native:drop', ((e: CustomEvent) => {
+      cardRow?.addEventListener('native:drop', ((e: CustomEvent) => {
         const { item, insertBefore } = e.detail;
         if (insertBefore) {
           insertBefore.before(item);
         } else {
-          cardRow!.appendChild(item);
+          cardRow.appendChild(item);
         }
       }) as EventListener);
 
       // ── Preview mode — grid reorder ──
 
       const previewGrid = document.getElementById('preview-grid');
-      ctrl(previewGrid)?.addEventListener('native:drop', ((e: CustomEvent) => {
+      previewGrid?.addEventListener('native:drop', ((e: CustomEvent) => {
         const { item, fromIndex, toIndex } = e.detail;
         previewLog(`Moved cell ${item.textContent.trim()} from position ${fromIndex} → ${toIndex}`);
       }) as EventListener);
-      ctrl(previewGrid)?.addEventListener('native:drag-cancel', ((e: CustomEvent) => {
+      previewGrid?.addEventListener('native:drag-cancel', ((e: CustomEvent) => {
         previewLog(`Cancelled: cell ${e.detail.item.textContent.trim()} restored`);
       }) as EventListener);
     });

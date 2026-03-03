@@ -9,9 +9,11 @@ const codeExamples = {
 &lt;/n-controller&gt;
 
 &lt;script&gt;
-  zone.addEventListener('native:file-drop', (e) =&gt; {
-    for (const file of e.detail.files) {
-      console.log(file.name, file.size);
+  zone.addEventListener('native:drop', (e) =&gt; {
+    if (e.detail.type === 'file') {
+      for (const file of e.detail.files) {
+        console.log(file.name, file.size);
+      }
     }
   });
 &lt;/script&gt;`,
@@ -22,13 +24,14 @@ const codeExamples = {
 &lt;/n-controller&gt;
 
 &lt;script&gt;
-  zone.addEventListener('native:text-drop', (e) =&gt; {
-    console.log('Dropped text:', e.detail.text);
+  zone.addEventListener('native:drop', (e) =&gt; {
+    if (e.detail.type === 'text') {
+      console.log('Dropped text:', e.detail.text);
+    }
   });
 &lt;/script&gt;`,
 };
-const detailFilesDataTransfer = `{ files, dataTransfer }`;
-const detailText = `{ text }`;
+const detailDrop = `{ type, files?, text?, dataTransfer? }`;
 ---
 <SidebarLayout title="Droppable">
   <main>
@@ -153,14 +156,19 @@ const detailText = `{ text }`;
         <n-table-head><n-table-row><n-table-header>Event</n-table-header><n-table-header>Detail</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
         <n-table-body>
           <n-table-row>
-            <n-table-cell><code>native:file-drop</code></n-table-cell>
-            <n-table-cell><code set:html={detailFilesDataTransfer} /></n-table-cell>
-            <n-table-cell>Fired when files are dropped. <code>files</code> is an array of <code>File</code> objects.</n-table-cell>
+            <n-table-cell><code>native:drop</code></n-table-cell>
+            <n-table-cell><code set:html={detailDrop} /></n-table-cell>
+            <n-table-cell>Unified drop event. <code>type</code> is <code>'file'</code> or <code>'text'</code>. File drops include <code>files</code> (array of <code>File</code>) and <code>dataTransfer</code>. Text drops include <code>text</code>.</n-table-cell>
           </n-table-row>
           <n-table-row>
-            <n-table-cell><code>native:text-drop</code></n-table-cell>
-            <n-table-cell><code set:html={detailText} /></n-table-cell>
-            <n-table-cell>Fired when plain text is dropped (no files in the transfer).</n-table-cell>
+            <n-table-cell><code>native:drop-enter</code></n-table-cell>
+            <n-table-cell>&mdash;</n-table-cell>
+            <n-table-cell>Fired when a dragged item enters the drop zone.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>native:drop-leave</code></n-table-cell>
+            <n-table-cell>&mdash;</n-table-cell>
+            <n-table-cell>Fired when a dragged item leaves the drop zone.</n-table-cell>
           </n-table-row>
         </n-table-body>
       </n-table>
@@ -206,7 +214,8 @@ document.addEventListener('astro:page-load', () => {
 
       // ── File Drop Zone ──
 
-      document.getElementById('files-zone')?.addEventListener('native:file-drop', (e: CustomEvent) => {
+      document.getElementById('files-zone')?.addEventListener('native:drop', (e: CustomEvent) => {
+        if (e.detail.type !== 'file') return;
         renderFiles(document.getElementById('files-list'), e.detail.files);
         for (const file of e.detail.files) {
           appendLog(document.getElementById('files-log'), `${file.name} (${formatSize(file.size)})`);
@@ -215,7 +224,8 @@ document.addEventListener('astro:page-load', () => {
 
       // ── Image Only ──
 
-      document.getElementById('images-zone')?.addEventListener('native:file-drop', (e: CustomEvent) => {
+      document.getElementById('images-zone')?.addEventListener('native:drop', (e: CustomEvent) => {
+        if (e.detail.type !== 'file') return;
         renderFiles(document.getElementById('images-list'), e.detail.files);
         for (const file of e.detail.files) {
           appendLog(document.getElementById('images-log'), `${file.name} (${file.type}, ${formatSize(file.size)})`);
@@ -224,7 +234,8 @@ document.addEventListener('astro:page-load', () => {
 
       // ── Text Drop ──
 
-      document.getElementById('text-zone')?.addEventListener('native:text-drop', (e: CustomEvent) => {
+      document.getElementById('text-zone')?.addEventListener('native:drop', (e: CustomEvent) => {
+        if (e.detail.type !== 'text') return;
         const contentEl = document.getElementById('text-content') as HTMLElement | null;
         if (contentEl) {
           contentEl.style.display = 'block';
@@ -235,7 +246,8 @@ document.addEventListener('astro:page-load', () => {
 
       // ── Single File ──
 
-      document.getElementById('single-zone')?.addEventListener('native:file-drop', (e: CustomEvent) => {
+      document.getElementById('single-zone')?.addEventListener('native:drop', (e: CustomEvent) => {
+        if (e.detail.type !== 'file') return;
         renderFiles(document.getElementById('single-list'), e.detail.files);
         const file = e.detail.files[0];
         appendLog(document.getElementById('single-log'), `${file.name} (${formatSize(file.size)}) — only 1 file accepted`);
