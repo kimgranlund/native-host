@@ -159,76 +159,67 @@ const detailRange = `{ startIndex, endIndex, items }`;
     <!-- ── API Reference ── -->
 
     <h2>API</h2>
-
-    <div class="api-section">
       <h3>Provider Usage</h3>
-      <table class="api-table">
-        <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>range-selectable-selector</code></td>
-            <td><code>string</code></td>
-            <td>—</td>
-            <td>CSS selector for selectable items within the host. Required.</td>
-          </tr>
-          <tr>
-            <td><code>range-selectable-mode</code></td>
-            <td><code>'drag' | 'click'</code></td>
-            <td><code>'drag'</code></td>
-            <td><strong>drag</strong>: click-drag-release. <strong>click</strong>: click start, hover to preview, click to commit.</td>
-          </tr>
-          <tr>
-            <td><code>range-selectable-disabled</code></td>
-            <td><code>boolean</code></td>
-            <td><code>false</code></td>
-            <td>Disables range selection when true.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="api-section">
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Type</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>range-selectable-selector</code></n-table-cell>
+            <n-table-cell><code>string</code></n-table-cell>
+            <n-table-cell>—</n-table-cell>
+            <n-table-cell>CSS selector for selectable items within the host. Required.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>range-selectable-mode</code></n-table-cell>
+            <n-table-cell><code>'drag' | 'click'</code></n-table-cell>
+            <n-table-cell><code>'drag'</code></n-table-cell>
+            <n-table-cell><strong>drag</strong>: click-drag-release. <strong>click</strong>: click start, hover to preview, click to commit.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>range-selectable-disabled</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>false</code></n-table-cell>
+            <n-table-cell>Disables range selection when true.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
       <h3>Events</h3>
-      <table class="api-table">
-        <thead><tr><th>Event</th><th>Detail</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>native:range-change</code></td>
-            <td><code set:html={detailRange} /></td>
-            <td>During drag/hover, fires as range changes. Use for live preview.</td>
-          </tr>
-          <tr>
-            <td><code>native:range-select</code></td>
-            <td><code set:html={detailRange} /></td>
-            <td>Fired on release/commit. Use for final selection.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="api-section">
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Event</n-table-header><n-table-header>Detail</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>native:range-change</code></n-table-cell>
+            <n-table-cell><code set:html={detailRange} /></n-table-cell>
+            <n-table-cell>During drag/hover, fires as range changes. Use for live preview.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>native:range-select</code></n-table-cell>
+            <n-table-cell><code set:html={detailRange} /></n-table-cell>
+            <n-table-cell>Fired on release/commit. Use for final selection.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
       <h3>CSS Attributes</h3>
-      <table class="api-table">
-        <thead><tr><th>Attribute</th><th>Set on</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>[range-selected]</code></td>
-            <td>Items within range</td>
-            <td>Present on items within the selected range. Use for highlight styling.</td>
-          </tr>
-          <tr>
-            <td><code>[range-start]</code></td>
-            <td>First item</td>
-            <td>Present on the first item in the range. Use for start-cap border-radius.</td>
-          </tr>
-          <tr>
-            <td><code>[range-end]</code></td>
-            <td>Last item</td>
-            <td>Present on the last item in the range. Use for end-cap border-radius.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Set on</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>[range-selected]</code></n-table-cell>
+            <n-table-cell>Items within range</n-table-cell>
+            <n-table-cell>Present on items within the selected range. Use for highlight styling.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>[range-start]</code></n-table-cell>
+            <n-table-cell>First item</n-table-cell>
+            <n-table-cell>Present on the first item in the range. Use for start-cap border-radius.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>[range-end]</code></n-table-cell>
+            <n-table-cell>Last item</n-table-cell>
+            <n-table-cell>Present on the last item in the range. Use for end-cap border-radius.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
   </main>
 
   <script>
@@ -414,44 +405,6 @@ document.addEventListener('astro:page-load', () => {
     }
 
     /* ── Code Blocks ── */
-
-    /* ── API Reference ── */
-
-    .api-section {
-      margin-bottom: 1.5rem;
-    }
-
-    .api-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.8125rem;
-    }
-
-    .api-table th {
-      text-align: left;
-      font-weight: 600;
-      padding: 0.5rem 0.75rem;
-      border-bottom: 2px solid var(--n-border-muted-neutral);
-      color: var(--n-ink-strong-neutral);
-    }
-
-    .api-table td {
-      padding: 0.5rem 0.75rem;
-      border-bottom: 1px solid var(--n-border-muted-neutral);
-      vertical-align: top;
-    }
-
-    .api-table code {
-      font-family: ui-monospace, monospace;
-      font-size: 0.75rem;
-      background: var(--n-panel-neutral);
-      padding: 0.0625rem 0.3125rem;
-      border-radius: 0.1875rem;
-    }
-
-    .api-table td:first-child code {
-      white-space: nowrap;
-    }
 </style>
 
 </SidebarLayout>

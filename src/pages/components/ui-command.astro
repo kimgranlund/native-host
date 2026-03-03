@@ -396,23 +396,23 @@ const codeExamples = {
 
     <h2>Keyboard Navigation</h2>
     <div class="layout-section">
-      <table style="font-size: 0.8125rem; border-collapse: collapse; width: 100%;">
-        <thead>
-          <tr style="text-align: left; border-bottom: 1px solid var(--n-border-muted-neutral);">
-            <th style="padding: 0.5rem; font-weight: 600;">Key</th>
-            <th style="padding: 0.5rem; font-weight: 600;">Action</th>
-          </tr>
-        </thead>
-        <tbody style="color: var(--n-ink-muted-neutral);">
-          <tr><td style="padding: 0.375rem 0.5rem;"><code>Arrow Down</code></td><td style="padding: 0.375rem 0.5rem;">Move to next item</td></tr>
-          <tr><td style="padding: 0.375rem 0.5rem;"><code>Arrow Up</code></td><td style="padding: 0.375rem 0.5rem;">Move to previous item</td></tr>
-          <tr><td style="padding: 0.375rem 0.5rem;"><code>Home</code></td><td style="padding: 0.375rem 0.5rem;">Jump to first item</td></tr>
-          <tr><td style="padding: 0.375rem 0.5rem;"><code>End</code></td><td style="padding: 0.375rem 0.5rem;">Jump to last item</td></tr>
-          <tr><td style="padding: 0.375rem 0.5rem;"><code>Enter</code></td><td style="padding: 0.375rem 0.5rem;">Select active item</td></tr>
-          <tr><td style="padding: 0.375rem 0.5rem;"><code>Escape</code></td><td style="padding: 0.375rem 0.5rem;">Dismiss (fires native:dismiss event)</td></tr>
-          <tr><td style="padding: 0.375rem 0.5rem;"><code>Type</code></td><td style="padding: 0.375rem 0.5rem;">Filter items by search text</td></tr>
-        </tbody>
-      </table>
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto 1fr;">
+        <n-table-head>
+          <n-table-row>
+            <n-table-header>Key</n-table-header>
+            <n-table-header>Action</n-table-header>
+          </n-table-row>
+        </n-table-head>
+        <n-table-body>
+          <n-table-row><n-table-cell><code>Arrow Down</code></n-table-cell><n-table-cell>Move to next item</n-table-cell></n-table-row>
+          <n-table-row><n-table-cell><code>Arrow Up</code></n-table-cell><n-table-cell>Move to previous item</n-table-cell></n-table-row>
+          <n-table-row><n-table-cell><code>Home</code></n-table-cell><n-table-cell>Jump to first item</n-table-cell></n-table-row>
+          <n-table-row><n-table-cell><code>End</code></n-table-cell><n-table-cell>Jump to last item</n-table-cell></n-table-row>
+          <n-table-row><n-table-cell><code>Enter</code></n-table-cell><n-table-cell>Select active item</n-table-cell></n-table-row>
+          <n-table-row><n-table-cell><code>Escape</code></n-table-cell><n-table-cell>Dismiss (fires native:dismiss event)</n-table-cell></n-table-row>
+          <n-table-row><n-table-cell><code>Type</code></n-table-cell><n-table-cell>Filter items by search text</n-table-cell></n-table-row>
+        </n-table-body>
+      </n-table>
     </div>
   </main>
 

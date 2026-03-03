@@ -90,48 +90,39 @@ const detailPointerType = `{ pointerType }`;
     <!-- ── API Reference ── -->
 
     <h2>API</h2>
-
-    <div class="api-section">
       <h3>Provider Usage</h3>
-      <table class="api-table">
-        <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>pressable-disabled</code></td>
-            <td><code>boolean</code></td>
-            <td><code>false</code></td>
-            <td>Disables press behavior when <code>"true"</code>. Pointer events are ignored.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="api-section">
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Type</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>pressable-disabled</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>false</code></n-table-cell>
+            <n-table-cell>Disables press behavior when <code>"true"</code>. Pointer events are ignored.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
       <h3>Events</h3>
-      <table class="api-table">
-        <thead><tr><th>Event</th><th>Detail</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>native:press</code></td>
-            <td><code set:html={detailPointerType} /></td>
-            <td>Fired on release. <code>pointerType</code> is <code>"mouse"</code>, <code>"touch"</code>, <code>"pen"</code>, or <code>"keyboard"</code>.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="api-section">
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Event</n-table-header><n-table-header>Detail</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>native:press</code></n-table-cell>
+            <n-table-cell><code set:html={detailPointerType} /></n-table-cell>
+            <n-table-cell>Fired on release. <code>pointerType</code> is <code>"mouse"</code>, <code>"touch"</code>, <code>"pen"</code>, or <code>"keyboard"</code>.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
       <h3>CSS</h3>
-      <table class="api-table">
-        <thead><tr><th>Selector</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>[pressed]</code></td>
-            <td>Present on the element while pointer/key is held down. Use for active-press styling.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Selector</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>[pressed]</code></n-table-cell>
+            <n-table-cell>Present on the element while pointer/key is held down. Use for active-press styling.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
   </main>
 
   <script>
@@ -220,44 +211,6 @@ document.addEventListener('astro:page-load', () => {
     }
 
     /* ── Code Blocks ── */
-
-    /* ── API Reference ── */
-
-    .api-section {
-      margin-bottom: 1.5rem;
-    }
-
-    .api-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.8125rem;
-    }
-
-    .api-table th {
-      text-align: left;
-      font-weight: 600;
-      padding: 0.5rem 0.75rem;
-      border-bottom: 2px solid var(--n-border-muted-neutral);
-      color: var(--n-ink-strong-neutral);
-    }
-
-    .api-table td {
-      padding: 0.5rem 0.75rem;
-      border-bottom: 1px solid var(--n-border-muted-neutral);
-      vertical-align: top;
-    }
-
-    .api-table code {
-      font-family: ui-monospace, monospace;
-      font-size: 0.75rem;
-      background: var(--n-panel-neutral);
-      padding: 0.0625rem 0.3125rem;
-      border-radius: 0.1875rem;
-    }
-
-    .api-table td:first-child code {
-      white-space: nowrap;
-    }
 </style>
 
 </SidebarLayout>

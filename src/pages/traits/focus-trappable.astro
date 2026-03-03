@@ -94,44 +94,38 @@ function hide() {
     <!-- ── API Reference ── -->
 
     <h2>API</h2>
-
-    <div class="api-section">
       <h3>Methods</h3>
-      <table class="api-table">
-        <thead><tr><th>Method</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>enable()</code></td>
-            <td>Starts trapping focus. Moves focus to <code>[autofocus]</code> or first focusable child. Saves the previously focused element for restoration.</td>
-          </tr>
-          <tr>
-            <td><code>disable()</code></td>
-            <td>Stops trapping focus. Returns focus to the previously focused element.</td>
-          </tr>
-          <tr>
-            <td><code>destroy()</code></td>
-            <td>Disables and cleans up. Call in <code>teardown()</code>.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="api-section">
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Method</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>enable()</code></n-table-cell>
+            <n-table-cell>Starts trapping focus. Moves focus to <code>[autofocus]</code> or first focusable child. Saves the previously focused element for restoration.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>disable()</code></n-table-cell>
+            <n-table-cell>Stops trapping focus. Returns focus to the previously focused element.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>destroy()</code></n-table-cell>
+            <n-table-cell>Disables and cleans up. Call in <code>teardown()</code>.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
       <h3>Keyboard</h3>
-      <table class="api-table">
-        <thead><tr><th>Key</th><th>Action</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>Tab</code></td>
-            <td>Moves focus to next focusable child. Wraps to first when at last.</td>
-          </tr>
-          <tr>
-            <td><code>Shift+Tab</code></td>
-            <td>Moves focus to previous focusable child. Wraps to last when at first.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Key</n-table-header><n-table-header>Action</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>Tab</code></n-table-cell>
+            <n-table-cell>Moves focus to next focusable child. Wraps to first when at last.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>Shift+Tab</code></n-table-cell>
+            <n-table-cell>Moves focus to previous focusable child. Wraps to last when at first.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
   </main>
 
   <script>
@@ -230,47 +224,6 @@ function hide() {
     }
 
     /* ── Code Blocks ── */
-
-
-
-
-    /* ── API Reference ── */
-
-    .api-section {
-      margin-bottom: 1.5rem;
-    }
-
-    .api-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.8125rem;
-    }
-
-    .api-table th {
-      text-align: left;
-      font-weight: 600;
-      padding: 0.5rem 0.75rem;
-      border-bottom: 2px solid var(--n-border-muted-neutral);
-      color: var(--n-ink-strong-neutral);
-    }
-
-    .api-table td {
-      padding: 0.5rem 0.75rem;
-      border-bottom: 1px solid var(--n-border-muted-neutral);
-      vertical-align: top;
-    }
-
-    .api-table code {
-      font-family: ui-monospace, monospace;
-      font-size: 0.75rem;
-      background: var(--n-panel-neutral);
-      padding: 0.0625rem 0.3125rem;
-      border-radius: 0.1875rem;
-    }
-
-    .api-table td:first-child code {
-      white-space: nowrap;
-    }
 </style>
 
 </SidebarLayout>

@@ -87,64 +87,58 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <!-- ── API Reference ── -->
 
     <h2>API</h2>
-
-    <div class="api-section">
       <h3>Provider Usage</h3>
-      <table class="api-table">
-        <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>roving-focusable-selector</code></td>
-            <td><code>string</code></td>
-            <td>—</td>
-            <td>CSS selector for focusable items. Exclude disabled items with <code>:not([disabled])</code>.</td>
-          </tr>
-          <tr>
-            <td><code>roving-focusable-orientation</code></td>
-            <td><code>'vertical' | 'horizontal' | 'both'</code></td>
-            <td><code>'both'</code></td>
-            <td>Which arrow keys to respond to. <code>'vertical'</code> = Up/Down, <code>'horizontal'</code> = Left/Right.</td>
-          </tr>
-          <tr>
-            <td><code>roving-focusable-wrap</code></td>
-            <td><code>boolean</code></td>
-            <td><code>true</code></td>
-            <td>Whether focus wraps from last to first (and vice versa).</td>
-          </tr>
-          <tr>
-            <td><code>roving-focusable-disabled</code></td>
-            <td><code>boolean</code></td>
-            <td><code>false</code></td>
-            <td>Disables roving focus when <code>"true"</code>.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="api-section">
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Type</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>roving-focusable-selector</code></n-table-cell>
+            <n-table-cell><code>string</code></n-table-cell>
+            <n-table-cell>—</n-table-cell>
+            <n-table-cell>CSS selector for focusable items. Exclude disabled items with <code>:not([disabled])</code>.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>roving-focusable-orientation</code></n-table-cell>
+            <n-table-cell><code>'vertical' | 'horizontal' | 'both'</code></n-table-cell>
+            <n-table-cell><code>'both'</code></n-table-cell>
+            <n-table-cell>Which arrow keys to respond to. <code>'vertical'</code> = Up/Down, <code>'horizontal'</code> = Left/Right.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>roving-focusable-wrap</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>true</code></n-table-cell>
+            <n-table-cell>Whether focus wraps from last to first (and vice versa).</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>roving-focusable-disabled</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>false</code></n-table-cell>
+            <n-table-cell>Disables roving focus when <code>"true"</code>.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
       <h3>Keyboard</h3>
-      <table class="api-table">
-        <thead><tr><th>Key</th><th>Action</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>Arrow Up/Down</code></td>
-            <td>Move focus in vertical mode.</td>
-          </tr>
-          <tr>
-            <td><code>Arrow Left/Right</code></td>
-            <td>Move focus in horizontal mode.</td>
-          </tr>
-          <tr>
-            <td><code>Home</code></td>
-            <td>Move focus to first item.</td>
-          </tr>
-          <tr>
-            <td><code>End</code></td>
-            <td>Move focus to last item.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Key</n-table-header><n-table-header>Action</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>Arrow Up/Down</code></n-table-cell>
+            <n-table-cell>Move focus in vertical mode.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>Arrow Left/Right</code></n-table-cell>
+            <n-table-cell>Move focus in horizontal mode.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>Home</code></n-table-cell>
+            <n-table-cell>Move focus to first item.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>End</code></n-table-cell>
+            <n-table-cell>Move focus to last item.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
   </main>
 
   <script>
@@ -234,47 +228,6 @@ document.addEventListener('astro:page-load', () => {
     }
 
     /* ── Code Blocks ── */
-
-
-
-
-    /* ── API Reference ── */
-
-    .api-section {
-      margin-bottom: 1.5rem;
-    }
-
-    .api-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.8125rem;
-    }
-
-    .api-table th {
-      text-align: left;
-      font-weight: 600;
-      padding: 0.5rem 0.75rem;
-      border-bottom: 2px solid var(--n-border-muted-neutral);
-      color: var(--n-ink-strong-neutral);
-    }
-
-    .api-table td {
-      padding: 0.5rem 0.75rem;
-      border-bottom: 1px solid var(--n-border-muted-neutral);
-      vertical-align: top;
-    }
-
-    .api-table code {
-      font-family: ui-monospace, monospace;
-      font-size: 0.75rem;
-      background: var(--n-panel-neutral);
-      padding: 0.0625rem 0.3125rem;
-      border-radius: 0.1875rem;
-    }
-
-    .api-table td:first-child code {
-      white-space: nowrap;
-    }
 </style>
 
 </SidebarLayout>

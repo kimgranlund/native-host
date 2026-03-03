@@ -89,78 +89,66 @@ const detailMessage = `{ message }`;
     <!-- ── API Reference ── -->
 
     <h2>API</h2>
-
-    <div class="api-section">
       <h3>Methods</h3>
-      <table class="api-table">
-        <thead><tr><th>Method</th><th>Returns</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>validate(value?)</code></td>
-            <td><code>boolean</code></td>
-            <td>Runs all rules against the value (or auto-detects from child input). Sets <code>[invalid]</code> and dispatches events.</td>
-          </tr>
-          <tr>
-            <td><code>clearValidation()</code></td>
-            <td>—</td>
-            <td>Removes <code>[invalid]</code> and clears error message.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="api-section">
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Method</n-table-header><n-table-header>Returns</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>validate(value?)</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell>Runs all rules against the value (or auto-detects from child input). Sets <code>[invalid]</code> and dispatches events.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>clearValidation()</code></n-table-cell>
+            <n-table-cell>—</n-table-cell>
+            <n-table-cell>Removes <code>[invalid]</code> and clears error message.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
       <h3>Static Rule Helpers</h3>
-      <table class="api-table">
-        <thead><tr><th>Helper</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>ValidateController.required(msg)</code></td>
-            <td>Fails if value is empty or whitespace-only.</td>
-          </tr>
-          <tr>
-            <td><code>ValidateController.minLength(n, msg)</code></td>
-            <td>Fails if value length is less than <code>n</code>.</td>
-          </tr>
-          <tr>
-            <td><code>ValidateController.pattern(regex, msg)</code></td>
-            <td>Fails if value does not match the regex.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="api-section">
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Helper</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>ValidateController.required(msg)</code></n-table-cell>
+            <n-table-cell>Fails if value is empty or whitespace-only.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>ValidateController.minLength(n, msg)</code></n-table-cell>
+            <n-table-cell>Fails if value length is less than <code>n</code>.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>ValidateController.pattern(regex, msg)</code></n-table-cell>
+            <n-table-cell>Fails if value does not match the regex.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
       <h3>Events</h3>
-      <table class="api-table">
-        <thead><tr><th>Event</th><th>Detail</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>native:invalid</code></td>
-            <td><code set:html={detailMessage} /></td>
-            <td>Fired when validation fails. <code>message</code> is the first failing rule's message.</td>
-          </tr>
-          <tr>
-            <td><code>native:valid</code></td>
-            <td>—</td>
-            <td>Fired when validation passes after a previous failure.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="api-section">
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Event</n-table-header><n-table-header>Detail</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>native:invalid</code></n-table-cell>
+            <n-table-cell><code set:html={detailMessage} /></n-table-cell>
+            <n-table-cell>Fired when validation fails. <code>message</code> is the first failing rule's message.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>native:valid</code></n-table-cell>
+            <n-table-cell>—</n-table-cell>
+            <n-table-cell>Fired when validation passes after a previous failure.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
       <h3>CSS</h3>
-      <table class="api-table">
-        <thead><tr><th>Selector</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>[invalid]</code></td>
-            <td>Set on the host element when validation fails. Use to style error state on child inputs.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Selector</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>[invalid]</code></n-table-cell>
+            <n-table-cell>Set on the host element when validation fails. Use to style error state on child inputs.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
   </main>
 
   <script>
@@ -263,47 +251,6 @@ document.addEventListener('astro:page-load', () => {
     }
 
     /* ── Code Blocks ── */
-
-
-
-
-    /* ── API Reference ── */
-
-    .api-section {
-      margin-bottom: 1.5rem;
-    }
-
-    .api-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.8125rem;
-    }
-
-    .api-table th {
-      text-align: left;
-      font-weight: 600;
-      padding: 0.5rem 0.75rem;
-      border-bottom: 2px solid var(--n-border-muted-neutral);
-      color: var(--n-ink-strong-neutral);
-    }
-
-    .api-table td {
-      padding: 0.5rem 0.75rem;
-      border-bottom: 1px solid var(--n-border-muted-neutral);
-      vertical-align: top;
-    }
-
-    .api-table code {
-      font-family: ui-monospace, monospace;
-      font-size: 0.75rem;
-      background: var(--n-panel-neutral);
-      padding: 0.0625rem 0.3125rem;
-      border-radius: 0.1875rem;
-    }
-
-    .api-table td:first-child code {
-      white-space: nowrap;
-    }
 </style>
 
 </SidebarLayout>

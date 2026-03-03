@@ -99,44 +99,44 @@ const codeExamples = {
 
     <h2>API</h2>
     <div class="layout-section" style="padding: 0; border: none; background: none;">
-      <table style="width: 100%; border-collapse: collapse; font-size: 0.8125rem;">
-        <thead>
-          <tr>
-            <th style="text-align: left; padding: 0.5rem 0.75rem; border-bottom: 2px solid var(--n-border-muted-neutral); color: var(--n-ink-strong-neutral);">Property / Method</th>
-            <th style="text-align: left; padding: 0.5rem 0.75rem; border-bottom: 2px solid var(--n-border-muted-neutral); color: var(--n-ink-strong-neutral);">Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style="padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--n-border-muted-neutral);"><code>toggle()</code></td>
-            <td style="padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--n-border-muted-neutral);">Toggle between expanded and collapsed</td>
-          </tr>
-          <tr>
-            <td style="padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--n-border-muted-neutral);"><code>expand()</code></td>
-            <td style="padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--n-border-muted-neutral);">Expand the content</td>
-          </tr>
-          <tr>
-            <td style="padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--n-border-muted-neutral);"><code>collapse()</code></td>
-            <td style="padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--n-border-muted-neutral);">Collapse the content</td>
-          </tr>
-          <tr>
-            <td style="padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--n-border-muted-neutral);"><code>collapsed</code></td>
-            <td style="padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--n-border-muted-neutral);">Boolean — current collapsed state</td>
-          </tr>
-          <tr>
-            <td style="padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--n-border-muted-neutral);"><code>collapsible-duration</code></td>
-            <td style="padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--n-border-muted-neutral);">Animation duration in ms (default: 200)</td>
-          </tr>
-          <tr>
-            <td style="padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--n-border-muted-neutral);"><code>native:expand</code></td>
-            <td style="padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--n-border-muted-neutral);">Event dispatched after expand animation completes</td>
-          </tr>
-          <tr>
-            <td style="padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--n-border-muted-neutral);"><code>native:collapse</code></td>
-            <td style="padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--n-border-muted-neutral);">Event dispatched after collapse animation completes</td>
-          </tr>
-        </tbody>
-      </table>
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto 1fr;">
+        <n-table-head>
+          <n-table-row>
+            <n-table-header>Property / Method</n-table-header>
+            <n-table-header>Description</n-table-header>
+          </n-table-row>
+        </n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>toggle()</code></n-table-cell>
+            <n-table-cell>Toggle between expanded and collapsed</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>expand()</code></n-table-cell>
+            <n-table-cell>Expand the content</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>collapse()</code></n-table-cell>
+            <n-table-cell>Collapse the content</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>collapsed</code></n-table-cell>
+            <n-table-cell>Boolean — current collapsed state</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>collapsible-duration</code></n-table-cell>
+            <n-table-cell>Animation duration in ms (default: 200)</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>native:expand</code></n-table-cell>
+            <n-table-cell>Event dispatched after expand animation completes</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>native:collapse</code></n-table-cell>
+            <n-table-cell>Event dispatched after collapse animation completes</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
     </div>
   </main>
 

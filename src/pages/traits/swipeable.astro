@@ -145,111 +145,99 @@ const detailSwipe = `{ direction, distance, velocity }`;
     <!-- ── API Reference ── -->
 
     <h2>API</h2>
-
-    <div class="api-section">
       <h3>Adapter Options (<code>swipeable-*</code>)</h3>
-      <table class="api-table">
-        <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>swipeable-threshold</code></td>
-            <td><code>number</code></td>
-            <td><code>50</code></td>
-            <td>Minimum distance in pixels for a swipe to be recognized.</td>
-          </tr>
-          <tr>
-            <td><code>swipeable-velocity-threshold</code></td>
-            <td><code>number</code></td>
-            <td><code>0.3</code></td>
-            <td>Minimum velocity in px/ms for a swipe to be recognized.</td>
-          </tr>
-          <tr>
-            <td><code>swipeable-axis</code></td>
-            <td><code>'horizontal' | 'vertical' | 'both'</code></td>
-            <td><code>'horizontal'</code></td>
-            <td>Which axis to detect swipes on. <code>'both'</code> picks the dominant axis.</td>
-          </tr>
-          <tr>
-            <td><code>swipeable-disabled</code></td>
-            <td><code>boolean</code></td>
-            <td><code>false</code></td>
-            <td>Disables swipe detection when true.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="api-section">
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Type</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>swipeable-threshold</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell><code>50</code></n-table-cell>
+            <n-table-cell>Minimum distance in pixels for a swipe to be recognized.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>swipeable-velocity-threshold</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell><code>0.3</code></n-table-cell>
+            <n-table-cell>Minimum velocity in px/ms for a swipe to be recognized.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>swipeable-axis</code></n-table-cell>
+            <n-table-cell><code>'horizontal' | 'vertical' | 'both'</code></n-table-cell>
+            <n-table-cell><code>'horizontal'</code></n-table-cell>
+            <n-table-cell>Which axis to detect swipes on. <code>'both'</code> picks the dominant axis.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>swipeable-disabled</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>false</code></n-table-cell>
+            <n-table-cell>Disables swipe detection when true.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
       <h3>Controller Properties</h3>
-      <table class="api-table">
-        <thead><tr><th>Property</th><th>Type</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>direction</code></td>
-            <td><code>'left' | 'right' | 'up' | 'down' | null</code></td>
-            <td>Direction of the last recognized swipe.</td>
-          </tr>
-          <tr>
-            <td><code>distance</code></td>
-            <td><code>number</code></td>
-            <td>Distance in pixels of the last recognized swipe.</td>
-          </tr>
-          <tr>
-            <td><code>velocity</code></td>
-            <td><code>number</code></td>
-            <td>Velocity in px/ms of the last recognized swipe.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="api-section">
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Property</n-table-header><n-table-header>Type</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>direction</code></n-table-cell>
+            <n-table-cell><code>'left' | 'right' | 'up' | 'down' | null</code></n-table-cell>
+            <n-table-cell>Direction of the last recognized swipe.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>distance</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell>Distance in pixels of the last recognized swipe.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>velocity</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell>Velocity in px/ms of the last recognized swipe.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
       <h3>Events</h3>
-      <table class="api-table">
-        <thead><tr><th>Event</th><th>Detail</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>native:swipe</code></td>
-            <td><code set:html={detailSwipe} /></td>
-            <td>Fired when a swipe gesture meets the threshold and velocity requirements.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="api-section">
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Event</n-table-header><n-table-header>Detail</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>native:swipe</code></n-table-cell>
+            <n-table-cell><code set:html={detailSwipe} /></n-table-cell>
+            <n-table-cell>Fired when a swipe gesture meets the threshold and velocity requirements.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
       <h3>CSS Attributes</h3>
-      <table class="api-table">
-        <thead><tr><th>Attribute</th><th>Set on</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>[swiping]</code></td>
-            <td>Host element</td>
-            <td>Present while the pointer is down (gesture in progress).</td>
-          </tr>
-          <tr>
-            <td><code>[swipe-left]</code></td>
-            <td>Host element</td>
-            <td>Set briefly (300ms) after a left swipe is recognized.</td>
-          </tr>
-          <tr>
-            <td><code>[swipe-right]</code></td>
-            <td>Host element</td>
-            <td>Set briefly (300ms) after a right swipe is recognized.</td>
-          </tr>
-          <tr>
-            <td><code>[swipe-up]</code></td>
-            <td>Host element</td>
-            <td>Set briefly (300ms) after an up swipe is recognized.</td>
-          </tr>
-          <tr>
-            <td><code>[swipe-down]</code></td>
-            <td>Host element</td>
-            <td>Set briefly (300ms) after a down swipe is recognized.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Set on</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>[swiping]</code></n-table-cell>
+            <n-table-cell>Host element</n-table-cell>
+            <n-table-cell>Present while the pointer is down (gesture in progress).</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>[swipe-left]</code></n-table-cell>
+            <n-table-cell>Host element</n-table-cell>
+            <n-table-cell>Set briefly (300ms) after a left swipe is recognized.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>[swipe-right]</code></n-table-cell>
+            <n-table-cell>Host element</n-table-cell>
+            <n-table-cell>Set briefly (300ms) after a right swipe is recognized.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>[swipe-up]</code></n-table-cell>
+            <n-table-cell>Host element</n-table-cell>
+            <n-table-cell>Set briefly (300ms) after an up swipe is recognized.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>[swipe-down]</code></n-table-cell>
+            <n-table-cell>Host element</n-table-cell>
+            <n-table-cell>Set briefly (300ms) after a down swipe is recognized.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
   </main>
 
   <script>
@@ -400,44 +388,6 @@ document.addEventListener('astro:page-load', () => {
     .pattern-badge.provider {
       background: var(--n-surface-info);
       color: var(--n-surface-ink-info);
-    }
-
-    /* ── API Reference ── */
-
-    .api-section {
-      margin-bottom: 1.5rem;
-    }
-
-    .api-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.8125rem;
-    }
-
-    .api-table th {
-      text-align: left;
-      font-weight: 600;
-      padding: 0.5rem 0.75rem;
-      border-bottom: 2px solid var(--n-border-muted-neutral);
-      color: var(--n-ink-strong-neutral);
-    }
-
-    .api-table td {
-      padding: 0.5rem 0.75rem;
-      border-bottom: 1px solid var(--n-border-muted-neutral);
-      vertical-align: top;
-    }
-
-    .api-table code {
-      font-family: ui-monospace, monospace;
-      font-size: 0.75rem;
-      background: var(--n-panel-neutral);
-      padding: 0.0625rem 0.3125rem;
-      border-radius: 0.1875rem;
-    }
-
-    .api-table td:first-child code {
-      white-space: nowrap;
     }
 </style>
 

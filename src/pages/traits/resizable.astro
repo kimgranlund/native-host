@@ -81,83 +81,74 @@ const detailWidthHeight = `{ width, height }`;
     <!-- ── API Reference ── -->
 
     <h2>API</h2>
-
-    <div class="api-section">
       <h3>Provider Usage</h3>
-      <table class="api-table">
-        <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>resizable-handle-selector</code></td>
-            <td><code>string</code></td>
-            <td><code>''</code></td>
-            <td>CSS selector for the resize handle element(s) within the host.</td>
-          </tr>
-          <tr>
-            <td><code>resizable-axis</code></td>
-            <td><code>'horizontal' | 'vertical' | 'both'</code></td>
-            <td><code>'horizontal'</code></td>
-            <td>Constrains resize to one axis or both.</td>
-          </tr>
-          <tr>
-            <td><code>resizable-min</code></td>
-            <td><code>number</code></td>
-            <td>—</td>
-            <td>Minimum size in pixels.</td>
-          </tr>
-          <tr>
-            <td><code>resizable-max</code></td>
-            <td><code>number</code></td>
-            <td>—</td>
-            <td>Maximum size in pixels.</td>
-          </tr>
-          <tr>
-            <td><code>resizable-disabled</code></td>
-            <td><code>boolean</code></td>
-            <td><code>false</code></td>
-            <td>Disables all resize behavior when true.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="api-section">
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Type</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>resizable-handle-selector</code></n-table-cell>
+            <n-table-cell><code>string</code></n-table-cell>
+            <n-table-cell><code>''</code></n-table-cell>
+            <n-table-cell>CSS selector for the resize handle element(s) within the host.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>resizable-axis</code></n-table-cell>
+            <n-table-cell><code>'horizontal' | 'vertical' | 'both'</code></n-table-cell>
+            <n-table-cell><code>'horizontal'</code></n-table-cell>
+            <n-table-cell>Constrains resize to one axis or both.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>resizable-min</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell>—</n-table-cell>
+            <n-table-cell>Minimum size in pixels.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>resizable-max</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell>—</n-table-cell>
+            <n-table-cell>Maximum size in pixels.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>resizable-disabled</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>false</code></n-table-cell>
+            <n-table-cell>Disables all resize behavior when true.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
       <h3>Events</h3>
-      <table class="api-table">
-        <thead><tr><th>Event</th><th>Detail</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>native:resize-start</code></td>
-            <td><code set:html={detailWidthHeight} /></td>
-            <td>Fired on first pointer move after handle pointerdown.</td>
-          </tr>
-          <tr>
-            <td><code>native:resize-move</code></td>
-            <td><code set:html={detailWidthHeight} /></td>
-            <td>Fired on every pointer move during resize.</td>
-          </tr>
-          <tr>
-            <td><code>native:resize-end</code></td>
-            <td><code set:html={detailWidthHeight} /></td>
-            <td>Fired on pointer up.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="api-section">
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Event</n-table-header><n-table-header>Detail</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>native:resize-start</code></n-table-cell>
+            <n-table-cell><code set:html={detailWidthHeight} /></n-table-cell>
+            <n-table-cell>Fired on first pointer move after handle pointerdown.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>native:resize-move</code></n-table-cell>
+            <n-table-cell><code set:html={detailWidthHeight} /></n-table-cell>
+            <n-table-cell>Fired on every pointer move during resize.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>native:resize-end</code></n-table-cell>
+            <n-table-cell><code set:html={detailWidthHeight} /></n-table-cell>
+            <n-table-cell>Fired on pointer up.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
       <h3>Attributes (set during resize)</h3>
-      <table class="api-table">
-        <thead><tr><th>Attribute</th><th>Set on</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>[resizing]</code></td>
-            <td>Host element</td>
-            <td>Present while the element is being resized. Use for <code>user-select: none</code>.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Set on</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>[resizing]</code></n-table-cell>
+            <n-table-cell>Host element</n-table-cell>
+            <n-table-cell>Present while the element is being resized. Use for <code>user-select: none</code>.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
   </main>
 
   <script>
@@ -258,44 +249,6 @@ document.addEventListener('astro:page-load', () => {
     }
 
     /* ── Code Blocks ── */
-
-    /* ── API Reference ── */
-
-    .api-section {
-      margin-bottom: 1.5rem;
-    }
-
-    .api-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.8125rem;
-    }
-
-    .api-table th {
-      text-align: left;
-      font-weight: 600;
-      padding: 0.5rem 0.75rem;
-      border-bottom: 2px solid var(--n-border-muted-neutral);
-      color: var(--n-ink-strong-neutral);
-    }
-
-    .api-table td {
-      padding: 0.5rem 0.75rem;
-      border-bottom: 1px solid var(--n-border-muted-neutral);
-      vertical-align: top;
-    }
-
-    .api-table code {
-      font-family: ui-monospace, monospace;
-      font-size: 0.75rem;
-      background: var(--n-panel-neutral);
-      padding: 0.0625rem 0.3125rem;
-      border-radius: 0.1875rem;
-    }
-
-    .api-table td:first-child code {
-      white-space: nowrap;
-    }
 </style>
 
 </SidebarLayout>

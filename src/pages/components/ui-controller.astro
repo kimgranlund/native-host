@@ -679,94 +679,85 @@ ctrl.setAttribute('hoverable-delay', '800');</code><n-button class="copy-btn" si
          ══════════════════════════════════════════════ -->
 
     <h2>Pattern Comparison</h2>
-
-    <div class="api-section">
-      <table class="api-table">
-        <thead>
-          <tr><th>Aspect</th><th>Injection</th><th>Provider</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Syntax</td>
-            <td><code>&lt;el traits="hoverable"&gt;</code></td>
-            <td><code>&lt;n-controller traits="hoverable" for=".x"&gt;</code></td>
-          </tr>
-          <tr>
-            <td>Options source</td>
-            <td>On the element itself</td>
-            <td>On the <code>&lt;n-controller&gt;</code></td>
-          </tr>
-          <tr>
-            <td>Targets</td>
-            <td>The element itself</td>
-            <td>Matched descendants (or first child)</td>
-          </tr>
-          <tr>
-            <td>Dynamic</td>
-            <td>Watches <code>traits</code> attribute changes</td>
-            <td>Watches child additions/removals</td>
-          </tr>
-          <tr>
-            <td>Requires NativeElement</td>
-            <td>Yes (connectedCallback reads <code>traits</code>)</td>
-            <td>No — targets can be plain <code>HTMLElement</code></td>
-          </tr>
-          <tr>
-            <td>Access controller</td>
-            <td><code>el.getTraitController('name')</code></td>
-            <td>Via adapter internals</td>
-          </tr>
-          <tr>
-            <td>Best for</td>
-            <td>Self-contained components</td>
-            <td>Applying traits to plain HTML / third-party elements</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto 1fr;">
+        <n-table-head>
+          <n-table-row><n-table-header>Aspect</n-table-header><n-table-header>Injection</n-table-header><n-table-header>Provider</n-table-header></n-table-row>
+        </n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell>Syntax</n-table-cell>
+            <n-table-cell><code>&lt;el traits="hoverable"&gt;</code></n-table-cell>
+            <n-table-cell><code>&lt;n-controller traits="hoverable" for=".x"&gt;</code></n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell>Options source</n-table-cell>
+            <n-table-cell>On the element itself</n-table-cell>
+            <n-table-cell>On the <code>&lt;n-controller&gt;</code></n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell>Targets</n-table-cell>
+            <n-table-cell>The element itself</n-table-cell>
+            <n-table-cell>Matched descendants (or first child)</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell>Dynamic</n-table-cell>
+            <n-table-cell>Watches <code>traits</code> attribute changes</n-table-cell>
+            <n-table-cell>Watches child additions/removals</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell>Requires NativeElement</n-table-cell>
+            <n-table-cell>Yes (connectedCallback reads <code>traits</code>)</n-table-cell>
+            <n-table-cell>No — targets can be plain <code>HTMLElement</code></n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell>Access controller</n-table-cell>
+            <n-table-cell><code>el.getTraitController('name')</code></n-table-cell>
+            <n-table-cell>Via adapter internals</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell>Best for</n-table-cell>
+            <n-table-cell>Self-contained components</n-table-cell>
+            <n-table-cell>Applying traits to plain HTML / third-party elements</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
 
     <!-- ══════════════════════════════════════════════
          API REFERENCE
          ══════════════════════════════════════════════ -->
 
     <h2>API</h2>
-
-    <div class="api-section">
       <h3>Available Traits</h3>
-      <table class="api-table">
-        <thead><tr><th>Name</th><th>Controller</th><th>Key Options</th></tr></thead>
-        <tbody>
-          <tr><td><code>pressable</code></td><td><code>PressController</code></td><td><code>disabled</code></td></tr>
-          <tr><td><code>hoverable</code></td><td><code>HoverController</code></td><td><code>delay</code>, <code>leave-delay</code>, <code>disabled</code></td></tr>
-          <tr><td><code>draggable</code></td><td><code>DragController</code></td><td><code>selector</code>, <code>axis</code>, <code>mode</code>, <code>drop-zone-selector</code>, <code>disabled</code></td></tr>
-          <tr><td><code>resizable</code></td><td><code>ResizeController</code></td><td><code>handle-selector</code>, <code>axis</code>, <code>min</code>, <code>max</code>, <code>disabled</code></td></tr>
-          <tr><td><code>selectable</code></td><td><code>SelectionController</code></td><td><code>selector</code>, <code>mode</code>, <code>disabled</code></td></tr>
-          <tr><td><code>editable</code></td><td><code>EditController</code></td><td><code>trigger</code>, <code>disabled</code></td></tr>
-          <tr><td><code>copyable</code></td><td><code>CopyController</code></td><td><code>value</code>, <code>feedback-duration</code></td></tr>
-          <tr><td><code>sortable</code></td><td><code>SortController</code></td><td><code>selector</code>, <code>disabled</code></td></tr>
-          <tr><td><code>collapsible</code></td><td><code>CollapsibleController</code></td><td><code>duration</code></td></tr>
-          <tr><td><code>swipeable</code></td><td><code>SwipeController</code></td><td><code>threshold</code>, <code>velocity-threshold</code>, <code>axis</code>, <code>disabled</code></td></tr>
-          <tr><td><code>intersectable</code></td><td><code>IntersectController</code></td><td><code>threshold</code>, <code>margin</code>, <code>once</code>, <code>disabled</code></td></tr>
-          <tr><td><code>droppable</code></td><td><code>DropZoneController</code></td><td><code>accept</code>, <code>disabled</code>, <code>multiple</code></td></tr>
-          <tr><td><code>range-selectable</code></td><td><code>RangeSelectController</code></td><td><code>selector</code>, <code>mode</code>, <code>disabled</code></td></tr>
-          <tr><td><code>roving-focusable</code></td><td><code>RovingFocusController</code></td><td><code>selector</code>, <code>orientation</code>, <code>wrap</code>, <code>disabled</code></td></tr>
-          <tr><td><code>searchable</code></td><td><code>SearchController</code></td><td><code>selector</code>, <code>text-field</code>, <code>disabled</code></td></tr>
-          <tr><td><code>virtualizable</code></td><td><code>VirtualScrollController</code></td><td><code>item-height</code>, <code>overscan</code></td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="api-section">
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Name</n-table-header><n-table-header>Controller</n-table-header><n-table-header>Key Options</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row><n-table-cell><code>pressable</code></n-table-cell><n-table-cell><code>PressController</code></n-table-cell><n-table-cell><code>disabled</code></n-table-cell></n-table-row>
+          <n-table-row><n-table-cell><code>hoverable</code></n-table-cell><n-table-cell><code>HoverController</code></n-table-cell><n-table-cell><code>delay</code>, <code>leave-delay</code>, <code>disabled</code></n-table-cell></n-table-row>
+          <n-table-row><n-table-cell><code>draggable</code></n-table-cell><n-table-cell><code>DragController</code></n-table-cell><n-table-cell><code>selector</code>, <code>axis</code>, <code>mode</code>, <code>drop-zone-selector</code>, <code>disabled</code></n-table-cell></n-table-row>
+          <n-table-row><n-table-cell><code>resizable</code></n-table-cell><n-table-cell><code>ResizeController</code></n-table-cell><n-table-cell><code>handle-selector</code>, <code>axis</code>, <code>min</code>, <code>max</code>, <code>disabled</code></n-table-cell></n-table-row>
+          <n-table-row><n-table-cell><code>selectable</code></n-table-cell><n-table-cell><code>SelectionController</code></n-table-cell><n-table-cell><code>selector</code>, <code>mode</code>, <code>disabled</code></n-table-cell></n-table-row>
+          <n-table-row><n-table-cell><code>editable</code></n-table-cell><n-table-cell><code>EditController</code></n-table-cell><n-table-cell><code>trigger</code>, <code>disabled</code></n-table-cell></n-table-row>
+          <n-table-row><n-table-cell><code>copyable</code></n-table-cell><n-table-cell><code>CopyController</code></n-table-cell><n-table-cell><code>value</code>, <code>feedback-duration</code></n-table-cell></n-table-row>
+          <n-table-row><n-table-cell><code>sortable</code></n-table-cell><n-table-cell><code>SortController</code></n-table-cell><n-table-cell><code>selector</code>, <code>disabled</code></n-table-cell></n-table-row>
+          <n-table-row><n-table-cell><code>collapsible</code></n-table-cell><n-table-cell><code>CollapsibleController</code></n-table-cell><n-table-cell><code>duration</code></n-table-cell></n-table-row>
+          <n-table-row><n-table-cell><code>swipeable</code></n-table-cell><n-table-cell><code>SwipeController</code></n-table-cell><n-table-cell><code>threshold</code>, <code>velocity-threshold</code>, <code>axis</code>, <code>disabled</code></n-table-cell></n-table-row>
+          <n-table-row><n-table-cell><code>intersectable</code></n-table-cell><n-table-cell><code>IntersectController</code></n-table-cell><n-table-cell><code>threshold</code>, <code>margin</code>, <code>once</code>, <code>disabled</code></n-table-cell></n-table-row>
+          <n-table-row><n-table-cell><code>droppable</code></n-table-cell><n-table-cell><code>DropZoneController</code></n-table-cell><n-table-cell><code>accept</code>, <code>disabled</code>, <code>multiple</code></n-table-cell></n-table-row>
+          <n-table-row><n-table-cell><code>range-selectable</code></n-table-cell><n-table-cell><code>RangeSelectController</code></n-table-cell><n-table-cell><code>selector</code>, <code>mode</code>, <code>disabled</code></n-table-cell></n-table-row>
+          <n-table-row><n-table-cell><code>roving-focusable</code></n-table-cell><n-table-cell><code>RovingFocusController</code></n-table-cell><n-table-cell><code>selector</code>, <code>orientation</code>, <code>wrap</code>, <code>disabled</code></n-table-cell></n-table-row>
+          <n-table-row><n-table-cell><code>searchable</code></n-table-cell><n-table-cell><code>SearchController</code></n-table-cell><n-table-cell><code>selector</code>, <code>text-field</code>, <code>disabled</code></n-table-cell></n-table-row>
+          <n-table-row><n-table-cell><code>virtualizable</code></n-table-cell><n-table-cell><code>VirtualScrollController</code></n-table-cell><n-table-cell><code>item-height</code>, <code>overscan</code></n-table-cell></n-table-row>
+        </n-table-body>
+      </n-table>
       <h3>Prerequisite</h3>
-      <table class="api-table">
-        <thead><tr><th>Setup</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td>Call once at app startup to register all built-in trait adapters. Required for both patterns.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Setup</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell>Call once at app startup to register all built-in trait adapters. Required for both patterns.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
   </main>
 
   <script>
@@ -1431,44 +1422,6 @@ document.addEventListener('astro:page-load', () => {
       padding: 0.5rem;
       background: var(--n-panel-neutral);
       border-radius: 0.25rem;
-    }
-
-    /* ── API Reference ── */
-
-    .api-section {
-      margin-bottom: 1.5rem;
-    }
-
-    .api-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.8125rem;
-    }
-
-    .api-table th {
-      text-align: left;
-      font-weight: 600;
-      padding: 0.5rem 0.75rem;
-      border-bottom: 2px solid var(--n-border-muted-neutral);
-      color: var(--n-ink-strong-neutral);
-    }
-
-    .api-table td {
-      padding: 0.5rem 0.75rem;
-      border-bottom: 1px solid var(--n-border-muted-neutral);
-      vertical-align: top;
-    }
-
-    .api-table code {
-      font-family: ui-monospace, monospace;
-      font-size: 0.75rem;
-      background: var(--n-panel-neutral);
-      padding: 0.0625rem 0.3125rem;
-      border-radius: 0.1875rem;
-    }
-
-    .api-table td:first-child code {
-      white-space: nowrap;
     }
 
     /* ── Dynamic children demo ── */

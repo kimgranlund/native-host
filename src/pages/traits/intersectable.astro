@@ -129,60 +129,51 @@ const detailIntersection = `{ isIntersecting, ratio }`;
     <!-- ── API Reference ── -->
 
     <h2>API</h2>
-
-    <div class="api-section">
       <h3>Provider Usage</h3>
-      <table class="api-table">
-        <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>intersectable-threshold</code></td>
-            <td><code>number</code></td>
-            <td><code>0</code></td>
-            <td>Visibility ratio (0 to 1) required to trigger. <code>0</code> = any pixel visible.</td>
-          </tr>
-          <tr>
-            <td><code>intersectable-once</code></td>
-            <td><code>boolean</code></td>
-            <td><code>false</code></td>
-            <td>When <code>"true"</code>, the observer disconnects after the first intersection.</td>
-          </tr>
-          <tr>
-            <td><code>intersectable-disabled</code></td>
-            <td><code>boolean</code></td>
-            <td><code>false</code></td>
-            <td>Disables the observer when <code>"true"</code>.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="api-section">
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Type</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>intersectable-threshold</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell><code>0</code></n-table-cell>
+            <n-table-cell>Visibility ratio (0 to 1) required to trigger. <code>0</code> = any pixel visible.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>intersectable-once</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>false</code></n-table-cell>
+            <n-table-cell>When <code>"true"</code>, the observer disconnects after the first intersection.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>intersectable-disabled</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>false</code></n-table-cell>
+            <n-table-cell>Disables the observer when <code>"true"</code>.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
       <h3>Events</h3>
-      <table class="api-table">
-        <thead><tr><th>Event</th><th>Detail</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>native:intersect</code></td>
-            <td><code set:html={detailIntersection} /></td>
-            <td>Fired when visibility changes.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="api-section">
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Event</n-table-header><n-table-header>Detail</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>native:intersect</code></n-table-cell>
+            <n-table-cell><code set:html={detailIntersection} /></n-table-cell>
+            <n-table-cell>Fired when visibility changes.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
       <h3>CSS</h3>
-      <table class="api-table">
-        <thead><tr><th>Selector</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>[intersecting]</code></td>
-            <td>Present on the element while it meets the intersection threshold.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Selector</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>[intersecting]</code></n-table-cell>
+            <n-table-cell>Present on the element while it meets the intersection threshold.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
   </main>
 
   <script>
@@ -320,44 +311,6 @@ document.addEventListener('astro:page-load', () => {
     }
 
     /* ── Code Blocks ── */
-
-    /* ── API Reference ── */
-
-    .api-section {
-      margin-bottom: 1.5rem;
-    }
-
-    .api-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.8125rem;
-    }
-
-    .api-table th {
-      text-align: left;
-      font-weight: 600;
-      padding: 0.5rem 0.75rem;
-      border-bottom: 2px solid var(--n-border-muted-neutral);
-      color: var(--n-ink-strong-neutral);
-    }
-
-    .api-table td {
-      padding: 0.5rem 0.75rem;
-      border-bottom: 1px solid var(--n-border-muted-neutral);
-      vertical-align: top;
-    }
-
-    .api-table code {
-      font-family: ui-monospace, monospace;
-      font-size: 0.75rem;
-      background: var(--n-panel-neutral);
-      padding: 0.0625rem 0.3125rem;
-      border-radius: 0.1875rem;
-    }
-
-    .api-table td:first-child code {
-      white-space: nowrap;
-    }
 </style>
 
 </SidebarLayout>

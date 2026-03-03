@@ -110,68 +110,56 @@ el.addEventListener('native:press', () =&gt; copy.copy());`,
     <!-- ── API Reference ── -->
 
     <h2>API</h2>
-
-    <div class="api-section">
       <h3>Adapter Options (<code>copyable-*</code>)</h3>
-      <table class="api-table">
-        <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>copyable-value</code></td>
-            <td><code>string</code></td>
-            <td><code>''</code></td>
-            <td>The static string to copy. For dynamic values, use <code>CopyController</code> directly with a getter function.</td>
-          </tr>
-          <tr>
-            <td><code>copyable-feedback-duration</code></td>
-            <td><code>number</code></td>
-            <td><code>2000</code></td>
-            <td>Duration in milliseconds that the <code>[copied]</code> attribute remains set after a successful copy.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="api-section">
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Type</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>copyable-value</code></n-table-cell>
+            <n-table-cell><code>string</code></n-table-cell>
+            <n-table-cell><code>''</code></n-table-cell>
+            <n-table-cell>The static string to copy. For dynamic values, use <code>CopyController</code> directly with a getter function.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>copyable-feedback-duration</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell><code>2000</code></n-table-cell>
+            <n-table-cell>Duration in milliseconds that the <code>[copied]</code> attribute remains set after a successful copy.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
       <h3>Controller Methods</h3>
-      <table class="api-table">
-        <thead><tr><th>Method</th><th>Returns</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>copy()</code></td>
-            <td><code>Promise&lt;void&gt;</code></td>
-            <td>Writes the value to the clipboard, sets <code>[copied]</code>, and dispatches <code>native:copy</code>.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="api-section">
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Method</n-table-header><n-table-header>Returns</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>copy()</code></n-table-cell>
+            <n-table-cell><code>Promise&lt;void&gt;</code></n-table-cell>
+            <n-table-cell>Writes the value to the clipboard, sets <code>[copied]</code>, and dispatches <code>native:copy</code>.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
       <h3>Events</h3>
-      <table class="api-table">
-        <thead><tr><th>Event</th><th>Detail</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>native:copy</code></td>
-            <td><code set:html={eventDetail} /></td>
-            <td>Fired after a successful copy. <code>detail.value</code> contains the copied string.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="api-section">
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Event</n-table-header><n-table-header>Detail</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>native:copy</code></n-table-cell>
+            <n-table-cell><code set:html={eventDetail} /></n-table-cell>
+            <n-table-cell>Fired after a successful copy. <code>detail.value</code> contains the copied string.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
       <h3>CSS</h3>
-      <table class="api-table">
-        <thead><tr><th>Selector</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>[copied]</code></td>
-            <td>Present on the element during the feedback window after a successful copy. Use for visual confirmation styling.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Selector</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>[copied]</code></n-table-cell>
+            <n-table-cell>Present on the element during the feedback window after a successful copy. Use for visual confirmation styling.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
   </main>
 
   <script>
@@ -321,44 +309,6 @@ document.addEventListener('astro:page-load', () => {
     .pattern-badge.provider {
       background: var(--n-surface-info);
       color: var(--n-surface-ink-info);
-    }
-
-    /* ── API Reference ── */
-
-    .api-section {
-      margin-bottom: 1.5rem;
-    }
-
-    .api-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.8125rem;
-    }
-
-    .api-table th {
-      text-align: left;
-      font-weight: 600;
-      padding: 0.5rem 0.75rem;
-      border-bottom: 2px solid var(--n-border-muted-neutral);
-      color: var(--n-ink-strong-neutral);
-    }
-
-    .api-table td {
-      padding: 0.5rem 0.75rem;
-      border-bottom: 1px solid var(--n-border-muted-neutral);
-      vertical-align: top;
-    }
-
-    .api-table code {
-      font-family: ui-monospace, monospace;
-      font-size: 0.75rem;
-      background: var(--n-panel-neutral);
-      padding: 0.0625rem 0.3125rem;
-      border-radius: 0.1875rem;
-    }
-
-    .api-table td:first-child code {
-      white-space: nowrap;
     }
 </style>
 

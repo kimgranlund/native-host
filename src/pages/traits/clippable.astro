@@ -97,120 +97,108 @@ const detailSelectedCount = `{ selected, count }`;
     <!-- ── API Reference ── -->
 
     <h2>API</h2>
-
-    <div class="api-section">
       <h3>Provider Usage</h3>
-      <table class="api-table">
-        <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>clippable-selector</code></td>
-            <td><code>string</code></td>
-            <td><code>''</code></td>
-            <td>CSS selector for clippable items. Keyboard shortcuts act on <code>[selected]</code> items within this selector.</td>
-          </tr>
-          <tr>
-            <td><code>clippable-disabled</code></td>
-            <td><code>boolean</code></td>
-            <td><code>false</code></td>
-            <td>Disables all clipboard operations when true.</td>
-          </tr>
-          <tr>
-            <td><code>selectable-selector</code></td>
-            <td><code>string</code></td>
-            <td><code>''</code></td>
-            <td>CSS selector for selectable items (from the <code>selectable</code> trait).</td>
-          </tr>
-          <tr>
-            <td><code>selectable-mode</code></td>
-            <td><code>'single' | 'multiple'</code></td>
-            <td><code>'multiple'</code></td>
-            <td>Selection mode: single or multiple (from the <code>selectable</code> trait).</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="api-section">
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Type</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>clippable-selector</code></n-table-cell>
+            <n-table-cell><code>string</code></n-table-cell>
+            <n-table-cell><code>''</code></n-table-cell>
+            <n-table-cell>CSS selector for clippable items. Keyboard shortcuts act on <code>[selected]</code> items within this selector.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>clippable-disabled</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>false</code></n-table-cell>
+            <n-table-cell>Disables all clipboard operations when true.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>selectable-selector</code></n-table-cell>
+            <n-table-cell><code>string</code></n-table-cell>
+            <n-table-cell><code>''</code></n-table-cell>
+            <n-table-cell>CSS selector for selectable items (from the <code>selectable</code> trait).</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>selectable-mode</code></n-table-cell>
+            <n-table-cell><code>'single' | 'multiple'</code></n-table-cell>
+            <n-table-cell><code>'multiple'</code></n-table-cell>
+            <n-table-cell>Selection mode: single or multiple (from the <code>selectable</code> trait).</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
       <h3>Controller Methods</h3>
-      <table class="api-table">
-        <thead><tr><th>Method</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>copy(items)</code></td>
-            <td>Copy given items to system clipboard and dispatch <code>native:clip-copy</code>.</td>
-          </tr>
-          <tr>
-            <td><code>cut(items)</code></td>
-            <td>Copy items and mark them with <code>[clip-cut]</code>. Dispatch <code>native:clip-cut</code>.</td>
-          </tr>
-          <tr>
-            <td><code>paste()</code></td>
-            <td>Read from clipboard and dispatch <code>native:clip-paste</code>.</td>
-          </tr>
-          <tr>
-            <td><code>cancelCut()</code></td>
-            <td>Remove <code>[clip-cut]</code> from all previously cut items.</td>
-          </tr>
-          <tr>
-            <td><code>serialize(items)</code></td>
-            <td>Convert items to a string. Default: joins <code>textContent</code> with newlines.</td>
-          </tr>
-          <tr>
-            <td><code>deserialize(data)</code></td>
-            <td>Convert clipboard string back to an array of strings. Default: splits by newline.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="api-section">
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Method</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>copy(items)</code></n-table-cell>
+            <n-table-cell>Copy given items to system clipboard and dispatch <code>native:clip-copy</code>.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>cut(items)</code></n-table-cell>
+            <n-table-cell>Copy items and mark them with <code>[clip-cut]</code>. Dispatch <code>native:clip-cut</code>.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>paste()</code></n-table-cell>
+            <n-table-cell>Read from clipboard and dispatch <code>native:clip-paste</code>.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>cancelCut()</code></n-table-cell>
+            <n-table-cell>Remove <code>[clip-cut]</code> from all previously cut items.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>serialize(items)</code></n-table-cell>
+            <n-table-cell>Convert items to a string. Default: joins <code>textContent</code> with newlines.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>deserialize(data)</code></n-table-cell>
+            <n-table-cell>Convert clipboard string back to an array of strings. Default: splits by newline.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
       <h3>Events</h3>
-      <table class="api-table">
-        <thead><tr><th>Event</th><th>Detail</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>native:clip-copy</code></td>
-            <td><code set:html={detailItemsData} /></td>
-            <td>Fired after a copy operation. <code>data</code> is the serialized string.</td>
-          </tr>
-          <tr>
-            <td><code>native:clip-cut</code></td>
-            <td><code set:html={detailItemsData} /></td>
-            <td>Fired after a cut operation. Items are marked with <code>[clip-cut]</code>.</td>
-          </tr>
-          <tr>
-            <td><code>native:clip-paste</code></td>
-            <td><code set:html={detailData} /></td>
-            <td>Fired after reading from clipboard. Consumer handles insertion.</td>
-          </tr>
-          <tr>
-            <td><code>native:selection-change</code></td>
-            <td><code set:html={detailSelectedCount} /></td>
-            <td>Fired when the selection changes (from the <code>selectable</code> trait).</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="api-section">
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Event</n-table-header><n-table-header>Detail</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>native:clip-copy</code></n-table-cell>
+            <n-table-cell><code set:html={detailItemsData} /></n-table-cell>
+            <n-table-cell>Fired after a copy operation. <code>data</code> is the serialized string.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>native:clip-cut</code></n-table-cell>
+            <n-table-cell><code set:html={detailItemsData} /></n-table-cell>
+            <n-table-cell>Fired after a cut operation. Items are marked with <code>[clip-cut]</code>.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>native:clip-paste</code></n-table-cell>
+            <n-table-cell><code set:html={detailData} /></n-table-cell>
+            <n-table-cell>Fired after reading from clipboard. Consumer handles insertion.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>native:selection-change</code></n-table-cell>
+            <n-table-cell><code set:html={detailSelectedCount} /></n-table-cell>
+            <n-table-cell>Fired when the selection changes (from the <code>selectable</code> trait).</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
       <h3>CSS Attributes</h3>
-      <table class="api-table">
-        <thead><tr><th>Attribute</th><th>Set on</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>[selected]</code></td>
-            <td>Selected items</td>
-            <td>Present on items currently selected (from the <code>selectable</code> trait).</td>
-          </tr>
-          <tr>
-            <td><code>[clip-cut]</code></td>
-            <td>Cut items</td>
-            <td>Present on items that have been cut. Use for dimmed/dashed styling.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Set on</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>[selected]</code></n-table-cell>
+            <n-table-cell>Selected items</n-table-cell>
+            <n-table-cell>Present on items currently selected (from the <code>selectable</code> trait).</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>[clip-cut]</code></n-table-cell>
+            <n-table-cell>Cut items</n-table-cell>
+            <n-table-cell>Present on items that have been cut. Use for dimmed/dashed styling.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
   </main>
 
   <script>
@@ -315,44 +303,6 @@ document.addEventListener('astro:page-load', () => {
     }
 
     /* ── Code Blocks ── */
-
-    /* ── API Reference ── */
-
-    .api-section {
-      margin-bottom: 1.5rem;
-    }
-
-    .api-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.8125rem;
-    }
-
-    .api-table th {
-      text-align: left;
-      font-weight: 600;
-      padding: 0.5rem 0.75rem;
-      border-bottom: 2px solid var(--n-border-muted-neutral);
-      color: var(--n-ink-strong-neutral);
-    }
-
-    .api-table td {
-      padding: 0.5rem 0.75rem;
-      border-bottom: 1px solid var(--n-border-muted-neutral);
-      vertical-align: top;
-    }
-
-    .api-table code {
-      font-family: ui-monospace, monospace;
-      font-size: 0.75rem;
-      background: var(--n-panel-neutral);
-      padding: 0.0625rem 0.3125rem;
-      border-radius: 0.1875rem;
-    }
-
-    .api-table td:first-child code {
-      white-space: nowrap;
-    }
 </style>
 
 </SidebarLayout>

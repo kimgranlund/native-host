@@ -107,41 +107,35 @@ dismissB.enable();
     <!-- ── API Reference ── -->
 
     <h2>API</h2>
-
-    <div class="api-section">
       <h3>Methods</h3>
-      <table class="api-table">
-        <thead><tr><th>Method</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>enable()</code></td>
-            <td>Pushes the element onto the global dismiss stack. Click-outside and Escape will fire <code>native:dismiss</code> on this element.</td>
-          </tr>
-          <tr>
-            <td><code>disable()</code></td>
-            <td>Removes the element from the dismiss stack. No more dismiss events.</td>
-          </tr>
-          <tr>
-            <td><code>destroy()</code></td>
-            <td>Removes from stack and cleans up. Call in <code>teardown()</code>.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="api-section">
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Method</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>enable()</code></n-table-cell>
+            <n-table-cell>Pushes the element onto the global dismiss stack. Click-outside and Escape will fire <code>native:dismiss</code> on this element.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>disable()</code></n-table-cell>
+            <n-table-cell>Removes the element from the dismiss stack. No more dismiss events.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>destroy()</code></n-table-cell>
+            <n-table-cell>Removes from stack and cleans up. Call in <code>teardown()</code>.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
       <h3>Events</h3>
-      <table class="api-table">
-        <thead><tr><th>Event</th><th>Detail</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>native:dismiss</code></td>
-            <td>—</td>
-            <td>Fired when click-outside or Escape occurs while this element is the topmost layer. Consumer handles hiding.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Event</n-table-header><n-table-header>Detail</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>native:dismiss</code></n-table-cell>
+            <n-table-cell>—</n-table-cell>
+            <n-table-cell>Fired when click-outside or Escape occurs while this element is the topmost layer. Consumer handles hiding.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
   </main>
 
   <script>
@@ -234,44 +228,6 @@ document.addEventListener('astro:page-load', () => {
     }
 
     /* ── Code Blocks ── */
-
-    /* ── API Reference ── */
-
-    .api-section {
-      margin-bottom: 1.5rem;
-    }
-
-    .api-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.8125rem;
-    }
-
-    .api-table th {
-      text-align: left;
-      font-weight: 600;
-      padding: 0.5rem 0.75rem;
-      border-bottom: 2px solid var(--n-border-muted-neutral);
-      color: var(--n-ink-strong-neutral);
-    }
-
-    .api-table td {
-      padding: 0.5rem 0.75rem;
-      border-bottom: 1px solid var(--n-border-muted-neutral);
-      vertical-align: top;
-    }
-
-    .api-table code {
-      font-family: ui-monospace, monospace;
-      font-size: 0.75rem;
-      background: var(--n-panel-neutral);
-      padding: 0.0625rem 0.3125rem;
-      border-radius: 0.1875rem;
-    }
-
-    .api-table td:first-child code {
-      white-space: nowrap;
-    }
 </style>
 
 </SidebarLayout>

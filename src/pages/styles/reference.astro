@@ -74,352 +74,352 @@ const scopedIntentCSS = `/* All controls inside .danger-zone get danger colors *
       <h2>Interactive States</h2>
       <!-- ========================================== -->
       <div style="overflow-x: auto;">
-        <table class="matrix">
-          <thead>
-            <tr>
-              <th>Component</th>
-              <th>:hover</th>
-              <th>:active</th>
-              <th>:focus</th>
-              <th>:focus-visible</th>
-              <th>[pressed]</th>
-              <th>[disabled]</th>
-              <th>[aria-disabled]</th>
-              <th>[active]</th>
-            </tr>
-          </thead>
-          <tbody>
+        <n-table variant="plain" size="sm" style="grid-template-columns: 10rem repeat(8, 1fr);">
+          <n-table-head>
+            <n-table-row>
+              <n-table-header>Component</n-table-header>
+              <n-table-header>:hover</n-table-header>
+              <n-table-header>:active</n-table-header>
+              <n-table-header>:focus</n-table-header>
+              <n-table-header>:focus-visible</n-table-header>
+              <n-table-header>[pressed]</n-table-header>
+              <n-table-header>[disabled]</n-table-header>
+              <n-table-header>[aria-disabled]</n-table-header>
+              <n-table-header>[active]</n-table-header>
+            </n-table-row>
+          </n-table-head>
+          <n-table-body>
             <!-- Interactive components -->
-            <tr class="cat-header"><td colspan="9">Interactive Components</td></tr>
-            <tr>
-              <td>n-button</td>
-              <td class="y">●</td><!-- hover -->
-              <td class="y">●</td><!-- active -->
-              <td class="a">○</td><!-- focus: focusable, no :focus rule -->
-              <td class="y">●</td><!-- focus-visible -->
-              <td class="y">●</td><!-- pressed: Pressable trait sets it, CSS :active + [pressed] -->
-              <td class="y">●</td><!-- disabled -->
-              <td class="n">–</td><!-- aria-disabled: uses native :disabled -->
-              <td class="n">–</td><!-- active attr: no coordinator sets it -->
-            </tr>
-            <tr>
-              <td>n-input <span class="tag tag-form">form</span></td>
-              <td class="y">●</td><!-- hover -->
-              <td class="a">○</td><!-- active: focusable, no rule -->
-              <td class="y">●</td><!-- focus -->
-              <td class="a">○</td><!-- focus-visible: focusable, no rule -->
-              <td class="n">–</td><!-- pressed: not Pressable -->
-              <td class="a">○</td><!-- disabled: attr set by createDisabledEffect, CSS targets aria-disabled -->
-              <td class="y">●</td><!-- aria-disabled -->
-              <td class="n">–</td><!-- active attr -->
-            </tr>
-            <tr>
-              <td>n-textarea <span class="tag tag-form">form</span></td>
-              <td class="y">●</td><!-- hover -->
-              <td class="a">○</td><!-- active: focusable, no rule -->
-              <td class="y">●</td><!-- focus -->
-              <td class="a">○</td><!-- focus-visible: focusable, no rule -->
-              <td class="n">–</td><!-- pressed: not Pressable -->
-              <td class="a">○</td><!-- disabled: attr set by createDisabledEffect, CSS targets aria-disabled -->
-              <td class="y">●</td><!-- aria-disabled -->
-              <td class="n">–</td><!-- active attr -->
-            </tr>
-            <tr>
-              <td>n-option <span class="sub">(in listbox)</span></td>
-              <td class="y">●</td>
-              <td class="y">●</td>
-              <td class="n">–</td>
-              <td class="y">●</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="y">●</td>
-              <td class="y">●</td>
-            </tr>
-            <tr>
-              <td colspan="9" class="sub" style="padding-left:calc(var(--n-space) * 8);">↳ n-listbox container supports [aria-disabled] (opacity + pointer-events)</td>
-            </tr>
-            <tr>
-              <td>n-command-item <span class="sub">(in command)</span></td>
-              <td class="y">●</td>
-              <td class="y">●</td>
-              <td class="n">–</td>
-              <td class="y">●</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="y">●</td>
-              <td class="y">●</td>
-            </tr>
-            <tr>
-              <td>n-tab <span class="sub">(in tabs)</span></td>
-              <td class="y">●</td><!-- hover -->
-              <td class="a">○</td><!-- active: focusable, no rule -->
-              <td class="a">○</td><!-- focus: focusable, no rule -->
-              <td class="y">●</td><!-- focus-visible -->
-              <td class="y">●</td><!-- pressed -->
-              <td class="n">–</td><!-- disabled -->
-              <td class="y">●</td><!-- aria-disabled -->
-              <td class="n">–</td><!-- active attr -->
-            </tr>
-            <tr>
-              <td>n-segment <span class="sub">(in segmented)</span></td>
-              <td class="y">●</td><!-- hover -->
-              <td class="a">○</td><!-- active: focusable, no rule -->
-              <td class="a">○</td><!-- focus: focusable, no rule -->
-              <td class="y">●</td><!-- focus-visible -->
-              <td class="y">●</td><!-- pressed -->
-              <td class="n">–</td><!-- disabled -->
-              <td class="y">●</td><!-- aria-disabled -->
-              <td class="n">–</td><!-- active attr -->
-            </tr>
-            <tr>
-              <td>n-breadcrumb-item</td>
-              <td class="y">●</td><!-- hover -->
-              <td class="a">○</td><!-- active: focusable child -->
-              <td class="a">○</td><!-- focus: focusable child -->
-              <td class="y">●</td><!-- focus-visible -->
-              <td class="n">–</td><!-- pressed: not Pressable -->
-              <td class="n">–</td><!-- disabled -->
-              <td class="n">–</td><!-- aria-disabled -->
-              <td class="n">–</td><!-- active attr -->
-            </tr>
+            <n-table-row colspan><n-table-cell>Interactive Components</n-table-cell></n-table-row>
+            <n-table-row>
+              <n-table-cell>n-button</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell><!-- hover -->
+              <n-table-cell class="y">●</n-table-cell><!-- active -->
+              <n-table-cell class="a">○</n-table-cell><!-- focus: focusable, no :focus rule -->
+              <n-table-cell class="y">●</n-table-cell><!-- focus-visible -->
+              <n-table-cell class="y">●</n-table-cell><!-- pressed: Pressable trait sets it, CSS :active + [pressed] -->
+              <n-table-cell class="y">●</n-table-cell><!-- disabled -->
+              <n-table-cell class="n">–</n-table-cell><!-- aria-disabled: uses native :disabled -->
+              <n-table-cell class="n">–</n-table-cell><!-- active attr: no coordinator sets it -->
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-input <span class="tag tag-form">form</span></n-table-cell>
+              <n-table-cell class="y">●</n-table-cell><!-- hover -->
+              <n-table-cell class="a">○</n-table-cell><!-- active: focusable, no rule -->
+              <n-table-cell class="y">●</n-table-cell><!-- focus -->
+              <n-table-cell class="a">○</n-table-cell><!-- focus-visible: focusable, no rule -->
+              <n-table-cell class="n">–</n-table-cell><!-- pressed: not Pressable -->
+              <n-table-cell class="a">○</n-table-cell><!-- disabled: attr set by createDisabledEffect, CSS targets aria-disabled -->
+              <n-table-cell class="y">●</n-table-cell><!-- aria-disabled -->
+              <n-table-cell class="n">–</n-table-cell><!-- active attr -->
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-textarea <span class="tag tag-form">form</span></n-table-cell>
+              <n-table-cell class="y">●</n-table-cell><!-- hover -->
+              <n-table-cell class="a">○</n-table-cell><!-- active: focusable, no rule -->
+              <n-table-cell class="y">●</n-table-cell><!-- focus -->
+              <n-table-cell class="a">○</n-table-cell><!-- focus-visible: focusable, no rule -->
+              <n-table-cell class="n">–</n-table-cell><!-- pressed: not Pressable -->
+              <n-table-cell class="a">○</n-table-cell><!-- disabled: attr set by createDisabledEffect, CSS targets aria-disabled -->
+              <n-table-cell class="y">●</n-table-cell><!-- aria-disabled -->
+              <n-table-cell class="n">–</n-table-cell><!-- active attr -->
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-option <span class="sub">(in listbox)</span></n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell colspan="9" class="sub" style="padding-left:calc(var(--n-space) * 8);">↳ n-listbox container supports [aria-disabled] (opacity + pointer-events)</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-command-item <span class="sub">(in command)</span></n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-tab <span class="sub">(in tabs)</span></n-table-cell>
+              <n-table-cell class="y">●</n-table-cell><!-- hover -->
+              <n-table-cell class="a">○</n-table-cell><!-- active: focusable, no rule -->
+              <n-table-cell class="a">○</n-table-cell><!-- focus: focusable, no rule -->
+              <n-table-cell class="y">●</n-table-cell><!-- focus-visible -->
+              <n-table-cell class="y">●</n-table-cell><!-- pressed -->
+              <n-table-cell class="n">–</n-table-cell><!-- disabled -->
+              <n-table-cell class="y">●</n-table-cell><!-- aria-disabled -->
+              <n-table-cell class="n">–</n-table-cell><!-- active attr -->
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-segment <span class="sub">(in segmented)</span></n-table-cell>
+              <n-table-cell class="y">●</n-table-cell><!-- hover -->
+              <n-table-cell class="a">○</n-table-cell><!-- active: focusable, no rule -->
+              <n-table-cell class="a">○</n-table-cell><!-- focus: focusable, no rule -->
+              <n-table-cell class="y">●</n-table-cell><!-- focus-visible -->
+              <n-table-cell class="y">●</n-table-cell><!-- pressed -->
+              <n-table-cell class="n">–</n-table-cell><!-- disabled -->
+              <n-table-cell class="y">●</n-table-cell><!-- aria-disabled -->
+              <n-table-cell class="n">–</n-table-cell><!-- active attr -->
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-breadcrumb-item</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell><!-- hover -->
+              <n-table-cell class="a">○</n-table-cell><!-- active: focusable child -->
+              <n-table-cell class="a">○</n-table-cell><!-- focus: focusable child -->
+              <n-table-cell class="y">●</n-table-cell><!-- focus-visible -->
+              <n-table-cell class="n">–</n-table-cell><!-- pressed: not Pressable -->
+              <n-table-cell class="n">–</n-table-cell><!-- disabled -->
+              <n-table-cell class="n">–</n-table-cell><!-- aria-disabled -->
+              <n-table-cell class="n">–</n-table-cell><!-- active attr -->
+            </n-table-row>
 
             <!-- Widgets -->
-            <tr class="cat-header"><td colspan="9">Widgets (Toggle / Range)</td></tr>
-            <tr>
-              <td>n-checkbox <span class="tag tag-form">form</span></td>
-              <td class="y">●</td><!-- hover -->
-              <td class="a">○</td><!-- active: focusable, no rule -->
-              <td class="a">○</td><!-- focus: focusable, no rule -->
-              <td class="y">●</td><!-- focus-visible -->
-              <td class="y">●</td><!-- pressed -->
-              <td class="n">–</td><!-- disabled: uses aria-disabled -->
-              <td class="y">●</td><!-- aria-disabled -->
-              <td class="n">–</td><!-- active attr -->
-            </tr>
-            <tr>
-              <td>n-radio <span class="tag tag-form">form</span></td>
-              <td class="y">●</td><!-- hover -->
-              <td class="a">○</td><!-- active: focusable, no rule -->
-              <td class="a">○</td><!-- focus: focusable, no rule -->
-              <td class="y">●</td><!-- focus-visible -->
-              <td class="y">●</td><!-- pressed: CSS exists -->
-              <td class="n">–</td><!-- disabled: uses aria-disabled -->
-              <td class="y">●</td><!-- aria-disabled -->
-              <td class="n">–</td><!-- active attr -->
-            </tr>
-            <tr>
-              <td>n-switch <span class="tag tag-form">form</span></td>
-              <td class="y">●</td><!-- hover -->
-              <td class="a">○</td><!-- active: focusable, no rule -->
-              <td class="a">○</td><!-- focus: focusable, no rule -->
-              <td class="y">●</td><!-- focus-visible -->
-              <td class="y">●</td><!-- pressed -->
-              <td class="n">–</td><!-- disabled: uses aria-disabled -->
-              <td class="y">●</td><!-- aria-disabled -->
-              <td class="n">–</td><!-- active attr -->
-            </tr>
-            <tr>
-              <td>n-range <span class="tag tag-form">form</span></td>
-              <td class="y">●</td><!-- hover -->
-              <td class="a">○</td><!-- active: focusable, no rule -->
-              <td class="a">○</td><!-- focus: focusable, no rule -->
-              <td class="y">●</td><!-- focus-visible -->
-              <td class="y">●</td><!-- pressed: CSS + JS -->
-              <td class="n">–</td><!-- disabled: uses aria-disabled -->
-              <td class="y">●</td><!-- aria-disabled -->
-              <td class="n">–</td><!-- active attr -->
-            </tr>
-            <tr>
-              <td>n-input-otp <span class="tag tag-form">form</span></td>
-              <td class="y">●</td><!-- hover -->
-              <td class="a">○</td><!-- active: focusable cells -->
-              <td class="y">●</td><!-- focus -->
-              <td class="a">○</td><!-- focus-visible: focusable, no rule -->
-              <td class="n">–</td><!-- pressed: not Pressable -->
-              <td class="a">○</td><!-- disabled: attr set, CSS uses aria-disabled -->
-              <td class="y">●</td><!-- aria-disabled -->
-              <td class="n">–</td><!-- active attr -->
-            </tr>
+            <n-table-row colspan><n-table-cell>Widgets (Toggle / Range)</n-table-cell></n-table-row>
+            <n-table-row>
+              <n-table-cell>n-checkbox <span class="tag tag-form">form</span></n-table-cell>
+              <n-table-cell class="y">●</n-table-cell><!-- hover -->
+              <n-table-cell class="a">○</n-table-cell><!-- active: focusable, no rule -->
+              <n-table-cell class="a">○</n-table-cell><!-- focus: focusable, no rule -->
+              <n-table-cell class="y">●</n-table-cell><!-- focus-visible -->
+              <n-table-cell class="y">●</n-table-cell><!-- pressed -->
+              <n-table-cell class="n">–</n-table-cell><!-- disabled: uses aria-disabled -->
+              <n-table-cell class="y">●</n-table-cell><!-- aria-disabled -->
+              <n-table-cell class="n">–</n-table-cell><!-- active attr -->
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-radio <span class="tag tag-form">form</span></n-table-cell>
+              <n-table-cell class="y">●</n-table-cell><!-- hover -->
+              <n-table-cell class="a">○</n-table-cell><!-- active: focusable, no rule -->
+              <n-table-cell class="a">○</n-table-cell><!-- focus: focusable, no rule -->
+              <n-table-cell class="y">●</n-table-cell><!-- focus-visible -->
+              <n-table-cell class="y">●</n-table-cell><!-- pressed: CSS exists -->
+              <n-table-cell class="n">–</n-table-cell><!-- disabled: uses aria-disabled -->
+              <n-table-cell class="y">●</n-table-cell><!-- aria-disabled -->
+              <n-table-cell class="n">–</n-table-cell><!-- active attr -->
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-switch <span class="tag tag-form">form</span></n-table-cell>
+              <n-table-cell class="y">●</n-table-cell><!-- hover -->
+              <n-table-cell class="a">○</n-table-cell><!-- active: focusable, no rule -->
+              <n-table-cell class="a">○</n-table-cell><!-- focus: focusable, no rule -->
+              <n-table-cell class="y">●</n-table-cell><!-- focus-visible -->
+              <n-table-cell class="y">●</n-table-cell><!-- pressed -->
+              <n-table-cell class="n">–</n-table-cell><!-- disabled: uses aria-disabled -->
+              <n-table-cell class="y">●</n-table-cell><!-- aria-disabled -->
+              <n-table-cell class="n">–</n-table-cell><!-- active attr -->
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-range <span class="tag tag-form">form</span></n-table-cell>
+              <n-table-cell class="y">●</n-table-cell><!-- hover -->
+              <n-table-cell class="a">○</n-table-cell><!-- active: focusable, no rule -->
+              <n-table-cell class="a">○</n-table-cell><!-- focus: focusable, no rule -->
+              <n-table-cell class="y">●</n-table-cell><!-- focus-visible -->
+              <n-table-cell class="y">●</n-table-cell><!-- pressed: CSS + JS -->
+              <n-table-cell class="n">–</n-table-cell><!-- disabled: uses aria-disabled -->
+              <n-table-cell class="y">●</n-table-cell><!-- aria-disabled -->
+              <n-table-cell class="n">–</n-table-cell><!-- active attr -->
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-input-otp <span class="tag tag-form">form</span></n-table-cell>
+              <n-table-cell class="y">●</n-table-cell><!-- hover -->
+              <n-table-cell class="a">○</n-table-cell><!-- active: focusable cells -->
+              <n-table-cell class="y">●</n-table-cell><!-- focus -->
+              <n-table-cell class="a">○</n-table-cell><!-- focus-visible: focusable, no rule -->
+              <n-table-cell class="n">–</n-table-cell><!-- pressed: not Pressable -->
+              <n-table-cell class="a">○</n-table-cell><!-- disabled: attr set, CSS uses aria-disabled -->
+              <n-table-cell class="y">●</n-table-cell><!-- aria-disabled -->
+              <n-table-cell class="n">–</n-table-cell><!-- active attr -->
+            </n-table-row>
 
             <!-- Complex / Composite -->
-            <tr class="cat-header"><td colspan="9">Composite / Complex</td></tr>
-            <tr>
-              <td>n-calendar <span class="tag tag-form">form</span></td>
-              <td class="y">●</td><!-- hover -->
-              <td class="a">○</td><!-- active: focusable cells -->
-              <td class="a">○</td><!-- focus: focusable, no rule -->
-              <td class="y">●</td><!-- focus-visible -->
-              <td class="n">–</td><!-- pressed: not Pressable -->
-              <td class="y">●</td><!-- disabled -->
-              <td class="y">●</td><!-- aria-disabled -->
-              <td class="n">–</td><!-- active attr -->
-            </tr>
-            <tr>
-              <td>n-table</td>
-              <td class="y">●</td><!-- hover -->
-              <td class="a">○</td><!-- active: focusable rows -->
-              <td class="a">○</td><!-- focus: focusable, no rule -->
-              <td class="y">●</td><!-- focus-visible -->
-              <td class="n">–</td><!-- pressed -->
-              <td class="n">–</td><!-- disabled -->
-              <td class="n">–</td><!-- aria-disabled -->
-              <td class="n">–</td><!-- active attr -->
-            </tr>
-            <tr>
-              <td colspan="9" class="sub" style="padding-left:calc(var(--n-space) * 8);">↳ :hover on body rows, :focus-visible on sortable headers + selectable rows</td>
-            </tr>
-            <tr>
-              <td>n-tree-item <span class="sub">(in tree)</span></td>
-              <td class="y">●</td><!-- hover -->
-              <td class="a">○</td><!-- active: focusable -->
-              <td class="a">○</td><!-- focus: focusable, no rule -->
-              <td class="y">●</td><!-- focus-visible -->
-              <td class="n">–</td><!-- pressed -->
-              <td class="y">●</td><!-- disabled -->
-              <td class="n">–</td><!-- aria-disabled -->
-              <td class="n">–</td><!-- active attr -->
-            </tr>
-            <tr>
-              <td colspan="9" class="sub" style="padding-left:calc(var(--n-space) * 8);">↳ n-tree container supports [aria-disabled] (opacity + pointer-events)</td>
-            </tr>
-            <tr>
-              <td>n-accordion-item</td>
-              <td class="y">●</td><!-- hover -->
-              <td class="a">○</td><!-- active: focusable summary -->
-              <td class="a">○</td><!-- focus: focusable, no rule -->
-              <td class="y">●</td><!-- focus-visible -->
-              <td class="n">–</td><!-- pressed -->
-              <td class="n">–</td><!-- disabled -->
-              <td class="y">●</td><!-- aria-disabled -->
-              <td class="n">–</td><!-- active attr -->
-            </tr>
-            <tr>
-              <td colspan="9" class="sub" style="padding-left:calc(var(--n-space) * 8);">↳ n-accordion container supports [aria-disabled] (opacity + pointer-events)</td>
-            </tr>
-            <tr>
-              <td>n-slideshow</td>
-              <td class="y">●</td><!-- hover -->
-              <td class="a">○</td><!-- active: focusable buttons -->
-              <td class="a">○</td><!-- focus: focusable, no rule -->
-              <td class="y">●</td><!-- focus-visible -->
-              <td class="n">–</td><!-- pressed -->
-              <td class="y">●</td><!-- disabled -->
-              <td class="y">●</td><!-- aria-disabled -->
-              <td class="y">●</td><!-- active attr -->
-            </tr>
+            <n-table-row colspan><n-table-cell>Composite / Complex</n-table-cell></n-table-row>
+            <n-table-row>
+              <n-table-cell>n-calendar <span class="tag tag-form">form</span></n-table-cell>
+              <n-table-cell class="y">●</n-table-cell><!-- hover -->
+              <n-table-cell class="a">○</n-table-cell><!-- active: focusable cells -->
+              <n-table-cell class="a">○</n-table-cell><!-- focus: focusable, no rule -->
+              <n-table-cell class="y">●</n-table-cell><!-- focus-visible -->
+              <n-table-cell class="n">–</n-table-cell><!-- pressed: not Pressable -->
+              <n-table-cell class="y">●</n-table-cell><!-- disabled -->
+              <n-table-cell class="y">●</n-table-cell><!-- aria-disabled -->
+              <n-table-cell class="n">–</n-table-cell><!-- active attr -->
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-table</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell><!-- hover -->
+              <n-table-cell class="a">○</n-table-cell><!-- active: focusable rows -->
+              <n-table-cell class="a">○</n-table-cell><!-- focus: focusable, no rule -->
+              <n-table-cell class="y">●</n-table-cell><!-- focus-visible -->
+              <n-table-cell class="n">–</n-table-cell><!-- pressed -->
+              <n-table-cell class="n">–</n-table-cell><!-- disabled -->
+              <n-table-cell class="n">–</n-table-cell><!-- aria-disabled -->
+              <n-table-cell class="n">–</n-table-cell><!-- active attr -->
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell colspan="9" class="sub" style="padding-left:calc(var(--n-space) * 8);">↳ :hover on body rows, :focus-visible on sortable headers + selectable rows</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-tree-item <span class="sub">(in tree)</span></n-table-cell>
+              <n-table-cell class="y">●</n-table-cell><!-- hover -->
+              <n-table-cell class="a">○</n-table-cell><!-- active: focusable -->
+              <n-table-cell class="a">○</n-table-cell><!-- focus: focusable, no rule -->
+              <n-table-cell class="y">●</n-table-cell><!-- focus-visible -->
+              <n-table-cell class="n">–</n-table-cell><!-- pressed -->
+              <n-table-cell class="y">●</n-table-cell><!-- disabled -->
+              <n-table-cell class="n">–</n-table-cell><!-- aria-disabled -->
+              <n-table-cell class="n">–</n-table-cell><!-- active attr -->
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell colspan="9" class="sub" style="padding-left:calc(var(--n-space) * 8);">↳ n-tree container supports [aria-disabled] (opacity + pointer-events)</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-accordion-item</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell><!-- hover -->
+              <n-table-cell class="a">○</n-table-cell><!-- active: focusable summary -->
+              <n-table-cell class="a">○</n-table-cell><!-- focus: focusable, no rule -->
+              <n-table-cell class="y">●</n-table-cell><!-- focus-visible -->
+              <n-table-cell class="n">–</n-table-cell><!-- pressed -->
+              <n-table-cell class="n">–</n-table-cell><!-- disabled -->
+              <n-table-cell class="y">●</n-table-cell><!-- aria-disabled -->
+              <n-table-cell class="n">–</n-table-cell><!-- active attr -->
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell colspan="9" class="sub" style="padding-left:calc(var(--n-space) * 8);">↳ n-accordion container supports [aria-disabled] (opacity + pointer-events)</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-slideshow</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell><!-- hover -->
+              <n-table-cell class="a">○</n-table-cell><!-- active: focusable buttons -->
+              <n-table-cell class="a">○</n-table-cell><!-- focus: focusable, no rule -->
+              <n-table-cell class="y">●</n-table-cell><!-- focus-visible -->
+              <n-table-cell class="n">–</n-table-cell><!-- pressed -->
+              <n-table-cell class="y">●</n-table-cell><!-- disabled -->
+              <n-table-cell class="y">●</n-table-cell><!-- aria-disabled -->
+              <n-table-cell class="y">●</n-table-cell><!-- active attr -->
+            </n-table-row>
 
             <!-- Coordinators -->
-            <tr class="cat-header"><td colspan="9">Coordinators <span class="tag tag-coord">display: contents</span></td></tr>
-            <tr>
-              <td>n-select <span class="tag tag-coord">coord</span></td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-            </tr>
-            <tr>
-              <td>n-combobox <span class="tag tag-coord">coord</span></td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-            </tr>
-            <tr>
-              <td>n-dialog <span class="tag tag-coord">coord</span></td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-            </tr>
+            <n-table-row colspan><n-table-cell>Coordinators <span class="tag tag-coord">display: contents</span></n-table-cell></n-table-row>
+            <n-table-row>
+              <n-table-cell>n-select <span class="tag tag-coord">coord</span></n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-combobox <span class="tag tag-coord">coord</span></n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-dialog <span class="tag tag-coord">coord</span></n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+            </n-table-row>
 
             <!-- Display -->
-            <tr class="cat-header"><td colspan="9">Display Components</td></tr>
-            <tr>
-              <td>n-avatar <span class="tag tag-display">display</span></td>
-              <td class="a">○</td><!-- hover: visible element -->
-              <td class="n">–</td><!-- active: not focusable -->
-              <td class="n">–</td><!-- focus -->
-              <td class="n">–</td><!-- focus-visible -->
-              <td class="n">–</td><!-- pressed -->
-              <td class="n">–</td><!-- disabled -->
-              <td class="n">–</td><!-- aria-disabled -->
-              <td class="n">–</td><!-- active attr -->
-            </tr>
-            <tr>
-              <td>n-badge <span class="tag tag-display">display</span></td>
-              <td class="a">○</td><!-- hover: visible element -->
-              <td class="n">–</td><!-- active: not focusable -->
-              <td class="n">–</td><!-- focus -->
-              <td class="n">–</td><!-- focus-visible -->
-              <td class="n">–</td><!-- pressed -->
-              <td class="n">–</td><!-- disabled -->
-              <td class="n">–</td><!-- aria-disabled -->
-              <td class="n">–</td><!-- active attr -->
-            </tr>
-            <tr>
-              <td>n-tooltip <span class="tag tag-display">display</span></td>
-              <td class="a">○</td><!-- hover: visible element -->
-              <td class="n">–</td><!-- active: not focusable -->
-              <td class="n">–</td><!-- focus -->
-              <td class="n">–</td><!-- focus-visible -->
-              <td class="n">–</td><!-- pressed -->
-              <td class="n">–</td><!-- disabled -->
-              <td class="n">–</td><!-- aria-disabled -->
-              <td class="n">–</td><!-- active attr -->
-            </tr>
+            <n-table-row colspan><n-table-cell>Display Components</n-table-cell></n-table-row>
+            <n-table-row>
+              <n-table-cell>n-avatar <span class="tag tag-display">display</span></n-table-cell>
+              <n-table-cell class="a">○</n-table-cell><!-- hover: visible element -->
+              <n-table-cell class="n">–</n-table-cell><!-- active: not focusable -->
+              <n-table-cell class="n">–</n-table-cell><!-- focus -->
+              <n-table-cell class="n">–</n-table-cell><!-- focus-visible -->
+              <n-table-cell class="n">–</n-table-cell><!-- pressed -->
+              <n-table-cell class="n">–</n-table-cell><!-- disabled -->
+              <n-table-cell class="n">–</n-table-cell><!-- aria-disabled -->
+              <n-table-cell class="n">–</n-table-cell><!-- active attr -->
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-badge <span class="tag tag-display">display</span></n-table-cell>
+              <n-table-cell class="a">○</n-table-cell><!-- hover: visible element -->
+              <n-table-cell class="n">–</n-table-cell><!-- active: not focusable -->
+              <n-table-cell class="n">–</n-table-cell><!-- focus -->
+              <n-table-cell class="n">–</n-table-cell><!-- focus-visible -->
+              <n-table-cell class="n">–</n-table-cell><!-- pressed -->
+              <n-table-cell class="n">–</n-table-cell><!-- disabled -->
+              <n-table-cell class="n">–</n-table-cell><!-- aria-disabled -->
+              <n-table-cell class="n">–</n-table-cell><!-- active attr -->
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-tooltip <span class="tag tag-display">display</span></n-table-cell>
+              <n-table-cell class="a">○</n-table-cell><!-- hover: visible element -->
+              <n-table-cell class="n">–</n-table-cell><!-- active: not focusable -->
+              <n-table-cell class="n">–</n-table-cell><!-- focus -->
+              <n-table-cell class="n">–</n-table-cell><!-- focus-visible -->
+              <n-table-cell class="n">–</n-table-cell><!-- pressed -->
+              <n-table-cell class="n">–</n-table-cell><!-- disabled -->
+              <n-table-cell class="n">–</n-table-cell><!-- aria-disabled -->
+              <n-table-cell class="n">–</n-table-cell><!-- active attr -->
+            </n-table-row>
 
             <!-- Containers -->
-            <tr class="cat-header"><td colspan="9">Containers</td></tr>
-            <tr>
-              <td>n-card <span class="tag tag-container">container</span></td>
-              <td class="y">●</td><!-- hover -->
-              <td class="a">○</td><!-- active: focusable when [interactive] -->
-              <td class="a">○</td><!-- focus: focusable when [interactive] -->
-              <td class="y">●</td><!-- focus-visible -->
-              <td class="n">–</td><!-- pressed -->
-              <td class="n">–</td><!-- disabled -->
-              <td class="n">–</td><!-- aria-disabled -->
-              <td class="n">–</td><!-- active attr -->
-            </tr>
-            <tr>
-              <td colspan="9" class="sub" style="padding-left:calc(var(--n-space) * 8);">↳ only when [interactive] attribute is set</td>
-            </tr>
-            <tr>
-              <td>n-section <span class="tag tag-container">container</span></td>
-              <td class="a">○</td><!-- hover: visible element -->
-              <td class="n">–</td><!-- active: not focusable -->
-              <td class="n">–</td><!-- focus -->
-              <td class="n">–</td><!-- focus-visible -->
-              <td class="n">–</td><!-- pressed -->
-              <td class="n">–</td><!-- disabled -->
-              <td class="n">–</td><!-- aria-disabled -->
-              <td class="n">–</td><!-- active attr -->
-            </tr>
-            <tr>
-              <td>n-panel <span class="tag tag-container">container</span></td>
-              <td class="a">○</td><!-- hover: visible element -->
-              <td class="n">–</td><!-- active: not focusable -->
-              <td class="n">–</td><!-- focus -->
-              <td class="n">–</td><!-- focus-visible -->
-              <td class="n">–</td><!-- pressed -->
-              <td class="n">–</td><!-- disabled -->
-              <td class="n">–</td><!-- aria-disabled -->
-              <td class="n">–</td><!-- active attr -->
-            </tr>
-          </tbody>
-        </table>
+            <n-table-row colspan><n-table-cell>Containers</n-table-cell></n-table-row>
+            <n-table-row>
+              <n-table-cell>n-card <span class="tag tag-container">container</span></n-table-cell>
+              <n-table-cell class="y">●</n-table-cell><!-- hover -->
+              <n-table-cell class="a">○</n-table-cell><!-- active: focusable when [interactive] -->
+              <n-table-cell class="a">○</n-table-cell><!-- focus: focusable when [interactive] -->
+              <n-table-cell class="y">●</n-table-cell><!-- focus-visible -->
+              <n-table-cell class="n">–</n-table-cell><!-- pressed -->
+              <n-table-cell class="n">–</n-table-cell><!-- disabled -->
+              <n-table-cell class="n">–</n-table-cell><!-- aria-disabled -->
+              <n-table-cell class="n">–</n-table-cell><!-- active attr -->
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell colspan="9" class="sub" style="padding-left:calc(var(--n-space) * 8);">↳ only when [interactive] attribute is set</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-section <span class="tag tag-container">container</span></n-table-cell>
+              <n-table-cell class="a">○</n-table-cell><!-- hover: visible element -->
+              <n-table-cell class="n">–</n-table-cell><!-- active: not focusable -->
+              <n-table-cell class="n">–</n-table-cell><!-- focus -->
+              <n-table-cell class="n">–</n-table-cell><!-- focus-visible -->
+              <n-table-cell class="n">–</n-table-cell><!-- pressed -->
+              <n-table-cell class="n">–</n-table-cell><!-- disabled -->
+              <n-table-cell class="n">–</n-table-cell><!-- aria-disabled -->
+              <n-table-cell class="n">–</n-table-cell><!-- active attr -->
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-panel <span class="tag tag-container">container</span></n-table-cell>
+              <n-table-cell class="a">○</n-table-cell><!-- hover: visible element -->
+              <n-table-cell class="n">–</n-table-cell><!-- active: not focusable -->
+              <n-table-cell class="n">–</n-table-cell><!-- focus -->
+              <n-table-cell class="n">–</n-table-cell><!-- focus-visible -->
+              <n-table-cell class="n">–</n-table-cell><!-- pressed -->
+              <n-table-cell class="n">–</n-table-cell><!-- disabled -->
+              <n-table-cell class="n">–</n-table-cell><!-- aria-disabled -->
+              <n-table-cell class="n">–</n-table-cell><!-- active attr -->
+            </n-table-row>
+          </n-table-body>
+        </n-table>
       </div>
 
       <div class="layout-section">
@@ -434,216 +434,216 @@ const scopedIntentCSS = `/* All controls inside .danger-zone get danger colors *
       <h2>Selection &amp; Value States</h2>
       <!-- ========================================== -->
       <div style="overflow-x: auto;">
-        <table class="matrix">
-          <thead>
-            <tr>
-              <th>Component</th>
-              <th>[aria-selected]</th>
-              <th>[aria-checked]</th>
-              <th>[aria-checked=mixed]</th>
-              <th>[aria-current]</th>
-              <th>[selected]</th>
-              <th>[expanded]</th>
-              <th>[open]</th>
-              <th>[current]</th>
-              <th>:state(empty)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>n-option</td>
-              <td class="y">●</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-            </tr>
-            <tr>
-              <td>n-command-item</td>
-              <td class="a">○</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-            </tr>
-            <tr>
-              <td>n-tab</td>
-              <td class="y">●</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-            </tr>
-            <tr>
-              <td>n-checkbox</td>
-              <td class="n">–</td>
-              <td class="y">●</td>
-              <td class="y">●</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-            </tr>
-            <tr>
-              <td>n-radio</td>
-              <td class="n">–</td>
-              <td class="y">●</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-            </tr>
-            <tr>
-              <td>n-switch</td>
-              <td class="n">–</td>
-              <td class="y">●</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-            </tr>
-            <tr>
-              <td>n-segment</td>
-              <td class="n">–</td>
-              <td class="y">●</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-            </tr>
-            <tr>
-              <td>n-pagination</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="y">●</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-            </tr>
-            <tr>
-              <td>n-table-row</td>
-              <td class="y">●</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="a">○</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-            </tr>
-            <tr>
-              <td>n-tree-item</td>
-              <td class="y">●</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="a">○</td>
-              <td class="y">●</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-            </tr>
-            <tr>
-              <td>n-accordion-item</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="y">●</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-            </tr>
-            <tr>
-              <td>n-dialog</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="y">●</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-            </tr>
-            <tr>
-              <td>n-drawer</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="y">●</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-            </tr>
-            <tr>
-              <td>n-breadcrumb-item</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="a">○</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="y">●</td>
-              <td class="n">–</td>
-            </tr>
-            <tr>
-              <td>n-input</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="y">●</td>
-            </tr>
-            <tr>
-              <td>n-textarea</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="y">●</td>
-            </tr>
-          </tbody>
-        </table>
+        <n-table variant="plain" size="sm" style="grid-template-columns: 10rem repeat(9, 1fr);">
+          <n-table-head>
+            <n-table-row>
+              <n-table-header>Component</n-table-header>
+              <n-table-header>[aria-selected]</n-table-header>
+              <n-table-header>[aria-checked]</n-table-header>
+              <n-table-header>[aria-checked=mixed]</n-table-header>
+              <n-table-header>[aria-current]</n-table-header>
+              <n-table-header>[selected]</n-table-header>
+              <n-table-header>[expanded]</n-table-header>
+              <n-table-header>[open]</n-table-header>
+              <n-table-header>[current]</n-table-header>
+              <n-table-header>:state(empty)</n-table-header>
+            </n-table-row>
+          </n-table-head>
+          <n-table-body>
+            <n-table-row>
+              <n-table-cell>n-option</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-command-item</n-table-cell>
+              <n-table-cell class="a">○</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-tab</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-checkbox</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-radio</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-switch</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-segment</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-pagination</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-table-row</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="a">○</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-tree-item</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="a">○</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-accordion-item</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-dialog</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-drawer</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-breadcrumb-item</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="a">○</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-input</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-textarea</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+            </n-table-row>
+          </n-table-body>
+        </n-table>
       </div>
 
       <div class="layout-section">
@@ -1040,243 +1040,243 @@ const scopedIntentCSS = `/* All controls inside .danger-zone get danger colors *
       <h2>Events</h2>
       <!-- ========================================== -->
       <div style="overflow-x: auto;">
-        <table class="matrix">
-          <thead>
-            <tr>
-              <th>Component</th>
-              <th>native:press</th>
-              <th>native:input</th>
-              <th>native:change</th>
-              <th>native:select</th>
-              <th>native:dismiss</th>
-              <th>close</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>n-button</td>
-              <td class="y">●</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-            </tr>
-            <tr>
-              <td>n-input</td>
-              <td class="n">–</td>
-              <td class="y">●</td>
-              <td class="y">●</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-            </tr>
-            <tr>
-              <td>n-textarea</td>
-              <td class="n">–</td>
-              <td class="y">●</td>
-              <td class="y">●</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-            </tr>
-            <tr>
-              <td>n-listbox</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="y">●</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-            </tr>
-            <tr>
-              <td>n-option</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="y">●</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-            </tr>
-            <tr>
-              <td>n-command</td>
-              <td class="n">–</td>
-              <td class="y">●</td>
-              <td class="n">–</td>
-              <td class="y">●</td>
-              <td class="y">●</td>
-              <td class="n">–</td>
-            </tr>
-            <tr>
-              <td>n-select</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="y">●</td>
-              <td class="n">–</td>
-              <td class="y">●</td>
-              <td class="n">–</td>
-            </tr>
-            <tr>
-              <td>n-combobox</td>
-              <td class="n">–</td>
-              <td class="y">●</td>
-              <td class="y">●</td>
-              <td class="n">–</td>
-              <td class="y">●</td>
-              <td class="n">–</td>
-            </tr>
-            <tr>
-              <td>n-checkbox</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="y">●</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-            </tr>
-            <tr>
-              <td>n-radio-group</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="y">●</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-            </tr>
-            <tr>
-              <td>n-switch</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="y">●</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-            </tr>
-            <tr>
-              <td>n-tabs</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="y">●</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-            </tr>
-            <tr>
-              <td>n-segmented-control</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="y">●</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-            </tr>
-            <tr>
-              <td>n-range</td>
-              <td class="n">–</td>
-              <td class="y">●</td>
-              <td class="y">●</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-            </tr>
-            <tr>
-              <td>n-dialog</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="y">●</td>
-              <td class="y">●</td>
-            </tr>
-            <tr>
-              <td>n-drawer</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="y">●</td>
-              <td class="y">●</td>
-            </tr>
-            <tr>
-              <td>n-accordion</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-            </tr>
-            <tr>
-              <td>n-tree</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="y">●</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-            </tr>
-            <tr>
-              <td>n-calendar</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="y">●</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-            </tr>
-            <tr>
-              <td colspan="7" class="sub" style="padding-left:calc(var(--n-space) * 8);">↳ also emits <code>native:range-select</code> when <code>[range]</code> with <code set:html={rangeSelectDetail} /></td>
-            </tr>
-            <tr>
-              <td>n-table</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="y">●</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-            </tr>
-            <tr>
-              <td>n-pagination</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="y">●</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-            </tr>
-            <tr>
-              <td>n-breadcrumb</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-            </tr>
-            <tr>
-              <td>n-input-otp</td>
-              <td class="n">–</td>
-              <td class="y">●</td>
-              <td class="y">●</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-            </tr>
-            <tr>
-              <td>n-slideshow</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-              <td class="n">–</td>
-            </tr>
-            <tr>
-              <td colspan="7" class="sub" style="padding-left:calc(var(--n-space) * 8);">↳ emits <code>native:slide-change</code> (not <code>native:change</code>) with <code set:html={slideChangeDetail} /></td>
-            </tr>
-          </tbody>
-        </table>
+        <n-table variant="plain" size="sm" style="grid-template-columns: 10rem repeat(6, 1fr);">
+          <n-table-head>
+            <n-table-row>
+              <n-table-header>Component</n-table-header>
+              <n-table-header>native:press</n-table-header>
+              <n-table-header>native:input</n-table-header>
+              <n-table-header>native:change</n-table-header>
+              <n-table-header>native:select</n-table-header>
+              <n-table-header>native:dismiss</n-table-header>
+              <n-table-header>close</n-table-header>
+            </n-table-row>
+          </n-table-head>
+          <n-table-body>
+            <n-table-row>
+              <n-table-cell>n-button</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-input</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-textarea</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-listbox</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-option</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-command</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-select</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-combobox</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-checkbox</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-radio-group</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-switch</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-tabs</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-segmented-control</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-range</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-dialog</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-drawer</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-accordion</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-tree</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-calendar</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell colspan="7" class="sub" style="padding-left:calc(var(--n-space) * 8);">↳ also emits <code>native:range-select</code> when <code>[range]</code> with <code set:html={rangeSelectDetail} /></n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-table</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-pagination</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-breadcrumb</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-input-otp</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-slideshow</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell colspan="7" class="sub" style="padding-left:calc(var(--n-space) * 8);">↳ emits <code>native:slide-change</code> (not <code>native:change</code>) with <code set:html={slideChangeDetail} /></n-table-cell>
+            </n-table-row>
+          </n-table-body>
+        </n-table>
       </div>
 
       <div class="layout-section">
@@ -1638,57 +1638,8 @@ const scopedIntentCSS = `/* All controls inside .danger-zone get danger colors *
 
 
     /* --- Matrix tables --- */
-    .matrix {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.75rem;
-      line-height: 1.4;
-      table-layout: auto;
-    }
-
-    .matrix th,
-    .matrix td {
-      padding: var(--n-space) calc(var(--n-space) * 2);
-      text-align: center;
-      border-bottom: 1px solid var(--n-border-muted-neutral);
-    }
-
-    .matrix th {
-      font-weight: 600;
-      color: var(--n-ink-muted-neutral);
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      font-size: 0.625rem;
-      position: sticky;
-      top: 0;
-      background: var(--n-doc-neutral);
-      z-index: 1;
-    }
-
-    .matrix th:first-child,
-    .matrix td:first-child {
-      text-align: left;
-      font-weight: 600;
-      white-space: nowrap;
-      position: sticky;
-      left: 0;
-      background: var(--n-doc-neutral);
-      z-index: 2;
-      padding-right: calc(var(--n-space) * 4);
-    }
 
     /* header corner cell */
-    .matrix thead th:first-child {
-      z-index: 3;
-    }
-
-    .matrix tbody tr:hover td {
-      background: var(--n-panel-neutral);
-    }
-
-    .matrix tbody tr:hover td:first-child {
-      background: var(--n-panel-neutral);
-    }
 
     /* Check / dash marks */
     .y {
@@ -1735,16 +1686,6 @@ const scopedIntentCSS = `/* All controls inside .danger-zone get danger colors *
     }
 
     /* Category headers inside table */
-    .matrix .cat-header td {
-      font-weight: 700;
-      font-size: 0.6875rem;
-      color: var(--n-ink-muted-neutral);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      padding-top: calc(var(--n-space) * 4);
-      border-bottom: 2px solid var(--n-border-neutral);
-      background: var(--n-doc-neutral) !important;
-    }
 
     /* Sub-element notes */
     .sub {

@@ -124,69 +124,60 @@ const detailText = `{ text }`;
     <!-- ── API Reference ── -->
 
     <h2>API</h2>
-
-    <div class="api-section">
       <h3>Provider Usage</h3>
-      <table class="api-table">
-        <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>droppable-accept</code></td>
-            <td><code>string</code></td>
-            <td><code>'*'</code></td>
-            <td>MIME type filter (e.g. <code>'image/*'</code>, <code>'application/pdf'</code>). Uses wildcard matching.</td>
-          </tr>
-          <tr>
-            <td><code>droppable-disabled</code></td>
-            <td><code>boolean</code></td>
-            <td><code>false</code></td>
-            <td>Disables drop zone when true.</td>
-          </tr>
-          <tr>
-            <td><code>droppable-multiple</code></td>
-            <td><code>boolean</code></td>
-            <td><code>true</code></td>
-            <td>When <code>"false"</code>, only the first file from a multi-file drop is accepted.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="api-section">
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Type</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>droppable-accept</code></n-table-cell>
+            <n-table-cell><code>string</code></n-table-cell>
+            <n-table-cell><code>'*'</code></n-table-cell>
+            <n-table-cell>MIME type filter (e.g. <code>'image/*'</code>, <code>'application/pdf'</code>). Uses wildcard matching.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>droppable-disabled</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>false</code></n-table-cell>
+            <n-table-cell>Disables drop zone when true.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>droppable-multiple</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>true</code></n-table-cell>
+            <n-table-cell>When <code>"false"</code>, only the first file from a multi-file drop is accepted.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
       <h3>Events</h3>
-      <table class="api-table">
-        <thead><tr><th>Event</th><th>Detail</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>native:file-drop</code></td>
-            <td><code set:html={detailFilesDataTransfer} /></td>
-            <td>Fired when files are dropped. <code>files</code> is an array of <code>File</code> objects.</td>
-          </tr>
-          <tr>
-            <td><code>native:text-drop</code></td>
-            <td><code set:html={detailText} /></td>
-            <td>Fired when plain text is dropped (no files in the transfer).</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="api-section">
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Event</n-table-header><n-table-header>Detail</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>native:file-drop</code></n-table-cell>
+            <n-table-cell><code set:html={detailFilesDataTransfer} /></n-table-cell>
+            <n-table-cell>Fired when files are dropped. <code>files</code> is an array of <code>File</code> objects.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>native:text-drop</code></n-table-cell>
+            <n-table-cell><code set:html={detailText} /></n-table-cell>
+            <n-table-cell>Fired when plain text is dropped (no files in the transfer).</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
       <h3>CSS</h3>
-      <table class="api-table">
-        <thead><tr><th>Selector</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>[drop-active]</code></td>
-            <td>Present when a valid item is being dragged over the zone.</td>
-          </tr>
-          <tr>
-            <td><code>[drop-invalid]</code></td>
-            <td>Present when a dragged item does not match <code>droppable-accept</code>.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Selector</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>[drop-active]</code></n-table-cell>
+            <n-table-cell>Present when a valid item is being dragged over the zone.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>[drop-invalid]</code></n-table-cell>
+            <n-table-cell>Present when a dragged item does not match <code>droppable-accept</code>.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
   </main>
 
   <script>
@@ -349,44 +340,6 @@ document.addEventListener('astro:page-load', () => {
     }
 
     /* ── Code Blocks ── */
-
-    /* ── API Reference ── */
-
-    .api-section {
-      margin-bottom: 1.5rem;
-    }
-
-    .api-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.8125rem;
-    }
-
-    .api-table th {
-      text-align: left;
-      font-weight: 600;
-      padding: 0.5rem 0.75rem;
-      border-bottom: 2px solid var(--n-border-muted-neutral);
-      color: var(--n-ink-strong-neutral);
-    }
-
-    .api-table td {
-      padding: 0.5rem 0.75rem;
-      border-bottom: 1px solid var(--n-border-muted-neutral);
-      vertical-align: top;
-    }
-
-    .api-table code {
-      font-family: ui-monospace, monospace;
-      font-size: 0.75rem;
-      background: var(--n-panel-neutral);
-      padding: 0.0625rem 0.3125rem;
-      border-radius: 0.1875rem;
-    }
-
-    .api-table td:first-child code {
-      white-space: nowrap;
-    }
 </style>
 
 </SidebarLayout>

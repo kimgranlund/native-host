@@ -88,58 +88,49 @@ popover.syncPopover(open.value);`,
     <!-- ── API Reference ── -->
 
     <h2>API</h2>
-
-    <div class="api-section">
       <h3>Methods</h3>
-      <table class="api-table">
-        <thead><tr><th>Method</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>wirePopover(anchor, popover)</code></td>
-            <td>Sets up CSS <code>anchor-name</code> / <code>position-anchor</code> styles between the anchor and popover elements.</td>
-          </tr>
-          <tr>
-            <td><code>syncPopover(open)</code></td>
-            <td>Call in an effect. Shows (<code>showPopover()</code>) or hides (<code>hidePopover()</code>) the popover based on the boolean <code>open</code> state. Also manages the dismiss layer.</td>
-          </tr>
-          <tr>
-            <td><code>destroy()</code></td>
-            <td>Cleans up the dismiss layer and styles.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="api-section">
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Method</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>wirePopover(anchor, popover)</code></n-table-cell>
+            <n-table-cell>Sets up CSS <code>anchor-name</code> / <code>position-anchor</code> styles between the anchor and popover elements.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>syncPopover(open)</code></n-table-cell>
+            <n-table-cell>Call in an effect. Shows (<code>showPopover()</code>) or hides (<code>hidePopover()</code>) the popover based on the boolean <code>open</code> state. Also manages the dismiss layer.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>destroy()</code></n-table-cell>
+            <n-table-cell>Cleans up the dismiss layer and styles.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
       <h3>Events</h3>
-      <table class="api-table">
-        <thead><tr><th>Event</th><th>Detail</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>native:dismiss</code></td>
-            <td>—</td>
-            <td>Inherited from Dismissable. Fired when click-outside or Escape occurs while the popover is the topmost layer.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="api-section">
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Event</n-table-header><n-table-header>Detail</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>native:dismiss</code></n-table-cell>
+            <n-table-cell>—</n-table-cell>
+            <n-table-cell>Inherited from Dismissable. Fired when click-outside or Escape occurs while the popover is the topmost layer.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
       <h3>CSS Pattern</h3>
-      <table class="api-table">
-        <thead><tr><th>Selector</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>[popover]:not(:popover-open)</code></td>
-            <td>Must set <code>display: none</code> to prevent author-layer display from overriding UA hide.</td>
-          </tr>
-          <tr>
-            <td><code>position-area: block-end</code></td>
-            <td>Anchors the popover below the trigger. Use <code>position-try-fallbacks: flip-block</code> for viewport clipping.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Selector</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>[popover]:not(:popover-open)</code></n-table-cell>
+            <n-table-cell>Must set <code>display: none</code> to prevent author-layer display from overriding UA hide.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>position-area: block-end</code></n-table-cell>
+            <n-table-cell>Anchors the popover below the trigger. Use <code>position-try-fallbacks: flip-block</code> for viewport clipping.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
   </main>
 
   <script>
@@ -204,47 +195,6 @@ popover.syncPopover(open.value);`,
     }
 
     /* ── Code Blocks ── */
-
-
-
-
-    /* ── API Reference ── */
-
-    .api-section {
-      margin-bottom: 1.5rem;
-    }
-
-    .api-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.8125rem;
-    }
-
-    .api-table th {
-      text-align: left;
-      font-weight: 600;
-      padding: 0.5rem 0.75rem;
-      border-bottom: 2px solid var(--n-border-muted-neutral);
-      color: var(--n-ink-strong-neutral);
-    }
-
-    .api-table td {
-      padding: 0.5rem 0.75rem;
-      border-bottom: 1px solid var(--n-border-muted-neutral);
-      vertical-align: top;
-    }
-
-    .api-table code {
-      font-family: ui-monospace, monospace;
-      font-size: 0.75rem;
-      background: var(--n-panel-neutral);
-      padding: 0.0625rem 0.3125rem;
-      border-radius: 0.1875rem;
-    }
-
-    .api-table td:first-child code {
-      white-space: nowrap;
-    }
 </style>
 
 </SidebarLayout>

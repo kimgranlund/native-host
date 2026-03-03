@@ -108,123 +108,108 @@ const detailValuePrev = `{ value, previousValue }`;
     <!-- ── API Reference ── -->
 
     <h2>API</h2>
-
-    <div class="api-section">
       <h3>Adapter Options (<code>editable-*</code>)</h3>
-      <table class="api-table">
-        <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>editable-trigger</code></td>
-            <td><code>'click' | 'dblclick'</code></td>
-            <td><code>'dblclick'</code></td>
-            <td>Which event activates editing mode.</td>
-          </tr>
-          <tr>
-            <td><code>editable-disabled</code></td>
-            <td><code>boolean</code></td>
-            <td><code>false</code></td>
-            <td>Disables editing when true.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="api-section">
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Type</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>editable-trigger</code></n-table-cell>
+            <n-table-cell><code>'click' | 'dblclick'</code></n-table-cell>
+            <n-table-cell><code>'dblclick'</code></n-table-cell>
+            <n-table-cell>Which event activates editing mode.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>editable-disabled</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>false</code></n-table-cell>
+            <n-table-cell>Disables editing when true.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
       <h3>Controller Methods</h3>
-      <table class="api-table">
-        <thead><tr><th>Method</th><th>Returns</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>startEdit()</code></td>
-            <td>—</td>
-            <td>Programmatically enter editing mode. Sets <code>contenteditable</code> and <code>[editing]</code>.</td>
-          </tr>
-          <tr>
-            <td><code>commitEdit()</code></td>
-            <td><code>string</code></td>
-            <td>Commit the current value. Removes editing state and dispatches <code>native:edit-commit</code>.</td>
-          </tr>
-          <tr>
-            <td><code>cancelEdit()</code></td>
-            <td>—</td>
-            <td>Restore the original value. Removes editing state and dispatches <code>native:edit-cancel</code>.</td>
-          </tr>
-          <tr>
-            <td><code>destroy()</code></td>
-            <td>—</td>
-            <td>Cancel any active edit, detach all listeners, and clean up.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="api-section">
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Method</n-table-header><n-table-header>Returns</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>startEdit()</code></n-table-cell>
+            <n-table-cell>—</n-table-cell>
+            <n-table-cell>Programmatically enter editing mode. Sets <code>contenteditable</code> and <code>[editing]</code>.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>commitEdit()</code></n-table-cell>
+            <n-table-cell><code>string</code></n-table-cell>
+            <n-table-cell>Commit the current value. Removes editing state and dispatches <code>native:edit-commit</code>.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>cancelEdit()</code></n-table-cell>
+            <n-table-cell>—</n-table-cell>
+            <n-table-cell>Restore the original value. Removes editing state and dispatches <code>native:edit-cancel</code>.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>destroy()</code></n-table-cell>
+            <n-table-cell>—</n-table-cell>
+            <n-table-cell>Cancel any active edit, detach all listeners, and clean up.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
       <h3>Controller Properties</h3>
-      <table class="api-table">
-        <thead><tr><th>Property</th><th>Type</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>isEditing</code></td>
-            <td><code>boolean</code></td>
-            <td>Whether the element is currently in editing mode.</td>
-          </tr>
-          <tr>
-            <td><code>originalValue</code></td>
-            <td><code>string</code></td>
-            <td>The text content captured when editing started.</td>
-          </tr>
-          <tr>
-            <td><code>currentValue</code></td>
-            <td><code>string</code></td>
-            <td>The current text content of the host element.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="api-section">
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Property</n-table-header><n-table-header>Type</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>isEditing</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell>Whether the element is currently in editing mode.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>originalValue</code></n-table-cell>
+            <n-table-cell><code>string</code></n-table-cell>
+            <n-table-cell>The text content captured when editing started.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>currentValue</code></n-table-cell>
+            <n-table-cell><code>string</code></n-table-cell>
+            <n-table-cell>The current text content of the host element.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
       <h3>Events</h3>
-      <table class="api-table">
-        <thead><tr><th>Event</th><th>Detail</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>native:edit-start</code></td>
-            <td><code set:html={detailValue} /></td>
-            <td>Fired when editing begins. <code>value</code> is the original text.</td>
-          </tr>
-          <tr>
-            <td><code>native:edit-commit</code></td>
-            <td><code set:html={detailValuePrev} /></td>
-            <td>Fired when Enter is pressed or the element blurs. <code>value</code> is the new text.</td>
-          </tr>
-          <tr>
-            <td><code>native:edit-cancel</code></td>
-            <td><code set:html={detailValue} /></td>
-            <td>Fired when Escape is pressed. Text is restored to <code>value</code> (original).</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="api-section">
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Event</n-table-header><n-table-header>Detail</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>native:edit-start</code></n-table-cell>
+            <n-table-cell><code set:html={detailValue} /></n-table-cell>
+            <n-table-cell>Fired when editing begins. <code>value</code> is the original text.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>native:edit-commit</code></n-table-cell>
+            <n-table-cell><code set:html={detailValuePrev} /></n-table-cell>
+            <n-table-cell>Fired when Enter is pressed or the element blurs. <code>value</code> is the new text.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>native:edit-cancel</code></n-table-cell>
+            <n-table-cell><code set:html={detailValue} /></n-table-cell>
+            <n-table-cell>Fired when Escape is pressed. Text is restored to <code>value</code> (original).</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
       <h3>CSS Attributes</h3>
-      <table class="api-table">
-        <thead><tr><th>Attribute</th><th>Set on</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>[editing]</code></td>
-            <td>Host element</td>
-            <td>Present while the element is in editing mode. Use for focus/highlight styling.</td>
-          </tr>
-          <tr>
-            <td><code>[contenteditable="plaintext-only"]</code></td>
-            <td>Host element</td>
-            <td>Set automatically when editing starts. Restricts input to plain text.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Set on</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>[editing]</code></n-table-cell>
+            <n-table-cell>Host element</n-table-cell>
+            <n-table-cell>Present while the element is in editing mode. Use for focus/highlight styling.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>[contenteditable="plaintext-only"]</code></n-table-cell>
+            <n-table-cell>Host element</n-table-cell>
+            <n-table-cell>Set automatically when editing starts. Restricts input to plain text.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
   </main>
 
   <script>
@@ -349,44 +334,6 @@ document.addEventListener('astro:page-load', () => {
     .pattern-badge.provider {
       background: var(--n-surface-info);
       color: var(--n-surface-ink-info);
-    }
-
-    /* ── API Reference ── */
-
-    .api-section {
-      margin-bottom: 1.5rem;
-    }
-
-    .api-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.8125rem;
-    }
-
-    .api-table th {
-      text-align: left;
-      font-weight: 600;
-      padding: 0.5rem 0.75rem;
-      border-bottom: 2px solid var(--n-border-muted-neutral);
-      color: var(--n-ink-strong-neutral);
-    }
-
-    .api-table td {
-      padding: 0.5rem 0.75rem;
-      border-bottom: 1px solid var(--n-border-muted-neutral);
-      vertical-align: top;
-    }
-
-    .api-table code {
-      font-family: ui-monospace, monospace;
-      font-size: 0.75rem;
-      background: var(--n-panel-neutral);
-      padding: 0.0625rem 0.3125rem;
-      border-radius: 0.1875rem;
-    }
-
-    .api-table td:first-child code {
-      white-space: nowrap;
     }
 </style>
 

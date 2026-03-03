@@ -162,117 +162,102 @@ const detailQueryMatchTotal = `{ query, matchCount, total }`;
     <!-- ── API Reference ── -->
 
     <h2>API</h2>
-
-    <div class="api-section">
       <h3>Constructor Options</h3>
-      <table class="api-table">
-        <thead><tr><th>Option</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>selector</code></td>
-            <td><code>string</code></td>
-            <td>—</td>
-            <td>CSS selector for searchable items within the host. Required.</td>
-          </tr>
-          <tr>
-            <td><code>textField</code></td>
-            <td><code>string</code></td>
-            <td><code>'textContent'</code></td>
-            <td>Property or attribute name to match against. Use <code>'textContent'</code> or a data attribute name.</td>
-          </tr>
-          <tr>
-            <td><code>disabled</code></td>
-            <td><code>boolean</code></td>
-            <td><code>false</code></td>
-            <td>Disables filtering when true. All items remain visible.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="api-section">
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Option</n-table-header><n-table-header>Type</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>selector</code></n-table-cell>
+            <n-table-cell><code>string</code></n-table-cell>
+            <n-table-cell>—</n-table-cell>
+            <n-table-cell>CSS selector for searchable items within the host. Required.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>textField</code></n-table-cell>
+            <n-table-cell><code>string</code></n-table-cell>
+            <n-table-cell><code>'textContent'</code></n-table-cell>
+            <n-table-cell>Property or attribute name to match against. Use <code>'textContent'</code> or a data attribute name.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>disabled</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>false</code></n-table-cell>
+            <n-table-cell>Disables filtering when true. All items remain visible.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
       <h3>Controller Methods</h3>
-      <table class="api-table">
-        <thead><tr><th>Method</th><th>Returns</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>filter(query)</code></td>
-            <td><code set:html={detailMatchesHiddenTotal} /></td>
-            <td>Filter items by query. Sets <code>[search-hidden]</code> and <code>[search-match]</code> attributes.</td>
-          </tr>
-          <tr>
-            <td><code>clear()</code></td>
-            <td>—</td>
-            <td>Remove all search attributes and reset the query.</td>
-          </tr>
-          <tr>
-            <td><code>static highlight(text, query)</code></td>
-            <td><code>string</code></td>
-            <td>Wrap matching substrings in <code>&lt;mark&gt;</code> tags. Returns HTML string.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="api-section">
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Method</n-table-header><n-table-header>Returns</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>filter(query)</code></n-table-cell>
+            <n-table-cell><code set:html={detailMatchesHiddenTotal} /></n-table-cell>
+            <n-table-cell>Filter items by query. Sets <code>[search-hidden]</code> and <code>[search-match]</code> attributes.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>clear()</code></n-table-cell>
+            <n-table-cell>—</n-table-cell>
+            <n-table-cell>Remove all search attributes and reset the query.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>static highlight(text, query)</code></n-table-cell>
+            <n-table-cell><code>string</code></n-table-cell>
+            <n-table-cell>Wrap matching substrings in <code>&lt;mark&gt;</code> tags. Returns HTML string.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
       <h3>Events</h3>
-      <table class="api-table">
-        <thead><tr><th>Event</th><th>Detail</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>native:search</code></td>
-            <td><code set:html={detailQueryMatchTotal} /></td>
-            <td>Fired after filtering. <code>matchCount</code> is the number of visible items.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="api-section">
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Event</n-table-header><n-table-header>Detail</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>native:search</code></n-table-cell>
+            <n-table-cell><code set:html={detailQueryMatchTotal} /></n-table-cell>
+            <n-table-cell>Fired after filtering. <code>matchCount</code> is the number of visible items.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
       <h3>CSS Attributes</h3>
-      <table class="api-table">
-        <thead><tr><th>Attribute</th><th>Set on</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>[search-hidden]</code></td>
-            <td>Non-matching items</td>
-            <td>Present on items that do not match the query. Style with <code>display: none</code>.</td>
-          </tr>
-          <tr>
-            <td><code>[search-match]</code></td>
-            <td>Matching items</td>
-            <td>Present on items that match the current query.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="api-section">
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Set on</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>[search-hidden]</code></n-table-cell>
+            <n-table-cell>Non-matching items</n-table-cell>
+            <n-table-cell>Present on items that do not match the query. Style with <code>display: none</code>.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>[search-match]</code></n-table-cell>
+            <n-table-cell>Matching items</n-table-cell>
+            <n-table-cell>Present on items that match the current query.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
       <h3>Provider Usage (<code>&lt;n-controller traits="searchable"&gt;</code>)</h3>
-      <table class="api-table">
-        <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>searchable-selector</code></td>
-            <td><code>string</code></td>
-            <td>—</td>
-            <td>CSS selector for searchable items. Required.</td>
-          </tr>
-          <tr>
-            <td><code>searchable-text-field</code></td>
-            <td><code>string</code></td>
-            <td><code>'textContent'</code></td>
-            <td>Property or attribute to match against.</td>
-          </tr>
-          <tr>
-            <td><code>searchable-disabled</code></td>
-            <td><code>boolean</code></td>
-            <td><code>false</code></td>
-            <td>Disables filtering.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Type</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>searchable-selector</code></n-table-cell>
+            <n-table-cell><code>string</code></n-table-cell>
+            <n-table-cell>—</n-table-cell>
+            <n-table-cell>CSS selector for searchable items. Required.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>searchable-text-field</code></n-table-cell>
+            <n-table-cell><code>string</code></n-table-cell>
+            <n-table-cell><code>'textContent'</code></n-table-cell>
+            <n-table-cell>Property or attribute to match against.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>searchable-disabled</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>false</code></n-table-cell>
+            <n-table-cell>Disables filtering.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
   </main>
 
   <script>
@@ -400,44 +385,6 @@ document.addEventListener('astro:page-load', () => {
     }
 
     /* ── Code Blocks ── */
-
-    /* ── API Reference ── */
-
-    .api-section {
-      margin-bottom: 1.5rem;
-    }
-
-    .api-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.8125rem;
-    }
-
-    .api-table th {
-      text-align: left;
-      font-weight: 600;
-      padding: 0.5rem 0.75rem;
-      border-bottom: 2px solid var(--n-border-muted-neutral);
-      color: var(--n-ink-strong-neutral);
-    }
-
-    .api-table td {
-      padding: 0.5rem 0.75rem;
-      border-bottom: 1px solid var(--n-border-muted-neutral);
-      vertical-align: top;
-    }
-
-    .api-table code {
-      font-family: ui-monospace, monospace;
-      font-size: 0.75rem;
-      background: var(--n-panel-neutral);
-      padding: 0.0625rem 0.3125rem;
-      border-radius: 0.1875rem;
-    }
-
-    .api-table td:first-child code {
-      white-space: nowrap;
-    }
 </style>
 
 </SidebarLayout>

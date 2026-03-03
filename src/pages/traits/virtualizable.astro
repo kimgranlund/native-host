@@ -117,89 +117,77 @@ host.addEventListener('native:virtual-change', (e) =&gt; {
     <!-- ── API Reference ── -->
 
     <h2>API</h2>
-
-    <div class="api-section">
       <h3>Constructor Options</h3>
-      <table class="api-table">
-        <thead><tr><th>Option</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>itemHeight</code></td>
-            <td><code>number</code></td>
-            <td><code>40</code></td>
-            <td>Fixed height (in pixels) of each virtual row. Used to calculate total scroll height and visible range.</td>
-          </tr>
-          <tr>
-            <td><code>overscan</code></td>
-            <td><code>number</code></td>
-            <td><code>5</code></td>
-            <td>Number of extra rows to render above and below the visible viewport for smoother scrolling.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="api-section">
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Option</n-table-header><n-table-header>Type</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>itemHeight</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell><code>40</code></n-table-cell>
+            <n-table-cell>Fixed height (in pixels) of each virtual row. Used to calculate total scroll height and visible range.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>overscan</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell><code>5</code></n-table-cell>
+            <n-table-cell>Number of extra rows to render above and below the visible viewport for smoother scrolling.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
       <h3>Methods</h3>
-      <table class="api-table">
-        <thead><tr><th>Method</th><th>Returns</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>enable(scrollEl, container, totalCount)</code></td>
-            <td><code>void</code></td>
-            <td>Starts virtualization. <code>scrollEl</code> is the scrollable viewport, <code>container</code> is the content wrapper, <code>totalCount</code> is the total number of items. Creates top/bottom spacer elements and attaches the scroll listener.</td>
-          </tr>
-          <tr>
-            <td><code>disable()</code></td>
-            <td><code>void</code></td>
-            <td>Stops virtualization and removes the scroll listener. Spacers remain in the DOM.</td>
-          </tr>
-          <tr>
-            <td><code>updateCount(count)</code></td>
-            <td><code>void</code></td>
-            <td>Updates the total item count and recalculates the visible range. Use when items are added or removed.</td>
-          </tr>
-          <tr>
-            <td><code>destroy()</code></td>
-            <td><code>void</code></td>
-            <td>Fully tears down the controller: removes scroll listener and spacer elements.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="api-section">
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Method</n-table-header><n-table-header>Returns</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>enable(scrollEl, container, totalCount)</code></n-table-cell>
+            <n-table-cell><code>void</code></n-table-cell>
+            <n-table-cell>Starts virtualization. <code>scrollEl</code> is the scrollable viewport, <code>container</code> is the content wrapper, <code>totalCount</code> is the total number of items. Creates top/bottom spacer elements and attaches the scroll listener.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>disable()</code></n-table-cell>
+            <n-table-cell><code>void</code></n-table-cell>
+            <n-table-cell>Stops virtualization and removes the scroll listener. Spacers remain in the DOM.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>updateCount(count)</code></n-table-cell>
+            <n-table-cell><code>void</code></n-table-cell>
+            <n-table-cell>Updates the total item count and recalculates the visible range. Use when items are added or removed.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>destroy()</code></n-table-cell>
+            <n-table-cell><code>void</code></n-table-cell>
+            <n-table-cell>Fully tears down the controller: removes scroll listener and spacer elements.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
       <h3>Events</h3>
-      <table class="api-table">
-        <thead><tr><th>Event</th><th>Detail</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>native:virtual-change</code></td>
-            <td><code set:html={virtualChangeDetail} /></td>
-            <td>Dispatched on the host element when the visible range changes. <code>start</code> is the first visible index, <code>end</code> is one past the last visible index. Render rows for indices <code>[start, end)</code>.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="api-section">
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Event</n-table-header><n-table-header>Detail</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>native:virtual-change</code></n-table-cell>
+            <n-table-cell><code set:html={virtualChangeDetail} /></n-table-cell>
+            <n-table-cell>Dispatched on the host element when the visible range changes. <code>start</code> is the first visible index, <code>end</code> is one past the last visible index. Render rows for indices <code>[start, end)</code>.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
       <h3>Properties</h3>
-      <table class="api-table">
-        <thead><tr><th>Property</th><th>Type</th><th>Description</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>start</code></td>
-            <td><code>number</code></td>
-            <td>Current start index of the visible range (inclusive). Read-only.</td>
-          </tr>
-          <tr>
-            <td><code>end</code></td>
-            <td><code>number</code></td>
-            <td>Current end index of the visible range (exclusive). Read-only.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto 1fr;">
+        <n-table-head><n-table-row><n-table-header>Property</n-table-header><n-table-header>Type</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>start</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell>Current start index of the visible range (inclusive). Read-only.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>end</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell>Current end index of the visible range (exclusive). Read-only.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
   </main>
 
   <script>
@@ -365,47 +353,6 @@ document.addEventListener('astro:page-load', () => {
     }
 
     /* ── Code Blocks ── */
-
-
-
-
-    /* ── API Reference ── */
-
-    .api-section {
-      margin-bottom: 1.5rem;
-    }
-
-    .api-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.8125rem;
-    }
-
-    .api-table th {
-      text-align: left;
-      font-weight: 600;
-      padding: 0.5rem 0.75rem;
-      border-bottom: 2px solid var(--n-border-muted-neutral);
-      color: var(--n-ink-strong-neutral);
-    }
-
-    .api-table td {
-      padding: 0.5rem 0.75rem;
-      border-bottom: 1px solid var(--n-border-muted-neutral);
-      vertical-align: top;
-    }
-
-    .api-table code {
-      font-family: ui-monospace, monospace;
-      font-size: 0.75rem;
-      background: var(--n-panel-neutral);
-      padding: 0.0625rem 0.3125rem;
-      border-radius: 0.1875rem;
-    }
-
-    .api-table td:first-child code {
-      white-space: nowrap;
-    }
 </style>
 
 </SidebarLayout>
