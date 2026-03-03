@@ -25,7 +25,8 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
     <n-controller traits="draggable"
       draggable-selector=".kanban-card"
-      draggable-axis="both"
+      draggable-zone-selector=".kanban-column-body"
+      draggable-axis="vertical"
       draggable-mode="slot">
 
       <div class="board" id="kanban-board">
@@ -185,8 +186,6 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       const board = document.getElementById('kanban-board');
       if (!board) return;
       const filterInput = document.querySelector('.kanban-filter') as HTMLInputElement;
-      let lastPointerX = 0;
-      let lastPointerY = 0;
 
       // Filter cards by title text
       filterInput?.addEventListener('input', () => {
@@ -208,61 +207,16 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         });
       }
 
-      function findClosestColumn(x: number) {
-        const columns = board.querySelectorAll('.kanban-column-body');
-        let closest: Element | null = null;
-        let closestDist = Infinity;
-        for (const col of columns) {
-          const rect = col.getBoundingClientRect();
-          const dist = Math.abs(rect.left + rect.width / 2 - x);
-          if (dist < closestDist) {
-            closestDist = dist;
-            closest = col;
-          }
-        }
-        return closest;
-      }
-
-      function clearHighlights() {
-        board.querySelectorAll('[drag-target]').forEach((el) => el.removeAttribute('drag-target'));
-      }
-
-      // Track pointer and highlight target column
-      board.addEventListener('native:drag-move', ((e: CustomEvent) => {
-        const { x, y } = e.detail;
-        lastPointerX = x;
-        lastPointerY = y;
-        clearHighlights();
-        const target = findClosestColumn(x);
-        if (target) target.setAttribute('drag-target', '');
-      }) as EventListener);
-
-      board.addEventListener('native:drag-cancel', clearHighlights);
-
+      // DragController handles zone detection via draggable-zone-selector.
+      // [drag-zone-active] is set automatically on the target column body.
       board.addEventListener('native:drop', ((e: CustomEvent) => {
-        clearHighlights();
-        const { item, insertBefore } = e.detail;
+        const { item, insertBefore, targetZone } = e.detail;
         if (!item) return;
 
         if (insertBefore) {
           insertBefore.before(item);
-        } else {
-          // Use tracked pointer position to find the target column
-          const target = findClosestColumn(lastPointerX);
-          if (target) {
-            // Find insertion position within the column based on pointer Y
-            const cards = [...target.querySelectorAll('.kanban-card')].filter((c) => c !== item);
-            let inserted = false;
-            for (const card of cards) {
-              const rect = card.getBoundingClientRect();
-              if (lastPointerY < rect.top + rect.height / 2) {
-                card.before(item);
-                inserted = true;
-                break;
-              }
-            }
-            if (!inserted) target.appendChild(item);
-          }
+        } else if (targetZone) {
+          targetZone.appendChild(item);
         }
         updateCounts();
       }) as EventListener);
@@ -329,7 +283,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       outline-offset: -2px;
     }
 
-    .kanban-column-body[drag-target] {
+    .kanban-column-body[drag-zone-active] {
       outline-color: var(--n-color-accent-400);
       background: oklch(from var(--n-color-accent-500) l c h / 0.04);
     }
