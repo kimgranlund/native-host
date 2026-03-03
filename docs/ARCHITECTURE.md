@@ -71,8 +71,8 @@ SidebarLayout.astro (wraps BaseLayout)
 
         <n-app-canvas>
           <n-app-panel>                        ← main content (<slot />)
-          <n-app-panel aside>                  ← inspector (native-tokens)
-          <n-app-panel aside>                  ← chat (n-chat)
+          <native-tokens-panel aside>          ← inspector
+          <native-chat-panel aside>            ← chat
     </native-app>
 
     <n-dialog id="nav-cmd-dialog">             ← command palette (Cmd+K)

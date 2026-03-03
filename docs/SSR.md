@@ -156,8 +156,8 @@ document.addEventListener('astro:before-swap', ((e: any) => {
     // Compare aside panel config between current and incoming pages
     const currentCanvas = currentSidebar.querySelector(':scope > div > n-app-canvas');
     const newCanvas = newSidebar.querySelector(':scope > div > n-app-canvas');
-    const currentAsides = currentCanvas?.querySelectorAll('n-app-panel[aside]').length ?? 0;
-    const newAsides = newCanvas?.querySelectorAll('n-app-panel[aside]').length ?? 0;
+    const currentAsides = currentCanvas?.querySelectorAll(':scope > [aside]').length ?? 0;
+    const newAsides = newCanvas?.querySelectorAll(':scope > [aside]').length ?? 0;
 
     if (currentAsides !== newAsides && currentCanvas && newCanvas) {
       // Panel config changed — swap entire canvas so panels appear/disappear
