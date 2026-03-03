@@ -60,8 +60,8 @@ document.addEventListener('astro:before-swap', ((e: any) => {
     // Compare aside panel config between current and incoming pages
     const currentCanvas = currentSidebar.querySelector(':scope > div > n-app-canvas');
     const newCanvas = newSidebar.querySelector(':scope > div > n-app-canvas');
-    const currentAsides = currentCanvas?.querySelectorAll('n-app-panel[aside]').length ?? 0;
-    const newAsides = newCanvas?.querySelectorAll('n-app-panel[aside]').length ?? 0;
+    const currentAsides = currentCanvas?.querySelectorAll(':scope > [aside]').length ?? 0;
+    const newAsides = newCanvas?.querySelectorAll(':scope > [aside]').length ?? 0;
 
     if (currentAsides !== newAsides && currentCanvas && newCanvas) {
       // Panel config changed — swap entire canvas so panels appear/disappear
@@ -239,10 +239,10 @@ const wiredPanels = new WeakSet<HTMLElement>();
 
 function wireToggle(btnId: string, panelId: string) {
   const btn = document.getElementById(btnId);
-  const panel = document.getElementById(panelId) as HTMLElement & { toggle(): void } | null;
+  const panel = document.getElementById(panelId);
   if (!panel || wiredPanels.has(panel)) return;
   wiredPanels.add(panel);
-  btn?.addEventListener('click', () => panel.toggle());
+  btn?.addEventListener('click', () => panel.toggleAttribute('open'));
   new MutationObserver(() => {
     const icon = btn?.querySelector('n-icon');
     if (!icon) return;

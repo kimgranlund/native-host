@@ -6,13 +6,10 @@ import { registerAllTraits } from '@nonoun/native-ui';
 
 registerAllTraits();
 
-// n-app-panel: CSS-driven layout panel. native-app 0.3.0 removed the JS class
-// but kept the CSS. Register a minimal element so :not(:defined) doesn't hide it
-// and layout.ts can call .toggle().
+// n-app-panel: CSS-driven layout panel used for the main content area.
+// native-app 0.3.x removed the JS class but kept the CSS. Register a minimal
+// element so :not(:defined) doesn't hide it. Aside panels now use component-
+// specific elements (native-tokens-panel, native-chat-panel).
 if (!customElements.get('n-app-panel')) {
-  customElements.define('n-app-panel', class extends HTMLElement {
-    get open() { return this.hasAttribute('open'); }
-    set open(v: boolean) { this.toggleAttribute('open', v); }
-    toggle() { this.open = !this.open; }
-  });
+  customElements.define('n-app-panel', class extends HTMLElement {});
 }

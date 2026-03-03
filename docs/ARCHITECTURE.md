@@ -44,7 +44,7 @@ SidebarLayout.astro (wraps BaseLayout)
       @import 'native-tokens/css'              ← inspector panel styles
     </style>
 
-    <n-sidebar id="layout-sidebar" collapsed={pref}>
+    <native-app id="layout-sidebar" collapsed={pref}>
       <aside slot="sidebar" transition:animate="none">
         <n-sidebar-header>
           ├─ Logo + team switcher (n-listbox popover)
@@ -73,7 +73,7 @@ SidebarLayout.astro (wraps BaseLayout)
           <n-app-panel>                        ← main content (<slot />)
           <n-app-panel aside>                  ← inspector (native-tokens)
           <n-app-panel aside>                  ← chat (n-chat)
-    </n-sidebar>
+    </native-app>
 
     <n-dialog id="nav-cmd-dialog">             ← command palette (Cmd+K)
       <n-command> with sitemap as n-command-items

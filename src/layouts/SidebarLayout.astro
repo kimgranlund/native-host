@@ -40,7 +40,7 @@ const groupIcons: Record<string, string> = {
     @import '@nonoun/native-tokens/css';
   </style>
 
-  <n-sidebar id="layout-sidebar" collapsed={prefs.sidebarCollapsed ? '' : undefined}>
+  <native-app id="layout-sidebar" collapsed={prefs.sidebarCollapsed ? '' : undefined}>
     <aside slot="sidebar" transition:animate="none">
       <n-sidebar-header>
         <n-sidebar-item>
@@ -167,24 +167,18 @@ const groupIcons: Record<string, string> = {
           <slot />
         </n-app-panel>
         {showInspector && (
-          <n-app-panel aside id="inspector-panel">
-            <div class="layout-resize-handle"></div>
-            <slot name="inspector"><native-tokens></native-tokens></slot>
-          </n-app-panel>
+          <slot name="inspector">
+            <native-tokens-panel aside id="inspector-panel"></native-tokens-panel>
+          </slot>
         )}
         {showChat && (
-          <n-app-panel aside id="chat-panel">
-            <div class="layout-resize-handle"></div>
-            <slot name="chat">
-              <n-chat size="sm">
-                <n-chat-content></n-chat-content>
-              </n-chat>
-            </slot>
-          </n-app-panel>
+          <slot name="chat">
+            <native-chat-panel aside id="chat-panel"></native-chat-panel>
+          </slot>
         )}
       </n-app-canvas>
     </div>
-  </n-sidebar>
+  </native-app>
 
   <!-- Command palette dialog -->
   <n-dialog class="nav-cmd-dialog" id="nav-cmd-dialog" transition:animate="none">

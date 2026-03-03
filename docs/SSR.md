@@ -62,7 +62,7 @@ The returned values drive server-rendered attributes:
 | Key | Controls |
 |---|---|
 | `nav-color-scheme` | `<html style="color-scheme: dark\|light">` |
-| `nav-sidebar-collapsed` | `<n-sidebar collapsed>` attribute |
+| `nav-sidebar-collapsed` | `<native-app collapsed>` attribute |
 | `nav-group-states` | `<n-sidebar-group open>` per group |
 | `demo-show-code` | Code block visibility on page load |
 

@@ -10,13 +10,13 @@ native-host depends on 7 @nonoun packages. All are light DOM web component libra
 
 | Package | Version | HTML Tags | JS Registration | CSS Import | Role |
 |---------|---------|-----------|-----------------|------------|------|
-| @nonoun/native-ui | 0.6.0 | `n-*` (n-button, n-dialog, n-icon, etc.) | `import '@nonoun/native-ui/register'` | `@import '@nonoun/native-ui/css/foundation'` + `@import '@nonoun/native-ui/css/components'` | Core component library |
-| @nonoun/native-app | 0.3.0 | n-sidebar, n-sidebar-nav, n-sidebar-nav-item, n-sidebar-group, n-sidebar-group-header, n-sidebar-item, n-sidebar-header, n-sidebar-content, n-sidebar-footer (CSS-only: n-app-breadcrumb, n-app-canvas) | `import '@nonoun/native-app'` | `@import '@nonoun/native-app/css'` | Layout, sidebar, nav |
-| @nonoun/native-tokens | 0.5.0 | native-tokens, native-tokens-* | `import '@nonoun/native-tokens'` | `@import '@nonoun/native-tokens/css'` | Inspector widget |
-| @nonoun/native-chat | 0.1.1 | n-chat, n-chat-* | `import '@nonoun/native-chat/register'` | `@import '@nonoun/native-chat/css'` | Chat panel |
-| @nonoun/native-editor | 0.2.4 | native-editor | `import '@nonoun/native-editor/register'` | -- | Markdown editor (CodeMirror) |
-| @nonoun/native-playground | 0.2.4 | native-playground | `import '@nonoun/native-playground/register'` | -- | Live code sandbox |
-| @nonoun/native-codemirror | 0.2.5 | native-codemirror | `import '@nonoun/native-codemirror/register'` | `@import '@nonoun/native-codemirror/css'` | CodeMirror element + utilities |
+| @nonoun/native-ui | 0.6.1 | `n-*` (n-button, n-dialog, n-icon, etc.) | `import '@nonoun/native-ui/register'` | `@import '@nonoun/native-ui/css/foundation'` + `@import '@nonoun/native-ui/css/components'` | Core component library |
+| @nonoun/native-app | 0.3.1 | native-app, n-sidebar-nav, n-sidebar-nav-item, n-sidebar-group, n-sidebar-group-header, n-sidebar-item, n-sidebar-header, n-sidebar-content, n-sidebar-footer (CSS-only: n-app-breadcrumb, n-app-canvas, n-app-panel) | `import '@nonoun/native-app'` | `@import '@nonoun/native-app/css'` | Layout, sidebar, nav |
+| @nonoun/native-tokens | 0.5.1 | native-tokens, native-tokens-* | `import '@nonoun/native-tokens'` | `@import '@nonoun/native-tokens/css'` | Inspector widget |
+| @nonoun/native-chat | 0.1.2 | n-chat, n-chat-* | `import '@nonoun/native-chat/register'` | `@import '@nonoun/native-chat/css'` | Chat panel |
+| @nonoun/native-editor | 0.2.5 | native-editor | `import '@nonoun/native-editor/register'` | -- | Markdown editor (CodeMirror) |
+| @nonoun/native-playground | 0.2.5 | native-playground | `import '@nonoun/native-playground/register'` | -- | Live code sandbox |
+| @nonoun/native-codemirror | 0.2.6 | native-codemirror | `import '@nonoun/native-codemirror/register'` | `@import '@nonoun/native-codemirror/css'` | CodeMirror element + utilities |
 
 Dev dependency: `@phosphor-icons/core` (icon SVG source, not shipped to client).
 

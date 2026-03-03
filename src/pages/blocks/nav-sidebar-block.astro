@@ -7,7 +7,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <div>
       <h1>Application Sidebar</h1>
       <p class="demo-desc">
-        Vertical navigation sidebar using <code>n-sidebar</code> with grouped nav items,
+        Vertical navigation sidebar using <code>native-app</code> with grouped nav items,
         collapsible sections, header with brand switcher, and user footer.
         Two variants: expanded and collapsed (icon-only).
       </p>
@@ -18,7 +18,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <n-stack gap="4">
     <h2>Expanded</h2>
     <div class="sidebar-preview">
-      <n-sidebar>
+      <native-app>
         <aside slot="sidebar">
           <n-sidebar-header>
             <n-sidebar-item>
@@ -68,7 +68,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         <div class="sidebar-main-area">
           <span class="demo-text-sm">Main content area</span>
         </div>
-      </n-sidebar>
+      </native-app>
     </div>
     </n-stack>
 
@@ -77,7 +77,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <n-stack gap="4">
     <h2>Collapsed (icon-only)</h2>
     <div class="sidebar-preview sidebar-preview-collapsed">
-      <n-sidebar collapsed>
+      <native-app collapsed>
         <aside slot="sidebar">
           <n-sidebar-header>
             <n-sidebar-item>
@@ -120,7 +120,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         <div class="sidebar-main-area">
           <span class="demo-text-sm">Main content area</span>
         </div>
-      </n-sidebar>
+      </native-app>
     </div>
     </n-stack>
     </n-stack>
