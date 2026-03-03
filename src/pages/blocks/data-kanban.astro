@@ -182,47 +182,47 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   </main>
 
   <script>
-    document.addEventListener('astro:page-load', () => {
+    function setup() {
       requestAnimationFrame(() => {
-      const board = document.getElementById('kanban-board');
-      if (!board) return;
-      const filterInput = document.querySelector('.kanban-filter') as HTMLInputElement;
+        const board = document.getElementById('kanban-board');
+        if (!board || board.hasAttribute('data-wired')) return;
+        board.setAttribute('data-wired', '');
+        const filterInput = document.querySelector('.kanban-filter') as HTMLInputElement;
 
-      // Filter cards by title text
-      filterInput?.addEventListener('input', () => {
-        const query = (filterInput.value || '').toLowerCase();
-        for (const card of board.querySelectorAll('.kanban-card')) {
-          const title = card.querySelector('.kanban-card-title')?.textContent?.toLowerCase() || '';
-          (card as HTMLElement).style.display = title.includes(query) ? '' : 'none';
-        }
-        updateCounts();
-      });
-
-      function updateCounts() {
-        board.querySelectorAll('.kanban-column').forEach((col) => {
-          const cards = col.querySelectorAll('.kanban-card');
-          let count = 0;
-          for (const c of cards) if ((c as HTMLElement).style.display !== 'none') count++;
-          const badge = col.querySelector('.kanban-count');
-          if (badge) badge.textContent = String(count);
+        filterInput?.addEventListener('input', () => {
+          const query = (filterInput.value || '').toLowerCase();
+          for (const card of board.querySelectorAll('.kanban-card')) {
+            const title = card.querySelector('.kanban-card-title')?.textContent?.toLowerCase() || '';
+            (card as HTMLElement).style.display = title.includes(query) ? '' : 'none';
+          }
+          updateCounts();
         });
-      }
 
-      // DragController handles zone detection via draggable-zone-selector.
-      // [drag-zone-active] is set automatically on the target column body.
-      board.addEventListener('native:drop', ((e: CustomEvent) => {
-        const { item, insertBefore, targetZone } = e.detail;
-        if (!item) return;
-
-        if (insertBefore) {
-          insertBefore.before(item);
-        } else if (targetZone) {
-          targetZone.appendChild(item);
+        function updateCounts() {
+          board.querySelectorAll('.kanban-column').forEach((col) => {
+            const cards = col.querySelectorAll('.kanban-card');
+            let count = 0;
+            for (const c of cards) if ((c as HTMLElement).style.display !== 'none') count++;
+            const badge = col.querySelector('.kanban-count');
+            if (badge) badge.textContent = String(count);
+          });
         }
-        updateCounts();
-      }) as EventListener);
-      }); // requestAnimationFrame
-    });
+
+        board.addEventListener('native:drop', ((e: CustomEvent) => {
+          const { item, insertBefore, targetZone } = e.detail;
+          if (!item) return;
+          if (insertBefore) {
+            insertBefore.before(item);
+          } else if (targetZone) {
+            targetZone.appendChild(item);
+          }
+          updateCounts();
+        }) as EventListener);
+      });
+    }
+
+    setup();
+    document.addEventListener('astro:page-load', setup);
   </script>
   <style is:global>
     .board {
