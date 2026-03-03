@@ -322,6 +322,9 @@ const detailItem = `{ item }`;
     import { logAppend as appendLog } from '../../scripts/event-log';
 
     document.addEventListener('astro:page-load', () => {
+      // WHY: requestAnimationFrame ensures n-controller's connectedCallback
+      // has fired and DragController is attached after a View Transition swap.
+      requestAnimationFrame(() => {
       const swapList = document.getElementById('swap-list');
       if (!swapList) return; // not on this page
 
@@ -401,6 +404,7 @@ const detailItem = `{ item }`;
       previewGrid?.addEventListener('native:drag-cancel', ((e: CustomEvent) => {
         previewLog(`Cancelled: cell ${e.detail.item.textContent.trim()} restored`);
       }) as EventListener);
+      }); // requestAnimationFrame
     });
   </script>
   <style is:global>

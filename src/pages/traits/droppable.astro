@@ -192,6 +192,7 @@ const detailDrop = `{ type, files?, text?, dataTransfer? }`;
 import { logAppend as appendLog } from '../../scripts/event-log';
 
 document.addEventListener('astro:page-load', () => {
+  requestAnimationFrame(() => {
       if (!document.getElementById('files-zone')) return;
 
       function formatSize(bytes: number) {
@@ -252,6 +253,7 @@ document.addEventListener('astro:page-load', () => {
         const file = e.detail.files[0];
         appendLog(document.getElementById('single-log'), `${file.name} (${formatSize(file.size)}) — only 1 file accepted`);
       });
+  }); // requestAnimationFrame
 });
   </script>
   <style is:global>

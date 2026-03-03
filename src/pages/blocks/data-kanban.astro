@@ -183,6 +183,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
   <script>
     document.addEventListener('astro:page-load', () => {
+      requestAnimationFrame(() => {
       const board = document.getElementById('kanban-board');
       if (!board) return;
       const filterInput = document.querySelector('.kanban-filter') as HTMLInputElement;
@@ -220,6 +221,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         }
         updateCounts();
       }) as EventListener);
+      }); // requestAnimationFrame
     });
   </script>
   <style is:global>
