@@ -94,7 +94,7 @@ pointer-events: none;</code><n-button class="copy-btn" size="sm" variant="ghost"
       ]
     },
     {
-      name: 'native:input',
+      name: 'n-input',
       category: 'interactive',
       states: [
         { state: 'rest (empty)', bg: '--n-control', color: '--n-ink', border: '--n-color-neutral-highest', group: 'interaction' },
@@ -394,6 +394,29 @@ pointer-events: none;</code><n-button class="copy-btn" size="sm" variant="ghost"
         { state: '[disabled]', bg: '(unchanged)', color: '--n-ink-muted', border: '(unchanged)', group: 'interaction' },
       ]
     },
+    {
+      name: 'n-pagination-dots',
+      category: 'composite',
+      states: [
+        { state: 'container', bg: '--n-control', color: '--n-ink', border: '--n-color-neutral-highest', group: 'interaction' },
+        { state: 'dot rest', bg: '--n-ink-muted', color: '—', border: 'none', group: 'interaction' },
+        { state: 'dot:hover', bg: '--n-ink-hover', color: '—', border: 'none', group: 'interaction' },
+        { state: 'dot:active', bg: '--n-ink-active', color: '—', border: 'none', group: 'interaction' },
+        { state: 'dot [aria-selected]', bg: '--n-ink-strong', color: '—', border: 'none', group: 'selection' },
+        { state: '[aria-disabled]', bg: 'opacity: 0.5', color: '—', border: '—', group: 'interaction' },
+      ]
+    },
+    {
+      name: 'n-toast',
+      category: 'display',
+      states: [
+        { state: 'rest', bg: '--n-surface', color: '--n-surface-ink', border: 'none', group: 'interaction' },
+        { state: '[intent=info]', bg: '--n-surface-info', color: '--n-surface-ink-info', border: 'none', group: 'value' },
+        { state: '[intent=success]', bg: '--n-surface-success', color: '--n-surface-ink-success', border: 'none', group: 'value' },
+        { state: '[intent=warning]', bg: '--n-surface-warning', color: '--n-surface-ink-warning', border: 'none', group: 'value' },
+        { state: '[intent=danger]', bg: '--n-surface-danger', color: '--n-surface-ink-danger', border: 'none', group: 'value' },
+      ]
+    },
   ];
 
   // ── Token-to-swatch color mapping ──
@@ -441,6 +464,14 @@ pointer-events: none;</code><n-button class="copy-btn" size="sm" variant="ghost"
     '--n-focus-ring': 'var(--n-color-accent-600-scrim)',
     '--n-modal-neutral': 'var(--n-modal-neutral)',
     '--n-ink-strong-neutral': 'var(--n-ink-strong-neutral)',
+    '--n-surface-info': 'var(--n-surface-info)',
+    '--n-surface-success': 'var(--n-surface-success)',
+    '--n-surface-warning': 'var(--n-surface-warning)',
+    '--n-surface-danger': 'var(--n-surface-danger)',
+    '--n-surface-ink-info': 'var(--n-surface-ink-info)',
+    '--n-surface-ink-success': 'var(--n-surface-ink-success)',
+    '--n-surface-ink-warning': 'var(--n-surface-ink-warning)',
+    '--n-surface-ink-danger': 'var(--n-surface-ink-danger)',
     '--n-border-color': 'var(--n-border-muted-neutral)',
     'white': 'white',
     'transparent': 'transparent',

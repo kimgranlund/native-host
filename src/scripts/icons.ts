@@ -9,7 +9,9 @@ import arrowDown from '@phosphor-icons/core/assets/regular/arrow-down.svg?raw';
 import arrowLeft from '@phosphor-icons/core/assets/regular/arrow-left.svg?raw';
 import arrowRight from '@phosphor-icons/core/assets/regular/arrow-right.svg?raw';
 import arrowUp from '@phosphor-icons/core/assets/regular/arrow-up.svg?raw';
+import arrowsInSimple from '@phosphor-icons/core/assets/regular/arrows-in-simple.svg?raw';
 import arrowsOut from '@phosphor-icons/core/assets/regular/arrows-out.svg?raw';
+import arrowsOutSimple from '@phosphor-icons/core/assets/regular/arrows-out-simple.svg?raw';
 import backspace from '@phosphor-icons/core/assets/regular/backspace.svg?raw';
 import bell from '@phosphor-icons/core/assets/regular/bell.svg?raw';
 import bookOpen from '@phosphor-icons/core/assets/regular/book-open.svg?raw';
@@ -125,6 +127,7 @@ import chatDotsFill from '@phosphor-icons/core/assets/fill/chat-dots-fill.svg?ra
 import codeFill from '@phosphor-icons/core/assets/fill/code-fill.svg?raw';
 import dotsThreeOutlineFill from '@phosphor-icons/core/assets/fill/dots-three-outline-fill.svg?raw';
 import sidebarSimpleFill from '@phosphor-icons/core/assets/fill/sidebar-simple-fill.svg?raw';
+import playFill from '@phosphor-icons/core/assets/fill/play-fill.svg?raw';
 import slidersHorizontalFill from '@phosphor-icons/core/assets/fill/sliders-horizontal-fill.svg?raw';
 
 // Register all — single map + loop to keep registration in sync with imports.
@@ -135,7 +138,9 @@ const icons: Record<string, string> = {
   'arrow-left': arrowLeft,
   'arrow-right': arrowRight,
   'arrow-up': arrowUp,
+  'arrows-in-simple': arrowsInSimple,
   'arrows-out': arrowsOut,
+  'arrows-out-simple': arrowsOutSimple,
   'backspace': backspace,
   'bell': bell,
   'book-open': bookOpen,
@@ -248,6 +253,7 @@ const icons: Record<string, string> = {
   'chat-dots-fill': chatDotsFill,
   'code-fill': codeFill,
   'dots-three-outline-fill': dotsThreeOutlineFill,
+  'play-fill': playFill,
   'sidebar-simple-fill': sidebarSimpleFill,
   'sliders-horizontal-fill': slidersHorizontalFill,
 };

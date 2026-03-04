@@ -208,9 +208,8 @@ body {
     <!-- ── Basic ── -->
 
     <h2>Basic</h2>
-    <n-panel bordered>
-      <div class="playground-wrap"><native-playground auto-run set:html={basicPlayground} /></div>
-      <pre class="layout-code"><code>&lt;native-playground auto-run&gt;
+    <div class="playground-wrap"><native-playground auto-run set:html={basicPlayground} /></div>
+    <pre class="layout-code"><code>&lt;native-playground auto-run&gt;
   &lt;script type="playground/html"&gt;
     &lt;button class="btn primary"&gt;Hello Playground&lt;/button&gt;
   &lt;/script&gt;
@@ -222,14 +221,12 @@ body {
       .addEventListener('click', (e) =&gt; &#123; ... &#125;);
   &lt;/script&gt;
 &lt;/native-playground&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
 
     <!-- ── Vertical Orientation ── -->
 
     <h2>Vertical Orientation</h2>
-    <n-panel bordered>
-      <div class="playground-wrap"><native-playground orientation="vertical" auto-run set:html={verticalPlayground} /></div>
-      <pre class="layout-code"><code>&lt;native-playground orientation="vertical" auto-run&gt;
+    <div class="playground-wrap"><native-playground orientation="vertical" auto-run set:html={verticalPlayground} /></div>
+    <pre class="layout-code"><code>&lt;native-playground orientation="vertical" auto-run&gt;
   &lt;script type="playground/html"&gt;
     &lt;span class="badge"&gt;Badge&lt;/span&gt;
     &lt;span class="badge accent"&gt;Accent&lt;/span&gt;
@@ -238,15 +235,13 @@ body {
     .badge &#123; ... &#125;
   &lt;/script&gt;
 &lt;/native-playground&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
 
     <!-- ── Console Capture ── -->
 
     <h2>Console Capture</h2>
     <p class="layout-hint">Click "Console" in the toolbar, then press the button to see captured logs.</p>
-    <n-panel bordered>
-      <div class="playground-wrap"><native-playground auto-run console-open set:html={consolePlayground} /></div>
-      <pre class="layout-code"><code>&lt;native-playground auto-run console-open&gt;
+    <div class="playground-wrap"><native-playground auto-run console-open set:html={consolePlayground} /></div>
+    <pre class="layout-code"><code>&lt;native-playground auto-run console-open&gt;
   &lt;script type="playground/html"&gt;
     &lt;button id="log-btn"&gt;Log Something&lt;/button&gt;
   &lt;/script&gt;
@@ -261,15 +256,13 @@ body {
       &#125;);
   &lt;/script&gt;
 &lt;/native-playground&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
 
     <!-- ── Read-only ── -->
 
     <h2>Read-only</h2>
     <p class="layout-hint">Editors are non-editable. Useful for documentation showcases.</p>
-    <n-panel bordered>
-      <div class="playground-wrap"><native-playground readonly auto-run set:html={readonlyPlayground} /></div>
-      <pre class="layout-code"><code>&lt;native-playground readonly auto-run&gt;
+    <div class="playground-wrap"><native-playground readonly auto-run set:html={readonlyPlayground} /></div>
+    <pre class="layout-code"><code>&lt;native-playground readonly auto-run&gt;
   &lt;script type="playground/html"&gt;
     &lt;input type="text" placeholder="Type here..." /&gt;
   &lt;/script&gt;
@@ -277,15 +270,13 @@ body {
     .search-input &#123; ... &#125;
   &lt;/script&gt;
 &lt;/native-playground&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
 
     <!-- ── Active Tab: CSS ── -->
 
     <h2>Active Tab: CSS</h2>
     <p class="layout-hint">Opens with the CSS tab pre-selected.</p>
-    <n-panel bordered>
-      <div class="playground-wrap"><native-playground active-tab="css" auto-run set:html={activeTabPlayground} /></div>
-      <pre class="layout-code"><code>&lt;native-playground active-tab="css" auto-run&gt;
+    <div class="playground-wrap"><native-playground active-tab="css" auto-run set:html={activeTabPlayground} /></div>
+    <pre class="layout-code"><code>&lt;native-playground active-tab="css" auto-run&gt;
   &lt;script type="playground/html"&gt;
     &lt;div class="card"&gt;
       &lt;h2&gt;Styled Card&lt;/h2&gt;
@@ -301,7 +292,6 @@ body {
     &#125;
   &lt;/script&gt;
 &lt;/native-playground&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
   </main>
 
   <script>

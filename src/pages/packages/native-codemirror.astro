@@ -121,6 +121,9 @@ createEditorView(container, &#123;
   import { markdown } from '@codemirror/lang-markdown';
   import { logPrepend } from '../../scripts/event-log';
 
+  document.addEventListener('astro:page-load', () => {
+  if (!document.getElementById('factory-demo')) return;
+
   // ── Factory demo ──
 
   createEditorView(document.getElementById('factory-demo'), {
@@ -322,6 +325,7 @@ console.log(greeting);`,
         }
       }),
     ],
+  });
   });
 </script>
   <style is:global>

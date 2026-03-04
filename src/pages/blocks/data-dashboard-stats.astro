@@ -97,9 +97,11 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <div class="content-grid">
       <!-- Revenue Overview -->
       <n-card>
-        <n-body>
+        <n-header>
           <h2 class="card-title">Revenue Overview</h2>
           <p class="card-subtitle">Daily revenue for the current week</p>
+        </n-header>
+        <n-body>
           <div class="chart-row">
             <span class="chart-label">Mon</span>
             <div class="chart-bar-track"><div class="chart-bar-fill" style="width: 65%;"></div></div>
@@ -144,9 +146,11 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
       <!-- Recent Sales -->
       <n-card>
-        <n-body>
+        <n-header>
           <h2 class="card-title">Recent Sales</h2>
           <p class="card-subtitle">You made 265 sales this month.</p>
+        </n-header>
+        <n-body>
           <div class="sale-item">
             <n-avatar name="Olivia Martin" size="sm"></n-avatar>
             <div class="sale-info">
@@ -193,9 +197,11 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
     <!-- ── Recent Orders Table ── -->
     <n-card>
-      <n-body>
+      <n-header>
         <h2 class="card-title">Recent Orders</h2>
         <p class="card-subtitle">Latest transactions across all channels.</p>
+      </n-header>
+      <n-body>
         <div class="table-scroll"><n-table cols="100px 2fr 100px 100px 120px">
           <n-table-head>
             <n-table-row>
@@ -251,20 +257,22 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
             </n-table-row>
           </n-table-body>
         </n-table></div>
-        <div class="table-footer">
-          <span class="table-info">Showing 1-6 of 48 orders</span>
-          <n-pagination total="8" value="1" size="sm"></n-pagination>
-        </div>
       </n-body>
+      <n-footer>
+        <span class="table-info">Showing 1-6 of 48 orders</span>
+        <n-pagination total="8" value="1" size="sm"></n-pagination>
+      </n-footer>
     </n-card>
 
     <!-- ── Top Products + Activity Feed ── -->
     <div class="content-grid-half">
       <!-- Top Products -->
       <n-card>
-        <n-body>
+        <n-header>
           <h2 class="card-title">Top Products</h2>
           <p class="card-subtitle">Best sellers this month by units sold.</p>
+        </n-header>
+        <n-body>
           <div class="product-row">
             <span class="product-name">Headphones</span>
             <div class="product-bar-track"><div class="product-bar-fill accent" style="width: 100%;"></div></div>
@@ -295,9 +303,11 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
       <!-- Activity Feed -->
       <n-card>
-        <n-body>
+        <n-header>
           <h2 class="card-title">Recent Activity</h2>
           <p class="card-subtitle">Latest actions across the platform.</p>
+        </n-header>
+        <n-body>
           <div class="activity-item">
             <span class="activity-dot"></span>
             <div class="activity-content">
@@ -484,7 +494,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     .card-subtitle {
       font-size: 0.8125rem;
       color: var(--n-ink-muted-neutral);
-      margin: 0 0 1rem;
+      margin: 0;
     }
 
     /* ── Bar Chart ── */
@@ -590,11 +600,10 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
     /* ── Table Section ── */
 
-    .table-footer {
+    n-footer {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-top: 1rem;
       flex-wrap: wrap;
       gap: 0.75rem;
     }

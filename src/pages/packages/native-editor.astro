@@ -12,8 +12,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <!-- ── Default (Live Preview) ── -->
 
     <h2>Default — Live Preview Mode</h2>
-    <n-panel bordered>
-      <div class="editor-wrap"><native-editor id="demo-default"></native-editor></div>
+    <div class="editor-wrap"><native-editor id="demo-default"></native-editor></div>
     <pre class="layout-code"><code>&lt;native-editor&gt;
   &lt;script type="text/markdown"&gt;
 # Hello World
@@ -21,62 +20,52 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 This is a **bold** and *italic* text.
   &lt;/script&gt;
 &lt;/native-editor&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
 
     <!-- ── Source Mode ── -->
 
     <h2>Source Mode</h2>
-    <n-panel bordered>
-      <native-editor id="demo-source" mode="source"></native-editor>
+    <native-editor id="demo-source" mode="source"></native-editor>
     <pre class="layout-code"><code>&lt;native-editor mode="source"&gt;
   &lt;script type="text/markdown"&gt;
 # Source Mode
 Raw markdown without decorations.
   &lt;/script&gt;
 &lt;/native-editor&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
 
     <!-- ── Placeholder ── -->
 
     <h2>Placeholder</h2>
-    <n-panel bordered>
-      <native-editor id="demo-placeholder" placeholder="Start typing your markdown here..."></native-editor>
+    <native-editor id="demo-placeholder" placeholder="Start typing your markdown here..."></native-editor>
     <pre class="layout-code"><code>&lt;native-editor placeholder="Start typing..."&gt;&lt;/native-editor&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
 
     <!-- ── Read-only ── -->
 
     <h2>Read-only</h2>
-    <n-panel bordered>
-      <native-editor id="demo-readonly" readonly></native-editor>
+    <native-editor id="demo-readonly" readonly></native-editor>
     <pre class="layout-code"><code>&lt;native-editor readonly&gt;
   &lt;script type="text/markdown"&gt;
 # Read-only Document
 Content is not editable.
   &lt;/script&gt;
 &lt;/native-editor&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
 
     <!-- ── Disabled ── -->
 
     <h2>Disabled</h2>
-    <n-panel bordered>
-      <native-editor id="demo-disabled" disabled></native-editor>
+    <native-editor id="demo-disabled" disabled></native-editor>
     <pre class="layout-code"><code>&lt;native-editor disabled&gt;...&lt;/native-editor&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
 
     <!-- ── Form Integration ── -->
 
     <h2>Form Integration</h2>
-    <n-panel bordered>
-      <form id="demo-form" style="display: flex; flex-direction: column; gap: 1rem;">
-        <div class="editor-short"><native-editor id="demo-form-editor" name="content"></native-editor></div>
-        <n-stack direction="row">
-          <n-button type="submit" variant="primary">Submit</n-button>
-          <n-button type="reset" variant="secondary">Reset</n-button>
-        </n-stack>
-      </form>
-      <div class="log" id="form-output"></div>
+    <form id="demo-form" style="display: flex; flex-direction: column; gap: 1rem;">
+      <div class="editor-short"><native-editor id="demo-form-editor" name="content"></native-editor></div>
+      <n-stack direction="row">
+        <n-button type="submit" variant="primary">Submit</n-button>
+        <n-button type="reset" variant="secondary">Reset</n-button>
+      </n-stack>
+    </form>
+    <div class="log" id="form-output"></div>
     <pre class="layout-code"><code>&lt;form&gt;
   &lt;native-editor name="content"&gt;...&lt;/native-editor&gt;
   &lt;n-button type="submit"&gt;Submit&lt;/n-button&gt;
@@ -90,14 +79,12 @@ Content is not editable.
     console.log(data.get('content'));
   &#125;);
 &lt;/script&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
 
     <!-- ── Change Events ── -->
 
     <h2>Change Events</h2>
-    <n-panel bordered>
-      <div class="editor-compact"><native-editor id="demo-events"></native-editor></div>
-      <div class="log" id="event-log" style="max-height: 100px;"></div>
+    <div class="editor-compact"><native-editor id="demo-events"></native-editor></div>
+    <div class="log" id="event-log" style="max-height: 100px;"></div>
     <pre class="layout-code"><code>&lt;native-editor id="editor"&gt;...&lt;/native-editor&gt;
 
 &lt;script&gt;
@@ -105,18 +92,16 @@ Content is not editable.
     console.log(e.detail.value.length, 'chars');
   &#125;);
 &lt;/script&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
 
     <!-- ── Data Gateway (src) ── -->
 
     <h2>Data Gateway — Load from URL</h2>
-    <n-panel bordered>
-      <native-editor id="demo-gateway"></native-editor>
-      <n-stack direction="row" align="center" style="margin-top: 0.75rem">
-        <n-button id="gateway-save" variant="primary" disabled>Save</n-button>
-        <n-button id="gateway-reload" variant="secondary">Reload</n-button>
-        <span id="gateway-status" style="font-size: 0.75rem; color: var(--n-ink-muted-neutral);"></span>
-      </n-stack>
+    <native-editor id="demo-gateway"></native-editor>
+    <n-stack direction="row" align="center" style="margin-top: 0.75rem">
+      <n-button id="gateway-save" variant="primary" disabled>Save</n-button>
+      <n-button id="gateway-reload" variant="secondary">Reload</n-button>
+      <span id="gateway-status" style="font-size: 0.75rem; color: var(--n-ink-muted-neutral);"></span>
+    </n-stack>
     <pre class="layout-code"><code>&lt;native-editor id="editor" src="/api/content"&gt;&lt;/native-editor&gt;
 
 &lt;script&gt;
@@ -126,12 +111,14 @@ Content is not editable.
   saveBtn.addEventListener('native:press', () =&gt; editor.save());
   reloadBtn.addEventListener('native:press', () =&gt; editor.reload());
 &lt;/script&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
   </main>
 
   <script>
   import '@nonoun/native-editor/register';
   import { logPrepend } from '../../scripts/event-log';
+
+  document.addEventListener('astro:page-load', () => {
+  if (!document.getElementById('demo-default')) return;
 
   // ── Seed editor content via .value ──
 
@@ -274,6 +261,7 @@ Content is not editable.
 
   saveBtn?.addEventListener('native:press', () => gatewayEditor?.save());
   reloadBtn?.addEventListener('native:press', () => gatewayEditor?.reload());
+  });
 </script>
   <style is:global>
     @import '@nonoun/native-editor/css';

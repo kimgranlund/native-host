@@ -33,8 +33,56 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
           <div class="changelog-entry-header"><a href="/a2ui/a2ui-workbench">A2UI Workbench</a> <span class="changelog-sep">::</span> JSONL editor with sandboxed preview and protocol inspector</div>
           <ul>
             <li>Uses <code>&lt;native-a2ui&gt;</code> element — edit A2UI envelopes, step through with playback controls</li>
-            <li>Four example streams: Hello World, Contact Form, Multi-Surface Streaming, Data Model Updates</li>
+            <li>28 preset menus in 4 groups matching the <a href="/a2ui/a2ui">Protocol page</a>: General, Interactive, Clinical, Travel</li>
             <li>Two layout modes: 2/1 (editor + preview top, inspector bottom) and 1+1+1 (three columns)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="changelog-section">
+        <h3><n-badge size="xs" intent="accent">Updated</n-badge> Updates</h3>
+
+        <div class="changelog-entry">
+          <div class="changelog-entry-header"><a href="/traits/presentable"><code>Presentable</code></a> <span class="changelog-sep">::</span> Real-World Usage section</div>
+          <ul>
+            <li>A2UI workbench PresentController integration example with JS setup, CSS hook, and design decisions</li>
+          </ul>
+        </div>
+
+        <div class="changelog-entry">
+          <div class="changelog-entry-header">Collapsed sidebar <span class="changelog-sep">::</span> Selected state and badge indicators</div>
+          <ul>
+            <li>Active group gets a neutral background highlight on the icon row</li>
+            <li>Groups with badged pages show a dot indicator on the icon well</li>
+          </ul>
+        </div>
+
+        <div class="changelog-entry">
+          <div class="changelog-entry-header"><code>&lt;native-codemirror&gt;</code> <span class="changelog-sep">::</span> Flex growth for editor element</div>
+          <ul>
+            <li>Editors now fill their flex/grid parent automatically via <code>flex: 1</code></li>
+          </ul>
+        </div>
+
+        <div class="changelog-entry">
+          <div class="changelog-entry-header"><a href="/reference">Reference</a> and <a href="/state-grid">State Grid</a> pages updated</div>
+        </div>
+      </div>
+
+      <div class="changelog-section">
+        <h3>Fixes</h3>
+
+        <div class="changelog-entry">
+          <div class="changelog-entry-header">CodeMirror pages <span class="changelog-sep">::</span> Blank after client-side navigation</div>
+          <ul>
+            <li>Added <code>astro:page-load</code> wrappers to editor, playground, and A2UI pages</li>
+          </ul>
+        </div>
+
+        <div class="changelog-entry">
+          <div class="changelog-entry-header">A2UI pages <span class="changelog-sep">::</span> Custom element registration race condition</div>
+          <ul>
+            <li>Fixed element definitions not available after View Transition navigations</li>
           </ul>
         </div>
       </div>

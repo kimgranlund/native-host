@@ -24,10 +24,14 @@ document.addEventListener('astro:page-load', async () => {
       resetKernel();
       const kernel = new Kernel({ allowUnregistered: true });
       const messages = [];
+      // WHY: Astro hoists module scripts — setup.ts (which registers native-chat-panel)
+      // may not have run yet. Wait for the CE definition before using .ready.
+      await customElements.whenDefined('native-chat-panel');
       const chatPanel = document.getElementById('chat-panel');
       if (!chatPanel) return;
       await chatPanel.ready;
       const target = chatPanel.querySelector('n-chat-content');
+      if (!target) return;
 
       const adapter = createA2UIAdapter(kernel, {
         onClientMessage: (msg) => {

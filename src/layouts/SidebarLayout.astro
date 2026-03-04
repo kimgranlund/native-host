@@ -82,7 +82,7 @@ const groupIcons: Record<string, string> = {
           {[...groups.entries()].map(([groupName, entries]) => {
             const isOpen = prefs.groupStates[groupName] ?? (groupName === 'Components');
             return (
-            <n-sidebar-group open={isOpen ? '' : undefined}>
+            <n-sidebar-group open={isOpen ? '' : undefined} data-has-badges={entries.some(e => e.badge) ? '' : undefined}>
               <n-sidebar-group-header>
                 <n-icon name={groupIcons[groupName] || 'compass'}></n-icon>
                 {groupName}

@@ -63,3 +63,29 @@
   max-height: min(400px, 80vh);
   box-shadow: var(--n-shadow-xl);
 }
+
+/* ── Collapsed Sidebar: Selected State + Badge Dots ── */
+
+@container sidebar (max-width: 80px) {
+  /* Selected group gets a subtle background highlight on the icon row */
+  n-sidebar-group:state(has-selection) > details > summary {
+    background: var(--n-surface-neutral);
+  }
+
+  /* Badge indicator dot — top-right of the icon well */
+  n-sidebar-group[data-has-badges] n-sidebar-group-header .icon-well {
+    position: relative;
+  }
+
+  n-sidebar-group[data-has-badges] n-sidebar-group-header .icon-well::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--n-accent);
+    pointer-events: none;
+  }
+}

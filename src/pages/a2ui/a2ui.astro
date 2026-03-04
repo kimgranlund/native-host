@@ -174,10 +174,14 @@ document.addEventListener('astro:page-load', async () => {
       const typeCountEl = document.getElementById('type-count');
       const emitOutput = document.getElementById('emit-output');
 
+      // WHY: Astro hoists module scripts — setup.ts (which registers native-chat-panel)
+      // may not have run yet. Wait for the CE definition before using .ready.
+      await customElements.whenDefined('native-chat-panel');
       const chatPanel = document.getElementById('chat-panel');
       if (!chatPanel) return;
       await chatPanel.ready;
       const chatContent = chatPanel.querySelector('n-chat-content');
+      if (!chatContent) return;
 
       const adapter = createA2UIAdapter(kernel, {
         onClientMessage: (msg) => {
@@ -230,10 +234,14 @@ document.addEventListener('astro:page-load', async () => {
         const group = document.createElement('n-chat-messages');
         const msg = document.createElement('n-chat-message');
         msg.setAttribute('role', 'assistant');
-        msg.setAttribute('actions', 'none');
+        // WHY: Use a plain div as the adapter container inside the message.
+        // n-chat-message stamps its own internal DOM (action toolbar etc.),
+        // so the adapter's executePlan must append to a neutral child.
+        const container = document.createElement('div');
+        msg.appendChild(container);
         group.appendChild(msg);
         chatContent.appendChild(group);
-        return msg;
+        return container;
       }
 
       // ── Send Message ──

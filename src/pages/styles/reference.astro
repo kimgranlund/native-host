@@ -307,6 +307,17 @@ const scopedIntentCSS = `/* All controls inside .danger-zone get danger colors *
               <n-table-cell class="y">●</n-table-cell><!-- aria-disabled -->
               <n-table-cell class="y">●</n-table-cell><!-- active attr -->
             </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-pagination-dots</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell><!-- hover: dots -->
+              <n-table-cell class="y">●</n-table-cell><!-- active: dots -->
+              <n-table-cell class="a">○</n-table-cell><!-- focus: focusable, no rule -->
+              <n-table-cell class="y">●</n-table-cell><!-- focus-visible -->
+              <n-table-cell class="n">–</n-table-cell><!-- pressed -->
+              <n-table-cell class="n">–</n-table-cell><!-- disabled -->
+              <n-table-cell class="y">●</n-table-cell><!-- aria-disabled -->
+              <n-table-cell class="n">–</n-table-cell><!-- active attr -->
+            </n-table-row>
 
             <!-- Coordinators -->
             <n-table-row colspan><n-table-cell>Coordinators <span class="tag tag-coord">display: contents</span></n-table-cell></n-table-row>
@@ -379,6 +390,20 @@ const scopedIntentCSS = `/* All controls inside .danger-zone get danger colors *
               <n-table-cell class="n">–</n-table-cell><!-- aria-disabled -->
               <n-table-cell class="n">–</n-table-cell><!-- active attr -->
             </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-toast <span class="tag tag-display">display</span></n-table-cell>
+              <n-table-cell class="a">○</n-table-cell><!-- hover: visible element -->
+              <n-table-cell class="n">–</n-table-cell><!-- active: not focusable -->
+              <n-table-cell class="n">–</n-table-cell><!-- focus -->
+              <n-table-cell class="n">–</n-table-cell><!-- focus-visible -->
+              <n-table-cell class="n">–</n-table-cell><!-- pressed -->
+              <n-table-cell class="n">–</n-table-cell><!-- disabled -->
+              <n-table-cell class="n">–</n-table-cell><!-- aria-disabled -->
+              <n-table-cell class="n">–</n-table-cell><!-- active attr -->
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell colspan="9" class="sub" style="padding-left:calc(var(--n-space) * 8);">↳ created by ToastController, supports [intent] for colored variants</n-table-cell>
+            </n-table-row>
 
             <!-- Containers -->
             <n-table-row colspan><n-table-cell>Containers</n-table-cell></n-table-row>
@@ -409,6 +434,17 @@ const scopedIntentCSS = `/* All controls inside .danger-zone get danger colors *
             </n-table-row>
             <n-table-row>
               <n-table-cell>n-panel <span class="tag tag-container">container</span></n-table-cell>
+              <n-table-cell class="a">○</n-table-cell><!-- hover: visible element -->
+              <n-table-cell class="n">–</n-table-cell><!-- active: not focusable -->
+              <n-table-cell class="n">–</n-table-cell><!-- focus -->
+              <n-table-cell class="n">–</n-table-cell><!-- focus-visible -->
+              <n-table-cell class="n">–</n-table-cell><!-- pressed -->
+              <n-table-cell class="n">–</n-table-cell><!-- disabled -->
+              <n-table-cell class="n">–</n-table-cell><!-- aria-disabled -->
+              <n-table-cell class="n">–</n-table-cell><!-- active attr -->
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-text <span class="tag tag-container">container</span></n-table-cell>
               <n-table-cell class="a">○</n-table-cell><!-- hover: visible element -->
               <n-table-cell class="n">–</n-table-cell><!-- active: not focusable -->
               <n-table-cell class="n">–</n-table-cell><!-- focus -->
@@ -540,6 +576,18 @@ const scopedIntentCSS = `/* All controls inside .danger-zone get danger colors *
               <n-table-cell class="n">–</n-table-cell>
               <n-table-cell class="n">–</n-table-cell>
               <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+            </n-table-row>
+            <n-table-row>
+              <n-table-cell>n-pagination-dots</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell><!-- aria-selected on dots -->
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
               <n-table-cell class="n">–</n-table-cell>
               <n-table-cell class="n">–</n-table-cell>
               <n-table-cell class="n">–</n-table-cell>
@@ -945,6 +993,71 @@ const scopedIntentCSS = `/* All controls inside .danger-zone get danger colors *
             <n-table-cell><code>padded</code></n-table-cell>
             <n-table-cell><code>"false"</code> — removes padding</n-table-cell>
           </n-table-row>
+          <n-table-row>
+            <n-table-cell>n-pagination-dots</n-table-cell>
+            <n-table-cell><code>count</code></n-table-cell>
+            <n-table-cell>Number — total dot count</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell></n-table-cell>
+            <n-table-cell><code>active</code></n-table-cell>
+            <n-table-cell>Number — zero-based index of the active dot</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell></n-table-cell>
+            <n-table-cell><code>variant</code></n-table-cell>
+            <n-table-cell><code>"plain"</code> — no background container</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell></n-table-cell>
+            <n-table-cell><code>orientation</code></n-table-cell>
+            <n-table-cell><code>"vertical"</code> — vertical dot layout</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell></n-table-cell>
+            <n-table-cell><code>paddles</code></n-table-cell>
+            <n-table-cell>Boolean — shows prev/next buttons</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell>n-toast</n-table-cell>
+            <n-table-cell><code>intent</code></n-table-cell>
+            <n-table-cell><code>"info"</code> / <code>"success"</code> / <code>"warning"</code> / <code>"danger"</code> — colored variant</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell>n-text</n-table-cell>
+            <n-table-cell><code>size</code></n-table-cell>
+            <n-table-cell><code>xs</code> / <code>sm</code> / <code>md</code> / <code>lg</code> / <code>xl</code></n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell></n-table-cell>
+            <n-table-cell><code>muted</code></n-table-cell>
+            <n-table-cell>Boolean — uses <code>--n-ink-muted</code></n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell></n-table-cell>
+            <n-table-cell><code>strong</code></n-table-cell>
+            <n-table-cell>Boolean — uses <code>--n-ink-strong</code>, font-weight 600</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell></n-table-cell>
+            <n-table-cell><code>inline</code></n-table-cell>
+            <n-table-cell>Boolean — <code>display: inline</code></n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell></n-table-cell>
+            <n-table-cell><code>spacing</code></n-table-cell>
+            <n-table-cell><code>"tight"</code> / <code>"regular"</code> / <code>"relaxed"</code> — bottom margin</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell></n-table-cell>
+            <n-table-cell><code>truncate</code></n-table-cell>
+            <n-table-cell>Boolean — single-line with text-overflow ellipsis</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell></n-table-cell>
+            <n-table-cell><code>uppercase</code></n-table-cell>
+            <n-table-cell>Boolean — text-transform uppercase + letter-spacing</n-table-cell>
+          </n-table-row>
         </n-table-body>
       </n-table>
 
@@ -1246,6 +1359,15 @@ const scopedIntentCSS = `/* All controls inside .danger-zone get danger colors *
               <n-table-cell class="n">–</n-table-cell>
             </n-table-row>
             <n-table-row>
+              <n-table-cell>n-pagination-dots</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="y">●</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+              <n-table-cell class="n">–</n-table-cell>
+            </n-table-row>
+            <n-table-row>
               <n-table-cell>n-breadcrumb</n-table-cell>
               <n-table-cell class="n">–</n-table-cell>
               <n-table-cell class="n">–</n-table-cell>
@@ -1423,6 +1545,9 @@ const scopedIntentCSS = `/* All controls inside .danger-zone get danger colors *
           <n-table-row><n-table-cell>n-pagination</n-table-cell><n-table-cell><code>navigation</code></n-table-cell><n-table-cell>ElementInternals</n-table-cell></n-table-row>
           <n-table-row><n-table-cell>n-breadcrumb</n-table-cell><n-table-cell><code>navigation</code></n-table-cell><n-table-cell>ElementInternals</n-table-cell></n-table-row>
           <n-table-row><n-table-cell>n-slideshow</n-table-cell><n-table-cell><code>region</code></n-table-cell><n-table-cell>ElementInternals</n-table-cell></n-table-row>
+          <n-table-row><n-table-cell>n-pagination-dots</n-table-cell><n-table-cell><code>tablist</code></n-table-cell><n-table-cell>ElementInternals</n-table-cell></n-table-row>
+          <n-table-row><n-table-cell>n-toast</n-table-cell><n-table-cell><code>status</code></n-table-cell><n-table-cell>ElementInternals</n-table-cell></n-table-row>
+          <n-table-row><n-table-cell>n-text</n-table-cell><n-table-cell>—</n-table-cell><n-table-cell>CSS-only</n-table-cell></n-table-row>
           <n-table-row><n-table-cell>n-avatar</n-table-cell><n-table-cell><code>img</code></n-table-cell><n-table-cell>ElementInternals</n-table-cell></n-table-row>
           <n-table-row><n-table-cell>n-badge</n-table-cell><n-table-cell><code>status</code></n-table-cell><n-table-cell>ElementInternals</n-table-cell></n-table-row>
           <n-table-row><n-table-cell>n-toolbar</n-table-cell><n-table-cell><code>toolbar</code></n-table-cell><n-table-cell>ElementInternals</n-table-cell></n-table-row>
@@ -1538,6 +1663,11 @@ const scopedIntentCSS = `/* All controls inside .danger-zone get danger colors *
             <n-table-cell>n-pagination</n-table-cell>
             <n-table-cell>←→</n-table-cell>
             <n-table-cell>Roving focus</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell>n-pagination-dots</n-table-cell>
+            <n-table-cell>←→</n-table-cell>
+            <n-table-cell>Dot navigation</n-table-cell>
           </n-table-row>
           <n-table-row>
             <n-table-cell>n-input-otp</n-table-cell>

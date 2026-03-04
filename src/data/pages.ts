@@ -77,7 +77,6 @@ const titleOverrides: Record<string, string> = {
   '/blocks/nav-file-browser': 'File Browser',
   '/blocks/form-faq': 'FAQ',
   '/core/context': 'Context API',
-  '/styles/ui': 'UI Showcase',
   '/a2ui/a2ui': 'A2UI Protocol',
   '/a2ui/a2ui-components': 'A2UI Components',
   '/a2ui/a2ui-workbench': 'A2UI Workbench',
