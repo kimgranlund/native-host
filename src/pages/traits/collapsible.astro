@@ -23,14 +23,14 @@ const codeExamples = {
 <SidebarLayout title="Collapsible">
   <main>
 <h1>Collapsible</h1>
-    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
+    <n-text size="md" muted spacing="relaxed">
       Composable trait for animated show/hide with smooth height transitions. Dispatches <code>native:expand</code> and <code>native:collapse</code> events.
-    </p>
+    </n-text>
 
     <!-- ── Basic Toggle ── -->
 
     <h2>Basic Toggle</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-button id="toggle-btn">Toggle Content</n-button>
       <collapse-demo traits="collapsible" id="section1">
         <div class="collapse-content">
@@ -55,12 +55,12 @@ const codeExamples = {
   el.addEventListener('native:expand', () =&gt; console.log('Expanded'));
   el.addEventListener('native:collapse', () =&gt; console.log('Collapsed'));
 &lt;/script&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Initially Collapsed ── -->
 
     <h2>Initially Collapsed</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-button id="expand-btn">Expand</n-button>
       <collapse-demo traits="collapsible" id="section2" collapsed>
         <div class="collapse-content">
@@ -80,12 +80,12 @@ const codeExamples = {
   if (ctrl.collapsed) ctrl.expand();
   else ctrl.collapse();
 &lt;/script&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Custom Duration ── -->
 
     <h2>Custom Duration (500ms)</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-button id="slow-btn">Toggle Slow</n-button>
       <collapse-demo traits="collapsible" collapsible-duration="500" id="section3">
         <div class="collapse-content">
@@ -93,12 +93,12 @@ const codeExamples = {
         </div>
       </collapse-demo>
     <pre class="layout-code"><code set:html={codeExamples.customDuration500ms} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── API Reference ── -->
 
     <h2>API</h2>
-    <div class="layout-section" style="padding: 0; border: none; background: none;">
+    <n-panel bordered style="padding: 0; border: none; background: none;">
       <n-table variant="plain" size="sm" style="grid-template-columns: auto 1fr;">
         <n-table-head>
           <n-table-row>
@@ -137,7 +137,7 @@ const codeExamples = {
           </n-table-row>
         </n-table-body>
       </n-table>
-    </div>
+    </n-panel>
   </main>
 
   <script>

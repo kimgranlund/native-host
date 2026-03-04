@@ -4,14 +4,14 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 <SidebarLayout title="Stack">
   <main>
 <h1>&lt;n-stack&gt;</h1>
-    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
+    <n-text size="md" muted spacing="relaxed">
       Flex layout utility. Vertical or horizontal stacking with configurable gap, alignment, and wrapping. CSS-only container.
-    </p>
+    </n-text>
 
     <!-- ── Vertical (default) ── -->
 
     <h2>Vertical (default)</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-stack>
         <div class="layout-box">Item 1</div>
         <div class="layout-box">Item 2</div>
@@ -22,12 +22,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   &lt;div&gt;Item 2&lt;/div&gt;
   &lt;div&gt;Item 3&lt;/div&gt;
 &lt;/n-stack&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Horizontal ── -->
 
     <h2>Horizontal</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-stack direction="row">
         <div class="layout-box">Item 1</div>
         <div class="layout-box">Item 2</div>
@@ -38,12 +38,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   &lt;div&gt;Item 2&lt;/div&gt;
   &lt;div&gt;Item 3&lt;/div&gt;
 &lt;/n-stack&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Gap sizes ── -->
 
     <h2>Gap Sizes</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <h3>gap="0"</h3>
       <n-stack direction="row" gap="0">
         <div class="layout-box">A</div>
@@ -78,12 +78,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 &lt;n-stack direction="row" gap="2"&gt;...&lt;/n-stack&gt;
 &lt;n-stack direction="row" gap="4"&gt;...&lt;/n-stack&gt;
 &lt;n-stack direction="row" gap="8"&gt;...&lt;/n-stack&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Alignment ── -->
 
     <h2>Alignment</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <h3>align="start"</h3>
       <n-stack direction="row" align="start" style="height: 6rem;">
         <div class="layout-box">Short</div>
@@ -105,12 +105,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <pre class="layout-code"><code>&lt;n-stack direction="row" align="start"&gt;...&lt;/n-stack&gt;
 &lt;n-stack direction="row" align="center"&gt;...&lt;/n-stack&gt;
 &lt;n-stack direction="row" align="end"&gt;...&lt;/n-stack&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Justify ── -->
 
     <h2>Justify</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <h3>justify="between"</h3>
       <n-stack direction="row" justify="between">
         <div class="layout-box">Left</div>
@@ -134,12 +134,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
 &lt;n-stack direction="row" justify="center"&gt;...&lt;/n-stack&gt;
 &lt;n-stack direction="row" justify="evenly"&gt;...&lt;/n-stack&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Wrap ── -->
 
     <h2>Wrap</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-stack direction="row" wrap gap="2">
         <div class="layout-box">Tag 1</div>
         <div class="layout-box">Tag 2</div>
@@ -157,12 +157,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   &lt;div&gt;Tag 2&lt;/div&gt;
   ...
 &lt;/n-stack&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Composition ── -->
 
     <h2>Composition (with components)</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <h3>Form layout</h3>
       <n-stack gap="4">
         <n-input placeholder="Email address"></n-input>
@@ -180,9 +180,9 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     &lt;n-button variant="primary" intent="accent"&gt;Sign In&lt;/n-button&gt;
   &lt;/n-stack&gt;
 &lt;/n-stack&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
-    <div class="layout-section">
+    <n-panel bordered>
       <h3>Button group</h3>
       <n-stack direction="row" gap="2">
         <n-button variant="primary" intent="accent"><span slot="label">Save</span></n-button>
@@ -194,7 +194,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   &lt;n-button&gt;Cancel&lt;/n-button&gt;
   &lt;n-button variant="ghost" intent="danger"&gt;Delete&lt;/n-button&gt;
 &lt;/n-stack&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
   </main>
 
 </SidebarLayout>

@@ -22,15 +22,15 @@ const codeExamples = {
 <SidebarLayout title="Combobox">
   <main>
 <h1>&lt;n-combobox&gt;</h1>
-    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
+    <n-text size="md" muted spacing="relaxed">
       Coordinator element that wires a text input + filterable popover listbox into a combobox.
-    </p>
+    </n-text>
 
     <!-- ── Basic Usage ── -->
 
     <h2>Basic Usage</h2>
-    <div class="layout-section">
-      <div class="layout-row">
+    <n-panel bordered>
+      <n-stack direction="row" wrap align="center">
         <n-combobox>
           <n-input placeholder="Search fruits...">
             <n-icon name="magnifying-glass" slot="leading"></n-icon>
@@ -48,7 +48,7 @@ const codeExamples = {
             <n-option value="strawberry" label="Strawberry">Strawberry</n-option>
           </n-listbox>
         </n-combobox>
-      </div>
+      </n-stack>
       <pre class="layout-code"><code>&lt;n-combobox&gt;
   &lt;n-input placeholder="Search fruits..."&gt;
     &lt;n-icon name="magnifying-glass" slot="leading"&gt;&lt;/n-icon&gt;
@@ -59,13 +59,13 @@ const codeExamples = {
     &lt;n-option value="cherry" label="Cherry"&gt;Cherry&lt;/n-option&gt;
   &lt;/n-listbox&gt;
 &lt;/n-combobox&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Sizes ── -->
 
     <h2>Sizes</h2>
-    <div class="layout-section">
-      <div class="layout-row">
+    <n-panel bordered>
+      <n-stack direction="row" wrap align="center">
         <span class="layout-label">sm</span>
         <n-combobox size="sm">
           <n-input placeholder="Small..."></n-input>
@@ -75,8 +75,8 @@ const codeExamples = {
             <n-option value="c" label="Charlie">Charlie</n-option>
           </n-listbox>
         </n-combobox>
-      </div>
-      <div class="layout-row">
+      </n-stack>
+      <n-stack direction="row" wrap align="center">
         <span class="layout-label">md</span>
         <n-combobox size="md">
           <n-input placeholder="Medium..."></n-input>
@@ -86,8 +86,8 @@ const codeExamples = {
             <n-option value="c" label="Charlie">Charlie</n-option>
           </n-listbox>
         </n-combobox>
-      </div>
-      <div class="layout-row">
+      </n-stack>
+      <n-stack direction="row" wrap align="center">
         <span class="layout-label">lg</span>
         <n-combobox size="lg">
           <n-input placeholder="Large..."></n-input>
@@ -97,15 +97,15 @@ const codeExamples = {
             <n-option value="c" label="Charlie">Charlie</n-option>
           </n-listbox>
         </n-combobox>
-      </div>
-    </div>
+      </n-stack>
+    </n-panel>
 
     <!-- ── Density ── -->
 
     <h2>Density</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <h3>compact</h3>
-      <div class="layout-row" density="compact">
+      <n-stack direction="row" wrap align="center" density="compact">
         <n-combobox size="sm">
           <n-input placeholder="Small compact..."></n-input>
           <n-listbox popover="manual">
@@ -120,9 +120,9 @@ const codeExamples = {
             <n-option value="b" label="Bravo">Bravo</n-option>
           </n-listbox>
         </n-combobox>
-      </div>
+      </n-stack>
       <h3>default</h3>
-      <div class="layout-row">
+      <n-stack direction="row" wrap align="center">
         <n-combobox size="sm">
           <n-input placeholder="Small default..."></n-input>
           <n-listbox popover="manual">
@@ -137,9 +137,9 @@ const codeExamples = {
             <n-option value="b" label="Bravo">Bravo</n-option>
           </n-listbox>
         </n-combobox>
-      </div>
+      </n-stack>
       <h3>loose</h3>
-      <div class="layout-row" density="loose">
+      <n-stack direction="row" wrap align="center" density="loose">
         <n-combobox size="sm">
           <n-input placeholder="Small loose..."></n-input>
           <n-listbox popover="manual">
@@ -154,14 +154,14 @@ const codeExamples = {
             <n-option value="b" label="Bravo">Bravo</n-option>
           </n-listbox>
         </n-combobox>
-      </div>
-    </div>
+      </n-stack>
+    </n-panel>
 
     <!-- ── Many Options (Scrollable) ── -->
 
     <h2>Many Options (Scrollable)</h2>
-    <div class="layout-section" size="sm">
-      <div class="layout-row">
+    <n-panel bordered size="sm">
+      <n-stack direction="row" wrap align="center">
         <n-combobox>
           <n-input placeholder="Search countries...">
             <n-icon name="magnifying-glass" slot="leading"></n-icon>
@@ -186,15 +186,15 @@ const codeExamples = {
             <n-option value="us" label="United States">United States</n-option>
           </n-listbox>
         </n-combobox>
-      </div>
-    </div>
+      </n-stack>
+    </n-panel>
 
     <!-- ── Disabled ── -->
 
     <h2>Disabled</h2>
-    <div class="layout-section" size="sm">
+    <n-panel bordered size="sm">
       <h3>Disabled combobox</h3>
-      <div class="layout-row">
+      <n-stack direction="row" wrap align="center">
         <n-combobox disabled>
           <n-input placeholder="Disabled combobox..."></n-input>
           <n-listbox popover="manual">
@@ -202,10 +202,10 @@ const codeExamples = {
             <n-option value="b" label="Bravo">Bravo</n-option>
           </n-listbox>
         </n-combobox>
-      </div>
+      </n-stack>
 
       <h3>Disabled individual options</h3>
-      <div class="layout-row">
+      <n-stack direction="row" wrap align="center">
         <n-combobox>
           <n-input placeholder="Some options disabled..."></n-input>
           <n-listbox popover="manual">
@@ -215,14 +215,14 @@ const codeExamples = {
             <n-option value="open" label="Open">Open</n-option>
           </n-listbox>
         </n-combobox>
-      </div>
-    </div>
+      </n-stack>
+    </n-panel>
 
     <!-- ── Pre-selected Value ── -->
 
     <h2>Pre-selected Value</h2>
-    <div class="layout-section" size="sm">
-      <div class="layout-row">
+    <n-panel bordered size="sm">
+      <n-stack direction="row" wrap align="center">
         <n-combobox value="cherry">
           <n-input placeholder="Search fruits..."></n-input>
           <n-listbox popover="manual">
@@ -232,7 +232,7 @@ const codeExamples = {
             <n-option value="grape" label="Grape">Grape</n-option>
           </n-listbox>
         </n-combobox>
-      </div>
+      </n-stack>
       <pre class="layout-code"><code>&lt;n-combobox value="cherry"&gt;
   &lt;n-input placeholder="Search fruits..."&gt;&lt;/n-input&gt;
   &lt;n-listbox popover&gt;
@@ -240,12 +240,12 @@ const codeExamples = {
     &lt;n-option value="cherry" label="Cherry"&gt;Cherry&lt;/n-option&gt;
   &lt;/n-listbox&gt;
 &lt;/n-combobox&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Events ── -->
 
     <h2>Events</h2>
-    <div class="layout-section" size="sm">
+    <n-panel bordered size="sm">
       <n-combobox id="event-combobox">
         <n-input placeholder="Type to filter..."></n-input>
         <n-listbox popover="manual">
@@ -258,14 +258,14 @@ const codeExamples = {
       </n-combobox>
       <div class="log" id="event-log"></div>
       <pre class="layout-code"><code set:html={codeExamples.events} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Form Association ── -->
 
     <h2>Form Association</h2>
-    <div class="layout-section" size="sm">
+    <n-panel bordered size="sm">
       <form id="demo-form">
-        <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0.75rem;">
+        <n-stack style="margin-bottom: 0.75rem">
           <n-combobox name="country">
             <n-input placeholder="Country...">
               <n-icon name="magnifying-glass" slot="leading"></n-icon>
@@ -287,11 +287,11 @@ const codeExamples = {
               <n-option value="ja" label="Japanese">Japanese</n-option>
             </n-listbox>
           </n-combobox>
-        </div>
-        <div class="layout-row">
+        </n-stack>
+        <n-stack direction="row" wrap align="center">
           <n-button variant="primary" type="submit"><span slot="label">Submit</span></n-button>
           <n-button variant="secondary" type="reset"><span slot="label">Reset</span></n-button>
-        </div>
+        </n-stack>
       </form>
       <div class="log" id="form-log"></div>
       <pre class="layout-code"><code>&lt;form&gt;
@@ -306,7 +306,7 @@ const codeExamples = {
   &lt;/n-combobox&gt;
   &lt;n-button type="submit"&gt;Submit&lt;/n-button&gt;
 &lt;/form&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
   </main>
 
   <script>

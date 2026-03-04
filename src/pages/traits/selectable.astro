@@ -46,17 +46,17 @@ const handleClickSig = `handleClick(item, { shift, ctrl })`;
 <SidebarLayout title="Selectable">
   <main>
 <h1>Selectable</h1>
-    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
+    <n-text size="md" muted spacing="relaxed">
       Multi-selection state management with click, shift+click range, ctrl/cmd+click toggle, and ctrl/cmd+A select all.
-    </p>
+    </n-text>
 
     <!-- ── Multiple Selection ── -->
 
     <h2>Multiple Selection</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
         Click to select, <strong>Shift+Click</strong> for range, <strong>Ctrl/Cmd+Click</strong> to toggle, <strong>Ctrl/Cmd+A</strong> to select all.
-      </p>
+      </n-text>
       <n-controller traits="selectable" selectable-selector=".select-item" selectable-mode="multiple">
         <div class="select-list">
           <div class="select-item">Design System</div>
@@ -69,15 +69,15 @@ const handleClickSig = `handleClick(item, { shift, ctrl })`;
       </n-controller>
       <div id="multi-log" class="output"></div>
       <pre class="layout-code"><code set:html={codeExamples.multipleSelection} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Single Selection ── -->
 
     <h2>Single Selection</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
         Mode set to <code>'single'</code>. Only one item can be selected at a time.
-      </p>
+      </n-text>
       <n-controller traits="selectable" selectable-selector=".select-item" selectable-mode="single">
         <div class="select-list">
           <div class="select-item">Small</div>
@@ -88,7 +88,7 @@ const handleClickSig = `handleClick(item, { shift, ctrl })`;
       </n-controller>
       <div id="single-log" class="output"></div>
       <pre class="layout-code"><code set:html={codeExamples.singleSelection} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── API Reference ── -->
 

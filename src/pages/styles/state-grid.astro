@@ -49,7 +49,7 @@ const codeExamples = {
         </n-input>
       </n-toolbar>
 
-      <div class="layout-section">
+      <n-panel bordered>
       <pre class="layout-code"><code>/* ── State Token Resolution ── */
 /* Components read local tokens (--n-*) set by attribute selectors */
 
@@ -68,7 +68,7 @@ color: var(--n-ink-disabled);
 pointer-events: none;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
 
       <pre class="layout-code"><code set:html={codeExamples.example} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-      </div>
+      </n-panel>
 
       <div class="state-grid" id="grid"></div>
   </main>

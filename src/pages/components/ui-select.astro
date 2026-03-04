@@ -46,15 +46,15 @@ const codeExamples = {
 <SidebarLayout title="Select">
   <main>
 <h1>&lt;n-select&gt;</h1>
-    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
+    <n-text size="md" muted spacing="relaxed">
       Coordinator element that wires a button trigger + popover listbox into a dropdown select.
-    </p>
+    </n-text>
 
     <!-- ── Basic Usage ── -->
 
     <h2>Basic Usage</h2>
-    <div class="layout-section">
-      <div class="layout-row">
+    <n-panel bordered>
+      <n-stack direction="row" wrap align="center">
         <n-select>
           <n-button justify="spread">
             <span slot="label">Choose a fruit</span>
@@ -68,7 +68,7 @@ const codeExamples = {
             <n-option value="orange">Orange</n-option>
           </n-listbox>
         </n-select>
-      </div>
+      </n-stack>
       <pre class="layout-code"><code>&lt;n-select&gt;
   &lt;n-button justify="spread"&gt;
     &lt;span slot="label"&gt;Choose a fruit&lt;/span&gt;
@@ -80,13 +80,13 @@ const codeExamples = {
     &lt;n-option value="cherry"&gt;Cherry&lt;/n-option&gt;
   &lt;/n-listbox&gt;
 &lt;/n-select&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Pre-selected Value ── -->
 
     <h2>Pre-selected Value</h2>
-    <div class="layout-section">
-      <div class="layout-row">
+    <n-panel bordered>
+      <n-stack direction="row" wrap align="center">
         <n-select value="banana">
           <n-button justify="spread">
             <span slot="label">Choose a fruit</span>
@@ -98,7 +98,7 @@ const codeExamples = {
             <n-option value="cherry">Cherry</n-option>
           </n-listbox>
         </n-select>
-      </div>
+      </n-stack>
       <pre class="layout-code"><code>&lt;n-select value="banana"&gt;
   &lt;n-button justify="spread"&gt;
     &lt;span slot="label"&gt;Choose a fruit&lt;/span&gt;
@@ -109,13 +109,13 @@ const codeExamples = {
     &lt;n-option value="banana"&gt;Banana&lt;/n-option&gt;
   &lt;/n-listbox&gt;
 &lt;/n-select&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Sizes ── -->
 
     <h2>Sizes</h2>
-    <div class="layout-section">
-      <div class="layout-row">
+    <n-panel bordered>
+      <n-stack direction="row" wrap align="center">
         <span class="layout-label">xs</span>
         <n-select size="xs">
           <n-button justify="spread">
@@ -127,8 +127,8 @@ const codeExamples = {
             <n-option value="b">Option B</n-option>
           </n-listbox>
         </n-select>
-      </div>
-      <div class="layout-row">
+      </n-stack>
+      <n-stack direction="row" wrap align="center">
         <span class="layout-label">sm</span>
         <n-select size="sm">
           <n-button justify="spread">
@@ -140,8 +140,8 @@ const codeExamples = {
             <n-option value="b">Option B</n-option>
           </n-listbox>
         </n-select>
-      </div>
-      <div class="layout-row">
+      </n-stack>
+      <n-stack direction="row" wrap align="center">
         <span class="layout-label">md</span>
         <n-select size="md">
           <n-button justify="spread">
@@ -153,8 +153,8 @@ const codeExamples = {
             <n-option value="b">Option B</n-option>
           </n-listbox>
         </n-select>
-      </div>
-      <div class="layout-row">
+      </n-stack>
+      <n-stack direction="row" wrap align="center">
         <span class="layout-label">lg</span>
         <n-select size="lg">
           <n-button justify="spread">
@@ -166,7 +166,7 @@ const codeExamples = {
             <n-option value="b">Option B</n-option>
           </n-listbox>
         </n-select>
-      </div>
+      </n-stack>
       <pre class="layout-code"><code>&lt;n-select size="sm"&gt;
   &lt;n-button justify="spread"&gt;
     &lt;span slot="label"&gt;Small&lt;/span&gt;
@@ -176,126 +176,126 @@ const codeExamples = {
     &lt;n-option value="a"&gt;Option A&lt;/n-option&gt;
   &lt;/n-listbox&gt;
 &lt;/n-select&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Density ── -->
 
     <h2>Density</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <h3>xs</h3>
-      <div class="layout-row" size="xs" density="compact">
+      <n-stack direction="row" wrap align="center" size="xs" density="compact">
         <span class="layout-label">compact</span>
         <n-select>
           <n-button justify="spread"><span slot="label">Compact</span><n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
           <n-listbox popover="manual"><n-option value="a">Alpha</n-option><n-option value="b">Bravo</n-option></n-listbox>
         </n-select>
-      </div>
-      <div class="layout-row" size="xs" density="default">
+      </n-stack>
+      <n-stack direction="row" wrap align="center" size="xs" density="default">
         <span class="layout-label">default</span>
         <n-select>
           <n-button justify="spread"><span slot="label">Default</span><n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
           <n-listbox popover="manual"><n-option value="a">Alpha</n-option><n-option value="b">Bravo</n-option></n-listbox>
         </n-select>
-      </div>
-      <div class="layout-row" size="xs" density="loose">
+      </n-stack>
+      <n-stack direction="row" wrap align="center" size="xs" density="loose">
         <span class="layout-label">loose</span>
         <n-select>
           <n-button justify="spread"><span slot="label">Loose</span><n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
           <n-listbox popover="manual"><n-option value="a">Alpha</n-option><n-option value="b">Bravo</n-option></n-listbox>
         </n-select>
-      </div>
+      </n-stack>
 
       <h3>sm</h3>
-      <div class="layout-row" size="sm" density="compact">
+      <n-stack direction="row" wrap align="center" size="sm" density="compact">
         <span class="layout-label">compact</span>
         <n-select>
           <n-button justify="spread"><span slot="label">Compact</span><n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
           <n-listbox popover="manual"><n-option value="a">Alpha</n-option><n-option value="b">Bravo</n-option></n-listbox>
         </n-select>
-      </div>
-      <div class="layout-row" size="sm" density="default">
+      </n-stack>
+      <n-stack direction="row" wrap align="center" size="sm" density="default">
         <span class="layout-label">default</span>
         <n-select>
           <n-button justify="spread"><span slot="label">Default</span><n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
           <n-listbox popover="manual"><n-option value="a">Alpha</n-option><n-option value="b">Bravo</n-option></n-listbox>
         </n-select>
-      </div>
-      <div class="layout-row" size="sm" density="loose">
+      </n-stack>
+      <n-stack direction="row" wrap align="center" size="sm" density="loose">
         <span class="layout-label">loose</span>
         <n-select>
           <n-button justify="spread"><span slot="label">Loose</span><n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
           <n-listbox popover="manual"><n-option value="a">Alpha</n-option><n-option value="b">Bravo</n-option></n-listbox>
         </n-select>
-      </div>
+      </n-stack>
 
       <h3>md</h3>
-      <div class="layout-row" size="md" density="compact">
+      <n-stack direction="row" wrap align="center" size="md" density="compact">
         <span class="layout-label">compact</span>
         <n-select>
           <n-button justify="spread"><span slot="label">Compact</span><n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
           <n-listbox popover="manual"><n-option value="a">Alpha</n-option><n-option value="b">Bravo</n-option></n-listbox>
         </n-select>
-      </div>
-      <div class="layout-row" size="md" density="default">
+      </n-stack>
+      <n-stack direction="row" wrap align="center" size="md" density="default">
         <span class="layout-label">default</span>
         <n-select>
           <n-button justify="spread"><span slot="label">Default</span><n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
           <n-listbox popover="manual"><n-option value="a">Alpha</n-option><n-option value="b">Bravo</n-option></n-listbox>
         </n-select>
-      </div>
-      <div class="layout-row" size="md" density="loose">
+      </n-stack>
+      <n-stack direction="row" wrap align="center" size="md" density="loose">
         <span class="layout-label">loose</span>
         <n-select>
           <n-button justify="spread"><span slot="label">Loose</span><n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
           <n-listbox popover="manual"><n-option value="a">Alpha</n-option><n-option value="b">Bravo</n-option></n-listbox>
         </n-select>
-      </div>
+      </n-stack>
 
       <h3>lg</h3>
-      <div class="layout-row" size="lg" density="compact">
+      <n-stack direction="row" wrap align="center" size="lg" density="compact">
         <span class="layout-label">compact</span>
         <n-select>
           <n-button justify="spread"><span slot="label">Compact</span><n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
           <n-listbox popover="manual"><n-option value="a">Alpha</n-option><n-option value="b">Bravo</n-option></n-listbox>
         </n-select>
-      </div>
-      <div class="layout-row" size="lg" density="default">
+      </n-stack>
+      <n-stack direction="row" wrap align="center" size="lg" density="default">
         <span class="layout-label">default</span>
         <n-select>
           <n-button justify="spread"><span slot="label">Default</span><n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
           <n-listbox popover="manual"><n-option value="a">Alpha</n-option><n-option value="b">Bravo</n-option></n-listbox>
         </n-select>
-      </div>
-      <div class="layout-row" size="lg" density="loose">
+      </n-stack>
+      <n-stack direction="row" wrap align="center" size="lg" density="loose">
         <span class="layout-label">loose</span>
         <n-select>
           <n-button justify="spread"><span slot="label">Loose</span><n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
           <n-listbox popover="manual"><n-option value="a">Alpha</n-option><n-option value="b">Bravo</n-option></n-listbox>
         </n-select>
-      </div>
+      </n-stack>
 
       <h3>xl</h3>
-      <div class="layout-row" size="xl" density="compact">
+      <n-stack direction="row" wrap align="center" size="xl" density="compact">
         <span class="layout-label">compact</span>
         <n-select>
           <n-button justify="spread"><span slot="label">Compact</span><n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
           <n-listbox popover="manual"><n-option value="a">Alpha</n-option><n-option value="b">Bravo</n-option></n-listbox>
         </n-select>
-      </div>
-      <div class="layout-row" size="xl" density="default">
+      </n-stack>
+      <n-stack direction="row" wrap align="center" size="xl" density="default">
         <span class="layout-label">default</span>
         <n-select>
           <n-button justify="spread"><span slot="label">Default</span><n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
           <n-listbox popover="manual"><n-option value="a">Alpha</n-option><n-option value="b">Bravo</n-option></n-listbox>
         </n-select>
-      </div>
-      <div class="layout-row" size="xl" density="loose">
+      </n-stack>
+      <n-stack direction="row" wrap align="center" size="xl" density="loose">
         <span class="layout-label">loose</span>
         <n-select>
           <n-button justify="spread"><span slot="label">Loose</span><n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
           <n-listbox popover="manual"><n-option value="a">Alpha</n-option><n-option value="b">Bravo</n-option></n-listbox>
         </n-select>
-      </div>
+      </n-stack>
       <pre class="layout-code"><code>&lt;div density="compact"&gt;
   &lt;n-select&gt;...&lt;/n-select&gt;
 &lt;/div&gt;
@@ -303,13 +303,13 @@ const codeExamples = {
 &lt;div density="loose"&gt;
   &lt;n-select&gt;...&lt;/n-select&gt;
 &lt;/div&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Variants ── -->
 
     <h2>Button Variants</h2>
-    <div class="layout-section" size="sm">
-      <div class="layout-row">
+    <n-panel bordered size="sm">
+      <n-stack direction="row" wrap align="center">
         <n-select>
           <n-button justify="spread">
             <span slot="label">Outline</span>
@@ -350,7 +350,7 @@ const codeExamples = {
             <n-option value="b">Bravo</n-option>
           </n-listbox>
         </n-select>
-      </div>
+      </n-stack>
       <pre class="layout-code"><code>&lt;n-select&gt;
   &lt;n-button variant="secondary" justify="spread"&gt;
     &lt;span slot="label"&gt;Secondary&lt;/span&gt;
@@ -360,13 +360,13 @@ const codeExamples = {
     &lt;n-option value="a"&gt;Alpha&lt;/n-option&gt;
   &lt;/n-listbox&gt;
 &lt;/n-select&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Disabled ── -->
 
     <h2>Disabled</h2>
-    <div class="layout-section" size="sm">
-      <div class="layout-row">
+    <n-panel bordered size="sm">
+      <n-stack direction="row" wrap align="center">
         <n-select disabled>
           <n-button disabled justify="spread">
             <span slot="label">Disabled</span>
@@ -376,7 +376,7 @@ const codeExamples = {
             <n-option value="a">Alpha</n-option>
           </n-listbox>
         </n-select>
-      </div>
+      </n-stack>
       <pre class="layout-code"><code>&lt;n-select disabled&gt;
   &lt;n-button disabled justify="spread"&gt;
     &lt;span slot="label"&gt;Disabled&lt;/span&gt;
@@ -386,13 +386,13 @@ const codeExamples = {
     &lt;n-option value="a"&gt;Alpha&lt;/n-option&gt;
   &lt;/n-listbox&gt;
 &lt;/n-select&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Disabled Options ── -->
 
     <h2>Disabled Options</h2>
-    <div class="layout-section" size="sm">
-      <div class="layout-row">
+    <n-panel bordered size="sm">
+      <n-stack direction="row" wrap align="center">
         <n-select>
           <n-button justify="spread">
             <span slot="label">Choose role</span>
@@ -405,7 +405,7 @@ const codeExamples = {
             <n-option value="owner" disabled>Owner (restricted)</n-option>
           </n-listbox>
         </n-select>
-      </div>
+      </n-stack>
       <pre class="layout-code"><code>&lt;n-select&gt;
   &lt;n-button justify="spread"&gt;
     &lt;span slot="label"&gt;Choose role&lt;/span&gt;
@@ -416,12 +416,12 @@ const codeExamples = {
     &lt;n-option value="admin" disabled&gt;Admin&lt;/n-option&gt;
   &lt;/n-listbox&gt;
 &lt;/n-select&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Events ── -->
 
     <h2>Events</h2>
-    <div class="layout-section" size="sm">
+    <n-panel bordered size="sm">
       <n-select id="event-select">
         <n-button justify="spread">
           <span slot="label">Choose color</span>
@@ -435,14 +435,14 @@ const codeExamples = {
       </n-select>
       <div class="log" id="event-log"></div>
     <pre class="layout-code"><code set:html={codeExamples.events} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Form Association ── -->
 
     <h2>Form Association</h2>
-    <div class="layout-section" size="sm">
+    <n-panel bordered size="sm">
       <form id="demo-form">
-        <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0.75rem;">
+        <n-stack style="margin-bottom: 0.75rem">
           <n-select name="color">
             <n-button justify="spread">
               <span slot="label">Favorite color</span>
@@ -467,11 +467,11 @@ const codeExamples = {
               <n-option value="xl">Extra Large</n-option>
             </n-listbox>
           </n-select>
-        </div>
-        <div class="layout-row">
+        </n-stack>
+        <n-stack direction="row" wrap align="center">
           <n-button variant="primary" type="submit"><span slot="label">Submit</span></n-button>
           <n-button variant="secondary" type="reset"><span slot="label">Reset</span></n-button>
-        </div>
+        </n-stack>
       </form>
       <div class="log" id="form-log"></div>
     <pre class="layout-code"><code>&lt;form&gt;
@@ -487,62 +487,62 @@ const codeExamples = {
   &lt;/n-select&gt;
   &lt;button type="submit"&gt;Submit&lt;/button&gt;
 &lt;/form&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Data-Driven: Inline JSON ── -->
 
     <h2>Data-Driven: Inline JSON</h2>
-    <div class="layout-section" size="sm">
-      <div class="layout-row">
+    <n-panel bordered size="sm">
+      <n-stack direction="row" wrap align="center">
         <n-select
           placeholder="Choose a country"
           options='[{"value":"us","label":"United States"},{"value":"gb","label":"United Kingdom"},{"value":"de","label":"Germany"},{"value":"fr","label":"France"},{"value":"jp","label":"Japan"}]'
         ></n-select>
-      </div>
+      </n-stack>
       <pre class="layout-code"><code set:html={codeExamples.dataDrivenInlineJson} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Data-Driven: Pre-selected ── -->
 
     <h2>Data-Driven: Pre-selected Value</h2>
-    <div class="layout-section" size="sm">
-      <div class="layout-row">
+    <n-panel bordered size="sm">
+      <n-stack direction="row" wrap align="center">
         <n-select
           placeholder="Choose a country"
           value="de"
           options='[{"value":"us","label":"United States"},{"value":"gb","label":"United Kingdom"},{"value":"de","label":"Germany"},{"value":"fr","label":"France"}]'
         ></n-select>
-      </div>
+      </n-stack>
       <pre class="layout-code"><code set:html={codeExamples.dataDrivenPreSelectedValue} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Data-Driven: Disabled Options ── -->
 
     <h2>Data-Driven: Disabled Options</h2>
-    <div class="layout-section" size="sm">
-      <div class="layout-row">
+    <n-panel bordered size="sm">
+      <n-stack direction="row" wrap align="center">
         <n-select
           placeholder="Choose a role"
           options='[{"value":"viewer","label":"Viewer"},{"value":"editor","label":"Editor"},{"value":"admin","label":"Admin (restricted)","disabled":true},{"value":"owner","label":"Owner (restricted)","disabled":true}]'
         ></n-select>
-      </div>
+      </n-stack>
       <pre class="layout-code"><code set:html={codeExamples.dataDrivenDisabledOptions} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Data-Driven: Dynamic Update ── -->
 
     <h2>Data-Driven: Dynamic Update</h2>
-    <div class="layout-section" size="sm">
-      <div class="layout-row">
+    <n-panel bordered size="sm">
+      <n-stack direction="row" wrap align="center">
         <n-select id="dynamic-select" placeholder="Choose a fruit" options="[]"></n-select>
-      </div>
-      <div class="layout-row" style="margin-top: 0.75rem;">
+      </n-stack>
+      <n-stack direction="row" wrap align="center" style="margin-top: 0.75rem;">
         <n-button id="load-fruits" size="sm" variant="secondary"><span slot="label">Load fruits</span></n-button>
         <n-button id="load-colors" size="sm" variant="secondary"><span slot="label">Load colors</span></n-button>
-      </div>
+      </n-stack>
       <div class="log" id="dynamic-log"></div>
     <pre class="layout-code"><code set:html={codeExamples.dataDrivenDynamicUpdate} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
   </main>
 
   <script>

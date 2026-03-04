@@ -201,14 +201,14 @@ body {
 <SidebarLayout title="Playground">
   <main>
 <h1>&lt;native-playground&gt;</h1>
-    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
+    <n-text size="md" muted spacing="relaxed">
       Embeddable live code sandbox with tabbed CodeMirror editors, sandboxed iframe preview, and console capture.
-    </p>
+    </n-text>
 
     <!-- ── Basic ── -->
 
     <h2>Basic</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <native-playground auto-run set:html={basicPlayground} />
       <pre class="layout-code"><code>&lt;native-playground auto-run&gt;
   &lt;script type="playground/html"&gt;
@@ -222,12 +222,12 @@ body {
       .addEventListener('click', (e) =&gt; &#123; ... &#125;);
   &lt;/script&gt;
 &lt;/native-playground&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Vertical Orientation ── -->
 
     <h2>Vertical Orientation</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <native-playground orientation="vertical" auto-run set:html={verticalPlayground} />
       <pre class="layout-code"><code>&lt;native-playground orientation="vertical" auto-run&gt;
   &lt;script type="playground/html"&gt;
@@ -238,13 +238,13 @@ body {
     .badge &#123; ... &#125;
   &lt;/script&gt;
 &lt;/native-playground&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Console Capture ── -->
 
     <h2>Console Capture</h2>
     <p class="layout-hint">Click "Console" in the toolbar, then press the button to see captured logs.</p>
-    <div class="layout-section">
+    <n-panel bordered>
       <native-playground auto-run console-open set:html={consolePlayground} />
       <pre class="layout-code"><code>&lt;native-playground auto-run console-open&gt;
   &lt;script type="playground/html"&gt;
@@ -261,13 +261,13 @@ body {
       &#125;);
   &lt;/script&gt;
 &lt;/native-playground&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Read-only ── -->
 
     <h2>Read-only</h2>
     <p class="layout-hint">Editors are non-editable. Useful for documentation showcases.</p>
-    <div class="layout-section">
+    <n-panel bordered>
       <native-playground readonly auto-run set:html={readonlyPlayground} />
       <pre class="layout-code"><code>&lt;native-playground readonly auto-run&gt;
   &lt;script type="playground/html"&gt;
@@ -277,13 +277,13 @@ body {
     .search-input &#123; ... &#125;
   &lt;/script&gt;
 &lt;/native-playground&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Active Tab: CSS ── -->
 
     <h2>Active Tab: CSS</h2>
     <p class="layout-hint">Opens with the CSS tab pre-selected.</p>
-    <div class="layout-section">
+    <n-panel bordered>
       <native-playground active-tab="css" auto-run set:html={activeTabPlayground} />
       <pre class="layout-code"><code>&lt;native-playground active-tab="css" auto-run&gt;
   &lt;script type="playground/html"&gt;
@@ -301,7 +301,7 @@ body {
     &#125;
   &lt;/script&gt;
 &lt;/native-playground&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
   </main>
 
   <script>

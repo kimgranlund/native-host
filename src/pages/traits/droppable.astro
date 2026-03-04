@@ -36,17 +36,17 @@ const detailDrop = `{ type, files?, text?, dataTransfer? }`;
 <SidebarLayout title="Droppable">
   <main>
 <h1>Droppable</h1>
-    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
+    <n-text size="md" muted spacing="relaxed">
       External file/data drop zone using the HTML5 drag-and-drop API. Sets <code>[drop-active]</code> when a valid item is dragged over and <code>[drop-invalid]</code> when the MIME type does not match <code>droppable-accept</code>.
-    </p>
+    </n-text>
 
     <!-- ── File Drop Zone (Provider) ── -->
 
     <h2>File Drop Zone (Provider)</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
         <code>&lt;n-controller traits="droppable"&gt;</code> wraps a plain div. Drop any files onto the zone.
-      </p>
+      </n-text>
       <n-controller traits="droppable">
         <div class="drop-zone" id="files-zone">
           <span class="drop-icon">&#128193;</span>
@@ -57,15 +57,15 @@ const detailDrop = `{ type, files?, text?, dataTransfer? }`;
       <div id="files-list" class="file-list" style="display: none;"></div>
       <div id="files-log" class="output"></div>
       <pre class="layout-code"><code set:html={codeExamples.fileDropZoneProvider} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Image Only (Provider) ── -->
 
     <h2>Image Only (Provider)</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
         <code>droppable-accept="image/*"</code> filter. Shows <code>[drop-invalid]</code> when a non-image is dragged over.
-      </p>
+      </n-text>
       <n-controller traits="droppable" droppable-accept="image/*">
         <div class="drop-zone" id="images-zone">
           <span class="drop-icon">&#128247;</span>
@@ -80,15 +80,15 @@ const detailDrop = `{ type, files?, text?, dataTransfer? }`;
     Drop images here
   &lt;/div&gt;
 &lt;/n-controller&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Text Drop (Provider) ── -->
 
     <h2>Text Drop (Provider)</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
         Drop plain text from a browser selection. Select text elsewhere and drag it onto the zone.
-      </p>
+      </n-text>
       <n-controller traits="droppable">
         <div class="drop-zone" id="text-zone">
           <span class="drop-icon">&#128196;</span>
@@ -99,15 +99,15 @@ const detailDrop = `{ type, files?, text?, dataTransfer? }`;
       <div id="text-content" class="dropped-text" style="display: none;"></div>
       <div id="text-log" class="output"></div>
       <pre class="layout-code"><code set:html={codeExamples.textDropProvider} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Single File (Provider) ── -->
 
     <h2>Single File (Provider)</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
         <code>droppable-multiple="false"</code>. Only the first file is accepted when multiple are dropped.
-      </p>
+      </n-text>
       <n-controller traits="droppable" droppable-multiple="false">
         <div class="drop-zone" id="single-zone">
           <span class="drop-icon">&#128206;</span>
@@ -122,7 +122,7 @@ const detailDrop = `{ type, files?, text?, dataTransfer? }`;
     Drop a single file
   &lt;/div&gt;
 &lt;/n-controller&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── API Reference ── -->
 
@@ -191,67 +191,61 @@ const detailDrop = `{ type, files?, text?, dataTransfer? }`;
   <script>
 import { logAppend as appendLog } from '../../scripts/event-log';
 
-function setup() {
-  requestAnimationFrame(() => {
-    const filesZone = document.getElementById('files-zone');
-    if (!filesZone || filesZone.hasAttribute('data-wired')) return;
-    filesZone.setAttribute('data-wired', '');
+document.addEventListener('astro:page-load', () => {
+  const filesZone = document.getElementById('files-zone');
+  if (!filesZone) return;
 
-    function formatSize(bytes: number) {
-      if (bytes < 1024) return bytes + ' B';
-      if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
-      return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+  function formatSize(bytes: number) {
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+  }
+
+  function renderFiles(listEl: HTMLElement | null, files: File[]) {
+    if (!listEl) return;
+    listEl.innerHTML = '';
+    listEl.style.display = 'flex';
+    for (const file of files) {
+      const item = document.createElement('div');
+      item.className = 'file-item';
+      item.innerHTML = `<span class="file-name">${file.name}</span><span class="file-size">${formatSize(file.size)}</span>`;
+      listEl.appendChild(item);
     }
+  }
 
-    function renderFiles(listEl: HTMLElement | null, files: File[]) {
-      if (!listEl) return;
-      listEl.innerHTML = '';
-      listEl.style.display = 'flex';
-      for (const file of files) {
-        const item = document.createElement('div');
-        item.className = 'file-item';
-        item.innerHTML = `<span class="file-name">${file.name}</span><span class="file-size">${formatSize(file.size)}</span>`;
-        listEl.appendChild(item);
-      }
+  filesZone.addEventListener('native:drop', (e: CustomEvent) => {
+    if (e.detail.type !== 'file') return;
+    renderFiles(document.getElementById('files-list'), e.detail.files);
+    for (const file of e.detail.files) {
+      appendLog(document.getElementById('files-log'), `${file.name} (${formatSize(file.size)})`);
     }
-
-    filesZone.addEventListener('native:drop', (e: CustomEvent) => {
-      if (e.detail.type !== 'file') return;
-      renderFiles(document.getElementById('files-list'), e.detail.files);
-      for (const file of e.detail.files) {
-        appendLog(document.getElementById('files-log'), `${file.name} (${formatSize(file.size)})`);
-      }
-    });
-
-    document.getElementById('images-zone')?.addEventListener('native:drop', (e: CustomEvent) => {
-      if (e.detail.type !== 'file') return;
-      renderFiles(document.getElementById('images-list'), e.detail.files);
-      for (const file of e.detail.files) {
-        appendLog(document.getElementById('images-log'), `${file.name} (${file.type}, ${formatSize(file.size)})`);
-      }
-    });
-
-    document.getElementById('text-zone')?.addEventListener('native:drop', (e: CustomEvent) => {
-      if (e.detail.type !== 'text') return;
-      const contentEl = document.getElementById('text-content') as HTMLElement | null;
-      if (contentEl) {
-        contentEl.style.display = 'block';
-        contentEl.textContent = e.detail.text;
-      }
-      appendLog(document.getElementById('text-log'), `Dropped ${e.detail.text.length} characters`);
-    });
-
-    document.getElementById('single-zone')?.addEventListener('native:drop', (e: CustomEvent) => {
-      if (e.detail.type !== 'file') return;
-      renderFiles(document.getElementById('single-list'), e.detail.files);
-      const file = e.detail.files[0];
-      appendLog(document.getElementById('single-log'), `${file.name} (${formatSize(file.size)}) — only 1 file accepted`);
-    });
   });
-}
 
-setup();
-document.addEventListener('astro:page-load', setup);
+  document.getElementById('images-zone')?.addEventListener('native:drop', (e: CustomEvent) => {
+    if (e.detail.type !== 'file') return;
+    renderFiles(document.getElementById('images-list'), e.detail.files);
+    for (const file of e.detail.files) {
+      appendLog(document.getElementById('images-log'), `${file.name} (${file.type}, ${formatSize(file.size)})`);
+    }
+  });
+
+  document.getElementById('text-zone')?.addEventListener('native:drop', (e: CustomEvent) => {
+    if (e.detail.type !== 'text') return;
+    const contentEl = document.getElementById('text-content') as HTMLElement | null;
+    if (contentEl) {
+      contentEl.style.display = 'block';
+      contentEl.textContent = e.detail.text;
+    }
+    appendLog(document.getElementById('text-log'), `Dropped ${e.detail.text.length} characters`);
+  });
+
+  document.getElementById('single-zone')?.addEventListener('native:drop', (e: CustomEvent) => {
+    if (e.detail.type !== 'file') return;
+    renderFiles(document.getElementById('single-list'), e.detail.files);
+    const file = e.detail.files[0];
+    appendLog(document.getElementById('single-log'), `${file.name} (${formatSize(file.size)}) — only 1 file accepted`);
+  });
+});
   </script>
   <style is:global>
     /* ── Drop Zones ── */

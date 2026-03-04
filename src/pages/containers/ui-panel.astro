@@ -4,38 +4,38 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 <SidebarLayout title="Panel">
   <main>
 <h1>&lt;n-panel&gt;</h1>
-    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
+    <n-text size="md" muted spacing="relaxed">
       Section surface for sidebars, toolbars, and content areas. Less bounded than card. CSS-only container.
-    </p>
+    </n-text>
 
     <!-- ── Basic ── -->
 
     <h2>Basic</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-panel>
         <p style="margin: 0;">A basic panel with default padding and panel-elevation background.</p>
       </n-panel>
     <pre class="layout-code"><code>&lt;n-panel&gt;
   &lt;p&gt;A basic panel with default padding and panel-elevation background.&lt;/p&gt;
 &lt;/n-panel&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Bordered ── -->
 
     <h2>Bordered</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-panel bordered>
         <p style="margin: 0;">A panel with a visible border.</p>
       </n-panel>
     <pre class="layout-code"><code>&lt;n-panel bordered&gt;
   &lt;p&gt;A panel with a visible border.&lt;/p&gt;
 &lt;/n-panel&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Sidebar Layout ── -->
 
     <h2>Sidebar Layout</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <div class="sidebar-demo">
         <n-panel bordered style="width: 14rem; flex-shrink: 0;">
           <n-stack gap="1">
@@ -57,12 +57,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     &lt;n-button variant="ghost" justify="spread"&gt;...&lt;/n-button&gt;
   &lt;/n-stack&gt;
 &lt;/n-panel&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Sizes ── -->
 
     <h2>Sizes</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-stack gap="4">
         <n-panel bordered size="sm">
           <p style="margin: 0; font-size: 0.8125rem;">Small panel — compact padding</p>
@@ -78,19 +78,19 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 &lt;n-panel bordered size="lg"&gt;
   &lt;p&gt;Large panel&lt;/p&gt;
 &lt;/n-panel&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── No Padding ── -->
 
     <h2>No Padding</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-panel bordered padded="false">
         <p style="margin: 0;">This panel has <code>padded="false"</code> — no internal padding. Content touches the edges.</p>
       </n-panel>
     <pre class="layout-code"><code>&lt;n-panel bordered padded="false"&gt;
   &lt;p&gt;No internal padding. Content touches the edges.&lt;/p&gt;
 &lt;/n-panel&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
   </main>
 
   <style is:global>

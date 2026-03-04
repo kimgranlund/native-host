@@ -4,14 +4,14 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 <SidebarLayout title="Table">
   <main>
 <h1>&lt;n-table&gt;</h1>
-    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
+    <n-text size="md" muted spacing="relaxed">
       Data table with sortable columns and selectable rows. Uses CSS grid with <code>subgrid</code> for column alignment.
-    </p>
+    </n-text>
 
     <!-- ── Basic Table ── -->
 
     <h2>Basic Table</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-table style="grid-template-columns: 1fr 1fr 1fr;">
         <n-table-head>
           <n-table-row>
@@ -54,12 +54,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     &lt;/n-table-row&gt;
   &lt;/n-table-body&gt;
 &lt;/n-table&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Sortable Columns ── -->
 
     <h2>Sortable Columns</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-table id="sortable-table" style="grid-template-columns: 2fr 1fr 80px;">
         <n-table-head>
           <n-table-row>
@@ -81,12 +81,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   &lt;/n-table-head&gt;
   &lt;n-table-body&gt;...&lt;/n-table-body&gt;
 &lt;/n-table&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Selectable Rows ── -->
 
     <h2>Selectable Rows</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-table selectable style="grid-template-columns: 1fr 1fr 100px;">
         <n-table-head>
           <n-table-row>
@@ -135,12 +135,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     &lt;/n-table-row&gt;
   &lt;/n-table-body&gt;
 &lt;/n-table&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Sizes ── -->
 
     <h2>Sizes</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <h3>sm</h3>
       <n-table size="sm" style="grid-template-columns: 1fr 1fr 1fr;">
         <n-table-head>
@@ -212,15 +212,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <pre class="layout-code"><code>&lt;n-table size="sm" style="grid-template-columns: 1fr 1fr 1fr;"&gt;...&lt;/n-table&gt;
 &lt;n-table style="grid-template-columns: 1fr 1fr 1fr;"&gt;...&lt;/n-table&gt;
 &lt;n-table size="lg" style="grid-template-columns: 1fr 1fr 1fr;"&gt;...&lt;/n-table&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Plain Variant ── -->
 
     <h2>Plain Variant</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin: 0 0 1rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="regular">
         Editorial / documentation tables that sit inline with prose. No outer border, no radius, no header fill, no row hover.
-      </p>
+      </n-text>
       <n-table variant="plain" size="sm" style="grid-template-columns: auto 1fr 1fr;">
         <n-table-head>
           <n-table-row>
@@ -262,15 +262,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   &lt;/n-table-head&gt;
   &lt;n-table-body&gt;...&lt;/n-table-body&gt;
 &lt;/n-table&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Colspan Rows ── -->
 
     <h2>Colspan Rows</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin: 0 0 1rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="regular">
         Full-width category headers that opt out of subgrid. Hidden automatically when the table is sorted.
-      </p>
+      </n-text>
       <n-table id="colspan-table" style="grid-template-columns: 2fr 1fr 80px;">
         <n-table-head>
           <n-table-row>
@@ -320,15 +320,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     &lt;/n-table-row&gt;
   &lt;/n-table-body&gt;
 &lt;/n-table&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Sticky Header ── -->
 
     <h2>Sticky Header</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin: 0 0 1rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="regular">
         Header row stays fixed when scrolling vertically. Requires constrained height on the table.
-      </p>
+      </n-text>
       <n-table sticky-header style="grid-template-columns: 1fr 1fr 100px; max-height: 200px;">
         <n-table-head>
           <n-table-row>
@@ -350,15 +350,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   &lt;/n-table-head&gt;
   &lt;n-table-body&gt;...&lt;/n-table-body&gt;
 &lt;/n-table&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Sticky Column ── -->
 
     <h2>Sticky Column</h2>
-    <div class="layout-section" style="max-width: 400px;">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin: 0 0 1rem;">
+    <n-panel bordered style="max-width: 400px;">
+      <n-text size="xs" muted spacing="regular">
         First column stays fixed when scrolling horizontally. Requires constrained width.
-      </p>
+      </n-text>
       <n-table sticky-column style="grid-template-columns: 120px 150px 150px 150px 150px;">
         <n-table-head>
           <n-table-row>
@@ -404,16 +404,16 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   &lt;/n-table-head&gt;
   &lt;n-table-body&gt;...&lt;/n-table-body&gt;
 &lt;/n-table&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Sticky Colspan Rows ── -->
 
     <h2>Sticky Colspan Rows</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin: 0 0 1rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="regular">
         Section headers stick below the table header as you scroll, like iOS section headers.
         Each section header pushes the previous one up.
-      </p>
+      </n-text>
       <n-table sticky-header style="grid-template-columns: 2fr 1fr 80px; max-height: 280px;">
         <n-table-head>
           <n-table-row>
@@ -433,15 +433,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     &lt;n-table-row&gt;...&lt;/n-table-row&gt;
   &lt;/n-table-body&gt;
 &lt;/n-table&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Reorderable Rows ── -->
 
     <h2>Reorderable Rows</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin: 0 0 1rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="regular">
         Drag rows to reorder. DOM is auto-reordered unless the <code>native:table-reorder</code> event is cancelled.
-      </p>
+      </n-text>
       <n-table reorderable style="grid-template-columns: 1fr 1fr 100px;">
         <n-table-head>
           <n-table-row>
@@ -488,15 +488,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     &lt;/n-table-row&gt;
   &lt;/n-table-body&gt;
 &lt;/n-table&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Resizable Columns ── -->
 
     <h2>Resizable Columns</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin: 0 0 1rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="regular">
         Drag the right edge of any header cell to resize columns.
-      </p>
+      </n-text>
       <n-table resizable style="grid-template-columns: 2fr 1fr 1fr;">
         <n-table-head>
           <n-table-row>
@@ -534,15 +534,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   &lt;/n-table-head&gt;
   &lt;n-table-body&gt;...&lt;/n-table-body&gt;
 &lt;/n-table&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Sortable + Resizable ── -->
 
     <h2>Sortable + Resizable</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin: 0 0 1rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="regular">
         Click header text to sort, drag header edge to resize. Both coexist without conflict.
-      </p>
+      </n-text>
       <n-table resizable id="sort-resize-table" style="grid-template-columns: 2fr 1fr 80px;">
         <n-table-head>
           <n-table-row>
@@ -564,15 +564,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   &lt;/n-table-head&gt;
   &lt;n-table-body&gt;...&lt;/n-table-body&gt;
 &lt;/n-table&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Debug States (force-*) ── -->
 
     <h2>Debug States (<code>force-*</code>)</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin: 0 0 1rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="regular">
         Attribute-driven pseudo-state overrides for DevTools debugging and visual testing. Applied to individual rows and headers.
-      </p>
+      </n-text>
       <n-table style="grid-template-columns: 1fr 1fr 1fr;">
         <n-table-head>
           <n-table-row>
@@ -604,7 +604,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           </n-table-row>
         </n-table-body>
       </n-table>
-    </div>
+    </n-panel>
   </main>
 
   <script>

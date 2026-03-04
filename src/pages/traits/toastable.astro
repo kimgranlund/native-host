@@ -22,17 +22,17 @@ toaster.toast({ message: 'Sticky!', intent: 'warning', duration: 0 });`,
 <SidebarLayout title="Toastable">
   <main>
 <h1>Toastable</h1>
-    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
+    <n-text size="md" muted spacing="relaxed">
       Composable trait for showing toast notifications. Per-controller toast stack with auto-dismiss timers, intent-based styling, and optional dismiss buttons.
-    </p>
+    </n-text>
 
     <!-- ── Intent Variants ── -->
 
     <h2>Intent Variants</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
         Uses <code>ToastController</code> directly on a host element. Each intent maps to a different surface color.
-      </p>
+      </n-text>
       <div class="button-row">
         <n-button id="info-btn" intent="info">Info Toast</n-button>
         <n-button id="success-btn" intent="success">Success Toast</n-button>
@@ -40,31 +40,31 @@ toaster.toast({ message: 'Sticky!', intent: 'warning', duration: 0 });`,
         <n-button id="danger-btn" intent="danger">Danger Toast</n-button>
       </div>
       <pre class="layout-code"><code set:html={codeExamples.intentVariants} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Custom Duration ── -->
 
     <h2>Custom Duration</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <div class="button-row">
         <n-button id="fast-btn">Fast (1s)</n-button>
         <n-button id="slow-btn">Slow (10s)</n-button>
         <n-button id="sticky-btn">Sticky (manual dismiss)</n-button>
       </div>
       <pre class="layout-code"><code set:html={codeExamples.customDuration} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Dismiss All ── -->
 
     <h2>Batch Operations</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <div class="button-row">
         <n-button id="batch-btn">Spawn 5 Toasts</n-button>
         <n-button id="clear-btn">Dismiss All</n-button>
       </div>
       <pre class="layout-code"><code>// Dismiss all active toasts
 toaster.dismissAllToasts();</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── API Reference ── -->
 

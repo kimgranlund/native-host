@@ -24,17 +24,17 @@ const detailIntersection = `{ isIntersecting, ratio }`;
 <SidebarLayout title="Intersectable">
   <main>
 <h1>Intersectable</h1>
-    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
+    <n-text size="md" muted spacing="relaxed">
       IntersectionObserver wrapper for visibility-triggered behavior. Sets <code>[intersecting]</code> when the element enters the viewport and dispatches <code>native:intersect</code>.
-    </p>
+    </n-text>
 
     <!-- ── Scroll Into View (Provider) ── -->
 
     <h2>Scroll Into View (Provider)</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
         <code>&lt;n-controller traits="intersectable"&gt;</code> wraps each box. Scroll down to see them appear with a CSS fade-in animation.
-      </p>
+      </n-text>
       <div class="scroll-spacer">&#8595; Scroll down to reveal boxes &#8595;</div>
       <n-controller traits="intersectable">
         <div class="intersect-box">
@@ -62,15 +62,15 @@ const detailIntersection = `{ isIntersecting, ratio }`;
       </n-controller>
       <div id="scroll-log" class="output"></div>
       <pre class="layout-code"><code set:html={codeExamples.scrollIntoViewProvider} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Once Mode (Provider) ── -->
 
     <h2>Once Mode (Provider)</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
         <code>intersectable-once="true"</code>. The element fades in and stays visible permanently. The observer disconnects after the first intersection.
-      </p>
+      </n-text>
       <div class="scroll-spacer">&#8595; Scroll down — these only animate once &#8595;</div>
       <n-controller traits="intersectable" intersectable-once="true">
         <div class="intersect-box" id="once-a">
@@ -96,15 +96,15 @@ const detailIntersection = `{ isIntersecting, ratio }`;
     Once A
   &lt;/div&gt;
 &lt;/n-controller&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Threshold (Provider) ── -->
 
     <h2>Threshold (50%)</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
         <code>intersectable-threshold="0.5"</code>. Only triggers when at least 50% of the element is visible.
-      </p>
+      </n-text>
       <div class="scroll-spacer">&#8595; Scroll down — requires 50% visibility &#8595;</div>
       <n-controller traits="intersectable" intersectable-threshold="0.5">
         <div class="intersect-box">
@@ -124,7 +124,7 @@ const detailIntersection = `{ isIntersecting, ratio }`;
     50% Threshold
   &lt;/div&gt;
 &lt;/n-controller&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── API Reference ── -->
 

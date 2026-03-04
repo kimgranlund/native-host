@@ -4,14 +4,14 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 <SidebarLayout title="Toolbar">
   <main>
 <h1>&lt;n-toolbar&gt;</h1>
-    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
+    <n-text size="md" muted spacing="relaxed">
       Horizontal action bar for grouping related controls. Minimal custom element with role="toolbar" and roving keyboard focus.
-    </p>
+    </n-text>
 
     <!-- ── Text Formatting ── -->
 
     <h2>Text Formatting</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-toolbar aria-label="Text formatting">
         <n-button variant="ghost"><n-icon name="text-b"></n-icon></n-button>
         <n-button variant="ghost"><n-icon name="text-italic"></n-icon></n-button>
@@ -32,12 +32,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   &lt;n-divider orientation="vertical"&gt;&lt;/n-divider&gt;
   &lt;n-button variant="ghost"&gt;&lt;n-icon name="text-align-left"&gt;&lt;/n-icon&gt;&lt;/n-button&gt;
 &lt;/n-toolbar&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Document Actions ── -->
 
     <h2>Document Actions</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-toolbar aria-label="Document actions">
         <n-button variant="ghost"><n-icon name="floppy-disk" slot="leading"></n-icon><span slot="label">Save</span></n-button>
         <n-button variant="ghost"><n-icon name="download" slot="leading"></n-icon><span slot="label">Export</span></n-button>
@@ -57,12 +57,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     &lt;span slot="label"&gt;Undo&lt;/span&gt;
   &lt;/n-button&gt;
 &lt;/n-toolbar&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Media Controls ── -->
 
     <h2>Media Controls</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-toolbar aria-label="Media playback">
         <n-button variant="ghost"><n-icon name="skip-back"></n-icon></n-button>
         <n-button variant="ghost"><n-icon name="play"></n-icon></n-button>
@@ -79,12 +79,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   &lt;n-divider orientation="vertical"&gt;&lt;/n-divider&gt;
   &lt;n-button variant="ghost"&gt;&lt;n-icon name="speaker-high"&gt;&lt;/n-icon&gt;&lt;/n-button&gt;
 &lt;/n-toolbar&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Sizes ── -->
 
     <h2>Sizes</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-stack gap="4">
         <n-toolbar aria-label="Small toolbar" size="sm">
           <n-button variant="ghost"><n-icon name="magnifying-glass"></n-icon></n-button>
@@ -105,12 +105,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <pre class="layout-code"><code>&lt;n-toolbar aria-label="Small" size="sm"&gt;...&lt;/n-toolbar&gt;
 &lt;n-toolbar aria-label="Default"&gt;...&lt;/n-toolbar&gt;
 &lt;n-toolbar aria-label="Large" size="lg"&gt;...&lt;/n-toolbar&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Density ── -->
 
     <h2>Density</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-stack gap="4">
         <n-toolbar aria-label="Compact" density="compact">
           <n-button variant="ghost"><n-icon name="copy"></n-icon></n-button>
@@ -131,12 +131,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <pre class="layout-code"><code>&lt;n-toolbar density="compact"&gt;...&lt;/n-toolbar&gt;
 &lt;n-toolbar&gt;...&lt;/n-toolbar&gt;
 &lt;n-toolbar density="loose"&gt;...&lt;/n-toolbar&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Plain Variant ── -->
 
     <h2>Plain Variant</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <p class="layout-hint">
         <code>variant="plain"</code> strips background, border, and radius so the toolbar can embed inside containers like <code>&lt;n-card&gt;</code> headers without doubling chrome.
       </p>
@@ -157,12 +157,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
 &lt;!-- Plain: transparent, no border, no radius --&gt;
 &lt;n-toolbar variant="plain"&gt;...&lt;/n-toolbar&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Fill Mode ── -->
 
     <h2>Fill Mode</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <p class="layout-hint">
         <code>[fill]</code> distributes available space evenly across items. Default is compact (intrinsic width).
       </p>
@@ -183,12 +183,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
 &lt;!-- Fill: items grow to distribute space --&gt;
 &lt;n-toolbar fill&gt;...&lt;/n-toolbar&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Responsive Overflow ── -->
 
     <h2>Responsive Overflow</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <p class="layout-hint">
         Resize the container to see items collapse into a &bull;&bull;&bull; overflow menu.
       </p>
@@ -219,12 +219,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     &lt;!-- ... more items ... --&gt;
   &lt;/n-toolbar&gt;
 &lt;/div&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Grouped Overflow ── -->
 
     <h2>Grouped Overflow</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <p class="layout-hint">
         <code>&lt;n-toolbar-group&gt;</code> keeps related actions together — the entire group overflows as one unit instead of splitting.
       </p>
@@ -267,7 +267,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     &lt;n-button variant="ghost"&gt;&lt;n-icon name="text-align-center"&gt;&lt;/n-icon&gt;&lt;/n-button&gt;
   &lt;/n-toolbar-group&gt;
 &lt;/n-toolbar&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
   </main>
 
   <style is:global>

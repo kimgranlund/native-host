@@ -25,16 +25,16 @@ const codeExamples = {
 <SidebarLayout title="Command">
   <main>
 <h1>&lt;n-command&gt;</h1>
-    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
+    <n-text size="md" muted spacing="relaxed">
       Command palette with search filtering, keyboard navigation, and grouped items.
-    </p>
+    </n-text>
 
     <!-- ── Basic ── -->
 
     <h2>Basic Command Palette</h2>
-    <div class="layout-section" intent="neutral" variant="secondary">
+    <n-panel bordered intent="neutral" variant="secondary">
       <div class="layout-grid">
-        <div class="layout-col">
+        <n-stack>
           <span class="layout-col-label">Simple list</span>
           <n-command id="basic-command">
             <n-command-input>
@@ -52,17 +52,17 @@ const codeExamples = {
             <n-command-empty>No results found.</n-command-empty>
           </n-command>
           <div class="log" id="basic-log"></div>
-        </div>
+        </n-stack>
       </div>
       <pre class="layout-code"><code set:html={codeExamples.basicCommandPalette} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Grouped ── -->
 
     <h2>Grouped Commands</h2>
-    <div class="layout-section" intent="neutral" variant="secondary">
+    <n-panel bordered intent="neutral" variant="secondary">
       <div class="layout-grid">
-        <div class="layout-col">
+        <n-stack>
           <span class="layout-col-label">With groups and shortcuts</span>
           <n-command id="grouped-command">
             <n-command-input>
@@ -112,7 +112,7 @@ const codeExamples = {
             </n-command-list>
             <n-command-empty>No matching commands.</n-command-empty>
           </n-command>
-        </div>
+        </n-stack>
       </div>
       <pre class="layout-code"><code>&lt;n-command&gt;
   &lt;n-command-input&gt;
@@ -138,14 +138,14 @@ const codeExamples = {
   &lt;/n-command-list&gt;
   &lt;n-command-empty&gt;No matching commands.&lt;/n-command-empty&gt;
 &lt;/n-command&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── With Disabled Items ── -->
 
     <h2>Disabled Items</h2>
-    <div class="layout-section" intent="neutral" variant="secondary">
+    <n-panel bordered intent="neutral" variant="secondary">
       <div class="layout-grid">
-        <div class="layout-col">
+        <n-stack>
           <span class="layout-col-label">Some items disabled</span>
           <n-command>
             <n-command-input>
@@ -160,19 +160,19 @@ const codeExamples = {
               <n-command-item value="select-all"><n-icon name="selection-all"></n-icon> Select All</n-command-item>
             </n-command-list>
           </n-command>
-        </div>
+        </n-stack>
       </div>
       <pre class="layout-code"><code>&lt;n-command-item value="paste" disabled&gt;
   &lt;n-icon name="clipboard-text"&gt;&lt;/n-icon&gt; Paste (clipboard empty)
 &lt;/n-command-item&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Sizes ── -->
 
     <h2>Sizes</h2>
-    <div class="layout-section" variant="secondary">
+    <n-panel bordered variant="secondary">
       <div class="layout-grid">
-        <div class="layout-col">
+        <n-stack>
           <span class="layout-col-label">sm</span>
           <n-command size="sm">
             <n-command-input>
@@ -184,8 +184,8 @@ const codeExamples = {
               <n-command-item value="c">Charlie</n-command-item>
             </n-command-list>
           </n-command>
-        </div>
-        <div class="layout-col">
+        </n-stack>
+        <n-stack>
           <span class="layout-col-label">md (default)</span>
           <n-command size="md">
             <n-command-input>
@@ -197,8 +197,8 @@ const codeExamples = {
               <n-command-item value="c">Charlie</n-command-item>
             </n-command-list>
           </n-command>
-        </div>
-        <div class="layout-col">
+        </n-stack>
+        <n-stack>
           <span class="layout-col-label">lg</span>
           <n-command size="lg">
             <n-command-input>
@@ -210,16 +210,16 @@ const codeExamples = {
               <n-command-item value="c">Charlie</n-command-item>
             </n-command-list>
           </n-command>
-        </div>
+        </n-stack>
       </div>
-    </div>
+    </n-panel>
 
     <!-- ── Variants ── -->
 
     <h2>Variants</h2>
-    <div class="layout-section" size="sm">
+    <n-panel bordered size="sm">
       <div class="layout-grid">
-        <div class="layout-col">
+        <n-stack>
           <span class="layout-col-label">secondary</span>
           <n-command variant="secondary">
             <n-command-input>
@@ -231,8 +231,8 @@ const codeExamples = {
               <n-command-item value="c">Charlie</n-command-item>
             </n-command-list>
           </n-command>
-        </div>
-        <div class="layout-col">
+        </n-stack>
+        <n-stack>
           <span class="layout-col-label">outline</span>
           <n-command variant="outline">
             <n-command-input>
@@ -244,8 +244,8 @@ const codeExamples = {
               <n-command-item value="c">Charlie</n-command-item>
             </n-command-list>
           </n-command>
-        </div>
-        <div class="layout-col">
+        </n-stack>
+        <n-stack>
           <span class="layout-col-label">default</span>
           <n-command variant="default">
             <n-command-input>
@@ -257,16 +257,16 @@ const codeExamples = {
               <n-command-item value="c">Charlie</n-command-item>
             </n-command-list>
           </n-command>
-        </div>
+        </n-stack>
       </div>
-    </div>
+    </n-panel>
 
     <!-- ── Density ── -->
 
     <h2>Density</h2>
-    <div class="layout-section" size="md" variant="secondary">
+    <n-panel bordered size="md" variant="secondary">
       <div class="layout-grid">
-        <div class="layout-col" density="loose">
+        <n-stack density="loose">
           <span class="layout-col-label">loose</span>
           <n-command>
             <n-command-input>
@@ -278,8 +278,8 @@ const codeExamples = {
               <n-command-item value="c">Charlie</n-command-item>
             </n-command-list>
           </n-command>
-        </div>
-        <div class="layout-col" density="default">
+        </n-stack>
+        <n-stack density="default">
           <span class="layout-col-label">default</span>
           <n-command>
             <n-command-input>
@@ -291,8 +291,8 @@ const codeExamples = {
               <n-command-item value="c">Charlie</n-command-item>
             </n-command-list>
           </n-command>
-        </div>
-        <div class="layout-col" density="compact">
+        </n-stack>
+        <n-stack density="compact">
           <span class="layout-col-label">compact</span>
           <n-command>
             <n-command-input>
@@ -304,16 +304,16 @@ const codeExamples = {
               <n-command-item value="c">Charlie</n-command-item>
             </n-command-list>
           </n-command>
-        </div>
+        </n-stack>
       </div>
-    </div>
+    </n-panel>
 
     <!-- ── Radius ── -->
 
     <h2>Radius</h2>
-    <div class="layout-section" size="sm" variant="secondary">
+    <n-panel bordered size="sm" variant="secondary">
       <div class="layout-grid">
-        <div class="layout-col" radius="sharp">
+        <n-stack radius="sharp">
           <span class="layout-col-label">sharp</span>
           <n-command>
             <n-command-input>
@@ -325,8 +325,8 @@ const codeExamples = {
               <n-command-item value="c">Charlie</n-command-item>
             </n-command-list>
           </n-command>
-        </div>
-        <div class="layout-col" radius="default">
+        </n-stack>
+        <n-stack radius="default">
           <span class="layout-col-label">default</span>
           <n-command>
             <n-command-input>
@@ -338,8 +338,8 @@ const codeExamples = {
               <n-command-item value="c">Charlie</n-command-item>
             </n-command-list>
           </n-command>
-        </div>
-        <div class="layout-col" radius="round">
+        </n-stack>
+        <n-stack radius="round">
           <span class="layout-col-label">round</span>
           <n-command>
             <n-command-input>
@@ -351,18 +351,18 @@ const codeExamples = {
               <n-command-item value="c">Charlie</n-command-item>
             </n-command-list>
           </n-command>
-        </div>
+        </n-stack>
       </div>
-    </div>
+    </n-panel>
 
     <!-- ── Cascading ── -->
 
     <h2>Cascading</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <h3>Section cascading all attributes</h3>
       <section size="sm" density="compact" radius="round" intent="accent">
         <div class="layout-grid">
-          <div class="layout-col">
+          <n-stack>
             <span class="layout-col-label">All inherited (secondary)</span>
             <n-command variant="secondary">
               <n-command-input>
@@ -374,8 +374,8 @@ const codeExamples = {
                 <n-command-item value="c">Charlie</n-command-item>
               </n-command-list>
             </n-command>
-          </div>
-          <div class="layout-col">
+          </n-stack>
+          <n-stack>
             <span class="layout-col-label">All inherited (outline)</span>
             <n-command variant="outline">
               <n-command-input>
@@ -387,15 +387,15 @@ const codeExamples = {
                 <n-command-item value="c">Charlie</n-command-item>
               </n-command-list>
             </n-command>
-          </div>
+          </n-stack>
         </div>
       </section>
-    </div>
+    </n-panel>
 
     <!-- ── Keyboard Instructions ── -->
 
     <h2>Keyboard Navigation</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-table variant="plain" size="sm" style="grid-template-columns: auto 1fr;">
         <n-table-head>
           <n-table-row>
@@ -413,7 +413,7 @@ const codeExamples = {
           <n-table-row><n-table-cell><code>Type</code></n-table-cell><n-table-cell>Filter items by search text</n-table-cell></n-table-row>
         </n-table-body>
       </n-table>
-    </div>
+    </n-panel>
   </main>
 
   <script>

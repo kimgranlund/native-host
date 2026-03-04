@@ -17,69 +17,69 @@ const codeExamples = {
 <SidebarLayout title="Button">
   <main>
 <h1>&lt;n-button&gt;</h1>
-    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
+    <n-text size="md" muted spacing="relaxed">
       Custom element with Pressable trait, form association, and signal-backed attributes.
-    </p>
+    </n-text>
 
     <!-- ── Custom Element vs Native ── -->
 
     <h2>Custom Element vs Native Button</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <h3>n-button (Custom Element)</h3>
-      <div class="layout-row">
+      <n-stack direction="row" wrap align="center">
         <n-button variant="primary" size="sm"><span slot="label">Primary</span></n-button>
         <n-button variant="secondary" size="sm"><span slot="label">Secondary</span></n-button>
         <n-button variant="outline" size="sm"><span slot="label">Outline</span></n-button>
         <n-button variant="ghost" size="sm"><span slot="label">Ghost</span></n-button>
         <n-button variant="default" size="sm"><span slot="label">Default</span></n-button>
         <n-button variant="selected" size="sm"><span slot="label">Selected</span></n-button>
-      </div>
+      </n-stack>
 
       <h3>Native button (same CSS)</h3>
-      <div class="layout-row">
+      <n-stack direction="row" wrap align="center">
         <button variant="primary" size="sm"><span slot="label">Primary</span></button>
         <button variant="secondary" size="sm"><span slot="label">Secondary</span></button>
         <button variant="outline" size="sm"><span slot="label">Outline</span></button>
         <button variant="ghost" size="sm"><span slot="label">Ghost</span></button>
         <button variant="default" size="sm"><span slot="label">Default</span></button>
         <button variant="selected" size="sm"><span slot="label">Selected</span></button>
-      </div>
-    </div>
+      </n-stack>
+    </n-panel>
 
     <!-- ── Sizes ── -->
 
     <h2>Sizes</h2>
-    <div class="layout-section">
-      <div class="layout-row">
+    <n-panel bordered>
+      <n-stack direction="row" wrap align="center">
         <span class="layout-label">xs</span>
         <n-button size="xs" variant="primary"><span slot="label">Button</span></n-button>
         <n-button size="xs" variant="secondary"><span slot="label">Button</span></n-button>
         <n-button size="xs" variant="outline"><span slot="label">Button</span></n-button>
-      </div>
-      <div class="layout-row">
+      </n-stack>
+      <n-stack direction="row" wrap align="center">
         <span class="layout-label">sm</span>
         <n-button size="sm" variant="primary"><span slot="label">Button</span></n-button>
         <n-button size="sm" variant="secondary"><span slot="label">Button</span></n-button>
         <n-button size="sm" variant="outline"><span slot="label">Button</span></n-button>
-      </div>
-      <div class="layout-row">
+      </n-stack>
+      <n-stack direction="row" wrap align="center">
         <span class="layout-label">md</span>
         <n-button size="md" variant="primary"><span slot="label">Button</span></n-button>
         <n-button size="md" variant="secondary"><span slot="label">Button</span></n-button>
         <n-button size="md" variant="outline"><span slot="label">Button</span></n-button>
-      </div>
-      <div class="layout-row">
+      </n-stack>
+      <n-stack direction="row" wrap align="center">
         <span class="layout-label">lg</span>
         <n-button size="lg" variant="primary"><span slot="label">Button</span></n-button>
         <n-button size="lg" variant="secondary"><span slot="label">Button</span></n-button>
         <n-button size="lg" variant="outline"><span slot="label">Button</span></n-button>
-      </div>
-      <div class="layout-row">
+      </n-stack>
+      <n-stack direction="row" wrap align="center">
         <span class="layout-label">xl</span>
         <n-button size="xl" variant="primary"><span slot="label">Button</span></n-button>
         <n-button size="xl" variant="secondary"><span slot="label">Button</span></n-button>
         <n-button size="xl" variant="outline"><span slot="label">Button</span></n-button>
-      </div>
+      </n-stack>
       <pre class="layout-code"><code>&lt;n-button size="sm" variant="primary"&gt;
   &lt;span slot="label"&gt;Small&lt;/span&gt;
 &lt;/n-button&gt;
@@ -87,20 +87,20 @@ const codeExamples = {
 &lt;n-button size="lg" variant="primary"&gt;
   &lt;span slot="label"&gt;Large&lt;/span&gt;
 &lt;/n-button&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Intents ── -->
 
     <h2>Intents</h2>
-    <div class="layout-section" size="sm">
-      <div class="layout-row">
+    <n-panel bordered size="sm">
+      <n-stack direction="row" wrap align="center">
         <n-button variant="primary" intent="neutral"><span slot="label">Neutral</span></n-button>
         <n-button variant="primary" intent="accent"><span slot="label">Accent</span></n-button>
         <n-button variant="primary" intent="info"><span slot="label">Info</span></n-button>
         <n-button variant="primary" intent="success"><span slot="label">Success</span></n-button>
         <n-button variant="primary" intent="warning"><span slot="label">Warning</span></n-button>
         <n-button variant="primary" intent="danger"><span slot="label">Danger</span></n-button>
-      </div>
+      </n-stack>
       <pre class="layout-code"><code>&lt;n-button variant="primary" intent="accent"&gt;
   &lt;span slot="label"&gt;Accent&lt;/span&gt;
 &lt;/n-button&gt;
@@ -108,47 +108,47 @@ const codeExamples = {
 &lt;n-button variant="primary" intent="danger"&gt;
   &lt;span slot="label"&gt;Danger&lt;/span&gt;
 &lt;/n-button&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Disabled ── -->
 
     <h2>Disabled</h2>
-    <div class="layout-section" size="sm">
-      <div class="layout-row">
+    <n-panel bordered size="sm">
+      <n-stack direction="row" wrap align="center">
         <n-button variant="primary" disabled><span slot="label">Primary</span></n-button>
         <n-button variant="secondary" disabled><span slot="label">Secondary</span></n-button>
         <n-button variant="outline" disabled><span slot="label">Outline</span></n-button>
         <n-button variant="ghost" disabled><span slot="label">Ghost</span></n-button>
         <n-button variant="default" disabled><span slot="label">Default</span></n-button>
         <n-button variant="selected" disabled><span slot="label">Selected</span></n-button>
-      </div>
+      </n-stack>
       <pre class="layout-code"><code>&lt;n-button variant="primary" disabled&gt;
   &lt;span slot="label"&gt;Disabled&lt;/span&gt;
 &lt;/n-button&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Press Events ── -->
 
     <h2>Press Events</h2>
-    <div class="layout-section" size="sm">
-      <div class="layout-row">
+    <n-panel bordered size="sm">
+      <n-stack direction="row" wrap align="center">
         <n-button variant="primary" id="press-btn"><span slot="label">Click or press Enter/Space</span></n-button>
-      </div>
+      </n-stack>
       <div class="log" id="press-log"></div>
       <pre class="layout-code"><code set:html={codeExamples.pressEvents} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Form Association ── -->
 
     <h2>Form Association</h2>
-    <div class="layout-section" size="sm">
+    <n-panel bordered size="sm">
       <form id="demo-form">
         <input type="text" name="demo" value="hello" style="margin-bottom: 0.5rem; padding: 0.25rem 0.5rem; border: 1px solid var(--n-border-muted-neutral); border-radius: 0.375rem; font-family: inherit;" />
-        <div class="layout-row">
+        <n-stack direction="row" wrap align="center">
           <n-button variant="primary" type="submit"><span slot="label">Submit</span></n-button>
           <n-button variant="secondary" type="reset"><span slot="label">Reset</span></n-button>
           <n-button variant="ghost"><span slot="label">Button (no form action)</span></n-button>
-        </div>
+        </n-stack>
       </form>
       <div class="log" id="form-log"></div>
       <pre class="layout-code"><code>&lt;form&gt;
@@ -159,266 +159,266 @@ const codeExamples = {
     &lt;span slot="label"&gt;Reset&lt;/span&gt;
   &lt;/n-button&gt;
 &lt;/form&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Variants ── -->
 
     <h2>Variants</h2>
-    <div class="layout-section" size="sm">
-      <div class="layout-row">
+    <n-panel bordered size="sm">
+      <n-stack direction="row" wrap align="center">
         <span class="layout-label">primary</span>
         <n-button variant="primary"><span slot="label">Button</span></n-button>
-      </div>
-      <div class="layout-row">
+      </n-stack>
+      <n-stack direction="row" wrap align="center">
         <span class="layout-label">secondary</span>
         <n-button variant="secondary"><span slot="label">Button</span></n-button>
-      </div>
-      <div class="layout-row">
+      </n-stack>
+      <n-stack direction="row" wrap align="center">
         <span class="layout-label">outline</span>
         <n-button variant="outline"><span slot="label">Button</span></n-button>
-      </div>
-      <div class="layout-row">
+      </n-stack>
+      <n-stack direction="row" wrap align="center">
         <span class="layout-label">ghost</span>
         <n-button variant="ghost"><span slot="label">Button</span></n-button>
-      </div>
-      <div class="layout-row">
+      </n-stack>
+      <n-stack direction="row" wrap align="center">
         <span class="layout-label">default</span>
         <n-button variant="default"><span slot="label">Button</span></n-button>
-      </div>
-      <div class="layout-row">
+      </n-stack>
+      <n-stack direction="row" wrap align="center">
         <span class="layout-label">selected</span>
         <n-button variant="selected"><span slot="label">Button</span></n-button>
-      </div>
+      </n-stack>
       <pre class="layout-code"><code>&lt;n-button variant="primary"&gt;&lt;span slot="label"&gt;Primary&lt;/span&gt;&lt;/n-button&gt;
 &lt;n-button variant="secondary"&gt;&lt;span slot="label"&gt;Secondary&lt;/span&gt;&lt;/n-button&gt;
 &lt;n-button variant="outline"&gt;&lt;span slot="label"&gt;Outline&lt;/span&gt;&lt;/n-button&gt;
 &lt;n-button variant="ghost"&gt;&lt;span slot="label"&gt;Ghost&lt;/span&gt;&lt;/n-button&gt;
 &lt;n-button variant="default"&gt;&lt;span slot="label"&gt;Default&lt;/span&gt;&lt;/n-button&gt;
 &lt;n-button variant="selected"&gt;&lt;span slot="label"&gt;Selected&lt;/span&gt;&lt;/n-button&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Density ── -->
 
     <h2>Density</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <h3>xs</h3>
-      <div class="layout-row" size="xs" density="compact">
+      <n-stack direction="row" wrap align="center" size="xs" density="compact">
         <span class="layout-label">compact</span>
         <n-button variant="primary"><span slot="label">Button</span></n-button>
         <n-button variant="secondary"><span slot="label">Button</span></n-button>
         <n-button variant="outline"><span slot="label">Button</span></n-button>
-      </div>
-      <div class="layout-row" size="xs" density="default">
+      </n-stack>
+      <n-stack direction="row" wrap align="center" size="xs" density="default">
         <span class="layout-label">default</span>
         <n-button variant="primary"><span slot="label">Button</span></n-button>
         <n-button variant="secondary"><span slot="label">Button</span></n-button>
         <n-button variant="outline"><span slot="label">Button</span></n-button>
-      </div>
-      <div class="layout-row" size="xs" density="loose">
+      </n-stack>
+      <n-stack direction="row" wrap align="center" size="xs" density="loose">
         <span class="layout-label">loose</span>
         <n-button variant="primary"><span slot="label">Button</span></n-button>
         <n-button variant="secondary"><span slot="label">Button</span></n-button>
         <n-button variant="outline"><span slot="label">Button</span></n-button>
-      </div>
+      </n-stack>
 
       <h3>sm</h3>
-      <div class="layout-row" size="sm" density="compact">
+      <n-stack direction="row" wrap align="center" size="sm" density="compact">
         <span class="layout-label">compact</span>
         <n-button variant="primary"><span slot="label">Button</span></n-button>
         <n-button variant="secondary"><span slot="label">Button</span></n-button>
         <n-button variant="outline"><span slot="label">Button</span></n-button>
-      </div>
-      <div class="layout-row" size="sm" density="default">
+      </n-stack>
+      <n-stack direction="row" wrap align="center" size="sm" density="default">
         <span class="layout-label">default</span>
         <n-button variant="primary"><span slot="label">Button</span></n-button>
         <n-button variant="secondary"><span slot="label">Button</span></n-button>
         <n-button variant="outline"><span slot="label">Button</span></n-button>
-      </div>
-      <div class="layout-row" size="sm" density="loose">
+      </n-stack>
+      <n-stack direction="row" wrap align="center" size="sm" density="loose">
         <span class="layout-label">loose</span>
         <n-button variant="primary"><span slot="label">Button</span></n-button>
         <n-button variant="secondary"><span slot="label">Button</span></n-button>
         <n-button variant="outline"><span slot="label">Button</span></n-button>
-      </div>
+      </n-stack>
 
       <h3>md</h3>
-      <div class="layout-row" size="md" density="compact">
+      <n-stack direction="row" wrap align="center" size="md" density="compact">
         <span class="layout-label">compact</span>
         <n-button variant="primary"><span slot="label">Button</span></n-button>
         <n-button variant="secondary"><span slot="label">Button</span></n-button>
         <n-button variant="outline"><span slot="label">Button</span></n-button>
-      </div>
-      <div class="layout-row" size="md" density="default">
+      </n-stack>
+      <n-stack direction="row" wrap align="center" size="md" density="default">
         <span class="layout-label">default</span>
         <n-button variant="primary"><span slot="label">Button</span></n-button>
         <n-button variant="secondary"><span slot="label">Button</span></n-button>
         <n-button variant="outline"><span slot="label">Button</span></n-button>
-      </div>
-      <div class="layout-row" size="md" density="loose">
+      </n-stack>
+      <n-stack direction="row" wrap align="center" size="md" density="loose">
         <span class="layout-label">loose</span>
         <n-button variant="primary"><span slot="label">Button</span></n-button>
         <n-button variant="secondary"><span slot="label">Button</span></n-button>
         <n-button variant="outline"><span slot="label">Button</span></n-button>
-      </div>
+      </n-stack>
 
       <h3>lg</h3>
-      <div class="layout-row" size="lg" density="compact">
+      <n-stack direction="row" wrap align="center" size="lg" density="compact">
         <span class="layout-label">compact</span>
         <n-button variant="primary"><span slot="label">Button</span></n-button>
         <n-button variant="secondary"><span slot="label">Button</span></n-button>
         <n-button variant="outline"><span slot="label">Button</span></n-button>
-      </div>
-      <div class="layout-row" size="lg" density="default">
+      </n-stack>
+      <n-stack direction="row" wrap align="center" size="lg" density="default">
         <span class="layout-label">default</span>
         <n-button variant="primary"><span slot="label">Button</span></n-button>
         <n-button variant="secondary"><span slot="label">Button</span></n-button>
         <n-button variant="outline"><span slot="label">Button</span></n-button>
-      </div>
-      <div class="layout-row" size="lg" density="loose">
+      </n-stack>
+      <n-stack direction="row" wrap align="center" size="lg" density="loose">
         <span class="layout-label">loose</span>
         <n-button variant="primary"><span slot="label">Button</span></n-button>
         <n-button variant="secondary"><span slot="label">Button</span></n-button>
         <n-button variant="outline"><span slot="label">Button</span></n-button>
-      </div>
+      </n-stack>
 
       <h3>xl</h3>
-      <div class="layout-row" size="xl" density="compact">
+      <n-stack direction="row" wrap align="center" size="xl" density="compact">
         <span class="layout-label">compact</span>
         <n-button variant="primary"><span slot="label">Button</span></n-button>
         <n-button variant="secondary"><span slot="label">Button</span></n-button>
         <n-button variant="outline"><span slot="label">Button</span></n-button>
-      </div>
-      <div class="layout-row" size="xl" density="default">
+      </n-stack>
+      <n-stack direction="row" wrap align="center" size="xl" density="default">
         <span class="layout-label">default</span>
         <n-button variant="primary"><span slot="label">Button</span></n-button>
         <n-button variant="secondary"><span slot="label">Button</span></n-button>
         <n-button variant="outline"><span slot="label">Button</span></n-button>
-      </div>
-      <div class="layout-row" size="xl" density="loose">
+      </n-stack>
+      <n-stack direction="row" wrap align="center" size="xl" density="loose">
         <span class="layout-label">loose</span>
         <n-button variant="primary"><span slot="label">Button</span></n-button>
         <n-button variant="secondary"><span slot="label">Button</span></n-button>
         <n-button variant="outline"><span slot="label">Button</span></n-button>
-      </div>
-    </div>
+      </n-stack>
+    </n-panel>
 
     <!-- ── Radius ── -->
 
     <h2>Radius</h2>
-    <div class="layout-section" size="md">
-      <div class="layout-row" radius="sharp">
+    <n-panel bordered size="md">
+      <n-stack direction="row" wrap align="center" radius="sharp">
         <span class="layout-label">sharp</span>
         <n-button variant="primary"><span slot="label">Button</span></n-button>
         <n-button variant="secondary"><span slot="label">Button</span></n-button>
         <n-button variant="outline"><span slot="label">Button</span></n-button>
-      </div>
-      <div class="layout-row" radius="default">
+      </n-stack>
+      <n-stack direction="row" wrap align="center" radius="default">
         <span class="layout-label">default</span>
         <n-button variant="primary"><span slot="label">Button</span></n-button>
         <n-button variant="secondary"><span slot="label">Button</span></n-button>
         <n-button variant="outline"><span slot="label">Button</span></n-button>
-      </div>
-      <div class="layout-row" radius="round">
+      </n-stack>
+      <n-stack direction="row" wrap align="center" radius="round">
         <span class="layout-label">round</span>
         <n-button variant="primary"><span slot="label">Button</span></n-button>
         <n-button variant="secondary"><span slot="label">Button</span></n-button>
         <n-button variant="outline"><span slot="label">Button</span></n-button>
-      </div>
-    </div>
+      </n-stack>
+    </n-panel>
 
     <!-- ── Cascading ── -->
 
     <h2>Cascading</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <h3>Parent size="md", child overrides</h3>
-      <div class="layout-row" size="md" intent="accent">
+      <n-stack direction="row" wrap align="center" size="md" intent="accent">
         <n-button variant="primary"><span slot="label">Inherited md</span></n-button>
         <n-button variant="primary" size="xs"><span slot="label">Override xs</span></n-button>
         <n-button variant="primary" size="lg"><span slot="label">Override lg</span></n-button>
-      </div>
+      </n-stack>
 
       <h3>Parent intent="accent", child overrides</h3>
-      <div class="layout-row" size="sm" intent="accent">
+      <n-stack direction="row" wrap align="center" size="sm" intent="accent">
         <n-button variant="primary"><span slot="label">Accent</span></n-button>
         <n-button variant="primary" intent="danger"><span slot="label">Danger</span></n-button>
         <n-button variant="primary" intent="success"><span slot="label">Success</span></n-button>
-      </div>
+      </n-stack>
 
       <h3>Section cascading all attributes</h3>
       <section size="sm" density="compact" radius="round" intent="accent">
-        <div class="layout-row">
+        <n-stack direction="row" wrap align="center">
           <n-button variant="primary"><span slot="label">All inherited</span></n-button>
           <n-button variant="secondary"><span slot="label">All inherited</span></n-button>
           <n-button variant="outline"><span slot="label">All inherited</span></n-button>
           <n-button variant="ghost"><span slot="label">All inherited</span></n-button>
-        </div>
+        </n-stack>
       </section>
-    </div>
+    </n-panel>
 
     <!-- ── Variants x Intents ── -->
 
     <h2>Variants x Intents</h2>
-    <div class="layout-section" size="sm">
+    <n-panel bordered size="sm">
       <h3>Primary</h3>
-      <div class="layout-row">
+      <n-stack direction="row" wrap align="center">
         <n-button variant="primary" intent="neutral"><span slot="label">Neutral</span></n-button>
         <n-button variant="primary" intent="accent"><span slot="label">Accent</span></n-button>
         <n-button variant="primary" intent="info"><span slot="label">Info</span></n-button>
         <n-button variant="primary" intent="success"><span slot="label">Success</span></n-button>
         <n-button variant="primary" intent="warning"><span slot="label">Warning</span></n-button>
         <n-button variant="primary" intent="danger"><span slot="label">Danger</span></n-button>
-      </div>
+      </n-stack>
       <h3>Secondary</h3>
-      <div class="layout-row">
+      <n-stack direction="row" wrap align="center">
         <n-button variant="secondary" intent="neutral"><span slot="label">Neutral</span></n-button>
         <n-button variant="secondary" intent="accent"><span slot="label">Accent</span></n-button>
         <n-button variant="secondary" intent="info"><span slot="label">Info</span></n-button>
         <n-button variant="secondary" intent="success"><span slot="label">Success</span></n-button>
         <n-button variant="secondary" intent="warning"><span slot="label">Warning</span></n-button>
         <n-button variant="secondary" intent="danger"><span slot="label">Danger</span></n-button>
-      </div>
+      </n-stack>
       <h3>Outline</h3>
-      <div class="layout-row">
+      <n-stack direction="row" wrap align="center">
         <n-button variant="outline" intent="neutral"><span slot="label">Neutral</span></n-button>
         <n-button variant="outline" intent="accent"><span slot="label">Accent</span></n-button>
         <n-button variant="outline" intent="info"><span slot="label">Info</span></n-button>
         <n-button variant="outline" intent="success"><span slot="label">Success</span></n-button>
         <n-button variant="outline" intent="warning"><span slot="label">Warning</span></n-button>
         <n-button variant="outline" intent="danger"><span slot="label">Danger</span></n-button>
-      </div>
+      </n-stack>
       <h3>Ghost</h3>
-      <div class="layout-row">
+      <n-stack direction="row" wrap align="center">
         <n-button variant="ghost" intent="neutral"><span slot="label">Neutral</span></n-button>
         <n-button variant="ghost" intent="accent"><span slot="label">Accent</span></n-button>
         <n-button variant="ghost" intent="info"><span slot="label">Info</span></n-button>
         <n-button variant="ghost" intent="success"><span slot="label">Success</span></n-button>
         <n-button variant="ghost" intent="warning"><span slot="label">Warning</span></n-button>
         <n-button variant="ghost" intent="danger"><span slot="label">Danger</span></n-button>
-      </div>
+      </n-stack>
       <h3>Default</h3>
-      <div class="layout-row">
+      <n-stack direction="row" wrap align="center">
         <n-button variant="default" intent="neutral"><span slot="label">Neutral</span></n-button>
         <n-button variant="default" intent="accent"><span slot="label">Accent</span></n-button>
         <n-button variant="default" intent="info"><span slot="label">Info</span></n-button>
         <n-button variant="default" intent="success"><span slot="label">Success</span></n-button>
         <n-button variant="default" intent="warning"><span slot="label">Warning</span></n-button>
         <n-button variant="default" intent="danger"><span slot="label">Danger</span></n-button>
-      </div>
+      </n-stack>
       <h3>Selected</h3>
-      <div class="layout-row">
+      <n-stack direction="row" wrap align="center">
         <n-button variant="selected" intent="neutral"><span slot="label">Neutral</span></n-button>
         <n-button variant="selected" intent="accent"><span slot="label">Accent</span></n-button>
         <n-button variant="selected" intent="info"><span slot="label">Info</span></n-button>
         <n-button variant="selected" intent="success"><span slot="label">Success</span></n-button>
         <n-button variant="selected" intent="warning"><span slot="label">Warning</span></n-button>
         <n-button variant="selected" intent="danger"><span slot="label">Danger</span></n-button>
-      </div>
-    </div>
+      </n-stack>
+    </n-panel>
 
     <!-- ── Justify: spread ── -->
 
     <h2>Justify: spread</h2>
-    <div class="layout-section" size="md" style="max-width: 20rem;">
+    <n-panel bordered size="md" style="max-width: 20rem;">
       <n-stack gap="2">
         <n-button justify="spread">
           <n-icon name="heart" slot="leading"></n-icon>
@@ -431,37 +431,37 @@ const codeExamples = {
           <n-icon name="arrow-right" slot="trailing"></n-icon>
         </n-button>
       </n-stack>
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-top: 0.75rem;">
+      <n-text size="xs" muted style="margin-top: 0.75rem;">
         <code>justify="spread"</code> switches to <code>auto 1fr auto</code> columns so the label fills available space and trailing icon pushes to the far edge. Used as dropdown triggers in <code>&lt;n-select&gt;</code>.
-      </p>
+      </n-text>
       <pre class="layout-code"><code>&lt;n-button justify="spread"&gt;
   &lt;n-icon name="heart" slot="leading"&gt;&lt;/n-icon&gt;
   &lt;span slot="label"&gt;Favorites&lt;/span&gt;
   &lt;n-icon name="arrow-right" slot="trailing"&gt;&lt;/n-icon&gt;
 &lt;/n-button&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Icon Only ── -->
 
     <h2>Icon Only</h2>
-    <div class="layout-section" size="md">
-      <div class="layout-row">
+    <n-panel bordered size="md">
+      <n-stack direction="row" wrap align="center">
         <n-button variant="primary" aria-label="Add"><n-icon name="plus"></n-icon></n-button>
         <n-button variant="secondary" aria-label="Close"><n-icon name="x"></n-icon></n-button>
         <n-button variant="ghost" aria-label="Favorite"><n-icon name="heart"></n-icon></n-button>
         <n-button variant="outline" aria-label="Next"><n-icon name="arrow-right"></n-icon></n-button>
-      </div>
+      </n-stack>
       <pre class="layout-code"><code>&lt;n-button variant="primary" aria-label="Add"&gt;
   &lt;n-icon name="plus"&gt;&lt;/n-icon&gt;
 &lt;/n-button&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Slots ── -->
 
     <h2>Slot Variations</h2>
-    <div class="layout-section" size="md">
+    <n-panel bordered size="md">
       <h3>Full (leading + label + trailing)</h3>
-      <div class="layout-row">
+      <n-stack direction="row" wrap align="center">
         <n-button variant="primary">
           <n-icon name="plus" slot="leading"></n-icon>
           <span slot="label">Add Item</span>
@@ -472,9 +472,9 @@ const codeExamples = {
           <span slot="label">Add Item</span>
           <n-icon name="arrow-right" slot="trailing"></n-icon>
         </n-button>
-      </div>
+      </n-stack>
       <h3>Label + Trailing</h3>
-      <div class="layout-row">
+      <n-stack direction="row" wrap align="center">
         <n-button variant="primary">
           <span slot="label">Next</span>
           <n-icon name="arrow-right" slot="trailing"></n-icon>
@@ -483,9 +483,9 @@ const codeExamples = {
           <span slot="label">Next</span>
           <n-icon name="arrow-right" slot="trailing"></n-icon>
         </n-button>
-      </div>
+      </n-stack>
       <h3>Leading + Label</h3>
-      <div class="layout-row">
+      <n-stack direction="row" wrap align="center">
         <n-button variant="primary">
           <n-icon name="heart" slot="leading"></n-icon>
           <span slot="label">Favorite</span>
@@ -494,43 +494,43 @@ const codeExamples = {
           <n-icon name="heart" slot="leading"></n-icon>
           <span slot="label">Favorite</span>
         </n-button>
-      </div>
+      </n-stack>
       <pre class="layout-code"><code>&lt;n-button variant="primary"&gt;
   &lt;n-icon name="plus" slot="leading"&gt;&lt;/n-icon&gt;
   &lt;span slot="label"&gt;Add Item&lt;/span&gt;
   &lt;n-icon name="arrow-right" slot="trailing"&gt;&lt;/n-icon&gt;
 &lt;/n-button&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Debug States (force-*) ── -->
 
     <h2>Debug States (<code>force-*</code>)</h2>
-    <div class="layout-section" size="md">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin: 0 0 1rem;">
+    <n-panel bordered size="md">
+      <n-text size="xs" muted spacing="regular">
         Attribute-driven pseudo-state overrides for DevTools debugging, Storybook-style state demos, and visual testing.
-      </p>
+      </n-text>
       <h3>force-hover</h3>
-      <div class="layout-row">
+      <n-stack direction="row" wrap align="center">
         <n-button variant="primary" force-hover><span slot="label">Primary</span></n-button>
         <n-button variant="secondary" force-hover><span slot="label">Secondary</span></n-button>
         <n-button variant="outline" force-hover><span slot="label">Outline</span></n-button>
         <n-button variant="ghost" force-hover><span slot="label">Ghost</span></n-button>
-      </div>
+      </n-stack>
       <h3>force-active</h3>
-      <div class="layout-row">
+      <n-stack direction="row" wrap align="center">
         <n-button variant="primary" force-active><span slot="label">Primary</span></n-button>
         <n-button variant="secondary" force-active><span slot="label">Secondary</span></n-button>
         <n-button variant="outline" force-active><span slot="label">Outline</span></n-button>
         <n-button variant="ghost" force-active><span slot="label">Ghost</span></n-button>
-      </div>
+      </n-stack>
       <h3>force-focus-visible</h3>
-      <div class="layout-row">
+      <n-stack direction="row" wrap align="center">
         <n-button variant="primary" force-focus-visible><span slot="label">Primary</span></n-button>
         <n-button variant="secondary" force-focus-visible><span slot="label">Secondary</span></n-button>
         <n-button variant="outline" force-focus-visible><span slot="label">Outline</span></n-button>
         <n-button variant="ghost" force-focus-visible><span slot="label">Ghost</span></n-button>
-      </div>
-    </div>
+      </n-stack>
+    </n-panel>
   </main>
 
   <script>

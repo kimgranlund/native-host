@@ -4,20 +4,20 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 <SidebarLayout title="Dialog">
   <main>
 <h1>&lt;n-dialog&gt;</h1>
-    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
+    <n-text size="md" muted spacing="relaxed">
       Modal dialog built on native <code>&lt;dialog&gt;</code>. Opens via <code>showModal()</code>, closes on backdrop click, Escape, or programmatically. Content is promoted to the top layer with full token re-establishment.
-    </p>
+    </n-text>
 
     <!-- ── Basic Dialog ── -->
 
     <h2>Basic Dialog</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-button id="open-basic">Open Dialog</n-button>
       <n-dialog id="basic-dialog">
         <n-card class="dialog-card">
           <n-header><span slot="label">Confirm Action</span></n-header>
           <n-body>
-            <p style="font-size: 0.875rem; color: var(--n-ink-muted-neutral); margin: 0; line-height: 1.5;">Are you sure you want to continue? This action cannot be undone.</p>
+            <n-text size="md" muted style="line-height: 1.5;">Are you sure you want to continue? This action cannot be undone.</n-text>
           </n-body>
           <n-footer>
             <n-button id="basic-cancel">Cancel</n-button>
@@ -49,18 +49,18 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   document.getElementById('confirm-btn')
     .addEventListener('native:press', () =&gt; dialog.close());
 &lt;/script&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Form Dialog ── -->
 
     <h2>Form Dialog</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-button id="open-form">Edit Profile</n-button>
       <n-dialog id="form-dialog">
         <n-card class="dialog-card">
           <n-header><span slot="label">Edit Profile</span></n-header>
           <n-body>
-            <p style="font-size: 0.875rem; color: var(--n-ink-muted-neutral); margin: 0 0 0.75rem; line-height: 1.5;">Update your display name and email address.</p>
+            <n-text size="md" muted spacing="tight" style="line-height: 1.5;">Update your display name and email address.</n-text>
             <n-stack gap="3">
               <n-field>
                 <label slot="label">Name</label>
@@ -99,21 +99,21 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     &lt;/n-footer&gt;
   &lt;/n-card&gt;
 &lt;/n-dialog&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── No Close on Backdrop ── -->
 
     <h2>No Close on Backdrop</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.8125rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+    <n-panel bordered>
+      <n-text size="sm" muted spacing="tight">
         This dialog has <code>no-close-on-backdrop</code> — clicking outside doesn't close it. You must use the button.
-      </p>
+      </n-text>
       <n-button id="open-persistent">Open Persistent Dialog</n-button>
       <n-dialog id="persistent-dialog" no-close-on-backdrop>
         <n-card class="dialog-card">
           <n-header><span slot="label">Important Notice</span></n-header>
           <n-body>
-            <p style="font-size: 0.875rem; color: var(--n-ink-muted-neutral); margin: 0; line-height: 1.5;">This dialog can only be closed by clicking the button below. Clicking the backdrop or pressing Escape won't dismiss it.</p>
+            <n-text size="md" muted style="line-height: 1.5;">This dialog can only be closed by clicking the button below. Clicking the backdrop or pressing Escape won't dismiss it.</n-text>
           </n-body>
           <n-footer>
             <n-button id="persistent-close" intent="accent">Got it</n-button>
@@ -129,39 +129,39 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     &lt;/n-footer&gt;
   &lt;/n-card&gt;
 &lt;/n-dialog&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── No Close on Escape ── -->
 
     <h2>No Close on Escape</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.8125rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+    <n-panel bordered>
+      <n-text size="sm" muted spacing="tight">
         This dialog has <code>no-close-on-escape</code> — pressing Escape doesn't close it. Backdrop click still works.
-      </p>
+      </n-text>
       <n-button id="open-no-esc">Open (no Escape close)</n-button>
       <n-dialog id="no-esc-dialog" no-close-on-escape>
         <n-card class="dialog-card">
           <n-header><span slot="label">Escape Disabled</span></n-header>
           <n-body>
-            <p style="font-size: 0.875rem; color: var(--n-ink-muted-neutral); margin: 0; line-height: 1.5;">Press Escape — nothing happens. Click the backdrop or the button to close.</p>
+            <n-text size="md" muted style="line-height: 1.5;">Press Escape — nothing happens. Click the backdrop or the button to close.</n-text>
           </n-body>
           <n-footer>
             <n-button id="no-esc-close">Close</n-button>
           </n-footer>
         </n-card>
       </n-dialog>
-    </div>
+    </n-panel>
 
     <!-- ── Danger Dialog ── -->
 
     <h2>Danger Variant</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-button id="open-danger" intent="danger">Delete Account</n-button>
       <n-dialog id="danger-dialog">
         <n-card class="dialog-card">
           <n-header><span slot="label" style="color: var(--n-ink-strong-danger);">Delete Account</span></n-header>
           <n-body>
-            <p style="font-size: 0.875rem; color: var(--n-ink-muted-neutral); margin: 0; line-height: 1.5;">This will permanently delete your account and all associated data. This action cannot be reversed.</p>
+            <n-text size="md" muted style="line-height: 1.5;">This will permanently delete your account and all associated data. This action cannot be reversed.</n-text>
           </n-body>
           <n-footer>
             <n-button id="danger-cancel">Cancel</n-button>
@@ -185,7 +185,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     &lt;/n-footer&gt;
   &lt;/n-card&gt;
 &lt;/n-dialog&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
   </main>
 
   <script>

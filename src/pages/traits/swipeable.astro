@@ -35,17 +35,17 @@ const detailSwipe = `{ direction, distance, velocity }`;
 <SidebarLayout title="Swipeable">
   <main>
 <h1>Swipeable</h1>
-    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
+    <n-text size="md" muted spacing="relaxed">
       Touch/pointer swipe gesture recognition with direction, velocity, and threshold. Supports horizontal, vertical, and both axes.
-    </p>
+    </n-text>
 
     <!-- ── Horizontal Swipe (Provider) ── -->
 
     <h2>Horizontal Swipe <span class="pattern-badge provider">Provider</span></h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
         Default axis. <code>&lt;n-controller&gt;</code> applies swipeable to the first child. Detects left and right swipes. Click and drag horizontally.
-      </p>
+      </n-text>
       <n-controller traits="swipeable" swipeable-axis="horizontal">
         <div id="h-card" class="swipe-card">
           <span class="swipe-label">Swipe Left or Right</span>
@@ -54,15 +54,15 @@ const detailSwipe = `{ direction, distance, velocity }`;
       </n-controller>
       <div id="h-log" class="output"></div>
       <pre class="layout-code"><code set:html={codeExamples.horizontalSwipeProvider} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Vertical Swipe (Provider) ── -->
 
     <h2>Vertical Swipe <span class="pattern-badge provider">Provider</span></h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
         Axis set to <code>'vertical'</code>. Detects up and down swipes.
-      </p>
+      </n-text>
       <n-controller traits="swipeable" swipeable-axis="vertical">
         <div id="v-card" class="swipe-card">
           <span class="swipe-label">Swipe Up or Down</span>
@@ -77,15 +77,15 @@ const detailSwipe = `{ direction, distance, velocity }`;
     &lt;span class="swipe-hint"&gt;Click and drag vertically&lt;/span&gt;
   &lt;/div&gt;
 &lt;/n-controller&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Both Axes (Provider) ── -->
 
     <h2>Both Axes <span class="pattern-badge provider">Provider</span></h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
         Axis set to <code>'both'</code>. Detects the dominant direction from the gesture.
-      </p>
+      </n-text>
       <n-controller traits="swipeable" swipeable-axis="both">
         <div id="b-card" class="swipe-card">
           <span class="swipe-label">Swipe Any Direction</span>
@@ -100,15 +100,15 @@ const detailSwipe = `{ direction, distance, velocity }`;
     &lt;span class="swipe-hint"&gt;Click and drag in any direction&lt;/span&gt;
   &lt;/div&gt;
 &lt;/n-controller&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Custom Threshold (Provider) ── -->
 
     <h2>Custom Threshold <span class="pattern-badge provider">Provider</span></h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
         Higher threshold (<strong>100px</strong>) and velocity (<strong>0.5 px/ms</strong>). Requires a longer, faster swipe to trigger.
-      </p>
+      </n-text>
       <n-controller traits="swipeable" swipeable-axis="horizontal" swipeable-threshold="100" swipeable-velocity-threshold="0.5">
         <div id="c-card" class="swipe-card">
           <span class="swipe-label">Swipe Hard</span>
@@ -125,22 +125,22 @@ const detailSwipe = `{ direction, distance, velocity }`;
     &lt;span class="swipe-hint"&gt;Requires 100px / 0.5 px/ms&lt;/span&gt;
   &lt;/div&gt;
 &lt;/n-controller&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── SwipeController Direct ── -->
 
     <h2>SwipeController — Attach to Any Element</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
         Use <code>SwipeController</code> directly on any element without the trait adapter or <code>&lt;n-controller&gt;</code>.
-      </p>
+      </n-text>
       <div id="controller-card" class="swipe-card">
         <span class="swipe-label">Swipe Here</span>
         <span class="swipe-hint">SwipeController attached to a plain div</span>
       </div>
       <div id="ctrl-log" class="output"></div>
       <pre class="layout-code"><code set:html={codeExamples.swipecontrollerAttachToAnyElement} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── API Reference ── -->
 

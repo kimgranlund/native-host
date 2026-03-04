@@ -4,17 +4,17 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 <SidebarLayout title="RovingFocusable">
   <main>
 <h1>RovingFocusable</h1>
-    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
+    <n-text size="md" muted spacing="relaxed">
       Composable trait for keyboard navigation within a group. Only one item has <code>tabindex="0"</code> at a time — arrow keys move focus between items, Home/End jump to first/last. Skips disabled items.
-    </p>
+    </n-text>
 
     <!-- ── Vertical Toolbar (Provider) ── -->
 
     <h2>Vertical (Arrow Up/Down)</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
         <code>&lt;n-controller&gt;</code> applies roving focus with vertical orientation. Tab into the toolbar, then use Up/Down arrows. The "Italic" item is disabled and skipped.
-      </p>
+      </n-text>
       <n-controller traits="roving-focusable" roving-focusable-selector=":scope > .toolbar > .tool-btn:not([disabled])" roving-focusable-orientation="vertical">
         <div>
           <div class="toolbar">
@@ -37,15 +37,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/n-controller&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Horizontal Tab Bar (Provider) ── -->
 
     <h2>Horizontal (Arrow Left/Right)</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
         Horizontal orientation with wrap-around. Use Left/Right arrows to navigate. Focus wraps from last to first.
-      </p>
+      </n-text>
       <n-controller traits="roving-focusable" roving-focusable-selector=".tab-item" roving-focusable-orientation="horizontal">
         <div>
           <div class="tabbar" id="tabbar">
@@ -67,22 +67,22 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/n-controller&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Built-in: n-listbox ── -->
 
     <h2>Built-in: n-listbox</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
         <code>n-listbox</code> uses RovingFocusable internally. Arrow keys navigate between options.
-      </p>
+      </n-text>
       <n-listbox style="max-width: 16rem;">
         <n-option value="react">React</n-option>
         <n-option value="vue">Vue</n-option>
         <n-option value="svelte">Svelte</n-option>
         <n-option value="lit">Lit</n-option>
       </n-listbox>
-    </div>
+    </n-panel>
 
     <!-- ── API Reference ── -->
 

@@ -31,17 +31,17 @@ popover.syncPopover(open.value);`,
 <SidebarLayout title="Popoverable">
   <main>
 <h1>Popoverable</h1>
-    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
+    <n-text size="md" muted spacing="relaxed">
       Composable trait that extends <code>Dismissable</code> with CSS Anchor positioning. Provides <code>wirePopover(anchor, popover)</code> to set up anchor-name/position-anchor, and <code>syncPopover(open)</code> to show/hide with <code>popover="manual"</code>.
-    </p>
+    </n-text>
 
     <!-- ── Basic Popover ── -->
 
     <h2>Basic Popover</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
         Uses <code>PopoverController</code> directly to wire an anchor button to a popover panel. Click outside or press Escape to close.
-      </p>
+      </n-text>
       <div id="pop-1" style="display: inline-block; position: relative;">
         <n-button id="pop-trigger-1">Toggle Popover</n-button>
         <div class="pop-content" id="pop-content-1" popover="manual">
@@ -49,16 +49,16 @@ popover.syncPopover(open.value);`,
         </div>
       </div>
       <pre class="layout-code"><code set:html={codeExamples.basicPopover} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Multiple Popovers ── -->
 
     <h2>Multiple Popovers</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
         Each popover joins the dismissable layer stack. Only the topmost one is dismissed first.
-      </p>
-      <div style="display: flex; gap: 0.75rem;">
+      </n-text>
+      <n-stack direction="row" gap="3">
         <div id="pop-2" style="display: inline-block; position: relative;">
           <n-button id="pop-trigger-2">Popover A</n-button>
           <div class="pop-content" id="pop-content-2" popover="manual">
@@ -71,19 +71,19 @@ popover.syncPopover(open.value);`,
             <p style="margin: 0;"><strong>Popover B</strong> — Second layer</p>
           </div>
         </div>
-      </div>
-    </div>
+      </n-stack>
+    </n-panel>
 
     <!-- ── Built-in: n-select ── -->
 
     <h2>Built-in: n-select</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
         <code>n-select</code> uses Popoverable internally to anchor its dropdown listbox to the trigger button. CSS Anchor Positioning and dismiss-on-click-outside are handled automatically.
-      </p>
+      </n-text>
       <n-select placeholder="Pick a framework" options='[{"value":"react","label":"React"},{"value":"vue","label":"Vue"},{"value":"svelte","label":"Svelte"},{"value":"lit","label":"Lit"}]' style="max-width: 16rem;"></n-select>
       <pre class="layout-code"><code set:html={codeExamples.builtInUiSelect} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── API Reference ── -->
 

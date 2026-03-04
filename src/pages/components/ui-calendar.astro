@@ -4,86 +4,86 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 <SidebarLayout title="Calendar">
   <main>
 <h1>&lt;n-calendar&gt;</h1>
-    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
+    <n-text size="md" muted spacing="relaxed">
       Date selection with day, month, and year views. Supports single selection, date range, min/max constraints, and keyboard navigation.
-    </p>
+    </n-text>
 
     <!-- ── Single Select ── -->
 
     <h2>Single Select</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-calendar id="single"></n-calendar>
       <div id="single-output" class="output">Select a date      <pre class="layout-code"><code>&lt;n-calendar&gt;&lt;/n-calendar&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
 </div>
-    </div>
+    </n-panel>
 
     <!-- ── With Initial Value ── -->
 
     <h2>Initial Value</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-calendar value="2026-02-14"></n-calendar>
       <pre class="layout-code"><code>&lt;n-calendar value="2026-02-14"&gt;&lt;/n-calendar&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Min/Max Constraints ── -->
 
     <h2>Min/Max Constraints</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-calendar min="2026-02-10" max="2026-02-25"></n-calendar>
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-top: 0.5rem;">
+      <n-text size="xs" muted style="margin-top: 0.5rem;">
         Only dates between Feb 10–25 are selectable.
-      </p>
+      </n-text>
       <pre class="layout-code"><code>&lt;n-calendar min="2026-02-10" max="2026-02-25"&gt;&lt;/n-calendar&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Range Selection ── -->
 
     <h2>Range Selection</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-calendar id="range-cal" range></n-calendar>
       <div id="range-output" class="output">Click a start date, hover to preview range, click to commit. Click again to clear.      <pre class="layout-code"><code>&lt;n-calendar range&gt;&lt;/n-calendar&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
 </div>
-    </div>
+    </n-panel>
 
     <!-- ── Sizes ── -->
 
     <h2>Sizes</h2>
-    <div class="layout-section">
-      <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: start;">
+    <n-panel bordered>
+      <n-stack direction="row" gap="6" wrap align="start">
         <div>
-          <p style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--n-ink-muted-neutral); margin: 0 0 0.5rem;">sm</p>
+          <n-text size="xs" muted uppercase style="font-weight: 600; margin: 0 0 0.5rem;">sm</n-text>
           <n-calendar size="sm"></n-calendar>
         </div>
         <div>
-          <p style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--n-ink-muted-neutral); margin: 0 0 0.5rem;">md (default)</p>
+          <n-text size="xs" muted uppercase style="font-weight: 600; margin: 0 0 0.5rem;">md (default)</n-text>
           <n-calendar></n-calendar>
         </div>
         <div>
-          <p style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--n-ink-muted-neutral); margin: 0 0 0.5rem;">lg</p>
+          <n-text size="xs" muted uppercase style="font-weight: 600; margin: 0 0 0.5rem;">lg</n-text>
           <n-calendar size="lg"></n-calendar>
         </div>
-      </div>
+      </n-stack>
       <pre class="layout-code"><code>&lt;n-calendar size="sm"&gt;&lt;/n-calendar&gt;
 &lt;n-calendar&gt;&lt;/n-calendar&gt;
 &lt;n-calendar size="lg"&gt;&lt;/n-calendar&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Disabled ── -->
 
     <h2>Disabled</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-calendar value="2026-02-20" disabled></n-calendar>
       <pre class="layout-code"><code>&lt;n-calendar value="2026-02-20" disabled&gt;&lt;/n-calendar&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Debug States (force-*) ── -->
 
     <h2>Debug States (<code>force-*</code>)</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin: 0 0 1rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="regular">
         Attribute-driven pseudo-state overrides for DevTools debugging and visual testing. Applied to the host element, targets internal cells and buttons.
-      </p>
-      <div style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
+      </n-text>
+      <n-stack direction="row" gap="6" wrap>
         <div>
           <div style="font-size: 0.625rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--n-ink-muted-neutral); margin-bottom: 0.5rem;">force-hover</div>
           <n-calendar value="2026-02-20" force-hover></n-calendar>
@@ -92,8 +92,8 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           <div style="font-size: 0.625rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--n-ink-muted-neutral); margin-bottom: 0.5rem;">force-focus-visible</div>
           <n-calendar value="2026-02-20" force-focus-visible></n-calendar>
         </div>
-      </div>
-    </div>
+      </n-stack>
+    </n-panel>
   </main>
 
   <script>

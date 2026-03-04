@@ -21,14 +21,14 @@ const codeExamples = {
 <SidebarLayout title="Accordion">
   <main>
 <h1>&lt;n-accordion&gt;</h1>
-    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
+    <n-text size="md" muted spacing="relaxed">
       Collapsible disclosure sections with native &lt;details&gt; under the hood. Supports single and multiple open modes.
-    </p>
+    </n-text>
 
     <!-- ── Single Mode (default) ── -->
 
     <h2>Single Mode (default)</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-accordion>
         <n-accordion-item open>
           <span slot="heading">What is this library?</span>
@@ -53,12 +53,12 @@ const codeExamples = {
     More content here.
   &lt;/n-accordion-item&gt;
 &lt;/n-accordion&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Multiple Mode ── -->
 
     <h2>Multiple Mode</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-accordion multiple>
         <n-accordion-item open>
           <span slot="heading">Section One</span>
@@ -83,12 +83,12 @@ const codeExamples = {
     Both sections can be open at once.
   &lt;/n-accordion-item&gt;
 &lt;/n-accordion&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Event Log ── -->
 
     <h2>Event Log</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-accordion id="event-accordion">
         <n-accordion-item>
           <span slot="heading">First Section</span>
@@ -105,12 +105,12 @@ const codeExamples = {
       </n-accordion>
       <div class="log" id="accordion-log"></div>
       <pre class="layout-code"><code set:html={codeExamples.eventLog} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Disabled Items ── -->
 
     <h2>Disabled Items</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-accordion>
         <n-accordion-item>
           <span slot="heading">Enabled item</span>
@@ -135,13 +135,13 @@ const codeExamples = {
     Cannot be opened.
   &lt;/n-accordion-item&gt;
 &lt;/n-accordion&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Sizes ── -->
 
     <h2>Sizes</h2>
-    <div class="layout-section">
-      <div style="display: flex; flex-direction: column; gap: 1rem;">
+    <n-panel bordered>
+      <n-stack gap="4">
         <n-accordion size="sm">
           <n-accordion-item>
             <span slot="heading">Small accordion</span>
@@ -163,7 +163,7 @@ const codeExamples = {
             Second item at large size.
           </n-accordion-item>
         </n-accordion>
-      </div>
+      </n-stack>
       <pre class="layout-code"><code>&lt;n-accordion size="sm"&gt;
   &lt;n-accordion-item&gt;
     &lt;span slot="heading"&gt;Small&lt;/span&gt;
@@ -177,12 +177,12 @@ const codeExamples = {
     Generous size.
   &lt;/n-accordion-item&gt;
 &lt;/n-accordion&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Rich Content ── -->
 
     <h2>Rich Content</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-accordion>
         <n-accordion-item>
           <span slot="heading"><n-icon name="code"></n-icon> Code Example</span>
@@ -202,15 +202,15 @@ el.multiple = true;</code></pre>
     Rich content: images, code blocks, nested elements.
   &lt;/n-accordion-item&gt;
 &lt;/n-accordion&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Debug States (force-*) ── -->
 
     <h2>Debug States (<code>force-*</code>)</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin: 0 0 1rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="regular">
         Attribute-driven pseudo-state overrides for DevTools debugging and visual testing.
-      </p>
+      </n-text>
       <n-accordion>
         <n-accordion-item force-hover open>
           <span slot="heading">Force hover</span>
@@ -221,7 +221,7 @@ el.multiple = true;</code></pre>
           <p>This item has <code>force-focus-visible</code> applied.</p>
         </n-accordion-item>
       </n-accordion>
-    </div>
+    </n-panel>
   </main>
 
   <script>

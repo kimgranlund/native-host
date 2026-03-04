@@ -5,17 +5,17 @@ const detailPointerType = `{ pointerType }`;
 <SidebarLayout title="Hoverable">
   <main>
 <h1>Hoverable</h1>
-    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
+    <n-text size="md" muted spacing="relaxed">
       Pointer hover state with configurable enter/leave delays. Sets <code>[hovered]</code> attribute and dispatches <code>native:hover-enter</code> / <code>native:hover-leave</code> events.
-    </p>
+    </n-text>
 
     <!-- ── Instant Hover ── -->
 
     <h2>Instant Hover</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
         Default 0ms delays. The <code>[hovered]</code> attribute toggles immediately on pointer enter/leave.
-      </p>
+      </n-text>
       <n-controller traits="hoverable">
         <div class="hover-card" id="instant-card">
           Hover over me <span class="hover-status">idle</span>
@@ -27,15 +27,15 @@ const detailPointerType = `{ pointerType }`;
     Hover over me
   &lt;/div&gt;
 &lt;/n-controller&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Hover Intent ── -->
 
     <h2>Hover Intent (500ms)</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
         <code>hoverable-delay="500"</code> prevents accidental hover triggers. Pointer must rest on the element for 500ms before activation.
-      </p>
+      </n-text>
       <n-controller traits="hoverable" hoverable-delay="500">
         <div class="hover-card" id="intent-card">
           Hover and wait 500ms <span class="hover-status">idle</span>
@@ -47,15 +47,15 @@ const detailPointerType = `{ pointerType }`;
     Hover and wait 500ms
   &lt;/div&gt;
 &lt;/n-controller&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Sticky Hover ── -->
 
     <h2>Sticky Hover (300ms leave)</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
         <code>hoverable-leave-delay="300"</code> so the hover state persists briefly after the pointer leaves. Useful for menus or tooltips with a gap between trigger and content.
-      </p>
+      </n-text>
       <n-controller traits="hoverable" hoverable-leave-delay="300">
         <div class="hover-card" id="sticky-card">
           Hover, then leave slowly <span class="hover-status">idle</span>
@@ -67,15 +67,15 @@ const detailPointerType = `{ pointerType }`;
     Hover, then leave slowly
   &lt;/div&gt;
 &lt;/n-controller&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Combined Delays ── -->
 
     <h2>Combined Delays</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
         Both <code>hoverable-delay="400"</code> and <code>hoverable-leave-delay="200"</code>. Requires intent to activate and lingers briefly on leave.
-      </p>
+      </n-text>
       <n-controller traits="hoverable" hoverable-delay="400" hoverable-leave-delay="200">
         <div class="hover-card" id="combined-card">
           400ms enter + 200ms leave <span class="hover-status">idle</span>
@@ -87,7 +87,7 @@ const detailPointerType = `{ pointerType }`;
     400ms enter + 200ms leave
   &lt;/div&gt;
 &lt;/n-controller&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── API Reference ── -->
 

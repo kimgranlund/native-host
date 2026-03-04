@@ -27,18 +27,18 @@ const detailPointerType = `{ pointerType }`;
 <SidebarLayout title="Pressable">
   <main>
 <h1>Pressable</h1>
-    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
+    <n-text size="md" muted spacing="relaxed">
       Composable trait that handles pointer and keyboard press states. Sets a <code>[pressed]</code> attribute during press and dispatches <code>native:press</code> on release. Supports pointer capture and Enter/Space keys.
-    </p>
+    </n-text>
 
     <!-- ── Basic Press (Provider) ── -->
 
     <h2>Basic Press (Provider)</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
         <code>&lt;n-controller&gt;</code> wraps each element and applies the pressable trait. Click or press Enter/Space.
-      </p>
-      <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+      </n-text>
+      <n-stack direction="row" gap="3" wrap>
         <n-controller traits="pressable">
           <div class="press-box" tabindex="0">Click or press Enter</div>
         </n-controller>
@@ -48,44 +48,44 @@ const detailPointerType = `{ pointerType }`;
         <n-controller traits="pressable" pressable-disabled="true">
           <div class="press-box" tabindex="0" disabled>Disabled</div>
         </n-controller>
-      </div>
+      </n-stack>
       <div id="log" class="output"></div>
       <pre class="layout-code"><code>&lt;n-controller traits="pressable"&gt;
   &lt;div class="press-box" tabindex="0"&gt;
     Click or press Enter
   &lt;/div&gt;
 &lt;/n-controller&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── On n-button (Built-in) ── -->
 
     <h2>On n-button (Built-in)</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
         <code>n-button</code> already uses the Pressable trait internally. The <code>native:press</code> event and <code>[pressed]</code> attribute work out of the box.
-      </p>
-      <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+      </n-text>
+      <n-stack direction="row" gap="3" wrap>
         <n-button id="btn-1">Button Press</n-button>
         <n-button id="btn-2" intent="accent">Accent Press</n-button>
         <n-button id="btn-3" disabled>Disabled</n-button>
-      </div>
+      </n-stack>
       <div id="btn-log" class="output"></div>
       <pre class="layout-code"><code set:html={codeExamples.onUiButtonBuiltIn} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Pointer Types ── -->
 
     <h2>Pointer Types</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.8125rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+    <n-panel bordered>
+      <n-text size="sm" muted spacing="tight">
         The <code>native:press</code> event includes a <code>pointerType</code> in its detail — <code>"mouse"</code>, <code>"touch"</code>, <code>"pen"</code>, or <code>"keyboard"</code>.
-      </p>
+      </n-text>
       <n-controller traits="pressable">
         <div class="press-box" id="type-box" tabindex="0">Press me (check log)</div>
       </n-controller>
       <div id="type-log" class="output"></div>
       <pre class="layout-code"><code set:html={codeExamples.pointerTypes} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── API Reference ── -->
 

@@ -81,9 +81,9 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
                   <n-badge slot="trailing" size="xs">live</n-badge>
                 </n-header>
                 <n-body>
-                  <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.5rem;">
+                  <n-text size="xs" muted style="margin-bottom: 0.5rem;">
                     Every context subscription and signal update is logged — proof that reactive state flows from providers to arbitrarily nested consumers.
-                  </p>
+                  </n-text>
                   <ctx-log></ctx-log>
                 </n-body>
               </n-card>
@@ -439,13 +439,13 @@ import { NativeElement, define, signal, computed, ContextProvider, ContextConsum
           this.requestContext('session', (ctx) => {
             ctxLog('pref', 'Preferences subscribed to session');
             this.innerHTML = PREFS.map(p => `
-              <div style="display:flex;align-items:center;justify-content:space-between;gap:0.75rem;padding:0.5rem 0;border-bottom:1px solid var(--n-border-muted-neutral);">
+              <n-stack direction="row" gap="3" align="center" style="justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--n-border-muted-neutral)">
                 <div>
                   <div class="pref-label">${p.label}</div>
                   <div class="pref-desc">${p.desc}</div>
                 </div>
                 <n-switch size="sm" data-pref="${p.key}" ${ctx.prefs[p.key].value ? 'checked' : ''}></n-switch>
-              </div>
+              </n-stack>
             `).join('');
           });
 
@@ -494,11 +494,11 @@ import { NativeElement, define, signal, computed, ContextProvider, ContextConsum
                       <div class="stat-label">Danger</div>
                     </n-stack>
                   </n-grid>
-                  <div style="display:flex;justify-content:center;gap:1.5rem;font-size:0.75rem;color:var(--n-ink-muted-neutral);">
+                  <n-stack direction="row" gap="6" style="justify-content: center; font-size: 0.75rem; color: var(--n-ink-muted-neutral)">
                     <span><strong style="color:var(--n-ink-neutral);">${s.total}</strong> total</span>
                     <span><strong style="color:var(--n-ink-neutral);">${s.dismissed}</strong> dismissed</span>
                     <span><strong style="color:var(--n-ink-neutral);">${ctx.count.value}</strong> pending</span>
-                  </div>
+                  </n-stack>
                 </n-stack>`;
             });
           });

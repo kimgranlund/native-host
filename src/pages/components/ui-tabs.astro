@@ -19,14 +19,14 @@ const codeExamples = {
 <SidebarLayout title="Tabs">
   <main>
 <h1>&lt;n-tabs&gt;</h1>
-    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
+    <n-text size="md" muted spacing="relaxed">
       Tab navigation with roving focus, panel switching, and a sliding underline indicator. Supports horizontal and vertical orientations.
-    </p>
+    </n-text>
 
     <!-- ── Basic Horizontal ── -->
 
     <h2>Horizontal (default)</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-tabs value="overview">
         <n-tab value="overview">Overview</n-tab>
         <n-tab value="features">Features</n-tab>
@@ -53,12 +53,12 @@ const codeExamples = {
     &lt;n-tab-panel value="pricing"&gt;&lt;p&gt;Pricing content.&lt;/p&gt;&lt;/n-tab-panel&gt;
   &lt;/n-tab-panels&gt;
 &lt;/n-tabs&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── With Icons ── -->
 
     <h2>With Icons</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-tabs value="code">
         <n-tab value="code"><n-icon name="code"></n-icon> Code</n-tab>
         <n-tab value="preview"><n-icon name="eye"></n-icon> Preview</n-tab>
@@ -84,12 +84,12 @@ tabs.value = 'preview';</code></pre>
     &lt;n-tab-panel value="preview"&gt;...&lt;/n-tab-panel&gt;
   &lt;/n-tab-panels&gt;
 &lt;/n-tabs&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Disabled Tab ── -->
 
     <h2>Disabled Tab</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-tabs value="active">
         <n-tab value="active">Active</n-tab>
         <n-tab value="disabled" disabled>Disabled</n-tab>
@@ -112,12 +112,12 @@ tabs.value = 'preview';</code></pre>
   &lt;n-tab value="other"&gt;Other&lt;/n-tab&gt;
   &lt;n-tab-panels&gt;...&lt;/n-tab-panels&gt;
 &lt;/n-tabs&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Vertical ── -->
 
     <h2>Vertical</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-tabs value="general" orientation="vertical">
         <n-tab value="general">General</n-tab>
         <n-tab value="security">Security</n-tab>
@@ -148,12 +148,12 @@ tabs.value = 'preview';</code></pre>
     &lt;n-tab-panel value="notifications"&gt;...&lt;/n-tab-panel&gt;
   &lt;/n-tab-panels&gt;
 &lt;/n-tabs&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Events ── -->
 
     <h2>Events</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-tabs id="event-tabs" value="first">
         <n-tab value="first">First</n-tab>
         <n-tab value="second">Second</n-tab>
@@ -166,13 +166,13 @@ tabs.value = 'preview';</code></pre>
       </n-tabs>
       <pre id="tab-event-log" style="margin-top: 0.75rem; font-size: 0.75rem; font-family: ui-monospace, monospace; color: var(--n-ink-muted-neutral); min-height: 2rem;"></pre>
     <pre class="layout-code"><code set:html={codeExamples.events} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Sizes ── -->
 
     <h2>Sizes</h2>
-    <div class="layout-section">
-      <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+    <n-panel bordered>
+      <n-stack gap="6">
         <n-tabs value="one" size="sm">
           <n-tab value="one">Small</n-tab>
           <n-tab value="two">Tabs</n-tab>
@@ -194,7 +194,7 @@ tabs.value = 'preview';</code></pre>
             <n-tab-panel value="three"><p>Third large panel.</p></n-tab-panel>
           </n-tab-panels>
         </n-tabs>
-      </div>
+      </n-stack>
       <pre class="layout-code"><code>&lt;n-tabs value="one" size="sm"&gt;
   &lt;n-tab value="one"&gt;Small&lt;/n-tab&gt;
   &lt;n-tab value="two"&gt;Tabs&lt;/n-tab&gt;
@@ -206,22 +206,22 @@ tabs.value = 'preview';</code></pre>
   &lt;n-tab value="two"&gt;Tabs&lt;/n-tab&gt;
   &lt;n-tab-panels&gt;...&lt;/n-tab-panels&gt;
 &lt;/n-tabs&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Debug States (force-*) ── -->
 
     <h2>Debug States (<code>force-*</code>)</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin: 0 0 1rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="regular">
         Attribute-driven pseudo-state overrides for DevTools debugging and visual testing. Applied to individual <code>n-tab</code> elements.
-      </p>
+      </n-text>
       <n-tabs value="normal">
         <n-tab value="hover" force-hover>Force hover</n-tab>
         <n-tab value="active" force-active>Force active</n-tab>
         <n-tab value="focus" force-focus-visible>Force focus-visible</n-tab>
         <n-tab value="normal">Normal</n-tab>
       </n-tabs>
-    </div>
+    </n-panel>
   </main>
 
   <script>

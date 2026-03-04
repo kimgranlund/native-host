@@ -21,22 +21,22 @@ function hide() {
 <SidebarLayout title="FocusTrappable">
   <main>
 <h1>FocusTrappable</h1>
-    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
+    <n-text size="md" muted spacing="relaxed">
       Composable trait for trapping Tab focus within a container. When enabled, Tab and Shift+Tab cycle through focusable children without leaving the container. On enable, focus moves to <code>[autofocus]</code> or the first focusable element. On disable, focus returns to the previously focused element.
-    </p>
+    </n-text>
 
     <!-- ── Focus Trap ── -->
 
     <h2>Focus Trap</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
         Uses <code>FocusTrapController</code> directly on a plain element. Tab cycles between the inputs and buttons.
-      </p>
+      </n-text>
       <n-button id="open-trap">Open Trapped Region</n-button>
       <div class="trap-region" id="trap" hidden>
-        <p style="font-size: 0.8125rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+        <n-text size="sm" muted spacing="tight">
           Focus is trapped here. Tab cycles between the inputs and buttons. Click "Close" to release.
-        </p>
+        </n-text>
         <div class="trap-form">
           <label>
             Name
@@ -53,15 +53,15 @@ function hide() {
         </div>
       </div>
       <pre class="layout-code"><code set:html={codeExamples.focusTrap} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Without Autofocus ── -->
 
     <h2>Without Autofocus</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
         When no <code>[autofocus]</code> element exists, focus goes to the first focusable child.
-      </p>
+      </n-text>
       <n-button id="open-trap2">Open Trap (no autofocus)</n-button>
       <div class="trap-region" id="trap2" hidden>
         <div class="trap-actions">
@@ -70,15 +70,15 @@ function hide() {
           <n-button id="close-btn2">Close</n-button>
         </div>
       </div>
-    </div>
+    </n-panel>
 
     <!-- ── Built-in: n-dialog ── -->
 
     <h2>Built-in: n-dialog</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
         <code>n-dialog</code> uses FocusTrappable internally. When a modal dialog opens, focus is automatically trapped within it.
-      </p>
+      </n-text>
       <n-button id="open-dialog">Open Dialog</n-button>
       <n-dialog id="demo-dialog">
         <n-card style="width: 20rem; padding: 1.5rem;">
@@ -89,7 +89,7 @@ function hide() {
           </div>
         </n-card>
       </n-dialog>
-    </div>
+    </n-panel>
 
     <!-- ── API Reference ── -->
 

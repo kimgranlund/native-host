@@ -4,14 +4,14 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 <SidebarLayout title="Drawer">
   <main>
 <h1>&lt;n-drawer&gt;</h1>
-    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
+    <n-text size="md" muted spacing="relaxed">
       Slide-in panel from any edge. Uses native <code>&lt;dialog&gt;</code> for top-layer + inert.
-    </p>
+    </n-text>
 
     <!-- ── Right (default) ── -->
 
     <h2>Right (default)</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-button id="open-right"><span slot="label">Open Right Drawer</span></n-button>
       <n-drawer id="drawer-right">
         <n-header>
@@ -48,12 +48,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     &lt;/n-field&gt;
   &lt;/n-body&gt;
 &lt;/n-drawer&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Left ── -->
 
     <h2>Left</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-button id="open-left"><span slot="label">Open Left Drawer</span></n-button>
       <n-drawer id="drawer-left" side="left">
         <n-header>
@@ -93,12 +93,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   &lt;/n-header&gt;
   &lt;n-body&gt;...&lt;/n-body&gt;
 &lt;/n-drawer&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Bottom ── -->
 
     <h2>Bottom</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-button id="open-bottom"><span slot="label">Open Bottom Drawer</span></n-button>
       <n-drawer id="drawer-bottom" side="bottom">
         <n-header>
@@ -127,12 +127,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     &lt;/n-stack&gt;
   &lt;/n-body&gt;
 &lt;/n-drawer&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Top ── -->
 
     <h2>Top</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-button id="open-top"><span slot="label">Open Top Drawer</span></n-button>
       <n-drawer id="drawer-top" side="top">
         <n-header>
@@ -143,13 +143,13 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           <p style="margin: 0; font-size: 0.875rem;">This drawer slides in from the top edge.</p>
         </n-body>
       </n-drawer>
-    </div>
+    </n-panel>
 
     <!-- ── With Footer ── -->
 
     <h2>With Footer</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin: 0 0 0.75rem;">Header and footer stay fixed while the body scrolls independently.</p>
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">Header and footer stay fixed while the body scrolls independently.</n-text>
       <n-button id="open-footer"><span slot="label">Open Drawer with Footer</span></n-button>
       <n-drawer id="drawer-footer">
         <n-header>
@@ -170,8 +170,8 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
             <n-textarea placeholder="Tell us about yourself..." rows="4"></n-textarea>
           </n-field>
           <n-switch>Dark mode</n-switch>
-          <p style="margin: 0; font-size: 0.8125rem; color: var(--n-ink-muted-neutral);">Additional content to demonstrate scrolling within the body region while header and footer remain fixed.</p>
-          <p style="margin: 0; font-size: 0.8125rem; color: var(--n-ink-muted-neutral);">Scroll down to verify that the header and footer remain fixed while this body content scrolls independently.</p>
+          <n-text size="sm" muted>Additional content to demonstrate scrolling within the body region while header and footer remain fixed.</n-text>
+          <n-text size="sm" muted>Scroll down to verify that the header and footer remain fixed while this body content scrolls independently.</n-text>
         </n-body>
         <n-footer justify="spread">
           <n-button variant="ghost" id="cancel-footer"><span slot="label">Cancel</span></n-button>
@@ -196,17 +196,17 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     &lt;n-button variant="primary" intent="accent"&gt;Save Changes&lt;/n-button&gt;
   &lt;/n-footer&gt;
 &lt;/n-drawer&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Close Prevention ── -->
 
     <h2>Close Prevention</h2>
-    <div class="layout-section">
-      <div class="layout-row">
+    <n-panel bordered>
+      <n-stack direction="row" wrap align="center">
         <n-button id="open-no-escape"><span slot="label">No Close on Escape</span></n-button>
         <n-button id="open-no-backdrop"><span slot="label">No Close on Backdrop</span></n-button>
         <n-button id="open-persistent"><span slot="label">Persistent (both)</span></n-button>
-      </div>
+      </n-stack>
       <n-drawer id="drawer-no-escape" no-close-on-escape>
         <n-header>
           <span slot="label">No Escape Close</span>
@@ -234,7 +234,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           <p style="margin: 0; font-size: 0.875rem;">Neither Escape nor backdrop click will close this. Only the close button works.</p>
         </n-body>
       </n-drawer>
-    </div>
+    </n-panel>
   </main>
 
   <script>

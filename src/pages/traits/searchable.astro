@@ -68,17 +68,17 @@ const detailQueryMatchTotal = `{ query, matchCount, total }`;
 <SidebarLayout title="Searchable">
   <main>
 <h1>Searchable</h1>
-    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
+    <n-text size="md" muted spacing="relaxed">
       Text filtering with match/hide attributes and highlight support. Non-matching items receive <code>[search-hidden]</code>, matching items get <code>[search-match]</code>. Since searching requires calling <code>filter()</code> imperatively from input events, all demos use direct <code>SearchController</code> instantiation. The <code>&lt;n-controller traits="searchable"&gt;</code> provider can create the controller declaratively, but <code>filter()</code> must still be called.
-    </p>
+    </n-text>
 
     <!-- ── Basic Filter ── -->
 
     <h2>Basic Filter</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
         Type to filter items. Non-matching items are hidden via <code>[search-hidden]</code>.
-      </p>
+      </n-text>
       <div id="basic-wrap">
         <n-input id="basic-input" placeholder="Filter items..." style="margin-bottom: 0.75rem"></n-input>
         <div class="search-items">
@@ -93,15 +93,15 @@ const detailQueryMatchTotal = `{ query, matchCount, total }`;
       </div>
       <div id="basic-log" class="output"></div>
       <pre class="layout-code"><code set:html={codeExamples.basicFilter} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Custom Text Field ── -->
 
     <h2>Custom Text Field</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
         Searches against a <code>data-search</code> attribute instead of <code>textContent</code>. Items display a label but filter on tags.
-      </p>
+      </n-text>
       <div id="field-wrap">
         <n-input id="field-input" placeholder="Search by tag (e.g. 'ui', 'layout')..." style="margin-bottom: 0.75rem"></n-input>
         <div class="search-items">
@@ -114,15 +114,15 @@ const detailQueryMatchTotal = `{ query, matchCount, total }`;
         </div>
       </div>
       <pre class="layout-code"><code set:html={codeExamples.customTextField} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Highlight ── -->
 
     <h2>Highlight Matches</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
         Uses <code>SearchController.highlight()</code> to wrap matches in <code>&lt;mark&gt;</code> tags.
-      </p>
+      </n-text>
       <div id="highlight-wrap">
         <n-input id="highlight-input" placeholder="Type to highlight matches..." style="margin-bottom: 0.75rem"></n-input>
         <div class="search-items">
@@ -134,15 +134,15 @@ const detailQueryMatchTotal = `{ query, matchCount, total }`;
         </div>
       </div>
       <pre class="layout-code"><code set:html={codeExamples.highlightMatches} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── SearchController Direct ── -->
 
     <h2>SearchController — Attach to Any Element</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
         Use <code>SearchController</code> directly on a plain element without the trait mixin.
-      </p>
+      </n-text>
       <div id="controller-wrap">
         <n-input id="ctrl-input" placeholder="Filter colors..." style="margin-bottom: 0.75rem"></n-input>
         <div id="controller-list" class="search-items">
@@ -157,7 +157,7 @@ const detailQueryMatchTotal = `{ query, matchCount, total }`;
       </div>
       <div id="ctrl-log" class="output"></div>
       <pre class="layout-code"><code set:html={codeExamples.searchcontrollerAttachToAnyElement} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── API Reference ── -->
 

@@ -31,17 +31,17 @@ const detailMessage = `{ message }`;
 <SidebarLayout title="Validatable">
   <main>
 <h1>Validatable</h1>
-    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
+    <n-text size="md" muted spacing="relaxed">
       Composable trait for declarative form validation. Attach rules to any element, call <code>validate()</code>, and react to <code>native:valid</code> / <code>native:invalid</code> events. Sets <code>[invalid]</code> and <code>aria-invalid</code> attributes automatically.
-    </p>
+    </n-text>
 
     <!-- ── Required Field ── -->
 
     <h2>Required Field</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
         Uses <code>ValidateController</code> directly on a wrapper div with a <code>n-input</code> inside.
-      </p>
+      </n-text>
       <div class="field-wrapper" id="required-field">
         <label>Name</label>
         <n-input placeholder="Enter your name"></n-input>
@@ -50,12 +50,12 @@ const detailMessage = `{ message }`;
       <n-button id="validate-required">Validate</n-button>
       <div id="required-output" class="output"></div>
       <pre class="layout-code"><code set:html={codeExamples.requiredField} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Multiple Rules ── -->
 
     <h2>Multiple Rules (min length + pattern)</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <div class="field-wrapper" id="password-field">
         <label>Password</label>
         <n-input type="password" placeholder="Enter a password"></n-input>
@@ -69,22 +69,22 @@ const detailMessage = `{ message }`;
   ValidateController.pattern(/[A-Z]/, 'Must contain an uppercase letter'),
   ValidateController.pattern(/[0-9]/, 'Must contain a number'),
 ];</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Validate on Blur ── -->
 
     <h2>Validate on Blur</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <div class="field-wrapper" id="email-field">
         <label>Email</label>
         <n-input type="email" placeholder="you@example.com"></n-input>
         <div class="error-msg"></div>
       </div>
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral);">
+      <n-text size="xs" muted>
         Focus the input, type something, then tab away. Validation runs on blur.
-      </p>
+      </n-text>
       <pre class="layout-code"><code set:html={codeExamples.validateOnBlur} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── API Reference ── -->
 

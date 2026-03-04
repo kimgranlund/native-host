@@ -14,14 +14,14 @@ const codeExamples = {
 <SidebarLayout title="Input OTP">
   <main>
 <h1>&lt;n-input-otp&gt;</h1>
-    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
+    <n-text size="md" muted spacing="relaxed">
       Segmented OTP input. Auto-advance on entry, backspace returns, paste fills all cells.
-    </p>
+    </n-text>
 
     <!-- ── Basic ── -->
 
     <h2>Basic (6 digits)</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-field>
         <label slot="label">Verification code</label>
         <n-input-otp></n-input-otp>
@@ -32,56 +32,56 @@ const codeExamples = {
   &lt;n-input-otp&gt;&lt;/n-input-otp&gt;
   &lt;span slot="description"&gt;Enter the 6-digit code.&lt;/span&gt;
 &lt;/n-field&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── 4 Digits ── -->
 
     <h2>4 Digits</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-field>
         <label slot="label">PIN</label>
         <n-input-otp length="4"></n-input-otp>
       </n-field>
           <pre class="layout-code"><code>&lt;n-input-otp length="4"&gt;&lt;/n-input-otp&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Masked ── -->
 
     <h2>Masked</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-field>
         <label slot="label">Security code</label>
         <n-input-otp mask></n-input-otp>
         <span slot="description">Characters are hidden for security.</span>
       </n-field>
           <pre class="layout-code"><code>&lt;n-input-otp mask&gt;&lt;/n-input-otp&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── With Value ── -->
 
     <h2>Pre-filled</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-field>
         <label slot="label">Confirmation</label>
         <n-input-otp value="123456"></n-input-otp>
       </n-field>
           <pre class="layout-code"><code>&lt;n-input-otp value="123456"&gt;&lt;/n-input-otp&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Disabled ── -->
 
     <h2>Disabled</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-field disabled>
         <label slot="label">Locked code</label>
         <n-input-otp value="847291"></n-input-otp>
       </n-field>
-    </div>
+    </n-panel>
 
     <!-- ── Sizes ── -->
 
     <h2>Sizes</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-stack gap="4">
         <n-field size="sm">
           <label slot="label">Small</label>
@@ -99,27 +99,27 @@ const codeExamples = {
       <pre class="layout-code"><code>&lt;n-input-otp length="4" size="sm"&gt;&lt;/n-input-otp&gt;
 &lt;n-input-otp length="4"&gt;&lt;/n-input-otp&gt;
 &lt;n-input-otp length="4" size="lg"&gt;&lt;/n-input-otp&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Live Value ── -->
 
     <h2>Live Value</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-field>
         <label slot="label">Code: <span id="otp-value" style="font-size: 0.8125rem; color: var(--n-ink-muted-neutral); font-variant-numeric: tabular-nums;">______</span></label>
         <n-input-otp id="otp-live" length="6"></n-input-otp>
       </n-field>
       <pre class="layout-code"><code set:html={codeExamples.liveValue} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Debug States (force-*) ── -->
 
     <h2>Debug States (<code>force-*</code>)</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin: 0 0 1rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="regular">
         Attribute-driven pseudo-state overrides for DevTools debugging and visual testing.
-      </p>
-      <div style="display: flex; flex-direction: column; gap: 1rem;">
+      </n-text>
+      <n-stack gap="4">
         <div>
           <div style="font-size: 0.625rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--n-ink-muted-neutral); margin-bottom: 0.5rem;">force-hover</div>
           <n-input-otp force-hover length="4"></n-input-otp>
@@ -128,8 +128,8 @@ const codeExamples = {
           <div style="font-size: 0.625rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--n-ink-muted-neutral); margin-bottom: 0.5rem;">force-focus</div>
           <n-input-otp force-focus length="4"></n-input-otp>
         </div>
-      </div>
-    </div>
+      </n-stack>
+    </n-panel>
   </main>
 
   <script>

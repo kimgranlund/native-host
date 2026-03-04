@@ -18,31 +18,31 @@ const codeExamples = {
 <SidebarLayout title="Textarea">
   <main>
 <h1>&lt;n-textarea&gt;</h1>
-    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
+    <n-text size="md" muted spacing="relaxed">
       Multi-line text input with contenteditable, autogrow, rows presets, and maxlength.
-    </p>
+    </n-text>
 
     <!-- ── Basic ── -->
 
     <h2>Basic</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-textarea placeholder="Tell us about yourself..."></n-textarea>
         <pre class="layout-code"><code>&lt;n-textarea placeholder="Tell us about yourself..."&gt;&lt;/n-textarea&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── With Value ── -->
 
     <h2>With Value</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-textarea rows="4">This is a textarea with some initial content. It supports multi-line text editing with all the same styling as n-input.</n-textarea>
         <pre class="layout-code"><code>&lt;n-textarea rows="4"&gt;Initial content here.&lt;/n-textarea&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Variants ── -->
 
     <h2>Variants</h2>
-    <div class="layout-section">
-      <div class="layout-row">
+    <n-panel bordered>
+      <n-stack direction="row" wrap align="center">
         <div>
           <div class="layout-label">secondary (default)</div>
           <n-textarea placeholder="Secondary textarea"></n-textarea>
@@ -55,17 +55,17 @@ const codeExamples = {
           <div class="layout-label">ghost</div>
           <n-textarea variant="ghost" placeholder="Ghost textarea"></n-textarea>
         </div>
-      </div>
+      </n-stack>
       <pre class="layout-code"><code>&lt;n-textarea placeholder="Secondary (default)"&gt;&lt;/n-textarea&gt;
 &lt;n-textarea variant="outline" placeholder="Outline"&gt;&lt;/n-textarea&gt;
 &lt;n-textarea variant="ghost" placeholder="Ghost"&gt;&lt;/n-textarea&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Sizes ── -->
 
     <h2>Sizes</h2>
-    <div class="layout-section">
-      <div class="layout-row">
+    <n-panel bordered>
+      <n-stack direction="row" wrap align="center">
         <div size="sm">
           <div class="layout-label">sm</div>
           <n-textarea placeholder="Small textarea"></n-textarea>
@@ -78,7 +78,7 @@ const codeExamples = {
           <div class="layout-label">lg</div>
           <n-textarea placeholder="Large textarea"></n-textarea>
         </div>
-      </div>
+      </n-stack>
       <pre class="layout-code"><code>&lt;div size="sm"&gt;
   &lt;n-textarea placeholder="Small"&gt;&lt;/n-textarea&gt;
 &lt;/div&gt;
@@ -86,13 +86,13 @@ const codeExamples = {
 &lt;div size="lg"&gt;
   &lt;n-textarea placeholder="Large"&gt;&lt;/n-textarea&gt;
 &lt;/div&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Density ── -->
 
     <h2>Density</h2>
-    <div class="layout-section">
-      <div class="layout-row">
+    <n-panel bordered>
+      <n-stack direction="row" wrap align="center">
         <div density="compact">
           <div class="layout-label">compact</div>
           <n-textarea placeholder="Compact textarea"></n-textarea>
@@ -105,7 +105,7 @@ const codeExamples = {
           <div class="layout-label">loose</div>
           <n-textarea placeholder="Loose textarea"></n-textarea>
         </div>
-      </div>
+      </n-stack>
       <pre class="layout-code"><code>&lt;div density="compact"&gt;
   &lt;n-textarea placeholder="Compact"&gt;&lt;/n-textarea&gt;
 &lt;/div&gt;
@@ -113,13 +113,13 @@ const codeExamples = {
 &lt;div density="loose"&gt;
   &lt;n-textarea placeholder="Loose"&gt;&lt;/n-textarea&gt;
 &lt;/div&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Rows ── -->
 
     <h2>Rows</h2>
-    <div class="layout-section" size="sm">
-      <div class="layout-row">
+    <n-panel bordered size="sm">
+      <n-stack direction="row" wrap align="center">
         <div>
           <div class="layout-label">rows="1"</div>
           <n-textarea rows="1" placeholder="Single line height"></n-textarea>
@@ -140,44 +140,44 @@ const codeExamples = {
           <div class="layout-label">rows="8"</div>
           <n-textarea rows="8" placeholder="Eight rows"></n-textarea>
         </div>
-      </div>
+      </n-stack>
       <pre class="layout-code"><code>&lt;n-textarea rows="1" placeholder="Single line"&gt;&lt;/n-textarea&gt;
 &lt;n-textarea rows="3" placeholder="Three rows (default)"&gt;&lt;/n-textarea&gt;
 &lt;n-textarea rows="5" placeholder="Five rows"&gt;&lt;/n-textarea&gt;
 &lt;n-textarea rows="8" placeholder="Eight rows"&gt;&lt;/n-textarea&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Autogrow ── -->
 
     <h2>Autogrow</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-textarea placeholder="Type here — grows as you type..." autogrow></n-textarea>
         <pre class="layout-code"><code>&lt;n-textarea placeholder="Type here..." autogrow&gt;&lt;/n-textarea&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Maxlength ── -->
 
     <h2>Maxlength</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-field>
         <label slot="label">Bio</label>
         <n-textarea placeholder="Max 100 characters..." maxlength="100"></n-textarea>
         <span slot="description">100 character limit</span>
         <span slot="error">Exceeds maximum length</span>
       </n-field>
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-top: 0.5rem;">Reports <code>tooLong</code> via the Constraint Validation API when the limit is exceeded. The value is not truncated.</p>
+      <n-text size="xs" muted style="margin-top: 0.5rem;">Reports <code>tooLong</code> via the Constraint Validation API when the limit is exceeded. The value is not truncated.</n-text>
         <pre class="layout-code"><code>&lt;n-field&gt;
   &lt;label slot="label"&gt;Bio&lt;/label&gt;
   &lt;n-textarea placeholder="Max 100 characters..." maxlength="100"&gt;&lt;/n-textarea&gt;
   &lt;span slot="error"&gt;Exceeds maximum length&lt;/span&gt;
 &lt;/n-field&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Intents ── -->
 
     <h2>Intents</h2>
-    <div class="layout-section" size="sm">
-      <div class="layout-row">
+    <n-panel bordered size="sm">
+      <n-stack direction="row" wrap align="center">
         <div intent="neutral">
           <div class="layout-label">neutral</div>
           <n-textarea placeholder="Neutral"></n-textarea>
@@ -202,7 +202,7 @@ const codeExamples = {
           <div class="layout-label">danger</div>
           <n-textarea placeholder="Danger"></n-textarea>
         </div>
-      </div>
+      </n-stack>
       <pre class="layout-code"><code>&lt;div intent="accent"&gt;
   &lt;n-textarea placeholder="Accent"&gt;&lt;/n-textarea&gt;
 &lt;/div&gt;
@@ -212,13 +212,13 @@ const codeExamples = {
 &lt;div intent="danger"&gt;
   &lt;n-textarea placeholder="Danger"&gt;&lt;/n-textarea&gt;
 &lt;/div&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Disabled & Readonly ── -->
 
     <h2>Disabled &amp; Readonly</h2>
-    <div class="layout-section">
-      <div class="layout-row">
+    <n-panel bordered>
+      <n-stack direction="row" wrap align="center">
         <div>
           <div class="layout-label">disabled</div>
           <n-textarea disabled>This content cannot be edited.</n-textarea>
@@ -227,16 +227,16 @@ const codeExamples = {
           <div class="layout-label">readonly</div>
           <n-textarea readonly>This content is read-only but selectable.</n-textarea>
         </div>
-      </div>
+      </n-stack>
       <pre class="layout-code"><code>&lt;n-textarea disabled&gt;Cannot be edited.&lt;/n-textarea&gt;
 &lt;n-textarea readonly&gt;Read-only but selectable.&lt;/n-textarea&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Radius ── -->
 
     <h2>Radius</h2>
-    <div class="layout-section">
-      <div class="layout-row">
+    <n-panel bordered>
+      <n-stack direction="row" wrap align="center">
         <div radius="sharp">
           <div class="layout-label">sharp</div>
           <n-textarea placeholder="Sharp radius"></n-textarea>
@@ -249,7 +249,7 @@ const codeExamples = {
           <div class="layout-label">round</div>
           <n-textarea placeholder="Round radius"></n-textarea>
         </div>
-      </div>
+      </n-stack>
       <pre class="layout-code"><code>&lt;div radius="sharp"&gt;
   &lt;n-textarea placeholder="Sharp"&gt;&lt;/n-textarea&gt;
 &lt;/div&gt;
@@ -257,30 +257,30 @@ const codeExamples = {
 &lt;div radius="round"&gt;
   &lt;n-textarea placeholder="Round"&gt;&lt;/n-textarea&gt;
 &lt;/div&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Events ── -->
 
     <h2>Events</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-textarea id="event-textarea" placeholder="Type to see events..."></n-textarea>
       <div class="log" id="event-log"></div>
     <pre class="layout-code"><code set:html={codeExamples.events} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Form Association ── -->
 
     <h2>Form Association</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <form id="demo-form">
-        <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 0.75rem;">
+        <n-stack gap="3" style="margin-bottom: 0.75rem">
           <n-textarea name="bio" placeholder="Write your bio..."></n-textarea>
           <n-textarea name="notes" placeholder="Additional notes..." rows="2"></n-textarea>
-        </div>
-        <div style="display: flex; gap: 0.5rem;">
+        </n-stack>
+        <n-stack direction="row">
           <n-button variant="primary" type="submit"><span slot="label">Submit</span></n-button>
           <n-button variant="secondary" type="reset"><span slot="label">Reset</span></n-button>
-        </div>
+        </n-stack>
       </form>
       <div class="log" id="form-log"></div>
     <pre class="layout-code"><code>&lt;form&gt;
@@ -289,12 +289,12 @@ const codeExamples = {
     &lt;span slot="label"&gt;Submit&lt;/span&gt;
   &lt;/n-button&gt;
 &lt;/form&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── With n-field ── -->
 
     <h2>With n-field</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-stack gap="4">
         <n-field>
           <label slot="label">Bio</label>
@@ -319,16 +319,16 @@ const codeExamples = {
   &lt;n-textarea placeholder="Required..." rows="4"&gt;&lt;/n-textarea&gt;
   &lt;span slot="description"&gt;We appreciate your feedback.&lt;/span&gt;
 &lt;/n-field&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Debug States (force-*) ── -->
 
     <h2>Debug States (<code>force-*</code>)</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin: 0 0 1rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="regular">
         Attribute-driven pseudo-state overrides for DevTools debugging and visual testing.
-      </p>
-      <div class="layout-row">
+      </n-text>
+      <n-stack direction="row" wrap align="center">
         <div>
           <div class="layout-label">force-hover</div>
           <n-textarea force-hover placeholder="Force hover"></n-textarea>
@@ -337,8 +337,8 @@ const codeExamples = {
           <div class="layout-label">force-focus</div>
           <n-textarea force-focus placeholder="Force focus"></n-textarea>
         </div>
-      </div>
-    </div>
+      </n-stack>
+    </n-panel>
   </main>
 
   <script>

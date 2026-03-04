@@ -33,13 +33,13 @@ const codeExamples = {
 <SidebarLayout title="Colors">
   <main>
     <h1>Colors</h1>
-    <p style="color: var(--n-ink-muted-neutral); margin-bottom: 1.5rem;">
+    <n-text muted spacing="relaxed">
       Interactive color environment explorer. Adjust global and per-family parameters to see live changes across all tokens.
-    </p>
+    </n-text>
 
-    <div class="layout-section">
+    <n-panel bordered>
       <pre class="layout-code"><code set:html={codeExamples.example} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <native-tokens></native-tokens>
   </main>

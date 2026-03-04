@@ -31,13 +31,13 @@ n-app-panel h3 {
   color: var(--n-ink-neutral);
 }
 
-.layout-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.75rem;
+/* ── Dogfooded n-panel sections ── */
+
+n-app-panel > main > n-panel[bordered] {
+  margin-bottom: 1rem;
 }
+
+/* ── Documentation-layer primitives ── */
 
 .layout-label {
   font-size: 0.625rem;
@@ -47,14 +47,6 @@ n-app-panel h3 {
   width: 5rem;
   flex-shrink: 0;
   color: var(--n-ink-muted-neutral);
-}
-
-.layout-section {
-  background: var(--n-body-neutral);
-  border: 1px solid var(--n-border-muted-neutral);
-  border-radius: var(--n-radius);
-  padding: 1.5rem;
-  margin-bottom: 1rem;
 }
 
 .log {
@@ -110,15 +102,13 @@ n-app-panel h3 {
 
 .layout-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
   gap: 1.5rem;
   align-items: start;
 }
 
-.layout-col {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+.layout-grid > * {
+  min-width: 0;
 }
 
 .layout-col-label {

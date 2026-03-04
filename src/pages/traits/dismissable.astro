@@ -23,17 +23,17 @@ panel.addEventListener('native:dismiss', () =&gt; hidePanel());`,
 <SidebarLayout title="Dismissable">
   <main>
 <h1>Dismissable</h1>
-    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
+    <n-text size="md" muted spacing="relaxed">
       Composable trait that manages a global layer stack. When enabled, clicking outside the element or pressing Escape dispatches a <code>native:dismiss</code> event. Only the topmost layer in the stack receives dismiss events.
-    </p>
+    </n-text>
 
     <!-- ── Click Outside to Dismiss ── -->
 
     <h2>Click Outside to Dismiss</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
         Uses <code>DismissController</code> directly on a plain element. Call <code>enable()</code> to join the dismiss stack, <code>disable()</code> to leave.
-      </p>
+      </n-text>
       <n-button id="open-btn">Open Panel</n-button>
       <div class="dismiss-panel" id="panel" hidden>
         This panel is dismissable. Click anywhere outside it or press <strong>Escape</strong> to close.
@@ -42,19 +42,19 @@ panel.addEventListener('native:dismiss', () =&gt; hidePanel());`,
       </div>
       <div id="log" class="output"></div>
       <pre class="layout-code"><code set:html={codeExamples.clickOutsideToDismiss} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Nested Layers ── -->
 
     <h2>Nested Layers (Stack)</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
         Open both panels. Only the topmost one receives dismiss events. After the top panel is dismissed, the bottom panel becomes the new top.
-      </p>
-      <div style="display: flex; gap: 0.5rem;">
+      </n-text>
+      <n-stack direction="row">
         <n-button id="open-a">Open Panel A</n-button>
         <n-button id="open-b">Open Panel B</n-button>
-      </div>
+      </n-stack>
       <div class="dismiss-panel" id="panel-a" hidden>
         <strong>Panel A</strong> — I'm the first layer.
       </div>
@@ -74,15 +74,15 @@ panelB.removeAttribute('hidden');
 dismissB.enable();
 
 // Escape/click-outside dismisses B first, then A</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Built-in: n-dialog ── -->
 
     <h2>Built-in: n-dialog</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.75rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
         <code>n-dialog</code> uses Dismissable internally. Escape and backdrop click close the dialog automatically.
-      </p>
+      </n-text>
       <n-button id="open-dialog">Open Dialog</n-button>
       <n-dialog id="demo-dialog">
         <n-card style="width: 20rem; padding: 1.5rem;">
@@ -102,7 +102,7 @@ dismissB.enable();
   open.addEventListener('native:press', () =&gt; dialog.showModal());
   close.addEventListener('native:press', () =&gt; dialog.close());
 &lt;/script&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── API Reference ── -->
 

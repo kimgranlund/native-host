@@ -41,17 +41,17 @@ const detailSelectedCount = `{ selected, count }`;
 <SidebarLayout title="Clippable">
   <main>
 <h1>Clippable</h1>
-    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
+    <n-text size="md" muted spacing="relaxed">
       Keyboard clipboard operations (<strong>Ctrl/Cmd+C/X/V</strong>) for structured data. Composes with <code>Selectable</code> to copy/cut selected items.
-    </p>
+    </n-text>
 
     <!-- ── Copy & Paste ── -->
 
     <h2>Copy &amp; Paste</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.5rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted style="margin-bottom: 0.5rem;">
         Click to select items, then use keyboard shortcuts to copy. Focus the list first by clicking an item.
-      </p>
+      </n-text>
       <div class="shortcut-row">
         <span class="shortcut-hint">Ctrl/Cmd+C — Copy</span>
         <span class="shortcut-hint">Shift+Click — Range select</span>
@@ -68,15 +68,15 @@ const detailSelectedCount = `{ selected, count }`;
       </n-controller>
       <div id="copy-log" class="output"></div>
       <pre class="layout-code"><code set:html={codeExamples.copyAmpPaste} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Cut & Paste ── -->
 
     <h2>Cut &amp; Paste</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.5rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted style="margin-bottom: 0.5rem;">
         <strong>Ctrl/Cmd+X</strong> marks items with <code>[clip-cut]</code> (dimmed). <strong>Ctrl/Cmd+V</strong> dispatches a paste event.
-      </p>
+      </n-text>
       <div class="shortcut-row">
         <span class="shortcut-hint">Ctrl/Cmd+X — Cut</span>
         <span class="shortcut-hint">Ctrl/Cmd+V — Paste</span>
@@ -92,7 +92,7 @@ const detailSelectedCount = `{ selected, count }`;
       </n-controller>
       <div id="cut-log" class="output"></div>
       <pre class="layout-code"><code set:html={codeExamples.cutAmpPaste} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── API Reference ── -->
 

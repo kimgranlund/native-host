@@ -4,14 +4,14 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
 <SidebarLayout title="Icons">
   <main>
 <h1>&lt;n-icon&gt;</h1>
-    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
+    <n-text size="md" muted spacing="relaxed">
       Phosphor icon element with registry, late-registration, and accessibility support.
-    </p>
+    </n-text>
 
     <!-- ── Basic Icons ── -->
 
     <h2>Basic Icons</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <div class="icon-row">
         <div class="icon-card">
           <n-icon name="house"></n-icon>
@@ -54,40 +54,40 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
           <span class="icon-card-label">pencil-simple</span>
         </div>
       </div>
-    </div>
+    </n-panel>
 
     <!-- ── Sizes ── -->
 
     <h2>Sizes</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <div class="layout-grid">
-        <div class="layout-col">
+        <n-stack>
           <span class="layout-col-label">xs (0.75rem)</span>
           <n-icon name="house" size="xs"></n-icon>
-        </div>
-        <div class="layout-col">
+        </n-stack>
+        <n-stack>
           <span class="layout-col-label">sm (0.875rem)</span>
           <n-icon name="house" size="sm"></n-icon>
-        </div>
-        <div class="layout-col">
+        </n-stack>
+        <n-stack>
           <span class="layout-col-label">md (1rem, default)</span>
           <n-icon name="house" size="md"></n-icon>
-        </div>
-        <div class="layout-col">
+        </n-stack>
+        <n-stack>
           <span class="layout-col-label">lg (1.125rem)</span>
           <n-icon name="house" size="lg"></n-icon>
-        </div>
-        <div class="layout-col">
+        </n-stack>
+        <n-stack>
           <span class="layout-col-label">xl (1.25rem)</span>
           <n-icon name="house" size="xl"></n-icon>
-        </div>
+        </n-stack>
       </div>
-    </div>
+    </n-panel>
 
     <!-- ── Color Inheritance ── -->
 
     <h2>Color Inheritance</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <div class="icon-row">
         <span style="color: var(--n-ink-accent);">
           <n-icon name="heart"></n-icon> Accent
@@ -105,12 +105,12 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
           <n-icon name="info"></n-icon> Info
         </span>
       </div>
-    </div>
+    </n-panel>
 
     <!-- ── Accessibility ── -->
 
     <h2>Accessibility</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <h3>Decorative (default — aria-hidden="true")</h3>
       <div class="icon-row">
         <n-icon name="house"></n-icon>
@@ -126,12 +126,12 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
           → role="img", aria-label="Approved"
         </span>
       </div>
-    </div>
+    </n-panel>
 
     <!-- ── Inside Buttons ── -->
 
     <h2>Inside Buttons</h2>
-    <div class="layout-section" intent="accent" size="sm">
+    <n-panel bordered intent="accent" size="sm">
       <div class="icon-row">
         <button variant="primary">
           <n-icon name="plus"></n-icon>
@@ -149,14 +149,14 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
           <n-icon name="x"></n-icon>
         </button>
       </div>
-    </div>
+    </n-panel>
 
     <!-- ── Dynamic Name Change ── -->
 
     <h2>Dynamic Name Change</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <div class="layout-grid">
-        <div class="layout-col">
+        <n-stack>
           <n-icon id="dynamic-icon" name="house" size="xl"></n-icon>
           <select id="icon-picker" style="font-size: 0.75rem; padding: 0.25rem;">
             <option value="house">house</option>
@@ -168,29 +168,29 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
             <option value="check">check</option>
             <option value="x">x</option>
           </select>
-        </div>
+        </n-stack>
       </div>
-    </div>
+    </n-panel>
 
     <!-- ── Late Registration ── -->
 
     <h2>Late Registration</h2>
-    <div class="layout-section">
-      <p style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); margin-bottom: 0.5rem;">
+    <n-panel bordered>
+      <n-text size="xs" muted style="margin-bottom: 0.5rem;">
         The icon below has name="late-demo" but the icon hasn't been registered yet.
         Click the button to register it dynamically.
-      </p>
+      </n-text>
       <div class="icon-row" style="margin-bottom: 0.5rem;">
         <n-icon id="late-icon" name="late-demo" size="xl"></n-icon>
         <button id="register-btn" variant="secondary" size="sm">Register "late-demo" icon</button>
       </div>
       <div class="log" id="late-log"></div>
-    </div>
+    </n-panel>
 
     <!-- ── Navigation Icons ── -->
 
     <h2>Navigation Icons</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <div class="icon-row">
         <div class="icon-card">
           <n-icon name="caret-up"></n-icon>
@@ -225,7 +225,7 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
           <span class="icon-card-label">arrow-right</span>
         </div>
       </div>
-    </div>
+    </n-panel>
   </main>
 
   <script>

@@ -4,14 +4,14 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 <SidebarLayout title="Grid">
   <main>
 <h1>&lt;n-grid&gt;</h1>
-    <p style="color: var(--n-ink-muted-neutral); font-size: 0.875rem; margin-bottom: 1.5rem;">
+    <n-text size="md" muted spacing="relaxed">
       CSS grid layout container. Responsive auto-fill or fixed columns. CSS-only container.
-    </p>
+    </n-text>
 
     <!-- ── Auto-fill (default) ── -->
 
     <h2>Auto-fill (default, min 16rem)</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-grid>
         <div class="layout-box">Card 1</div>
         <div class="layout-box">Card 2</div>
@@ -26,12 +26,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   &lt;div&gt;Card 3&lt;/div&gt;
   &lt;div&gt;Card 4&lt;/div&gt;
 &lt;/n-grid&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Fixed Columns ── -->
 
     <h2>Fixed Columns</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <h3>cols="2"</h3>
       <n-grid cols="2">
         <div class="layout-box">Col 1</div>
@@ -59,12 +59,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
 &lt;n-grid cols="3"&gt;...&lt;/n-grid&gt;
 &lt;n-grid cols="4"&gt;...&lt;/n-grid&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Min Column Width ── -->
 
     <h2>Min Column Width</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <h3>min="10rem" (more columns)</h3>
       <n-grid min="10rem">
         <div class="layout-box">A</div>
@@ -88,12 +88,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 &lt;/n-grid&gt;
 
 &lt;n-grid min="24rem"&gt;...&lt;/n-grid&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Gap ── -->
 
     <h2>Gap Sizes</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <h3>gap="1"</h3>
       <n-grid cols="3" gap="1">
         <div class="layout-box">A</div>
@@ -115,12 +115,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <pre class="layout-code"><code>&lt;n-grid cols="3" gap="1"&gt;...&lt;/n-grid&gt;
 &lt;n-grid cols="3" gap="4"&gt;...&lt;/n-grid&gt;
 &lt;n-grid cols="3" gap="8"&gt;...&lt;/n-grid&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
 
     <!-- ── Composition ── -->
 
     <h2>Composition (stat cards)</h2>
-    <div class="layout-section">
+    <n-panel bordered>
       <n-grid cols="4" gap="4">
         <div class="stat-card">
           <div class="stat-label">Revenue</div>
@@ -146,7 +146,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   &lt;/div&gt;
   ...
 &lt;/n-grid&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </div>
+    </n-panel>
   </main>
 
   <style is:global>
