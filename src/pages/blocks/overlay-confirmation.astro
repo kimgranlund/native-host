@@ -35,7 +35,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <!-- -- Info Confirmation Dialog -- -->
 
     <n-dialog id="info-dialog">
-      <n-card class="dialog-card">
+      <div class="dialog-card"><n-card>
         <n-body>
           <div class="dialog-icon dialog-icon-info">
             <n-icon name="info" aria-hidden="true"></n-icon>
@@ -55,13 +55,13 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
             <span slot="label">Archive</span>
           </n-button>
         </n-footer>
-      </n-card>
+      </n-card></div>
     </n-dialog>
 
     <!-- -- Warning Confirmation Dialog -- -->
 
     <n-dialog id="warning-dialog">
-      <n-card class="dialog-card">
+      <div class="dialog-card"><n-card>
         <n-body>
           <div class="dialog-icon dialog-icon-warning">
             <n-icon name="warning" aria-hidden="true"></n-icon>
@@ -80,13 +80,13 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
             <span slot="label">Save</span>
           </n-button>
         </n-footer>
-      </n-card>
+      </n-card></div>
     </n-dialog>
 
     <!-- -- Danger Confirmation Dialog -- -->
 
     <n-dialog id="danger-dialog">
-      <n-card class="dialog-card">
+      <div class="dialog-card"><n-card>
         <n-body>
           <div class="dialog-icon dialog-icon-danger">
             <n-icon name="trash" aria-hidden="true"></n-icon>
@@ -106,7 +106,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
             <span slot="label">Delete</span>
           </n-button>
         </n-footer>
-      </n-card>
+      </n-card></div>
     </n-dialog>
     </n-stack>
   </main>

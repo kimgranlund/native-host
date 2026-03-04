@@ -1,5 +1,7 @@
-/* Shared layout-block styles — documentation layout, not component styling */
-/* Scoped to n-app-panel to avoid leaking into sidebar/breadcrumb/dialog */
+/* Shared layout-block styles — documentation layout, not component styling.
+   Scoped to n-app-panel to avoid leaking into sidebar/breadcrumb/dialog.
+   n-app-panel is used as a SCOPE (targets standard HTML descendants h1-h3, main),
+   which is an accepted infrastructure exception to rule #8 (no CSS on components). */
 
 n-app-panel > main {
   padding: 2rem;

@@ -209,7 +209,7 @@ body {
 
     <h2>Basic</h2>
     <n-panel bordered>
-      <native-playground auto-run set:html={basicPlayground} />
+      <div class="playground-wrap"><native-playground auto-run set:html={basicPlayground} /></div>
       <pre class="layout-code"><code>&lt;native-playground auto-run&gt;
   &lt;script type="playground/html"&gt;
     &lt;button class="btn primary"&gt;Hello Playground&lt;/button&gt;
@@ -228,7 +228,7 @@ body {
 
     <h2>Vertical Orientation</h2>
     <n-panel bordered>
-      <native-playground orientation="vertical" auto-run set:html={verticalPlayground} />
+      <div class="playground-wrap"><native-playground orientation="vertical" auto-run set:html={verticalPlayground} /></div>
       <pre class="layout-code"><code>&lt;native-playground orientation="vertical" auto-run&gt;
   &lt;script type="playground/html"&gt;
     &lt;span class="badge"&gt;Badge&lt;/span&gt;
@@ -245,7 +245,7 @@ body {
     <h2>Console Capture</h2>
     <p class="layout-hint">Click "Console" in the toolbar, then press the button to see captured logs.</p>
     <n-panel bordered>
-      <native-playground auto-run console-open set:html={consolePlayground} />
+      <div class="playground-wrap"><native-playground auto-run console-open set:html={consolePlayground} /></div>
       <pre class="layout-code"><code>&lt;native-playground auto-run console-open&gt;
   &lt;script type="playground/html"&gt;
     &lt;button id="log-btn"&gt;Log Something&lt;/button&gt;
@@ -268,7 +268,7 @@ body {
     <h2>Read-only</h2>
     <p class="layout-hint">Editors are non-editable. Useful for documentation showcases.</p>
     <n-panel bordered>
-      <native-playground readonly auto-run set:html={readonlyPlayground} />
+      <div class="playground-wrap"><native-playground readonly auto-run set:html={readonlyPlayground} /></div>
       <pre class="layout-code"><code>&lt;native-playground readonly auto-run&gt;
   &lt;script type="playground/html"&gt;
     &lt;input type="text" placeholder="Type here..." /&gt;
@@ -284,7 +284,7 @@ body {
     <h2>Active Tab: CSS</h2>
     <p class="layout-hint">Opens with the CSS tab pre-selected.</p>
     <n-panel bordered>
-      <native-playground active-tab="css" auto-run set:html={activeTabPlayground} />
+      <div class="playground-wrap"><native-playground active-tab="css" auto-run set:html={activeTabPlayground} /></div>
       <pre class="layout-code"><code>&lt;native-playground active-tab="css" auto-run&gt;
   &lt;script type="playground/html"&gt;
     &lt;div class="card"&gt;
@@ -311,8 +311,7 @@ body {
     @import '@nonoun/native-codemirror/css';
     @import '@nonoun/native-playground/css';
 
-    /* Playground demo overrides */
-    native-playground {
+    .playground-wrap {
       margin-bottom: 1rem;
     }
 </style>

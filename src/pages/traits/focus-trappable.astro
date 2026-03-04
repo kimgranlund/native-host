@@ -81,13 +81,13 @@ function hide() {
       </n-text>
       <n-button id="open-dialog">Open Dialog</n-button>
       <n-dialog id="demo-dialog">
-        <n-card class="dialog-card">
+        <div class="dialog-card"><n-card>
           <p style="margin: 0 0 1rem;">Focus is trapped inside this dialog. Tab only cycles between these buttons.</p>
           <div class="trap-actions">
             <n-button intent="accent">Action</n-button>
             <n-button id="close-dialog">Close</n-button>
           </div>
-        </n-card>
+        </n-card></div>
       </n-dialog>
     </n-panel>
 
@@ -223,7 +223,7 @@ function hide() {
       margin-top: 0.5rem;
     }
 
-    n-card.dialog-card {
+    .dialog-card {
       width: 20rem;
       padding: 1.5rem;
     }

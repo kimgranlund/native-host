@@ -13,7 +13,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
     <h2>Default — Live Preview Mode</h2>
     <n-panel bordered>
-      <native-editor id="demo-default"></native-editor>
+      <div class="editor-wrap"><native-editor id="demo-default"></native-editor></div>
     <pre class="layout-code"><code>&lt;native-editor&gt;
   &lt;script type="text/markdown"&gt;
 # Hello World
@@ -70,7 +70,7 @@ Content is not editable.
     <h2>Form Integration</h2>
     <n-panel bordered>
       <form id="demo-form" style="display: flex; flex-direction: column; gap: 1rem;">
-        <native-editor id="demo-form-editor" name="content" class="editor-short"></native-editor>
+        <div class="editor-short"><native-editor id="demo-form-editor" name="content"></native-editor></div>
         <n-stack direction="row">
           <n-button type="submit" variant="primary">Submit</n-button>
           <n-button type="reset" variant="secondary">Reset</n-button>
@@ -96,7 +96,7 @@ Content is not editable.
 
     <h2>Change Events</h2>
     <n-panel bordered>
-      <native-editor id="demo-events" class="editor-compact"></native-editor>
+      <div class="editor-compact"><native-editor id="demo-events"></native-editor></div>
       <div class="log" id="event-log" style="max-height: 100px;"></div>
     <pre class="layout-code"><code>&lt;native-editor id="editor"&gt;...&lt;/native-editor&gt;
 
@@ -278,7 +278,7 @@ Content is not editable.
   <style is:global>
     @import '@nonoun/native-editor/css';
 
-    native-editor {
+    .editor-wrap {
       height: 400px;
     }
 
@@ -288,6 +288,12 @@ Content is not editable.
 
     .editor-compact {
       height: 200px;
+    }
+
+    .editor-wrap > native-editor,
+    .editor-short > native-editor,
+    .editor-compact > native-editor {
+      height: 100%;
     }
 </style>
 

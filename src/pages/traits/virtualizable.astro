@@ -81,10 +81,10 @@ host.addEventListener('native:virtual-change', (e) =&gt; {
 
     <h2>Dynamic Count</h2>
     <n-panel bordered>
-      <n-stack direction="row" class="dynamic-actions">
+      <div class="dynamic-actions"><n-stack direction="row">
         <n-button id="add-btn" size="sm">Add 1,000</n-button>
         <n-button id="reset-btn" size="sm">Reset to 100</n-button>
-      </n-stack>
+      </n-stack></div>
       <div id="host2">
         <div class="scroll-viewport" id="viewport2">
           <div class="scroll-content" id="content2"></div>
@@ -352,7 +352,7 @@ document.addEventListener('astro:page-load', () => {
       min-height: 1.5rem;
     }
 
-    n-stack.dynamic-actions {
+    .dynamic-actions {
       margin-bottom: 0.75rem;
     }
 

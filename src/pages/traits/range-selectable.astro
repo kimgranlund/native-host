@@ -101,9 +101,9 @@ const detailRange = `{ startIndex, endIndex, items }`;
         <div class="day-header">Sa</div>
       </div>
       <div id="click-grid" class="grid-container"></div>
-      <n-stack direction="row" class="range-actions">
+      <div class="range-actions"><n-stack direction="row">
         <n-button id="clear-btn" size="sm">Clear Range</n-button>
-      </n-stack>
+      </n-stack></div>
       <div id="click-output" class="output">Click a start date, hover to preview, click to commit</div>
       <pre class="layout-code"><code set:html={codeExamples.clickModeCalendarGrid} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
@@ -404,7 +404,7 @@ document.addEventListener('astro:page-load', () => {
       min-height: 1.5rem;
     }
 
-    n-stack.range-actions {
+    .range-actions {
       margin-top: 0.75rem;
     }
 

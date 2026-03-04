@@ -88,11 +88,11 @@ const detailItem = `{ item }`;
           <div class="drag-role"><span class="role-name">Lead</span><span class="role-assignee" id="role-0">—</span></div>
           <div class="drag-role"><span class="role-name">Design</span><span class="role-assignee" id="role-1">—</span></div>
           <div class="drag-role"><span class="role-name">Engineering</span><span class="role-assignee" id="role-2">—</span></div>
-          <n-stack direction="row" class="person-row">
+          <div class="person-row"><n-stack direction="row">
             <div class="drag-person">Alice</div>
             <div class="drag-person">Bob</div>
             <div class="drag-person">Carol</div>
-          </n-stack>
+          </n-stack></div>
         </div>
       </n-controller>
       <div id="replace-log" class="output"></div>
@@ -764,7 +764,7 @@ const detailItem = `{ item }`;
       margin: 0.125rem 0;
     }
 
-    n-stack.person-row {
+    .person-row {
       margin-top: 0.75rem;
     }
 

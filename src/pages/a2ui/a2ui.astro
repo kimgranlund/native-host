@@ -2,7 +2,7 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="A2UI Protocol">
-  <main>
+  <main id="a2ui-protocol-page">
 <h1>A2UI Protocol</h1>
     <n-text size="md" muted spacing="relaxed">
       Google A2UI (Agent-to-UI) protocol compatibility layer. Bidirectional conversion between A2UI flat adjacency lists and native-ui component trees.
@@ -158,8 +158,13 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   <script>
 import { effect } from "@nonoun/native-ui";
 import { Kernel, Planner, resetKernel } from "@nonoun/native-ui/kernel";
-// ── Setup ──
+import { createA2UIAdapter } from "@nonoun/native-a2ui";
 
+document.addEventListener('astro:page-load', async () => {
+      const pageEl = document.getElementById('a2ui-protocol-page');
+      if (!pageEl) return;
+
+      // ── Setup ──
       resetKernel();
       const kernel = new Kernel({ allowUnregistered: true });
 
@@ -169,9 +174,9 @@ import { Kernel, Planner, resetKernel } from "@nonoun/native-ui/kernel";
       const typeCountEl = document.getElementById('type-count');
       const emitOutput = document.getElementById('emit-output');
 
-      const layout = document.querySelector('n-layout');
-      await layout.ready;
-      const chatPanel = layout.chatPanel;
+      const chatPanel = document.getElementById('chat-panel');
+      if (!chatPanel) return;
+      await chatPanel.ready;
       const chatContent = chatPanel.querySelector('n-chat-content');
 
       const adapter = createA2UIAdapter(kernel, {
@@ -1761,8 +1766,11 @@ import { Kernel, Planner, resetKernel } from "@nonoun/native-ui/kernel";
         emitOutput.textContent = JSON.stringify(msg, null, 2);
         log('EMIT: Planner.card() → A2UI updateComponents', 'cmd');
       });
+});
   </script>
   <style is:global>
+    @import '@nonoun/native-a2ui/css';
+
     .status-bar {
       display: flex;
       gap: 1rem;

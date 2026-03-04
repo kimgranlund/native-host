@@ -29,9 +29,9 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       <n-body>
         <!-- ── Toolbar ── -->
         <n-stack direction="row" gap="3" align="center" wrap>
-          <n-input id="table-search" class="table-search-input" size="sm" placeholder="Search users...">
+          <div class="table-search-input"><n-input id="table-search" size="sm" placeholder="Search users...">
             <n-icon name="magnifying-glass" slot="leading"></n-icon>
-          </n-input>
+          </n-input></div>
           <n-select id="table-status-filter" size="sm" placeholder="All statuses"
             options='[{"value":"all","label":"All Statuses"},{"value":"active","label":"Active"},{"value":"inactive","label":"Inactive"}]'>
           </n-select>

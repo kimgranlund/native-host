@@ -80,7 +80,7 @@ const detailQueryMatchTotal = `{ query, matchCount, total }`;
         Type to filter items. Non-matching items are hidden via <code>[search-hidden]</code>.
       </n-text>
       <div id="basic-wrap">
-        <n-input id="basic-input" placeholder="Filter items..." class="search-input"></n-input>
+        <div class="search-input-wrap"><n-input id="basic-input" placeholder="Filter items..."></n-input></div>
         <div class="search-items">
           <div class="search-item">Apple</div>
           <div class="search-item">Banana</div>
@@ -103,7 +103,7 @@ const detailQueryMatchTotal = `{ query, matchCount, total }`;
         Searches against a <code>data-search</code> attribute instead of <code>textContent</code>. Items display a label but filter on tags.
       </n-text>
       <div id="field-wrap">
-        <n-input id="field-input" placeholder="Search by tag (e.g. 'ui', 'layout')..." class="search-input"></n-input>
+        <div class="search-input-wrap"><n-input id="field-input" placeholder="Search by tag (e.g. 'ui', 'layout')..."></n-input></div>
         <div class="search-items">
           <div class="search-item" data-search="component ui button">Button Component</div>
           <div class="search-item" data-search="component ui input form">Input Field</div>
@@ -124,7 +124,7 @@ const detailQueryMatchTotal = `{ query, matchCount, total }`;
         Uses <code>SearchController.highlight()</code> to wrap matches in <code>&lt;mark&gt;</code> tags.
       </n-text>
       <div id="highlight-wrap">
-        <n-input id="highlight-input" placeholder="Type to highlight matches..." class="search-input"></n-input>
+        <div class="search-input-wrap"><n-input id="highlight-input" placeholder="Type to highlight matches..."></n-input></div>
         <div class="search-items">
           <div class="search-item" data-original="JavaScript">JavaScript</div>
           <div class="search-item" data-original="TypeScript">TypeScript</div>
@@ -144,7 +144,7 @@ const detailQueryMatchTotal = `{ query, matchCount, total }`;
         Use <code>SearchController</code> directly on a plain element without the trait mixin.
       </n-text>
       <div id="controller-wrap">
-        <n-input id="ctrl-input" placeholder="Filter colors..." class="search-input"></n-input>
+        <div class="search-input-wrap"><n-input id="ctrl-input" placeholder="Filter colors..."></n-input></div>
         <div id="controller-list" class="search-items">
           <div class="search-item">Red</div>
           <div class="search-item">Orange</div>
@@ -384,7 +384,7 @@ document.addEventListener('astro:page-load', () => {
       border-radius: 0.25rem;
     }
 
-    n-input.search-input {
+    .search-input-wrap {
       margin-bottom: 0.75rem;
     }
 

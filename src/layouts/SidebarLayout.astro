@@ -186,7 +186,7 @@ const groupIcons: Record<string, string> = {
 
   <!-- Command palette dialog -->
   <n-dialog class="nav-cmd-dialog" id="nav-cmd-dialog" transition:animate="none">
-    <n-command>
+    <div class="nav-cmd-wrap"><n-command>
       <n-command-input>
         <n-icon name="magnifying-glass"></n-icon>
         <input type="text" placeholder="Search pages..." />
@@ -199,7 +199,7 @@ const groupIcons: Record<string, string> = {
         ))}
       </n-command-list>
       <n-command-empty>No pages found.</n-command-empty>
-    </n-command>
+    </n-command></div>
   </n-dialog>
 
   <script>

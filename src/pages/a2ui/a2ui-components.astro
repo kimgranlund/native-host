@@ -2,7 +2,7 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="A2UI Components">
-  <main>
+  <main id="a2ui-components-page">
 <div class="nav-main">
         <h1>A2UI Styled Components</h1>
         <n-text size="sm" muted spacing="relaxed">
@@ -14,15 +14,19 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
   <script>
 import { Kernel, resetKernel } from "@nonoun/native-ui/kernel";
-// Icons used in this demo + icons stamped internally by components
+import { createA2UIAdapter } from "@nonoun/native-a2ui";
+
+document.addEventListener('astro:page-load', async () => {
+      const pageEl = document.getElementById('a2ui-components-page');
+      if (!pageEl) return;
 
       // ── Boot ──
       resetKernel();
       const kernel = new Kernel({ allowUnregistered: true });
       const messages = [];
-      const layout = document.querySelector('n-layout');
-      await layout.ready;
-      const chatPanel = layout.chatPanel;
+      const chatPanel = document.getElementById('chat-panel');
+      if (!chatPanel) return;
+      await chatPanel.ready;
       const target = chatPanel.querySelector('n-chat-content');
 
       const adapter = createA2UIAdapter(kernel, {
@@ -365,15 +369,15 @@ import { Kernel, resetKernel } from "@nonoun/native-ui/kernel";
           });
         },
       );
+});
   </script>
   <style is:global>
+    @import '@nonoun/native-a2ui/css';
+
     .nav-main {
       padding: 2rem;
       max-width: 960px;
     }
-
-
-
 
 
     [data-a2ui] {

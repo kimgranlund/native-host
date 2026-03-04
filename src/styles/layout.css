@@ -57,7 +57,7 @@
 .nav-cmd-dialog > dialog {
   place-items: start center;
 }
-.nav-cmd-dialog n-command {
+.nav-cmd-wrap {
   margin-top: 120px;
   width: min(480px, 90vw);
   max-height: min(400px, 80vh);

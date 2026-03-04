@@ -76,12 +76,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       <n-text size="xs" muted spacing="tight">
         <code>n-listbox</code> uses RovingFocusable internally. Arrow keys navigate between options.
       </n-text>
-      <n-listbox class="demo-listbox">
+      <div class="demo-listbox-wrap"><n-listbox>
         <n-option value="react">React</n-option>
         <n-option value="vue">Vue</n-option>
         <n-option value="svelte">Svelte</n-option>
         <n-option value="lit">Lit</n-option>
-      </n-listbox>
+      </n-listbox></div>
     </n-panel>
 
     <!-- ── API Reference ── -->
@@ -227,7 +227,7 @@ document.addEventListener('astro:page-load', () => {
       border-bottom-color: var(--n-surface-accent);
     }
 
-    n-listbox.demo-listbox {
+    .demo-listbox-wrap {
       max-width: 16rem;
     }
 

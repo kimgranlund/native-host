@@ -85,10 +85,10 @@ dismissB.enable();
       </n-text>
       <n-button id="open-dialog">Open Dialog</n-button>
       <n-dialog id="demo-dialog">
-        <n-card class="dialog-card">
+        <div class="dialog-card"><n-card>
           <p style="margin: 0 0 1rem;">This dialog uses Dismissable internally. Press Escape or click the backdrop to close.</p>
           <n-button id="close-dialog" intent="accent">Close</n-button>
-        </n-card>
+        </n-card></div>
       </n-dialog>
       <pre class="layout-code"><code>&lt;n-button id="open"&gt;Open Dialog&lt;/n-button&gt;
 &lt;n-dialog id="dialog"&gt;
@@ -227,7 +227,7 @@ document.addEventListener('astro:page-load', () => {
       border-radius: 0.25rem;
     }
 
-    n-card.dialog-card {
+    .dialog-card {
       width: 20rem;
       padding: 1.5rem;
     }
