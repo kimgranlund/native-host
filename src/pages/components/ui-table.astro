@@ -12,7 +12,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
     <h2>Basic Table</h2>
     <n-panel bordered>
-      <n-table style="grid-template-columns: 1fr 1fr 1fr;">
+      <n-table cols="1fr 1fr 1fr">
         <n-table-head>
           <n-table-row>
             <n-table-header>Name</n-table-header>
@@ -60,7 +60,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
     <h2>Sortable Columns</h2>
     <n-panel bordered>
-      <n-table id="sortable-table" style="grid-template-columns: 2fr 1fr 80px;">
+      <n-table id="sortable-table" cols="2fr 1fr 80px">
         <n-table-head>
           <n-table-row>
             <n-table-header sortable column="name">Name</n-table-header>
@@ -87,7 +87,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
     <h2>Selectable Rows</h2>
     <n-panel bordered>
-      <n-table selectable style="grid-template-columns: 1fr 1fr 100px;">
+      <n-table selectable cols="1fr 1fr 100px">
         <n-table-head>
           <n-table-row>
             <n-table-header>Product</n-table-header>
@@ -142,7 +142,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <h2>Sizes</h2>
     <n-panel bordered>
       <h3>sm</h3>
-      <n-table size="sm" style="grid-template-columns: 1fr 1fr 1fr;">
+      <n-table size="sm" cols="1fr 1fr 1fr">
         <n-table-head>
           <n-table-row>
             <n-table-header>Key</n-table-header>
@@ -165,7 +165,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       </n-table>
 
       <h3>md (default)</h3>
-      <n-table style="grid-template-columns: 1fr 1fr 1fr;">
+      <n-table cols="1fr 1fr 1fr">
         <n-table-head>
           <n-table-row>
             <n-table-header>Key</n-table-header>
@@ -188,7 +188,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       </n-table>
 
       <h3>lg</h3>
-      <n-table size="lg" style="grid-template-columns: 1fr 1fr 1fr;">
+      <n-table size="lg" cols="1fr 1fr 1fr">
         <n-table-head>
           <n-table-row>
             <n-table-header>Key</n-table-header>
@@ -221,7 +221,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       <n-text size="xs" muted spacing="regular">
         Editorial / documentation tables that sit inline with prose. No outer border, no radius, no header fill, no row hover.
       </n-text>
-      <n-table variant="plain" size="sm" style="grid-template-columns: auto 1fr 1fr;">
+      <n-table variant="plain" size="sm" cols="auto 1fr 1fr">
         <n-table-head>
           <n-table-row>
             <n-table-header>Token</n-table-header>
@@ -271,7 +271,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       <n-text size="xs" muted spacing="regular">
         Full-width category headers that opt out of subgrid. Hidden automatically when the table is sorted.
       </n-text>
-      <n-table id="colspan-table" style="grid-template-columns: 2fr 1fr 80px;">
+      <n-table id="colspan-table" cols="2fr 1fr 80px">
         <n-table-head>
           <n-table-row>
             <n-table-header sortable column="name">Name</n-table-header>
@@ -329,7 +329,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       <n-text size="xs" muted spacing="regular">
         Header row stays fixed when scrolling vertically. Requires constrained height on the table.
       </n-text>
-      <n-table sticky-header style="grid-template-columns: 1fr 1fr 100px; max-height: 200px;">
+      <n-table class="sticky-demo" sticky-header cols="1fr 1fr 100px">
         <n-table-head>
           <n-table-row>
             <n-table-header>Name</n-table-header>
@@ -355,11 +355,11 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <!-- ── Sticky Column ── -->
 
     <h2>Sticky Column</h2>
-    <n-panel bordered style="max-width: 400px;">
+    <n-panel class="sticky-col-panel" bordered>
       <n-text size="xs" muted spacing="regular">
         First column stays fixed when scrolling horizontally. Requires constrained width.
       </n-text>
-      <n-table sticky-column style="grid-template-columns: 120px 150px 150px 150px 150px;">
+      <n-table sticky-column cols="120px 150px 150px 150px 150px">
         <n-table-head>
           <n-table-row>
             <n-table-header>Name</n-table-header>
@@ -414,7 +414,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         Section headers stick below the table header as you scroll, like iOS section headers.
         Each section header pushes the previous one up.
       </n-text>
-      <n-table sticky-header style="grid-template-columns: 2fr 1fr 80px; max-height: 280px;">
+      <n-table class="sticky-colspan-demo" sticky-header cols="2fr 1fr 80px">
         <n-table-head>
           <n-table-row>
             <n-table-header>Name</n-table-header>
@@ -442,7 +442,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       <n-text size="xs" muted spacing="regular">
         Drag rows to reorder. DOM is auto-reordered unless the <code>native:table-reorder</code> event is cancelled.
       </n-text>
-      <n-table reorderable style="grid-template-columns: 1fr 1fr 100px;">
+      <n-table reorderable cols="1fr 1fr 100px">
         <n-table-head>
           <n-table-row>
             <n-table-header>Task</n-table-header>
@@ -497,7 +497,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       <n-text size="xs" muted spacing="regular">
         Drag the right edge of any header cell to resize columns.
       </n-text>
-      <n-table resizable style="grid-template-columns: 2fr 1fr 1fr;">
+      <n-table resizable cols="2fr 1fr 1fr">
         <n-table-head>
           <n-table-row>
             <n-table-header>Name</n-table-header>
@@ -543,7 +543,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       <n-text size="xs" muted spacing="regular">
         Click header text to sort, drag header edge to resize. Both coexist without conflict.
       </n-text>
-      <n-table resizable id="sort-resize-table" style="grid-template-columns: 2fr 1fr 80px;">
+      <n-table resizable id="sort-resize-table" cols="2fr 1fr 80px">
         <n-table-head>
           <n-table-row>
             <n-table-header sortable column="name">Name</n-table-header>
@@ -573,7 +573,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       <n-text size="xs" muted spacing="regular">
         Attribute-driven pseudo-state overrides for DevTools debugging and visual testing. Applied to individual rows and headers.
       </n-text>
-      <n-table style="grid-template-columns: 1fr 1fr 1fr;">
+      <n-table cols="1fr 1fr 1fr">
         <n-table-head>
           <n-table-row>
             <n-table-header>Name</n-table-header>
@@ -826,6 +826,10 @@ import { logPrepend } from '../../scripts/event-log';
     }
 
 
+
+    .sticky-demo { max-height: 200px; }
+    .sticky-col-panel { max-width: 400px; }
+    .sticky-colspan-demo { max-height: 280px; }
 
     /* ── Code Blocks ── */
 </style>

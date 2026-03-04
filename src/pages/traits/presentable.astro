@@ -1,0 +1,294 @@
+---
+import SidebarLayout from '../../layouts/SidebarLayout.astro';
+
+const codeExamples = {
+  basicPresent: `import { PresentController } from '@nonoun/native-ui';
+
+const content = document.getElementById('my-content');
+const ctrl = new PresentController(content);
+
+// Present in fullscreen overlay
+ctrl.present();
+
+// Dismiss programmatically
+ctrl.dismiss();
+
+// Or let the user click the X button / backdrop / press Escape`,
+  customInset: `&lt;!-- Declarative via n-controller --&gt;
+&lt;n-controller traits="presentable" presentable-inset="4rem"&gt;
+  &lt;div id="content"&gt;...&lt;/div&gt;
+&lt;/n-controller&gt;
+
+&lt;!-- Imperative --&gt;
+&lt;script&gt;
+  import { PresentController } from '@nonoun/native-ui';
+  const ctrl = new PresentController(el, { inset: '4rem' });
+  ctrl.present();
+&lt;/script&gt;`,
+  noCloseButton: `const ctrl = new PresentController(el, {
+  closeButton: false
+});
+
+// Must dismiss programmatically or via backdrop/Escape
+ctrl.present();`,
+};
+---
+<SidebarLayout title="Presentable">
+  <main>
+<h1>Presentable</h1>
+    <n-text size="md" muted spacing="relaxed">
+      Composable trait that shows content in a full-viewport dialog overlay. Wraps the host element in a modal <code>&lt;dialog&gt;</code> at its current DOM position so CSS custom properties inherit normally. On dismiss the host is unwrapped back to its original position.
+    </n-text>
+
+    <!-- ── Basic ── -->
+
+    <h2>Basic</h2>
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
+        Click the button to present the card in a fullscreen overlay. Close with the X button, click outside, or press Escape.
+      </n-text>
+      <n-button id="present-basic">Present Content</n-button>
+      <div id="present-content-1" class="present-card">
+        <h3 class="present-card-title">Presented Content</h3>
+        <p>This card is now displayed in a full-viewport dialog overlay. The content is wrapped in a modal <code>&lt;dialog&gt;</code> using <code>showModal()</code> for top-layer rendering.</p>
+        <p>Close by clicking the X button, clicking the backdrop, or pressing Escape.</p>
+      </div>
+      <pre class="layout-code"><code set:html={codeExamples.basicPresent} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Custom Inset ── -->
+
+    <h2>Custom Inset</h2>
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
+        The <code>inset</code> option controls the safety margin from viewport edges. Default is <code>2rem</code>. Try different values to see the effect.
+      </n-text>
+      <n-stack direction="row" gap="3">
+        <n-button id="present-inset-1rem">Inset: 1rem</n-button>
+        <n-button id="present-inset-4rem">Inset: 4rem</n-button>
+        <n-button id="present-inset-8rem">Inset: 8rem</n-button>
+      </n-stack>
+      <div id="present-content-2" class="present-card">
+        <h3 class="present-card-title">Custom Inset</h3>
+        <p>This card is presented with a custom inset value. The inset controls how much space is reserved between the dialog wrapper and the viewport edges.</p>
+      </div>
+      <pre class="layout-code"><code set:html={codeExamples.customInset} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Without Close Button ── -->
+
+    <h2>Without Close Button</h2>
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
+        Set <code>closeButton: false</code> to hide the X button. The overlay can still be dismissed via backdrop click or Escape, or programmatically with <code>dismiss()</code>.
+      </n-text>
+      <n-button id="present-no-close">Present (no X button)</n-button>
+      <div id="present-content-3" class="present-card">
+        <h3 class="present-card-title">No Close Button</h3>
+        <p>There is no X button in this overlay. Click outside the card or press Escape to dismiss.</p>
+      </div>
+      <pre class="layout-code"><code set:html={codeExamples.noCloseButton} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Events ── -->
+
+    <h2>Events</h2>
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
+        <code>native:present</code> fires after the dialog opens. <code>native:dismiss</code> fires after the dialog closes and the host is restored to its original DOM position.
+      </n-text>
+      <n-button id="present-events">Present with Events</n-button>
+      <div id="present-content-4" class="present-card">
+        <h3 class="present-card-title">Event Demo</h3>
+        <p>Open and close this overlay to see events logged below.</p>
+      </div>
+      <div id="log" class="output"></div>
+    </n-panel>
+
+    <!-- ── API Reference ── -->
+
+    <h2>API</h2>
+      <h3>Constructor</h3>
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Option</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>inset</code></n-table-cell>
+            <n-table-cell><code>'2rem'</code></n-table-cell>
+            <n-table-cell>Safety margin from viewport edges. Any valid CSS length.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>closeButton</code></n-table-cell>
+            <n-table-cell><code>true</code></n-table-cell>
+            <n-table-cell>Show a close X button in the top-right corner of the overlay.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>Methods</h3>
+      <n-table variant="plain" size="sm" cols="auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Method</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>present()</code></n-table-cell>
+            <n-table-cell>Wraps the host element in a modal <code>&lt;dialog&gt;</code> and calls <code>showModal()</code>. No-op if already open.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>dismiss()</code></n-table-cell>
+            <n-table-cell>Closes the dialog and restores the host to its original DOM position. No-op if not open.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>destroy()</code></n-table-cell>
+            <n-table-cell>Dismisses if open and cleans up. Call in <code>teardown()</code>.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>Properties</h3>
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Property</n-table-header><n-table-header>Type</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>open</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell>Read-only. Whether the overlay is currently open.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>Events</h3>
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Event</n-table-header><n-table-header>Detail</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>native:present</code></n-table-cell>
+            <n-table-cell>--</n-table-cell>
+            <n-table-cell>Dispatched on the host after the dialog opens via <code>showModal()</code>.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>native:dismiss</code></n-table-cell>
+            <n-table-cell>--</n-table-cell>
+            <n-table-cell>Dispatched on the host after the dialog closes and the host is restored to its original DOM position.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>Provider Attributes</h3>
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>presentable-inset</code></n-table-cell>
+            <n-table-cell><code>2rem</code></n-table-cell>
+            <n-table-cell>Safety margin from viewport edges when used with <code>&lt;n-controller traits="presentable"&gt;</code>.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>presentable-close-button</code></n-table-cell>
+            <n-table-cell><code>true</code></n-table-cell>
+            <n-table-cell>Set to <code>"false"</code> to hide the close button.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+  </main>
+
+  <script>
+    import { PresentController } from '@nonoun/native-ui';
+    import { logAppend } from '../../scripts/event-log';
+
+    document.addEventListener('astro:page-load', () => {
+      if (!document.getElementById('present-content-1')) return;
+
+      // ── Basic Demo ──
+
+      const content1 = document.getElementById('present-content-1')!;
+      const ctrl1 = new PresentController(content1);
+
+      document.getElementById('present-basic')?.addEventListener('native:press', () => {
+        ctrl1.present();
+      });
+
+      // ── Custom Inset Demo ──
+
+      const content2 = document.getElementById('present-content-2')!;
+      let ctrl2: PresentController | null = null;
+
+      function presentWithInset(inset: string) {
+        // Destroy previous controller to reset options
+        ctrl2?.destroy();
+        ctrl2 = new PresentController(content2, { inset });
+        ctrl2.present();
+      }
+
+      document.getElementById('present-inset-1rem')?.addEventListener('native:press', () => presentWithInset('1rem'));
+      document.getElementById('present-inset-4rem')?.addEventListener('native:press', () => presentWithInset('4rem'));
+      document.getElementById('present-inset-8rem')?.addEventListener('native:press', () => presentWithInset('8rem'));
+
+      // ── No Close Button Demo ──
+
+      const content3 = document.getElementById('present-content-3')!;
+      const ctrl3 = new PresentController(content3, { closeButton: false });
+
+      document.getElementById('present-no-close')?.addEventListener('native:press', () => {
+        ctrl3.present();
+      });
+
+      // ── Events Demo ──
+
+      const content4 = document.getElementById('present-content-4')!;
+      const ctrl4 = new PresentController(content4);
+      const logEl = document.getElementById('log');
+      let count = 0;
+
+      content4.addEventListener('native:present', () => {
+        count++;
+        logAppend(logEl, `#${count} native:present — overlay opened`);
+      });
+
+      content4.addEventListener('native:dismiss', () => {
+        count++;
+        logAppend(logEl, `#${count} native:dismiss — overlay closed, host restored`);
+      });
+
+      document.getElementById('present-events')?.addEventListener('native:press', () => {
+        ctrl4.present();
+      });
+    });
+  </script>
+  <style is:global>
+    .present-card {
+      padding: 1.5rem;
+      background: var(--n-surface-accent);
+      color: var(--n-surface-ink-accent);
+      border-radius: 0.5rem;
+      margin-top: 0.75rem;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      max-width: 32rem;
+    }
+
+    .present-card-title {
+      margin: 0 0 0.75rem;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .present-card p {
+      margin: 0 0 0.5rem;
+    }
+
+    .present-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .output {
+      font-family: monospace;
+      font-size: 0.75rem;
+      color: var(--n-ink-muted-neutral);
+      max-height: 6rem;
+      overflow-y: auto;
+      margin-top: 0.75rem;
+      padding: 0.5rem;
+      background: var(--n-panel-neutral);
+      border-radius: 0.25rem;
+    }
+
+    /* ── Code Blocks ── */
+</style>
+
+</SidebarLayout>

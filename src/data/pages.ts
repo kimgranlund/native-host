@@ -13,8 +13,16 @@ export interface PageEntry {
 // Badge assignments — pages with recent changes
 const pageBadges: Record<string, BadgeKind> = {
   '/components/ui-pagination-dots': 'new',
+  '/containers/ui-body': 'new',
+  '/containers/ui-footer': 'new',
+  '/containers/ui-text': 'new',
   '/traits/slash-commandable': 'new',
+  '/traits/dialogable': 'new',
+  '/traits/list-navigable': 'new',
+  '/traits/presentable': 'new',
+  '/traits/shortcutable': 'new',
   '/changelog': 'new',
+  '/components/ui-table': 'updated',
   '/components/ui-input': 'updated',
   '/components/ui-textarea': 'updated',
   '/containers/ui-header': 'updated',
@@ -45,7 +53,7 @@ const groupOverrides: Record<string, string> = {
 
 // Title overrides for pages where filename ≠ display title
 const titleOverrides: Record<string, string> = {
-  '/containers/ui-header': 'Header / Body / Footer',
+  '/containers/ui-header': 'Header',
   '/components/ui-input-otp': 'Input OTP',
   '/components/ui-kbd': 'Kbd',
   '/packages/native-editor': 'Editor',
@@ -55,6 +63,8 @@ const titleOverrides: Record<string, string> = {
   '/traits/focus-trappable': 'FocusTrappable',
   '/traits/range-selectable': 'RangeSelectable',
   '/traits/slash-commandable': 'SlashCommandable',
+  '/traits/shortcutable': 'Shortcutable',
+  '/traits/list-navigable': 'ListNavigable',
   '/blocks/data-dashboard-stats': 'Dashboard Stats',
   '/blocks/notify-toast-demo': 'Toast Demo',
   '/blocks/notify-empty-state': 'Empty State',

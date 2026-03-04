@@ -85,19 +85,19 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <h2>Alignment</h2>
     <n-panel bordered>
       <h3>align="start"</h3>
-      <n-stack direction="row" align="start" style="height: 6rem;">
+      <n-stack direction="row" align="start" class="align-demo">
         <div class="layout-box">Short</div>
         <div class="layout-box" style="padding: 1.5rem 1rem;">Tall</div>
         <div class="layout-box">Short</div>
       </n-stack>
       <h3>align="center"</h3>
-      <n-stack direction="row" align="center" style="height: 6rem;">
+      <n-stack direction="row" align="center" class="align-demo">
         <div class="layout-box">Short</div>
         <div class="layout-box" style="padding: 1.5rem 1rem;">Tall</div>
         <div class="layout-box">Short</div>
       </n-stack>
       <h3>align="end"</h3>
-      <n-stack direction="row" align="end" style="height: 6rem;">
+      <n-stack direction="row" align="end" class="align-demo">
         <div class="layout-box">Short</div>
         <div class="layout-box" style="padding: 1.5rem 1rem;">Tall</div>
         <div class="layout-box">Short</div>
@@ -196,5 +196,9 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 &lt;/n-stack&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
   </main>
+
+  <style is:global>
+    .align-demo { height: 6rem; }
+  </style>
 
 </SidebarLayout>

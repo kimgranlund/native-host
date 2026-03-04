@@ -442,7 +442,7 @@ const codeExamples = {
     <h2>Form Association</h2>
     <n-panel bordered size="sm">
       <form id="demo-form">
-        <n-stack style="margin-bottom: 0.75rem">
+        <n-stack class="form-fields">
           <n-select name="color">
             <n-button justify="spread">
               <span slot="label">Favorite color</span>
@@ -536,7 +536,7 @@ const codeExamples = {
       <n-stack direction="row" wrap align="center">
         <n-select id="dynamic-select" placeholder="Choose a fruit" options="[]"></n-select>
       </n-stack>
-      <n-stack direction="row" wrap align="center" style="margin-top: 0.75rem;">
+      <n-stack direction="row" wrap align="center" class="dynamic-actions">
         <n-button id="load-fruits" size="sm" variant="secondary"><span slot="label">Load fruits</span></n-button>
         <n-button id="load-colors" size="sm" variant="secondary"><span slot="label">Load colors</span></n-button>
       </n-stack>
@@ -603,4 +603,13 @@ document.addEventListener('astro:page-load', () => {
   });
 });
   </script>
+  <style is:global>
+    .form-fields {
+      margin-bottom: 0.75rem;
+    }
+
+    .dynamic-actions {
+      margin-top: 0.75rem;
+    }
+  </style>
 </SidebarLayout>

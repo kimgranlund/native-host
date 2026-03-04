@@ -1,0 +1,314 @@
+---
+import SidebarLayout from '../../layouts/SidebarLayout.astro';
+---
+<SidebarLayout title="Footer">
+  <main>
+<h1>&lt;n-footer&gt;</h1>
+    <n-text size="md" muted spacing="relaxed">
+      CSS-only sub-container for bottom-anchored actions. Flex row, end-aligned by default. Works inside n-card, n-panel, n-drawer, n-dialog, or any flex column parent.
+    </n-text>
+
+    <!-- ── Basic ── -->
+
+    <h2>Basic</h2>
+    <n-panel bordered>
+      <n-card style="max-width: 28rem;">
+        <n-header>
+          <span slot="label">Panel Title</span>
+        </n-header>
+        <n-body>
+          <p style="margin: 0;">Content above the footer. The footer sits at the bottom with action buttons end-aligned by default.</p>
+        </n-body>
+        <n-footer>
+          <n-button variant="ghost"><span slot="label">Cancel</span></n-button>
+          <n-button variant="primary" intent="accent"><span slot="label">Save</span></n-button>
+        </n-footer>
+      </n-card>
+    <pre class="layout-code"><code>&lt;n-card&gt;
+  &lt;n-header&gt;
+    &lt;span slot="label"&gt;Panel Title&lt;/span&gt;
+  &lt;/n-header&gt;
+  &lt;n-body&gt;
+    &lt;p&gt;Content above the footer.&lt;/p&gt;
+  &lt;/n-body&gt;
+  &lt;n-footer&gt;
+    &lt;n-button variant="ghost"&gt;Cancel&lt;/n-button&gt;
+    &lt;n-button variant="primary" intent="accent"&gt;Save&lt;/n-button&gt;
+  &lt;/n-footer&gt;
+&lt;/n-card&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Justify Variants ── -->
+
+    <h2>Justify Variants</h2>
+    <n-panel bordered>
+      <n-stack gap="4">
+        <n-card style="max-width: 28rem;">
+          <n-header><span slot="label">End (default)</span></n-header>
+          <n-body><p style="margin: 0;">Actions aligned to the right.</p></n-body>
+          <n-footer>
+            <n-button variant="ghost"><span slot="label">Cancel</span></n-button>
+            <n-button variant="primary" intent="accent"><span slot="label">Confirm</span></n-button>
+          </n-footer>
+        </n-card>
+        <n-card style="max-width: 28rem;">
+          <n-header><span slot="label">Spread</span></n-header>
+          <n-body><p style="margin: 0;">Cancel left, Save right.</p></n-body>
+          <n-footer justify="spread">
+            <n-button variant="ghost"><span slot="label">Cancel</span></n-button>
+            <n-button variant="primary" intent="accent"><span slot="label">Save</span></n-button>
+          </n-footer>
+        </n-card>
+        <n-card style="max-width: 28rem;">
+          <n-header><span slot="label">Start</span></n-header>
+          <n-body><p style="margin: 0;">Actions aligned left.</p></n-body>
+          <n-footer justify="start">
+            <n-button variant="ghost"><span slot="label">Back</span></n-button>
+            <n-button variant="primary" intent="accent"><span slot="label">Next</span></n-button>
+          </n-footer>
+        </n-card>
+        <n-card style="max-width: 28rem;">
+          <n-header><span slot="label">Center</span></n-header>
+          <n-body><p style="margin: 0;">Centered actions.</p></n-body>
+          <n-footer justify="center">
+            <n-button variant="primary" intent="accent"><span slot="label">Got it</span></n-button>
+          </n-footer>
+        </n-card>
+      </n-stack>
+    <pre class="layout-code"><code>&lt;n-footer&gt;...&lt;/n-footer&gt;                   &lt;!-- end (default) --&gt;
+&lt;n-footer justify="spread"&gt;...&lt;/n-footer&gt;  &lt;!-- space-between --&gt;
+&lt;n-footer justify="start"&gt;...&lt;/n-footer&gt;   &lt;!-- left-aligned --&gt;
+&lt;n-footer justify="center"&gt;...&lt;/n-footer&gt;  &lt;!-- centered --&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Dividers ── -->
+
+    <h2>Dividers</h2>
+    <n-panel bordered>
+      <n-card style="max-width: 28rem;">
+        <n-header><span slot="label">With Divider</span></n-header>
+        <n-body>
+          <p style="margin: 0;">The <code>dividers</code> attribute adds a top border line to visually separate the footer from the body.</p>
+        </n-body>
+        <n-footer dividers>
+          <n-button variant="ghost"><span slot="label">Cancel</span></n-button>
+          <n-button variant="primary" intent="accent"><span slot="label">Apply</span></n-button>
+        </n-footer>
+      </n-card>
+    <pre class="layout-code"><code>&lt;n-footer dividers&gt;
+  &lt;n-button variant="ghost"&gt;Cancel&lt;/n-button&gt;
+  &lt;n-button variant="primary" intent="accent"&gt;Apply&lt;/n-button&gt;
+&lt;/n-footer&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Sticky ── -->
+
+    <h2>Sticky</h2>
+    <n-panel bordered>
+      <n-card style="max-width: 28rem; height: 16rem;">
+        <n-header><span slot="label">Scrollable with Sticky Footer</span></n-header>
+        <n-body>
+          <p style="margin: 0;">When content scrolls, the sticky footer stays anchored at the bottom of the scrollable container.</p>
+          <p style="margin: 0;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          <p style="margin: 0;">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          <p style="margin: 0;">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+          <p style="margin: 0;">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </n-body>
+        <n-footer sticky dividers>
+          <n-button variant="primary" intent="accent"><span slot="label">Done</span></n-button>
+        </n-footer>
+      </n-card>
+    <pre class="layout-code"><code>&lt;n-card style="height: 16rem;"&gt;
+  &lt;n-header&gt;&lt;span slot="label"&gt;Scrollable&lt;/span&gt;&lt;/n-header&gt;
+  &lt;n-body&gt;
+    &lt;p&gt;Long scrollable content...&lt;/p&gt;
+  &lt;/n-body&gt;
+  &lt;n-footer sticky dividers&gt;
+    &lt;n-button variant="primary" intent="accent"&gt;Done&lt;/n-button&gt;
+  &lt;/n-footer&gt;
+&lt;/n-card&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── With Card ── -->
+
+    <h2>With Card</h2>
+    <n-panel bordered>
+      <n-stack direction="row" wrap align="start">
+        <n-card style="max-width: 18rem;">
+          <div slot="media" style="height: 8rem; background: linear-gradient(135deg, var(--n-surface-accent), var(--n-surface-info));"></div>
+          <n-body>
+            <h3 style="margin: 0 0 0.25rem; text-transform: none; letter-spacing: 0; color: inherit;">Product Name</h3>
+            <n-text size="sm" muted>A short description of the product.</n-text>
+          </n-body>
+          <n-footer>
+            <n-button variant="primary" intent="accent" size="sm"><span slot="label">Buy Now</span></n-button>
+          </n-footer>
+        </n-card>
+        <n-card style="max-width: 18rem;">
+          <div slot="media" style="height: 8rem; background: linear-gradient(135deg, var(--n-surface-success), var(--n-surface-warning));"></div>
+          <n-body>
+            <h3 style="margin: 0 0 0.25rem; text-transform: none; letter-spacing: 0; color: inherit;">Another Item</h3>
+            <n-text size="sm" muted>Another brief description.</n-text>
+          </n-body>
+          <n-footer justify="spread">
+            <n-text size="sm" muted>$29.99</n-text>
+            <n-button variant="primary" intent="accent" size="sm"><span slot="label">Add</span></n-button>
+          </n-footer>
+        </n-card>
+      </n-stack>
+    <pre class="layout-code"><code>&lt;n-card&gt;
+  &lt;div slot="media"&gt;...&lt;/div&gt;
+  &lt;n-body&gt;
+    &lt;h3&gt;Product Name&lt;/h3&gt;
+    &lt;n-text size="sm" muted&gt;Description.&lt;/n-text&gt;
+  &lt;/n-body&gt;
+  &lt;n-footer&gt;
+    &lt;n-button variant="primary" intent="accent" size="sm"&gt;Buy Now&lt;/n-button&gt;
+  &lt;/n-footer&gt;
+&lt;/n-card&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── With Dialog ── -->
+
+    <h2>With Dialog</h2>
+    <n-panel bordered>
+      <n-button id="open-footer-dialog"><span slot="label">Open Dialog</span></n-button>
+      <n-dialog id="footer-dialog-demo">
+        <n-header>
+          <span slot="label">Confirm Action</span>
+          <n-button slot="trailing" variant="ghost" id="close-footer-dialog"><n-icon name="x"></n-icon></n-button>
+        </n-header>
+        <n-body>
+          <p style="margin: 0;">Are you sure you want to proceed? This action cannot be undone.</p>
+        </n-body>
+        <n-footer justify="spread">
+          <n-button variant="ghost" id="cancel-footer-dialog"><span slot="label">Cancel</span></n-button>
+          <n-button variant="primary" intent="danger"><span slot="label">Delete</span></n-button>
+        </n-footer>
+      </n-dialog>
+    <pre class="layout-code"><code>&lt;n-dialog&gt;
+  &lt;n-header&gt;
+    &lt;span slot="label"&gt;Confirm Action&lt;/span&gt;
+    &lt;n-button slot="trailing" variant="ghost"&gt;&lt;n-icon name="x"&gt;&lt;/n-icon&gt;&lt;/n-button&gt;
+  &lt;/n-header&gt;
+  &lt;n-body&gt;
+    &lt;p&gt;Are you sure you want to proceed?&lt;/p&gt;
+  &lt;/n-body&gt;
+  &lt;n-footer justify="spread"&gt;
+    &lt;n-button variant="ghost"&gt;Cancel&lt;/n-button&gt;
+    &lt;n-button variant="primary" intent="danger"&gt;Delete&lt;/n-button&gt;
+  &lt;/n-footer&gt;
+&lt;/n-dialog&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Padding ── -->
+
+    <h2>Padding</h2>
+    <n-panel bordered>
+      <n-stack gap="4">
+        <n-card style="max-width: 28rem;">
+          <n-header><span slot="label">None</span></n-header>
+          <n-body><p style="margin: 0;">No padding on the footer.</p></n-body>
+          <n-footer padding="none">
+            <n-button variant="primary" intent="accent"><span slot="label">OK</span></n-button>
+          </n-footer>
+        </n-card>
+        <n-card style="max-width: 28rem;">
+          <n-header><span slot="label">Tight (default)</span></n-header>
+          <n-body><p style="margin: 0;">Default compact padding.</p></n-body>
+          <n-footer padding="tight">
+            <n-button variant="primary" intent="accent"><span slot="label">OK</span></n-button>
+          </n-footer>
+        </n-card>
+        <n-card style="max-width: 28rem;">
+          <n-header><span slot="label">Regular</span></n-header>
+          <n-body><p style="margin: 0;">More breathing room.</p></n-body>
+          <n-footer padding="regular">
+            <n-button variant="primary" intent="accent"><span slot="label">OK</span></n-button>
+          </n-footer>
+        </n-card>
+        <n-card style="max-width: 28rem;">
+          <n-header><span slot="label">Relaxed</span></n-header>
+          <n-body><p style="margin: 0;">Spacious footer padding.</p></n-body>
+          <n-footer padding="relaxed">
+            <n-button variant="primary" intent="accent"><span slot="label">OK</span></n-button>
+          </n-footer>
+        </n-card>
+      </n-stack>
+    <pre class="layout-code"><code>&lt;n-footer padding="none"&gt;...&lt;/n-footer&gt;
+&lt;n-footer padding="tight"&gt;...&lt;/n-footer&gt;    &lt;!-- default --&gt;
+&lt;n-footer padding="regular"&gt;...&lt;/n-footer&gt;
+&lt;n-footer padding="relaxed"&gt;...&lt;/n-footer&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── API ── -->
+
+    <h2>API</h2>
+    <n-panel bordered>
+      <table class="api-table">
+        <thead>
+          <tr>
+            <th>Attribute</th>
+            <th>Values</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>justify</code></td>
+            <td><code>start</code> | <code>center</code> | <code>spread</code></td>
+            <td>Horizontal alignment. Default is <code>end</code> (flex-end).</td>
+          </tr>
+          <tr>
+            <td><code>padding</code></td>
+            <td><code>none</code> | <code>tight</code> | <code>regular</code> | <code>relaxed</code></td>
+            <td>Override inner padding. Default is tight.</td>
+          </tr>
+          <tr>
+            <td><code>dividers</code></td>
+            <td>boolean</td>
+            <td>Adds a top border line via <code>::before</code> pseudo-element.</td>
+          </tr>
+          <tr>
+            <td><code>sticky</code></td>
+            <td>boolean</td>
+            <td>Sticks footer to the bottom of a scrollable container (<code>position: sticky</code>).</td>
+          </tr>
+        </tbody>
+      </table>
+    </n-panel>
+  </main>
+
+  <script>
+    const dialog = document.getElementById('footer-dialog-demo');
+    document.getElementById('open-footer-dialog')?.addEventListener('native:press', () => dialog?.showModal());
+    document.getElementById('close-footer-dialog')?.addEventListener('native:press', () => dialog?.close());
+    document.getElementById('cancel-footer-dialog')?.addEventListener('native:press', () => dialog?.close());
+  </script>
+</SidebarLayout>
+
+<style is:global>
+  .api-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--n-font-size);
+    line-height: var(--n-line-height);
+  }
+  .api-table th,
+  .api-table td {
+    text-align: left;
+    padding: calc(var(--n-space) * 2) calc(var(--n-space) * 3);
+    border-bottom: 1px solid var(--n-border-muted);
+  }
+  .api-table th {
+    font-weight: 600;
+    color: var(--n-ink-strong);
+  }
+  .api-table code {
+    font-family: var(--n-font-mono);
+    font-size: 0.875em;
+    background: var(--n-control);
+    padding: 0.125em 0.375em;
+    border-radius: var(--n-radius);
+  }
+</style>

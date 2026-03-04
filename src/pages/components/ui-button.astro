@@ -143,7 +143,7 @@ const codeExamples = {
     <h2>Form Association</h2>
     <n-panel bordered size="sm">
       <form id="demo-form">
-        <input type="text" name="demo" value="hello" style="margin-bottom: 0.5rem; padding: 0.25rem 0.5rem; border: 1px solid var(--n-border-muted-neutral); border-radius: 0.375rem; font-family: inherit;" />
+        <input type="text" name="demo" value="hello" class="demo-input" />
         <n-stack direction="row" wrap align="center">
           <n-button variant="primary" type="submit"><span slot="label">Submit</span></n-button>
           <n-button variant="secondary" type="reset"><span slot="label">Reset</span></n-button>
@@ -418,7 +418,8 @@ const codeExamples = {
     <!-- ── Justify: spread ── -->
 
     <h2>Justify: spread</h2>
-    <n-panel bordered size="md" style="max-width: 20rem;">
+    <div class="demo-narrow">
+    <n-panel bordered size="md">
       <n-stack gap="2">
         <n-button justify="spread">
           <n-icon name="heart" slot="leading"></n-icon>
@@ -431,7 +432,7 @@ const codeExamples = {
           <n-icon name="arrow-right" slot="trailing"></n-icon>
         </n-button>
       </n-stack>
-      <n-text size="xs" muted style="margin-top: 0.75rem;">
+      <n-text size="xs" muted spacing="regular">
         <code>justify="spread"</code> switches to <code>auto 1fr auto</code> columns so the label fills available space and trailing icon pushes to the far edge. Used as dropdown triggers in <code>&lt;n-select&gt;</code>.
       </n-text>
       <pre class="layout-code"><code>&lt;n-button justify="spread"&gt;
@@ -440,6 +441,7 @@ const codeExamples = {
   &lt;n-icon name="arrow-right" slot="trailing"&gt;&lt;/n-icon&gt;
 &lt;/n-button&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
+    </div>
 
     <!-- ── Icon Only ── -->
 
@@ -558,4 +560,17 @@ import { logPrepend } from '../../scripts/event-log';
         logPrepend(formLog, 'reset');
       });
   </script>
+
+  <style is:global>
+    .demo-input {
+      margin-bottom: 0.5rem;
+      padding: 0.25rem 0.5rem;
+      border: 1px solid var(--n-border-muted-neutral);
+      border-radius: 0.375rem;
+      font-family: inherit;
+    }
+    .demo-narrow {
+      max-width: 20rem;
+    }
+  </style>
 </SidebarLayout>

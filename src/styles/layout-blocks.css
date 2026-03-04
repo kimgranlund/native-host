@@ -33,7 +33,7 @@ n-app-panel h3 {
 
 /* ── Dogfooded n-panel sections ── */
 
-n-app-panel > main > n-panel[bordered] {
+n-app-panel > main > :where(n-panel[bordered]) {
   margin-bottom: 1rem;
 }
 

@@ -204,7 +204,7 @@ const codeExamples = {
 
     <h2>Events</h2>
     <n-panel bordered size="sm">
-      <n-sidebar-nav id="event-nav" style="max-width: 220px;">
+      <n-sidebar-nav class="demo-nav" id="event-nav">
         <n-sidebar-nav-item value="home">Home</n-sidebar-nav-item>
         <n-sidebar-nav-item value="docs">Documentation</n-sidebar-nav-item>
         <n-sidebar-nav-item value="api">API Reference</n-sidebar-nav-item>
@@ -221,7 +221,7 @@ const codeExamples = {
       <n-text size="xs" muted spacing="regular">
         Attribute-driven pseudo-state overrides for DevTools debugging and visual testing. Applied to individual <code>n-sidebar-nav-item</code> elements.
       </n-text>
-      <n-sidebar-nav style="max-width: 220px;">
+      <n-sidebar-nav class="demo-nav">
         <n-sidebar-nav-item value="hover" force-hover>Force hover</n-sidebar-nav-item>
         <n-sidebar-nav-item value="active" force-active>Force active</n-sidebar-nav-item>
         <n-sidebar-nav-item value="focus" force-focus-visible>Force focus-visible</n-sidebar-nav-item>
@@ -262,6 +262,8 @@ document.addEventListener('astro:page-load', () => {
 });
   </script>
   <style is:global>
+    .demo-nav { max-width: 220px; }
+
     .value-display {
       font-family: ui-monospace, monospace;
       font-size: 0.75rem;

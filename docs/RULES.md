@@ -20,6 +20,8 @@ These are non-negotiable. Violating any of them will break the build or the UI.
 
 7. **Do NOT write JS/CSS workarounds for component bugs** -- file a ticket in `/TICKETS/` instead and let native-ui fix it.
 
+8. **Never style `n-*`/`native-*` elements with raw CSS** -- use the component's attribute API (`size`, `variant`, `intent`, `muted`, `spacing`, `bordered`, etc.) exclusively. Never apply `style=""`, `padding`, `margin`, `color`, `width`, `max-width`, `flex`, `font-size`, or any other raw CSS property directly on a native-ui element. If you need a layout constraint (e.g. `max-width`, `flex: 1`), wrap the component in a plain `<div>` or use a container like `<n-stack>`.
+
 ## CSS Gotchas
 
 **Use `@import`, never `<link>`, for npm packages.** Vite does not resolve bare specifiers in `<link>` tags.

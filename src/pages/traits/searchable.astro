@@ -80,7 +80,7 @@ const detailQueryMatchTotal = `{ query, matchCount, total }`;
         Type to filter items. Non-matching items are hidden via <code>[search-hidden]</code>.
       </n-text>
       <div id="basic-wrap">
-        <n-input id="basic-input" placeholder="Filter items..." style="margin-bottom: 0.75rem"></n-input>
+        <n-input id="basic-input" placeholder="Filter items..." class="search-input"></n-input>
         <div class="search-items">
           <div class="search-item">Apple</div>
           <div class="search-item">Banana</div>
@@ -103,7 +103,7 @@ const detailQueryMatchTotal = `{ query, matchCount, total }`;
         Searches against a <code>data-search</code> attribute instead of <code>textContent</code>. Items display a label but filter on tags.
       </n-text>
       <div id="field-wrap">
-        <n-input id="field-input" placeholder="Search by tag (e.g. 'ui', 'layout')..." style="margin-bottom: 0.75rem"></n-input>
+        <n-input id="field-input" placeholder="Search by tag (e.g. 'ui', 'layout')..." class="search-input"></n-input>
         <div class="search-items">
           <div class="search-item" data-search="component ui button">Button Component</div>
           <div class="search-item" data-search="component ui input form">Input Field</div>
@@ -124,7 +124,7 @@ const detailQueryMatchTotal = `{ query, matchCount, total }`;
         Uses <code>SearchController.highlight()</code> to wrap matches in <code>&lt;mark&gt;</code> tags.
       </n-text>
       <div id="highlight-wrap">
-        <n-input id="highlight-input" placeholder="Type to highlight matches..." style="margin-bottom: 0.75rem"></n-input>
+        <n-input id="highlight-input" placeholder="Type to highlight matches..." class="search-input"></n-input>
         <div class="search-items">
           <div class="search-item" data-original="JavaScript">JavaScript</div>
           <div class="search-item" data-original="TypeScript">TypeScript</div>
@@ -144,7 +144,7 @@ const detailQueryMatchTotal = `{ query, matchCount, total }`;
         Use <code>SearchController</code> directly on a plain element without the trait mixin.
       </n-text>
       <div id="controller-wrap">
-        <n-input id="ctrl-input" placeholder="Filter colors..." style="margin-bottom: 0.75rem"></n-input>
+        <n-input id="ctrl-input" placeholder="Filter colors..." class="search-input"></n-input>
         <div id="controller-list" class="search-items">
           <div class="search-item">Red</div>
           <div class="search-item">Orange</div>
@@ -163,7 +163,7 @@ const detailQueryMatchTotal = `{ query, matchCount, total }`;
 
     <h2>API</h2>
       <h3>Constructor Options</h3>
-      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto auto 1fr;">
+      <n-table variant="plain" size="sm" cols="auto auto auto 1fr">
         <n-table-head><n-table-row><n-table-header>Option</n-table-header><n-table-header>Type</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
         <n-table-body>
           <n-table-row>
@@ -187,7 +187,7 @@ const detailQueryMatchTotal = `{ query, matchCount, total }`;
         </n-table-body>
       </n-table>
       <h3>Controller Methods</h3>
-      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto 1fr;">
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
         <n-table-head><n-table-row><n-table-header>Method</n-table-header><n-table-header>Returns</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
         <n-table-body>
           <n-table-row>
@@ -208,7 +208,7 @@ const detailQueryMatchTotal = `{ query, matchCount, total }`;
         </n-table-body>
       </n-table>
       <h3>Events</h3>
-      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto 1fr;">
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
         <n-table-head><n-table-row><n-table-header>Event</n-table-header><n-table-header>Detail</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
         <n-table-body>
           <n-table-row>
@@ -219,7 +219,7 @@ const detailQueryMatchTotal = `{ query, matchCount, total }`;
         </n-table-body>
       </n-table>
       <h3>CSS Attributes</h3>
-      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto 1fr;">
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
         <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Set on</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
         <n-table-body>
           <n-table-row>
@@ -235,7 +235,7 @@ const detailQueryMatchTotal = `{ query, matchCount, total }`;
         </n-table-body>
       </n-table>
       <h3>Provider Usage (<code>&lt;n-controller traits="searchable"&gt;</code>)</h3>
-      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto auto 1fr;">
+      <n-table variant="plain" size="sm" cols="auto auto auto 1fr">
         <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Type</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
         <n-table-body>
           <n-table-row>
@@ -382,6 +382,10 @@ document.addEventListener('astro:page-load', () => {
       padding: 0.5rem;
       background: var(--n-panel-neutral);
       border-radius: 0.25rem;
+    }
+
+    n-input.search-input {
+      margin-bottom: 0.75rem;
     }
 
     /* ── Code Blocks ── */

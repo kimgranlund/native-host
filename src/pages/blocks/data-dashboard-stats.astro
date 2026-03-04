@@ -196,7 +196,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       <n-body>
         <h2 class="card-title">Recent Orders</h2>
         <p class="card-subtitle">Latest transactions across all channels.</p>
-        <div class="table-scroll"><n-table style="grid-template-columns: 100px 2fr 100px 100px 120px;">
+        <div class="table-scroll"><n-table cols="100px 2fr 100px 100px 120px">
           <n-table-head>
             <n-table-row>
               <n-table-header>Order</n-table-header>
@@ -686,6 +686,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       color: var(--n-ink-muted-neutral);
       font-size: 0.75rem;
     }
+
 </style>
 
 </SidebarLayout>

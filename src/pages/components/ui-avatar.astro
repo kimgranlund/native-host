@@ -1,5 +1,20 @@
 ---
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
+
+const codeExamples = {
+  group: `&lt;!-- Overlapping avatar group with outline ring --&gt;
+&lt;div class="avatar-group"&gt;
+  &lt;n-avatar name="Alice"&gt;&lt;/n-avatar&gt;
+  &lt;n-avatar name="Bob"&gt;&lt;/n-avatar&gt;
+  &lt;n-avatar&gt;+3&lt;/n-avatar&gt;
+&lt;/div&gt;
+
+&lt;style&gt;
+  .avatar-group { display: flex; }
+  .avatar-group n-avatar + n-avatar { margin-inline-start: -0.5rem; }
+  .avatar-group n-avatar { outline: 2px solid var(--n-body-neutral); }
+&lt;/style&gt;`,
+};
 ---
 <SidebarLayout title="Avatar">
   <main>
@@ -98,19 +113,25 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
     <h2>Avatar Group</h2>
     <n-panel bordered>
-      <n-stack direction="row" wrap align="center" style="gap: -0.5rem;">
-        <n-avatar name="Alice Johnson" style="outline: 2px solid var(--n-body-neutral);"></n-avatar>
-        <n-avatar name="Bob Smith" style="margin-inline-start: -0.5rem; outline: 2px solid var(--n-body-neutral);"></n-avatar>
-        <n-avatar name="Charlie Doe" style="margin-inline-start: -0.5rem; outline: 2px solid var(--n-body-neutral);"></n-avatar>
-        <n-avatar style="margin-inline-start: -0.5rem; outline: 2px solid var(--n-body-neutral);">+3</n-avatar>
-      </n-stack>
-      <pre class="layout-code"><code>&lt;!-- Overlapping avatar group with outline ring --&gt;
-&lt;div style="display: flex;"&gt;
-  &lt;n-avatar name="Alice" style="outline: 2px solid var(--n-body-neutral);"&gt;&lt;/n-avatar&gt;
-  &lt;n-avatar name="Bob" style="margin-inline-start: -0.5rem; outline: 2px solid var(--n-body-neutral);"&gt;&lt;/n-avatar&gt;
-  &lt;n-avatar style="margin-inline-start: -0.5rem; outline: 2px solid var(--n-body-neutral);"&gt;+3&lt;/n-avatar&gt;
-&lt;/div&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <div class="avatar-group">
+        <n-avatar name="Alice Johnson"></n-avatar>
+        <n-avatar name="Bob Smith"></n-avatar>
+        <n-avatar name="Charlie Doe"></n-avatar>
+        <n-avatar>+3</n-avatar>
+      </div>
+      <pre class="layout-code"><code set:html={codeExamples.group} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
   </main>
 
+  <style is:global>
+    .avatar-group {
+      display: flex;
+    }
+    .avatar-group n-avatar + n-avatar {
+      margin-inline-start: -0.5rem;
+    }
+    .avatar-group n-avatar {
+      outline: 2px solid var(--n-body-neutral);
+    }
+  </style>
 </SidebarLayout>

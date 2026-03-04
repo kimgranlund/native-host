@@ -29,7 +29,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       <n-body>
         <!-- ── Toolbar ── -->
         <n-stack direction="row" gap="3" align="center" wrap>
-          <n-input id="table-search" size="sm" placeholder="Search users..." style="flex: 1; min-width: 12rem;">
+          <n-input id="table-search" class="table-search-input" size="sm" placeholder="Search users...">
             <n-icon name="magnifying-glass" slot="leading"></n-icon>
           </n-input>
           <n-select id="table-status-filter" size="sm" placeholder="All statuses"
@@ -255,6 +255,11 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     .table-scroll {
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
+    }
+
+    .table-search-input {
+      flex: 1;
+      min-width: 12rem;
     }
 </style>
 

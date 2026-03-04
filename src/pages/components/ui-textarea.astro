@@ -189,7 +189,7 @@ const codeExamples = {
 
     <n-panel bordered size="sm">
       <h3>Keyboard Shortcuts</h3>
-      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto auto;">
+      <n-table class="shortcuts-table" variant="plain" size="sm">
         <n-table-head>
           <n-table-row>
             <n-table-header>Format</n-table-header>
@@ -215,7 +215,7 @@ const codeExamples = {
           </n-table-row>
         </n-table-body>
       </n-table>
-      <n-text size="xs" muted style="margin-top: 0.5rem;">
+      <n-text class="hint" size="xs" muted>
         Programmatic API: <code>textarea.applyFormat('code')</code> — wraps the current selection. Also works with <code>'bold'</code> and <code>'italic'</code>.
       </n-text>
     </n-panel>
@@ -230,7 +230,7 @@ const codeExamples = {
         <span slot="description">100 character limit</span>
         <span slot="error">Exceeds maximum length</span>
       </n-field>
-      <n-text size="xs" muted style="margin-top: 0.5rem;">Reports <code>tooLong</code> via the Constraint Validation API when the limit is exceeded. The value is not truncated.</n-text>
+      <n-text class="hint" size="xs" muted>Reports <code>tooLong</code> via the Constraint Validation API when the limit is exceeded. The value is not truncated.</n-text>
         <pre class="layout-code"><code>&lt;n-field&gt;
   &lt;label slot="label"&gt;Bio&lt;/label&gt;
   &lt;n-textarea placeholder="Max 100 characters..." maxlength="100"&gt;&lt;/n-textarea&gt;
@@ -338,7 +338,7 @@ const codeExamples = {
     <h2>Form Association</h2>
     <n-panel bordered>
       <form id="demo-form">
-        <n-stack gap="3" style="margin-bottom: 0.75rem">
+        <n-stack class="form-fields" gap="3">
           <n-textarea name="bio" placeholder="Write your bio..."></n-textarea>
           <n-textarea name="notes" placeholder="Additional notes..." rows="2"></n-textarea>
         </n-stack>
@@ -449,4 +449,9 @@ import { logPrepend } from '../../scripts/event-log';
         logPrepend(formLog, 'reset');
       });
   </script>
+  <style is:global>
+    .shortcuts-table { grid-template-columns: auto auto auto; }
+    .hint { margin-top: 0.5rem; }
+    .form-fields { margin-bottom: 0.75rem; }
+  </style>
 </SidebarLayout>

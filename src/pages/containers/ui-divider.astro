@@ -107,11 +107,11 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
     <h2>Composition (with buttons)</h2>
     <n-panel bordered>
-      <n-button variant="primary" intent="accent" style="width: 100%;"><span slot="label">Sign In</span></n-button>
+      <n-button class="full-width" variant="primary" intent="accent"><span slot="label">Sign In</span></n-button>
       <n-divider>or continue with</n-divider>
       <n-stack direction="row">
-        <n-button style="flex: 1;"><n-icon name="google-logo" slot="leading"></n-icon><span slot="label">Google</span></n-button>
-        <n-button style="flex: 1;"><n-icon name="github-logo" slot="leading"></n-icon><span slot="label">GitHub</span></n-button>
+        <n-button class="flex-fill"><n-icon name="google-logo" slot="leading"></n-icon><span slot="label">Google</span></n-button>
+        <n-button class="flex-fill"><n-icon name="github-logo" slot="leading"></n-icon><span slot="label">GitHub</span></n-button>
       </n-stack>
       <pre class="layout-code"><code>&lt;n-button variant="primary" intent="accent" style="width: 100%;"&gt;Sign In&lt;/n-button&gt;
 &lt;n-divider&gt;or continue with&lt;/n-divider&gt;
@@ -129,6 +129,9 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       gap: 1rem;
       height: 4rem;
     }
+
+    .full-width { width: 100%; }
+    .flex-fill { flex: 1; }
 
     /* ── Code Blocks ── */
 </style>

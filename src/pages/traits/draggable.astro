@@ -88,7 +88,7 @@ const detailItem = `{ item }`;
           <div class="drag-role"><span class="role-name">Lead</span><span class="role-assignee" id="role-0">—</span></div>
           <div class="drag-role"><span class="role-name">Design</span><span class="role-assignee" id="role-1">—</span></div>
           <div class="drag-role"><span class="role-name">Engineering</span><span class="role-assignee" id="role-2">—</span></div>
-          <n-stack direction="row" style="margin-top: 0.75rem">
+          <n-stack direction="row" class="person-row">
             <div class="drag-person">Alice</div>
             <div class="drag-person">Bob</div>
             <div class="drag-person">Carol</div>
@@ -253,11 +253,72 @@ const detailItem = `{ item }`;
 &lt;/n-controller&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
+    <!-- ── Ghost Rendering ── -->
+
+    <h2>Ghost Rendering</h2>
+    <n-panel bordered>
+      <n-text size="sm" muted spacing="tight">
+        During a drag, a ghost clone of the dragged item follows the pointer. The ghost uses the browser's <strong>top layer</strong> via <code>[popover="manual"]</code> — it renders above all content without being clipped by <code>overflow</code> containers or stacking contexts.
+      </n-text>
+      <n-text size="sm" muted spacing="tight">
+        The ghost is appended to the <strong>host element</strong> (not <code>document.body</code>) so it inherits CSS custom properties from the component tree. Colors, spacing, and radius tokens all resolve correctly based on the host's context.
+      </n-text>
+      <n-text size="sm" muted spacing="tight">
+        Item queries automatically exclude <code>[popover]</code> elements, so the ghost is never hit-tested or reordered during drag operations. On drag end or cancel, the ghost is cleaned up via <code>hidePopover()</code> + <code>remove()</code>.
+      </n-text>
+
+      <h3>Why Popover</h3>
+      <n-table variant="plain" size="sm" cols="auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Approach</n-table-header><n-table-header>Problem</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>z-index</code></n-table-cell>
+            <n-table-cell>Clipped by <code>overflow: hidden/clip</code> on parent containers</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>document.body.appendChild()</code></n-table-cell>
+            <n-table-cell>Ghost loses CSS custom property inheritance — colors, spacing, radius all break</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>[popover="manual"]</code></n-table-cell>
+            <n-table-cell>Top-layer rendering (no clipping), stays in host tree (CSS vars inherit), excluded from layout</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+
+      <h3>Visual Feedback Attributes</h3>
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Set On</n-table-header><n-table-header>Purpose</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>[dragging]</code></n-table-cell>
+            <n-table-cell>Original item</n-table-cell>
+            <n-table-cell>Fades the source element (<code>opacity: 0.3</code>)</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>[drag-over]</code></n-table-cell>
+            <n-table-cell>Hovered target (drop mode)</n-table-cell>
+            <n-table-cell>Highlights the drop target</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>[drag-slot-before]</code></n-table-cell>
+            <n-table-cell>Item after insertion gap (slot mode)</n-table-cell>
+            <n-table-cell>Marks gap position</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>[drag-slot-after]</code></n-table-cell>
+            <n-table-cell>Item before insertion gap (slot mode)</n-table-cell>
+            <n-table-cell>Marks gap position</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+    </n-panel>
+
     <!-- ── API Reference ── -->
 
     <h2>API</h2>
       <h3>Provider Usage</h3>
-      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto auto 1fr;">
+      <n-table variant="plain" size="sm" cols="auto auto auto 1fr">
         <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Type</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
         <n-table-body>
           <n-table-row>
@@ -299,7 +360,7 @@ const detailItem = `{ item }`;
         </n-table-body>
       </n-table>
       <h3>Events</h3>
-      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto 1fr;">
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
         <n-table-head><n-table-row><n-table-header>Event</n-table-header><n-table-header>Detail</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
         <n-table-body>
           <n-table-row>
@@ -336,7 +397,7 @@ const detailItem = `{ item }`;
         </n-table-body>
       </n-table>
       <h3>Attributes (set during drag)</h3>
-      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto 1fr;">
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
         <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Set on</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
         <n-table-body>
           <n-table-row>
@@ -367,7 +428,7 @@ const detailItem = `{ item }`;
         </n-table-body>
       </n-table>
       <h3>CSS</h3>
-      <n-table variant="plain" size="sm" style="grid-template-columns: auto 1fr;">
+      <n-table variant="plain" size="sm" cols="auto 1fr">
         <n-table-head><n-table-row><n-table-header>Selector</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
         <n-table-body>
           <n-table-row>
@@ -701,6 +762,10 @@ const detailItem = `{ item }`;
       background: var(--n-surface-accent);
       border-radius: 2px;
       margin: 0.125rem 0;
+    }
+
+    n-stack.person-row {
+      margin-top: 0.75rem;
     }
 
     /* ── Code Blocks ── */

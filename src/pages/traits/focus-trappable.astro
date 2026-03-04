@@ -81,7 +81,7 @@ function hide() {
       </n-text>
       <n-button id="open-dialog">Open Dialog</n-button>
       <n-dialog id="demo-dialog">
-        <n-card style="width: 20rem; padding: 1.5rem;">
+        <n-card class="dialog-card">
           <p style="margin: 0 0 1rem;">Focus is trapped inside this dialog. Tab only cycles between these buttons.</p>
           <div class="trap-actions">
             <n-button intent="accent">Action</n-button>
@@ -95,7 +95,7 @@ function hide() {
 
     <h2>API</h2>
       <h3>Methods</h3>
-      <n-table variant="plain" size="sm" style="grid-template-columns: auto 1fr;">
+      <n-table variant="plain" size="sm" cols="auto 1fr">
         <n-table-head><n-table-row><n-table-header>Method</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
         <n-table-body>
           <n-table-row>
@@ -113,7 +113,7 @@ function hide() {
         </n-table-body>
       </n-table>
       <h3>Keyboard</h3>
-      <n-table variant="plain" size="sm" style="grid-template-columns: auto 1fr;">
+      <n-table variant="plain" size="sm" cols="auto 1fr">
         <n-table-head><n-table-row><n-table-header>Key</n-table-header><n-table-header>Action</n-table-header></n-table-row></n-table-head>
         <n-table-body>
           <n-table-row>
@@ -221,6 +221,11 @@ function hide() {
       display: flex;
       gap: 0.5rem;
       margin-top: 0.5rem;
+    }
+
+    n-card.dialog-card {
+      width: 20rem;
+      padding: 1.5rem;
     }
 
     /* ── Code Blocks ── */

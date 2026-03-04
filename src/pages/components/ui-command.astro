@@ -396,7 +396,8 @@ const codeExamples = {
 
     <h2>Keyboard Navigation</h2>
     <n-panel bordered>
-      <n-table variant="plain" size="sm" style="grid-template-columns: auto 1fr;">
+      <div class="keyboard-table">
+      <n-table variant="plain" size="sm">
         <n-table-head>
           <n-table-row>
             <n-table-header>Key</n-table-header>
@@ -413,6 +414,7 @@ const codeExamples = {
           <n-table-row><n-table-cell><code>Type</code></n-table-cell><n-table-cell>Filter items by search text</n-table-cell></n-table-row>
         </n-table-body>
       </n-table>
+      </div>
     </n-panel>
   </main>
 
@@ -447,6 +449,10 @@ document.addEventListener('astro:page-load', () => {
       padding: 0.125rem 0.375rem;
       margin-left: auto;
       color: var(--n-ink-muted-neutral);
+    }
+
+    .keyboard-table n-table {
+      grid-template-columns: auto 1fr;
     }
 
     /* ── Code Blocks ── */

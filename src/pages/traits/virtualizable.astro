@@ -81,7 +81,7 @@ host.addEventListener('native:virtual-change', (e) =&gt; {
 
     <h2>Dynamic Count</h2>
     <n-panel bordered>
-      <n-stack direction="row" style="margin-bottom: 0.75rem">
+      <n-stack direction="row" class="dynamic-actions">
         <n-button id="add-btn" size="sm">Add 1,000</n-button>
         <n-button id="reset-btn" size="sm">Reset to 100</n-button>
       </n-stack>
@@ -118,7 +118,7 @@ host.addEventListener('native:virtual-change', (e) =&gt; {
 
     <h2>API</h2>
       <h3>Constructor Options</h3>
-      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto auto 1fr;">
+      <n-table variant="plain" size="sm" cols="auto auto auto 1fr">
         <n-table-head><n-table-row><n-table-header>Option</n-table-header><n-table-header>Type</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
         <n-table-body>
           <n-table-row>
@@ -136,7 +136,7 @@ host.addEventListener('native:virtual-change', (e) =&gt; {
         </n-table-body>
       </n-table>
       <h3>Methods</h3>
-      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto 1fr;">
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
         <n-table-head><n-table-row><n-table-header>Method</n-table-header><n-table-header>Returns</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
         <n-table-body>
           <n-table-row>
@@ -162,7 +162,7 @@ host.addEventListener('native:virtual-change', (e) =&gt; {
         </n-table-body>
       </n-table>
       <h3>Events</h3>
-      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto 1fr;">
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
         <n-table-head><n-table-row><n-table-header>Event</n-table-header><n-table-header>Detail</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
         <n-table-body>
           <n-table-row>
@@ -173,7 +173,7 @@ host.addEventListener('native:virtual-change', (e) =&gt; {
         </n-table-body>
       </n-table>
       <h3>Properties</h3>
-      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto 1fr;">
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
         <n-table-head><n-table-row><n-table-header>Property</n-table-header><n-table-header>Type</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
         <n-table-body>
           <n-table-row>
@@ -350,6 +350,10 @@ document.addEventListener('astro:page-load', () => {
       background: var(--n-panel-neutral);
       border-radius: 0.25rem;
       min-height: 1.5rem;
+    }
+
+    n-stack.dynamic-actions {
+      margin-bottom: 0.75rem;
     }
 
     /* ── Code Blocks ── */

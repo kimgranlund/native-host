@@ -49,7 +49,7 @@ const detailSelectedCount = `{ selected, count }`;
 
     <h2>Copy &amp; Paste</h2>
     <n-panel bordered>
-      <n-text size="xs" muted style="margin-bottom: 0.5rem;">
+      <n-text size="xs" muted class="demo-hint">
         Click to select items, then use keyboard shortcuts to copy. Focus the list first by clicking an item.
       </n-text>
       <div class="shortcut-row">
@@ -74,7 +74,7 @@ const detailSelectedCount = `{ selected, count }`;
 
     <h2>Cut &amp; Paste</h2>
     <n-panel bordered>
-      <n-text size="xs" muted style="margin-bottom: 0.5rem;">
+      <n-text size="xs" muted class="demo-hint">
         <strong>Ctrl/Cmd+X</strong> marks items with <code>[clip-cut]</code> (dimmed). <strong>Ctrl/Cmd+V</strong> dispatches a paste event.
       </n-text>
       <div class="shortcut-row">
@@ -98,7 +98,7 @@ const detailSelectedCount = `{ selected, count }`;
 
     <h2>API</h2>
       <h3>Provider Usage</h3>
-      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto auto 1fr;">
+      <n-table variant="plain" size="sm" cols="auto auto auto 1fr">
         <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Type</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
         <n-table-body>
           <n-table-row>
@@ -128,7 +128,7 @@ const detailSelectedCount = `{ selected, count }`;
         </n-table-body>
       </n-table>
       <h3>Controller Methods</h3>
-      <n-table variant="plain" size="sm" style="grid-template-columns: auto 1fr;">
+      <n-table variant="plain" size="sm" cols="auto 1fr">
         <n-table-head><n-table-row><n-table-header>Method</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
         <n-table-body>
           <n-table-row>
@@ -158,7 +158,7 @@ const detailSelectedCount = `{ selected, count }`;
         </n-table-body>
       </n-table>
       <h3>Events</h3>
-      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto 1fr;">
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
         <n-table-head><n-table-row><n-table-header>Event</n-table-header><n-table-header>Detail</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
         <n-table-body>
           <n-table-row>
@@ -184,7 +184,7 @@ const detailSelectedCount = `{ selected, count }`;
         </n-table-body>
       </n-table>
       <h3>CSS Attributes</h3>
-      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto 1fr;">
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
         <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Set on</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
         <n-table-body>
           <n-table-row>
@@ -300,6 +300,10 @@ document.addEventListener('astro:page-load', () => {
       gap: 0.5rem;
       flex-wrap: wrap;
       margin-bottom: 0.75rem;
+    }
+
+    n-text.demo-hint {
+      margin-bottom: 0.5rem;
     }
 
     /* ── Code Blocks ── */

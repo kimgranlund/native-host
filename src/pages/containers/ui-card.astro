@@ -12,9 +12,11 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
     <h2>Simple</h2>
     <n-panel bordered>
-      <n-card style="max-width: 24rem;">
-        <p>A simple card with just body content. No header or footer.</p>
-      </n-card>
+      <div class="demo-card">
+        <n-card>
+          <p>A simple card with just body content. No header or footer.</p>
+        </n-card>
+      </div>
     <pre class="layout-code"><code>&lt;n-card&gt;
   &lt;p&gt;A simple card with just body content.&lt;/p&gt;
 &lt;/n-card&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
@@ -24,19 +26,21 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
     <h2>Structured (header + body + footer)</h2>
     <n-panel bordered>
-      <n-card style="max-width: 24rem;">
-        <n-header>
-          <span slot="label">Card Title</span>
-          <n-button slot="trailing" variant="ghost"><n-icon name="dots-three"></n-icon></n-button>
-        </n-header>
-        <n-body>
-          <p style="margin: 0;">Card body content goes here. This demonstrates the structured layout with header, body, and footer sections.</p>
-        </n-body>
+      <div class="demo-card">
+        <n-card>
+          <n-header>
+            <span slot="label">Card Title</span>
+            <n-button slot="trailing" variant="ghost"><n-icon name="dots-three"></n-icon></n-button>
+          </n-header>
+          <n-body>
+            <p style="margin: 0;">Card body content goes here. This demonstrates the structured layout with header, body, and footer sections.</p>
+          </n-body>
         <n-footer>
           <n-button variant="ghost"><span slot="label">Cancel</span></n-button>
           <n-button variant="primary" intent="accent"><span slot="label">Save</span></n-button>
         </n-footer>
-      </n-card>
+        </n-card>
+      </div>
     <pre class="layout-code"><code>&lt;n-card&gt;
   &lt;n-header&gt;
     &lt;span slot="label"&gt;Card Title&lt;/span&gt;
@@ -57,29 +61,33 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <h2>With Media</h2>
     <n-panel bordered>
       <n-stack direction="row" wrap align="center">
-        <n-card style="max-width: 18rem;">
-          <div slot="media" style="height: 10rem; background: linear-gradient(135deg, var(--n-surface-accent), var(--n-surface-info));"></div>
-          <n-body>
-            <h3 style="margin: 0 0 0.25rem; text-transform: none; letter-spacing: 0; color: inherit;">Product Name</h3>
-            <n-text size="sm" muted>A short description of the product.</n-text>
-          </n-body>
+        <div class="demo-card-sm">
+          <n-card>
+            <div slot="media" class="demo-media demo-media-accent"></div>
+            <n-body>
+              <h3 class="demo-card-title">Product Name</h3>
+              <n-text size="sm" muted>A short description of the product.</n-text>
+            </n-body>
+            <n-footer>
+              <n-button variant="primary" intent="accent" size="sm"><span slot="label">Buy Now</span></n-button>
+            </n-footer>
+          </n-card>
+        </div>
+        <div class="demo-card-sm">
+          <n-card>
+            <div slot="media" class="demo-media demo-media-success"></div>
+            <n-body>
+              <h3 class="demo-card-title">Another Product</h3>
+              <n-text size="sm" muted>Another description text.</n-text>
+            </n-body>
           <n-footer>
             <n-button variant="primary" intent="accent" size="sm"><span slot="label">Buy Now</span></n-button>
-          </n-footer>
-        </n-card>
-        <n-card style="max-width: 18rem;">
-          <div slot="media" style="height: 10rem; background: linear-gradient(135deg, var(--n-surface-success), var(--n-surface-warning));"></div>
-          <n-body>
-            <h3 style="margin: 0 0 0.25rem; text-transform: none; letter-spacing: 0; color: inherit;">Another Product</h3>
-            <n-text size="sm" muted>Another description text.</n-text>
-          </n-body>
-          <n-footer>
-            <n-button variant="primary" intent="accent" size="sm"><span slot="label">Buy Now</span></n-button>
-          </n-footer>
-        </n-card>
+            </n-footer>
+          </n-card>
+        </div>
       </n-stack>
       <pre class="layout-code"><code>&lt;n-card&gt;
-  &lt;div slot="media" style="height: 10rem; background: ..."&gt;&lt;/div&gt;
+  &lt;div slot="media" class="media-placeholder"&gt;&lt;/div&gt;
   &lt;n-body&gt;
     &lt;h3&gt;Product Name&lt;/h3&gt;
     &lt;p&gt;A short description.&lt;/p&gt;
@@ -94,9 +102,10 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
     <h2>Header with Leading & Trailing</h2>
     <n-panel bordered>
-      <n-card style="max-width: 28rem;">
-        <n-header>
-          <n-badge slot="leading" intent="accent">New</n-badge>
+      <div class="demo-card-md">
+        <n-card>
+          <n-header>
+            <n-badge slot="leading" intent="accent">New</n-badge>
           <span slot="label">Card with Actions</span>
           <n-button slot="trailing" variant="ghost"><n-icon name="dots-three"></n-icon></n-button>
         </n-header>
@@ -107,7 +116,8 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           <n-button variant="ghost"><span slot="label">Cancel</span></n-button>
           <n-button variant="primary" intent="accent"><span slot="label">Save</span></n-button>
         </n-footer>
-      </n-card>
+        </n-card>
+      </div>
     <pre class="layout-code"><code>&lt;n-card&gt;
   &lt;n-header&gt;
     &lt;n-badge slot="leading" intent="accent"&gt;New&lt;/n-badge&gt;
@@ -127,12 +137,16 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <h2>Interactive</h2>
     <n-panel bordered>
       <n-stack direction="row" wrap align="center">
-        <n-card interactive style="max-width: 16rem;">
-          <p style="margin: 0;">Click this card. It has hover and focus states.</p>
-        </n-card>
-        <n-card interactive style="max-width: 16rem;">
-          <p style="margin: 0;">Another interactive card. Tab to focus.</p>
-        </n-card>
+        <div class="demo-card-xs">
+          <n-card interactive>
+            <p style="margin: 0;">Click this card. It has hover and focus states.</p>
+          </n-card>
+        </div>
+        <div class="demo-card-xs">
+          <n-card interactive>
+            <p style="margin: 0;">Another interactive card. Tab to focus.</p>
+          </n-card>
+        </div>
       </n-stack>
       <pre class="layout-code"><code>&lt;n-card interactive&gt;
   &lt;p&gt;Click this card. It has hover and focus states.&lt;/p&gt;
@@ -144,15 +158,19 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <h2>Sizes (inherit from parent)</h2>
     <n-panel bordered>
       <h3>size="sm"</h3>
-      <n-card size="sm" style="max-width: 20rem;">
-        <n-header><span slot="label">Small Card</span></n-header>
-        <n-body><p style="margin: 0;">Compact padding.</p></n-body>
-      </n-card>
+      <div class="demo-card-narrow">
+        <n-card size="sm">
+          <n-header><span slot="label">Small Card</span></n-header>
+          <n-body><p style="margin: 0;">Compact padding.</p></n-body>
+        </n-card>
+      </div>
       <h3>size="lg"</h3>
-      <n-card size="lg" style="max-width: 20rem;">
-        <n-header><span slot="label">Large Card</span></n-header>
-        <n-body><p style="margin: 0;">Spacious padding.</p></n-body>
-      </n-card>
+      <div class="demo-card-narrow">
+        <n-card size="lg">
+          <n-header><span slot="label">Large Card</span></n-header>
+          <n-body><p style="margin: 0;">Spacious padding.</p></n-body>
+        </n-card>
+      </div>
     <pre class="layout-code"><code>&lt;n-card size="sm"&gt;
   &lt;n-header&gt;&lt;span slot="label"&gt;Small Card&lt;/span&gt;&lt;/n-header&gt;
   &lt;n-body&gt;&lt;p&gt;Compact padding.&lt;/p&gt;&lt;/n-body&gt;
@@ -193,4 +211,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     </n-panel>
   </main>
 
+  <style is:global>
+    .demo-card { max-width: 24rem; }
+    .demo-card-sm { max-width: 18rem; }
+    .demo-card-md { max-width: 28rem; }
+    .demo-card-xs { max-width: 16rem; }
+    .demo-card-narrow { max-width: 20rem; }
+    .demo-media { height: 10rem; }
+    .demo-media-accent { background: linear-gradient(135deg, var(--n-surface-accent), var(--n-surface-info)); }
+    .demo-media-success { background: linear-gradient(135deg, var(--n-surface-success), var(--n-surface-warning)); }
+    .demo-card-title { margin: 0 0 0.25rem; text-transform: none; letter-spacing: 0; color: inherit; }
+  </style>
 </SidebarLayout>

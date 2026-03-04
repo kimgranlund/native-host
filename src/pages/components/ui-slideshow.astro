@@ -180,14 +180,14 @@ const codeExamples = {
       <n-stack direction="row" gap="6" wrap>
         <div>
           <div style="font-size: 0.625rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--n-ink-muted-neutral); margin-bottom: 0.5rem;">force-hover</div>
-          <n-slideshow controls indicators force-hover style="max-width: 280px;">
+          <n-slideshow class="debug-slideshow" controls indicators force-hover>
             <n-slide><div class="slide-content slide-1">A</div></n-slide>
             <n-slide><div class="slide-content slide-2">B</div></n-slide>
           </n-slideshow>
         </div>
         <div>
           <div style="font-size: 0.625rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--n-ink-muted-neutral); margin-bottom: 0.5rem;">force-focus-visible</div>
-          <n-slideshow controls indicators force-focus-visible style="max-width: 280px;">
+          <n-slideshow class="debug-slideshow" controls indicators force-focus-visible>
             <n-slide><div class="slide-content slide-1">A</div></n-slide>
             <n-slide><div class="slide-content slide-2">B</div></n-slide>
           </n-slideshow>
@@ -211,6 +211,8 @@ document.addEventListener('astro:page-load', () => {
 });
   </script>
   <style is:global>
+    .debug-slideshow { max-width: 280px; }
+
     .nav-main {
       padding: 2rem;
       max-width: 52rem;

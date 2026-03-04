@@ -198,7 +198,7 @@ dots.next();       // go to next`,
     <h2>Programmatic control</h2>
     <n-panel bordered>
       <n-pagination-dots count="5" active="0" paddles id="prog-demo"></n-pagination-dots>
-      <n-stack direction="row" style="margin-top: 0.75rem">
+      <n-stack class="prog-controls" direction="row">
         <n-button size="sm" variant="secondary" id="prog-prev">Previous</n-button>
         <n-button size="sm" variant="secondary" id="prog-next">Next</n-button>
         <n-button size="sm" variant="secondary" id="prog-reset">Reset</n-button>
@@ -249,4 +249,7 @@ document.addEventListener('astro:page-load', () => {
   document.getElementById('prog-reset')?.addEventListener('native:press', () => { prog.active = 0; });
 });
   </script>
+  <style is:global>
+    .prog-controls { margin-top: 0.75rem; }
+  </style>
 </SidebarLayout>

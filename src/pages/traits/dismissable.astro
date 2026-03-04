@@ -85,7 +85,7 @@ dismissB.enable();
       </n-text>
       <n-button id="open-dialog">Open Dialog</n-button>
       <n-dialog id="demo-dialog">
-        <n-card style="width: 20rem; padding: 1.5rem;">
+        <n-card class="dialog-card">
           <p style="margin: 0 0 1rem;">This dialog uses Dismissable internally. Press Escape or click the backdrop to close.</p>
           <n-button id="close-dialog" intent="accent">Close</n-button>
         </n-card>
@@ -108,7 +108,7 @@ dismissB.enable();
 
     <h2>API</h2>
       <h3>Methods</h3>
-      <n-table variant="plain" size="sm" style="grid-template-columns: auto 1fr;">
+      <n-table variant="plain" size="sm" cols="auto 1fr">
         <n-table-head><n-table-row><n-table-header>Method</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
         <n-table-body>
           <n-table-row>
@@ -126,7 +126,7 @@ dismissB.enable();
         </n-table-body>
       </n-table>
       <h3>Events</h3>
-      <n-table variant="plain" size="sm" style="grid-template-columns: auto auto 1fr;">
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
         <n-table-head><n-table-row><n-table-header>Event</n-table-header><n-table-header>Detail</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
         <n-table-body>
           <n-table-row>
@@ -225,6 +225,11 @@ document.addEventListener('astro:page-load', () => {
       padding: 0.5rem;
       background: var(--n-panel-neutral);
       border-radius: 0.25rem;
+    }
+
+    n-card.dialog-card {
+      width: 20rem;
+      padding: 1.5rem;
     }
 
     /* ── Code Blocks ── */

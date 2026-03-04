@@ -17,7 +17,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         <n-card class="dialog-card">
           <n-header><span slot="label">Confirm Action</span></n-header>
           <n-body>
-            <n-text size="md" muted style="line-height: 1.5;">Are you sure you want to continue? This action cannot be undone.</n-text>
+            <n-text size="md" muted>Are you sure you want to continue? This action cannot be undone.</n-text>
           </n-body>
           <n-footer>
             <n-button id="basic-cancel">Cancel</n-button>
@@ -60,7 +60,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         <n-card class="dialog-card">
           <n-header><span slot="label">Edit Profile</span></n-header>
           <n-body>
-            <n-text size="md" muted spacing="tight" style="line-height: 1.5;">Update your display name and email address.</n-text>
+            <n-text size="md" muted spacing="tight">Update your display name and email address.</n-text>
             <n-stack gap="3">
               <n-field>
                 <label slot="label">Name</label>
@@ -113,7 +113,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         <n-card class="dialog-card">
           <n-header><span slot="label">Important Notice</span></n-header>
           <n-body>
-            <n-text size="md" muted style="line-height: 1.5;">This dialog can only be closed by clicking the button below. Clicking the backdrop or pressing Escape won't dismiss it.</n-text>
+            <n-text size="md" muted>This dialog can only be closed by clicking the button below. Clicking the backdrop or pressing Escape won't dismiss it.</n-text>
           </n-body>
           <n-footer>
             <n-button id="persistent-close" intent="accent">Got it</n-button>
@@ -143,7 +143,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         <n-card class="dialog-card">
           <n-header><span slot="label">Escape Disabled</span></n-header>
           <n-body>
-            <n-text size="md" muted style="line-height: 1.5;">Press Escape — nothing happens. Click the backdrop or the button to close.</n-text>
+            <n-text size="md" muted>Press Escape — nothing happens. Click the backdrop or the button to close.</n-text>
           </n-body>
           <n-footer>
             <n-button id="no-esc-close">Close</n-button>
@@ -161,7 +161,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         <n-card class="dialog-card">
           <n-header><span slot="label" style="color: var(--n-ink-strong-danger);">Delete Account</span></n-header>
           <n-body>
-            <n-text size="md" muted style="line-height: 1.5;">This will permanently delete your account and all associated data. This action cannot be reversed.</n-text>
+            <n-text size="md" muted>This will permanently delete your account and all associated data. This action cannot be reversed.</n-text>
           </n-body>
           <n-footer>
             <n-button id="danger-cancel">Cancel</n-button>

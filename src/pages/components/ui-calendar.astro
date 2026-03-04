@@ -30,7 +30,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <h2>Min/Max Constraints</h2>
     <n-panel bordered>
       <n-calendar min="2026-02-10" max="2026-02-25"></n-calendar>
-      <n-text size="xs" muted style="margin-top: 0.5rem;">
+      <n-text class="hint" size="xs" muted>
         Only dates between Feb 10–25 are selectable.
       </n-text>
       <pre class="layout-code"><code>&lt;n-calendar min="2026-02-10" max="2026-02-25"&gt;&lt;/n-calendar&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
@@ -51,15 +51,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <n-panel bordered>
       <n-stack direction="row" gap="6" wrap align="start">
         <div>
-          <n-text size="xs" muted uppercase style="font-weight: 600; margin: 0 0 0.5rem;">sm</n-text>
+          <n-text class="size-label" size="xs" muted uppercase>sm</n-text>
           <n-calendar size="sm"></n-calendar>
         </div>
         <div>
-          <n-text size="xs" muted uppercase style="font-weight: 600; margin: 0 0 0.5rem;">md (default)</n-text>
+          <n-text class="size-label" size="xs" muted uppercase>md (default)</n-text>
           <n-calendar></n-calendar>
         </div>
         <div>
-          <n-text size="xs" muted uppercase style="font-weight: 600; margin: 0 0 0.5rem;">lg</n-text>
+          <n-text class="size-label" size="xs" muted uppercase>lg</n-text>
           <n-calendar size="lg"></n-calendar>
         </div>
       </n-stack>
@@ -112,6 +112,9 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       });
   </script>
   <style is:global>
+    .hint { margin-top: 0.5rem; }
+    .size-label { font-weight: 600; margin: 0 0 0.5rem; }
+
     .output {
       font-family: monospace;
       font-size: 0.75rem;

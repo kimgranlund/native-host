@@ -37,13 +37,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <h2>Sidebar Layout</h2>
     <n-panel bordered>
       <div class="sidebar-demo">
-        <n-panel bordered style="width: 14rem; flex-shrink: 0;">
-          <n-stack gap="1">
-            <n-button variant="ghost" justify="spread" style="width: 100%;"><n-icon name="house" slot="leading"></n-icon><span slot="label">Dashboard</span></n-button>
-            <n-button variant="ghost" justify="spread" style="width: 100%;"><n-icon name="folder" slot="leading"></n-icon><span slot="label">Projects</span></n-button>
-            <n-button variant="ghost" justify="spread" style="width: 100%;"><n-icon name="gear" slot="leading"></n-icon><span slot="label">Settings</span></n-button>
-          </n-stack>
-        </n-panel>
+        <div class="sidebar-panel-wrapper">
+          <n-panel bordered>
+            <n-stack gap="1">
+              <n-button variant="ghost" justify="spread"><n-icon name="house" slot="leading"></n-icon><span slot="label">Dashboard</span></n-button>
+              <n-button variant="ghost" justify="spread"><n-icon name="folder" slot="leading"></n-icon><span slot="label">Projects</span></n-button>
+              <n-button variant="ghost" justify="spread"><n-icon name="gear" slot="leading"></n-icon><span slot="label">Settings</span></n-button>
+            </n-stack>
+          </n-panel>
+        </div>
         <div class="content-area">
           Main content area. The panel serves as a sidebar surface.
         </div>
@@ -98,6 +100,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       display: flex;
       gap: 1rem;
       height: 16rem;
+    }
+
+    .sidebar-demo > .sidebar-panel-wrapper {
+      width: 14rem;
+      flex-shrink: 0;
+    }
+
+    .sidebar-demo n-button {
+      width: 100%;
     }
 
     .sidebar-demo > .content-area {

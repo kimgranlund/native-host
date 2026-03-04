@@ -1,0 +1,398 @@
+---
+import SidebarLayout from '../../layouts/SidebarLayout.astro';
+
+const codeExamples = {
+  basic: `&lt;n-controller
+  traits="list-navigable"
+  list-navigable-item-selector=".nav-item"
+  list-navigable-orientation="vertical"
+&gt;
+  &lt;div&gt;
+    &lt;div class="nav-list" role="listbox"&gt;
+      &lt;n-option class="nav-item" value="inbox"&gt;Inbox&lt;/n-option&gt;
+      &lt;n-option class="nav-item" value="drafts"&gt;Drafts&lt;/n-option&gt;
+      &lt;n-option class="nav-item" value="sent"&gt;Sent&lt;/n-option&gt;
+      &lt;n-option class="nav-item" value="archive"&gt;Archive&lt;/n-option&gt;
+      &lt;n-option class="nav-item" value="trash"&gt;Trash&lt;/n-option&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/n-controller&gt;`,
+  horizontal: `&lt;n-controller
+  traits="list-navigable"
+  list-navigable-item-selector=".filter-item"
+  list-navigable-orientation="horizontal"
+&gt;
+  &lt;div&gt;
+    &lt;div class="filter-bar" role="listbox"&gt;
+      &lt;n-option class="filter-item" value="all"&gt;All&lt;/n-option&gt;
+      &lt;n-option class="filter-item" value="active"&gt;Active&lt;/n-option&gt;
+      &lt;n-option class="filter-item" value="completed"&gt;Completed&lt;/n-option&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/n-controller&gt;`,
+  events: `&lt;n-controller
+  traits="list-navigable"
+  list-navigable-item-selector=".event-item"
+&gt;
+  &lt;div&gt;
+    &lt;div class="nav-list" role="listbox"&gt;
+      &lt;n-option class="event-item" value="alpha"&gt;Alpha&lt;/n-option&gt;
+      &lt;n-option class="event-item" value="beta"&gt;Beta&lt;/n-option&gt;
+      &lt;n-option class="event-item" value="gamma"&gt;Gamma&lt;/n-option&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/n-controller&gt;
+
+host.addEventListener('native:select', (e) =&gt; {
+  log(\`native:select — value: \${e.detail.value}\`);
+});
+
+host.addEventListener('native:change', (e) =&gt; {
+  log(\`native:change — value: \${e.detail.value}\`);
+});`,
+};
+---
+<SidebarLayout title="ListNavigable">
+  <main>
+<h1>ListNavigable</h1>
+    <n-text size="md" muted spacing="relaxed">
+      Composable trait that coordinates keyboard navigation, ARIA selection sync, and value tracking for list-based components. Builds on <code>RovingFocusController</code> internally, adding <code>native:select</code> event handling and <code>native:change</code> dispatch.
+    </n-text>
+
+    <!-- ── Basic (Vertical) ── -->
+
+    <h2>Basic (Vertical)</h2>
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
+        Arrow Up/Down to navigate, Enter/Click to select. The controller listens for <code>native:select</code> from child items and dispatches <code>native:change</code> with the selected value.
+      </n-text>
+      <n-controller id="basic-list" traits="list-navigable" list-navigable-item-selector=".nav-item" list-navigable-orientation="vertical">
+        <div>
+          <div class="nav-list" role="listbox">
+            <n-option class="nav-item" value="inbox">Inbox</n-option>
+            <n-option class="nav-item" value="drafts">Drafts</n-option>
+            <n-option class="nav-item" value="sent">Sent</n-option>
+            <n-option class="nav-item" value="archive">Archive</n-option>
+            <n-option class="nav-item" value="trash">Trash</n-option>
+          </div>
+        </div>
+      </n-controller>
+      <div id="basic-value" class="value-display">Selected: <span>none</span></div>
+      <pre class="layout-code"><code set:html={codeExamples.basic} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Horizontal ── -->
+
+    <h2>Horizontal</h2>
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
+        Orientation set to <code>'horizontal'</code>. Use Left/Right arrows to navigate between filter options.
+      </n-text>
+      <n-controller id="horizontal-list" traits="list-navigable" list-navigable-item-selector=".filter-item" list-navigable-orientation="horizontal">
+        <div>
+          <div class="filter-bar" role="listbox">
+            <n-option class="filter-item" value="all">All</n-option>
+            <n-option class="filter-item" value="active">Active</n-option>
+            <n-option class="filter-item" value="completed">Completed</n-option>
+          </div>
+        </div>
+      </n-controller>
+      <div id="horizontal-value" class="value-display">Selected: <span>none</span></div>
+      <pre class="layout-code"><code set:html={codeExamples.horizontal} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Events ── -->
+
+    <h2>Events</h2>
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
+        Click an item or use keyboard navigation + Enter. Both <code>native:select</code> (from child) and <code>native:change</code> (from controller) are logged.
+      </n-text>
+      <n-controller id="event-list" traits="list-navigable" list-navigable-item-selector=".event-item">
+        <div>
+          <div class="nav-list" role="listbox">
+            <n-option class="event-item" value="alpha">Alpha</n-option>
+            <n-option class="event-item" value="beta">Beta</n-option>
+            <n-option class="event-item" value="gamma">Gamma</n-option>
+          </div>
+        </div>
+      </n-controller>
+      <div id="event-log" class="output"></div>
+      <pre class="layout-code"><code set:html={codeExamples.events} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── API Reference ── -->
+
+    <h2>API</h2>
+      <h3>Provider Attributes</h3>
+      <n-table variant="plain" size="sm" cols="auto auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Type</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>list-navigable-item-selector</code></n-table-cell>
+            <n-table-cell><code>string</code></n-table-cell>
+            <n-table-cell><code>:scope > [role]</code></n-table-cell>
+            <n-table-cell>CSS selector for navigable items within the host.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>list-navigable-orientation</code></n-table-cell>
+            <n-table-cell><code>'vertical' | 'horizontal' | 'both'</code></n-table-cell>
+            <n-table-cell><code>'vertical'</code></n-table-cell>
+            <n-table-cell>Which arrow keys respond: <code>'vertical'</code> = Up/Down, <code>'horizontal'</code> = Left/Right, <code>'both'</code> = all arrows.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>list-navigable-aria-attr</code></n-table-cell>
+            <n-table-cell><code>'aria-selected' | 'aria-checked' | 'aria-current'</code></n-table-cell>
+            <n-table-cell><code>'aria-selected'</code></n-table-cell>
+            <n-table-cell>ARIA attribute synced on items when selection changes.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>list-navigable-auto-sync</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>true</code></n-table-cell>
+            <n-table-cell>Automatically sync ARIA attributes on children when value changes.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>list-navigable-wrap</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>true</code></n-table-cell>
+            <n-table-cell>Whether keyboard focus wraps from last to first (and vice versa).</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>list-navigable-disabled</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>false</code></n-table-cell>
+            <n-table-cell>Disables list navigation when <code>"true"</code>.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>Events</h3>
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Event</n-table-header><n-table-header>Detail</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>native:select</code></n-table-cell>
+            <n-table-cell><code>{'{'} value, label {'}'}</code></n-table-cell>
+            <n-table-cell>Dispatched by child items (e.g. <code>n-option</code>) on click/Enter. Bubbles up to the controller host.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>native:change</code></n-table-cell>
+            <n-table-cell><code>{'{'} value, label {'}'}</code></n-table-cell>
+            <n-table-cell>Dispatched by the controller when <code>native:select</code> is received. Cancelable.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>Controller Properties</h3>
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Property</n-table-header><n-table-header>Type</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>listValue</code></n-table-cell>
+            <n-table-cell><code>Signal&lt;string | null&gt;</code></n-table-cell>
+            <n-table-cell>Reactive signal holding the currently selected value.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>rovingFocus</code></n-table-cell>
+            <n-table-cell><code>RovingFocusController</code></n-table-cell>
+            <n-table-cell>Access the underlying roving focus controller for direct configuration.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>Keyboard</h3>
+      <n-table variant="plain" size="sm" cols="auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Key</n-table-header><n-table-header>Action</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>Arrow Up/Down</code></n-table-cell>
+            <n-table-cell>Move focus in vertical orientation.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>Arrow Left/Right</code></n-table-cell>
+            <n-table-cell>Move focus in horizontal orientation.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>Home</code></n-table-cell>
+            <n-table-cell>Move focus to first item.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>End</code></n-table-cell>
+            <n-table-cell>Move focus to last item.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>Enter</code></n-table-cell>
+            <n-table-cell>Select the focused item (dispatches <code>native:select</code>).</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+  </main>
+
+  <script>
+import { logAppend as appendLog } from '../../scripts/event-log';
+
+document.addEventListener('astro:page-load', () => {
+  if (!document.getElementById('basic-list')) return;
+
+  // ── Basic (Vertical) ──
+
+  const basicList = document.getElementById('basic-list')!;
+  const basicValueEl = document.querySelector('#basic-value span')!;
+  basicList.addEventListener('native:change', (e: Event) => {
+    const { value } = (e as CustomEvent).detail;
+    basicValueEl.textContent = value;
+  });
+
+  // ── Horizontal ──
+
+  const horizontalList = document.getElementById('horizontal-list')!;
+  const horizontalValueEl = document.querySelector('#horizontal-value span')!;
+  horizontalList.addEventListener('native:change', (e: Event) => {
+    const { value } = (e as CustomEvent).detail;
+    horizontalValueEl.textContent = value;
+  });
+
+  // ── Events ──
+
+  const eventList = document.getElementById('event-list')!;
+  const eventLogEl = document.getElementById('event-log');
+
+  eventList.addEventListener('native:select', (e: Event) => {
+    const { value, label } = (e as CustomEvent).detail;
+    appendLog(eventLogEl, `native:select — value: ${value}, label: ${label}`);
+  });
+
+  eventList.addEventListener('native:change', (e: Event) => {
+    const { value, label } = (e as CustomEvent).detail;
+    appendLog(eventLogEl, `native:change — value: ${value}, label: ${label}`);
+  });
+});
+  </script>
+  <style is:global>
+    /* ── Vertical nav list ── */
+
+    .nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      width: fit-content;
+      min-width: 12rem;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      padding: 0.5rem 0.75rem;
+      background: transparent;
+      border-radius: 0.375rem;
+      font-size: 0.875rem;
+      cursor: pointer;
+      outline: none;
+      transition: background 100ms ease;
+    }
+
+    .nav-item:hover {
+      background: var(--n-panel-hover-neutral);
+    }
+
+    .nav-item:focus-visible {
+      outline: 2px solid var(--n-focus-ring);
+      outline-offset: -2px;
+    }
+
+    .nav-item[aria-selected="true"] {
+      background: var(--n-surface-accent);
+      color: var(--n-surface-ink-accent);
+    }
+
+    /* ── Horizontal filter bar ── */
+
+    .filter-bar {
+      display: flex;
+      gap: 0.25rem;
+    }
+
+    .filter-item {
+      display: flex;
+      align-items: center;
+      padding: 0.375rem 0.75rem;
+      background: transparent;
+      border: 1px solid var(--n-border-muted-neutral);
+      border-radius: 9999px;
+      font-size: 0.8125rem;
+      cursor: pointer;
+      outline: none;
+      transition: background 100ms ease, border-color 100ms ease;
+    }
+
+    .filter-item:hover {
+      background: var(--n-panel-hover-neutral);
+    }
+
+    .filter-item:focus-visible {
+      outline: 2px solid var(--n-focus-ring);
+      outline-offset: -2px;
+    }
+
+    .filter-item[aria-selected="true"] {
+      background: var(--n-surface-accent);
+      color: var(--n-surface-ink-accent);
+      border-color: var(--n-border-accent);
+    }
+
+    /* ── Event items ── */
+
+    .event-item {
+      display: flex;
+      align-items: center;
+      padding: 0.5rem 0.75rem;
+      background: transparent;
+      border-radius: 0.375rem;
+      font-size: 0.875rem;
+      cursor: pointer;
+      outline: none;
+      transition: background 100ms ease;
+    }
+
+    .event-item:hover {
+      background: var(--n-panel-hover-neutral);
+    }
+
+    .event-item:focus-visible {
+      outline: 2px solid var(--n-focus-ring);
+      outline-offset: -2px;
+    }
+
+    .event-item[aria-selected="true"] {
+      background: var(--n-surface-accent);
+      color: var(--n-surface-ink-accent);
+    }
+
+    /* ── Value display ── */
+
+    .value-display {
+      font-family: monospace;
+      font-size: 0.8125rem;
+      color: var(--n-ink-muted-neutral);
+      margin-top: 0.75rem;
+      padding: 0.5rem;
+      background: var(--n-panel-neutral);
+      border-radius: 0.25rem;
+    }
+
+    /* ── Event log ── */
+
+    .output {
+      font-family: monospace;
+      font-size: 0.75rem;
+      color: var(--n-ink-muted-neutral);
+      max-height: 6rem;
+      overflow-y: auto;
+      margin-top: 0.75rem;
+      padding: 0.5rem;
+      background: var(--n-panel-neutral);
+      border-radius: 0.25rem;
+    }
+
+    /* ── Code Blocks ── */
+</style>
+
+</SidebarLayout>

@@ -98,8 +98,8 @@ const codeExamples = {
     <!-- ── API Reference ── -->
 
     <h2>API</h2>
-    <n-panel bordered style="padding: 0; border: none; background: none;">
-      <n-table variant="plain" size="sm" style="grid-template-columns: auto 1fr;">
+    <n-panel bordered class="api-panel">
+      <n-table variant="plain" size="sm" cols="auto 1fr">
         <n-table-head>
           <n-table-row>
             <n-table-header>Property / Method</n-table-header>
@@ -218,6 +218,14 @@ const codeExamples = {
       height: 0;
       overflow: clip;
     }
+
+    n-panel.api-panel {
+      padding: 0;
+      border: none;
+      background: none;
+    }
+
+
 </style>
 
 </SidebarLayout>
