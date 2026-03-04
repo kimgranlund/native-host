@@ -54,7 +54,7 @@ const codeExamples = {
   // Listen for events
   el.addEventListener('native:expand', () =&gt; console.log('Expanded'));
   el.addEventListener('native:collapse', () =&gt; console.log('Collapsed'));
-&lt;/script&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/script&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Initially Collapsed ── -->
@@ -79,7 +79,7 @@ const codeExamples = {
   const ctrl = el.getTraitController('collapsible');
   if (ctrl.collapsed) ctrl.expand();
   else ctrl.collapse();
-&lt;/script&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/script&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Custom Duration ── -->
@@ -92,7 +92,7 @@ const codeExamples = {
           <p>This section uses a custom <code>collapsible-duration="500"</code> for a slower, more dramatic animation.</p>
         </div>
       </collapse-demo>
-    <pre class="layout-code"><code set:html={codeExamples.customDuration500ms} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    <pre class="layout-code"><code set:html={codeExamples.customDuration500ms} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── API Reference ── -->

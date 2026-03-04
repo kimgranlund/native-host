@@ -49,7 +49,7 @@ const detailMessage = `{ message }`;
       </div>
       <n-button id="validate-required">Validate</n-button>
       <div id="required-output" class="output"></div>
-      <pre class="layout-code"><code set:html={codeExamples.requiredField} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="layout-code"><code set:html={codeExamples.requiredField} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Multiple Rules ── -->
@@ -68,7 +68,7 @@ const detailMessage = `{ message }`;
   ValidateController.minLength(8, 'Must be at least 8 characters'),
   ValidateController.pattern(/[A-Z]/, 'Must contain an uppercase letter'),
   ValidateController.pattern(/[0-9]/, 'Must contain a number'),
-];</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+];</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Validate on Blur ── -->
@@ -83,7 +83,7 @@ const detailMessage = `{ message }`;
       <n-text size="xs" muted>
         Focus the input, type something, then tab away. Validation runs on blur.
       </n-text>
-      <pre class="layout-code"><code set:html={codeExamples.validateOnBlur} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="layout-code"><code set:html={codeExamples.validateOnBlur} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── API Reference ── -->

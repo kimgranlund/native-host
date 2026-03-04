@@ -20,56 +20,58 @@ import Logo from '../../components/Logo.astro';
           </div>
           <p class="auth-heading">Create your account</p>
           <p class="auth-subheading">Start your free 14-day trial, no credit card required</p>
-          <n-card class="auth-card">
-            <n-stack gap="8">
-              <form>
-                <n-stack gap="6">
-                  <n-field required>
-                    <label slot="label">Full name</label>
-                    <n-input placeholder="Kim Granlund" name="name">
-                      <n-icon name="user" slot="leading"></n-icon>
-                    </n-input>
-                  </n-field>
-                  <n-field required>
-                    <label slot="label">Email</label>
-                    <n-input type="email" placeholder="kim@example.com" name="email">
-                      <n-icon name="envelope" slot="leading"></n-icon>
-                    </n-input>
-                  </n-field>
-                  <n-field required>
-                    <label slot="label">Password</label>
-                    <n-input type="password" placeholder="At least 8 characters" name="password">
-                      <n-icon name="lock" slot="leading"></n-icon>
-                    </n-input>
-                    <span slot="description">Must contain at least 8 characters, one uppercase letter, and one number.</span>
-                  </n-field>
-                  <n-field required>
-                    <label slot="label">Confirm password</label>
-                    <n-input type="password" placeholder="Repeat your password" name="password_confirm">
-                      <n-icon name="lock" slot="leading"></n-icon>
-                    </n-input>
-                  </n-field>
-                  <n-checkbox name="terms" required>
-                    <span class="terms-text">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></span>
-                  </n-checkbox>
-                  <n-button variant="primary" intent="accent" type="submit">
-                    <span slot="label">Create Account</span>
+          <div class="auth-card">
+            <n-card>
+              <n-stack gap="8">
+                <form>
+                  <n-stack gap="6">
+                    <n-field required>
+                      <label slot="label">Full name</label>
+                      <n-input placeholder="Kim Granlund" name="name">
+                        <n-icon name="user" slot="leading"></n-icon>
+                      </n-input>
+                    </n-field>
+                    <n-field required>
+                      <label slot="label">Email</label>
+                      <n-input type="email" placeholder="kim@example.com" name="email">
+                        <n-icon name="envelope" slot="leading"></n-icon>
+                      </n-input>
+                    </n-field>
+                    <n-field required>
+                      <label slot="label">Password</label>
+                      <n-input type="password" placeholder="At least 8 characters" name="password">
+                        <n-icon name="lock" slot="leading"></n-icon>
+                      </n-input>
+                      <span slot="description">Must contain at least 8 characters, one uppercase letter, and one number.</span>
+                    </n-field>
+                    <n-field required>
+                      <label slot="label">Confirm password</label>
+                      <n-input type="password" placeholder="Repeat your password" name="password_confirm">
+                        <n-icon name="lock" slot="leading"></n-icon>
+                      </n-input>
+                    </n-field>
+                    <n-checkbox name="terms" required>
+                      <span class="terms-text">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></span>
+                    </n-checkbox>
+                    <n-button variant="primary" intent="accent" type="submit">
+                      <span slot="label">Create Account</span>
+                    </n-button>
+                  </n-stack>
+                </form>
+                <n-divider>or continue with</n-divider>
+                <div class="oauth-row">
+                  <n-button>
+                    <n-icon name="google-logo" slot="leading"></n-icon>
+                    <span slot="label">Google</span>
                   </n-button>
-                </n-stack>
-              </form>
-              <n-divider>or continue with</n-divider>
-              <div class="oauth-row">
-                <n-button>
-                  <n-icon name="google-logo" slot="leading"></n-icon>
-                  <span slot="label">Google</span>
-                </n-button>
-                <n-button>
-                  <n-icon name="github-logo" slot="leading"></n-icon>
-                  <span slot="label">GitHub</span>
-                </n-button>
-              </div>
-            </n-stack>
-          </n-card>
+                  <n-button>
+                    <n-icon name="github-logo" slot="leading"></n-icon>
+                    <span slot="label">GitHub</span>
+                  </n-button>
+                </div>
+              </n-stack>
+            </n-card>
+          </div>
           <p class="auth-footer-text">
             Already have an account? <a href="#">Sign in</a>
           </p>

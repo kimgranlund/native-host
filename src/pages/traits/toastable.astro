@@ -39,7 +39,7 @@ toaster.toast({ message: 'Sticky!', intent: 'warning', duration: 0 });`,
         <n-button id="warning-btn" intent="warning">Warning Toast</n-button>
         <n-button id="danger-btn" intent="danger">Danger Toast</n-button>
       </div>
-      <pre class="layout-code"><code set:html={codeExamples.intentVariants} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="layout-code"><code set:html={codeExamples.intentVariants} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Custom Duration ── -->
@@ -51,7 +51,7 @@ toaster.toast({ message: 'Sticky!', intent: 'warning', duration: 0 });`,
         <n-button id="slow-btn">Slow (10s)</n-button>
         <n-button id="sticky-btn">Sticky (manual dismiss)</n-button>
       </div>
-      <pre class="layout-code"><code set:html={codeExamples.customDuration} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="layout-code"><code set:html={codeExamples.customDuration} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Dismiss All ── -->
@@ -63,7 +63,7 @@ toaster.toast({ message: 'Sticky!', intent: 'warning', duration: 0 });`,
         <n-button id="clear-btn">Dismiss All</n-button>
       </div>
       <pre class="layout-code"><code>// Dismiss all active toasts
-toaster.dismissAllToasts();</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+toaster.dismissAllToasts();</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── API Reference ── -->

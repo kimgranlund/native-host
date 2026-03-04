@@ -31,7 +31,7 @@ const codeExamples = {
   &lt;label slot="label"&gt;Verification code&lt;/label&gt;
   &lt;n-input-otp&gt;&lt;/n-input-otp&gt;
   &lt;span slot="description"&gt;Enter the 6-digit code.&lt;/span&gt;
-&lt;/n-field&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/n-field&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── 4 Digits ── -->
@@ -42,7 +42,7 @@ const codeExamples = {
         <label slot="label">PIN</label>
         <n-input-otp length="4"></n-input-otp>
       </n-field>
-          <pre class="layout-code"><code>&lt;n-input-otp length="4"&gt;&lt;/n-input-otp&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+          <pre class="layout-code"><code>&lt;n-input-otp length="4"&gt;&lt;/n-input-otp&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Masked ── -->
@@ -54,7 +54,7 @@ const codeExamples = {
         <n-input-otp mask></n-input-otp>
         <span slot="description">Characters are hidden for security.</span>
       </n-field>
-          <pre class="layout-code"><code>&lt;n-input-otp mask&gt;&lt;/n-input-otp&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+          <pre class="layout-code"><code>&lt;n-input-otp mask&gt;&lt;/n-input-otp&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── With Value ── -->
@@ -65,7 +65,7 @@ const codeExamples = {
         <label slot="label">Confirmation</label>
         <n-input-otp value="123456"></n-input-otp>
       </n-field>
-          <pre class="layout-code"><code>&lt;n-input-otp value="123456"&gt;&lt;/n-input-otp&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+          <pre class="layout-code"><code>&lt;n-input-otp value="123456"&gt;&lt;/n-input-otp&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Disabled ── -->
@@ -98,7 +98,7 @@ const codeExamples = {
       </n-stack>
       <pre class="layout-code"><code>&lt;n-input-otp length="4" size="sm"&gt;&lt;/n-input-otp&gt;
 &lt;n-input-otp length="4"&gt;&lt;/n-input-otp&gt;
-&lt;n-input-otp length="4" size="lg"&gt;&lt;/n-input-otp&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;n-input-otp length="4" size="lg"&gt;&lt;/n-input-otp&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Live Value ── -->
@@ -109,7 +109,7 @@ const codeExamples = {
         <label slot="label">Code: <span id="otp-value" style="font-size: 0.8125rem; color: var(--n-ink-muted-neutral); font-variant-numeric: tabular-nums;">______</span></label>
         <n-input-otp id="otp-live" length="6"></n-input-otp>
       </n-field>
-      <pre class="layout-code"><code set:html={codeExamples.liveValue} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="layout-code"><code set:html={codeExamples.liveValue} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Debug States (force-*) ── -->

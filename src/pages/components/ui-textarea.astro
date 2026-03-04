@@ -41,7 +41,7 @@ const codeExamples = {
     <h2>Basic</h2>
     <n-panel bordered>
       <n-textarea placeholder="Tell us about yourself..."></n-textarea>
-        <pre class="layout-code"><code>&lt;n-textarea placeholder="Tell us about yourself..."&gt;&lt;/n-textarea&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+        <pre class="layout-code"><code>&lt;n-textarea placeholder="Tell us about yourself..."&gt;&lt;/n-textarea&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── With Value ── -->
@@ -49,7 +49,7 @@ const codeExamples = {
     <h2>With Value</h2>
     <n-panel bordered>
       <n-textarea rows="4">This is a textarea with some initial content. It supports multi-line text editing with all the same styling as n-input.</n-textarea>
-        <pre class="layout-code"><code>&lt;n-textarea rows="4"&gt;Initial content here.&lt;/n-textarea&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+        <pre class="layout-code"><code>&lt;n-textarea rows="4"&gt;Initial content here.&lt;/n-textarea&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Variants ── -->
@@ -72,7 +72,7 @@ const codeExamples = {
       </n-stack>
       <pre class="layout-code"><code>&lt;n-textarea placeholder="Secondary (default)"&gt;&lt;/n-textarea&gt;
 &lt;n-textarea variant="outline" placeholder="Outline"&gt;&lt;/n-textarea&gt;
-&lt;n-textarea variant="ghost" placeholder="Ghost"&gt;&lt;/n-textarea&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;n-textarea variant="ghost" placeholder="Ghost"&gt;&lt;/n-textarea&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Sizes ── -->
@@ -99,7 +99,7 @@ const codeExamples = {
 &lt;n-textarea placeholder="Medium (default)"&gt;&lt;/n-textarea&gt;
 &lt;div size="lg"&gt;
   &lt;n-textarea placeholder="Large"&gt;&lt;/n-textarea&gt;
-&lt;/div&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/div&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Density ── -->
@@ -126,7 +126,7 @@ const codeExamples = {
 &lt;n-textarea placeholder="Default"&gt;&lt;/n-textarea&gt;
 &lt;div density="loose"&gt;
   &lt;n-textarea placeholder="Loose"&gt;&lt;/n-textarea&gt;
-&lt;/div&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/div&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Rows ── -->
@@ -158,7 +158,7 @@ const codeExamples = {
       <pre class="layout-code"><code>&lt;n-textarea rows="1" placeholder="Single line"&gt;&lt;/n-textarea&gt;
 &lt;n-textarea rows="3" placeholder="Three rows (default)"&gt;&lt;/n-textarea&gt;
 &lt;n-textarea rows="5" placeholder="Five rows"&gt;&lt;/n-textarea&gt;
-&lt;n-textarea rows="8" placeholder="Eight rows"&gt;&lt;/n-textarea&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;n-textarea rows="8" placeholder="Eight rows"&gt;&lt;/n-textarea&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Autogrow ── -->
@@ -166,7 +166,7 @@ const codeExamples = {
     <h2>Autogrow</h2>
     <n-panel bordered>
       <n-textarea placeholder="Type here — grows as you type..." autogrow></n-textarea>
-        <pre class="layout-code"><code>&lt;n-textarea placeholder="Type here..." autogrow&gt;&lt;/n-textarea&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+        <pre class="layout-code"><code>&lt;n-textarea placeholder="Type here..." autogrow&gt;&lt;/n-textarea&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Formatting ── -->
@@ -184,7 +184,7 @@ const codeExamples = {
       <n-textarea id="format-all-textarea" formatting="code bold italic" rows="3" placeholder="Cmd+E = code, Cmd+B = bold, Cmd+I = italic..."></n-textarea>
 
       <div class="log" id="format-log"></div>
-      <pre class="layout-code"><code set:html={codeExamples.formatting} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="layout-code"><code set:html={codeExamples.formatting} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <n-panel bordered size="sm">
@@ -235,7 +235,7 @@ const codeExamples = {
   &lt;label slot="label"&gt;Bio&lt;/label&gt;
   &lt;n-textarea placeholder="Max 100 characters..." maxlength="100"&gt;&lt;/n-textarea&gt;
   &lt;span slot="error"&gt;Exceeds maximum length&lt;/span&gt;
-&lt;/n-field&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/n-field&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Intents ── -->
@@ -276,7 +276,7 @@ const codeExamples = {
 &lt;/div&gt;
 &lt;div intent="danger"&gt;
   &lt;n-textarea placeholder="Danger"&gt;&lt;/n-textarea&gt;
-&lt;/div&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/div&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Disabled & Readonly ── -->
@@ -294,7 +294,7 @@ const codeExamples = {
         </div>
       </n-stack>
       <pre class="layout-code"><code>&lt;n-textarea disabled&gt;Cannot be edited.&lt;/n-textarea&gt;
-&lt;n-textarea readonly&gt;Read-only but selectable.&lt;/n-textarea&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;n-textarea readonly&gt;Read-only but selectable.&lt;/n-textarea&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Radius ── -->
@@ -321,7 +321,7 @@ const codeExamples = {
 &lt;n-textarea placeholder="Default"&gt;&lt;/n-textarea&gt;
 &lt;div radius="round"&gt;
   &lt;n-textarea placeholder="Round"&gt;&lt;/n-textarea&gt;
-&lt;/div&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/div&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Events ── -->
@@ -330,7 +330,7 @@ const codeExamples = {
     <n-panel bordered>
       <n-textarea id="event-textarea" placeholder="Type to see events..."></n-textarea>
       <div class="log" id="event-log"></div>
-    <pre class="layout-code"><code set:html={codeExamples.events} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    <pre class="layout-code"><code set:html={codeExamples.events} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Form Association ── -->
@@ -353,7 +353,7 @@ const codeExamples = {
   &lt;n-button variant="primary" type="submit"&gt;
     &lt;span slot="label"&gt;Submit&lt;/span&gt;
   &lt;/n-button&gt;
-&lt;/form&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/form&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── With n-field ── -->
@@ -383,7 +383,7 @@ const codeExamples = {
   &lt;label slot="label"&gt;Feedback&lt;/label&gt;
   &lt;n-textarea placeholder="Required..." rows="4"&gt;&lt;/n-textarea&gt;
   &lt;span slot="description"&gt;We appreciate your feedback.&lt;/span&gt;
-&lt;/n-field&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/n-field&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Debug States (force-*) ── -->

@@ -13,7 +13,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <h2>Single Select</h2>
     <n-panel bordered>
       <n-calendar id="single"></n-calendar>
-      <div id="single-output" class="output">Select a date      <pre class="layout-code"><code>&lt;n-calendar&gt;&lt;/n-calendar&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <div id="single-output" class="output">Select a date      <pre class="layout-code"><code>&lt;n-calendar&gt;&lt;/n-calendar&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
 </div>
     </n-panel>
 
@@ -22,7 +22,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <h2>Initial Value</h2>
     <n-panel bordered>
       <n-calendar value="2026-02-14"></n-calendar>
-      <pre class="layout-code"><code>&lt;n-calendar value="2026-02-14"&gt;&lt;/n-calendar&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="layout-code"><code>&lt;n-calendar value="2026-02-14"&gt;&lt;/n-calendar&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Min/Max Constraints ── -->
@@ -33,7 +33,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       <n-text class="hint" size="xs" muted>
         Only dates between Feb 10–25 are selectable.
       </n-text>
-      <pre class="layout-code"><code>&lt;n-calendar min="2026-02-10" max="2026-02-25"&gt;&lt;/n-calendar&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="layout-code"><code>&lt;n-calendar min="2026-02-10" max="2026-02-25"&gt;&lt;/n-calendar&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Range Selection ── -->
@@ -41,7 +41,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <h2>Range Selection</h2>
     <n-panel bordered>
       <n-calendar id="range-cal" range></n-calendar>
-      <div id="range-output" class="output">Click a start date, hover to preview range, click to commit. Click again to clear.      <pre class="layout-code"><code>&lt;n-calendar range&gt;&lt;/n-calendar&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <div id="range-output" class="output">Click a start date, hover to preview range, click to commit. Click again to clear.      <pre class="layout-code"><code>&lt;n-calendar range&gt;&lt;/n-calendar&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
 </div>
     </n-panel>
 
@@ -65,7 +65,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       </n-stack>
       <pre class="layout-code"><code>&lt;n-calendar size="sm"&gt;&lt;/n-calendar&gt;
 &lt;n-calendar&gt;&lt;/n-calendar&gt;
-&lt;n-calendar size="lg"&gt;&lt;/n-calendar&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;n-calendar size="lg"&gt;&lt;/n-calendar&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Disabled ── -->
@@ -73,7 +73,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <h2>Disabled</h2>
     <n-panel bordered>
       <n-calendar value="2026-02-20" disabled></n-calendar>
-      <pre class="layout-code"><code>&lt;n-calendar value="2026-02-20" disabled&gt;&lt;/n-calendar&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="layout-code"><code>&lt;n-calendar value="2026-02-20" disabled&gt;&lt;/n-calendar&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Debug States (force-*) ── -->

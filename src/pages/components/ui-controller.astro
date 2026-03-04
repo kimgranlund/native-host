@@ -136,7 +136,7 @@ trigger.addEventListener('click', () =&gt; {
 
 &lt;inject-demo traits="hoverable" hoverable-leave-delay="300"&gt;
   300ms sticky
-&lt;/inject-demo&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/inject-demo&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Pressable + Multi-trait ── -->
@@ -161,7 +161,7 @@ trigger.addEventListener('click', () =&gt; {
 
 &lt;inject-demo traits="hoverable pressable"&gt;
   Hoverable + Pressable
-&lt;/inject-demo&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/inject-demo&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── getTraitController ── -->
@@ -180,7 +180,7 @@ trigger.addEventListener('click', () =&gt; {
       </div>
       <div id="inject-runtime-log" class="output"></div>
       <pre class="layout-code"><code>const hover = el.getTraitController('hoverable');
-hover.delay = 1000; // now requires 1s hover intent</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+hover.delay = 1000; // now requires 1s hover intent</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ══════════════════════════════════════════════
@@ -216,7 +216,7 @@ hover.delay = 1000; // now requires 1s hover intent</code><n-button class="copy-
   copyable-value="sk-proj-abc123..."
   copyable-feedback-duration="3000"&gt;
   sk-proj-abc123...
-&lt;/inject-demo&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/inject-demo&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Editable ── -->
@@ -241,7 +241,7 @@ hover.delay = 1000; // now requires 1s hover intent</code><n-button class="copy-
 
 &lt;inject-demo traits="editable" editable-trigger="click"&gt;
   Single click to edit
-&lt;/inject-demo&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/inject-demo&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Swipeable ── -->
@@ -260,7 +260,7 @@ hover.delay = 1000; // now requires 1s hover intent</code><n-button class="copy-
         </div>
       </inject-demo>
       <div id="swipe-log" class="output"></div>
-      <pre class="layout-code"><code set:html={codeExamples.injectionComplexTraitsInjection} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="layout-code"><code set:html={codeExamples.injectionComplexTraitsInjection} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ══════════════════════════════════════════════
@@ -286,7 +286,7 @@ hover.delay = 1000; // now requires 1s hover intent</code><n-button class="copy-
   &lt;div class="layout-card"&gt;
     Wrapped child gets hoverable (200ms delay)
   &lt;/div&gt;
-&lt;/n-controller&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/n-controller&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Selector mode: hoverable ── -->
@@ -310,7 +310,7 @@ hover.delay = 1000; // now requires 1s hover intent</code><n-button class="copy-
     &lt;div class="card"&gt;Card B&lt;/div&gt;
     &lt;div class="card"&gt;Card C&lt;/div&gt;
   &lt;/div&gt;
-&lt;/n-controller&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/n-controller&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Dynamic children ── -->
@@ -335,7 +335,7 @@ hover.delay = 1000; // now requires 1s hover intent</code><n-button class="copy-
 // New items automatically get hoverable + pressable
 const item = document.createElement('div');
 item.className = 'dynamic-item';
-list.appendChild(item);</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+list.appendChild(item);</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Live option updates ── -->
@@ -362,7 +362,7 @@ list.appendChild(item);</code><n-button class="copy-btn" size="sm" variant="ghos
 &lt;/n-controller&gt;
 
 // Change delay at runtime — all targets update
-ctrl.setAttribute('hoverable-delay', '800');</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+ctrl.setAttribute('hoverable-delay', '800');</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ══════════════════════════════════════════════
@@ -406,7 +406,7 @@ ctrl.setAttribute('hoverable-delay', '800');</code><n-button class="copy-btn" si
     &lt;div class="drag-item"&gt;Prototype&lt;/div&gt;
     ...
   &lt;/div&gt;
-&lt;/n-controller&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/n-controller&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Draggable: horizontal ── -->
@@ -442,7 +442,7 @@ ctrl.setAttribute('hoverable-delay', '800');</code><n-button class="copy-btn" si
     &lt;div class="drag-card"&gt;B&lt;/div&gt;
     ...
   &lt;/div&gt;
-&lt;/n-controller&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/n-controller&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Draggable: drop swap ── -->
@@ -466,7 +466,7 @@ ctrl.setAttribute('hoverable-delay', '800');</code><n-button class="copy-btn" si
         </div>
       </n-controller>
       <div id="drag-swap-log" class="output"></div>
-      <pre class="layout-code"><code set:html={codeExamples.providerComplexTraitsProvider} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="layout-code"><code set:html={codeExamples.providerComplexTraitsProvider} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Resizable ── -->
@@ -520,7 +520,7 @@ ctrl.setAttribute('hoverable-delay', '800');</code><n-button class="copy-btn" si
     Horizontal resize
     &lt;div class="resize-handle"&gt;&lt;/div&gt;
   &lt;/div&gt;
-&lt;/n-controller&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/n-controller&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Selectable ── -->
@@ -546,7 +546,7 @@ ctrl.setAttribute('hoverable-delay', '800');</code><n-button class="copy-btn" si
         </div>
       </n-controller>
       <div id="select-log" class="output"></div>
-      <pre class="layout-code"><code set:html={codeExamples.providerComplexTraitsProvider2} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="layout-code"><code set:html={codeExamples.providerComplexTraitsProvider2} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Sortable ── -->
@@ -579,7 +579,7 @@ ctrl.setAttribute('hoverable-delay', '800');</code><n-button class="copy-btn" si
         </table>
       </n-controller>
       <div id="sort-log" class="output"></div>
-      <pre class="layout-code"><code set:html={codeExamples.providerComplexTraitsProvider3} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="layout-code"><code set:html={codeExamples.providerComplexTraitsProvider3} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Editable (provider) ── -->
@@ -601,7 +601,7 @@ ctrl.setAttribute('hoverable-delay', '800');</code><n-button class="copy-btn" si
         </div>
       </n-controller>
       <div id="edit-provider-log" class="output"></div>
-      <pre class="layout-code"><code set:html={codeExamples.providerComplexTraitsProvider4} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="layout-code"><code set:html={codeExamples.providerComplexTraitsProvider4} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Collapsible (provider) ── -->
@@ -649,7 +649,7 @@ ctrl.setAttribute('hoverable-delay', '800');</code><n-button class="copy-btn" si
           </n-controller>
         </div>
       </div>
-      <pre class="layout-code"><code set:html={codeExamples.providerComplexTraitsProvider5} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="layout-code"><code set:html={codeExamples.providerComplexTraitsProvider5} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Multi-trait provider ── -->
@@ -671,7 +671,7 @@ ctrl.setAttribute('hoverable-delay', '800');</code><n-button class="copy-btn" si
   &lt;div class="multi-target"&gt;Alpha&lt;/div&gt;
   &lt;div class="multi-target"&gt;Bravo&lt;/div&gt;
   &lt;div class="multi-target"&gt;Charlie&lt;/div&gt;
-&lt;/n-controller&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/n-controller&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ══════════════════════════════════════════════

@@ -25,6 +25,13 @@ These are non-negotiable. Violating any of them will break the build or the UI.
    - **Infrastructure exception:** Shared layout files (`layout-blocks.css`) may use `n-app-panel` as a scoping ancestor to style standard HTML descendants (`h1`, `h2`, `main`). This does not style the component itself.
    - **Known API gaps:** Some violations are blocked on missing component APIs — see `T0071` in `/TICKETS/`.
 
+9. **Never add CSS classes to `n-*`/`native-*` component elements** -- classes on custom elements are opaque handles that prevent consumers from using standard CSS selectors. Instead:
+   - **Use the element's `id` attribute** if a unique selector is needed (`#nav-search-btn`).
+   - **Use `aria-label` or other semantic attributes** as selector hooks (`n-button[aria-label="Copy"]`).
+   - **Use positional/contextual selectors** (`.layout-code > n-button`, `n-chat-message > n-toolbar`).
+   - **Wrap in a plain `<div>` with a class** if you need layout CSS on the component (`<div class="auth-card"><n-card>…</n-card></div>`).
+   - This applies to both host-authored markup and component-stamped internals (see `T0086`).
+
 ## CSS Gotchas
 
 **Use `@import`, never `<link>`, for npm packages.** Vite does not resolve bare specifiers in `<link>` tags.

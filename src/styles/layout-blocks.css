@@ -97,7 +97,7 @@ n-app-panel > main > :where(n-panel[bordered]) {
   tab-size: 2;
 }
 
-.layout-code .copy-btn {
+.layout-code n-button[aria-label="Copy"] {
   float: right;
   margin: -0.25rem -0.25rem 0 0.5rem;
 }

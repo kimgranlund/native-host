@@ -19,7 +19,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
 This is a **bold** and *italic* text.
   &lt;/script&gt;
-&lt;/native-editor&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/native-editor&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
 
     <!-- ── Source Mode ── -->
 
@@ -30,13 +30,13 @@ This is a **bold** and *italic* text.
 # Source Mode
 Raw markdown without decorations.
   &lt;/script&gt;
-&lt;/native-editor&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/native-editor&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
 
     <!-- ── Placeholder ── -->
 
     <h2>Placeholder</h2>
     <native-editor id="demo-placeholder" placeholder="Start typing your markdown here..."></native-editor>
-    <pre class="layout-code"><code>&lt;native-editor placeholder="Start typing..."&gt;&lt;/native-editor&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    <pre class="layout-code"><code>&lt;native-editor placeholder="Start typing..."&gt;&lt;/native-editor&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
 
     <!-- ── Read-only ── -->
 
@@ -47,13 +47,13 @@ Raw markdown without decorations.
 # Read-only Document
 Content is not editable.
   &lt;/script&gt;
-&lt;/native-editor&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/native-editor&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
 
     <!-- ── Disabled ── -->
 
     <h2>Disabled</h2>
     <native-editor id="demo-disabled" disabled></native-editor>
-    <pre class="layout-code"><code>&lt;native-editor disabled&gt;...&lt;/native-editor&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    <pre class="layout-code"><code>&lt;native-editor disabled&gt;...&lt;/native-editor&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
 
     <!-- ── Form Integration ── -->
 
@@ -78,7 +78,7 @@ Content is not editable.
     const data = new FormData(form);
     console.log(data.get('content'));
   &#125;);
-&lt;/script&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/script&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
 
     <!-- ── Change Events ── -->
 
@@ -91,7 +91,7 @@ Content is not editable.
   editor.addEventListener('change', (e) =&gt; &#123;
     console.log(e.detail.value.length, 'chars');
   &#125;);
-&lt;/script&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/script&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
 
     <!-- ── Data Gateway (src) ── -->
 
@@ -110,7 +110,7 @@ Content is not editable.
   &#125;);
   saveBtn.addEventListener('native:press', () =&gt; editor.save());
   reloadBtn.addEventListener('native:press', () =&gt; editor.reload());
-&lt;/script&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/script&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
   </main>
 
   <script>

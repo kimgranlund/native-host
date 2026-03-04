@@ -35,7 +35,7 @@ const codeExamples = {
       </n-stack>
       <pre class="layout-code"><code>&lt;n-avatar name="Kim Granlund"&gt;&lt;/n-avatar&gt;
 &lt;n-avatar name="Jane Doe"&gt;&lt;/n-avatar&gt;
-&lt;n-avatar name="Alice"&gt;&lt;/n-avatar&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;n-avatar name="Alice"&gt;&lt;/n-avatar&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Fallback (no name, no src) ── -->
@@ -46,7 +46,7 @@ const codeExamples = {
         <n-avatar></n-avatar>
       </n-stack>
       <pre class="layout-code"><code>&lt;!-- No name or src: shows generic placeholder --&gt;
-&lt;n-avatar&gt;&lt;/n-avatar&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;n-avatar&gt;&lt;/n-avatar&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Image (broken src shows initials) ── -->
@@ -57,7 +57,7 @@ const codeExamples = {
         <n-avatar src="/nonexistent-image.jpg" name="Fallback User"></n-avatar>
       </n-stack>
       <pre class="layout-code"><code>&lt;!-- Broken src falls back to initials from name --&gt;
-&lt;n-avatar src="/photo.jpg" name="Fallback User"&gt;&lt;/n-avatar&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;n-avatar src="/photo.jpg" name="Fallback User"&gt;&lt;/n-avatar&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Sizes ── -->
@@ -75,7 +75,7 @@ const codeExamples = {
 &lt;n-avatar name="SM" size="sm"&gt;&lt;/n-avatar&gt;
 &lt;n-avatar name="MD" size="md"&gt;&lt;/n-avatar&gt;
 &lt;n-avatar name="LG" size="lg"&gt;&lt;/n-avatar&gt;
-&lt;n-avatar name="XL" size="xl"&gt;&lt;/n-avatar&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;n-avatar name="XL" size="xl"&gt;&lt;/n-avatar&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Intents ── -->
@@ -92,7 +92,7 @@ const codeExamples = {
       </n-stack>
       <pre class="layout-code"><code>&lt;n-avatar name="Accent" intent="accent"&gt;&lt;/n-avatar&gt;
 &lt;n-avatar name="Success" intent="success"&gt;&lt;/n-avatar&gt;
-&lt;n-avatar name="Danger" intent="danger"&gt;&lt;/n-avatar&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;n-avatar name="Danger" intent="danger"&gt;&lt;/n-avatar&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Radius ── -->
@@ -106,7 +106,7 @@ const codeExamples = {
       </n-stack>
       <pre class="layout-code"><code>&lt;n-avatar name="Circle"&gt;&lt;/n-avatar&gt;
 &lt;n-avatar name="Round" radius="round"&gt;&lt;/n-avatar&gt;
-&lt;n-avatar name="Sharp" radius="sharp"&gt;&lt;/n-avatar&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;n-avatar name="Sharp" radius="sharp"&gt;&lt;/n-avatar&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Group composition ── -->
@@ -119,7 +119,7 @@ const codeExamples = {
         <n-avatar name="Charlie Doe"></n-avatar>
         <n-avatar>+3</n-avatar>
       </div>
-      <pre class="layout-code"><code set:html={codeExamples.group} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="layout-code"><code set:html={codeExamples.group} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
   </main>
 

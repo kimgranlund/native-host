@@ -41,7 +41,7 @@ panel.addEventListener('native:dismiss', () =&gt; hidePanel());`,
         Clicking inside the panel will not dismiss it.
       </div>
       <div id="log" class="output"></div>
-      <pre class="layout-code"><code set:html={codeExamples.clickOutsideToDismiss} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="layout-code"><code set:html={codeExamples.clickOutsideToDismiss} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Nested Layers ── -->
@@ -73,7 +73,7 @@ dismissA.enable();
 panelB.removeAttribute('hidden');
 dismissB.enable();
 
-// Escape/click-outside dismisses B first, then A</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+// Escape/click-outside dismisses B first, then A</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Built-in: n-dialog ── -->
@@ -101,7 +101,7 @@ dismissB.enable();
 &lt;script&gt;
   open.addEventListener('native:press', () =&gt; dialog.showModal());
   close.addEventListener('native:press', () =&gt; dialog.close());
-&lt;/script&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/script&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── API Reference ── -->

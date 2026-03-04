@@ -308,7 +308,7 @@ function setupPage() {
 
   // ── Copy buttons (per-page: new content has new buttons) ──
 
-  for (const btn of document.querySelectorAll('.copy-btn')) {
+  for (const btn of document.querySelectorAll('n-button[aria-label="Copy"]')) {
     btn.addEventListener('click', async () => {
       const code = btn.closest('.layout-code')?.querySelector('code');
       if (!code) return;

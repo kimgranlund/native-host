@@ -91,7 +91,7 @@ ctrl.present();`,
         <p>This card is now displayed in a full-viewport dialog overlay. The content is wrapped in a modal <code>&lt;dialog&gt;</code> using <code>showModal()</code> for top-layer rendering.</p>
         <p>Close by clicking the X button, clicking the backdrop, or pressing Escape.</p>
       </div>
-      <pre class="layout-code"><code set:html={codeExamples.basicPresent} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="layout-code"><code set:html={codeExamples.basicPresent} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Custom Inset ── -->
@@ -110,7 +110,7 @@ ctrl.present();`,
         <h3 class="present-card-title">Custom Inset</h3>
         <p>This card is presented with a custom inset value. The inset controls how much space is reserved between the dialog wrapper and the viewport edges.</p>
       </div>
-      <pre class="layout-code"><code set:html={codeExamples.customInset} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="layout-code"><code set:html={codeExamples.customInset} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Without Close Button ── -->
@@ -125,7 +125,7 @@ ctrl.present();`,
         <h3 class="present-card-title">No Close Button</h3>
         <p>There is no X button in this overlay. Click outside the card or press Escape to dismiss.</p>
       </div>
-      <pre class="layout-code"><code set:html={codeExamples.noCloseButton} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="layout-code"><code set:html={codeExamples.noCloseButton} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Events ── -->
@@ -154,12 +154,12 @@ ctrl.present();`,
       <n-text size="xs" muted spacing="tight">
         The component creates a <code>PresentController</code> on itself during <code>setup()</code> and wires an expand button to call <code>present()</code>. The controller is destroyed in <code>teardown()</code>.
       </n-text>
-      <pre class="layout-code"><code set:html={codeExamples.realWorldJs} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="layout-code"><code set:html={codeExamples.realWorldJs} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
       <h3>CSS Hook — <code>[presented]</code></h3>
       <n-text size="xs" muted spacing="tight">
         When <code>present()</code> is called, PresentController sets <code>[presented]</code> on the host element. The component uses this to switch from a bounded card layout to full-viewport mode. On dismiss, the attribute is removed and CSS reverts.
       </n-text>
-      <pre class="layout-code"><code set:html={codeExamples.realWorldCss} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="layout-code"><code set:html={codeExamples.realWorldCss} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
       <h3>Key Design Decisions</h3>
       <n-table variant="plain" size="sm" cols="auto 1fr">
         <n-table-body>

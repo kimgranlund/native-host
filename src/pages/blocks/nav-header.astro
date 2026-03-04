@@ -21,7 +21,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       </div>
       <nav class="nav-bar" aria-label="Main navigation">
         <div class="nav-brand">
-          <n-icon name="house" aria-hidden="true" class="nav-brand-icon"></n-icon>
+          <n-icon name="house" aria-hidden="true"></n-icon>
           Acme Inc
         </div>
 
@@ -49,7 +49,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           <div class="nav-user">
             <n-avatar name="Kim Granlund" size="sm"></n-avatar>
             <span class="nav-user-name">Kim Granlund</span>
-            <n-icon name="caret-down" aria-hidden="true" class="nav-caret"></n-icon>
+            <n-icon name="caret-down" aria-hidden="true"></n-icon>
           </div>
         </div>
       </nav>
@@ -64,7 +64,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       </div>
       <nav class="nav-bar" aria-label="Main navigation with search">
         <div class="nav-brand">
-          <n-icon name="house" aria-hidden="true" class="nav-brand-icon"></n-icon>
+          <n-icon name="house" aria-hidden="true"></n-icon>
           Acme Inc
         </div>
 
@@ -89,7 +89,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           <div class="nav-user">
             <n-avatar name="Kim Granlund" size="sm"></n-avatar>
             <span class="nav-user-name">Kim Granlund</span>
-            <n-icon name="caret-down" aria-hidden="true" class="nav-caret"></n-icon>
+            <n-icon name="caret-down" aria-hidden="true"></n-icon>
           </div>
         </div>
       </nav>
@@ -104,7 +104,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       </div>
       <nav class="nav-bar nav-bar-compact" aria-label="Compact navigation">
         <div class="nav-brand">
-          <n-icon name="house" aria-hidden="true" class="nav-brand-icon"></n-icon>
+          <n-icon name="house" aria-hidden="true"></n-icon>
           Acme Inc
         </div>
 
@@ -209,11 +209,11 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       width: 100%;
     }
 
-    .nav-brand-icon {
+    .nav-brand > n-icon {
       color: var(--n-ink-strong-accent);
     }
 
-    .nav-caret {
+    .nav-user > n-icon {
       color: var(--n-ink-muted-neutral);
     }
 </style>

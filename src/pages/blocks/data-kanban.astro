@@ -14,7 +14,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     </div>
 
     <n-stack direction="row" gap="3" align="center" wrap>
-      <n-input size="sm" placeholder="Filter tasks..." class="kanban-filter">
+      <n-input size="sm" placeholder="Filter tasks..." id="kanban-filter">
         <n-icon name="magnifying-glass" slot="leading"></n-icon>
       </n-input>
       <n-button size="sm" intent="accent">
@@ -37,7 +37,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
               <span class="kanban-dot todo"></span>
               To Do
             </span>
-            <n-badge class="kanban-count">4</n-badge>
+            <n-badge>4</n-badge>
           </div>
           <div class="kanban-column-body" data-column="todo">
             <div class="kanban-card">
@@ -93,7 +93,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
               <span class="kanban-dot progress"></span>
               In Progress
             </span>
-            <n-badge class="kanban-count">3</n-badge>
+            <n-badge>3</n-badge>
           </div>
           <div class="kanban-column-body" data-column="progress">
             <div class="kanban-card">
@@ -138,7 +138,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
               <span class="kanban-dot done"></span>
               Done
             </span>
-            <n-badge class="kanban-count">3</n-badge>
+            <n-badge>3</n-badge>
           </div>
           <div class="kanban-column-body" data-column="done">
             <div class="kanban-card">
@@ -149,7 +149,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
               <p class="kanban-card-title">Add segmented control component</p>
               <div class="kanban-card-footer">
                 <n-avatar name="Kim Granlund" size="xs" intent="accent"></n-avatar>
-                <span class="kanban-meta"><n-icon name="check" size="sm" class="kanban-done-icon"></n-icon></span>
+                <span class="kanban-meta"><n-icon name="check" size="sm"></n-icon></span>
               </div>
             </div>
             <div class="kanban-card">
@@ -160,7 +160,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
               <p class="kanban-card-title">Fix dialog autofocus on showModal()</p>
               <div class="kanban-card-footer">
                 <n-avatar name="James Rivera" size="xs" intent="warning"></n-avatar>
-                <span class="kanban-meta"><n-icon name="check" size="sm" class="kanban-done-icon"></n-icon></span>
+                <span class="kanban-meta"><n-icon name="check" size="sm"></n-icon></span>
               </div>
             </div>
             <div class="kanban-card">
@@ -171,7 +171,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
               <p class="kanban-card-title">Migrate CSS tokens to OKLCH color space</p>
               <div class="kanban-card-footer">
                 <n-avatar name="Alex Morgan" size="xs" intent="info"></n-avatar>
-                <span class="kanban-meta"><n-icon name="check" size="sm" class="kanban-done-icon"></n-icon></span>
+                <span class="kanban-meta"><n-icon name="check" size="sm"></n-icon></span>
               </div>
             </div>
           </div>
@@ -187,7 +187,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         const board = document.getElementById('kanban-board');
         if (!board || board.hasAttribute('data-wired')) return;
         board.setAttribute('data-wired', '');
-        const filterInput = document.querySelector('.kanban-filter') as HTMLInputElement;
+        const filterInput = document.querySelector('#kanban-filter') as HTMLInputElement;
 
         filterInput?.addEventListener('input', () => {
           const query = (filterInput.value || '').toLowerCase();
@@ -203,7 +203,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
             const cards = col.querySelectorAll('.kanban-card');
             let count = 0;
             for (const c of cards) if ((c as HTMLElement).style.display !== 'none') count++;
-            const badge = col.querySelector('.kanban-count');
+            const badge = col.querySelector('.kanban-column-header n-badge');
             if (badge) badge.textContent = String(count);
           });
         }
@@ -356,11 +356,11 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       margin-left: auto;
     }
 
-    .kanban-filter {
+    #kanban-filter {
       max-width: 16rem;
     }
 
-    .kanban-done-icon {
+    .kanban-meta > n-icon {
       color: var(--n-ink-strong-success);
     }
 </style>

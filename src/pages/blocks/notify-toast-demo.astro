@@ -23,7 +23,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     </div>
     <n-grid columns="auto-fill" min="10rem" gap="3">
       <n-stack gap="2">
-        <n-button id="toast-default" size="md" class="toast-trigger-btn">
+        <n-button id="toast-default" size="md">
           <n-icon name="bell" slot="leading"></n-icon>
           <span slot="label">Default</span>
         </n-button>
@@ -31,7 +31,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       </n-stack>
 
       <n-stack gap="2">
-        <n-button id="toast-info" intent="info" size="md" class="toast-trigger-btn">
+        <n-button id="toast-info" intent="info" size="md">
           <n-icon name="info" slot="leading"></n-icon>
           <span slot="label">Info</span>
         </n-button>
@@ -39,7 +39,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       </n-stack>
 
       <n-stack gap="2">
-        <n-button id="toast-success" intent="success" size="md" class="toast-trigger-btn">
+        <n-button id="toast-success" intent="success" size="md">
           <n-icon name="check" slot="leading"></n-icon>
           <span slot="label">Success</span>
         </n-button>
@@ -47,7 +47,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       </n-stack>
 
       <n-stack gap="2">
-        <n-button id="toast-warning" intent="warning" size="md" class="toast-trigger-btn">
+        <n-button id="toast-warning" intent="warning" size="md">
           <n-icon name="warning" slot="leading"></n-icon>
           <span slot="label">Warning</span>
         </n-button>
@@ -55,7 +55,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       </n-stack>
 
       <n-stack gap="2">
-        <n-button id="toast-danger" intent="danger" size="md" class="toast-trigger-btn">
+        <n-button id="toast-danger" intent="danger" size="md">
           <n-icon name="warning-circle" slot="leading"></n-icon>
           <span slot="label">Danger</span>
         </n-button>
@@ -189,7 +189,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     });
   </script>
   <style is:global>
-    .toast-trigger-btn {
+    n-grid n-button {
       width: 100%;
     }
 </style>

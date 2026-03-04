@@ -36,7 +36,7 @@ const codeExamples = {
     <pre class="layout-code"><code>&lt;n-field&gt;
   &lt;label slot="label"&gt;Volume&lt;/label&gt;
   &lt;n-range value="75"&gt;&lt;/n-range&gt;
-&lt;/n-field&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/n-field&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Custom Range ── -->
@@ -64,7 +64,7 @@ const codeExamples = {
 &lt;n-field&gt;
   &lt;label slot="label"&gt;Opacity&lt;/label&gt;
   &lt;n-range min="0" max="1" step="0.1" value="0.8"&gt;&lt;/n-range&gt;
-&lt;/n-field&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/n-field&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Disabled ── -->
@@ -78,7 +78,7 @@ const codeExamples = {
     <pre class="layout-code"><code>&lt;n-field disabled&gt;
   &lt;label slot="label"&gt;Locked slider&lt;/label&gt;
   &lt;n-range value="30"&gt;&lt;/n-range&gt;
-&lt;/n-field&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/n-field&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Sizes ── -->
@@ -109,7 +109,7 @@ const codeExamples = {
 &lt;n-range size="sm" value="50"&gt;&lt;/n-range&gt;
 &lt;n-range size="md" value="60"&gt;&lt;/n-range&gt;
 &lt;n-range size="lg" value="70"&gt;&lt;/n-range&gt;
-&lt;n-range size="xl" value="80"&gt;&lt;/n-range&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;n-range size="xl" value="80"&gt;&lt;/n-range&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Density ── -->
@@ -140,7 +140,7 @@ const codeExamples = {
 &lt;n-range value="60"&gt;&lt;/n-range&gt;
 &lt;div density="loose"&gt;
   &lt;n-range value="60"&gt;&lt;/n-range&gt;
-&lt;/div&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/div&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Intents ── -->
@@ -158,7 +158,7 @@ const codeExamples = {
     <pre class="layout-code"><code>&lt;n-range intent="accent" value="65"&gt;&lt;/n-range&gt;
 &lt;n-range intent="success" value="85"&gt;&lt;/n-range&gt;
 &lt;n-range intent="warning" value="45"&gt;&lt;/n-range&gt;
-&lt;n-range intent="danger" value="25"&gt;&lt;/n-range&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;n-range intent="danger" value="25"&gt;&lt;/n-range&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Validation ── -->
@@ -178,7 +178,7 @@ const codeExamples = {
   &lt;label slot="label"&gt;Rating&lt;/label&gt;
   &lt;n-range required min="1" max="10" name="rating"&gt;&lt;/n-range&gt;
   &lt;span slot="error"&gt;A rating is required&lt;/span&gt;
-&lt;/n-field&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/n-field&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Cascading ── -->
@@ -195,7 +195,7 @@ const codeExamples = {
   &lt;n-range value="50"&gt;&lt;/n-range&gt;
   &lt;n-range size="lg" value="70"&gt;&lt;/n-range&gt;
   &lt;n-range intent="danger" value="30"&gt;&lt;/n-range&gt;
-&lt;/div&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/div&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Live Value ── -->
@@ -206,7 +206,7 @@ const codeExamples = {
         <label slot="label">Zoom: <span id="zoom-value" class="value-display">100%</span></label>
         <n-range id="zoom-range" min="50" max="200" step="10" value="100"></n-range>
       </n-field>
-    <pre class="layout-code"><code set:html={codeExamples.liveValue} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    <pre class="layout-code"><code set:html={codeExamples.liveValue} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Debug States (force-*) ── -->

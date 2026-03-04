@@ -46,15 +46,15 @@
 }
 
 /* Search hint */
-.nav-search-hint {
+#nav-search-btn {
   color: var(--n-ink-muted-neutral);
 }
 
 /* Command Dialog — app-specific overrides */
-.nav-cmd-dialog {
+#nav-cmd-dialog {
   --n-backdrop-opacity: 0.5;
 }
-.nav-cmd-dialog > dialog {
+#nav-cmd-dialog > dialog {
   place-items: start center;
 }
 .nav-cmd-wrap {

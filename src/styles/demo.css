@@ -177,7 +177,7 @@ h3:first-child {
   display: block;
 }
 
-.demo-code > .copy-btn {
+.demo-code > n-button[aria-label="Copy"] {
   position: absolute;
   top: 0.375rem;
   right: 0.375rem;
