@@ -67,6 +67,9 @@ export default defineConfig({
   output: 'server',
   adapter: vercel(),
   vite: {
+    optimizeDeps: {
+      include: ['better-auth/client'],
+    },
     css: {
       // Allow @import of npm packages in <style> blocks
       preprocessorOptions: {},
