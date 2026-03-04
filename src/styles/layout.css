@@ -64,6 +64,31 @@
   box-shadow: var(--n-shadow-xl);
 }
 
+/* ── Main Panel Resize Handle ── */
+
+n-app-panel:not([aside]) {
+  position: relative;
+}
+
+n-app-panel:not([aside]) > .layout-resize-handle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 4px;
+  height: 100%;
+  cursor: col-resize;
+  z-index: 2;
+}
+
+n-app-panel:not([aside]) > .layout-resize-handle:hover,
+n-app-panel:not([aside])[resizing] > .layout-resize-handle {
+  background: var(--n-border-muted);
+}
+
+n-app-panel:not([aside])[resizing] {
+  transition: none;
+}
+
 /* ── Collapsed Sidebar: Selected State + Badge Dots ── */
 
 @container sidebar (max-width: 80px) {

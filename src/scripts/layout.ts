@@ -9,6 +9,7 @@
 // astro:page-load.
 
 import { navigate, swapFunctions } from 'astro:transitions/client';
+import { ResizeController } from '@nonoun/native-ui';
 import {
   PREF_COLOR_SCHEME,
   PREF_SIDEBAR_COLLAPSED,
@@ -200,6 +201,7 @@ function wireSidebar(layout: HTMLElement) {
 // so we wire per-page but track wired elements to avoid duplicate listeners.
 
 const wiredPanels = new WeakSet<HTMLElement>();
+let panelResizeControllers: ResizeController[] = [];
 
 function wireToggle(btnId: string, panelId: string) {
   const btn = document.getElementById(btnId);
@@ -230,6 +232,33 @@ function setupPage() {
 
   wireToggle('inspector-toggle', 'inspector-panel');
   wireToggle('chat-toggle', 'chat-panel');
+
+  // ── Panel resize (per-page: main panel swapped on navigation, aside panels on canvas swap) ──
+
+  for (const rc of panelResizeControllers) rc.destroy();
+  panelResizeControllers = [];
+
+  const mainPanel = document.querySelector('n-app-panel:not([aside])') as HTMLElement | null;
+  if (mainPanel?.querySelector('.layout-resize-handle')) {
+    panelResizeControllers.push(new ResizeController(mainPanel, {
+      handleSelector: '.layout-resize-handle',
+      axis: 'horizontal',
+      min: 400,
+      max: 1200,
+    }));
+  }
+
+  for (const panel of document.querySelectorAll<HTMLElement>('[aside]')) {
+    if (panel.querySelector('.layout-resize-handle')) {
+      panelResizeControllers.push(new ResizeController(panel, {
+        handleSelector: '.layout-resize-handle',
+        axis: 'horizontal',
+        min: 280,
+        max: 480,
+        reverse: true,
+      }));
+    }
+  }
 
   // ── Theme toggle (per-page: button lives in breadcrumb trailing slot, swapped on navigation) ──
 

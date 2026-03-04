@@ -169,15 +169,20 @@ const groupIcons: Record<string, string> = {
       <n-app-canvas>
         <n-app-panel transition:animate="fade">
           <slot />
+          <div class="layout-resize-handle" data-edge="right"></div>
         </n-app-panel>
         {showInspector && (
           <slot name="inspector">
-            <native-tokens-panel aside id="inspector-panel"></native-tokens-panel>
+            <native-tokens-panel aside id="inspector-panel">
+              <div class="layout-resize-handle"></div>
+            </native-tokens-panel>
           </slot>
         )}
         {showChat && (
           <slot name="chat">
-            <native-chat-panel aside id="chat-panel"></native-chat-panel>
+            <native-chat-panel aside id="chat-panel">
+              <div class="layout-resize-handle"></div>
+            </native-chat-panel>
           </slot>
         )}
       </n-app-canvas>
