@@ -6,7 +6,7 @@ const googleId = import.meta.env.GOOGLE_CLIENT_ID;
 const googleSecret = import.meta.env.GOOGLE_CLIENT_SECRET;
 
 export const auth = betterAuth({
-  baseURL: import.meta.env.BETTER_AUTH_URL || 'http://localhost:4321',
+  baseURL: import.meta.env.DEV ? 'http://localhost:4321' : import.meta.env.BETTER_AUTH_URL,
   secret: import.meta.env.BETTER_AUTH_SECRET,
   database: drizzleAdapter(db, { provider: 'sqlite' }),
   emailAndPassword: { enabled: true },

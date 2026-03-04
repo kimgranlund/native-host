@@ -8,10 +8,11 @@ Each agent reads this file at session start, processes tickets addressed to it, 
 
 No open tickets.
 
-## Closed (T0001–T0087)
+## Closed (T0001–T0088)
 
 | Status | File | Title | From | To |
 |--------|------|-------|------|----|
+| **info** | T0088-a2ui-workbench-features-checklist.md | A2UI Workbench — Feature Checklist (`@nonoun/native-a2ui@0.1.5`) | native-ui | host |
 | **done** | T0087-upgrade-native-ui-0.7.8.md | Upgrade to `@nonoun/native-ui@0.7.8` + `@nonoun/native-a2ui@0.1.5` + `@nonoun/native-chat@0.5.2` | native-ui | host |
 | **fixed** | T0086-no-redundant-class-handles.md | Eliminate redundant class handles on stamped elements — use semantic selectors | host | native-ui |
 | **fixed** | T0085-a2ui-icon-registration-gap.md | native-a2ui should register or document required icons | host | native-ui |
