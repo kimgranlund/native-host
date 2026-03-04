@@ -18,7 +18,7 @@ function resolveLocalPackages() {
 
   const pkgDirs = [
     uiRoot,
-    ...['native-app', 'native-chat', 'native-tokens',
+    ...['native-a2ui', 'native-app', 'native-chat', 'native-tokens',
         'native-codemirror', 'native-editor', 'native-playground',
     ].map(name => resolve(uiRoot, 'packages', name)),
   ];
