@@ -204,6 +204,38 @@ document.addEventListener('astro:page-load', async () => {
         },
       );
 
+      // ── Chat Helpers ──
+
+      function clearChat() {
+        for (const sid of adapter.getSurfaceIds()) {
+          adapter.receive({ deleteSurface: { surfaceId: sid } });
+        }
+        chatContent.innerHTML = '';
+        surfaceCountEl.textContent = '0';
+      }
+
+      function appendUserMessage(text) {
+        const group = document.createElement('n-chat-messages');
+        const msg = document.createElement('n-chat-message');
+        msg.setAttribute('role', 'user');
+        const content = document.createElement('n-chat-message-text');
+        content.textContent = text;
+        msg.appendChild(content);
+        group.appendChild(msg);
+        chatContent.appendChild(group);
+        return group;
+      }
+
+      function appendAssistantMessage() {
+        const group = document.createElement('n-chat-messages');
+        const msg = document.createElement('n-chat-message');
+        msg.setAttribute('role', 'assistant');
+        msg.setAttribute('actions', 'none');
+        group.appendChild(msg);
+        chatContent.appendChild(group);
+        return msg;
+      }
+
       // ── Send Message ──
 
       document.getElementById('send-btn').addEventListener('native:press', () => {
@@ -212,8 +244,12 @@ document.addEventListener('astro:page-load', async () => {
 
         try {
           const msg = JSON.parse(json);
-          log(`RECEIVE: ${Object.keys(msg)[0]}`, 'cmd');
-          adapter.receive(msg, chatContent);
+          const key = Object.keys(msg)[0];
+          log(`RECEIVE: ${key}`, 'cmd');
+          appendUserMessage(key);
+          const container = appendAssistantMessage();
+          adapter.receive(msg, container);
+          chatPanel.setAttribute('open', '');
           surfaceCountEl.textContent = adapter.getSurfaceIds().length;
         } catch (e) {
           log(`ERROR: ${e.message}`, 'error');
@@ -1512,16 +1548,18 @@ document.addEventListener('astro:page-load', async () => {
 
       // Wire preset buttons
       for (const [id, msg] of Object.entries(PRESETS)) {
-        document.getElementById(id)?.addEventListener('native:press', () => {
-          // Clear all surfaces
-          for (const sid of adapter.getSurfaceIds()) {
-            adapter.receive({ deleteSurface: { surfaceId: sid } });
-          }
-          chatContent.innerHTML = '';
+        const btn = document.getElementById(id);
+        btn?.addEventListener('native:press', () => {
+          clearChat();
 
+          const label = btn.querySelector('[slot="label"]')?.textContent ?? id.replace('preset-', '');
           messageInput.value = JSON.stringify(msg, null, 2);
           log(`RECEIVE: updateComponents (${id.replace('preset-', '')})`, 'cmd');
-          adapter.receive(msg, chatContent);
+
+          appendUserMessage(label);
+          const container = appendAssistantMessage();
+          adapter.receive(msg, container);
+          chatPanel.setAttribute('open', '');
           surfaceCountEl.textContent = adapter.getSurfaceIds().length;
 
           // For data binding preset, send initial data
@@ -1582,10 +1620,12 @@ document.addEventListener('astro:page-load', async () => {
       // ── Streaming Preset ──
 
       document.getElementById('preset-streaming')?.addEventListener('native:press', () => {
-        adapter.receive({ deleteSurface: { surfaceId: 'demo' } });
-        chatContent.innerHTML = '';
+        clearChat();
         messageInput.value = '';
         log('STREAMING: Starting incremental delivery...', 'cmd');
+
+        appendUserMessage('Streaming');
+        const container = appendAssistantMessage();
 
         // Phase 1: skeleton
         const phase1 = {
@@ -1598,7 +1638,8 @@ document.addEventListener('astro:page-load', async () => {
             ],
           },
         };
-        adapter.receive(phase1, chatContent);
+        adapter.receive(phase1, container);
+        chatPanel.setAttribute('open', '');
         surfaceCountEl.textContent = adapter.getSurfaceIds().length;
         log('STREAMING: Phase 1 — skeleton', 'cmd');
 
@@ -1623,7 +1664,7 @@ document.addEventListener('astro:page-load', async () => {
               ],
             },
           };
-          adapter.receive(phase2, chatContent);
+          adapter.receive(phase2, container);
           log('STREAMING: Phase 2 — content cards', 'cmd');
         }, 800);
 
@@ -1655,7 +1696,7 @@ document.addEventListener('astro:page-load', async () => {
               ],
             },
           };
-          adapter.receive(phase3, chatContent);
+          adapter.receive(phase3, container);
           log('STREAMING: Phase 3 — complete', 'cmd');
         }, 1600);
       });
@@ -1663,15 +1704,17 @@ document.addEventListener('astro:page-load', async () => {
       // ── Multi-Surface Preset ──
 
       document.getElementById('preset-multi-surface')?.addEventListener('native:press', () => {
-        adapter.receive({ deleteSurface: { surfaceId: 'demo' } });
-        adapter.receive({ deleteSurface: { surfaceId: 'surface-a' } });
-        adapter.receive({ deleteSurface: { surfaceId: 'surface-b' } });
-        chatContent.innerHTML = '';
+        clearChat();
         messageInput.value = '';
 
-        // Create two stacked containers inside chat content
+        appendUserMessage('Multi-Surface');
+        const container = appendAssistantMessage();
+
+        // Create two stacked containers inside the assistant message
         const containerA = document.createElement('div');
         const containerB = document.createElement('div');
+        container.appendChild(containerA);
+        container.appendChild(containerB);
 
         // Surface A: note-taking
         const surfaceA = {
@@ -1704,8 +1747,6 @@ document.addEventListener('astro:page-load', async () => {
           },
         };
 
-        chatContent.appendChild(containerA);
-        chatContent.appendChild(containerB);
         chatPanel.setAttribute('open', '');
         adapter.receive(surfaceA, containerA);
         adapter.receive(surfaceB, containerB);
@@ -1715,14 +1756,30 @@ document.addEventListener('astro:page-load', async () => {
 
       // Clear button
       document.getElementById('preset-clear').addEventListener('native:press', () => {
-        for (const sid of adapter.getSurfaceIds()) {
-          adapter.receive({ deleteSurface: { surfaceId: sid } });
-        }
-        chatContent.innerHTML = '';
+        clearChat();
         chatPanel.removeAttribute('open');
         messageInput.value = '';
-        surfaceCountEl.textContent = '0';
         log('Surface cleared', '');
+      });
+
+      // ── Chat Input ──
+
+      chatPanel.addEventListener('native:send', (e) => {
+        const value = e.detail?.value?.trim();
+        if (!value) return;
+
+        try {
+          const msg = JSON.parse(value);
+          const key = Object.keys(msg)[0];
+          log(`RECEIVE: ${key}`, 'cmd');
+          clearChat();
+          appendUserMessage(key);
+          const container = appendAssistantMessage();
+          adapter.receive(msg, container);
+          surfaceCountEl.textContent = adapter.getSurfaceIds().length;
+        } catch {
+          appendUserMessage(value);
+        }
       });
 
       // ── Emit ──

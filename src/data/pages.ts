@@ -21,6 +21,7 @@ const pageBadges: Record<string, BadgeKind> = {
   '/traits/list-navigable': 'new',
   '/traits/presentable': 'new',
   '/traits/shortcutable': 'new',
+  '/a2ui/a2ui-workbench': 'new',
   '/changelog': 'new',
   '/components/ui-table': 'updated',
   '/components/ui-input': 'updated',
@@ -79,6 +80,7 @@ const titleOverrides: Record<string, string> = {
   '/styles/ui': 'UI Showcase',
   '/a2ui/a2ui': 'A2UI Protocol',
   '/a2ui/a2ui-components': 'A2UI Components',
+  '/a2ui/a2ui-workbench': 'A2UI Workbench',
   '/icons': 'Icons',
   '/kernel': 'Kernel',
 };
