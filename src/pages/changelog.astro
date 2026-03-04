@@ -1,0 +1,192 @@
+---
+import SidebarLayout from '../layouts/SidebarLayout.astro';
+---
+<SidebarLayout title="Changelog" panels={[]}>
+  <main>
+    <h1>Changelog</h1>
+    <n-text size="md" muted spacing="relaxed">
+      Version history for the NativeUI documentation site. Each release lists new features, updates, and breaking changes with links to relevant pages.
+    </n-text>
+
+    <!-- ── 0.7.2 ── -->
+
+    <div class="changelog-version">
+      <h2>0.7.2 <span class="changelog-date">— March 2026</span></h2>
+
+      <div class="changelog-section">
+        <h3><n-badge size="xs" intent="danger">New</n-badge> New Features</h3>
+        <ul>
+          <li><code>&lt;n-input&gt;</code> <code>formatting="code"</code> — inline code formatting with <code>Cmd/Ctrl+E</code>. <a href="/components/ui-input">Demo</a></li>
+          <li><code>SlashCommandController</code> Tab-to-select — pressing Tab with 2+ char query selects the closest match. <a href="/traits/slash-commandable">Demo</a></li>
+          <li><code>SlashCommandController</code> description spans — command options now render visible descriptions. <a href="/traits/slash-commandable">Demo</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ── 0.7.0 ── -->
+
+    <div class="changelog-version">
+      <h2>0.7.0 <span class="changelog-date">— March 2026</span></h2>
+
+      <div class="changelog-section">
+        <h3><n-badge size="xs" intent="danger">New</n-badge> New Features</h3>
+        <ul>
+          <li><code>&lt;n-pagination-dots&gt;</code> — Standalone dot indicator with sliding pill, windowing, and optional paddles. <a href="/components/ui-pagination-dots">Demo</a></li>
+          <li><code>&lt;n-text&gt;</code> — CSS-only utility element for styled text blocks (muted, strong, sizes, truncate, spacing). Adopted across 73 pages.</li>
+          <li><code>&lt;n-panel&gt;</code> <code>[scrollable]</code> attribute — opt-in overflow scrolling (replaces implicit overflow). <a href="/containers/ui-panel">Demo</a></li>
+          <li><code>&lt;n-panel&gt;</code> <code>[fade]</code> attribute — fades top/bottom edges when content overflows. <a href="/containers/ui-panel">Demo</a></li>
+        </ul>
+      </div>
+
+      <div class="changelog-section">
+        <h3><n-badge size="xs" intent="accent">Updated</n-badge> Updates</h3>
+        <ul>
+          <li><code>&lt;n-toolbar&gt;</code> — overflow priority, pin, and diagnostics event. <a href="/containers/ui-toolbar">Demo</a></li>
+          <li><code>&lt;n-header&gt;</code> — <code>[truncate]</code> attribute for label text truncation. <a href="/containers/ui-header">Demo</a></li>
+          <li><code>&lt;n-textarea&gt;</code> — inline formatting support (<code>formatting="code bold italic"</code>). <a href="/components/ui-textarea">Demo</a></li>
+          <li><code>ResizeController</code> — corner resize handles for diagonal resizing. <a href="/traits/resizable">Demo</a></li>
+          <li>Sidebar badges — colored indicators on nav items for new and updated pages.</li>
+        </ul>
+      </div>
+
+      <div class="changelog-section">
+        <h3>Breaking Changes</h3>
+        <ul>
+          <li><code>&lt;n-panel&gt;</code> overflow is now opt-in via <code>[scrollable]</code>. Panels that relied on implicit <code>overflow: auto</code> must add the attribute.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ── 0.6.6 ── -->
+
+    <div class="changelog-version">
+      <h2>0.6.6 <span class="changelog-date">— February 2026</span></h2>
+
+      <div class="changelog-section">
+        <h3>Updates</h3>
+        <ul>
+          <li>Upgraded to <code>@nonoun/native-ui@0.6.6</code> — internal CSS source file renames.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ── 0.6.5 ── -->
+
+    <div class="changelog-version">
+      <h2>0.6.5 <span class="changelog-date">— February 2026</span></h2>
+
+      <div class="changelog-section">
+        <h3>Updates</h3>
+        <ul>
+          <li>Adopted <code>DragController</code> zone-based kanban with cross-zone dragging. <a href="/blocks/data-kanban">Demo</a></li>
+        </ul>
+      </div>
+
+      <div class="changelog-section">
+        <h3>Fixes</h3>
+        <ul>
+          <li>Fixed <code>DragController</code> not firing <code>native:drop</code> in View Transitions context.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ── 0.6.2 ── -->
+
+    <div class="changelog-version">
+      <h2>0.6.2 <span class="changelog-date">— January 2026</span></h2>
+
+      <div class="changelog-section">
+        <h3><n-badge size="xs" intent="danger">New</n-badge> New Features</h3>
+        <ul>
+          <li><code>&lt;n-toast&gt;</code> — Toast notification component with per-controller containers. <a href="/blocks/notify-toast-demo">Demo</a></li>
+          <li><code>&lt;n-pagination-dots&gt;</code> — Standalone dot indicator component. <a href="/components/ui-pagination-dots">Demo</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ── 0.6.0 ── -->
+
+    <div class="changelog-version">
+      <h2>0.6.0 <span class="changelog-date">— January 2026</span></h2>
+
+      <div class="changelog-section">
+        <h3><n-badge size="xs" intent="danger">New</n-badge> New Features</h3>
+        <ul>
+          <li>Unified panel sub-containers: <code>&lt;n-header&gt;</code>, <code>&lt;n-body&gt;</code>, <code>&lt;n-footer&gt;</code>. <a href="/containers/ui-header">Demo</a></li>
+          <li><code>native-chat</code> package — extracted chat interface to standalone package.</li>
+        </ul>
+      </div>
+
+      <div class="changelog-section">
+        <h3>Breaking Changes</h3>
+        <ul>
+          <li>Aside refactor — panel elements use component-specific wrappers (<code>&lt;native-tokens-panel&gt;</code>, <code>&lt;native-chat-panel&gt;</code>).</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ── 0.5.0 ── -->
+
+    <div class="changelog-version">
+      <h2>0.5.0 <span class="changelog-date">— December 2025</span></h2>
+
+      <div class="changelog-section">
+        <h3>Breaking Changes</h3>
+        <ul>
+          <li>Full namespace migration: HTML <code>ui-*</code> → <code>n-*</code>, CSS <code>--ui-*</code> → <code>--n-*</code>, events <code>ui-*</code> → <code>native:*</code>, JS classes <code>UI*</code> → <code>N*</code>.</li>
+          <li>Package renames: <code>nui-*</code> → <code>native-*</code>.</li>
+          <li>Root element renamed: <code>&lt;n-sidebar&gt;</code> → <code>&lt;native-app&gt;</code>.</li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <style is:global>
+    .changelog-version {
+      margin-block-start: 1.5rem;
+    }
+    .changelog-version h2 {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .changelog-date {
+      font-size: 0.8125rem;
+      font-weight: 400;
+      color: var(--n-ink-muted-neutral);
+    }
+    .changelog-section h3 {
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-block: 0.75rem 0.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+    }
+    .changelog-section ul {
+      margin: 0;
+      padding-inline-start: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .changelog-section li {
+      font-size: 0.875rem;
+      line-height: 1.5;
+      color: var(--n-ink-neutral);
+    }
+    .changelog-section a {
+      color: var(--n-ink-strong-accent);
+      text-decoration: none;
+    }
+    .changelog-section a:hover {
+      text-decoration: underline;
+    }
+    .changelog-section code {
+      font-size: 0.8125rem;
+      background: var(--n-panel-neutral);
+      padding: 0.125em 0.375em;
+      border-radius: 0.25rem;
+    }
+  </style>
+</SidebarLayout>

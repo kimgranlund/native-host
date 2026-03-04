@@ -13,6 +13,14 @@ const codeExamples = {
     console.log('native:change', e.detail.value);
   });
 &lt;/script&gt;`,
+  formatting: `&lt;n-input formatting="code" placeholder="Select text, press Cmd+E..."&gt;&lt;/n-input&gt;
+
+&lt;script&gt;
+  const input = document.querySelector('n-input[formatting]');
+  input.addEventListener('native:format', (e) =&gt; {
+    console.log('format:', e.detail.type, e.detail.value);
+  });
+&lt;/script&gt;`,
 };
 ---
 <SidebarLayout title="Input">
@@ -244,6 +252,18 @@ const codeExamples = {
       </n-text>
     </n-panel>
 
+    <!-- ── Formatting ── -->
+
+    <h2>Formatting</h2>
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
+        The <code>formatting</code> attribute enables inline text formatting. Select text and press <n-kbd><n-icon name="command"></n-icon>E</n-kbd> to wrap in backticks. Select wrapped text to unwrap.
+      </n-text>
+      <n-input id="format-input" formatting="code" placeholder="Type text, select it, press Cmd+E..."></n-input>
+      <div class="log" id="format-log"></div>
+      <pre class="layout-code"><code set:html={codeExamples.formatting} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
     <!-- ── Radius ── -->
 
     <h2>Radius</h2>
@@ -457,6 +477,15 @@ import { logPrepend } from '../../scripts/event-log';
       form.addEventListener('reset', () => {
         logPrepend(formLog, 'reset');
       });
+
+      // Formatting event logging
+      const formatInput = document.getElementById('format-input');
+      const formatLog = document.getElementById('format-log');
+
+      formatInput?.addEventListener('native:format', ((e: CustomEvent) => {
+        count++;
+        logPrepend(formatLog!, `#${count} native:format — type: "${e.detail.type}", value: "${e.detail.value}"`);
+      }) as EventListener);
 
       // Validation form logging
       const validationForm = document.getElementById('validation-form');

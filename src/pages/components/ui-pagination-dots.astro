@@ -244,15 +244,9 @@ document.addEventListener('astro:page-load', () => {
 
   // Programmatic control
   const prog = document.getElementById('prog-demo') as any;
-  document.getElementById('prog-prev')?.addEventListener('native:press', () => {
-    prog.active = Math.max(0, prog.active - 1);
-  });
-  document.getElementById('prog-next')?.addEventListener('native:press', () => {
-    prog.active = Math.min(prog.count - 1, prog.active + 1);
-  });
-  document.getElementById('prog-reset')?.addEventListener('native:press', () => {
-    prog.active = 0;
-  });
+  document.getElementById('prog-prev')?.addEventListener('native:press', () => prog.prev());
+  document.getElementById('prog-next')?.addEventListener('native:press', () => prog.next());
+  document.getElementById('prog-reset')?.addEventListener('native:press', () => { prog.active = 0; });
 });
   </script>
 </SidebarLayout>

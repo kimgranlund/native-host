@@ -1,11 +1,27 @@
 // Page registry — single source of truth for navigation, breadcrumbs, and command palette.
 // Group is derived from directory. Title defaults to filename but can be overridden.
 
+export type BadgeKind = 'new' | 'updated' | 'recent';
+
 export interface PageEntry {
   title: string;
   path: string;
   group: string;
+  badge?: BadgeKind;
 }
+
+// Badge assignments — pages with recent changes
+const pageBadges: Record<string, BadgeKind> = {
+  '/components/ui-pagination-dots': 'new',
+  '/traits/slash-commandable': 'new',
+  '/changelog': 'new',
+  '/components/ui-input': 'updated',
+  '/components/ui-textarea': 'updated',
+  '/containers/ui-header': 'updated',
+  '/containers/ui-panel': 'updated',
+  '/containers/ui-toolbar': 'updated',
+  '/traits/resizable': 'updated',
+};
 
 // Directory → group mapping
 const dirGroup: Record<string, string> = {
@@ -22,6 +38,11 @@ const dirGroup: Record<string, string> = {
 // Group display order
 const groupOrder = ['Components', 'Containers', 'Traits', 'Blocks', 'Core', 'Packages', 'Other'];
 
+// Group overrides for pages outside their natural directory
+const groupOverrides: Record<string, string> = {
+  '/signup': 'Blocks',
+};
+
 // Title overrides for pages where filename ≠ display title
 const titleOverrides: Record<string, string> = {
   '/containers/ui-header': 'Header / Body / Footer',
@@ -33,6 +54,7 @@ const titleOverrides: Record<string, string> = {
   '/traits/roving-focusable': 'RovingFocusable',
   '/traits/focus-trappable': 'FocusTrappable',
   '/traits/range-selectable': 'RangeSelectable',
+  '/traits/slash-commandable': 'SlashCommandable',
   '/blocks/data-dashboard-stats': 'Dashboard Stats',
   '/blocks/notify-toast-demo': 'Toast Demo',
   '/blocks/notify-empty-state': 'Empty State',
@@ -84,7 +106,7 @@ function buildSitemap(): PageEntry[] {
     const dir = parts.length > 1 ? parts[0] : null;
 
     // Determine group
-    const group = dir ? (dirGroup[dir] || 'Other') : 'Other';
+    const group = groupOverrides[relative] ?? (dir ? (dirGroup[dir] || 'Other') : 'Other');
 
     // Determine path
     const path = relative;
@@ -92,7 +114,8 @@ function buildSitemap(): PageEntry[] {
     // Determine title
     const title = titleOverrides[path] || slugToTitle(slug, group);
 
-    entries.push({ title, path, group });
+    const badge = pageBadges[path];
+    entries.push({ title, path, group, ...(badge && { badge }) });
   }
 
   // Sort: by group order, then alphabetically within group

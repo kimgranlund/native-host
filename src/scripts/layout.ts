@@ -65,13 +65,19 @@ document.addEventListener('astro:before-swap', ((e: any) => {
 
     if (currentAsides !== newAsides && currentCanvas && newCanvas) {
       // Panel config changed — swap entire canvas so panels appear/disappear
-      currentCanvas.replaceWith(document.adoptNode(newCanvas));
+      const adopted = document.adoptNode(newCanvas);
+      currentCanvas.replaceWith(adopted);
+      // WHY: Elements adopted from DOMParser documents may not auto-upgrade
+      // when connected via replaceWith. Force CE upgrade on the subtree.
+      customElements.upgrade(adopted);
     } else {
       // Same panel structure — swap only the main content panel
       const currentPanel = currentCanvas?.querySelector('n-app-panel:not([aside])');
       const newPanel = newCanvas?.querySelector('n-app-panel:not([aside])');
       if (currentPanel && newPanel) {
-        currentPanel.replaceWith(document.adoptNode(newPanel));
+        const adopted = document.adoptNode(newPanel);
+        currentPanel.replaceWith(adopted);
+        customElements.upgrade(adopted);
       }
     }
 

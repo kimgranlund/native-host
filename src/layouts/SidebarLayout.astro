@@ -1,8 +1,11 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import Logo from '../components/Logo.astro';
-import { sitemap, type PageEntry } from '../data/pages';
+import { sitemap, type PageEntry, type BadgeKind } from '../data/pages';
 import { parsePreferences } from '../lib/preferences';
+
+const badgeLabels: Record<BadgeKind, string> = { new: 'New', updated: 'Updated', recent: 'Recent' };
+const badgeIntents: Record<BadgeKind, string> = { new: 'danger', updated: 'accent', recent: 'warning' };
 
 interface Props {
   title: string;
@@ -90,6 +93,7 @@ const groupIcons: Record<string, string> = {
                   aria-current={currentPath === e.path ? 'page' : undefined}
                 >
                   {e.title}
+                  {e.badge && <n-badge size="xs" intent={badgeIntents[e.badge]}>{badgeLabels[e.badge]}</n-badge>}
                 </n-sidebar-nav-item>
               ))}
             </n-sidebar-group>
