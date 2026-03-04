@@ -139,48 +139,6 @@ function wireSidebar(layout: HTMLElement) {
     }
   });
 
-  // ── Theme toggle ──
-
-  const themeToggle = document.getElementById('theme-toggle');
-
-  function updateThemeIcon() {
-    if (!themeToggle) return;
-    const scheme = document.documentElement.style.colorScheme;
-    const isDark = scheme === 'dark' || (!scheme && window.matchMedia('(prefers-color-scheme: dark)').matches);
-    themeToggle.innerHTML = isDark
-      ? '<n-icon name="sun" size="md"></n-icon>'
-      : '<n-icon name="moon" size="md"></n-icon>';
-  }
-
-  themeToggle?.addEventListener('click', () => {
-    const current = document.documentElement.style.colorScheme;
-    const isDark = current === 'dark' || (!current && window.matchMedia('(prefers-color-scheme: dark)').matches);
-    const next = isDark ? 'light' : 'dark';
-    document.documentElement.style.colorScheme = next;
-    localStorage.setItem(PREF_COLOR_SCHEME, next);
-    setCookie(PREF_COLOR_SCHEME, next);
-    updateThemeIcon();
-  });
-
-  // ── Code toggle (click handler — visibility set per-page in setupPage) ──
-
-  const codeToggle = document.getElementById('code-toggle');
-
-  codeToggle?.addEventListener('click', () => {
-    const willShow = localStorage.getItem(PREF_SHOW_CODE) !== 'true';
-    localStorage.setItem(PREF_SHOW_CODE, String(willShow));
-    setCookie(PREF_SHOW_CODE, String(willShow));
-    const icon = codeToggle.querySelector('n-icon');
-    if (icon) {
-      if (willShow) icon.setAttribute('weight', 'fill');
-      else icon.removeAttribute('weight');
-    }
-    for (const block of document.querySelectorAll('.layout-code')) {
-      if (willShow) block.setAttribute('visible', '');
-      else block.removeAttribute('visible');
-    }
-  });
-
   // ── Nav group state persistence (write-only for SSR cookies) ──
   // The sidebar DOM persists across navigations, so we never need to read
   // and reapply group states — groups stay open/closed as the user left them.
@@ -273,7 +231,24 @@ function setupPage() {
   wireToggle('inspector-toggle', 'inspector-panel');
   wireToggle('chat-toggle', 'chat-panel');
 
-  // ── Code toggle visibility (per-page: depends on page content) ──
+  // ── Theme toggle (per-page: button lives in breadcrumb trailing slot, swapped on navigation) ──
+
+  const themeToggle = document.getElementById('theme-toggle');
+  themeToggle?.addEventListener('click', () => {
+    const current = document.documentElement.style.colorScheme;
+    const isDark = current === 'dark' || (!current && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    const next = isDark ? 'light' : 'dark';
+    document.documentElement.style.colorScheme = next;
+    localStorage.setItem(PREF_COLOR_SCHEME, next);
+    setCookie(PREF_COLOR_SCHEME, next);
+    if (themeToggle) {
+      themeToggle.innerHTML = next === 'dark'
+        ? '<n-icon name="sun" size="md"></n-icon>'
+        : '<n-icon name="moon" size="md"></n-icon>';
+    }
+  });
+
+  // ── Code toggle (per-page: button swapped on navigation, visibility depends on page content) ──
 
   const codeToggle = document.getElementById('code-toggle') as HTMLElement | null;
   if (codeToggle) {
@@ -286,6 +261,20 @@ function setupPage() {
       const icon = codeToggle.querySelector('n-icon');
       if (icon) icon.setAttribute('weight', 'fill');
     }
+    codeToggle.addEventListener('click', () => {
+      const willShow = localStorage.getItem(PREF_SHOW_CODE) !== 'true';
+      localStorage.setItem(PREF_SHOW_CODE, String(willShow));
+      setCookie(PREF_SHOW_CODE, String(willShow));
+      const icon = codeToggle.querySelector('n-icon');
+      if (icon) {
+        if (willShow) icon.setAttribute('weight', 'fill');
+        else icon.removeAttribute('weight');
+      }
+      for (const block of document.querySelectorAll('.layout-code')) {
+        if (willShow) block.setAttribute('visible', '');
+        else block.removeAttribute('visible');
+      }
+    });
   }
 
   // ── Copy buttons (per-page: new content has new buttons) ──
