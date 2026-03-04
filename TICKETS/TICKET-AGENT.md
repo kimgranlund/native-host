@@ -6,14 +6,17 @@ Each agent reads this file at session start, processes tickets addressed to it, 
 
 ## Open
 
+No open tickets.
+
+## Closed (T0001–T0087)
+
 | Status | File | Title | From | To |
 |--------|------|-------|------|----|
-| **open** | T0081-a2ui-tsc-rootdir-icons.md | native-a2ui `tsc` fails: icon imports outside rootDir | host | native-ui |
-| **open** | T0084-a2ui-toolbar-text-labels-regression.md | native-a2ui toolbar text labels regression — icon-only instead of icon+text | host | native-ui |
-| **open** | T0085-a2ui-icon-registration-gap.md | native-a2ui should register or document required icons | host | native-ui |
-| **open** | T0086-no-redundant-class-handles.md | Eliminate redundant class handles on stamped elements — use semantic selectors | host | native-ui |
-
-## Closed (T0001–T0083)
+| **done** | T0087-upgrade-native-ui-0.7.8.md | Upgrade to `@nonoun/native-ui@0.7.8` + `@nonoun/native-a2ui@0.1.5` + `@nonoun/native-chat@0.5.2` | native-ui | host |
+| **fixed** | T0086-no-redundant-class-handles.md | Eliminate redundant class handles on stamped elements — use semantic selectors | host | native-ui |
+| **fixed** | T0085-a2ui-icon-registration-gap.md | native-a2ui should register or document required icons | host | native-ui |
+| **fixed** | T0084-a2ui-toolbar-text-labels-regression.md | native-a2ui toolbar text labels regression — icon-only instead of icon+text | host | native-ui |
+| **fixed** | T0081-a2ui-tsc-rootdir-icons.md | native-a2ui `tsc` fails: icon imports outside rootDir | host | native-ui |
 
 
 <details>

@@ -5,7 +5,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   <main>
 <h1>&lt;n-toolbar&gt;</h1>
     <n-text size="md" muted spacing="relaxed">
-      Horizontal action bar for grouping related controls. Minimal custom element with role="toolbar" and roving keyboard focus.
+      Action bar for grouping related controls. Supports horizontal and vertical orientation with role="toolbar" and roving keyboard focus.
     </n-text>
 
     <!-- ── Text Formatting ── -->
@@ -159,6 +159,38 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 &lt;n-toolbar variant="plain"&gt;...&lt;/n-toolbar&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
+    <!-- ── Orientation ── -->
+
+    <h2>Orientation</h2>
+    <n-panel bordered>
+      <p class="layout-hint">
+        <code>orientation</code> controls layout direction and keyboard navigation. Arrow keys follow the orientation: Left/Right for horizontal, Up/Down for vertical.
+      </p>
+      <div class="orientation-demo">
+        <div>
+          <p class="layout-hint">Horizontal (default)</p>
+          <n-toolbar aria-label="Horizontal toolbar">
+            <n-button variant="ghost"><n-icon name="text-b"></n-icon></n-button>
+            <n-button variant="ghost"><n-icon name="text-italic"></n-icon></n-button>
+            <n-button variant="ghost"><n-icon name="text-underline"></n-icon></n-button>
+          </n-toolbar>
+        </div>
+        <div>
+          <p class="layout-hint">Vertical</p>
+          <n-toolbar orientation="vertical" aria-label="Vertical toolbar">
+            <n-button variant="ghost"><n-icon name="text-b"></n-icon></n-button>
+            <n-button variant="ghost"><n-icon name="text-italic"></n-icon></n-button>
+            <n-button variant="ghost"><n-icon name="text-underline"></n-icon></n-button>
+          </n-toolbar>
+        </div>
+      </div>
+    <pre class="layout-code"><code>&lt;n-toolbar orientation="vertical" aria-label="Vertical toolbar"&gt;
+  &lt;n-button variant="ghost"&gt;&lt;n-icon name="text-b"&gt;&lt;/n-icon&gt;&lt;/n-button&gt;
+  &lt;n-button variant="ghost"&gt;&lt;n-icon name="text-italic"&gt;&lt;/n-icon&gt;&lt;/n-button&gt;
+  &lt;n-button variant="ghost"&gt;&lt;n-icon name="text-underline"&gt;&lt;/n-icon&gt;&lt;/n-button&gt;
+&lt;/n-toolbar&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
     <!-- ── Fill Mode ── -->
 
     <h2>Fill Mode</h2>
@@ -279,6 +311,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       min-height: 4rem;
       font-size: 0.875rem;
       color: var(--n-ink-muted-neutral);
+    }
+
+    .orientation-demo {
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
     }
 
     /* ── Code Blocks ── */
