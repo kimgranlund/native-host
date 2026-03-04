@@ -22,6 +22,26 @@ function setCookie(name: string, value: string, days = 365) {
   document.cookie = `${name}=${encodeURIComponent(value)};path=/;expires=${expires};SameSite=Lax`;
 }
 
+// ── Debounced preference sync to server (authenticated users only) ──
+
+let syncTimer: ReturnType<typeof setTimeout> | null = null;
+
+function isAuthenticated() {
+  return document.getElementById('layout-sidebar')?.hasAttribute('data-authenticated') ?? false;
+}
+
+function syncPreferences(partial: Record<string, unknown>) {
+  if (!isAuthenticated()) return;
+  if (syncTimer) clearTimeout(syncTimer);
+  syncTimer = setTimeout(() => {
+    fetch('/api/preferences', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(partial),
+    }).catch(() => {}); // Best-effort — cookie fallback is always written
+  }, 500);
+}
+
 // ── Keyboard shortcut (Cmd+K) — document-level, never lost ──
 
 document.addEventListener('keydown', (e: KeyboardEvent) => {
@@ -131,11 +151,13 @@ function wireSidebar(layout: HTMLElement) {
       layout.removeAttribute('collapsed');
       localStorage.setItem(PREF_SIDEBAR_COLLAPSED, 'false');
       setCookie(PREF_SIDEBAR_COLLAPSED, 'false');
+      syncPreferences({ sidebarCollapsed: false });
       icon?.removeAttribute('weight');
     } else {
       layout.setAttribute('collapsed', '');
       localStorage.setItem(PREF_SIDEBAR_COLLAPSED, 'true');
       setCookie(PREF_SIDEBAR_COLLAPSED, 'true');
+      syncPreferences({ sidebarCollapsed: true });
       icon?.setAttribute('weight', 'fill');
     }
   });
@@ -157,6 +179,7 @@ function wireSidebar(layout: HTMLElement) {
         const json = JSON.stringify(states);
         localStorage.setItem(PREF_GROUP_STATES, json);
         setCookie(PREF_GROUP_STATES, json);
+        syncPreferences({ groupStates: states });
       }).observe(group, { attributes: true, attributeFilter: ['open'] });
     }
   }
@@ -193,6 +216,21 @@ function wireSidebar(layout: HTMLElement) {
   uiCommand?.addEventListener('native:change', ((e: CustomEvent) => {
     dialog!.close();
     navigate(e.detail.value);
+  }) as EventListener);
+
+  // ── User menu (sign-out + account navigation) ──
+
+  const userMenu = document.getElementById('user-menu');
+  const userListbox = userMenu?.querySelector('n-listbox');
+  userListbox?.addEventListener('native:change', (async (e: CustomEvent) => {
+    const value = e.detail.value;
+    if (value === 'sign-out') {
+      const { authClient } = await import('../lib/auth-client');
+      await authClient.signOut();
+      window.location.href = '/';
+    } else if (value) {
+      navigate(value);
+    }
   }) as EventListener);
 }
 
@@ -270,6 +308,7 @@ function setupPage() {
     document.documentElement.style.colorScheme = next;
     localStorage.setItem(PREF_COLOR_SCHEME, next);
     setCookie(PREF_COLOR_SCHEME, next);
+    syncPreferences({ colorScheme: next });
     if (themeToggle) {
       themeToggle.innerHTML = next === 'dark'
         ? '<n-icon name="sun" size="md"></n-icon>'
@@ -294,6 +333,7 @@ function setupPage() {
       const willShow = localStorage.getItem(PREF_SHOW_CODE) !== 'true';
       localStorage.setItem(PREF_SHOW_CODE, String(willShow));
       setCookie(PREF_SHOW_CODE, String(willShow));
+      syncPreferences({ showCode: willShow });
       const icon = codeToggle.querySelector('n-icon');
       if (icon) {
         if (willShow) icon.setAttribute('weight', 'fill');

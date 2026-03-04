@@ -48,9 +48,7 @@ const dirGroup: Record<string, string> = {
 const groupOrder = ['Components', 'Containers', 'Traits', 'Blocks', 'Core', 'Packages', 'Other'];
 
 // Group overrides for pages outside their natural directory
-const groupOverrides: Record<string, string> = {
-  '/signup': 'Blocks',
-};
+const groupOverrides: Record<string, string> = {};
 
 // Title overrides for pages where filename ≠ display title
 const titleOverrides: Record<string, string> = {
@@ -110,6 +108,9 @@ function buildSitemap(): PageEntry[] {
 
     // Skip index page (it's the landing page, not a doc page)
     if (relative === '/index') continue;
+
+    // Skip auth, account, and API pages (not doc pages)
+    if (relative.startsWith('/auth/') || relative.startsWith('/account/') || relative.startsWith('/api/')) continue;
 
     // Parse directory and slug
     const parts = relative.split('/').filter(Boolean); // ["components", "ui-button"]

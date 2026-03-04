@@ -1,0 +1,219 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Logo from '../../components/Logo.astro';
+
+if (Astro.locals.user) return Astro.redirect('/blocks/data-dashboard-stats');
+---
+<BaseLayout title="Create Account">
+  <style is:global>
+    @import '../../styles/layout.css';
+
+    .auth-screen {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100dvh;
+      padding: 2rem;
+    }
+
+    .auth-card-wrapper {
+      width: 100%;
+      max-width: 26rem;
+    }
+
+    .auth-card {
+      padding: 2.25rem;
+    }
+
+    .auth-card n-field {
+      gap: calc(var(--n-space) * 2);
+    }
+
+    .auth-logo {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .auth-heading {
+      text-align: center;
+      margin-bottom: 0.25rem;
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .auth-subheading {
+      text-align: center;
+      color: var(--n-ink-muted-neutral);
+      font-size: 0.875rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .auth-footer-text {
+      text-align: center;
+      font-size: 0.8125rem;
+      color: var(--n-ink-muted-neutral);
+      margin-top: 1.5rem;
+    }
+
+    .auth-footer-text a {
+      color: var(--n-ink-accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .auth-footer-text a:hover {
+      text-decoration: underline;
+    }
+
+    .oauth-row {
+      display: flex;
+      gap: calc(var(--n-space) * 3);
+    }
+
+    .oauth-row > * {
+      flex: 1;
+    }
+
+    .auth-error {
+      font-size: 0.8125rem;
+      color: var(--n-ink-danger);
+      text-align: center;
+      margin-bottom: 0.75rem;
+      display: none;
+    }
+
+    .auth-error[visible] {
+      display: block;
+    }
+
+    .auth-legal {
+      position: fixed;
+      bottom: 1.5rem;
+      text-align: center;
+      font-size: 0.6875rem;
+      color: var(--n-ink-muted-neutral);
+      opacity: 0.6;
+    }
+
+    .auth-legal a {
+      color: inherit;
+      text-decoration: underline;
+      text-decoration-color: var(--n-border-muted-neutral);
+      text-underline-offset: 2px;
+    }
+
+    .auth-legal a:hover {
+      color: var(--n-ink-neutral);
+    }
+  </style>
+
+  <main class="auth-screen">
+    <div class="auth-card-wrapper">
+      <div class="auth-logo">
+        <Logo size={40} />
+      </div>
+      <p class="auth-heading">Create your account</p>
+      <p class="auth-subheading">Get started with NativeUI for free</p>
+
+      <p class="auth-error" id="auth-error"></p>
+
+      <div class="auth-card">
+        <n-card>
+          <n-stack gap="8">
+            <form id="register-form">
+              <n-stack gap="6">
+                <n-field required>
+                  <label slot="label">Full name</label>
+                  <n-input placeholder="Kim Granlund" name="name">
+                    <n-icon name="user" slot="leading"></n-icon>
+                  </n-input>
+                </n-field>
+                <n-field required>
+                  <label slot="label">Email</label>
+                  <n-input type="email" placeholder="kim@example.com" name="email">
+                    <n-icon name="envelope" slot="leading"></n-icon>
+                  </n-input>
+                </n-field>
+                <n-field required>
+                  <label slot="label">Password</label>
+                  <n-input type="password" placeholder="At least 8 characters" name="password">
+                    <n-icon name="lock" slot="leading"></n-icon>
+                  </n-input>
+                </n-field>
+                <n-button variant="primary" intent="accent" type="submit" id="register-submit">
+                  <span slot="label">Create account</span>
+                </n-button>
+              </n-stack>
+            </form>
+            <n-divider>or continue with</n-divider>
+            <div class="oauth-row">
+              <n-button id="google-register">
+                <n-icon name="google-logo" slot="leading"></n-icon>
+                <span slot="label">Google</span>
+              </n-button>
+            </div>
+          </n-stack>
+        </n-card>
+      </div>
+      <p class="auth-footer-text">
+        Already have an account? <a href="/auth/login">Sign in</a>
+      </p>
+    </div>
+
+    <p class="auth-legal">
+      By continuing, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+    </p>
+  </main>
+
+  <script>
+    import { authClient } from '../../lib/auth-client';
+
+    document.addEventListener('astro:page-load', () => {
+      const form = document.getElementById('register-form');
+      const errorEl = document.getElementById('auth-error');
+      const googleBtn = document.getElementById('google-register');
+      if (!form) return;
+
+      function showError(msg) {
+        if (!errorEl) return;
+        errorEl.textContent = msg;
+        errorEl.setAttribute('visible', '');
+      }
+
+      function hideError() {
+        errorEl?.removeAttribute('visible');
+      }
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        hideError();
+        const data = new FormData(form);
+        const name = data.get('name');
+        const email = data.get('email');
+        const password = data.get('password');
+
+        const result = await authClient.signUp.email({
+          name,
+          email,
+          password,
+        });
+
+        if (result.error) {
+          showError(result.error.message || 'Registration failed. Please try again.');
+        } else {
+          window.location.href = '/blocks/data-dashboard-stats';
+        }
+      });
+
+      googleBtn?.addEventListener('click', async () => {
+        hideError();
+        await authClient.signIn.social({
+          provider: 'google',
+          callbackURL: '/blocks/data-dashboard-stats',
+        });
+      });
+    });
+  </script>
+</BaseLayout>

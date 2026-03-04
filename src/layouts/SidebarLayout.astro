@@ -2,7 +2,7 @@
 import BaseLayout from './BaseLayout.astro';
 import Logo from '../components/Logo.astro';
 import { sitemap, type PageEntry, type BadgeKind } from '../data/pages';
-import { parsePreferences } from '../lib/preferences';
+import { loadPreferences } from '../lib/preferences';
 
 const badgeLabels: Record<BadgeKind, string> = { new: 'New', updated: 'Updated', recent: 'Recent' };
 const badgeIntents: Record<BadgeKind, string> = { new: 'danger', updated: 'accent', recent: 'warning' };
@@ -14,7 +14,8 @@ interface Props {
 const { title, panels = ['inspector', 'chat'] } = Astro.props;
 const showInspector = panels.includes('inspector');
 const showChat = panels.includes('chat');
-const prefs = parsePreferences(Astro.cookies);
+const prefs = await loadPreferences(Astro.locals, Astro.cookies);
+const user = Astro.locals.user;
 
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 const currentEntry = sitemap.find(e => e.path === currentPath);
@@ -43,7 +44,7 @@ const groupIcons: Record<string, string> = {
     @import '@nonoun/native-tokens/css';
   </style>
 
-  <native-app id="layout-sidebar" collapsed={prefs.sidebarCollapsed ? '' : undefined}>
+  <native-app id="layout-sidebar" collapsed={prefs.sidebarCollapsed ? '' : undefined} data-authenticated={user ? '' : undefined}>
     <aside slot="sidebar" transition:animate="none">
       <n-sidebar-header>
         <n-sidebar-item>
@@ -102,23 +103,27 @@ const groupIcons: Record<string, string> = {
       </n-sidebar-content>
 
       <n-sidebar-footer>
-        <n-sidebar-item>
-          <span slot="icon"><n-icon name="user-circle"></n-icon></span>
-          <span slot="label">User</span>
-          <n-icon name="caret-up-down" slot="trailing"></n-icon>
-          <n-listbox popover="manual">
-            <n-option-group>
-              <n-option-group-header>Account</n-option-group-header>
-              <n-option value="upgrade"><n-icon name="sparkle"></n-icon> Upgrade to Pro</n-option>
-              <n-option value="account"><n-icon name="gear"></n-icon> Account</n-option>
-              <n-option value="billing"><n-icon name="credit-card"></n-icon> Billing</n-option>
-              <n-option value="notifications"><n-icon name="bell"></n-icon> Notifications</n-option>
-            </n-option-group>
-            <n-option-group>
-              <n-option value="sign-out"><n-icon name="sign-out"></n-icon> Log out</n-option>
-            </n-option-group>
-          </n-listbox>
-        </n-sidebar-item>
+        {user ? (
+          <n-sidebar-item id="user-menu">
+            <span slot="icon"><n-icon name="user-circle"></n-icon></span>
+            <span slot="label">{user.name || user.email}</span>
+            <n-icon name="caret-up-down" slot="trailing"></n-icon>
+            <n-listbox popover="manual">
+              <n-option-group>
+                <n-option-group-header>Account</n-option-group-header>
+                <n-option value="/account/settings"><n-icon name="gear"></n-icon> Settings</n-option>
+              </n-option-group>
+              <n-option-group>
+                <n-option value="sign-out"><n-icon name="sign-out"></n-icon> Log out</n-option>
+              </n-option-group>
+            </n-listbox>
+          </n-sidebar-item>
+        ) : (
+          <n-sidebar-item>
+            <span slot="icon"><n-icon name="sign-in"></n-icon></span>
+            <a href="/auth/login" slot="label" style="text-decoration:none;color:inherit">Sign In</a>
+          </n-sidebar-item>
+        )}
       </n-sidebar-footer>
     </aside>
 

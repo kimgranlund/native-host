@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Logo from '../components/Logo.astro';
+
+if (Astro.locals.user) return Astro.redirect('/blocks/data-dashboard-stats');
 ---
 <BaseLayout title="Log In">
   <style is:global>
@@ -16,22 +18,26 @@ import Logo from '../components/Logo.astro';
       <p class="login-subheading">Choose a method to continue</p>
 
       <n-stack gap="3" class="login-buttons">
-        <n-button variant="primary" intent="accent" size="lg">
+        <n-button variant="primary" intent="accent" size="lg" id="google-login">
+          <n-icon name="google-logo" slot="leading"></n-icon>
           <span slot="label">Continue with Google</span>
         </n-button>
-        <n-button size="lg">
+        <n-button size="lg" id="email-login">
+          <n-icon name="envelope" slot="leading"></n-icon>
           <span slot="label">Continue with email</span>
-        </n-button>
-        <n-button size="lg">
-          <span slot="label">Continue with SAML SSO</span>
-        </n-button>
-        <n-button size="lg">
-          <span slot="label">Log in with passkey</span>
         </n-button>
       </n-stack>
 
+      <div class="login-divider-wrap">
+        <n-divider>or</n-divider>
+      </div>
+
+      <n-button size="lg" id="skip-login" class="login-skip">
+        <span slot="label">Skip</span>
+      </n-button>
+
       <p class="login-footer">
-        Don't have an account? <a href="/signup">Sign up</a> or <a href="#">learn more</a>
+        Don't have an account? <a href="/auth/register">Sign up</a>
       </p>
     </div>
 
@@ -41,14 +47,29 @@ import Logo from '../components/Logo.astro';
   </main>
 
   <script>
+    import { authClient } from '../lib/auth-client';
     import { navigate } from 'astro:transitions/client';
 
     document.addEventListener('astro:page-load', () => {
-      for (const btn of document.querySelectorAll('.login-buttons n-button')) {
-        btn.addEventListener('click', () => {
-          navigate('/blocks/data-dashboard-stats');
+      const googleBtn = document.getElementById('google-login');
+      const emailBtn = document.getElementById('email-login');
+      const skipBtn = document.getElementById('skip-login');
+      if (!googleBtn) return;
+
+      googleBtn.addEventListener('click', async () => {
+        await authClient.signIn.social({
+          provider: 'google',
+          callbackURL: '/blocks/data-dashboard-stats',
         });
-      }
+      });
+
+      emailBtn?.addEventListener('click', () => {
+        navigate('/auth/login');
+      });
+
+      skipBtn?.addEventListener('click', () => {
+        navigate('/blocks/data-dashboard-stats');
+      });
     });
   </script>
 
@@ -102,6 +123,14 @@ import Logo from '../components/Logo.astro';
 
     .login-footer a:hover {
       text-decoration: underline;
+    }
+
+    .login-divider-wrap {
+      margin: 1.25rem 0;
+    }
+
+    .login-skip {
+      width: 100%;
     }
 
     .login-legal {

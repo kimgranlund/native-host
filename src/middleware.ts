@@ -1,12 +1,27 @@
 import { defineMiddleware } from 'astro:middleware';
+import { auth } from './lib/auth';
 
-export const onRequest = defineMiddleware(async (_context, next) => {
+export const onRequest = defineMiddleware(async (context, next) => {
+  const isAuthed = await auth.api.getSession({
+    headers: context.request.headers,
+  });
+
+  if (isAuthed) {
+    context.locals.user = isAuthed.user;
+    context.locals.session = isAuthed.session;
+  } else {
+    context.locals.user = null;
+    context.locals.session = null;
+  }
+
   const response = await next();
 
-  // Cache at CDN edge for 1 hour, serve stale for 1 day while revalidating.
-  // Vary on Cookie so each preference combination gets its own cache entry.
-  response.headers.set('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
-  response.headers.set('Vary', 'Cookie');
+  if (context.locals.user) {
+    response.headers.set('Cache-Control', 'private, no-cache');
+  } else {
+    response.headers.set('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
+    response.headers.set('Vary', 'Cookie');
+  }
 
   return response;
 });

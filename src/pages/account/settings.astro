@@ -1,0 +1,277 @@
+---
+import SidebarLayout from '../../layouts/SidebarLayout.astro';
+
+if (!Astro.locals.user) return Astro.redirect('/auth/login');
+
+const user = Astro.locals.user;
+---
+<SidebarLayout title="Account Settings" panels={[]}>
+  <main>
+    <h1>Account Settings</h1>
+
+    <div class="settings-container">
+      <n-stack gap="6">
+
+        <!-- ── Profile Section ── -->
+
+        <n-section>
+          <span slot="heading">Profile</span>
+          <span slot="description">Your account information.</span>
+
+          <p class="settings-status" id="profile-status"></p>
+
+          <form id="profile-form">
+            <n-stack gap="6">
+              <n-field required>
+                <label slot="label">Display name</label>
+                <n-input placeholder="Your display name" value={user.name} name="name"></n-input>
+              </n-field>
+
+              <n-field>
+                <label slot="label">Email</label>
+                <n-input type="email" value={user.email} name="email" disabled>
+                  <n-icon name="envelope" slot="leading"></n-icon>
+                </n-input>
+                <span slot="description">Email cannot be changed.</span>
+              </n-field>
+
+              <div class="section-actions">
+                <n-button variant="primary" intent="accent" type="submit">
+                  <span slot="label">Save Profile</span>
+                </n-button>
+              </div>
+            </n-stack>
+          </form>
+        </n-section>
+
+        <!-- ── Security Section ── -->
+
+        <n-section divider>
+          <span slot="heading">Security</span>
+          <span slot="description">Update your password.</span>
+
+          <p class="settings-status" id="password-status"></p>
+
+          <form id="password-form">
+            <n-stack gap="6">
+              <n-field required>
+                <label slot="label">Current password</label>
+                <n-input type="password" placeholder="Enter current password" name="currentPassword">
+                  <n-icon name="lock" slot="leading"></n-icon>
+                </n-input>
+              </n-field>
+              <n-field required>
+                <label slot="label">New password</label>
+                <n-input type="password" placeholder="Enter new password" name="newPassword">
+                  <n-icon name="lock" slot="leading"></n-icon>
+                </n-input>
+                <span slot="description">Must be at least 8 characters.</span>
+              </n-field>
+              <div class="section-actions">
+                <n-button variant="primary" intent="accent" type="submit">
+                  <span slot="label">Update Password</span>
+                </n-button>
+              </div>
+            </n-stack>
+          </form>
+        </n-section>
+
+        <!-- ── Danger Zone ── -->
+
+        <n-section divider>
+          <span slot="heading">Danger Zone</span>
+
+          <div class="danger-zone">
+            <div class="danger-zone-row">
+              <div class="danger-zone-text">
+                <p class="danger-zone-heading">Delete account</p>
+                <p class="danger-zone-description">
+                  Permanently remove your account and all associated data. This action cannot be undone.
+                </p>
+              </div>
+              <n-button variant="primary" intent="danger" id="delete-account-btn">
+                <n-icon name="trash" slot="leading"></n-icon>
+                <span slot="label">Delete Account</span>
+              </n-button>
+            </div>
+          </div>
+        </n-section>
+
+      </n-stack>
+    </div>
+  </main>
+
+  <n-dialog id="delete-confirm-dialog">
+    <div class="delete-confirm-wrap">
+      <n-card>
+        <n-header>
+          <n-icon name="warning" slot="leading"></n-icon>
+          Delete Account
+        </n-header>
+        <n-body>
+          <p>Are you sure you want to delete your account? This action is permanent and cannot be undone.</p>
+        </n-body>
+        <n-footer>
+          <n-button id="delete-cancel">
+            <span slot="label">Cancel</span>
+          </n-button>
+          <n-button variant="primary" intent="danger" id="delete-confirm">
+            <span slot="label">Delete Account</span>
+          </n-button>
+        </n-footer>
+      </n-card>
+    </div>
+  </n-dialog>
+
+  <script>
+    import { authClient } from '../../lib/auth-client';
+
+    document.addEventListener('astro:page-load', () => {
+      const profileForm = document.getElementById('profile-form');
+      const passwordForm = document.getElementById('password-form');
+      const deleteBtn = document.getElementById('delete-account-btn');
+      if (!profileForm) return;
+
+      function showStatus(id, msg, isError) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.textContent = msg;
+        el.setAttribute('visible', '');
+        if (isError) el.setAttribute('data-error', '');
+        else el.removeAttribute('data-error');
+        setTimeout(() => el.removeAttribute('visible'), 3000);
+      }
+
+      // Profile update
+      profileForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const data = new FormData(profileForm);
+        const name = data.get('name');
+
+        const result = await authClient.updateUser({ name });
+
+        if (result.error) {
+          showStatus('profile-status', result.error.message || 'Update failed.', true);
+        } else {
+          showStatus('profile-status', 'Profile updated successfully.', false);
+        }
+      });
+
+      // Password update
+      passwordForm?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const data = new FormData(passwordForm);
+        const currentPassword = data.get('currentPassword');
+        const newPassword = data.get('newPassword');
+
+        const result = await authClient.changePassword({
+          currentPassword,
+          newPassword,
+        });
+
+        if (result.error) {
+          showStatus('password-status', result.error.message || 'Password update failed.', true);
+        } else {
+          showStatus('password-status', 'Password updated successfully.', false);
+          passwordForm.reset();
+        }
+      });
+
+      // Delete account
+      const dialog = document.getElementById('delete-confirm-dialog');
+      const cancelBtn = document.getElementById('delete-cancel');
+      const confirmBtn = document.getElementById('delete-confirm');
+
+      deleteBtn?.addEventListener('click', () => {
+        dialog?.showModal();
+      });
+
+      cancelBtn?.addEventListener('click', () => {
+        dialog?.close();
+      });
+
+      confirmBtn?.addEventListener('click', async () => {
+        const result = await authClient.deleteUser();
+        if (result.error) {
+          dialog?.close();
+          showStatus('profile-status', result.error.message || 'Delete failed.', true);
+        } else {
+          window.location.href = '/';
+        }
+      });
+    });
+  </script>
+
+  <style is:global>
+    .settings-container {
+      max-width: 44rem;
+    }
+
+    .settings-container n-field {
+      gap: calc(var(--n-space) * 2);
+    }
+
+    .section-actions {
+      display: flex;
+      justify-content: flex-end;
+      padding-top: calc(var(--n-space) * 4);
+    }
+
+    .settings-status {
+      font-size: 0.8125rem;
+      margin-bottom: 0.75rem;
+      display: none;
+      color: var(--n-ink-success);
+    }
+
+    .settings-status[visible] {
+      display: block;
+    }
+
+    .settings-status[data-error] {
+      color: var(--n-ink-danger);
+    }
+
+    .danger-zone {
+      background: var(--n-panel-danger);
+      border: 1px solid var(--n-border-muted-danger);
+      border-radius: var(--n-radius);
+      padding: calc(var(--n-space-k) * var(--n-space));
+    }
+
+    .danger-zone-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: calc(var(--n-space) * 4);
+      flex-wrap: wrap;
+    }
+
+    .danger-zone-text {
+      flex: 1;
+      min-width: 12rem;
+    }
+
+    .danger-zone-heading {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--n-ink-strong-danger);
+      margin: 0;
+    }
+
+    .danger-zone-description {
+      font-size: 0.75rem;
+      color: var(--n-ink-muted-danger);
+      margin: calc(var(--n-space) * 1) 0 0;
+    }
+
+    .delete-confirm-wrap {
+      width: min(400px, 90vw);
+      margin-top: 120px;
+    }
+
+    #delete-confirm-dialog > dialog {
+      place-items: start center;
+    }
+  </style>
+</SidebarLayout>

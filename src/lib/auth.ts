@@ -1,0 +1,19 @@
+import { betterAuth } from 'better-auth';
+import { drizzleAdapter } from 'better-auth/adapters/drizzle';
+import { db } from '../db/client';
+
+const googleId = import.meta.env.GOOGLE_CLIENT_ID;
+const googleSecret = import.meta.env.GOOGLE_CLIENT_SECRET;
+
+export const auth = betterAuth({
+  baseURL: import.meta.env.BETTER_AUTH_URL || 'http://localhost:4321',
+  secret: import.meta.env.BETTER_AUTH_SECRET,
+  database: drizzleAdapter(db, { provider: 'sqlite' }),
+  emailAndPassword: { enabled: true },
+  socialProviders: googleId && googleSecret
+    ? { google: { clientId: googleId, clientSecret: googleSecret } }
+    : {},
+  session: {
+    cookieCache: { enabled: true, maxAge: 300 },
+  },
+});

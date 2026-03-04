@@ -31,3 +31,33 @@ export function parsePreferences(cookies: {
 
   return { colorScheme, sidebarCollapsed, groupStates, showCode };
 }
+
+/**
+ * Load preferences — DB for authenticated users, cookies for anonymous.
+ * Falls back to cookie prefs if DB row doesn't exist yet.
+ */
+export async function loadPreferences(
+  locals: App.Locals,
+  cookies: { get(name: string): { value: string } | undefined },
+): Promise<Preferences> {
+  const cookiePrefs = parsePreferences(cookies);
+
+  if (!locals.user) return cookiePrefs;
+
+  // Lazy import to avoid pulling DB into client bundles
+  const { db } = await import('../db/client');
+  const { userPreferences } = await import('../db/schema');
+  const { eq } = await import('drizzle-orm');
+
+  const rows = await db.select().from(userPreferences).where(eq(userPreferences.userId, locals.user.id));
+  const row = rows[0];
+
+  if (!row) return cookiePrefs;
+
+  return {
+    colorScheme: row.colorScheme ?? cookiePrefs.colorScheme,
+    sidebarCollapsed: row.sidebarCollapsed ?? cookiePrefs.sidebarCollapsed,
+    groupStates: row.groupStates ? JSON.parse(row.groupStates) : cookiePrefs.groupStates,
+    showCode: row.showCode ?? cookiePrefs.showCode,
+  };
+}
