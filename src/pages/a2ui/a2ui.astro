@@ -16,7 +16,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         Send A2UI server messages to the adapter. Pick a preset or write raw JSON. The adapter converts the flat component list to a UINode tree and renders via PlanExecutor.
       </n-text>
       <h3>General</h3>
-      <n-stack direction="row" wrap align="center">
+      <n-grid cols="3">
         <n-button size="sm" id="preset-hello">
           <span slot="label">Hello World</span>
         </n-button>
@@ -35,9 +35,9 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         <n-button size="sm" id="preset-data">
           <span slot="label">Data Binding</span>
         </n-button>
-      </n-stack>
+      </n-grid>
       <h3>Interactive</h3>
-      <n-stack direction="row" wrap align="center">
+      <n-grid cols="3">
         <n-button size="sm" id="preset-streaming">
           <span slot="label">Streaming</span>
         </n-button>
@@ -56,9 +56,9 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         <n-button size="sm" id="preset-toggle-settings">
           <span slot="label">Settings Panel</span>
         </n-button>
-      </n-stack>
+      </n-grid>
       <h3>Clinical / Diagnostic</h3>
-      <n-stack direction="row" wrap align="center">
+      <n-grid cols="3">
         <n-button size="sm" id="preset-lab-results">
           <span slot="label">Lab Results</span>
         </n-button>
@@ -83,9 +83,9 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         <n-button size="sm" id="preset-care-plan">
           <span slot="label">Care Plan</span>
         </n-button>
-      </n-stack>
+      </n-grid>
       <h3 hidden>Travel</h3>
-      <n-stack direction="row" wrap align="center" hidden>
+      <n-grid cols="3" hidden>
         <n-button size="sm" id="preset-restaurant">
           <span slot="label">Restaurant Menu</span>
         </n-button>
@@ -110,15 +110,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         <n-button size="sm" id="preset-local-guide">
           <span slot="label">Local Guide</span>
         </n-button>
-      </n-stack>
-      <n-stack direction="row" wrap align="center">
+      </n-grid>
+      <n-grid cols="3">
         <n-button size="sm" id="preset-clear">
           <span slot="label">Clear</span>
         </n-button>
-      </n-stack>
+      </n-grid>
       <h3>Raw JSON Message</h3>
       <n-textarea class="plan-input" id="message-input" rows="5" spellcheck="false"></n-textarea>
-      <n-stack direction="row" wrap align="center" style="margin-top: 0.75rem;">
+      <n-stack direction="row" wrap>
         <n-button size="sm" variant="primary" id="send-btn">
           <span slot="label">Send Message</span>
         </n-button>
@@ -140,7 +140,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       <n-text size="sm" muted spacing="regular">
         Convert Planner-generated UI plans to A2UI updateComponents format. This is the outbound path — our plans serialized as A2UI wire messages.
       </n-text>
-      <n-stack direction="row" wrap align="center">
+      <n-grid cols="3">
         <n-button size="sm" id="emit-form">
           <span slot="label">Emit Form</span>
         </n-button>
@@ -150,7 +150,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         <n-button size="sm" id="emit-card">
           <span slot="label">Emit Card</span>
         </n-button>
-      </n-stack>
+      </n-grid>
       <div class="log" id="emit-output" style="max-height: 16rem; white-space: pre-wrap; word-break: break-all;">Click an emit button to convert a Planner result to A2UI format...</div>
     </n-panel>
   </main>
