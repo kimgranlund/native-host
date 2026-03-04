@@ -11,16 +11,20 @@ Every page rendered through `SidebarLayout` can control which aside panels appea
 ```
 <n-app-canvas>
   <n-app-panel>                                        main content (always present)
+  <n-gripper for="inspector-panel" ...>                resize handle (auto-positioned)
   <native-tokens-panel aside id="inspector-panel">     inspector (optional)
+  <n-gripper for="chat-panel" ...>                     resize handle (auto-positioned)
   <native-chat-panel aside id="chat-panel">            chat (optional)
 </n-app-canvas>
 ```
 
 Key structural details:
 
-- **Aside panels use component-specific elements** from `@nonoun/native-tokens` and `@nonoun/native-chat`. Each panel extends `NativeElement` and stamps its own `<n-header>`, `<n-body>`, and (for chat) `<n-footer>` sub-containers internally during `setup()`. They also create their own popover-based `.layout-resize-handle`.
+- **Aside panels use component-specific elements** from `@nonoun/native-tokens` and `@nonoun/native-chat`. Each panel extends `NativeElement` and stamps its own `<n-header>`, `<n-body>`, and (for chat) `<n-footer>` sub-containers internally during `setup()`.
 
-- **Aside panels open/close via the `[aside]` / `[open]` attribute pattern** from native-ui's panel.css. Without `[open]`, panels are `display: none; width: 0`. With `[open]`, they become `display: flex; width: 360px`. The resize handle allows the user to drag between `280px` and `480px`.
+- **Resize handles use `<n-gripper>`** from native-ui. Each gripper uses Popover API (top-layer rendering) and CSS Anchor Positioning to auto-position on the target panel's start edge. No JS wiring needed — fully declarative via attributes (`mode`, `for`, `placement`, `min`, `max`, `reverse`).
+
+- **Aside panels open/close via the `[aside]` / `[open]` attribute pattern** from native-ui's panel.css. Without `[open]`, panels are `display: none; width: 0`. With `[open]`, they become `display: flex; width: 360px`. The `<n-gripper>` allows the user to drag between `280px` and `480px`.
 
 - **`n-app-panel` (without `aside`)** is used only for the main content panel. It is CSS-only -- native-app 0.3.x removed the JS class. The host registers a bare `HTMLElement` stub in `setup.ts` so `:not(:defined)` does not hide it:
 

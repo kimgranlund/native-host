@@ -146,15 +146,32 @@ Full-page demos. SidebarLayout with `panels={[]}` for full width.
 <SidebarLayout title="Auth Login" panels={[]}>
 ```
 
-### Pattern 3: Standalone page (index, signup)
+### Pattern 3: Auth page (login, register)
 
-Bypasses the sidebar. Uses BaseLayout directly. Must import `layout.css` manually if needed.
+Bypasses the sidebar. Uses BaseLayout directly. Wires forms to `authClient` methods.
 
 ```astro
 <BaseLayout title="Log In">
   <style is:global>@import '../styles/layout.css';</style>
-  ...
+  <!-- centered card with auth form -->
+  <script>
+    import { authClient } from '../lib/auth-client';
+    // Wire form to authClient.signIn.email() / signIn.social()
+  </script>
 </BaseLayout>
+```
+
+### Pattern 4: Account page (settings)
+
+SidebarLayout with `panels={[]}`. Requires authentication — redirects to `/auth/login` if anonymous.
+
+```astro
+---
+if (!Astro.locals.user) return Astro.redirect('/auth/login');
+---
+<SidebarLayout title="Account Settings" panels={[]}>
+  <!-- profile, password, danger zone sections -->
+</SidebarLayout>
 ```
 
 ## Script System
@@ -196,6 +213,10 @@ Loaded by SidebarLayout. Persists across navigations.
 - Wire inspector/chat panel toggles (WeakSet tracks wired panels)
 - Show/hide code toggle based on `.layout-code` presence
 - Wire copy-to-clipboard buttons
+
+**Auth-aware features:**
+- Debounced preference sync to `/api/preferences` when `data-authenticated` attribute is present
+- Sign-out handler calls `authClient.signOut()` then redirects to `/`
 
 ### Per-page `<script>` -- Page-specific interactivity
 
@@ -250,11 +271,12 @@ import.meta.glob('/src/pages/**/*.astro')
 
 ### Preference persistence
 
-Dual-write strategy for flash-free SSR:
+Triple-layer strategy for flash-free SSR with auth sync:
 
-1. **Client writes** `localStorage` + cookies (via `setCookie()` in `layout.ts`)
-2. **Server reads** `Astro.cookies` (via `parsePreferences()` in `preferences.ts`)
-3. **CDN** `Cache-Control: s-maxage=3600` + `Vary: Cookie` (via `middleware.ts`)
+1. **Client writes** `localStorage` + cookies (via `setCookie()` in `layout.ts`) — immediate, works for anonymous
+2. **Authenticated sync** debounced POST to `/api/preferences` (via `syncPreferences()` in `layout.ts`)
+3. **Server reads** `loadPreferences(locals, cookies)` — DB for authenticated, cookies for anonymous
+4. **CDN** authenticated → `private, no-cache`; anonymous → `s-maxage=3600` + `Vary: Cookie`
 
 | Key | Default |
 |---|---|
@@ -273,8 +295,13 @@ Dual-write strategy for flash-free SSR:
 | `src/scripts/icons.ts` | Phosphor icon registration (121 icons via `?raw` SVG imports) |
 | `src/scripts/layout.ts` | Shell interactivity: sidebar, theme, Cmd+K, panels, code toggle, copy, custom swap |
 | `src/data/pages.ts` | Page auto-discovery via `import.meta.glob`, builds `sitemap: PageEntry[]` |
-| `src/lib/preferences.ts` | Cookie keys + `parsePreferences()` for SSR |
-| `src/middleware.ts` | CDN caching headers |
+| `src/lib/auth.ts` | better-auth server config (Drizzle adapter, providers) |
+| `src/lib/auth-client.ts` | Client-side auth helper (`createAuthClient()`) |
+| `src/lib/preferences.ts` | Cookie keys, `parsePreferences()`, `loadPreferences()` (DB + cookie) |
+| `src/middleware.ts` | Session resolution + conditional CDN caching |
+| `src/pages/api/auth/[...all].ts` | better-auth catch-all API route |
+| `src/pages/api/preferences.ts` | User preferences CRUD (GET/POST, authenticated only) |
+| `src/env.d.ts` | `App.Locals` types (user, session) + env var types |
 | `src/components/Logo.astro` | NativeUI logo SVG with `size` prop |
 | `src/styles/layout.css` | App chrome styles |
 | `src/styles/layout-blocks.css` | Doc layout utilities (`.layout-*`) scoped under `n-app-panel` |

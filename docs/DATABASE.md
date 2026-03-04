@@ -18,11 +18,20 @@ Turso provides a globally-replicated SQLite database accessible over HTTP. Drizz
 
 ### Environment variables
 
-Two variables are required. Add them to `.env` (gitignored):
+Required variables. Add them to `.env` (gitignored):
 
 ```env
+# Database
 TURSO_URL=libsql://your-db-name-your-org.turso.io
 TURSO_AUTH_TOKEN=eyJhb...
+
+# Authentication (better-auth)
+BETTER_AUTH_SECRET=your-secret-key
+BETTER_AUTH_URL=https://your-domain.com
+
+# Google OAuth (optional — social login disabled if absent)
+GOOGLE_CLIENT_ID=your-google-client-id
+GOOGLE_CLIENT_SECRET=your-google-client-secret
 ```
 
 These are typed in `src/env.d.ts`:
@@ -31,27 +40,37 @@ These are typed in `src/env.d.ts`:
 interface ImportMetaEnv {
   readonly TURSO_URL: string;
   readonly TURSO_AUTH_TOKEN: string;
+  readonly BETTER_AUTH_SECRET: string;
+  readonly BETTER_AUTH_URL: string;
+  readonly GOOGLE_CLIENT_ID: string;
+  readonly GOOGLE_CLIENT_SECRET: string;
 }
 ```
 
 - In Astro server code, access via `import.meta.env.TURSO_URL`.
 - In `drizzle.config.ts`, access via `process.env.TURSO_URL` (runs in Node, not Vite).
-- On Vercel, set both variables in the project's environment settings.
+- On Vercel, set all variables in the project's environment settings.
 
 ## Schema
 
-Defined in `src/db/schema.ts`. Current tables:
+Defined in `src/db/schema.ts`. Tables are split into two groups:
 
-```ts
-import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core';
+### better-auth core tables
 
-export const users = sqliteTable('users', {
-  id: text('id').primaryKey(),
-  email: text('email').notNull().unique(),
-  name: text('name'),
-  createdAt: integer('created_at', { mode: 'timestamp' }).notNull().$defaultFn(() => new Date()),
-});
-```
+Managed by the `better-auth` library via its Drizzle adapter. Do not modify these directly — better-auth owns their structure.
+
+| Table | Purpose |
+|---|---|
+| `user` | User profiles (id, name, email, emailVerified, image, timestamps) |
+| `session` | Active sessions (token, expiresAt, ipAddress, userAgent, userId) |
+| `account` | OAuth provider credentials (accessToken, refreshToken, scope, password) |
+| `verification` | Email verification codes |
+
+### Application tables
+
+| Table | Purpose |
+|---|---|
+| `userPreferences` | Per-user UI preferences (colorScheme, sidebarCollapsed, groupStates, showCode). Primary key is `userId` with cascade delete referencing `user.id`. |
 
 ### Adding a table
 
@@ -106,6 +125,14 @@ export default defineConfig({
 });
 ```
 
+## Authentication
+
+The database is the backend for `better-auth`. See `src/lib/auth.ts` for the server-side config. The auth system uses the Drizzle adapter to manage user/session/account data automatically.
+
+Key points:
+- **Do not query user/session tables directly** — use `auth.api.getSession()` (server) or `authClient` (client).
+- The `userPreferences` table is queried directly via Drizzle in `src/lib/preferences.ts` and `src/pages/api/preferences.ts`.
+
 ## Usage in Pages
 
 Import `db` in the Astro frontmatter (server-only). Never import it inside a `<script>` tag -- that runs on the client and has no access to server env vars or the database.
@@ -114,29 +141,25 @@ Import `db` in the Astro frontmatter (server-only). Never import it inside a `<s
 ---
 // src/pages/example.astro
 import { db } from '../db/client';
-import { users } from '../db/schema';
+import { user, userPreferences } from '../db/schema';
 import { eq } from 'drizzle-orm';
 
-// Select all users
-const allUsers = await db.select().from(users);
+// Select user by email
+const [u] = await db.select().from(user).where(eq(user.email, 'kim@example.com'));
 
-// Select by email
-const [user] = await db.select().from(users).where(eq(users.email, 'kim@example.com'));
+// Query preferences for a user
+const [prefs] = await db.select().from(userPreferences).where(eq(userPreferences.userId, userId));
 
-// Insert
-await db.insert(users).values({
-  id: crypto.randomUUID(),
-  email: 'new@example.com',
-  name: 'New User',
-});
-
-// Relational query (uses the schema passed to drizzle())
-const result = await db.query.users.findFirst({
-  where: eq(users.email, 'kim@example.com'),
-});
+// Upsert preferences
+await db.insert(userPreferences)
+  .values({ userId, colorScheme: 'dark', updatedAt: new Date() })
+  .onConflictDoUpdate({
+    target: userPreferences.userId,
+    set: { colorScheme: 'dark', updatedAt: new Date() },
+  });
 ---
 
-<p>{user?.name}</p>
+<p>{u?.name}</p>
 ```
 
 ### Rules
@@ -157,4 +180,5 @@ const result = await db.query.users.findFirst({
 
 ## See Also
 
-- SSR.md -- server-side rendering, middleware, and Vercel deployment context
+- `SSR.md` -- server-side rendering, middleware, auth session handling
+- `ARCHITECTURE.md` -- layout hierarchy, auth pages, script system

@@ -8,6 +8,78 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
       Version history for the NativeUI documentation site. Each release lists new features, updates, and breaking changes with links to relevant pages.
     </n-text>
 
+    <!-- ── 0.7.8 ── -->
+
+    <div class="changelog-version">
+      <h2>0.7.8 <span class="changelog-date">— March 2026</span></h2>
+
+      <div class="changelog-section">
+        <h3><n-badge size="xs" intent="danger">New</n-badge> New Features</h3>
+
+        <div class="changelog-entry">
+          <div class="changelog-entry-header">Authentication <span class="changelog-sep">::</span> Email/password + Google OAuth</div>
+          <ul>
+            <li>Powered by <code>better-auth</code> with Drizzle adapter on Turso</li>
+            <li>Functional <a href="/auth/login">login</a> and <a href="/auth/register">register</a> pages</li>
+            <li><a href="/account/settings">Account settings</a> — profile, password, and account deletion</li>
+            <li>Optional auth — anonymous browsing fully supported</li>
+          </ul>
+        </div>
+
+        <div class="changelog-entry">
+          <div class="changelog-entry-header">User-scoped preferences <span class="changelog-sep">::</span> DB-synced settings</div>
+          <ul>
+            <li>Theme, sidebar state, and nav group preferences follow the user across devices</li>
+            <li>Cookie-based fallback for anonymous users</li>
+            <li>Preferences auto-migrate from cookies on first login</li>
+          </ul>
+        </div>
+
+        <div class="changelog-entry">
+          <div class="changelog-entry-header">Resizable panels <span class="changelog-sep">::</span> Main content, inspector, and chat</div>
+          <ul>
+            <li>Drag handles between panels for custom layout widths</li>
+            <li>Panel sizes persist across page navigations</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="changelog-section">
+        <h3><n-badge size="xs" intent="accent">Updated</n-badge> Updates</h3>
+
+        <div class="changelog-entry">
+          <div class="changelog-entry-header">Ecosystem upgrade <span class="changelog-sep">::</span> <code>native-ui@0.7.8</code>, <code>native-app@0.3.5</code>, <code>native-chat@0.5.2</code>, <code>native-a2ui@0.1.5</code></div>
+        </div>
+
+        <div class="changelog-entry">
+          <div class="changelog-entry-header">Sidebar footer <span class="changelog-sep">::</span> Auth-aware user menu</div>
+          <ul>
+            <li>Shows user avatar and name when authenticated</li>
+            <li>Account settings and sign-out in dropdown</li>
+          </ul>
+        </div>
+
+        <div class="changelog-entry">
+          <div class="changelog-entry-header">Rule #9 <span class="changelog-sep">::</span> No CSS classes on <code>n-*</code> elements</div>
+          <ul>
+            <li>Use <code>id</code>, <code>aria-label</code>, or contextual selectors instead</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="changelog-section">
+        <h3>Fixes</h3>
+
+        <div class="changelog-entry">
+          <div class="changelog-entry-header">Theme and code toggles <span class="changelog-sep">::</span> Broken after client-side navigation</div>
+        </div>
+
+        <div class="changelog-entry">
+          <div class="changelog-entry-header">Invisible buttons <span class="changelog-sep">::</span> Added <code>better-auth/client</code> to Vite <code>optimizeDeps</code></div>
+        </div>
+      </div>
+    </div>
+
     <!-- ── 0.7.5 ── -->
 
     <div class="changelog-version">

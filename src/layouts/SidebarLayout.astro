@@ -12,8 +12,7 @@ interface Props {
   panels?: ('inspector' | 'chat')[];
 }
 const { title, panels = ['inspector', 'chat'] } = Astro.props;
-const showInspector = panels.includes('inspector');
-const showChat = panels.includes('chat');
+const inspectorEnabled = panels.includes('inspector');
 const prefs = await loadPreferences(Astro.locals, Astro.cookies);
 const user = Astro.locals.user;
 
@@ -44,8 +43,8 @@ const groupIcons: Record<string, string> = {
     @import '@nonoun/native-tokens/css';
   </style>
 
-  <native-app id="layout-sidebar" collapsed={prefs.sidebarCollapsed ? '' : undefined} data-authenticated={user ? '' : undefined}>
-    <aside slot="sidebar" transition:animate="none">
+  <native-app id="layout-sidebar" collapsed={prefs.sidebarCollapsed ? '' : undefined} data-authenticated={user ? '' : undefined} style={prefs.sidebarWidth ? `--n-sidebar-width: ${prefs.sidebarWidth}` : undefined}>
+    <n-sidebar slot="sidebar" transition:animate="none" style={!prefs.sidebarCollapsed && prefs.sidebarWidth ? `width: ${prefs.sidebarWidth}` : undefined}>
       <n-sidebar-header>
         <n-sidebar-item>
           <span class="nav-logo" slot="icon"><Logo /></span>
@@ -105,7 +104,11 @@ const groupIcons: Record<string, string> = {
       <n-sidebar-footer>
         {user ? (
           <n-sidebar-item id="user-menu">
-            <span slot="icon"><n-icon name="user-circle"></n-icon></span>
+            <span slot="icon">
+              {user.image
+                ? <n-avatar src={user.image} size="xs"></n-avatar>
+                : <n-icon name="user-circle"></n-icon>}
+            </span>
             <span slot="label">{user.name || user.email}</span>
             <n-icon name="caret-up-down" slot="trailing"></n-icon>
             <n-listbox popover="manual">
@@ -120,12 +123,13 @@ const groupIcons: Record<string, string> = {
           </n-sidebar-item>
         ) : (
           <n-sidebar-item>
-            <span slot="icon"><n-icon name="sign-in"></n-icon></span>
-            <a href="/auth/login" slot="label" style="text-decoration:none;color:inherit">Sign In</a>
+            <span slot="icon"><n-icon name="user-circle"></n-icon></span>
+            <a href="/" slot="label" style="text-decoration:none;color:inherit">Sign In</a>
           </n-sidebar-item>
         )}
       </n-sidebar-footer>
-    </aside>
+      <div class="layout-resize-handle"></div>
+    </n-sidebar>
 
     <div>
       <n-app-breadcrumb>
@@ -151,17 +155,13 @@ const groupIcons: Record<string, string> = {
         </n-breadcrumb>
 
         <div slot="trailing" style="display:flex;align-items:center;gap:0.125rem">
-          {showInspector && (
-            <n-button variant="ghost" size="sm" aria-label="Toggle inspector" id="inspector-toggle">
-              <n-icon name="sliders-horizontal" size="md"></n-icon>
-            </n-button>
-          )}
-          {showChat && (
-            <n-button variant="ghost" size="sm" aria-label="Toggle chat" id="chat-toggle">
-              <n-icon name="chat-dots" size="md"></n-icon>
-            </n-button>
-          )}
-          <n-button variant="ghost" size="sm" aria-label="Toggle source code" id="code-toggle" style="display:none">
+          <n-button variant="ghost" size="sm" aria-label="Toggle inspector" id="inspector-toggle" disabled={!inspectorEnabled ? '' : undefined}>
+            <n-icon name="sliders-horizontal" size="md"></n-icon>
+          </n-button>
+          <n-button variant="ghost" size="sm" aria-label="Toggle chat" id="chat-toggle">
+            <n-icon name="chat-dots" size="md"></n-icon>
+          </n-button>
+          <n-button variant="ghost" size="sm" aria-label="Toggle source code" id="code-toggle" disabled>
             <n-icon name="code" size="md"></n-icon>
           </n-button>
           <n-button variant="ghost" size="sm" aria-label="Toggle color scheme" id="theme-toggle">
@@ -173,22 +173,11 @@ const groupIcons: Record<string, string> = {
       <n-app-canvas>
         <n-app-panel transition:animate="fade">
           <slot />
-          <div class="layout-resize-handle" data-edge="right"></div>
         </n-app-panel>
-        {showInspector && (
-          <slot name="inspector">
-            <native-tokens-panel aside id="inspector-panel">
-              <div class="layout-resize-handle"></div>
-            </native-tokens-panel>
-          </slot>
-        )}
-        {showChat && (
-          <slot name="chat">
-            <native-chat-panel aside id="chat-panel">
-              <div class="layout-resize-handle"></div>
-            </native-chat-panel>
-          </slot>
-        )}
+        <n-gripper mode="resize-horizontal" for="inspector-panel" placement="start" min="280" max="480" reverse></n-gripper>
+        <native-tokens-panel aside id="inspector-panel"></native-tokens-panel>
+        <n-gripper mode="resize-horizontal" for="chat-panel" placement="start" min="280" max="480" reverse></n-gripper>
+        <native-chat-panel aside id="chat-panel"></native-chat-panel>
       </n-app-canvas>
     </div>
   </native-app>

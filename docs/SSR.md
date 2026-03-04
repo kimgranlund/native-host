@@ -14,47 +14,57 @@ export default defineConfig({
 });
 ```
 
-SSR exists primarily for **preference persistence**. The server reads cookies, renders the correct `color-scheme`, sidebar collapsed state, and nav group open/closed states on the very first byte. Without SSR, the client would have to read `localStorage` after hydration and patch the DOM, causing visible flicker.
+SSR serves two purposes: **authentication** (session validation via `better-auth`) and **preference persistence** (reading cookies/DB to render correct theme, sidebar state, nav groups on first byte). Without SSR, the client would have to read `localStorage` after hydration and patch the DOM, causing visible flicker.
+
+## Authentication
+
+Session validation is handled by `better-auth` in the middleware. See `DATABASE.md` for schema details.
+
+### Middleware session resolution
+
+The middleware (`src/middleware.ts`) resolves the user session on every request before any page renders:
+
+```typescript
+// Simplified — see src/middleware.ts for full implementation
+const session = await auth.api.getSession({ headers: context.request.headers });
+context.locals.user = session?.user ?? null;
+context.locals.session = session?.session ?? null;
+```
+
+`Astro.locals.user` and `Astro.locals.session` are available in all page frontmatter and API routes.
+
+### Auth pages
+
+| Page | Layout | Purpose |
+|---|---|---|
+| `/auth/login` | BaseLayout | Email/password + Google OAuth sign-in |
+| `/auth/register` | BaseLayout | Registration form + Google OAuth |
+| `/account/settings` | SidebarLayout | Profile, password change, account deletion |
+| `/` (index) | BaseLayout | Landing with Google/email/Skip buttons |
+
+Auth pages redirect authenticated users away. `/account/settings` redirects unauthenticated users to `/auth/login`.
+
+### API routes
+
+| Route | Purpose |
+|---|---|
+| `/api/auth/[...all]` | Catch-all for better-auth endpoints (sign-in, sign-up, callback, etc.) |
+| `/api/preferences` | GET/POST user preferences (authenticated only) |
 
 ## Preference Persistence
 
 ### Server side
 
-Both `BaseLayout.astro` and `SidebarLayout.astro` call `parsePreferences(Astro.cookies)` in their frontmatter to read user preferences before rendering:
+`SidebarLayout.astro` calls `loadPreferences(Astro.locals, Astro.cookies)` which uses two sources:
+
+- **Authenticated users**: query `userPreferences` DB table, fall back to cookies if no row exists
+- **Anonymous users**: `parsePreferences(Astro.cookies)` — cookie-only (unchanged behavior)
 
 ```typescript
-// src/lib/preferences.ts
+// src/lib/preferences.ts — key exports
 
-export const PREF_COLOR_SCHEME = 'nav-color-scheme';
-export const PREF_SIDEBAR_COLLAPSED = 'nav-sidebar-collapsed';
-export const PREF_GROUP_STATES = 'nav-group-states';
-export const PREF_SHOW_CODE = 'demo-show-code';
-
-export interface Preferences {
-  colorScheme: string;
-  sidebarCollapsed: boolean;
-  groupStates: Record<string, boolean>;
-  showCode: boolean;
-}
-
-const DEFAULT_GROUP_STATES: Record<string, boolean> = { Components: true };
-
-export function parsePreferences(cookies: {
-  get(name: string): { value: string } | undefined;
-}): Preferences {
-  const colorScheme = cookies.get(PREF_COLOR_SCHEME)?.value || '';
-  const sidebarCollapsed = cookies.get(PREF_SIDEBAR_COLLAPSED)?.value === 'true';
-
-  let groupStates = DEFAULT_GROUP_STATES;
-  try {
-    const raw = cookies.get(PREF_GROUP_STATES)?.value;
-    if (raw) groupStates = JSON.parse(decodeURIComponent(raw));
-  } catch { /* use default */ }
-
-  const showCode = cookies.get(PREF_SHOW_CODE)?.value === 'true';
-
-  return { colorScheme, sidebarCollapsed, groupStates, showCode };
-}
+export function parsePreferences(cookies): Preferences;       // cookie-only
+export async function loadPreferences(locals, cookies): Preferences; // DB + cookie fallback
 ```
 
 The returned values drive server-rendered attributes:
@@ -68,7 +78,7 @@ The returned values drive server-rendered attributes:
 
 ### Client side
 
-Every preference change **dual-writes** to both `localStorage` and a cookie. This ensures the server sees the latest value on the next request while the client can also read it synchronously:
+Every preference change **dual-writes** to both `localStorage` and a cookie (immediate SSR + anonymous fallback). For authenticated users, changes are also synced to the server:
 
 ```typescript
 // src/scripts/layout.ts
@@ -78,37 +88,22 @@ function setCookie(name: string, value: string, days = 365) {
   document.cookie = `${name}=${encodeURIComponent(value)};path=/;expires=${expires};SameSite=Lax`;
 }
 
-// Example: theme toggle
-const next = isDark ? 'light' : 'dark';
-document.documentElement.style.colorScheme = next;
-localStorage.setItem(PREF_COLOR_SCHEME, next);
-setCookie(PREF_COLOR_SCHEME, next);
+// Authenticated sync — debounced POST to /api/preferences (500ms)
+function syncPreferences() { ... }
 ```
 
 Cookie configuration: 365-day expiry, `SameSite=Lax`, `path=/`.
 
+**Preference migration on first login**: when a user logs in and has no `userPreferences` row, the POST handler seeds from current cookie values.
+
 ## CDN Caching
 
-The middleware adds caching headers so Vercel's CDN can serve pre-rendered responses without hitting the origin on every request:
+The middleware sets caching headers based on authentication state:
 
-```typescript
-// src/middleware.ts
-import { defineMiddleware } from 'astro:middleware';
+- **Authenticated requests**: `Cache-Control: private, no-cache` — forces re-validation on every request (session-dependent content)
+- **Anonymous requests**: `Cache-Control: public, s-maxage=3600, stale-while-revalidate=86400` + `Vary: Cookie` — CDN caches for 1 hour, serves stale for up to 24 hours while revalidating
 
-export const onRequest = defineMiddleware(async (_context, next) => {
-  const response = await next();
-  response.headers.set(
-    'Cache-Control',
-    'public, s-maxage=3600, stale-while-revalidate=86400'
-  );
-  response.headers.set('Vary', 'Cookie');
-  return response;
-});
-```
-
-- **`s-maxage=3600`** -- CDN considers the response fresh for 1 hour.
-- **`stale-while-revalidate=86400`** -- For the next 24 hours after that, the CDN serves the stale response immediately while fetching a fresh one in the background.
-- **`Vary: Cookie`** -- Each unique cookie combination (i.e., each preference permutation) gets its own cache entry. A user with `nav-color-scheme=dark` and one with `nav-color-scheme=light` are cached separately.
+The `Vary: Cookie` header ensures each unique cookie combination gets its own cache entry, so different preference permutations are cached separately.
 
 ## View Transitions
 
@@ -260,11 +255,16 @@ document.addEventListener('astro:page-load', () => {
 
 | File | Role |
 |---|---|
-| `src/lib/preferences.ts` | Shared cookie key names, `Preferences` type, `parsePreferences()` |
-| `src/middleware.ts` | CDN caching headers (`Cache-Control`, `Vary: Cookie`) |
-| `src/scripts/layout.ts` | Custom swap handler, sidebar wiring, preference dual-write, per-page setup |
+| `src/lib/auth.ts` | better-auth server config (Drizzle adapter, providers, session caching) |
+| `src/lib/auth-client.ts` | Client-side auth helper (`createAuthClient()`) |
+| `src/lib/preferences.ts` | Cookie keys, `parsePreferences()`, `loadPreferences()` (DB + cookie) |
+| `src/middleware.ts` | Session resolution + conditional CDN caching |
+| `src/pages/api/auth/[...all].ts` | better-auth catch-all API route |
+| `src/pages/api/preferences.ts` | User preferences CRUD (GET/POST) |
+| `src/scripts/layout.ts` | Custom swap, sidebar, preference dual-write + auth sync, sign-out |
 | `src/layouts/BaseLayout.astro` | `<ClientRouter />`, SSR preference reading, HTML shell |
-| `src/layouts/SidebarLayout.astro` | SSR preference-driven attributes, sidebar nav, panel layout |
+| `src/layouts/SidebarLayout.astro` | SSR preferences, auth-aware sidebar footer, panel layout |
+| `src/env.d.ts` | `App.Locals` types (user, session) + env var types |
 | `astro.config.mjs` | `output: 'server'` + `@astrojs/vercel` adapter |
 
 ## See Also

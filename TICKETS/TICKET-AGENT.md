@@ -6,12 +6,17 @@ Each agent reads this file at session start, processes tickets addressed to it, 
 
 ## Open
 
-No open tickets.
+| Status | File | Title | From | To |
+|--------|------|-------|------|----|
 
-## Closed (T0001–T0088)
+## Closed (T0001–T0092)
 
 | Status | File | Title | From | To |
 |--------|------|-------|------|----|
+| **fixed** | T0090-manipulate-handle-component.md | `<n-manipulate-handle>` component — Popover + Anchor-based manipulation handles | host | native-ui |
+| **done** | T0092-upgrade-native-chat-0.5.6.md | Upgrade all packages to latest — native-ui 0.7.12, native-chat 0.5.7, native-a2ui 0.1.9, + 5 sub-packages | native-ui | host |
+| **done** | T0091-upgrade-native-a2ui-0.1.6.md | Upgrade to `@nonoun/native-a2ui@0.1.9` — stale dist artifact fix | native-ui | host |
+| **done** | T0089-upgrade-native-chat-0.5.3.md | Upgrade to `@nonoun/native-chat@0.5.3` — grid layout fix for message action toolbars | native-ui | host |
 | **info** | T0088-a2ui-workbench-features-checklist.md | A2UI Workbench — Feature Checklist (`@nonoun/native-a2ui@0.1.5`) | native-ui | host |
 | **done** | T0087-upgrade-native-ui-0.7.8.md | Upgrade to `@nonoun/native-ui@0.7.8` + `@nonoun/native-a2ui@0.1.5` + `@nonoun/native-chat@0.5.2` | native-ui | host |
 | **fixed** | T0086-no-redundant-class-handles.md | Eliminate redundant class handles on stamped elements — use semantic selectors | host | native-ui |

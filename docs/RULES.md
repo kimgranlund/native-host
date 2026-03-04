@@ -119,7 +119,11 @@ To file a new ticket: create `T{next}-{slug}.md` and add a row to `TICKET-AGENT.
 | `src/data/pages.ts` | Auto-discovers `.astro` pages via `import.meta.glob` for nav |
 | `src/styles/layout.css` | App-specific sidebar/chrome styles |
 | `src/styles/layout-blocks.css` | Documentation layout utilities (`.layout-section`, `.layout-row`, etc.) |
-| `src/lib/preferences.ts` | Cookie parsing for SSR preference persistence |
+| `src/lib/auth.ts` | better-auth server config (Drizzle adapter, providers) |
+| `src/lib/auth-client.ts` | Client-side auth helper (`createAuthClient()`) |
+| `src/lib/preferences.ts` | Cookie parsing + DB preference loading |
+| `src/pages/api/auth/[...all].ts` | better-auth catch-all API route |
+| `src/pages/api/preferences.ts` | User preferences CRUD (authenticated only) |
 
 ## See Also
 

@@ -13,6 +13,13 @@ export const auth = betterAuth({
   socialProviders: googleId && googleSecret
     ? { google: { clientId: googleId, clientSecret: googleSecret } }
     : {},
+  account: {
+    accountLinking: {
+      enabled: true,
+      trustedProviders: ['google'],
+      updateUserInfoOnLink: true,
+    },
+  },
   session: {
     cookieCache: { enabled: true, maxAge: 300 },
   },

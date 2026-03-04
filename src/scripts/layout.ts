@@ -9,10 +9,10 @@
 // astro:page-load.
 
 import { navigate, swapFunctions } from 'astro:transitions/client';
-import { ResizeController } from '@nonoun/native-ui';
 import {
   PREF_COLOR_SCHEME,
   PREF_SIDEBAR_COLLAPSED,
+  PREF_SIDEBAR_WIDTH,
   PREF_GROUP_STATES,
   PREF_SHOW_CODE,
 } from '../lib/preferences';
@@ -78,28 +78,15 @@ document.addEventListener('astro:before-swap', ((e: any) => {
     swapFunctions.swapHeadElements(e.newDocument);
     const restore = swapFunctions.saveFocus();
 
-    // Compare aside panel config between current and incoming pages
+    // Swap only the main content panel — aside panels are always present and persist
     const currentCanvas = currentSidebar.querySelector(':scope > div > n-app-canvas');
     const newCanvas = newSidebar.querySelector(':scope > div > n-app-canvas');
-    const currentAsides = currentCanvas?.querySelectorAll(':scope > [aside]').length ?? 0;
-    const newAsides = newCanvas?.querySelectorAll(':scope > [aside]').length ?? 0;
-
-    if (currentAsides !== newAsides && currentCanvas && newCanvas) {
-      // Panel config changed — swap entire canvas so panels appear/disappear
-      const adopted = document.adoptNode(newCanvas);
-      currentCanvas.replaceWith(adopted);
-      // WHY: Elements adopted from DOMParser documents may not auto-upgrade
-      // when connected via replaceWith. Force CE upgrade on the subtree.
+    const currentPanel = currentCanvas?.querySelector('n-app-panel:not([aside])');
+    const newPanel = newCanvas?.querySelector('n-app-panel:not([aside])');
+    if (currentPanel && newPanel) {
+      const adopted = document.adoptNode(newPanel);
+      currentPanel.replaceWith(adopted);
       customElements.upgrade(adopted);
-    } else {
-      // Same panel structure — swap only the main content panel
-      const currentPanel = currentCanvas?.querySelector('n-app-panel:not([aside])');
-      const newPanel = newCanvas?.querySelector('n-app-panel:not([aside])');
-      if (currentPanel && newPanel) {
-        const adopted = document.adoptNode(newPanel);
-        currentPanel.replaceWith(adopted);
-        customElements.upgrade(adopted);
-      }
     }
 
     // Swap breadcrumb trailing buttons (panel toggles may differ)
@@ -144,21 +131,39 @@ function wireSidebar(layout: HTMLElement) {
   // ── Sidebar collapse toggle ──
 
   const sidebarToggle = document.getElementById('sidebar-toggle');
+  const sidebar = layout.querySelector(':scope > [slot="sidebar"]') as HTMLElement | null;
+
   sidebarToggle?.addEventListener('click', () => {
     const collapsed = layout.hasAttribute('collapsed');
     const icon = sidebarToggle.querySelector('n-icon');
     if (collapsed) {
       layout.removeAttribute('collapsed');
+      // Restore saved width so sidebar doesn't snap to default
+      const w = localStorage.getItem(PREF_SIDEBAR_WIDTH);
+      if (w && sidebar) sidebar.style.width = w;
       localStorage.setItem(PREF_SIDEBAR_COLLAPSED, 'false');
       setCookie(PREF_SIDEBAR_COLLAPSED, 'false');
       syncPreferences({ sidebarCollapsed: false });
       icon?.removeAttribute('weight');
     } else {
+      // Clear inline width so the CSS collapsed rule (48px) takes effect
+      sidebar?.style.removeProperty('width');
       layout.setAttribute('collapsed', '');
       localStorage.setItem(PREF_SIDEBAR_COLLAPSED, 'true');
       setCookie(PREF_SIDEBAR_COLLAPSED, 'true');
       syncPreferences({ sidebarCollapsed: true });
       icon?.setAttribute('weight', 'fill');
+    }
+  });
+
+  // ── Sidebar resize persistence ──
+
+  sidebar?.addEventListener('native:resize-end', () => {
+    const w = sidebar.style.width;
+    if (w) {
+      localStorage.setItem(PREF_SIDEBAR_WIDTH, w);
+      setCookie(PREF_SIDEBAR_WIDTH, w);
+      layout.style.setProperty('--n-sidebar-width', w);
     }
   });
 
@@ -239,20 +244,32 @@ function wireSidebar(layout: HTMLElement) {
 // so we wire per-page but track wired elements to avoid duplicate listeners.
 
 const wiredPanels = new WeakSet<HTMLElement>();
-let panelResizeControllers: ResizeController[] = [];
 
 function wireToggle(btnId: string, panelId: string) {
   const btn = document.getElementById(btnId);
   const panel = document.getElementById(panelId);
-  if (!panel || wiredPanels.has(panel)) return;
-  wiredPanels.add(panel);
+  if (!panel) return;
+
+  // Wire click on (potentially new) button — old button is GC'd after swap
   btn?.addEventListener('click', () => panel.toggleAttribute('open'));
-  new MutationObserver(() => {
-    const icon = btn?.querySelector('n-icon');
-    if (!icon) return;
-    if (panel.hasAttribute('open')) icon.setAttribute('weight', 'fill');
-    else icon.removeAttribute('weight');
-  }).observe(panel, { attributes: true, attributeFilter: ['open'] });
+
+  // Close panel if toggle is disabled (e.g. inspector on block pages)
+  if (btn?.hasAttribute('disabled') && panel.hasAttribute('open')) {
+    panel.removeAttribute('open');
+  }
+
+  // Panel observer — once per DOM instance (panel persists across navigations)
+  if (!wiredPanels.has(panel)) {
+    wiredPanels.add(panel);
+    new MutationObserver(() => {
+      // Look up button fresh — it may have been replaced by a swap
+      const currentBtn = document.getElementById(btnId);
+      const icon = currentBtn?.querySelector('n-icon');
+      if (!icon) return;
+      if (panel.hasAttribute('open')) icon.setAttribute('weight', 'fill');
+      else icon.removeAttribute('weight');
+    }).observe(panel, { attributes: true, attributeFilter: ['open'] });
+  }
 }
 
 // ── Per-page setup (runs on initial load + every client-side navigation) ──
@@ -270,33 +287,6 @@ function setupPage() {
 
   wireToggle('inspector-toggle', 'inspector-panel');
   wireToggle('chat-toggle', 'chat-panel');
-
-  // ── Panel resize (per-page: main panel swapped on navigation, aside panels on canvas swap) ──
-
-  for (const rc of panelResizeControllers) rc.destroy();
-  panelResizeControllers = [];
-
-  const mainPanel = document.querySelector('n-app-panel:not([aside])') as HTMLElement | null;
-  if (mainPanel?.querySelector('.layout-resize-handle')) {
-    panelResizeControllers.push(new ResizeController(mainPanel, {
-      handleSelector: '.layout-resize-handle',
-      axis: 'horizontal',
-      min: 400,
-      max: 1200,
-    }));
-  }
-
-  for (const panel of document.querySelectorAll<HTMLElement>('[aside]')) {
-    if (panel.querySelector('.layout-resize-handle')) {
-      panelResizeControllers.push(new ResizeController(panel, {
-        handleSelector: '.layout-resize-handle',
-        axis: 'horizontal',
-        min: 280,
-        max: 480,
-        reverse: true,
-      }));
-    }
-  }
 
   // ── Theme toggle (per-page: button lives in breadcrumb trailing slot, swapped on navigation) ──
 
@@ -316,12 +306,12 @@ function setupPage() {
     }
   });
 
-  // ── Code toggle (per-page: button swapped on navigation, visibility depends on page content) ──
+  // ── Code toggle (per-page: button swapped on navigation, enabled when page has code blocks) ──
 
   const codeToggle = document.getElementById('code-toggle') as HTMLElement | null;
   if (codeToggle) {
     const hasCode = document.querySelectorAll('.layout-code').length > 0;
-    codeToggle.style.display = hasCode ? '' : 'none';
+    if (hasCode) codeToggle.removeAttribute('disabled');
     if (hasCode && localStorage.getItem(PREF_SHOW_CODE) === 'true') {
       for (const block of document.querySelectorAll('.layout-code')) {
         block.setAttribute('visible', '');

@@ -22,10 +22,6 @@ if (Astro.locals.user) return Astro.redirect('/blocks/data-dashboard-stats');
       max-width: 26rem;
     }
 
-    .auth-card {
-      padding: 2.25rem;
-    }
-
     .auth-card n-field {
       gap: calc(var(--n-space) * 2);
     }
@@ -137,30 +133,30 @@ if (Astro.locals.user) return Astro.redirect('/blocks/data-dashboard-stats');
       <p class="auth-error" id="auth-error"></p>
 
       <div class="auth-card">
-        <n-card>
+        <n-card padding="relaxed">
           <n-stack gap="8">
             <form id="login-form">
               <n-stack gap="6">
                 <n-field required>
                   <label slot="label">Email</label>
-                  <n-input type="email" placeholder="kim@example.com" name="email">
+                  <n-input size="lg" type="email" placeholder="kim@example.com" name="email">
                     <n-icon name="envelope" slot="leading"></n-icon>
                   </n-input>
                 </n-field>
                 <n-field required>
                   <label slot="label">Password</label>
-                  <n-input type="password" placeholder="Enter your password" name="password">
+                  <n-input size="lg" type="password" placeholder="Enter your password" name="password">
                     <n-icon name="lock" slot="leading"></n-icon>
                   </n-input>
                 </n-field>
-                <n-button variant="primary" intent="accent" type="submit" id="login-submit">
+                <n-button size="lg" variant="primary" intent="accent" type="submit" id="login-submit">
                   <span slot="label">Sign In</span>
                 </n-button>
               </n-stack>
             </form>
             <n-divider>or continue with</n-divider>
             <div class="oauth-row">
-              <n-button id="google-login">
+              <n-button size="lg" id="google-login">
                 <n-icon name="google-logo" slot="leading"></n-icon>
                 <span slot="label">Google</span>
               </n-button>
@@ -169,7 +165,7 @@ if (Astro.locals.user) return Astro.redirect('/blocks/data-dashboard-stats');
         </n-card>
       </div>
       <p class="auth-footer-text">
-        Don't have an account? <a href="/auth/register">Sign up</a>
+        Don't have an account? <a href="/auth/register">Sign up</a> | <a href="/blocks/data-dashboard-stats">Skip</a>
       </p>
     </div>
 

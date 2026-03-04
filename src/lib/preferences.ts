@@ -3,10 +3,12 @@ export const PREF_COLOR_SCHEME = 'nav-color-scheme';
 export const PREF_SIDEBAR_COLLAPSED = 'nav-sidebar-collapsed';
 export const PREF_GROUP_STATES = 'nav-group-states';
 export const PREF_SHOW_CODE = 'demo-show-code';
+export const PREF_SIDEBAR_WIDTH = 'nav-sidebar-width';
 
 export interface Preferences {
   colorScheme: string;
   sidebarCollapsed: boolean;
+  sidebarWidth: string;
   groupStates: Record<string, boolean>;
   showCode: boolean;
 }
@@ -20,6 +22,7 @@ export function parsePreferences(cookies: {
 }): Preferences {
   const colorScheme = cookies.get(PREF_COLOR_SCHEME)?.value || '';
   const sidebarCollapsed = cookies.get(PREF_SIDEBAR_COLLAPSED)?.value === 'true';
+  const sidebarWidth = cookies.get(PREF_SIDEBAR_WIDTH)?.value || '';
 
   let groupStates = DEFAULT_GROUP_STATES;
   try {
@@ -29,7 +32,7 @@ export function parsePreferences(cookies: {
 
   const showCode = cookies.get(PREF_SHOW_CODE)?.value === 'true';
 
-  return { colorScheme, sidebarCollapsed, groupStates, showCode };
+  return { colorScheme, sidebarCollapsed, sidebarWidth, groupStates, showCode };
 }
 
 /**
@@ -57,6 +60,7 @@ export async function loadPreferences(
   return {
     colorScheme: row.colorScheme ?? cookiePrefs.colorScheme,
     sidebarCollapsed: row.sidebarCollapsed ?? cookiePrefs.sidebarCollapsed,
+    sidebarWidth: cookiePrefs.sidebarWidth,
     groupStates: row.groupStates ? JSON.parse(row.groupStates) : cookiePrefs.groupStates,
     showCode: row.showCode ?? cookiePrefs.showCode,
   };
