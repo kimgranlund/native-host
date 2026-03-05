@@ -6,15 +6,15 @@ Each agent reads this file at session start, processes tickets addressed to it, 
 
 ## Open
 
-| Status | File | Title | From | To |
-|--------|------|-------|------|----|
-| **open** | T0093-gripper-missing-from-register.md | `n-gripper` not included in `@nonoun/native-ui/register` | host | native-ui |
+(none)
 
-## Closed (T0001–T0092)
+## Closed (T0001–T0094)
 
 | Status | File | Title | From | To |
 |--------|------|-------|------|----|
 | **fixed** | T0090-manipulate-handle-component.md | `<n-manipulate-handle>` component — Popover + Anchor-based manipulation handles | host | native-ui |
+| **done** | T0093-gripper-missing-from-register.md | `n-gripper` not included in `@nonoun/native-ui/register` | host | native-ui |
+| **done** | T0094-upgrade-native-ui-0.7.17.md | Upgrade to `@nonoun/native-ui@0.7.17` + `@nonoun/native-a2ui@0.1.10` + `@nonoun/native-chart@0.1.1` | native-ui | host |
 | **done** | T0092-upgrade-native-chat-0.5.6.md | Upgrade all packages to latest — native-ui 0.7.12, native-chat 0.5.7, native-a2ui 0.1.9, + 5 sub-packages | native-ui | host |
 | **done** | T0091-upgrade-native-a2ui-0.1.6.md | Upgrade to `@nonoun/native-a2ui@0.1.9` — stale dist artifact fix | native-ui | host |
 | **done** | T0089-upgrade-native-chat-0.5.3.md | Upgrade to `@nonoun/native-chat@0.5.3` — grid layout fix for message action toolbars | native-ui | host |
