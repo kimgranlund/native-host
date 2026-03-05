@@ -88,15 +88,20 @@ document.addEventListener('astro:before-swap', ((e: any) => {
       currentPanel.replaceWith(adopted);
       customElements.upgrade(adopted);
 
-      // Deferred upgrade: page-specific scripts (e.g. native-a2ui/register)
-      // load async via swapHeadElements. The sync upgrade() above only covers
-      // already-registered elements. For each still-undefined element, wait
-      // for its definition to arrive and then force an explicit upgrade —
-      // browser auto-upgrade can miss adopted nodes in edge cases.
+      // Page-specific elements (native-a2ui, native-editor, native-playground)
+      // are registered by async page scripts that may not have loaded yet.
+      // Rather than relying on swapHeadElements to add the script tag (which
+      // can race or be deselected), directly import the registration module
+      // when we detect an undefined element in the swapped content.
+      const loaders: Record<string, () => Promise<unknown>> = {
+        'native-a2ui': () => import('@nonoun/native-a2ui/register'),
+        'native-editor': () => import('@nonoun/native-editor/register'),
+        'native-playground': () => import('@nonoun/native-playground/register'),
+        'native-codemirror': () => import('@nonoun/native-codemirror/register'),
+      };
       for (const el of adopted.querySelectorAll(':not(:defined)')) {
-        customElements.whenDefined(el.localName).then(() => {
-          customElements.upgrade(el);
-        });
+        const load = loaders[el.localName];
+        if (load) load().then(() => customElements.upgrade(el));
       }
     }
 
