@@ -83,6 +83,12 @@ document.addEventListener('astro:before-swap', ((e: any) => {
       const adopted = document.adoptNode(newPanel);
       currentPanel.replaceWith(adopted);
       customElements.upgrade(adopted);
+
+      // Deferred upgrade: page-specific scripts (e.g. native-a2ui/register)
+      // load async via swapHeadElements. The sync upgrade() above only covers
+      // already-registered elements. Schedule a second pass so elements whose
+      // definitions arrive after the swap still get upgraded.
+      requestAnimationFrame(() => customElements.upgrade(adopted));
     }
 
     // Swap breadcrumb trailing buttons (panel toggles may differ)
