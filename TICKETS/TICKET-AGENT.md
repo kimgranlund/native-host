@@ -8,6 +8,7 @@ Each agent reads this file at session start, processes tickets addressed to it, 
 
 | Status | File | Title | From | To |
 |--------|------|-------|------|----|
+| **open** | T0093-gripper-missing-from-register.md | `n-gripper` not included in `@nonoun/native-ui/register` | host | native-ui |
 
 ## Closed (T0001–T0092)
 
