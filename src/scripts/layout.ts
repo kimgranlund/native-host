@@ -54,10 +54,6 @@ document.addEventListener('keydown', (e: KeyboardEvent) => {
   }
 });
 
-// ── Inspector import (once) ──
-
-import '@nonoun/native-tokens';
-
 // ── Custom swap — preserve sidebar DOM across navigations ──
 //
 // When both the current and incoming pages use the sidebar layout, we swap

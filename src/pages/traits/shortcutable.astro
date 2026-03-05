@@ -337,8 +337,9 @@ toggleBtn.addEventListener('click', () =&gt; {
 import { ShortcutController } from '@nonoun/native-ui';
 import { logAppend as appendLog } from '../../scripts/event-log';
 
-document.addEventListener('astro:page-load', () => {
-  if (!document.getElementById('log-global')) return;
+import { onPageLoad } from '../../scripts/on-page-load';
+
+onPageLoad('log-global', () => {
 
   // ── Global Shortcuts ──
 

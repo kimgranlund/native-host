@@ -104,9 +104,9 @@ const codeExamples = {
   </main>
 
   <script>
-document.addEventListener('astro:page-load', () => {
-  const pag = document.getElementById('live-pagination');
-  if (!pag) return;
+import { onPageLoad } from '../../scripts/on-page-load';
+
+onPageLoad('live-pagination', (pag) => {
   const display = document.getElementById('page-display');
   pag.addEventListener('native:change', (e) => {
     display?.textContent && (display.textContent = String(e.detail.value));

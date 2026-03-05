@@ -1,7 +1,12 @@
 // Setup script — registers traits and components.
+// All element registrations live here so they're available before any
+// client-side navigation. Module scripts run once; if a registration
+// only lived in a page/layout script, the first View Transition to that
+// page could race: astro:page-load fires before the async module loads.
 import '@nonoun/native-ui/register';
 import '@nonoun/native-app';
 import '@nonoun/native-chat/register';
+import '@nonoun/native-tokens';
 import { registerAllTraits } from '@nonoun/native-ui';
 
 registerAllTraits();

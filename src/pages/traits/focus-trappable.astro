@@ -131,10 +131,9 @@ function hide() {
   <script>
     import { FocusTrapController } from '@nonoun/native-ui';
 
-    document.addEventListener('astro:page-load', () => {
-      const trapEl = document.getElementById('trap');
-      if (!trapEl) return; // not on this page
+    import { onPageLoad } from '../../scripts/on-page-load';
 
+    onPageLoad('trap', (trapEl) => {
       // ── Focus Trap Demo ──
 
       const trap = new FocusTrapController(trapEl);

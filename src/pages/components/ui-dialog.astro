@@ -189,9 +189,9 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   </main>
 
   <script>
-document.addEventListener('astro:page-load', () => {
-  if (!document.getElementById('basic-dialog')) return;
+import { onPageLoad } from '../../scripts/on-page-load';
 
+onPageLoad('basic-dialog', () => {
   function wire(openId, dialogId, closeIds) {
     const dialog = document.getElementById(dialogId);
     document.getElementById(openId)?.addEventListener('native:press', () => dialog?.showModal());

@@ -238,9 +238,9 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   </main>
 
   <script>
-document.addEventListener('astro:page-load', () => {
-  if (!document.getElementById('drawer-right')) return;
+import { onPageLoad } from '../../scripts/on-page-load';
 
+onPageLoad('drawer-right', () => {
   function wire(openId, closeId, drawerId) {
     const open = document.getElementById(openId);
     const close = document.getElementById(closeId);

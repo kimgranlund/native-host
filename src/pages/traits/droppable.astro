@@ -191,9 +191,9 @@ const detailDrop = `{ type, files?, text?, dataTransfer? }`;
   <script>
 import { logAppend as appendLog } from '../../scripts/event-log';
 
-document.addEventListener('astro:page-load', () => {
-  const filesZone = document.getElementById('files-zone');
-  if (!filesZone) return;
+import { onPageLoad } from '../../scripts/on-page-load';
+
+onPageLoad('files-zone', (filesZone) => {
 
   function formatSize(bytes: number) {
     if (bytes < 1024) return bytes + ' B';

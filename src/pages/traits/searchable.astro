@@ -264,8 +264,9 @@ const detailQueryMatchTotal = `{ query, matchCount, total }`;
 import { SearchController } from '@nonoun/native-ui';
 import { logAppend as appendLog } from '../../scripts/event-log';
 
-document.addEventListener('astro:page-load', () => {
-  if (!document.getElementById('basic-wrap')) return;
+import { onPageLoad } from '../../scripts/on-page-load';
+
+onPageLoad('basic-wrap', () => {
 
   // ── Basic Filter ──
 

@@ -183,8 +183,9 @@ const handleClickSig = `handleClick(item, { shift, ctrl })`;
   <script>
 import { logAppend as appendLog } from '../../scripts/event-log';
 
-document.addEventListener('astro:page-load', () => {
-      if (!document.getElementById('multi-log')) return;
+import { onPageLoad } from '../../scripts/on-page-load';
+
+onPageLoad('multi-log', () => {
 
       // ── Multiple Selection ──
 

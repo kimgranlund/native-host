@@ -124,8 +124,9 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     }
     define('toast-demo', ToastDemo);
 
-    document.addEventListener('astro:page-load', () => {
-      if (!document.getElementById('toast-default')) return;
+    import { onPageLoad } from '../../scripts/on-page-load';
+
+    onPageLoad('toast-default', () => {
 
       const host = document.createElement('toast-demo') as ToastDemo;
       document.body.appendChild(host);

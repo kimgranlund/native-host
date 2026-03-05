@@ -126,9 +126,9 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   </main>
 
   <script>
-    document.addEventListener('astro:page-load', () => {
-      const dialog = document.getElementById('palette-dialog') as any;
-      if (!dialog) return;
+    import { onPageLoad } from '../../scripts/on-page-load';
+
+    onPageLoad('palette-dialog', (dialog: any) => {
       const command = document.getElementById('palette-command');
 
       // Open via button

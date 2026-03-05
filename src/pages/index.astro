@@ -49,12 +49,11 @@ if (Astro.locals.user) return Astro.redirect('/blocks/data-dashboard-stats');
   <script>
     import { authClient } from '../lib/auth-client';
     import { navigate } from 'astro:transitions/client';
+    import { onPageLoad } from '../scripts/on-page-load';
 
-    document.addEventListener('astro:page-load', () => {
-      const googleBtn = document.getElementById('google-login');
+    onPageLoad('google-login', (googleBtn) => {
       const emailBtn = document.getElementById('email-login');
       const skipBtn = document.getElementById('skip-login');
-      if (!googleBtn) return;
 
       googleBtn.addEventListener('click', async () => {
         await authClient.signIn.social({

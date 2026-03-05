@@ -172,8 +172,9 @@ if (!customElements.get('copy-demo')) {
       define('copy-demo', CopyDemo);
 }
 
-document.addEventListener('astro:page-load', () => {
-      if (!document.getElementById('basic-log')) return;
+import { onPageLoad } from '../../scripts/on-page-load';
+
+onPageLoad('basic-log', () => {
 
       // ── Basic Copy (injection) — wire native:press → copy ──
 

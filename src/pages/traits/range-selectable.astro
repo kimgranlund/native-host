@@ -226,8 +226,9 @@ const detailRange = `{ startIndex, endIndex, items }`;
 import { RangeSelectController } from '@nonoun/native-ui';
 import { logAppend as appendLog } from '../../scripts/event-log';
 
-document.addEventListener('astro:page-load', () => {
-  if (!document.getElementById('drag-grid')) return;
+import { onPageLoad } from '../../scripts/on-page-load';
+
+onPageLoad('drag-grid', () => {
 
   // ── Stamp 28 cells into grids ──
 

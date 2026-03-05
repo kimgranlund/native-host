@@ -179,8 +179,9 @@ const detailIntersection = `{ isIntersecting, ratio }`;
   <script>
 import { logAppend as appendLog } from '../../scripts/event-log';
 
-document.addEventListener('astro:page-load', () => {
-  if (!document.getElementById('scroll-log')) return;
+import { onPageLoad } from '../../scripts/on-page-load';
+
+onPageLoad('scroll-log', () => {
 
   function bindStatus(el: Element) {
     const badge = el.querySelector('.intersect-status');

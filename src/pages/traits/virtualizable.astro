@@ -193,8 +193,9 @@ host.addEventListener('native:virtual-change', (e) =&gt; {
   <script>
 import { VirtualScrollController } from '@nonoun/native-ui';
 
-document.addEventListener('astro:page-load', () => {
-      if (!document.getElementById('host1')) return;
+import { onPageLoad } from '../../scripts/on-page-load';
+
+onPageLoad('host1', () => {
 
       // ── Helper: render rows into a content container ──
 

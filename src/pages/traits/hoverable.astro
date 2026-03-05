@@ -147,8 +147,9 @@ const detailPointerType = `{ pointerType }`;
   <script>
 import { logAppend as appendLog } from '../../scripts/event-log';
 
-document.addEventListener('astro:page-load', () => {
-      if (!document.getElementById('instant-card')) return;
+import { onPageLoad } from '../../scripts/on-page-load';
+
+onPageLoad('instant-card', () => {
 
       // ── Helper: update status badge ──
 

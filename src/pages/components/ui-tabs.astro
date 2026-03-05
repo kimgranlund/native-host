@@ -225,9 +225,9 @@ tabs.value = 'preview';</code></pre>
   </main>
 
   <script>
-document.addEventListener('astro:page-load', () => {
-  const eventTabs = document.getElementById('event-tabs');
-  if (!eventTabs) return;
+import { onPageLoad } from '../../scripts/on-page-load';
+
+onPageLoad('event-tabs', (eventTabs) => {
   const tabLog = document.getElementById('tab-event-log');
   let tabCount = 0;
   eventTabs.addEventListener('native:change', (e) => {

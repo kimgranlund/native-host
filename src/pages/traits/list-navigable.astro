@@ -229,8 +229,9 @@ host.addEventListener('native:change', (e) =&gt; {
   <script>
 import { logAppend as appendLog } from '../../scripts/event-log';
 
-document.addEventListener('astro:page-load', () => {
-  if (!document.getElementById('basic-list')) return;
+import { onPageLoad } from '../../scripts/on-page-load';
+
+onPageLoad('basic-list', () => {
 
   // ── Basic (Vertical) ──
 

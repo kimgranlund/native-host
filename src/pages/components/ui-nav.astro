@@ -233,10 +233,9 @@ const codeExamples = {
   <script>
 import { logPrepend } from '../../scripts/event-log';
 
-document.addEventListener('astro:page-load', () => {
-  const basicNav = document.getElementById('basic-nav');
-  if (!basicNav) return;
+import { onPageLoad } from '../../scripts/on-page-load';
 
+onPageLoad('basic-nav', (basicNav) => {
   // Basic nav value tracking
   const basicValue = document.getElementById('basic-value');
   basicNav.addEventListener('native:change', (e) => {

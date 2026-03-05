@@ -216,8 +216,9 @@ const detailValuePrev = `{ value, previousValue }`;
 import { EditController } from "@nonoun/native-ui";
 import { logAppend as appendLog } from '../../scripts/event-log';
 
-document.addEventListener('astro:page-load', () => {
-      if (!document.getElementById('dbl-list')) return;
+import { onPageLoad } from '../../scripts/on-page-load';
+
+onPageLoad('dbl-list', () => {
 
       // ── Double-Click to Edit (provider) ──
       // n-controller with for=".edit-item" applies EditController to each item.

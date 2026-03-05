@@ -165,12 +165,11 @@ if (Astro.locals.user) return Astro.redirect('/blocks/data-dashboard-stats');
 
   <script>
     import { authClient } from '../../lib/auth-client';
+    import { onPageLoad } from '../../scripts/on-page-load';
 
-    document.addEventListener('astro:page-load', () => {
-      const form = document.getElementById('register-form');
+    onPageLoad('register-form', (form) => {
       const errorEl = document.getElementById('auth-error');
       const googleBtn = document.getElementById('google-register');
-      if (!form) return;
 
       function showError(msg) {
         if (!errorEl) return;

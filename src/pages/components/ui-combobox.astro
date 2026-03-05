@@ -312,10 +312,9 @@ const codeExamples = {
   <script>
 import { logPrepend } from '../../scripts/event-log';
 
-document.addEventListener('astro:page-load', () => {
-  const eventCombobox = document.getElementById('event-combobox');
-  if (!eventCombobox) return;
+import { onPageLoad } from '../../scripts/on-page-load';
 
+onPageLoad('event-combobox', (eventCombobox) => {
   const eventLog = document.getElementById('event-log');
   let count = 0;
 

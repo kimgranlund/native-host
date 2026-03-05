@@ -201,8 +201,9 @@ const detailColumnDirection = `{ column, direction }`;
   <script>
 import { logAppend as appendLog } from '../../scripts/event-log';
 
-document.addEventListener('astro:page-load', () => {
-      if (!document.getElementById('basic-wrapper')) return;
+import { onPageLoad } from '../../scripts/on-page-load';
+
+onPageLoad('basic-wrapper', () => {
 
       // ── Basic Table Sort ──
 

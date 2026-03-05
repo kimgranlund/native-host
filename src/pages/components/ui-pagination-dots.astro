@@ -233,9 +233,9 @@ dots.next();       // go to next`,
   <script>
 import { logPrepend } from '../../scripts/event-log';
 
-document.addEventListener('astro:page-load', () => {
-  const eventDemo = document.getElementById('event-demo');
-  if (!eventDemo) return;
+import { onPageLoad } from '../../scripts/on-page-load';
+
+onPageLoad('event-demo', (eventDemo) => {
   const eventLog = document.getElementById('event-log');
 
   eventDemo.addEventListener('native:change', (e: any) => {

@@ -286,9 +286,9 @@ const codeExamples = {
   <script>
 import { logPrepend } from '../../scripts/event-log';
 
-document.addEventListener('astro:page-load', () => {
-  const eventRg = document.getElementById('event-rg');
-  if (!eventRg) return;
+import { onPageLoad } from '../../scripts/on-page-load';
+
+onPageLoad('event-rg', (eventRg) => {
   const eventLog = document.getElementById('event-log');
   let count = 0;
 
