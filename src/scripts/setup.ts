@@ -9,9 +9,14 @@ import '@nonoun/native-a2ui/register';
 import '@nonoun/native-editor/register';
 import '@nonoun/native-playground/register';
 import '@nonoun/native-codemirror/register';
-import { registerAllTraits } from '@nonoun/native-ui';
+import { registerAllTraits, NGripper } from '@nonoun/native-ui';
 
 registerAllTraits();
+
+// n-gripper: not included in @nonoun/native-ui/register — register manually.
+if (!customElements.get('n-gripper')) {
+  customElements.define('n-gripper', NGripper);
+}
 
 // n-app-panel: CSS-driven layout panel used for the main content area.
 // native-app 0.3.x removed the JS class but kept the CSS. Register a minimal
