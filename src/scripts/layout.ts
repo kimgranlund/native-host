@@ -54,10 +54,6 @@ document.addEventListener('keydown', (e: KeyboardEvent) => {
   }
 });
 
-// ── Inspector import (once) ──
-
-import '@nonoun/native-tokens';
-
 // ── Custom swap — preserve sidebar DOM across navigations ──
 //
 // When both the current and incoming pages use the sidebar layout, we swap
@@ -87,22 +83,6 @@ document.addEventListener('astro:before-swap', ((e: any) => {
       const adopted = document.adoptNode(newPanel);
       currentPanel.replaceWith(adopted);
       customElements.upgrade(adopted);
-
-      // Page-specific elements (native-a2ui, native-editor, native-playground)
-      // are registered by async page scripts that may not have loaded yet.
-      // Rather than relying on swapHeadElements to add the script tag (which
-      // can race or be deselected), directly import the registration module
-      // when we detect an undefined element in the swapped content.
-      const loaders: Record<string, () => Promise<unknown>> = {
-        'native-a2ui': () => import('@nonoun/native-a2ui/register'),
-        'native-editor': () => import('@nonoun/native-editor/register'),
-        'native-playground': () => import('@nonoun/native-playground/register'),
-        'native-codemirror': () => import('@nonoun/native-codemirror/register'),
-      };
-      for (const el of adopted.querySelectorAll(':not(:defined)')) {
-        const load = loaders[el.localName];
-        if (load) load().then(() => customElements.upgrade(el));
-      }
     }
 
     // Swap breadcrumb trailing buttons (panel toggles may differ)

@@ -1,7 +1,14 @@
 // Setup script — registers traits and components.
+// All registrations live here so elements are defined before any
+// client-side navigation. Chunks are cached after the first page load.
 import '@nonoun/native-ui/register';
 import '@nonoun/native-app';
 import '@nonoun/native-chat/register';
+import '@nonoun/native-tokens';
+import '@nonoun/native-a2ui/register';
+import '@nonoun/native-editor/register';
+import '@nonoun/native-playground/register';
+import '@nonoun/native-codemirror/register';
 import { registerAllTraits } from '@nonoun/native-ui';
 
 registerAllTraits();
