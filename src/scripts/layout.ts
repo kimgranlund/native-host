@@ -249,11 +249,6 @@ function wireToggle(btnId: string, panelId: string) {
   // Wire click on (potentially new) button — old button is GC'd after swap
   btn?.addEventListener('click', () => panel.toggleAttribute('open'));
 
-  // Close panel if toggle is disabled (e.g. inspector on block pages)
-  if (btn?.hasAttribute('disabled') && panel.hasAttribute('open')) {
-    panel.removeAttribute('open');
-  }
-
   // Panel observer — once per DOM instance (panel persists across navigations)
   if (!wiredPanels.has(panel)) {
     wiredPanels.add(panel);

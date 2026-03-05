@@ -9,10 +9,8 @@ const badgeIntents: Record<BadgeKind, string> = { new: 'danger', updated: 'accen
 
 interface Props {
   title: string;
-  panels?: ('inspector' | 'chat')[];
 }
-const { title, panels = ['inspector', 'chat'] } = Astro.props;
-const inspectorEnabled = panels.includes('inspector');
+const { title } = Astro.props;
 const prefs = await loadPreferences(Astro.locals, Astro.cookies);
 const user = Astro.locals.user;
 
@@ -154,7 +152,7 @@ const groupIcons: Record<string, string> = {
         </n-breadcrumb>
 
         <div slot="trailing" style="display:flex;align-items:center;gap:0.125rem">
-          <n-button variant="ghost" size="sm" aria-label="Toggle inspector" id="inspector-toggle" disabled={!inspectorEnabled ? '' : undefined}>
+          <n-button variant="ghost" size="sm" aria-label="Toggle inspector" id="inspector-toggle">
             <n-icon name="sliders-horizontal" size="md"></n-icon>
           </n-button>
           <n-button variant="ghost" size="sm" aria-label="Toggle chat" id="chat-toggle">
