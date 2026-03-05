@@ -2,15 +2,21 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Error Page">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Error Pages</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+
+      Full-page error patterns for common HTTP errors and maintenance windows.
+      Each variant provides clear messaging and an actionable recovery path.
+
+    </div>
+  </header>
   <main>
 <n-stack gap="6">
-    <div>
-      <h1>Error Pages</h1>
-      <p class="demo-desc">
-        Full-page error patterns for common HTTP errors and maintenance windows.
-        Each variant provides clear messaging and an actionable recovery path.
-      </p>
-    </div>
 
     <!-- -- 404 Not Found -- -->
 

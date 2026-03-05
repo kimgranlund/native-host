@@ -25,11 +25,20 @@ const codeExamples = {
 const detailPointerType = `{ pointerType }`;
 ---
 <SidebarLayout title="Pressable">
-  <main>
-<h1>Pressable</h1>
-    <n-text size="md" muted spacing="relaxed">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Pressable</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+
       Composable trait that handles pointer and keyboard press states. Sets a <code>[pressed]</code> attribute during press and dispatches <code>native:press</code> on release. Supports pointer capture and Enter/Space keys.
-    </n-text>
+
+    </div>
+  </header>
+
+  <main>
 
     <!-- ── Basic Press (Provider) ── -->
 

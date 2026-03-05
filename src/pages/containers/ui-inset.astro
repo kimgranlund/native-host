@@ -2,17 +2,24 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Inset">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Inset</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+      <span class="header-tag">&lt;n-inset&gt;</span> Content indentation container. Adds consistent inline-start padding without visual surface. CSS-only container.
+          </div>
+  </header>
+
   <main>
-<h1>&lt;n-inset&gt;</h1>
-    <n-text size="md" muted spacing="relaxed">
-      Content indentation container. Adds consistent inline-start padding without visual surface. CSS-only container.
-    </n-text>
 
     <!-- ── Basic ── -->
 
     <h2>Basic</h2>
     <n-panel bordered>
-      <span style="font-weight: 500;">Parent heading</span>
+      <span class="label">Parent heading</span>
       <n-inset>
         <span>Indented child 1</span>
         <span>Indented child 2</span>
@@ -49,13 +56,13 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <h2>Sizes</h2>
     <n-panel bordered>
       <div size="sm">
-        <span style="font-weight: 500; font-size: 0.8125rem;">sm parent</span>
+        <span class="label label-sm">sm parent</span>
         <n-inset>
-          <span style="font-size: 0.8125rem;">sm indented content</span>
+          <span class="text-sm">sm indented content</span>
         </n-inset>
       </div>
-      <div size="lg" style="margin-top: 1rem;">
-        <span style="font-weight: 500;">lg parent</span>
+      <div size="lg" class="size-group">
+        <span class="label">lg parent</span>
         <n-inset>
           <span>lg indented content</span>
         </n-inset>
@@ -69,4 +76,21 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     </n-panel>
   </main>
 
+  <style>
+    .label {
+      font-weight: 500;
+    }
+
+    .label-sm {
+      font-size: 0.8125rem;
+    }
+
+    .text-sm {
+      font-size: 0.8125rem;
+    }
+
+    .size-group {
+      margin-top: 1rem;
+    }
+  </style>
 </SidebarLayout>

@@ -53,11 +53,20 @@ host.addEventListener('native:change', (e) =&gt; {
 };
 ---
 <SidebarLayout title="ListNavigable">
-  <main>
-<h1>ListNavigable</h1>
-    <n-text size="md" muted spacing="relaxed">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>ListNavigable</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+
       Composable trait that coordinates keyboard navigation, ARIA selection sync, and value tracking for list-based components. Builds on <code>RovingFocusController</code> internally, adding <code>native:select</code> event handling and <code>native:change</code> dispatch.
-    </n-text>
+
+    </div>
+  </header>
+
+  <main>
 
     <!-- ── Basic (Vertical) ── -->
 

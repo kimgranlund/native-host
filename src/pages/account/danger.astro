@@ -1,0 +1,101 @@
+---
+import SidebarLayout from '../../layouts/SidebarLayout.astro';
+import AccountLayout from '../../components/AccountLayout.astro';
+
+if (!Astro.locals.user) return Astro.redirect('/auth/login');
+---
+<SidebarLayout title="Danger Zone - Settings">
+  <AccountLayout current="/account/danger">
+    <n-section>
+      <span slot="heading">Danger Zone</span>
+
+      <p class="settings-status" id="danger-status"></p>
+
+      <n-card intent="danger">
+        <n-stack direction="row" align="center" gap="4" wrap padding="4">
+          <div class="danger-zone-text">
+            <n-stack gap="1">
+              <n-text size="sm" strong>Delete account</n-text>
+              <n-text size="xs" muted>
+                Permanently remove your account and all associated data. This action cannot be undone.
+              </n-text>
+            </n-stack>
+          </div>
+          <n-button variant="primary" intent="danger" id="delete-account-btn">
+            <n-icon name="trash" slot="leading"></n-icon>
+            <span slot="label">Delete Account</span>
+          </n-button>
+        </n-stack>
+      </n-card>
+    </n-section>
+  </AccountLayout>
+
+  <n-dialog id="delete-confirm-dialog">
+    <div class="delete-confirm-wrap">
+      <n-card padding="relaxed">
+        <n-header>
+          <n-icon name="warning" slot="leading"></n-icon>
+          Delete Account
+        </n-header>
+        <n-body>
+          <p>Are you sure you want to delete your account? This action is permanent and cannot be undone.</p>
+        </n-body>
+        <n-footer>
+          <n-button id="delete-cancel">
+            <span slot="label">Cancel</span>
+          </n-button>
+          <n-button variant="primary" intent="danger" id="delete-confirm">
+            <span slot="label">Delete Account</span>
+          </n-button>
+        </n-footer>
+      </n-card>
+    </div>
+  </n-dialog>
+</SidebarLayout>
+
+<script>
+  import { authClient } from '../../lib/auth-client';
+
+  document.addEventListener('astro:page-load', () => {
+    const deleteBtn = document.getElementById('delete-account-btn');
+    if (!deleteBtn) return;
+
+    const dialog = document.getElementById('delete-confirm-dialog') as HTMLElement & { showModal(): void; close(): void } | null;
+    const cancelBtn = document.getElementById('delete-cancel');
+    const confirmBtn = document.getElementById('delete-confirm');
+
+    function showStatus(msg: string, isError: boolean) {
+      const el = document.getElementById('danger-status');
+      if (!el) return;
+      el.textContent = msg;
+      el.setAttribute('visible', '');
+      if (isError) el.setAttribute('data-error', '');
+      else el.removeAttribute('data-error');
+      setTimeout(() => el.removeAttribute('visible'), 3000);
+    }
+
+    deleteBtn.addEventListener('click', () => dialog?.showModal());
+    cancelBtn?.addEventListener('click', () => dialog?.close());
+
+    confirmBtn?.addEventListener('click', async () => {
+      const result = await authClient.deleteUser();
+      if (result.error) {
+        dialog?.close();
+        showStatus(result.error.message || 'Delete failed.', true);
+      } else {
+        window.location.href = '/';
+      }
+    });
+  });
+</script>
+
+<style is:global>
+  #delete-confirm-dialog > dialog {
+    place-items: start center;
+  }
+
+  .delete-confirm-wrap {
+    width: 100%;
+    max-width: 32rem;
+  }
+</style>

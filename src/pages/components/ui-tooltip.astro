@@ -2,11 +2,18 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Tooltip">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Tooltip</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+      <span class="header-tag">&lt;n-tooltip&gt;</span> Hover/focus-triggered informational popover with delay, anchor positioning, and fade animation.
+          </div>
+  </header>
+
   <main>
-<h1>&lt;n-tooltip&gt;</h1>
-    <n-text size="md" muted spacing="relaxed">
-      Hover/focus-triggered informational popover with delay, anchor positioning, and fade animation.
-    </n-text>
 
     <!-- ── Placements ── -->
 

@@ -31,12 +31,19 @@ const codeExamples = {
 };
 ---
 <SidebarLayout title="Colors">
-  <main>
-    <h1>Colors</h1>
-    <n-text muted spacing="relaxed">
-      Interactive color environment explorer. Adjust global and per-family parameters to see live changes across all tokens.
-    </n-text>
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Colors</h1>
+      </div>
+    </div>
+    <div data-slot="description">
 
+      Interactive color environment explorer. Adjust global and per-family parameters to see live changes across all tokens.
+
+    </div>
+  </header>
+  <main>
     <n-panel bordered>
       <pre class="layout-code"><code set:html={codeExamples.example} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>

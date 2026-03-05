@@ -16,11 +16,18 @@ const codeExamples = {
 };
 ---
 <SidebarLayout title="Slideshow">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Slideshow</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+      <span class="header-tag">&lt;n-slideshow&gt;</span> CSS-first carousel using scroll-snap, IntersectionObserver, and zero JS for touch/swipe.
+          </div>
+  </header>
+
   <main>
-<h1>&lt;n-slideshow&gt;</h1>
-    <n-text size="md" muted spacing="relaxed">
-      CSS-first carousel using scroll-snap, IntersectionObserver, and zero JS for touch/swipe.
-    </n-text>
 
     <!-- ── Basic ── -->
 
@@ -179,14 +186,14 @@ const codeExamples = {
       </n-text>
       <n-stack direction="row" gap="6" wrap>
         <div>
-          <div style="font-size: 0.625rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--n-ink-muted-neutral); margin-bottom: 0.5rem;">force-hover</div>
+          <div class="layout-col-label slideshow-debug-label">force-hover</div>
           <n-slideshow class="debug-slideshow" controls indicators force-hover>
             <n-slide><div class="slide-content slide-1">A</div></n-slide>
             <n-slide><div class="slide-content slide-2">B</div></n-slide>
           </n-slideshow>
         </div>
         <div>
-          <div style="font-size: 0.625rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--n-ink-muted-neutral); margin-bottom: 0.5rem;">force-focus-visible</div>
+          <div class="layout-col-label slideshow-debug-label">force-focus-visible</div>
           <n-slideshow class="debug-slideshow" controls indicators force-focus-visible>
             <n-slide><div class="slide-content slide-1">A</div></n-slide>
             <n-slide><div class="slide-content slide-2">B</div></n-slide>
@@ -254,6 +261,8 @@ document.addEventListener('astro:page-load', () => {
       background-size: cover;
       background-position: center;
     }
+
+    .slideshow-debug-label { margin-bottom: 0.5rem; }
 
     /* ── Code Blocks ── */
 </style>

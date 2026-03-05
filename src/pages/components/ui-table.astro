@@ -2,11 +2,18 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Table">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Table</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+      <span class="header-tag">&lt;n-table&gt;</span> Data table with sortable columns and selectable rows. Uses CSS grid with <code>subgrid</code> for column alignment.
+          </div>
+  </header>
+
   <main>
-<h1>&lt;n-table&gt;</h1>
-    <n-text size="md" muted spacing="relaxed">
-      Data table with sortable columns and selectable rows. Uses CSS grid with <code>subgrid</code> for column alignment.
-    </n-text>
 
     <!-- ── Basic Table ── -->
 

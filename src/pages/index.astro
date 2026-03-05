@@ -9,13 +9,13 @@ if (Astro.locals.user) return Astro.redirect('/blocks/data-dashboard-stats');
     @import '../styles/layout.css';
   </style>
 
-  <main class="login-screen">
+  <n-stack class="login-screen" align="center" justify="center">
     <div class="login-card">
-      <div class="login-logo">
+      <n-stack align="center" class="login-logo">
         <Logo size={48} />
-      </div>
-      <h1 class="login-heading">Log in to NativeUI</h1>
-      <p class="login-subheading">Choose a method to continue</p>
+      </n-stack>
+      <n-text size="lg" strong class="login-heading">Log in to NativeUI</n-text>
+      <n-text size="sm" muted class="login-subheading">Choose a method to continue</n-text>
 
       <n-stack gap="3" class="login-buttons">
         <n-button variant="primary" intent="accent" size="lg" id="google-login">
@@ -36,15 +36,15 @@ if (Astro.locals.user) return Astro.redirect('/blocks/data-dashboard-stats');
         <span slot="label">Skip</span>
       </n-button>
 
-      <p class="login-footer">
+      <n-text size="sm" muted class="login-footer">
         Don't have an account? <a href="/auth/register">Sign up</a>
-      </p>
+      </n-text>
     </div>
 
-    <p class="login-legal">
+    <n-text size="xs" muted class="login-legal">
       By continuing, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
-    </p>
-  </main>
+    </n-text>
+  </n-stack>
 
   <script>
     import { authClient } from '../lib/auth-client';
@@ -75,10 +75,6 @@ if (Astro.locals.user) return Astro.redirect('/blocks/data-dashboard-stats');
 
   <style is:global>
     .login-screen {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
       min-height: 100dvh;
       padding: 2rem;
     }
@@ -89,29 +85,21 @@ if (Astro.locals.user) return Astro.redirect('/blocks/data-dashboard-stats');
     }
 
     .login-logo {
-      display: flex;
-      justify-content: center;
       margin-bottom: 1.5rem;
     }
 
     .login-heading {
       text-align: center;
-      font-size: 1.25rem;
-      font-weight: 700;
       margin: 0 0 0.25rem;
     }
 
     .login-subheading {
       text-align: center;
-      font-size: 0.875rem;
-      color: var(--n-ink-muted-neutral);
       margin: 0 0 1.5rem;
     }
 
     .login-footer {
       text-align: center;
-      font-size: 0.8125rem;
-      color: var(--n-ink-muted-neutral);
       margin-top: 1.5rem;
     }
 
@@ -137,8 +125,6 @@ if (Astro.locals.user) return Astro.redirect('/blocks/data-dashboard-stats');
       position: fixed;
       bottom: 1.5rem;
       text-align: center;
-      font-size: 0.6875rem;
-      color: var(--n-ink-muted-neutral);
       opacity: 0.6;
     }
 

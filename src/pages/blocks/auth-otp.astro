@@ -2,11 +2,19 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Auth OTP">
-  <main>
-<h1>OTP Verification</h1>
-    <p class="demo-desc">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>OTP Verification</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+
       6-digit one-time password verification step with resend and back link.
-    </p>
+
+    </div>
+  </header>
+  <main>
 
     <!-- ── OTP Verification Card ── -->
 

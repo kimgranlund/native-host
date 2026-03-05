@@ -66,11 +66,20 @@ const detailMatchesHiddenTotal = `{ matches, hidden, total }`;
 const detailQueryMatchTotal = `{ query, matchCount, total }`;
 ---
 <SidebarLayout title="Searchable">
-  <main>
-<h1>Searchable</h1>
-    <n-text size="md" muted spacing="relaxed">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Searchable</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+
       Text filtering with match/hide attributes and highlight support. Non-matching items receive <code>[search-hidden]</code>, matching items get <code>[search-match]</code>. Since searching requires calling <code>filter()</code> imperatively from input events, all demos use direct <code>SearchController</code> instantiation. The <code>&lt;n-controller traits="searchable"&gt;</code> provider can create the controller declaratively, but <code>filter()</code> must still be called.
-    </n-text>
+
+    </div>
+  </header>
+
+  <main>
 
     <!-- ── Basic Filter ── -->
 

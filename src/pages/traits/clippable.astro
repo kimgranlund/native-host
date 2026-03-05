@@ -39,11 +39,20 @@ const detailData = `{ data }`;
 const detailSelectedCount = `{ selected, count }`;
 ---
 <SidebarLayout title="Clippable">
-  <main>
-<h1>Clippable</h1>
-    <n-text size="md" muted spacing="relaxed">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Clippable</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+
       Keyboard clipboard operations (<strong>Ctrl/Cmd+C/X/V</strong>) for structured data. Composes with <code>Selectable</code> to copy/cut selected items.
-    </n-text>
+
+    </div>
+  </header>
+
+  <main>
 
     <!-- ── Copy & Paste ── -->
 

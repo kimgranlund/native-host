@@ -67,11 +67,20 @@ toggleBtn.addEventListener('click', () =&gt; {
 };
 ---
 <SidebarLayout title="Shortcutable">
-  <main>
-<h1>Shortcutable</h1>
-    <n-text size="md" muted spacing="relaxed">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Shortcutable</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+
       Keyboard shortcut controller with combo-string parsing, editable filtering, and conditional guards. Supports both global (document-level) and scoped (host-focused) listeners. Fires <code>native:shortcut</code> with <code set:html="{ id, combo }" /> on every match.
-    </n-text>
+
+    </div>
+  </header>
+
+  <main>
 
     <!-- ── Global Shortcuts ── -->
 

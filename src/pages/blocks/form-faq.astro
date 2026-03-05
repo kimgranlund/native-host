@@ -2,15 +2,21 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="FAQ">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>FAQ</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+
+      Searchable knowledge base with categorized collapsible sections.
+      Demonstrates <code>n-accordion</code> with live filtering via <code>n-input</code>.
+
+    </div>
+  </header>
   <main>
 <n-stack gap="6">
-    <div>
-      <h1>FAQ</h1>
-      <p class="demo-desc">
-        Searchable knowledge base with categorized collapsible sections.
-        Demonstrates <code>n-accordion</code> with live filtering via <code>n-input</code>.
-      </p>
-    </div>
 
     <div class="faq-wrapper">
       <!-- ── Search ── -->

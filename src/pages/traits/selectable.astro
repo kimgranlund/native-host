@@ -44,11 +44,20 @@ const detailSelectedCount = `{ selected, count }`;
 const handleClickSig = `handleClick(item, { shift, ctrl })`;
 ---
 <SidebarLayout title="Selectable">
-  <main>
-<h1>Selectable</h1>
-    <n-text size="md" muted spacing="relaxed">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Selectable</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+
       Multi-selection state management with click, shift+click range, ctrl/cmd+click toggle, and ctrl/cmd+A select all.
-    </n-text>
+
+    </div>
+  </header>
+
+  <main>
 
     <!-- ── Multiple Selection ── -->
 

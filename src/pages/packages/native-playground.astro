@@ -199,11 +199,18 @@ body {
 </script>`;
 ---
 <SidebarLayout title="Playground">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Playground</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+      <span class="header-tag">&lt;native-playground&gt;</span> Embeddable live code sandbox with tabbed CodeMirror editors, sandboxed iframe preview, and console capture.
+          </div>
+  </header>
+
   <main>
-<h1>&lt;native-playground&gt;</h1>
-    <n-text size="md" muted spacing="relaxed">
-      Embeddable live code sandbox with tabbed CodeMirror editors, sandboxed iframe preview, and console capture.
-    </n-text>
 
     <!-- ── Basic ── -->
 
@@ -239,7 +246,7 @@ body {
     <!-- ── Console Capture ── -->
 
     <h2>Console Capture</h2>
-    <p class="layout-hint">Click "Console" in the toolbar, then press the button to see captured logs.</p>
+    <n-text size="xs" muted class="layout-hint">Click "Console" in the toolbar, then press the button to see captured logs.</n-text>
     <div class="playground-wrap"><native-playground auto-run console-open set:html={consolePlayground} /></div>
     <pre class="layout-code"><code>&lt;native-playground auto-run console-open&gt;
   &lt;script type="playground/html"&gt;
@@ -260,7 +267,7 @@ body {
     <!-- ── Read-only ── -->
 
     <h2>Read-only</h2>
-    <p class="layout-hint">Editors are non-editable. Useful for documentation showcases.</p>
+    <n-text size="xs" muted class="layout-hint">Editors are non-editable. Useful for documentation showcases.</n-text>
     <div class="playground-wrap"><native-playground readonly auto-run set:html={readonlyPlayground} /></div>
     <pre class="layout-code"><code>&lt;native-playground readonly auto-run&gt;
   &lt;script type="playground/html"&gt;
@@ -274,7 +281,7 @@ body {
     <!-- ── Active Tab: CSS ── -->
 
     <h2>Active Tab: CSS</h2>
-    <p class="layout-hint">Opens with the CSS tab pre-selected.</p>
+    <n-text size="xs" muted class="layout-hint">Opens with the CSS tab pre-selected.</n-text>
     <div class="playground-wrap"><native-playground active-tab="css" auto-run set:html={activeTabPlayground} /></div>
     <pre class="layout-code"><code>&lt;native-playground active-tab="css" auto-run&gt;
   &lt;script type="playground/html"&gt;

@@ -2,16 +2,22 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Kanban Board">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Kanban Board</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+
+      Project task board with draggable cards across status columns.
+      Uses the <code>draggable</code> trait in <code>slot</code> mode — drag a card to see the
+      insertion indicator showing exactly where it will land.
+
+    </div>
+  </header>
   <main>
 <n-stack gap="6">
-    <div>
-      <h1>Kanban Board</h1>
-      <p class="demo-desc">
-        Project task board with draggable cards across status columns.
-        Uses the <code>draggable</code> trait in <code>slot</code> mode — drag a card to see the
-        insertion indicator showing exactly where it will land.
-      </p>
-    </div>
 
     <n-stack direction="row" gap="3" align="center" wrap>
       <n-input size="sm" placeholder="Filter tasks..." id="kanban-filter">

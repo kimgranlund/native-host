@@ -2,11 +2,18 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Divider">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Divider</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+      <span class="header-tag">&lt;n-divider&gt;</span> Horizontal or vertical rule between content sections. CSS-only container.
+          </div>
+  </header>
+
   <main>
-<h1>&lt;n-divider&gt;</h1>
-    <n-text size="md" muted spacing="relaxed">
-      Horizontal or vertical rule between content sections. CSS-only container.
-    </n-text>
 
     <!-- ── Basic ── -->
 
@@ -40,21 +47,21 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
     <h2>Vertical</h2>
     <n-panel bordered>
-      <div class="vertical-container">
-        <span>Left</span>
+      <n-stack direction="row" align="center" gap="4" class="vertical-container">
+        <n-text inline>Left</n-text>
         <n-divider orientation="vertical"></n-divider>
-        <span>Right</span>
-      </div>
+        <n-text inline>Right</n-text>
+      </n-stack>
     </n-panel>
 
     <n-panel bordered>
-      <div class="vertical-container">
-        <span>One</span>
+      <n-stack direction="row" align="center" gap="4" class="vertical-container">
+        <n-text inline>One</n-text>
         <n-divider orientation="vertical"></n-divider>
-        <span>Two</span>
+        <n-text inline>Two</n-text>
         <n-divider orientation="vertical"></n-divider>
-        <span>Three</span>
-      </div>
+        <n-text inline>Three</n-text>
+      </n-stack>
       <pre class="layout-code"><code>&lt;div style="display: flex; align-items: center; gap: 1rem; height: 4rem;"&gt;
   &lt;span&gt;Left&lt;/span&gt;
   &lt;n-divider orientation="vertical"&gt;&lt;/n-divider&gt;
@@ -66,11 +73,11 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
     <h2>Vertical With Label</h2>
     <n-panel bordered>
-      <div class="vertical-container" style="height: 6rem;">
-        <span>Left</span>
+      <n-stack direction="row" align="center" gap="4" class="vertical-container vertical-container--tall">
+        <n-text inline>Left</n-text>
         <n-divider orientation="vertical">or</n-divider>
-        <span>Right</span>
-      </div>
+        <n-text inline>Right</n-text>
+      </n-stack>
       <pre class="layout-code"><code>&lt;n-divider orientation="vertical"&gt;or&lt;/n-divider&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
@@ -107,11 +114,11 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
     <h2>Composition (with buttons)</h2>
     <n-panel bordered>
-      <n-button class="full-width" variant="primary" intent="accent"><span slot="label">Sign In</span></n-button>
+      <div class="divider-full-btn"><n-button variant="primary" intent="accent"><span slot="label">Sign In</span></n-button></div>
       <n-divider>or continue with</n-divider>
       <n-stack direction="row">
-        <n-button class="flex-fill"><n-icon name="google-logo" slot="leading"></n-icon><span slot="label">Google</span></n-button>
-        <n-button class="flex-fill"><n-icon name="github-logo" slot="leading"></n-icon><span slot="label">GitHub</span></n-button>
+        <div class="divider-flex-btn"><n-button><n-icon name="google-logo" slot="leading"></n-icon><span slot="label">Google</span></n-button></div>
+        <div class="divider-flex-btn"><n-button><n-icon name="github-logo" slot="leading"></n-icon><span slot="label">GitHub</span></n-button></div>
       </n-stack>
       <pre class="layout-code"><code>&lt;n-button variant="primary" intent="accent" style="width: 100%;"&gt;Sign In&lt;/n-button&gt;
 &lt;n-divider&gt;or continue with&lt;/n-divider&gt;
@@ -124,14 +131,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
   <style is:global>
     .vertical-container {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
       height: 4rem;
     }
 
-    .full-width { width: 100%; }
-    .flex-fill { flex: 1; }
+    .vertical-container--tall {
+      height: 6rem;
+    }
+
+    .divider-full-btn n-button { width: 100%; }
+    .divider-flex-btn { flex: 1; }
 
     /* ── Code Blocks ── */
 </style>

@@ -17,11 +17,18 @@ const codeExamples = {
 };
 ---
 <SidebarLayout title="Tabs">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Tabs</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+      <span class="header-tag">&lt;n-tabs&gt;</span> Tab navigation with roving focus, panel switching, and a sliding underline indicator. Supports horizontal and vertical orientations.
+          </div>
+  </header>
+
   <main>
-<h1>&lt;n-tabs&gt;</h1>
-    <n-text size="md" muted spacing="relaxed">
-      Tab navigation with roving focus, panel switching, and a sliding underline indicator. Supports horizontal and vertical orientations.
-    </n-text>
 
     <!-- ── Basic Horizontal ── -->
 
@@ -65,7 +72,7 @@ const codeExamples = {
         <n-tab value="settings"><n-icon name="gear"></n-icon> Settings</n-tab>
         <n-tab-panels>
           <n-tab-panel value="code">
-            <pre style="background: var(--n-panel-neutral); padding: 0.75rem; border-radius: 0.25rem; font-size: 0.8125rem;"><code>const tabs = document.querySelector('n-tabs');
+            <pre class="code-preview"><code>const tabs = document.querySelector('n-tabs');
 tabs.value = 'preview';</code></pre>
           </n-tab-panel>
           <n-tab-panel value="preview">
@@ -164,7 +171,7 @@ tabs.value = 'preview';</code></pre>
           <n-tab-panel value="third"><p>Third panel.</p></n-tab-panel>
         </n-tab-panels>
       </n-tabs>
-      <pre id="tab-event-log" style="margin-top: 0.75rem; font-size: 0.75rem; font-family: ui-monospace, monospace; color: var(--n-ink-muted-neutral); min-height: 2rem;"></pre>
+      <pre id="tab-event-log" class="event-log"></pre>
     <pre class="layout-code"><code set:html={codeExamples.events} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
@@ -178,9 +185,9 @@ tabs.value = 'preview';</code></pre>
           <n-tab value="two">Tabs</n-tab>
           <n-tab value="three">Here</n-tab>
           <n-tab-panels>
-            <n-tab-panel value="one"><p style="font-size: 0.8125rem;">Small size panel.</p></n-tab-panel>
-            <n-tab-panel value="two"><p style="font-size: 0.8125rem;">Second small panel.</p></n-tab-panel>
-            <n-tab-panel value="three"><p style="font-size: 0.8125rem;">Third small panel.</p></n-tab-panel>
+            <n-tab-panel value="one"><n-text size="sm">Small size panel.</n-text></n-tab-panel>
+            <n-tab-panel value="two"><n-text size="sm">Second small panel.</n-text></n-tab-panel>
+            <n-tab-panel value="three"><n-text size="sm">Third small panel.</n-text></n-tab-panel>
           </n-tab-panels>
         </n-tabs>
 
@@ -239,4 +246,21 @@ document.addEventListener('astro:page-load', () => {
   });
 });
   </script>
+
+  <style>
+    .code-preview {
+      background: var(--n-panel-neutral);
+      padding: 0.75rem;
+      border-radius: 0.25rem;
+      font-size: 0.8125rem;
+    }
+
+    .event-log {
+      margin-top: 0.75rem;
+      font-size: 0.75rem;
+      font-family: ui-monospace, monospace;
+      color: var(--n-ink-muted-neutral);
+      min-height: 2rem;
+    }
+  </style>
 </SidebarLayout>

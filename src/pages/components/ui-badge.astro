@@ -2,11 +2,18 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Badge">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Badge</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+      <span class="header-tag">&lt;n-badge&gt;</span> Small count or status indicator. Can be standalone, overlaid (floating), or a dot.
+          </div>
+  </header>
+
   <main>
-<h1>&lt;n-badge&gt;</h1>
-    <n-text size="md" muted spacing="relaxed">
-      Small count or status indicator. Can be standalone, overlaid (floating), or a dot.
-    </n-text>
 
     <!-- ── Sizes ── -->
 

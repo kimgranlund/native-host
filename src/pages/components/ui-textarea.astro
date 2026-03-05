@@ -30,11 +30,18 @@ const codeExamples = {
 };
 ---
 <SidebarLayout title="Textarea">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Textarea</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+      <span class="header-tag">&lt;n-textarea&gt;</span> Multi-line text input with contenteditable, autogrow, rows presets, and maxlength.
+          </div>
+  </header>
+
   <main>
-<h1>&lt;n-textarea&gt;</h1>
-    <n-text size="md" muted spacing="relaxed">
-      Multi-line text input with contenteditable, autogrow, rows presets, and maxlength.
-    </n-text>
 
     <!-- ── Basic ── -->
 

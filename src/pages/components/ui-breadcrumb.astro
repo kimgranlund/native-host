@@ -2,11 +2,18 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Breadcrumb">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Breadcrumb</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+      <span class="header-tag">&lt;n-breadcrumb&gt;</span> Path-based navigation with separator between items. Last item with <code>current</code> is non-interactive.
+          </div>
+  </header>
+
   <main>
-<h1>&lt;n-breadcrumb&gt;</h1>
-    <n-text size="md" muted spacing="relaxed">
-      Path-based navigation with separator between items. Last item with <code>current</code> is non-interactive.
-    </n-text>
 
     <!-- ── Basic ── -->
 

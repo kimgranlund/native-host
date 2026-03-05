@@ -18,11 +18,18 @@ tree.querySelectorAll('n-tree-item').forEach((item) =&gt; {
 };
 ---
 <SidebarLayout title="Tree">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Tree</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+      <span class="header-tag">&lt;n-tree&gt;</span> Hierarchical expandable tree. Arrow keys expand/collapse, Enter/Space select.
+          </div>
+  </header>
+
   <main>
-<h1>&lt;n-tree&gt;</h1>
-    <n-text size="md" muted spacing="relaxed">
-      Hierarchical expandable tree. Arrow keys expand/collapse, Enter/Space select.
-    </n-text>
 
     <!-- ── Basic ── -->
 

@@ -3,18 +3,27 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 const detailWidthHeight = `{ width, height }`;
 ---
 <SidebarLayout title="Resizable">
-  <main>
-<h1>Resizable</h1>
-    <n-text size="md" muted spacing="relaxed">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Resizable</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+
       Composable trait for drag-to-resize functionality. Configure axis constraints, min/max sizes, and handle selectors. Dispatches <code>native:resize-start</code>, <code>native:resize-move</code>, and <code>native:resize-end</code> events. Press Escape to cancel.
-    </n-text>
+
+    </div>
+  </header>
+
+  <main>
 
     <!-- ── Horizontal Resize ── -->
 
     <h2>Horizontal Resize</h2>
     <n-panel bordered>
       <n-controller traits="resizable" resizable-handle-selector=".resize-handle-right" resizable-axis="horizontal" resizable-min="150" resizable-max="500">
-        <div id="h-panel" class="resize-panel" style="width: 300px;">
+        <div id="h-panel" class="resize-panel resize-panel--w300">
           Drag the right edge to resize horizontally.
           <div class="resize-handle resize-handle-right"></div>
         </div>
@@ -37,7 +46,7 @@ const detailWidthHeight = `{ width, height }`;
     <h2>Vertical Resize</h2>
     <n-panel bordered>
       <n-controller traits="resizable" resizable-handle-selector=".resize-handle-bottom" resizable-axis="vertical" resizable-min="60" resizable-max="400">
-        <div id="v-panel" class="resize-panel" style="height: 120px;">
+        <div id="v-panel" class="resize-panel resize-panel--h120">
           Drag the bottom edge to resize vertically.
           <div class="resize-handle resize-handle-bottom"></div>
         </div>
@@ -60,7 +69,7 @@ const detailWidthHeight = `{ width, height }`;
     <h2>Both Axes (with min/max)</h2>
     <n-panel bordered>
       <n-controller traits="resizable" resizable-handle-selector=".resize-handle-corner" resizable-axis="both" resizable-min="150" resizable-max="500">
-        <div id="both-panel" class="resize-panel" style="width: 300px; height: 120px;">
+        <div id="both-panel" class="resize-panel resize-panel--w300 resize-panel--h120">
           Drag the corner to resize in both directions. Clamped to 150-500px.
           <div class="resize-handle resize-handle-corner"></div>
         </div>
@@ -191,6 +200,9 @@ document.addEventListener('astro:page-load', () => {
       min-height: 80px;
       overflow: hidden;
     }
+
+    .resize-panel--w300 { width: 300px; }
+    .resize-panel--h120 { height: 120px; }
 
     .resize-panel[resizing] {
       user-select: none;

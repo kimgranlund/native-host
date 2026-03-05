@@ -21,11 +21,20 @@ const codeExamples = {
 };
 ---
 <SidebarLayout title="Collapsible">
-  <main>
-<h1>Collapsible</h1>
-    <n-text size="md" muted spacing="relaxed">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Collapsible</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+
       Composable trait for animated show/hide with smooth height transitions. Dispatches <code>native:expand</code> and <code>native:collapse</code> events.
-    </n-text>
+
+    </div>
+  </header>
+
+  <main>
 
     <!-- ── Basic Toggle ── -->
 

@@ -104,7 +104,7 @@ const groupIcons: Record<string, string> = {
           <n-sidebar-item id="user-menu">
             <span slot="icon">
               {user.image
-                ? <n-avatar src={user.image} size="xs"></n-avatar>
+                ? <n-avatar src={`/api/avatar/${user.id}`} size="xs"></n-avatar>
                 : <n-icon name="user-circle"></n-icon>}
             </span>
             <span slot="label">{user.name || user.email}</span>
@@ -112,7 +112,7 @@ const groupIcons: Record<string, string> = {
             <n-listbox popover="manual">
               <n-option-group>
                 <n-option-group-header>Account</n-option-group-header>
-                <n-option value="/account/settings"><n-icon name="gear"></n-icon> Settings</n-option>
+                <n-option value="/account/profile"><n-icon name="gear"></n-icon> Settings</n-option>
               </n-option-group>
               <n-option-group>
                 <n-option value="sign-out"><n-icon name="sign-out"></n-icon> Log out</n-option>
@@ -146,6 +146,11 @@ const groupIcons: Record<string, string> = {
               <n-breadcrumb-item>{currentEntry.group}</n-breadcrumb-item>
               <n-breadcrumb-item current>{currentEntry.title}</n-breadcrumb-item>
             </>
+          ) : currentPath.startsWith('/account/') ? (
+            <>
+              <n-breadcrumb-item>Account</n-breadcrumb-item>
+              <n-breadcrumb-item current>{title.replace(/ - Settings$/, '')}</n-breadcrumb-item>
+            </>
           ) : (
             <n-breadcrumb-item current>Home</n-breadcrumb-item>
           )}
@@ -174,7 +179,7 @@ const groupIcons: Record<string, string> = {
         <n-gripper mode="resize-horizontal" for="inspector-panel" placement="start" min="280" max="480" reverse></n-gripper>
         <native-tokens-panel aside id="inspector-panel"></native-tokens-panel>
         <n-gripper mode="resize-horizontal" for="chat-panel" placement="start" min="280" max="480" reverse></n-gripper>
-        <native-chat-panel aside id="chat-panel" gateway="claude" gateway-url="/api/anthropic" model="claude-haiku-4-5-20251001"></native-chat-panel>
+        <native-chat-panel aside id="chat-panel" gateway="claude" gateway-url="/api/anthropic" model="claude-haiku-4-5-20251001" models="claude-haiku-4-5-20251001,claude-sonnet-4-6-20250514,claude-opus-4-20250514,gpt-4.1-nano,gpt-4.1-mini,gpt-4.1,o3-mini,o3,o4-mini" gateway-urls='{"claude":"/api/anthropic","openai":"/api/openai"}'></native-chat-panel>
       </n-app-canvas>
     </div>
   </native-app>

@@ -38,11 +38,20 @@ const codeExamples = {
 };
 ---
 <SidebarLayout title="Dialogable">
-  <main>
-<h1>Dialogable</h1>
-    <n-text size="md" muted spacing="relaxed">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Dialogable</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+
       Wraps child content in a native <code>&lt;dialog&gt;</code> element with modal, backdrop-click-to-close, and Escape-to-close behavior. Manages focus automatically — focuses <code>[autofocus]</code> or the first focusable descendant on open.
-    </n-text>
+
+    </div>
+  </header>
+
+  <main>
 
     <!-- ── Basic ── -->
 

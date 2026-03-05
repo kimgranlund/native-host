@@ -1,0 +1,102 @@
+---
+import SidebarLayout from '../../layouts/SidebarLayout.astro';
+import AccountLayout from '../../components/AccountLayout.astro';
+import { db } from '../../db/client';
+import { account } from '../../db/schema';
+import { eq } from 'drizzle-orm';
+
+if (!Astro.locals.user) return Astro.redirect('/auth/login');
+
+const user = Astro.locals.user;
+const linkedAccounts = await db.select({ providerId: account.providerId })
+  .from(account).where(eq(account.userId, user.id));
+const hasGoogle = linkedAccounts.some(a => a.providerId === 'google');
+const hasCredential = linkedAccounts.some(a => a.providerId === 'credential');
+---
+<SidebarLayout title="Security - Settings">
+  <AccountLayout current="/account/security">
+    <n-stack gap="6">
+      <n-section>
+        <span slot="heading">Connected Accounts</span>
+        <span slot="description">Sign-in methods linked to your account.</span>
+
+        <n-stack gap="2">
+          <n-card padding="tight">
+            <n-stack direction="row" align="center" gap="3" padding="3">
+              <n-icon name="google-logo" size="md"></n-icon>
+              <n-stack gap="0">
+                <n-text size="sm" strong>Google</n-text>
+                <n-text size="xs" muted>{hasGoogle ? 'Connected' : 'Not connected'}</n-text>
+              </n-stack>
+            </n-stack>
+          </n-card>
+        </n-stack>
+      </n-section>
+
+      {hasCredential && (
+        <n-section divider>
+          <span slot="heading">Password</span>
+          <span slot="description">Update your password.</span>
+
+          <p class="settings-status" id="password-status"></p>
+
+          <form id="password-form">
+            <n-stack gap="6">
+              <n-field required>
+                <label slot="label">Current password</label>
+                <n-input type="password" placeholder="Enter current password" name="currentPassword">
+                  <n-icon name="lock" slot="leading"></n-icon>
+                </n-input>
+              </n-field>
+              <n-field required>
+                <label slot="label">New password</label>
+                <n-input type="password" placeholder="Enter new password" name="newPassword">
+                  <n-icon name="lock" slot="leading"></n-icon>
+                </n-input>
+                <span slot="description">Must be at least 8 characters.</span>
+              </n-field>
+              <n-stack direction="row" justify="end" padding="4 0 0 0">
+                <n-button variant="primary" intent="accent" type="submit">
+                  <span slot="label">Update Password</span>
+                </n-button>
+              </n-stack>
+            </n-stack>
+          </form>
+        </n-section>
+      )}
+    </n-stack>
+  </AccountLayout>
+</SidebarLayout>
+
+<script>
+  import { authClient } from '../../lib/auth-client';
+
+  document.addEventListener('astro:page-load', () => {
+    const form = document.getElementById('password-form') as HTMLFormElement | null;
+    if (!form) return;
+
+    function showStatus(msg: string, isError: boolean) {
+      const el = document.getElementById('password-status');
+      if (!el) return;
+      el.textContent = msg;
+      el.setAttribute('visible', '');
+      if (isError) el.setAttribute('data-error', '');
+      else el.removeAttribute('data-error');
+      setTimeout(() => el.removeAttribute('visible'), 3000);
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const currentPassword = data.get('currentPassword') as string;
+      const newPassword = data.get('newPassword') as string;
+      const result = await authClient.changePassword({ currentPassword, newPassword });
+      if (result.error) {
+        showStatus(result.error.message || 'Password update failed.', true);
+      } else {
+        showStatus('Password updated successfully.', false);
+        form.reset();
+      }
+    });
+  });
+</script>

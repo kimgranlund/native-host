@@ -21,11 +21,20 @@ const codeExamples = {
 };
 ---
 <SidebarLayout title="SlashCommandable">
-  <main>
-<h1>SlashCommandable</h1>
-    <n-text size="md" muted spacing="relaxed">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>SlashCommandable</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+
       Detects <code>/</code> at the caret position in contenteditable inputs and shows a caret-anchored filtered command listbox. Supports keyboard navigation, Tab-to-select, descriptions, and tag insertion.
-    </n-text>
+
+    </div>
+  </header>
+
+  <main>
 
     <!-- ── Basic ── -->
 

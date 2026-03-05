@@ -2,18 +2,25 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Panel">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Panel</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+      <span class="header-tag">&lt;n-panel&gt;</span> Section surface for sidebars, toolbars, and content areas. Less bounded than card. CSS-only container.
+          </div>
+  </header>
+
   <main>
-<h1>&lt;n-panel&gt;</h1>
-    <n-text size="md" muted spacing="relaxed">
-      Section surface for sidebars, toolbars, and content areas. Less bounded than card. CSS-only container.
-    </n-text>
 
     <!-- ── Basic ── -->
 
     <h2>Basic</h2>
     <n-panel bordered>
       <n-panel>
-        <p style="margin: 0;">A basic panel with default padding and panel-elevation background.</p>
+        <n-text>A basic panel with default padding and panel-elevation background.</n-text>
       </n-panel>
     <pre class="layout-code"><code>&lt;n-panel&gt;
   &lt;p&gt;A basic panel with default padding and panel-elevation background.&lt;/p&gt;
@@ -25,7 +32,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <h2>Bordered</h2>
     <n-panel bordered>
       <n-panel bordered>
-        <p style="margin: 0;">A panel with a visible border.</p>
+        <n-text>A panel with a visible border.</n-text>
       </n-panel>
     <pre class="layout-code"><code>&lt;n-panel bordered&gt;
   &lt;p&gt;A panel with a visible border.&lt;/p&gt;
@@ -36,7 +43,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
     <h2>Sidebar Layout</h2>
     <n-panel bordered>
-      <div class="sidebar-demo">
+      <n-stack direction="row" gap="3" class="sidebar-demo">
         <div class="sidebar-panel-wrapper">
           <n-panel bordered>
             <n-stack gap="1" align="stretch">
@@ -47,9 +54,9 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           </n-panel>
         </div>
         <div class="content-area">
-          Main content area. The panel serves as a sidebar surface.
+          <n-text size="sm" muted>Main content area. The panel serves as a sidebar surface.</n-text>
         </div>
-      </div>
+      </n-stack>
       <pre class="layout-code"><code>&lt;n-panel bordered&gt;
   &lt;n-stack gap="1"&gt;
     &lt;n-button variant="ghost" justify="spread"&gt;
@@ -67,10 +74,10 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <n-panel bordered>
       <n-stack gap="4">
         <n-panel bordered size="sm">
-          <p style="margin: 0; font-size: 0.8125rem;">Small panel — compact padding</p>
+          <n-text size="sm">Small panel — compact padding</n-text>
         </n-panel>
         <n-panel bordered size="lg">
-          <p style="margin: 0;">Large panel — spacious padding</p>
+          <n-text>Large panel — spacious padding</n-text>
         </n-panel>
       </n-stack>
     <pre class="layout-code"><code>&lt;n-panel bordered size="sm"&gt;
@@ -87,7 +94,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <h2>No Padding</h2>
     <n-panel bordered>
       <n-panel bordered padded="false">
-        <p style="margin: 0;">This panel has <code>padded="false"</code> — no internal padding. Content touches the edges.</p>
+        <n-text>This panel has <code>padded="false"</code> — no internal padding. Content touches the edges.</n-text>
       </n-panel>
     <pre class="layout-code"><code>&lt;n-panel bordered padded="false"&gt;
   &lt;p&gt;No internal padding. Content touches the edges.&lt;/p&gt;
@@ -97,21 +104,17 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
   <style is:global>
     .sidebar-demo {
-      display: flex;
-      gap: 1rem;
       height: 16rem;
     }
 
-    .sidebar-demo > .sidebar-panel-wrapper {
+    .sidebar-panel-wrapper {
       width: 14rem;
       flex-shrink: 0;
     }
 
-    .sidebar-demo > .content-area {
+    .content-area {
       flex: 1;
       padding: 1rem;
-      font-size: 0.875rem;
-      color: var(--n-ink-muted-neutral);
     }
 
     /* ── Code Blocks ── */

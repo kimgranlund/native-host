@@ -2,45 +2,38 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Data Detail Page">
-  <main>
-<n-stack gap="6">
-
-    <!-- ── Breadcrumb ── -->
+  <header>
     <n-breadcrumb>
       <n-breadcrumb-item href="/">Dashboard</n-breadcrumb-item>
       <n-breadcrumb-item href="/users">Users</n-breadcrumb-item>
       <n-breadcrumb-item current>Kim Granlund</n-breadcrumb-item>
     </n-breadcrumb>
-
-    <!-- ── Profile Header ── -->
-    <n-card>
-      <n-body>
-        <n-stack direction="row" align="center" justify="between" gap="4" wrap>
-          <n-stack direction="row" align="center" gap="4">
-            <n-avatar name="Kim Granlund" size="xl" intent="accent"></n-avatar>
-            <n-stack gap="1">
-              <n-stack direction="row" align="center" gap="2">
-                <span class="profile-name">Kim Granlund</span>
-                <n-badge intent="success">Active</n-badge>
-              </n-stack>
-              <span class="demo-text">Senior Product Designer &middot; Design Team &middot; Joined Mar 2023</span>
-            </n-stack>
+    <div data-slot="title">
+      <div data-slot="leading">
+        <n-avatar name="Kim Granlund" size="xl" intent="accent"></n-avatar>
+      </div>
+      <div data-slot="content">
+        <n-stack gap="1">
+          <n-stack direction="row" align="center" gap="2">
+            <h1>Kim Granlund</h1>
+            <n-badge intent="success">Active</n-badge>
           </n-stack>
-          <n-stack direction="row" gap="2">
-            <n-button size="sm">
-              <n-icon name="pencil-simple" slot="leading"></n-icon>
-              <span slot="label">Edit</span>
-            </n-button>
-            <n-button size="sm" intent="danger">
-              <n-icon name="trash" slot="leading"></n-icon>
-              <span slot="label">Delete</span>
-            </n-button>
-          </n-stack>
+          <span class="demo-text">Senior Product Designer &middot; Design Team &middot; Joined Mar 2023</span>
         </n-stack>
-      </n-body>
-    </n-card>
-
-    <!-- ── Tabs ── -->
+      </div>
+      <div data-slot="actions">
+        <n-button size="sm">
+          <n-icon name="pencil-simple" slot="leading"></n-icon>
+          <span slot="label">Edit</span>
+        </n-button>
+        <n-button size="sm" intent="danger">
+          <n-icon name="trash" slot="leading"></n-icon>
+          <span slot="label">Delete</span>
+        </n-button>
+      </div>
+    </div>
+  </header>
+  <main>
     <n-tabs value="overview">
         <n-tab value="overview">Overview</n-tab>
         <n-tab value="activity">Activity</n-tab>
@@ -327,7 +320,6 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         </n-tab-panel>
         </n-tab-panels>
       </n-tabs>
-    </n-stack>
   </main>
   <style is:global>
     .detail-item {
@@ -407,7 +399,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       color: var(--n-ink-muted-neutral);
     }
 
-    .profile-name {
+    header h1 {
       font-size: 1.25rem;
       font-weight: 700;
     }

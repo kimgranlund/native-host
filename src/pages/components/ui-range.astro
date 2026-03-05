@@ -13,11 +13,18 @@ const codeExamples = {
 };
 ---
 <SidebarLayout title="Range">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Range</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+      <span class="header-tag">&lt;n-range&gt;</span> Slider input with thumb on a track. Keyboard: Arrow ±step, Page ±10×step, Home/End.
+          </div>
+  </header>
+
   <main>
-<h1>&lt;n-range&gt;</h1>
-    <n-text size="md" muted spacing="relaxed">
-      Slider input with thumb on a track. Keyboard: Arrow ±step, Page ±10×step, Home/End.
-    </n-text>
 
     <!-- ── Basic ── -->
 
@@ -213,9 +220,9 @@ const codeExamples = {
 
     <h2>Debug States (<code>force-*</code>)</h2>
     <n-panel bordered>
-      <p class="layout-hint">
+      <n-text size="xs" muted class="layout-hint">
         Attribute-driven pseudo-state overrides for DevTools debugging and visual testing.
-      </p>
+      </n-text>
       <n-stack gap="4">
         <div>
           <div class="layout-label" style="width: auto; margin-bottom: 0.5rem;">force-hover</div>

@@ -29,11 +29,20 @@ popover.syncPopover(open.value);`,
 };
 ---
 <SidebarLayout title="Popoverable">
-  <main>
-<h1>Popoverable</h1>
-    <n-text size="md" muted spacing="relaxed">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Popoverable</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+
       Composable trait that extends <code>Dismissable</code> with CSS Anchor positioning. Provides <code>wirePopover(anchor, popover)</code> to set up anchor-name/position-anchor, and <code>syncPopover(open)</code> to show/hide with <code>popover="manual"</code>.
-    </n-text>
+
+    </div>
+  </header>
+
+  <main>
 
     <!-- ── Basic Popover ── -->
 
@@ -42,10 +51,10 @@ popover.syncPopover(open.value);`,
       <n-text size="xs" muted spacing="tight">
         Uses <code>PopoverController</code> directly to wire an anchor button to a popover panel. Click outside or press Escape to close.
       </n-text>
-      <div id="pop-1" style="display: inline-block; position: relative;">
+      <div id="pop-1" class="popover-anchor">
         <n-button id="pop-trigger-1">Toggle Popover</n-button>
         <div class="pop-content" id="pop-content-1" popover="manual">
-          <p style="margin: 0;">This popover is anchored to the button using CSS Anchor positioning. Click outside or press Escape to close.</p>
+          <n-text>This popover is anchored to the button using CSS Anchor positioning. Click outside or press Escape to close.</n-text>
         </div>
       </div>
       <pre class="layout-code"><code set:html={codeExamples.basicPopover} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
@@ -59,16 +68,16 @@ popover.syncPopover(open.value);`,
         Each popover joins the dismissable layer stack. Only the topmost one is dismissed first.
       </n-text>
       <n-stack direction="row" gap="3">
-        <div id="pop-2" style="display: inline-block; position: relative;">
+        <div id="pop-2" class="popover-anchor">
           <n-button id="pop-trigger-2">Popover A</n-button>
           <div class="pop-content" id="pop-content-2" popover="manual">
-            <p style="margin: 0;"><strong>Popover A</strong> — First layer</p>
+            <n-text><strong>Popover A</strong> — First layer</n-text>
           </div>
         </div>
-        <div id="pop-3" style="display: inline-block; position: relative;">
+        <div id="pop-3" class="popover-anchor">
           <n-button id="pop-trigger-3">Popover B</n-button>
           <div class="pop-content" id="pop-content-3" popover="manual">
-            <p style="margin: 0;"><strong>Popover B</strong> — Second layer</p>
+            <n-text><strong>Popover B</strong> — Second layer</n-text>
           </div>
         </div>
       </n-stack>
@@ -192,6 +201,11 @@ popover.syncPopover(open.value);`,
       position-area: block-end;
       margin: 0.25rem 0 0;
       inset: unset;
+    }
+
+    .popover-anchor {
+      display: inline-block;
+      position: relative;
     }
 
     .demo-select-wrap {

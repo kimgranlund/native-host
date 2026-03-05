@@ -20,11 +20,20 @@ toaster.toast({ message: 'Sticky!', intent: 'warning', duration: 0 });`,
 };
 ---
 <SidebarLayout title="Toastable">
-  <main>
-<h1>Toastable</h1>
-    <n-text size="md" muted spacing="relaxed">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Toastable</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+
       Composable trait for showing toast notifications. Per-controller toast stack with auto-dismiss timers, intent-based styling, and optional dismiss buttons.
-    </n-text>
+
+    </div>
+  </header>
+
+  <main>
 
     <!-- ── Intent Variants ── -->
 

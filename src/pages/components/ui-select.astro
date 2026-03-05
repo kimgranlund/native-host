@@ -44,11 +44,18 @@ const codeExamples = {
 };
 ---
 <SidebarLayout title="Select">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Select</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+      <span class="header-tag">&lt;n-select&gt;</span> Coordinator element that wires a button trigger + popover listbox into a dropdown select.
+          </div>
+  </header>
+
   <main>
-<h1>&lt;n-select&gt;</h1>
-    <n-text size="md" muted spacing="relaxed">
-      Coordinator element that wires a button trigger + popover listbox into a dropdown select.
-    </n-text>
 
     <!-- ── Basic Usage ── -->
 

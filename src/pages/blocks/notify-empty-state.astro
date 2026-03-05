@@ -2,15 +2,21 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Empty State">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Empty States</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+
+      Placeholder patterns shown when content areas have no data.
+      Each variant communicates context and offers a clear next action.
+
+    </div>
+  </header>
   <main>
 <n-stack gap="6">
-    <div>
-      <h1>Empty States</h1>
-      <p class="demo-desc">
-        Placeholder patterns shown when content areas have no data.
-        Each variant communicates context and offers a clear next action.
-      </p>
-    </div>
 
     <!-- -- No Data -- -->
 

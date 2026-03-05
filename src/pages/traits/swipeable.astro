@@ -33,11 +33,20 @@ card.addEventListener('native:swipe', (e) =&gt; {
 const detailSwipe = `{ direction, distance, velocity }`;
 ---
 <SidebarLayout title="Swipeable">
-  <main>
-<h1>Swipeable</h1>
-    <n-text size="md" muted spacing="relaxed">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Swipeable</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+
       Touch/pointer swipe gesture recognition with direction, velocity, and threshold. Supports horizontal, vertical, and both axes.
-    </n-text>
+
+    </div>
+  </header>
+
+  <main>
 
     <!-- ── Horizontal Swipe (Provider) ── -->
 

@@ -2,11 +2,20 @@
 import SidebarLayout from '../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Kernel">
-  <main>
-<h1>Kernel — Interaction OS</h1>
-    <n-text size="md" muted spacing="relaxed">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Kernel — Interaction OS</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+
       20 kernel modules: command bus, undo/redo, focus router, overlays, plan executor, patch protocol, accessibility, observability, workflow engine, policy system, component integration, data binding, workflow templates, schema catalog, and GenUI planner.
-    </n-text>
+
+    </div>
+  </header>
+
+  <main>
 
     <!-- ── Command Bus ── -->
 
@@ -26,10 +35,10 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
           <span slot="label">Reset</span>
         </n-button>
       </n-stack>
-      <div class="status-bar" id="counter-status">
-        <span><span class="label">Counter:</span> <span class="value" id="counter-value">0</span></span>
-        <span><span class="label">Commands:</span> <span class="value" id="cmd-count">0</span></span>
-      </div>
+      <n-card size="sm" class="status-bar" id="counter-status">
+        <span><span class="label">Counter:</span> <n-text inline strong id="counter-value">0</n-text></span>
+        <span><span class="label">Commands:</span> <n-text inline strong id="cmd-count">0</n-text></span>
+      </n-card>
       <div class="log" id="cmd-log"></div>
     </n-panel>
 
@@ -48,10 +57,10 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
           <span slot="label">Redo</span>
         </n-button>
       </n-stack>
-      <div class="status-bar">
-        <span><span class="label">Undo stack:</span> <span class="value" id="undo-count">0</span></span>
-        <span><span class="label">Redo stack:</span> <span class="value" id="redo-count">0</span></span>
-      </div>
+      <n-card size="sm" class="status-bar">
+        <span><span class="label">Undo stack:</span> <n-text inline strong id="undo-count">0</n-text></span>
+        <span><span class="label">Redo stack:</span> <n-text inline strong id="redo-count">0</n-text></span>
+      </n-card>
     </n-panel>
 
     <!-- ── Focus Router ── -->
@@ -83,10 +92,10 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
           <span slot="label">Close All</span>
         </n-button>
       </n-stack>
-      <div class="status-bar">
-        <span><span class="label">Stack depth:</span> <span class="value" id="overlay-depth">0</span></span>
-        <span><span class="label">Top:</span> <span class="value" id="overlay-top">none</span></span>
-      </div>
+      <n-card size="sm" class="status-bar">
+        <span><span class="label">Stack depth:</span> <n-text inline strong id="overlay-depth">0</n-text></span>
+        <span><span class="label">Top:</span> <n-text inline strong id="overlay-top">none</n-text></span>
+      </n-card>
     </n-panel>
 
     <!-- ── Plan Executor ── -->
@@ -97,7 +106,7 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         Validate and render a declarative UI schema. Events wire to the command bus. Edit the JSON and click "Execute Plan".
       </n-text>
       <textarea class="plan-input" id="plan-input"></textarea>
-      <n-stack direction="row" wrap align="center" style="margin-top: 0.75rem;">
+      <n-stack direction="row" wrap align="center" class="kernel-row-gap">
         <n-button variant="primary" id="plan-execute" size="sm">
           <span slot="label">Execute Plan</span>
         </n-button>
@@ -176,10 +185,10 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
           <span slot="label">Clear Log</span>
         </n-button>
       </n-stack>
-      <div class="status-bar">
-        <span><span class="label">Log entries:</span> <span class="value" id="obs-count">0</span></span>
-        <span><span class="label">Perf samples:</span> <span class="value" id="obs-perf-count">0</span></span>
-      </div>
+      <n-card size="sm" class="status-bar">
+        <span><span class="label">Log entries:</span> <n-text inline strong id="obs-count">0</n-text></span>
+        <span><span class="label">Perf samples:</span> <n-text inline strong id="obs-perf-count">0</n-text></span>
+      </n-card>
       <div class="log" id="obs-log"></div>
     </n-panel>
 
@@ -204,11 +213,11 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
           <span slot="label">Snapshot</span>
         </n-button>
       </n-stack>
-      <div class="status-bar">
-        <span><span class="label">State:</span> <span class="value" id="wf-state">-</span></span>
-        <span><span class="label">Running:</span> <span class="value" id="wf-running">false</span></span>
-        <span><span class="label">Cycles:</span> <span class="value" id="wf-cycles">0</span></span>
-      </div>
+      <n-card size="sm" class="status-bar">
+        <span><span class="label">State:</span> <n-text inline strong id="wf-state">-</n-text></span>
+        <span><span class="label">Running:</span> <n-text inline strong id="wf-running">false</n-text></span>
+        <span><span class="label">Cycles:</span> <n-text inline strong id="wf-cycles">0</n-text></span>
+      </n-card>
       <div class="log" id="wf-log"></div>
     </n-panel>
 
@@ -241,10 +250,10 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
           <span slot="label">Dispatch (needs admin)</span>
         </n-button>
       </n-stack>
-      <div class="status-bar">
-        <span><span class="label">Denied:</span> <span class="value" id="pol-denied">0</span></span>
-        <span><span class="label">Last decision:</span> <span class="value" id="pol-last">-</span></span>
-      </div>
+      <n-card size="sm" class="status-bar">
+        <span><span class="label">Denied:</span> <n-text inline strong id="pol-denied">0</n-text></span>
+        <span><span class="label">Last decision:</span> <n-text inline strong id="pol-last">-</n-text></span>
+      </n-card>
       <div class="log" id="pol-log"></div>
     </n-panel>
 
@@ -266,10 +275,10 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
           <span slot="label">Install Event Bridge</span>
         </n-button>
       </n-stack>
-      <div class="status-bar">
-        <span><span class="label">Components:</span> <span class="value" id="ci-count">-</span></span>
-        <span><span class="label">Bridge:</span> <span class="value" id="ci-bridge-status">not installed</span></span>
-      </div>
+      <n-card size="sm" class="status-bar">
+        <span><span class="label">Components:</span> <n-text inline strong id="ci-count">-</n-text></span>
+        <span><span class="label">Bridge:</span> <n-text inline strong id="ci-bridge-status">not installed</n-text></span>
+      </n-card>
       <div class="log" id="ci-log"></div>
     </n-panel>
 
@@ -302,11 +311,11 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
           <span slot="label">Stop</span>
         </n-button>
       </n-stack>
-      <div class="status-bar">
-        <span><span class="label">Template:</span> <span class="value" id="wft-name">-</span></span>
-        <span><span class="label">State:</span> <span class="value" id="wft-state">-</span></span>
-        <span><span class="label">Events:</span> <span class="value" id="wft-events">-</span></span>
-      </div>
+      <n-card size="sm" class="status-bar">
+        <span><span class="label">Template:</span> <n-text inline strong id="wft-name">-</n-text></span>
+        <span><span class="label">State:</span> <n-text inline strong id="wft-state">-</n-text></span>
+        <span><span class="label">Events:</span> <n-text inline strong id="wft-events">-</n-text></span>
+      </n-card>
       <div class="log" id="wft-log"></div>
     </n-panel>
 
@@ -370,7 +379,7 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
       </n-stack>
       <h3>Custom Intent</h3>
       <textarea class="plan-input" id="gp-intent-input" style="min-height: 8rem;"></textarea>
-      <n-stack direction="row" wrap align="center" style="margin-top: 0.75rem;">
+      <n-stack direction="row" wrap align="center" class="kernel-row-gap">
         <n-button variant="primary" id="gp-generate" size="sm">
           <span slot="label">Generate Plan</span>
         </n-button>
@@ -378,11 +387,11 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
           <span slot="label">Execute Generated Plan</span>
         </n-button>
       </n-stack>
-      <div class="status-bar">
-        <span><span class="label">Valid:</span> <span class="value" id="gp-valid">-</span></span>
-        <span><span class="label">A11y:</span> <span class="value" id="gp-a11y">-</span></span>
-        <span><span class="label">Warnings:</span> <span class="value" id="gp-warnings">-</span></span>
-      </div>
+      <n-card size="sm" class="status-bar">
+        <span><span class="label">Valid:</span> <n-text inline strong id="gp-valid">-</n-text></span>
+        <span><span class="label">A11y:</span> <n-text inline strong id="gp-a11y">-</n-text></span>
+        <span><span class="label">Warnings:</span> <n-text inline strong id="gp-warnings">-</n-text></span>
+      </n-card>
       <h3>Generated Plan JSON</h3>
       <div class="log" id="gp-plan-json" style="max-height: 16rem;"></div>
       <h3>Rendered Output</h3>
@@ -572,7 +581,7 @@ import { effect } from "@nonoun/native-ui";
         modParts.push(s.key === ' ' ? 'Space' : s.key.toUpperCase());
 
         const kbdEl = document.createElement('div');
-        kbdEl.innerHTML = `<kbd>${modParts.join(' + ')}</kbd>`;
+        kbdEl.innerHTML = `<n-kbd>${modParts.join(' + ')}</n-kbd>`;
         shortcutList.appendChild(kbdEl);
 
         const descEl = document.createElement('div');
@@ -601,7 +610,7 @@ import { effect } from "@nonoun/native-ui";
       });
 
       function createOverlayBox(type, title, message, x, y) {
-        const box = document.createElement('div');
+        const box = document.createElement('n-card');
         box.className = 'overlay-layout-box';
         box.style.left = `${x}px`;
         box.style.top = `${y}px`;
@@ -1492,19 +1501,18 @@ import { effect } from "@nonoun/native-ui";
       font-size: 0.75rem;
       font-family: ui-monospace, monospace;
       margin-top: 0.75rem;
-      padding: 0.5rem 0.75rem;
-      background: var(--n-panel-neutral);
-      border: 1px solid var(--n-border-muted-neutral);
-      border-radius: 0.375rem;
     }
 
     .status-bar .label {
       color: var(--n-ink-muted-neutral);
     }
 
-    .status-bar .value {
+    .status-bar n-text {
       color: var(--n-ink-accent);
-      font-weight: 600;
+    }
+
+    .kernel-row-gap {
+      margin-top: 0.75rem;
     }
 
     .plan-input {
@@ -1542,32 +1550,19 @@ import { effect } from "@nonoun/native-ui";
       font-size: 0.8125rem;
     }
 
-    .shortcut-list kbd {
-      font-family: ui-monospace, monospace;
-      font-size: 0.75rem;
-      background: var(--n-panel-neutral);
-      border: 1px solid var(--n-border-muted-neutral);
-      border-radius: 0.25rem;
-      padding: 0.125rem 0.375rem;
-    }
-
-    .overlay-demo-box {
+    .overlay-layout-box {
       position: fixed;
-      background: var(--n-card-neutral);
-      border: 1px solid var(--n-border-neutral);
-      border-radius: 0.5rem;
-      padding: 1.5rem;
       box-shadow: 0 8px 32px oklch(0% 0 0 / 0.15);
       min-width: 14rem;
     }
 
-    .overlay-demo-box h4 {
+    .overlay-layout-box h4 {
       margin: 0 0 0.5rem;
       font-size: 0.875rem;
       font-weight: 600;
     }
 
-    .overlay-demo-box p {
+    .overlay-layout-box p {
       margin: 0 0 0.75rem;
       font-size: 0.8125rem;
       color: var(--n-ink-muted-neutral);

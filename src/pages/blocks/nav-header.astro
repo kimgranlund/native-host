@@ -2,15 +2,21 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Nav Header">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Top Navigation Bar</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+
+      Horizontal application header with brand, navigation, search, and user controls.
+      Three layout variants for different use cases.
+
+    </div>
+  </header>
   <main>
 <n-stack gap="8">
-    <div>
-      <h1>Top Navigation Bar</h1>
-      <p class="demo-desc">
-        Horizontal application header with brand, navigation, search, and user controls.
-        Three layout variants for different use cases.
-      </p>
-    </div>
 
     <!-- ── With Breadcrumb ── -->
 

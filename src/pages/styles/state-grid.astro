@@ -19,18 +19,32 @@ const codeExamples = {
 };
 ---
 <SidebarLayout title="State Grid">
-  <main>
-<h1>Component State Grid</h1>
-      <p>Each card shows the CSS color tokens a component uses per state. Hover or click a state pill to highlight every component that resolves to the same <code>background</code>, <code>color</code>, and <code>border-color</code> values.</p>
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Component State Grid</h1>
+      </div>
+    </div>
+    <div data-slot="description">
 
-      <n-panel bordered size="sm" style="flex-direction: row; flex-wrap: wrap; gap: calc(var(--n-space) * 4); margin-bottom: calc(var(--n-space) * 4);">
-        <div class="legend-item"><span class="legend-swatch" style="background: var(--n-surface-accent);"></span> accent-surface</div>
-        <div class="legend-item"><span class="legend-swatch" style="background: white; border-color: var(--n-border-muted-neutral);"></span> white</div>
-        <div class="legend-item"><span class="legend-swatch" style="background: var(--n-panel-neutral);"></span> panel</div>
-        <div class="legend-item"><span class="legend-swatch" style="background: var(--n-control-neutral);"></span> control</div>
-        <div class="legend-item"><span class="legend-swatch" style="background: var(--n-color-neutral-higher);"></span> button</div>
-        <div class="legend-item"><span class="legend-swatch" style="background: transparent; border-color: var(--n-border-neutral);"></span> transparent</div>
-      </n-panel>
+      Each card shows the CSS color tokens a component uses per state. Hover or click a state pill to highlight every component that resolves to the same <code>background</code>, <code>color</code>, and <code>border-color</code> values.
+
+    </div>
+  </header>
+  <main>
+
+      <div class="legend-wrapper">
+        <n-panel bordered size="sm">
+          <div class="legend-row">
+            <div class="legend-item"><span class="legend-swatch legend-swatch--accent"></span> accent-surface</div>
+            <div class="legend-item"><span class="legend-swatch legend-swatch--white"></span> white</div>
+            <div class="legend-item"><span class="legend-swatch legend-swatch--panel"></span> panel</div>
+            <div class="legend-item"><span class="legend-swatch legend-swatch--control"></span> control</div>
+            <div class="legend-item"><span class="legend-swatch legend-swatch--button"></span> button</div>
+            <div class="legend-item"><span class="legend-swatch legend-swatch--transparent"></span> transparent</div>
+          </div>
+        </n-panel>
+      </div>
 
       <!-- Toolbar: category filters + state search -->
       <n-toolbar id="toolbar" size="sm">
@@ -1006,6 +1020,17 @@ pointer-events: none;</code><n-button size="sm" variant="ghost" aria-label="Copy
     }
 
     /* ── Legend ── */
+    .legend-wrapper {
+      margin-bottom: calc(var(--n-space) * 4);
+    }
+
+    .legend-row {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: calc(var(--n-space) * 4);
+    }
+
     .legend-item {
       display: flex;
       align-items: center;
@@ -1020,6 +1045,13 @@ pointer-events: none;</code><n-button size="sm" variant="ghost" aria-label="Copy
       border-radius: 50%;
       border: 1px solid oklch(0% 0 0 / 0.15);
     }
+
+    .legend-swatch--accent { background: var(--n-surface-accent); }
+    .legend-swatch--white { background: white; border-color: var(--n-border-muted-neutral); }
+    .legend-swatch--panel { background: var(--n-panel-neutral); }
+    .legend-swatch--control { background: var(--n-control-neutral); }
+    .legend-swatch--button { background: var(--n-color-neutral-higher); }
+    .legend-swatch--transparent { background: transparent; border-color: var(--n-border-neutral); }
 
     /* ── Empty state text ── */
     .no-states {

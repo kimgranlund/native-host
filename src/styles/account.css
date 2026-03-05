@@ -1,0 +1,85 @@
+/* Shared styles for /account/* settings pages */
+
+.account-layout {
+  display: grid;
+  grid-template-columns: 12rem 1fr;
+  gap: calc(var(--n-space) * 8);
+}
+
+.account-nav {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--n-space) * 1);
+  position: sticky;
+  top: calc(var(--n-space) * 4);
+  align-self: start;
+}
+
+.account-nav-link {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--n-space) * 2);
+  padding: calc(var(--n-space) * 2) calc(var(--n-space) * 3);
+  border-radius: var(--n-radius);
+  font-size: 0.875rem;
+  color: var(--n-ink-muted-neutral);
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
+
+.account-nav-link:hover {
+  background: var(--n-panel-muted-neutral);
+  color: var(--n-ink-neutral);
+}
+
+.account-nav-link[aria-current='page'] {
+  background: var(--n-panel-muted-accent);
+  color: var(--n-ink-accent);
+  font-weight: 500;
+}
+
+.account-content {
+  max-width: 44rem;
+}
+
+.account-content n-field {
+  gap: calc(var(--n-space) * 2);
+}
+
+.settings-status {
+  font-size: 0.8125rem;
+  margin-bottom: 0.75rem;
+  display: none;
+  color: var(--n-ink-success);
+}
+
+.settings-status[visible] {
+  display: block;
+}
+
+.settings-status[data-error] {
+  color: var(--n-ink-danger);
+}
+
+.danger-zone-text {
+  flex: 1;
+  min-width: 12rem;
+}
+
+.delete-confirm-wrap {
+  width: min(400px, 90vw);
+  margin-top: 120px;
+}
+
+@media (max-width: 640px) {
+  .account-layout {
+    grid-template-columns: 1fr;
+    gap: calc(var(--n-space) * 4);
+  }
+
+  .account-nav {
+    flex-direction: row;
+    position: static;
+    overflow-x: auto;
+  }
+}

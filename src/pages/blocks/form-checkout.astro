@@ -2,14 +2,20 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Form Checkout">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Checkout</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+
+      Complete your purchase by filling in the details below.
+
+    </div>
+  </header>
   <main>
 <n-stack gap="6">
-    <div>
-      <h1>Checkout</h1>
-      <p class="demo-desc">
-        Complete your purchase by filling in the details below.
-      </p>
-    </div>
 
     <form id="checkout-form">
       <div class="checkout-layout">

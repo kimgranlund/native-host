@@ -2,11 +2,19 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Account Settings">
-  <main>
-<h1>Account Settings</h1>
-    <p class="demo-desc">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Account Settings</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+
       Full account settings page with profile, notification, security, and danger zone sections.
-    </p>
+
+    </div>
+  </header>
+  <main>
 
     <div class="settings-container">
 

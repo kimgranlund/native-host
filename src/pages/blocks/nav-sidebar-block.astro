@@ -2,16 +2,22 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Nav Sidebar">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Application Sidebar</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+
+      Vertical navigation sidebar using <code>native-app</code> with grouped nav items,
+      collapsible sections, header with brand switcher, and user footer.
+      Two variants: expanded and collapsed (icon-only).
+
+    </div>
+  </header>
   <main>
 <n-stack gap="6">
-    <div>
-      <h1>Application Sidebar</h1>
-      <p class="demo-desc">
-        Vertical navigation sidebar using <code>native-app</code> with grouped nav items,
-        collapsible sections, header with brand switcher, and user footer.
-        Two variants: expanded and collapsed (icon-only).
-      </p>
-    </div>
 
     <!-- ── Full Sidebar ── -->
 

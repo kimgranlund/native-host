@@ -9,10 +9,6 @@ if (Astro.locals.user) return Astro.redirect('/blocks/data-dashboard-stats');
     @import '../../styles/layout.css';
 
     .auth-screen {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
       min-height: 100dvh;
       padding: 2rem;
     }
@@ -27,54 +23,35 @@ if (Astro.locals.user) return Astro.redirect('/blocks/data-dashboard-stats');
     }
 
     .auth-logo {
-      display: flex;
-      justify-content: center;
       margin-bottom: 1.5rem;
     }
 
     .auth-heading {
       text-align: center;
       margin-bottom: 0.25rem;
-      font-size: 1.25rem;
-      font-weight: 700;
     }
 
     .auth-subheading {
       text-align: center;
-      color: var(--n-ink-muted-neutral);
-      font-size: 0.875rem;
       margin-bottom: 1.5rem;
     }
 
-    .auth-footer-text {
+    .auth-footer {
       text-align: center;
-      font-size: 0.8125rem;
-      color: var(--n-ink-muted-neutral);
       margin-top: 1.5rem;
     }
 
-    .auth-footer-text a {
+    .auth-footer a {
       color: var(--n-ink-accent);
       text-decoration: none;
       font-weight: 500;
     }
 
-    .auth-footer-text a:hover {
+    .auth-footer a:hover {
       text-decoration: underline;
     }
 
-    .oauth-row {
-      display: flex;
-      gap: calc(var(--n-space) * 3);
-    }
-
-    .oauth-row > * {
-      flex: 1;
-    }
-
     .auth-error {
-      font-size: 0.8125rem;
-      color: var(--n-ink-danger);
       text-align: center;
       margin-bottom: 0.75rem;
       display: none;
@@ -88,8 +65,6 @@ if (Astro.locals.user) return Astro.redirect('/blocks/data-dashboard-stats');
       position: fixed;
       bottom: 1.5rem;
       text-align: center;
-      font-size: 0.6875rem;
-      color: var(--n-ink-muted-neutral);
       opacity: 0.6;
     }
 
@@ -105,15 +80,15 @@ if (Astro.locals.user) return Astro.redirect('/blocks/data-dashboard-stats');
     }
   </style>
 
-  <main class="auth-screen">
+  <n-stack class="auth-screen" align="center" justify="center">
     <div class="auth-card-wrapper">
-      <div class="auth-logo">
+      <n-stack align="center" class="auth-logo">
         <Logo size={40} />
-      </div>
-      <p class="auth-heading">Create your account</p>
-      <p class="auth-subheading">Get started with NativeUI for free</p>
+      </n-stack>
+      <n-text size="lg" strong class="auth-heading">Create your account</n-text>
+      <n-text size="sm" muted class="auth-subheading">Get started with NativeUI for free</n-text>
 
-      <p class="auth-error" id="auth-error"></p>
+      <n-text size="sm" intent="danger" class="auth-error" id="auth-error"></n-text>
 
       <div class="auth-card">
         <n-card padding="relaxed">
@@ -144,24 +119,22 @@ if (Astro.locals.user) return Astro.redirect('/blocks/data-dashboard-stats');
               </n-stack>
             </form>
             <n-divider>or continue with</n-divider>
-            <div class="oauth-row">
-              <n-button size="lg" id="google-register">
-                <n-icon name="google-logo" slot="leading"></n-icon>
-                <span slot="label">Google</span>
-              </n-button>
-            </div>
+            <n-button size="lg" id="google-register">
+              <n-icon name="google-logo" slot="leading"></n-icon>
+              <span slot="label">Google</span>
+            </n-button>
           </n-stack>
         </n-card>
       </div>
-      <p class="auth-footer-text">
+      <n-text size="sm" muted class="auth-footer">
         Already have an account? <a href="/auth/login">Sign in</a> | <a href="/blocks/data-dashboard-stats">Skip</a>
-      </p>
+      </n-text>
     </div>
 
-    <p class="auth-legal">
+    <n-text size="xs" muted class="auth-legal">
       By continuing, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
-    </p>
-  </main>
+    </n-text>
+  </n-stack>
 
   <script>
     import { authClient } from '../../lib/auth-client';

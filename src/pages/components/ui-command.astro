@@ -23,11 +23,18 @@ const codeExamples = {
 };
 ---
 <SidebarLayout title="Command">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Command</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+      <span class="header-tag">&lt;n-command&gt;</span> Command palette with search filtering, keyboard navigation, and grouped items.
+          </div>
+  </header>
+
   <main>
-<h1>&lt;n-command&gt;</h1>
-    <n-text size="md" muted spacing="relaxed">
-      Command palette with search filtering, keyboard navigation, and grouped items.
-    </n-text>
 
     <!-- ── Basic ── -->
 

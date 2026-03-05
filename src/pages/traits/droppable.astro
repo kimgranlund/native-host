@@ -34,11 +34,20 @@ const codeExamples = {
 const detailDrop = `{ type, files?, text?, dataTransfer? }`;
 ---
 <SidebarLayout title="Droppable">
-  <main>
-<h1>Droppable</h1>
-    <n-text size="md" muted spacing="relaxed">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Droppable</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+
       External file/data drop zone using the HTML5 drag-and-drop API. Sets <code>[drop-active]</code> when a valid item is dragged over and <code>[drop-invalid]</code> when the MIME type does not match <code>droppable-accept</code>.
-    </n-text>
+
+    </div>
+  </header>
+
+  <main>
 
     <!-- ── File Drop Zone (Provider) ── -->
 
@@ -54,7 +63,7 @@ const detailDrop = `{ type, files?, text?, dataTransfer? }`;
           <span class="drop-hint">Any file type accepted</span>
         </div>
       </n-controller>
-      <div id="files-list" class="file-list" style="display: none;"></div>
+      <div id="files-list" class="file-list" class="drop-hidden"></div>
       <div id="files-log" class="output"></div>
       <pre class="layout-code"><code set:html={codeExamples.fileDropZoneProvider} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
@@ -73,7 +82,7 @@ const detailDrop = `{ type, files?, text?, dataTransfer? }`;
           <span class="drop-hint">Only image files accepted</span>
         </div>
       </n-controller>
-      <div id="images-list" class="file-list" style="display: none;"></div>
+      <div id="images-list" class="file-list" class="drop-hidden"></div>
       <div id="images-log" class="output"></div>
       <pre class="layout-code"><code>&lt;n-controller traits="droppable" droppable-accept="image/*"&gt;
   &lt;div class="drop-zone"&gt;
@@ -96,7 +105,7 @@ const detailDrop = `{ type, files?, text?, dataTransfer? }`;
           <span class="drop-hint">Select text in your browser and drag it here</span>
         </div>
       </n-controller>
-      <div id="text-content" class="dropped-text" style="display: none;"></div>
+      <div id="text-content" class="dropped-text" class="drop-hidden"></div>
       <div id="text-log" class="output"></div>
       <pre class="layout-code"><code set:html={codeExamples.textDropProvider} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
@@ -115,7 +124,7 @@ const detailDrop = `{ type, files?, text?, dataTransfer? }`;
           <span class="drop-hint">Only the first file will be accepted</span>
         </div>
       </n-controller>
-      <div id="single-list" class="file-list" style="display: none;"></div>
+      <div id="single-list" class="file-list" class="drop-hidden"></div>
       <div id="single-log" class="output"></div>
       <pre class="layout-code"><code>&lt;n-controller traits="droppable" droppable-multiple="false"&gt;
   &lt;div class="drop-zone"&gt;
@@ -204,7 +213,7 @@ document.addEventListener('astro:page-load', () => {
   function renderFiles(listEl: HTMLElement | null, files: File[]) {
     if (!listEl) return;
     listEl.innerHTML = '';
-    listEl.style.display = 'flex';
+    listEl.classList.remove('drop-hidden');
     for (const file of files) {
       const item = document.createElement('div');
       item.className = 'file-item';
@@ -233,7 +242,7 @@ document.addEventListener('astro:page-load', () => {
     if (e.detail.type !== 'text') return;
     const contentEl = document.getElementById('text-content') as HTMLElement | null;
     if (contentEl) {
-      contentEl.style.display = 'block';
+      contentEl.classList.remove('drop-hidden');
       contentEl.textContent = e.detail.text;
     }
     appendLog(document.getElementById('text-log'), `Dropped ${e.detail.text.length} characters`);
@@ -248,6 +257,10 @@ document.addEventListener('astro:page-load', () => {
 });
   </script>
   <style is:global>
+    .drop-hidden {
+      display: none;
+    }
+
     /* ── Drop Zones ── */
 
     .drop-zone {

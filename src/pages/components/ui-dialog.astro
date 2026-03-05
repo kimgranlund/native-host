@@ -2,11 +2,18 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Dialog">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Dialog</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+      <span class="header-tag">&lt;n-dialog&gt;</span> Modal dialog built on native <code>&lt;dialog&gt;</code>. Opens via <code>showModal()</code>, closes on backdrop click, Escape, or programmatically. Content is promoted to the top layer with full token re-establishment.
+          </div>
+  </header>
+
   <main>
-<h1>&lt;n-dialog&gt;</h1>
-    <n-text size="md" muted spacing="relaxed">
-      Modal dialog built on native <code>&lt;dialog&gt;</code>. Opens via <code>showModal()</code>, closes on backdrop click, Escape, or programmatically. Content is promoted to the top layer with full token re-establishment.
-    </n-text>
 
     <!-- ── Basic Dialog ── -->
 

@@ -2,15 +2,21 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Confirmation Dialog">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Confirmation Dialogs</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+
+      Modal confirmation patterns for different severity levels. Each dialog
+      clearly communicates the action, its consequences, and provides cancel/confirm options.
+
+    </div>
+  </header>
   <main>
 <n-stack gap="6">
-    <div>
-      <h1>Confirmation Dialogs</h1>
-      <p class="demo-desc">
-        Modal confirmation patterns for different severity levels. Each dialog
-        clearly communicates the action, its consequences, and provides cancel/confirm options.
-      </p>
-    </div>
 
     <!-- -- Trigger Buttons -- -->
 

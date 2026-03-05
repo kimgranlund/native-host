@@ -2,14 +2,20 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Account Profile Card">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Profile Card</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+
+      Compact profile display card with avatar, stats, and action buttons.
+
+    </div>
+  </header>
   <main>
 <n-stack gap="6">
-    <div>
-      <h1>Profile Card</h1>
-      <p class="demo-desc">
-        Compact profile display card with avatar, stats, and action buttons.
-      </p>
-    </div>
 
     <!-- ── Standard Profile Card ── -->
 

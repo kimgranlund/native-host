@@ -2,22 +2,26 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Data Table Page">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Users</h1>
+      </div>
+      <div data-slot="actions">
+        <n-button variant="primary" intent="accent" size="md">
+          <n-icon name="plus" slot="leading"></n-icon>
+          <span slot="label">New User</span>
+        </n-button>
+      </div>
+    </div>
+    <div data-slot="description">
+
+      Manage your team members and their account permissions.
+
+    </div>
+  </header>
   <main>
 <n-stack gap="6">
-
-    <!-- ── Page Header ── -->
-    <n-stack direction="row" align="center" justify="between" wrap gap="4">
-      <n-stack gap="1">
-        <h1>Users</h1>
-        <p class="demo-desc">
-          Manage your team members and their account permissions.
-        </p>
-      </n-stack>
-      <n-button variant="primary" intent="accent" size="sm">
-        <n-icon name="plus" slot="leading"></n-icon>
-        <span slot="label">New User</span>
-      </n-button>
-    </n-stack>
 
     <!-- ── Table Card ── -->
     <n-card>
@@ -42,7 +46,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
         <!-- ── Data Table ── -->
         <div class="table-scroll">
-          <n-table id="users-table">
+          <n-table id="users-table" cols="1fr 1fr auto auto auto">
             <n-table-head>
               <n-table-row>
                 <n-table-header sortable column="name">Name</n-table-header>

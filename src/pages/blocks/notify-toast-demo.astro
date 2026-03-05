@@ -2,15 +2,21 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Toast Demo">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Toast Notifications</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+
+      Trigger toast notifications with different intents, durations, and content lengths.
+      Each button demonstrates a specific toast configuration via the Toastable trait.
+
+    </div>
+  </header>
   <main>
 <n-stack gap="6">
-    <div>
-      <h1>Toast Notifications</h1>
-      <p class="demo-desc">
-        Trigger toast notifications with different intents, durations, and content lengths.
-        Each button demonstrates a specific toast configuration via the Toastable trait.
-      </p>
-    </div>
 
     <!-- -- Intent Variants -- -->
 

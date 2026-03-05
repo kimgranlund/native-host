@@ -21,11 +21,20 @@ panel.addEventListener('native:dismiss', () =&gt; hidePanel());`,
 };
 ---
 <SidebarLayout title="Dismissable">
-  <main>
-<h1>Dismissable</h1>
-    <n-text size="md" muted spacing="relaxed">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Dismissable</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+
       Composable trait that manages a global layer stack. When enabled, clicking outside the element or pressing Escape dispatches a <code>native:dismiss</code> event. Only the topmost layer in the stack receives dismiss events.
-    </n-text>
+
+    </div>
+  </header>
+
+  <main>
 
     <!-- ── Click Outside to Dismiss ── -->
 
@@ -58,7 +67,7 @@ panel.addEventListener('native:dismiss', () =&gt; hidePanel());`,
       <div class="dismiss-panel" id="panel-a" hidden>
         <strong>Panel A</strong> — I'm the first layer.
       </div>
-      <div class="dismiss-panel" id="panel-b" hidden style="background: var(--n-surface-info); color: var(--n-surface-ink-info);">
+      <div class="dismiss-panel dismiss-panel-b" id="panel-b" hidden>
         <strong>Panel B</strong> — I'm on top of Panel A.
       </div>
       <pre class="layout-code"><code>&lt;!-- Each panel has its own DismissController --&gt;
@@ -86,7 +95,7 @@ dismissB.enable();
       <n-button id="open-dialog">Open Dialog</n-button>
       <n-dialog id="demo-dialog">
         <div class="dialog-card"><n-card>
-          <p style="margin: 0 0 1rem;">This dialog uses Dismissable internally. Press Escape or click the backdrop to close.</p>
+          <n-text>This dialog uses Dismissable internally. Press Escape or click the backdrop to close.</n-text>
           <n-button id="close-dialog" intent="accent">Close</n-button>
         </n-card></div>
       </n-dialog>
@@ -230,6 +239,11 @@ document.addEventListener('astro:page-load', () => {
     .dialog-card {
       width: 20rem;
       padding: 1.5rem;
+    }
+
+    .dismiss-panel-b {
+      background: var(--n-surface-info);
+      color: var(--n-surface-ink-info);
     }
 
     /* ── Code Blocks ── */

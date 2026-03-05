@@ -18,11 +18,18 @@ dots.next();       // go to next`,
 };
 ---
 <SidebarLayout title="Pagination Dots">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Pagination Dots</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+      <span class="header-tag">&lt;n-pagination-dots&gt;</span> Pagination dot indicator for slideshows, onboarding flows, and step wizards. Sliding pill indicator, windowing for large counts, and optional prev/next paddles.
+          </div>
+  </header>
+
   <main>
-<h1>&lt;n-pagination-dots&gt;</h1>
-    <n-text size="md" muted spacing="relaxed">
-      Pagination dot indicator for slideshows, onboarding flows, and step wizards. Sliding pill indicator, windowing for large counts, and optional prev/next paddles.
-    </n-text>
 
     <!-- ── Basic ── -->
 

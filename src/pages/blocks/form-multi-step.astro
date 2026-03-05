@@ -2,14 +2,20 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Form Multi-Step">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Create Account</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+
+      Complete the steps below to set up your new account.
+
+    </div>
+  </header>
   <main>
 <n-stack gap="6">
-    <div>
-      <h1>Create Account</h1>
-      <p class="demo-desc">
-        Complete the steps below to set up your new account.
-      </p>
-    </div>
 
     <div class="wizard-wrapper">
       <n-card>

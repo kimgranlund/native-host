@@ -17,11 +17,18 @@ const codeExamples = {
 };
 ---
 <SidebarLayout title="Field">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Field</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+      <span class="header-tag">&lt;n-field&gt;</span> Form field wrapper with label, description, error message, and ARIA wiring.
+          </div>
+  </header>
+
   <main>
-<h1>&lt;n-field&gt;</h1>
-    <n-text size="md" muted spacing="relaxed">
-      Form field wrapper with label, description, error message, and ARIA wiring.
-    </n-text>
 
     <!-- ── Basic ── -->
 

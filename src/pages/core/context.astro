@@ -2,12 +2,19 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Context API">
-  <main>
-<h1>Context API</h1>
-        <p class="subtitle">
-          Two concurrent providers — <strong>Session</strong> and <strong>Notifications</strong> — push reactive signals and functions to consumers scattered across the DOM tree. No prop drilling.
-        </p>
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Context API</h1>
+      </div>
+    </div>
+    <div data-slot="description">
 
+      Two concurrent providers — <strong>Session</strong> and <strong>Notifications</strong> — push reactive signals and functions to consumers scattered across the DOM tree. No prop drilling.
+
+    </div>
+  </header>
+  <main>
         <session-provider>
           <notif-provider>
 
@@ -63,7 +70,8 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
               </n-card>
 
               <!-- Stats — notification context -->
-              <n-card style="grid-column: 1 / -1;">
+              <div class="ctx-full-span">
+              <n-card>
                 <n-header>
                   <n-icon name="chart-bar" slot="leading" size="sm"></n-icon>
                   <span slot="label">Session Stats</span>
@@ -72,21 +80,26 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
                   <session-stats></session-stats>
                 </n-body>
               </n-card>
+              </div>
 
               <!-- Context event log -->
-              <n-card style="grid-column: 1 / -1;">
+              <div class="ctx-full-span">
+              <n-card>
                 <n-header>
                   <n-icon name="terminal" slot="leading" size="sm"></n-icon>
                   <span slot="label">Context Event Log</span>
                   <n-badge slot="trailing" size="xs">live</n-badge>
                 </n-header>
                 <n-body>
-                  <n-text size="xs" muted style="margin-bottom: 0.5rem;">
-                    Every context subscription and signal update is logged — proof that reactive state flows from providers to arbitrarily nested consumers.
-                  </n-text>
-                  <ctx-log></ctx-log>
+                  <n-stack gap="2">
+                    <n-text size="xs" muted>
+                      Every context subscription and signal update is logged — proof that reactive state flows from providers to arbitrarily nested consumers.
+                    </n-text>
+                    <ctx-log></ctx-log>
+                  </n-stack>
                 </n-body>
               </n-card>
+              </div>
 
             </n-grid>
 
@@ -234,7 +247,7 @@ import { NativeElement, define, signal, computed, ContextProvider, ContextConsum
                 <div class="toolbar-name"></div>
                 <div class="toolbar-role"></div>
               </div>
-              <span style="flex:1;"></span>
+              <div class="ctx-spacer"></div>
               <n-button variant="ghost" size="sm" intent="info" data-action="push">
                 <n-icon name="lightning" slot="leading"></n-icon> Generate Event
               </n-button>
@@ -283,7 +296,7 @@ import { NativeElement, define, signal, computed, ContextProvider, ContextConsum
                 const name = m.name === 'You' ? myName : m.name;
                 const label = m.name === 'You' ? myName + ' (you)' : m.name;
                 return `
-                  <div class="row" style="display:flex;align-items:center;gap:0.5rem;">
+                  <n-stack direction="row" align="center" gap="2">
                     <div class="avatar-wrap">
                       <n-avatar name="${name}" size="sm" intent="${m.intent}"></n-avatar>
                       <n-badge intent="${m.online ? 'success' : 'neutral'}" floating dot></n-badge>
@@ -292,7 +305,7 @@ import { NativeElement, define, signal, computed, ContextProvider, ContextConsum
                       <div class="presence-name">${label}</div>
                       <div class="presence-role">${m.role}${m.online ? '' : ' · offline'}</div>
                     </div>
-                  </div>`;
+                  </n-stack>`;
               }).join('');
             });
           });
@@ -339,25 +352,27 @@ import { NativeElement, define, signal, computed, ContextProvider, ContextConsum
               const list = ctx.items.value;
               if (list.length === 0) {
                 this.innerHTML = `
-                  <n-stack align="center" gap="2" style="padding: 2rem 0; color: var(--n-ink-muted-neutral); font-size: 0.8125rem;">
-                    <n-icon name="bell" size="28"></n-icon>
-                    <span>All clear — no notifications</span>
-                  </n-stack>`;
+                  <div class="ctx-empty-state">
+                    <n-stack align="center" gap="2">
+                      <n-icon name="bell" size="28"></n-icon>
+                      <n-text size="xs" muted>All clear — no notifications</n-text>
+                    </n-stack>
+                  </div>`;
                 return;
               }
               this.innerHTML = list.map(n => `
-                <div class="notif-row" style="display:flex;align-items:flex-start;gap:0.5rem;padding:0.5rem 0;border-bottom:1px solid var(--n-border-muted-neutral);">
+                <n-stack class="notif-row" direction="row" align="start" gap="2">
                   <div class="activity-dot ${n.type}">
                     <n-icon name="${INTENT_ICONS[n.type]}" size="14"></n-icon>
                   </div>
-                  <div class="notif-text" style="flex:1;min-width:0;">
+                  <div class="notif-text ctx-flex-fill">
                     <strong>${n.title}</strong>
                     <p>${n.msg}</p>
                   </div>
                   <n-button variant="ghost" size="xs" data-dismiss="${n.id}">
                     <n-icon name="x" slot="leading"></n-icon>
                   </n-button>
-                </div>
+                </n-stack>
               `).join('');
             });
           });
@@ -403,19 +418,19 @@ import { NativeElement, define, signal, computed, ContextProvider, ContextConsum
           this.addEffect(() => {
             const list = activities.value;
             if (list.length === 0) {
-              this.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--n-ink-muted-neutral);font-size:0.8125rem;">No activity yet</div>';
+              this.innerHTML = '<div class="ctx-empty-state"><n-stack align="center" gap="2"><n-text size="xs" muted>No activity yet</n-text></n-stack></div>';
               return;
             }
             this.innerHTML = list.map(a => `
-              <div class="activity-row" style="display:flex;align-items:flex-start;gap:0.5rem;padding:0.5rem 0;border-bottom:1px solid var(--n-border-muted-neutral);">
+              <n-stack class="activity-row" direction="row" align="start" gap="2">
                 <div class="activity-dot ${a.intent}">
                   <n-icon name="${a.icon}" size="14"></n-icon>
                 </div>
-                <div style="flex:1;min-width:0;">
+                <div class="ctx-flex-fill">
                   <div class="activity-text"><strong>${a.actor}</strong> ${a.text}</div>
                   <div class="activity-time">${a.time}</div>
                 </div>
-              </div>
+              </n-stack>
             `).join('');
           });
         }
@@ -439,7 +454,7 @@ import { NativeElement, define, signal, computed, ContextProvider, ContextConsum
           this.requestContext('session', (ctx) => {
             ctxLog('pref', 'Preferences subscribed to session');
             this.innerHTML = PREFS.map(p => `
-              <n-stack direction="row" gap="3" align="center" style="justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--n-border-muted-neutral)">
+              <n-stack class="ctx-pref-row" direction="row" gap="3" align="center" justify="between">
                 <div>
                   <div class="pref-label">${p.label}</div>
                   <div class="pref-desc">${p.desc}</div>
@@ -478,26 +493,26 @@ import { NativeElement, define, signal, computed, ContextProvider, ContextConsum
                 <n-stack gap="3">
                   <n-grid cols="4" gap="2">
                     <n-stack gap="1">
-                      <div class="stat-value" style="color: var(--n-ink-info);">${s.info}</div>
+                      <div class="stat-value stat-info">${s.info}</div>
                       <div class="stat-label">Info</div>
                     </n-stack>
                     <n-stack gap="1">
-                      <div class="stat-value" style="color: var(--n-ink-success);">${s.success}</div>
+                      <div class="stat-value stat-success">${s.success}</div>
                       <div class="stat-label">Success</div>
                     </n-stack>
                     <n-stack gap="1">
-                      <div class="stat-value" style="color: var(--n-ink-warning);">${s.warning}</div>
+                      <div class="stat-value stat-warning">${s.warning}</div>
                       <div class="stat-label">Warning</div>
                     </n-stack>
                     <n-stack gap="1">
-                      <div class="stat-value" style="color: var(--n-ink-danger);">${s.danger}</div>
+                      <div class="stat-value stat-danger">${s.danger}</div>
                       <div class="stat-label">Danger</div>
                     </n-stack>
                   </n-grid>
-                  <n-stack direction="row" gap="6" style="justify-content: center; font-size: 0.75rem; color: var(--n-ink-muted-neutral)">
-                    <span><strong style="color:var(--n-ink-neutral);">${s.total}</strong> total</span>
-                    <span><strong style="color:var(--n-ink-neutral);">${s.dismissed}</strong> dismissed</span>
-                    <span><strong style="color:var(--n-ink-neutral);">${ctx.count.value}</strong> pending</span>
+                  <n-stack class="ctx-stats-summary" direction="row" gap="6" justify="center">
+                    <n-text size="xs" muted><strong class="ctx-stat-strong">${s.total}</strong> total</n-text>
+                    <n-text size="xs" muted><strong class="ctx-stat-strong">${s.dismissed}</strong> dismissed</n-text>
+                    <n-text size="xs" muted><strong class="ctx-stat-strong">${ctx.count.value}</strong> pending</n-text>
                   </n-stack>
                 </n-stack>`;
             });
@@ -516,7 +531,7 @@ import { NativeElement, define, signal, computed, ContextProvider, ContextConsum
           this.addEffect(() => {
             const entries = logEntries.value;
             if (entries.length === 0) {
-              this.innerHTML = '<div class="ctx-log" style="font-style:italic;color:var(--n-ink-muted-neutral);">Waiting for events...</div>';
+              this.innerHTML = '<div class="ctx-log ctx-log-empty">Waiting for events...</div>';
               return;
             }
             this.innerHTML = '<div class="ctx-log">' + entries.map(e =>
@@ -528,7 +543,12 @@ import { NativeElement, define, signal, computed, ContextProvider, ContextConsum
       define('ctx-log', CtxLog);
   </script>
   <style is:global>
-    .subtitle { color: var(--n-ink-muted-neutral); font-size: 0.8125rem; margin-bottom: 1.5rem; white-space: normal; }
+    .subtitle { margin-bottom: 1.5rem; white-space: normal; }
+    .ctx-full-span { grid-column: 1 / -1; }
+    .ctx-flex-fill { flex: 1; min-width: 0; }
+    .ctx-spacer { flex: 1; }
+    .ctx-empty-state { padding: 2rem 0; }
+    .ctx-stat-strong { color: var(--n-ink-neutral); }
 
     /* Structural wrappers: display contents so they don't create boxes */
     session-provider, notif-provider {
@@ -553,6 +573,7 @@ import { NativeElement, define, signal, computed, ContextProvider, ContextConsum
     .presence-role { font-size: 0.6875rem; color: var(--n-ink-muted-neutral); }
 
     /* ── Activity items ── */
+    .activity-row { padding: 0.5rem 0; border-bottom: 1px solid var(--n-border-muted-neutral); }
     .activity-dot {
       flex-shrink: 0; width: 1.75rem; height: 1.75rem;
       border-radius: 50%; display: grid; place-items: center;
@@ -567,19 +588,27 @@ import { NativeElement, define, signal, computed, ContextProvider, ContextConsum
     .activity-time { font-size: 0.6875rem; color: var(--n-ink-muted-neutral); margin-top: 0.125rem; }
 
     /* ── Notif items ── */
+    .notif-row { padding: 0.5rem 0; border-bottom: 1px solid var(--n-border-muted-neutral); }
     .notif-text { white-space: normal; overflow-wrap: break-word; }
     .notif-text strong { display: block; font-size: 0.8125rem; font-weight: 600; line-height: 1.4; }
     .notif-text p { margin: 0.125rem 0 0; font-size: 0.75rem; color: var(--n-ink-muted-neutral); line-height: 1.4; }
 
     /* ── Stats ── */
     .stat-value { font-size: 1.5rem; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; text-align: center; }
+    .stat-info { color: var(--n-ink-info); }
+    .stat-success { color: var(--n-ink-success); }
+    .stat-warning { color: var(--n-ink-warning); }
+    .stat-danger { color: var(--n-ink-danger); }
     .stat-label { font-size: 0.625rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--n-ink-muted-neutral); text-align: center; }
+    .ctx-stats-summary { font-size: 0.75rem; color: var(--n-ink-muted-neutral); }
 
     /* ── Pref rows ── */
+    .ctx-pref-row { padding: 0.5rem 0; border-bottom: 1px solid var(--n-border-muted-neutral); }
     .pref-label { font-size: 0.8125rem; }
     .pref-desc { font-size: 0.6875rem; color: var(--n-ink-muted-neutral); margin-top: 0.125rem; white-space: normal; }
 
     /* ── Context log ── */
+    .ctx-log-empty { font-style: italic; color: var(--n-ink-muted-neutral); }
     .ctx-log {
       background: var(--n-panel-neutral); border: 1px solid var(--n-border-muted-neutral);
       border-radius: 0.375rem; padding: 0.5rem 0.75rem;

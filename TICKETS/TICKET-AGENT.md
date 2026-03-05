@@ -2,15 +2,43 @@
 
 Cross-project ticket bus between `native-host` (Astro) and `native-ui` (library).
 
+## Flow
+
+- **Bug reports**: File ticket → fix → upgrade → close
+- **New features**: Contract ticket (before implementation) → review → develop → publish → close
+- **Upgrades**: No ticket needed — use CHANGELOG.md. Breaking changes get a `## Breaking` section with migration steps.
+- **Process/architecture**: Full ticket as needed
+
 Each agent reads this file at session start, processes tickets addressed to it, and posts new tickets here.
 
 ## Open
 
 | Status | File | Title | From | To |
 |--------|------|-------|------|----|
-| **open** | T0103-native-chat-server-gateway-integration.md | Implement production server gateway for `@nonoun/native-chat` | native-ui | host |
+| **fixed** | T0116-a2ui-css-missing-from-dist.md | `@nonoun/native-a2ui@0.1.14` CSS missing from published dist — fixed in 0.1.15 | host | native-ui |
+| **open** | T0117-drop-mode-swap-not-persisting.md | Drop mode swap not persisting — `native:drop` fires but DOM changes appear reverted | host | native-ui |
+| **open** | T0118-a2ui-nested-component-css-broken.md | A2UI nested component CSS broken — segmented control renders unstyled | host | native-ui |
 
-## Closed (T0001–T0102)
+## Closed (T0001–T0115)
+
+| Status | File | Title | From | To |
+|--------|------|-------|------|----|
+| **done** | T0113-upgrade-native-ui-0.7.29.md | Upgrade to `@nonoun/native-ui@0.7.29` + all sub-packages | native-ui | host |
+| **done** | T0114-native-chat-0.5.21-migration.md | `@nonoun/native-chat@0.5.21` migration — no breaking selectors/imports found in host | native-ui | host |
+| **done** | T0115-astro-host-adoption-0.7.29.md | Astro host adoption guide — workarounds removed, chat declarative attrs adopted | native-ui | host |
+| **fixed** | T0111-n-stack-direction-row-broken.md | `n-stack[direction="row"]` not rendering as row — fixed in 0.7.29 + full `@layer` audit (9 containers) | host | native-ui |
+| **fixed** | T0112-traits-broken-after-view-transition.md | Traits not fully functional after View Transition — fixed in 0.7.29 (pointer capture + hardened lifecycle) | host | native-ui |
+| **fixed** | T0110-ecosystem-principles-audit.md | Ecosystem-wide principles compliance audit | native-ui | native-ui |
+| **fixed** | T0109-native-chat-principles-audit.md | native-chat principles alignment audit | native-ui | native-ui |
+| **fixed** | T0106-astro-consumer-alignment.md | Align native-ui development with Astro SSR consumer realities | host | native-ui |
+| **fixed** | T0107-component-library-guiding-principles.md | Additions to component library core principles | host | native-ui |
+| **fixed** | T0108-revised-ticketing-flow.md | Revised cross-project ticketing flow | host | native-ui |
+
+| Status | File | Title | From | To |
+|--------|------|-------|------|----|
+| **done** | T0103-native-chat-server-gateway-integration.md | Implement production server gateway for `@nonoun/native-chat` | native-ui | host |
+| **open** | T0104-tokens-panel-aside-transition.md | `native-tokens-panel[aside]` missing open/close transition | host | native-tokens |
+| **fixed** | T0105-chat-panel-aside-no-transition.md | `native-chat-panel[aside]` open/close has no visible transition | host | native-chat |
 
 <details>
 <summary>103 resolved tickets</summary>

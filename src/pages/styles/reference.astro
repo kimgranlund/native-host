@@ -59,10 +59,19 @@ const scopedIntentCSS = `/* All controls inside .danger-zone get danger colors *
 }`;
 ---
 <SidebarLayout title="Reference">
-  <main>
-<h1>Component State Reference</h1>
-      <p>Aggregate view of every UI component and the CSS states, ARIA attributes, and configuration attributes each supports.</p>
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Component State Reference</h1>
+      </div>
+    </div>
+    <div data-slot="description">
 
+      Aggregate view of every UI component and the CSS states, ARIA attributes, and configuration attributes each supports.
+
+    </div>
+  </header>
+  <main>
       <div class="legend">
         <span><span class="y">●</span> Implemented</span>
         <span><span class="a">○</span> Supported</span>
@@ -73,7 +82,7 @@ const scopedIntentCSS = `/* All controls inside .danger-zone get danger colors *
       <!-- ========================================== -->
       <h2>Interactive States</h2>
       <!-- ========================================== -->
-      <div style="overflow-x: auto;">
+      <div class="table-scroll">
         <n-table variant="plain" size="sm" cols="10rem repeat(8, 1fr)">
           <n-table-head>
             <n-table-row>
@@ -136,7 +145,7 @@ const scopedIntentCSS = `/* All controls inside .danger-zone get danger colors *
               <n-table-cell class="y">●</n-table-cell>
             </n-table-row>
             <n-table-row>
-              <n-table-cell colspan="9" class="sub" style="padding-left:calc(var(--n-space) * 8);">↳ n-listbox container supports [aria-disabled] (opacity + pointer-events)</n-table-cell>
+              <n-table-cell colspan="9" class="sub sub-note">↳ n-listbox container supports [aria-disabled] (opacity + pointer-events)</n-table-cell>
             </n-table-row>
             <n-table-row>
               <n-table-cell>n-command-item <span class="sub">(in command)</span></n-table-cell>
@@ -266,7 +275,7 @@ const scopedIntentCSS = `/* All controls inside .danger-zone get danger colors *
               <n-table-cell class="n">–</n-table-cell><!-- active attr -->
             </n-table-row>
             <n-table-row>
-              <n-table-cell colspan="9" class="sub" style="padding-left:calc(var(--n-space) * 8);">↳ :hover on body rows, :focus-visible on sortable headers + selectable rows</n-table-cell>
+              <n-table-cell colspan="9" class="sub sub-note">↳ :hover on body rows, :focus-visible on sortable headers + selectable rows</n-table-cell>
             </n-table-row>
             <n-table-row>
               <n-table-cell>n-tree-item <span class="sub">(in tree)</span></n-table-cell>
@@ -280,7 +289,7 @@ const scopedIntentCSS = `/* All controls inside .danger-zone get danger colors *
               <n-table-cell class="n">–</n-table-cell><!-- active attr -->
             </n-table-row>
             <n-table-row>
-              <n-table-cell colspan="9" class="sub" style="padding-left:calc(var(--n-space) * 8);">↳ n-tree container supports [aria-disabled] (opacity + pointer-events)</n-table-cell>
+              <n-table-cell colspan="9" class="sub sub-note">↳ n-tree container supports [aria-disabled] (opacity + pointer-events)</n-table-cell>
             </n-table-row>
             <n-table-row>
               <n-table-cell>n-accordion-item</n-table-cell>
@@ -294,7 +303,7 @@ const scopedIntentCSS = `/* All controls inside .danger-zone get danger colors *
               <n-table-cell class="n">–</n-table-cell><!-- active attr -->
             </n-table-row>
             <n-table-row>
-              <n-table-cell colspan="9" class="sub" style="padding-left:calc(var(--n-space) * 8);">↳ n-accordion container supports [aria-disabled] (opacity + pointer-events)</n-table-cell>
+              <n-table-cell colspan="9" class="sub sub-note">↳ n-accordion container supports [aria-disabled] (opacity + pointer-events)</n-table-cell>
             </n-table-row>
             <n-table-row>
               <n-table-cell>n-slideshow</n-table-cell>
@@ -402,7 +411,7 @@ const scopedIntentCSS = `/* All controls inside .danger-zone get danger colors *
               <n-table-cell class="n">–</n-table-cell><!-- active attr -->
             </n-table-row>
             <n-table-row>
-              <n-table-cell colspan="9" class="sub" style="padding-left:calc(var(--n-space) * 8);">↳ created by ToastController, supports [intent] for colored variants</n-table-cell>
+              <n-table-cell colspan="9" class="sub sub-note">↳ created by ToastController, supports [intent] for colored variants</n-table-cell>
             </n-table-row>
 
             <!-- Containers -->
@@ -419,7 +428,7 @@ const scopedIntentCSS = `/* All controls inside .danger-zone get danger colors *
               <n-table-cell class="n">–</n-table-cell><!-- active attr -->
             </n-table-row>
             <n-table-row>
-              <n-table-cell colspan="9" class="sub" style="padding-left:calc(var(--n-space) * 8);">↳ only when [interactive] attribute is set</n-table-cell>
+              <n-table-cell colspan="9" class="sub sub-note">↳ only when [interactive] attribute is set</n-table-cell>
             </n-table-row>
             <n-table-row>
               <n-table-cell>n-section <span class="tag tag-container">container</span></n-table-cell>
@@ -469,7 +478,7 @@ const scopedIntentCSS = `/* All controls inside .danger-zone get danger colors *
       <!-- ========================================== -->
       <h2>Selection &amp; Value States</h2>
       <!-- ========================================== -->
-      <div style="overflow-x: auto;">
+      <div class="table-scroll">
         <n-table variant="plain" size="sm" cols="10rem repeat(9, 1fr)">
           <n-table-head>
             <n-table-row>
@@ -1152,7 +1161,7 @@ const scopedIntentCSS = `/* All controls inside .danger-zone get danger colors *
       <!-- ========================================== -->
       <h2>Events</h2>
       <!-- ========================================== -->
-      <div style="overflow-x: auto;">
+      <div class="table-scroll">
         <n-table variant="plain" size="sm" cols="10rem repeat(6, 1fr)">
           <n-table-head>
             <n-table-row>
@@ -1338,7 +1347,7 @@ const scopedIntentCSS = `/* All controls inside .danger-zone get danger colors *
               <n-table-cell class="n">–</n-table-cell>
             </n-table-row>
             <n-table-row>
-              <n-table-cell colspan="7" class="sub" style="padding-left:calc(var(--n-space) * 8);">↳ also emits <code>native:range-select</code> when <code>[range]</code> with <code set:html={rangeSelectDetail} /></n-table-cell>
+              <n-table-cell colspan="7" class="sub sub-note">↳ also emits <code>native:range-select</code> when <code>[range]</code> with <code set:html={rangeSelectDetail} /></n-table-cell>
             </n-table-row>
             <n-table-row>
               <n-table-cell>n-table</n-table-cell>
@@ -1395,7 +1404,7 @@ const scopedIntentCSS = `/* All controls inside .danger-zone get danger colors *
               <n-table-cell class="n">–</n-table-cell>
             </n-table-row>
             <n-table-row>
-              <n-table-cell colspan="7" class="sub" style="padding-left:calc(var(--n-space) * 8);">↳ emits <code>native:slide-change</code> (not <code>native:change</code>) with <code set:html={slideChangeDetail} /></n-table-cell>
+              <n-table-cell colspan="7" class="sub sub-note">↳ emits <code>native:slide-change</code> (not <code>native:change</code>) with <code set:html={slideChangeDetail} /></n-table-cell>
             </n-table-row>
           </n-table-body>
         </n-table>
@@ -1701,13 +1710,13 @@ const scopedIntentCSS = `/* All controls inside .danger-zone get danger colors *
       <h2>Customization Patterns</h2>
       <!-- ========================================== -->
 
-      <h3 style="font-size: 0.875rem; font-weight: 600; margin: calc(var(--n-space) * 6) 0 calc(var(--n-space) * 2); color: var(--n-ink-strong-neutral);">State-conditional intent</h3>
+      <h3 class="section-heading">State-conditional intent</h3>
       <n-text size="sm" muted spacing="tight">
         Override <code>--n-*</code> locals in a state selector to change intent on hover, focus, etc.
       </n-text>
-      <pre style="font-size: 0.75rem; background: var(--n-panel-neutral); border: 1px solid var(--n-border-muted-neutral); border-radius: var(--n-radius); padding: calc(var(--n-space) * 3); overflow-x: auto; margin-bottom: calc(var(--n-space) * 6); color: var(--n-ink-neutral);"><code set:html={stateIntentCSS} /></pre>
+      <pre class="code-block"><code set:html={stateIntentCSS} /></pre>
 
-      <h3 style="font-size: 0.875rem; font-weight: 600; margin: calc(var(--n-space) * 6) 0 calc(var(--n-space) * 2); color: var(--n-ink-strong-neutral);">Debug state attributes (<code>force-*</code>)</h3>
+      <h3 class="section-heading">Debug state attributes (<code>force-*</code>)</h3>
       <n-text size="sm" muted spacing="tight">
         Every pseudo-state with a visual effect has a <code>force-*</code> attribute mirror for DevTools debugging and state demos.
         Add the attribute to the host element to simulate the pseudo-state.
@@ -1743,7 +1752,7 @@ const scopedIntentCSS = `/* All controls inside .danger-zone get danger colors *
           </n-table-row>
         </n-table-body>
       </n-table>
-      <pre style="font-size: 0.75rem; background: var(--n-panel-neutral); border: 1px solid var(--n-border-muted-neutral); border-radius: var(--n-radius); padding: calc(var(--n-space) * 3); overflow-x: auto; margin-bottom: calc(var(--n-space) * 6); color: var(--n-ink-neutral);"><code>&lt;!-- Toggle in DevTools to simulate hover --&gt;
+      <pre class="code-block"><code>&lt;!-- Toggle in DevTools to simulate hover --&gt;
 &lt;n-button force-hover&gt;Hovered&lt;/n-button&gt;
 
 &lt;!-- Compound states work too --&gt;
@@ -1752,11 +1761,11 @@ const scopedIntentCSS = `/* All controls inside .danger-zone get danger colors *
 &lt;!-- Internal children: force-* on host triggers all children --&gt;
 &lt;n-calendar force-hover&gt;...&lt;/n-calendar&gt;</code></pre>
 
-      <h3 style="font-size: 0.875rem; font-weight: 600; margin: calc(var(--n-space) * 6) 0 calc(var(--n-space) * 2); color: var(--n-ink-strong-neutral);">Scoped intent override</h3>
+      <h3 class="section-heading">Scoped intent override</h3>
       <n-text size="sm" muted spacing="tight">
         Override locals on a container to affect all children.
       </n-text>
-      <pre style="font-size: 0.75rem; background: var(--n-panel-neutral); border: 1px solid var(--n-border-muted-neutral); border-radius: var(--n-radius); padding: calc(var(--n-space) * 3); overflow-x: auto; margin-bottom: calc(var(--n-space) * 6); color: var(--n-ink-neutral);"><code set:html={scopedIntentCSS} /></pre>
+      <pre class="code-block"><code set:html={scopedIntentCSS} /></pre>
   </main>
 
   <style is:global>
@@ -1857,7 +1866,35 @@ const scopedIntentCSS = `/* All controls inside .danger-zone get danger colors *
       color: var(--n-surface-ink-success);
     }
 
+    /* ── Scrollable table wrapper ── */
+    .table-scroll {
+      overflow-x: auto;
+    }
+
+    /* Sub-note indent inside table cells */
+    n-table-cell.sub-note {
+      padding-left: calc(var(--n-space) * 8);
+    }
+
+    /* Section headings in Customization Patterns */
+    .section-heading {
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin: calc(var(--n-space) * 6) 0 calc(var(--n-space) * 2);
+      color: var(--n-ink-strong-neutral);
+    }
+
     /* ── Code Blocks ── */
+    .code-block {
+      font-size: 0.75rem;
+      background: var(--n-panel-neutral);
+      border: 1px solid var(--n-border-muted-neutral);
+      border-radius: var(--n-radius);
+      padding: calc(var(--n-space) * 3);
+      overflow-x: auto;
+      margin-bottom: calc(var(--n-space) * 6);
+      color: var(--n-ink-neutral);
+    }
 </style>
 
 </SidebarLayout>

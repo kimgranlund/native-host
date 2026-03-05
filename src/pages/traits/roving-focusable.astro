@@ -2,11 +2,20 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="RovingFocusable">
-  <main>
-<h1>RovingFocusable</h1>
-    <n-text size="md" muted spacing="relaxed">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>RovingFocusable</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+
       Composable trait for keyboard navigation within a group. Only one item has <code>tabindex="0"</code> at a time — arrow keys move focus between items, Home/End jump to first/last. Skips disabled items.
-    </n-text>
+
+    </div>
+  </header>
+
+  <main>
 
     <!-- ── Vertical Toolbar (Provider) ── -->
 

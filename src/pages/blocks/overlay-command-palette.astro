@@ -2,15 +2,21 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Command Palette">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Command Palette</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+
+      Quick-access command palette in a dialog overlay. Searchable, keyboard navigable,
+      and grouped by category. Opens via button click or <kbd>Ctrl+K</kbd> shortcut.
+
+    </div>
+  </header>
   <main>
 <n-stack gap="6">
-    <div>
-      <h1>Command Palette</h1>
-      <p class="demo-desc">
-        Quick-access command palette in a dialog overlay. Searchable, keyboard navigable,
-        and grouped by category. Opens via button click or <kbd>Ctrl+K</kbd> shortcut.
-      </p>
-    </div>
 
     <!-- -- Trigger Area -- -->
 

@@ -2,11 +2,18 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Card">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Card</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+      <span class="header-tag">&lt;n-card&gt;</span> Bounded content surface with optional header, body, and footer.
+          </div>
+  </header>
+
   <main>
-<h1>&lt;n-card&gt;</h1>
-    <n-text size="md" muted spacing="relaxed">
-      Bounded content surface with optional header, body, and footer.
-    </n-text>
 
     <!-- ── Simple ── -->
 
@@ -33,7 +40,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
             <n-button slot="trailing" variant="ghost"><n-icon name="dots-three"></n-icon></n-button>
           </n-header>
           <n-body>
-            <p style="margin: 0;">Card body content goes here. This demonstrates the structured layout with header, body, and footer sections.</p>
+            <n-text>Card body content goes here. This demonstrates the structured layout with header, body, and footer sections.</n-text>
           </n-body>
         <n-footer>
           <n-button variant="ghost"><span slot="label">Cancel</span></n-button>
@@ -110,7 +117,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           <n-button slot="trailing" variant="ghost"><n-icon name="dots-three"></n-icon></n-button>
         </n-header>
         <n-body>
-          <p style="margin: 0;">The header uses a 3-column grid: leading / label / trailing. The card adds contextual divider borders automatically.</p>
+          <n-text>The header uses a 3-column grid: leading / label / trailing. The card adds contextual divider borders automatically.</n-text>
         </n-body>
         <n-footer justify="spread">
           <n-button variant="ghost"><span slot="label">Cancel</span></n-button>
@@ -139,12 +146,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       <n-stack direction="row" wrap align="center">
         <div class="demo-card-xs">
           <n-card interactive>
-            <p style="margin: 0;">Click this card. It has hover and focus states.</p>
+            <n-text>Click this card. It has hover and focus states.</n-text>
           </n-card>
         </div>
         <div class="demo-card-xs">
           <n-card interactive>
-            <p style="margin: 0;">Another interactive card. Tab to focus.</p>
+            <n-text>Another interactive card. Tab to focus.</n-text>
           </n-card>
         </div>
       </n-stack>
@@ -161,14 +168,14 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       <div class="demo-card-narrow">
         <n-card size="sm">
           <n-header><span slot="label">Small Card</span></n-header>
-          <n-body><p style="margin: 0;">Compact padding.</p></n-body>
+          <n-body><n-text>Compact padding.</n-text></n-body>
         </n-card>
       </div>
       <h3>size="lg"</h3>
       <div class="demo-card-narrow">
         <n-card size="lg">
           <n-header><span slot="label">Large Card</span></n-header>
-          <n-body><p style="margin: 0;">Spacious padding.</p></n-body>
+          <n-body><n-text>Spacious padding.</n-text></n-body>
         </n-card>
       </div>
     <pre class="layout-code"><code>&lt;n-card size="sm"&gt;
@@ -189,15 +196,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       <n-grid cols="3" gap="4">
         <n-card>
           <n-header><span slot="label">Revenue</span></n-header>
-          <n-body><p style="margin: 0; font-size: 1.5rem; font-weight: 700;">$45,231</p></n-body>
+          <n-body><span class="stat-value">$45,231</span></n-body>
         </n-card>
         <n-card>
           <n-header><span slot="label">Users</span></n-header>
-          <n-body><p style="margin: 0; font-size: 1.5rem; font-weight: 700;">2,350</p></n-body>
+          <n-body><span class="stat-value">2,350</span></n-body>
         </n-card>
         <n-card>
           <n-header><span slot="label">Conversion</span></n-header>
-          <n-body><p style="margin: 0; font-size: 1.5rem; font-weight: 700;">3.2%</p></n-body>
+          <n-body><span class="stat-value">3.2%</span></n-body>
         </n-card>
       </n-grid>
     <pre class="layout-code"><code>&lt;n-grid cols="3" gap="4"&gt;
@@ -221,5 +228,6 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     .demo-media-accent { background: linear-gradient(135deg, var(--n-surface-accent), var(--n-surface-info)); }
     .demo-media-success { background: linear-gradient(135deg, var(--n-surface-success), var(--n-surface-warning)); }
     .demo-card-title { margin: 0 0 0.25rem; text-transform: none; letter-spacing: 0; color: inherit; }
+    .stat-value { font-size: 1.5rem; font-weight: 700; }
   </style>
 </SidebarLayout>

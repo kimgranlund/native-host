@@ -15,11 +15,18 @@ const codeExamples = {
 };
 ---
 <SidebarLayout title="Button">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Button</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+      <span class="header-tag">&lt;n-button&gt;</span> Custom element with Pressable trait, form association, and signal-backed attributes.
+          </div>
+  </header>
+
   <main>
-<h1>&lt;n-button&gt;</h1>
-    <n-text size="md" muted spacing="relaxed">
-      Custom element with Pressable trait, form association, and signal-backed attributes.
-    </n-text>
 
     <!-- ── Custom Element vs Native ── -->
 

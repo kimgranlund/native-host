@@ -22,11 +22,20 @@ const codeExamples = {
 const detailIntersection = `{ isIntersecting, ratio }`;
 ---
 <SidebarLayout title="Intersectable">
-  <main>
-<h1>Intersectable</h1>
-    <n-text size="md" muted spacing="relaxed">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Intersectable</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+
       IntersectionObserver wrapper for visibility-triggered behavior. Sets <code>[intersecting]</code> when the element enters the viewport and dispatches <code>native:intersect</code>.
-    </n-text>
+
+    </div>
+  </header>
+
+  <main>
 
     <!-- ── Scroll Into View (Provider) ── -->
 

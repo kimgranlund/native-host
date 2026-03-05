@@ -72,11 +72,20 @@ ctrl.present();`,
 };
 ---
 <SidebarLayout title="Presentable">
-  <main>
-<h1>Presentable</h1>
-    <n-text size="md" muted spacing="relaxed">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Presentable</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+
       Composable trait that shows content in a full-viewport dialog overlay. Wraps the host element in a modal <code>&lt;dialog&gt;</code> at its current DOM position so CSS custom properties inherit normally. On dismiss the host is unwrapped back to its original position.
-    </n-text>
+
+    </div>
+  </header>
+
+  <main>
 
     <!-- ── Basic ── -->
 
@@ -86,11 +95,11 @@ ctrl.present();`,
         Click the button to present the card in a fullscreen overlay. Close with the X button, click outside, or press Escape.
       </n-text>
       <n-button id="present-basic">Present Content</n-button>
-      <div id="present-content-1" class="present-card">
+      <n-card id="present-content-1" class="present-card">
         <h3 class="present-card-title">Presented Content</h3>
-        <p>This card is now displayed in a full-viewport dialog overlay. The content is wrapped in a modal <code>&lt;dialog&gt;</code> using <code>showModal()</code> for top-layer rendering.</p>
-        <p>Close by clicking the X button, clicking the backdrop, or pressing Escape.</p>
-      </div>
+        <n-text size="sm">This card is now displayed in a full-viewport dialog overlay. The content is wrapped in a modal <code>&lt;dialog&gt;</code> using <code>showModal()</code> for top-layer rendering.</n-text>
+        <n-text size="sm">Close by clicking the X button, clicking the backdrop, or pressing Escape.</n-text>
+      </n-card>
       <pre class="layout-code"><code set:html={codeExamples.basicPresent} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
@@ -106,10 +115,10 @@ ctrl.present();`,
         <n-button id="present-inset-4rem">Inset: 4rem</n-button>
         <n-button id="present-inset-8rem">Inset: 8rem</n-button>
       </n-stack>
-      <div id="present-content-2" class="present-card">
+      <n-card id="present-content-2" class="present-card">
         <h3 class="present-card-title">Custom Inset</h3>
-        <p>This card is presented with a custom inset value. The inset controls how much space is reserved between the dialog wrapper and the viewport edges.</p>
-      </div>
+        <n-text size="sm">This card is presented with a custom inset value. The inset controls how much space is reserved between the dialog wrapper and the viewport edges.</n-text>
+      </n-card>
       <pre class="layout-code"><code set:html={codeExamples.customInset} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
@@ -121,10 +130,10 @@ ctrl.present();`,
         Set <code>closeButton: false</code> to hide the X button. The overlay can still be dismissed via backdrop click or Escape, or programmatically with <code>dismiss()</code>.
       </n-text>
       <n-button id="present-no-close">Present (no X button)</n-button>
-      <div id="present-content-3" class="present-card">
+      <n-card id="present-content-3" class="present-card">
         <h3 class="present-card-title">No Close Button</h3>
-        <p>There is no X button in this overlay. Click outside the card or press Escape to dismiss.</p>
-      </div>
+        <n-text size="sm">There is no X button in this overlay. Click outside the card or press Escape to dismiss.</n-text>
+      </n-card>
       <pre class="layout-code"><code set:html={codeExamples.noCloseButton} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
@@ -136,10 +145,10 @@ ctrl.present();`,
         <code>native:present</code> fires after the dialog opens. <code>native:dismiss</code> fires after the dialog closes and the host is restored to its original DOM position.
       </n-text>
       <n-button id="present-events">Present with Events</n-button>
-      <div id="present-content-4" class="present-card">
+      <n-card id="present-content-4" class="present-card">
         <h3 class="present-card-title">Event Demo</h3>
-        <p>Open and close this overlay to see events logged below.</p>
-      </div>
+        <n-text size="sm">Open and close this overlay to see events logged below.</n-text>
+      </n-card>
       <div id="log" class="output"></div>
     </n-panel>
 
@@ -329,13 +338,7 @@ ctrl.present();`,
   </script>
   <style is:global>
     .present-card {
-      padding: 1.5rem;
-      background: var(--n-surface-accent);
-      color: var(--n-surface-ink-accent);
-      border-radius: 0.5rem;
       margin-top: 0.75rem;
-      font-size: 0.875rem;
-      line-height: 1.5;
       max-width: 32rem;
     }
 
@@ -343,14 +346,6 @@ ctrl.present();`,
       margin: 0 0 0.75rem;
       font-size: 1rem;
       font-weight: 600;
-    }
-
-    .present-card p {
-      margin: 0 0 0.5rem;
-    }
-
-    .present-card p:last-child {
-      margin-bottom: 0;
     }
 
     .output {

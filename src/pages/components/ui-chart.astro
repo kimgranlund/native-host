@@ -56,13 +56,20 @@ chart.referenceLines = [
 };
 ---
 <SidebarLayout title="Chart">
-  <main>
-<h1>&lt;n-chart&gt;</h1>
-    <n-text size="md" muted spacing="relaxed">
-      SVG charting component with reactive store, auto-detected scales, crosshair + tooltip interactions, and OKLCH color palette.
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Chart</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+      <span class="header-tag">&lt;n-chart&gt;</span> SVG charting component with reactive store, auto-detected scales, crosshair + tooltip interactions, and OKLCH color palette.
       Types: <code>line</code>, <code>bar</code>, <code>scatter</code>, <code>sparkline</code>.
       Three usage tiers: widget (sparklines), card (compact panels), and dashboard (full axes + legend + tooltips).
-    </n-text>
+          </div>
+  </header>
+
+  <main>
 
     <!-- ── Widget Tier — KPI Cards ── -->
 
@@ -75,40 +82,40 @@ chart.referenceLines = [
         <n-card inline>
           <n-stack gap="1">
             <n-text size="xs" muted>Signups</n-text>
-            <div class="kpi-row">
+            <n-stack direction="row" align="center" gap="1">
               <n-text size="lg"><strong>30</strong></n-text>
-              <span class="kpi-change up">+15%</span>
-            </div>
+              <n-text inline size="xs" intent="success"><strong>+15%</strong></n-text>
+            </n-stack>
             <n-chart class="kpi-sparkline" type="sparkline" id="spark-1"></n-chart>
           </n-stack>
         </n-card>
         <n-card inline>
           <n-stack gap="1">
             <n-text size="xs" muted>Churn</n-text>
-            <div class="kpi-row">
+            <n-stack direction="row" align="center" gap="1">
               <n-text size="lg"><strong>33</strong></n-text>
-              <span class="kpi-change down">-34%</span>
-            </div>
+              <n-text inline size="xs" intent="danger"><strong>-34%</strong></n-text>
+            </n-stack>
             <n-chart class="kpi-sparkline" type="sparkline" id="spark-2"></n-chart>
           </n-stack>
         </n-card>
         <n-card inline>
           <n-stack gap="1">
             <n-text size="xs" muted>Revenue</n-text>
-            <div class="kpi-row">
+            <n-stack direction="row" align="center" gap="1">
               <n-text size="lg"><strong>$25K</strong></n-text>
-              <span class="kpi-change up">+400%</span>
-            </div>
+              <n-text inline size="xs" intent="success"><strong>+400%</strong></n-text>
+            </n-stack>
             <n-chart class="kpi-sparkline" type="sparkline" id="spark-3"></n-chart>
           </n-stack>
         </n-card>
         <n-card inline>
           <n-stack gap="1">
             <n-text size="xs" muted>NPS</n-text>
-            <div class="kpi-row">
+            <n-stack direction="row" align="center" gap="1">
               <n-text size="lg"><strong>112</strong></n-text>
-              <span class="kpi-change up">+12%</span>
-            </div>
+              <n-text inline size="xs" intent="success"><strong>+12%</strong></n-text>
+            </n-stack>
             <n-chart class="kpi-sparkline" type="sparkline" id="spark-4"></n-chart>
           </n-stack>
         </n-card>
@@ -377,25 +384,25 @@ chart.referenceLines = [
             <td>Signups</td>
             <td><n-chart class="table-sparkline" type="sparkline" id="table-spark-1"></n-chart></td>
             <td class="val">30</td>
-            <td><span class="kpi-change up">+150%</span></td>
+            <td><n-text inline size="xs" intent="success"><strong>+150%</strong></n-text></td>
           </tr>
           <tr>
             <td>Churn Rate</td>
             <td><n-chart class="table-sparkline" type="sparkline" id="table-spark-2"></n-chart></td>
             <td class="val">33</td>
-            <td><span class="kpi-change down">-34%</span></td>
+            <td><n-text inline size="xs" intent="danger"><strong>-34%</strong></n-text></td>
           </tr>
           <tr>
             <td>Revenue</td>
             <td><n-chart class="table-sparkline" type="sparkline" id="table-spark-3"></n-chart></td>
             <td class="val">$25K</td>
-            <td><span class="kpi-change up">+400%</span></td>
+            <td><n-text inline size="xs" intent="success"><strong>+400%</strong></n-text></td>
           </tr>
           <tr>
             <td>NPS Score</td>
             <td><n-chart class="table-sparkline" type="sparkline" id="table-spark-4"></n-chart></td>
             <td class="val">112</td>
-            <td><span class="kpi-change up">+12%</span></td>
+            <td><n-text inline size="xs" intent="success"><strong>+12%</strong></n-text></td>
           </tr>
         </tbody>
       </table>
@@ -634,10 +641,6 @@ document.addEventListener('astro:page-load', () => {
 
   <style is:global>
     .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; }
-    .kpi-row { display: flex; align-items: center; gap: 0.5rem; }
-    .kpi-change { font-size: 0.6875rem; font-weight: 600; }
-    .kpi-change.up { color: var(--n-color-success-500); }
-    .kpi-change.down { color: var(--n-color-danger-500); }
     .chart-grid-2, .chart-grid-3, .chart-grid-4 {
       display: grid;
       gap: 1rem;

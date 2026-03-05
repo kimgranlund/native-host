@@ -3,11 +3,19 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 import Logo from '../../components/Logo.astro';
 ---
 <SidebarLayout title="Auth Register">
-  <main>
-<h1>Sign Up</h1>
-    <p class="demo-desc">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Sign Up</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+
       Registration form with name, email, password, confirmation, and terms acceptance.
-    </p>
+
+    </div>
+  </header>
+  <main>
 
     <!-- ── Registration Form ── -->
 

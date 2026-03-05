@@ -19,11 +19,20 @@ function hide() {
 };
 ---
 <SidebarLayout title="FocusTrappable">
-  <main>
-<h1>FocusTrappable</h1>
-    <n-text size="md" muted spacing="relaxed">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>FocusTrappable</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+
       Composable trait for trapping Tab focus within a container. When enabled, Tab and Shift+Tab cycle through focusable children without leaving the container. On enable, focus moves to <code>[autofocus]</code> or the first focusable element. On disable, focus returns to the previously focused element.
-    </n-text>
+
+    </div>
+  </header>
+
+  <main>
 
     <!-- ── Focus Trap ── -->
 

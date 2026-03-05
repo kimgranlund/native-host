@@ -50,11 +50,20 @@ const detailItemFromToInsertBefore = `{ item, fromIndex, toIndex, insertBefore }
 const detailItem = `{ item }`;
 ---
 <SidebarLayout title="Draggable">
-  <main>
-<h1>Draggable</h1>
-    <n-text size="md" muted spacing="relaxed">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Draggable</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+
       Composable trait for drag-and-drop. Supports three modes: <strong>drop</strong> (outlines the target element), <strong>slot</strong> (shows a gap indicator between items for insertion), and <strong>preview</strong> (live DOM reordering as you drag). Ghost renders in the top layer via popover. Press Escape to cancel.
-    </n-text>
+
+    </div>
+  </header>
+
+  <main>
 
     <!-- ── Drop Mode: Swap (Provider) ── -->
 
@@ -65,11 +74,11 @@ const detailItem = `{ item }`;
       </n-text>
       <n-controller traits="draggable" draggable-selector=".drag-item" draggable-axis="vertical" draggable-mode="drop">
         <div id="swap-list" class="drag-list">
-          <div class="drag-item"><span class="handle">&#x2807;</span><span class="label">Design mockups</span></div>
-          <div class="drag-item"><span class="handle">&#x2807;</span><span class="label">Write component API</span></div>
-          <div class="drag-item"><span class="handle">&#x2807;</span><span class="label">Implement CSS</span></div>
-          <div class="drag-item"><span class="handle">&#x2807;</span><span class="label">Add keyboard support</span></div>
-          <div class="drag-item"><span class="handle">&#x2807;</span><span class="label">Write tests</span></div>
+          <div class="drag-item"><span class="handle">&#x2807;</span><n-text inline class="label">Design mockups</n-text></div>
+          <div class="drag-item"><span class="handle">&#x2807;</span><n-text inline class="label">Write component API</n-text></div>
+          <div class="drag-item"><span class="handle">&#x2807;</span><n-text inline class="label">Implement CSS</n-text></div>
+          <div class="drag-item"><span class="handle">&#x2807;</span><n-text inline class="label">Add keyboard support</n-text></div>
+          <div class="drag-item"><span class="handle">&#x2807;</span><n-text inline class="label">Write tests</n-text></div>
         </div>
       </n-controller>
       <div id="swap-log" class="output"></div>
@@ -117,11 +126,11 @@ const detailItem = `{ item }`;
       </n-text>
       <n-controller traits="draggable" draggable-selector=".drag-item" draggable-axis="vertical" draggable-mode="slot">
         <div id="slot-list" class="drag-list">
-          <div class="drag-item"><span class="handle">&#x2807;</span><span class="label">Research</span></div>
-          <div class="drag-item"><span class="handle">&#x2807;</span><span class="label">Prototype</span></div>
-          <div class="drag-item"><span class="handle">&#x2807;</span><span class="label">Build</span></div>
-          <div class="drag-item"><span class="handle">&#x2807;</span><span class="label">Test</span></div>
-          <div class="drag-item"><span class="handle">&#x2807;</span><span class="label">Ship</span></div>
+          <div class="drag-item"><span class="handle">&#x2807;</span><n-text inline class="label">Research</n-text></div>
+          <div class="drag-item"><span class="handle">&#x2807;</span><n-text inline class="label">Prototype</n-text></div>
+          <div class="drag-item"><span class="handle">&#x2807;</span><n-text inline class="label">Build</n-text></div>
+          <div class="drag-item"><span class="handle">&#x2807;</span><n-text inline class="label">Test</n-text></div>
+          <div class="drag-item"><span class="handle">&#x2807;</span><n-text inline class="label">Ship</n-text></div>
         </div>
       </n-controller>
       <div id="slot-log" class="output"></div>

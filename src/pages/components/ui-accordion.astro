@@ -19,11 +19,18 @@ const codeExamples = {
 };
 ---
 <SidebarLayout title="Accordion">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Accordion</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+      <span class="header-tag">&lt;n-accordion&gt;</span> Collapsible disclosure sections with native &lt;details&gt; under the hood. Supports single and multiple open modes.
+          </div>
+  </header>
+
   <main>
-<h1>&lt;n-accordion&gt;</h1>
-    <n-text size="md" muted spacing="relaxed">
-      Collapsible disclosure sections with native &lt;details&gt; under the hood. Supports single and multiple open modes.
-    </n-text>
 
     <!-- ── Single Mode (default) ── -->
 

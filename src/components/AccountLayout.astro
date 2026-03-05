@@ -1,0 +1,33 @@
+---
+interface Props {
+  current: string;
+}
+const { current } = Astro.props;
+
+const navItems = [
+  { path: '/account/profile', label: 'Profile', icon: 'user' },
+  { path: '/account/security', label: 'Security', icon: 'lock' },
+  { path: '/account/danger', label: 'Danger Zone', icon: 'warning' },
+];
+---
+<main class="account-layout">
+  <nav class="account-nav" aria-label="Account settings">
+    {navItems.map(item => (
+      <a
+        href={item.path}
+        class="account-nav-link"
+        aria-current={current === item.path ? 'page' : undefined}
+      >
+        <n-icon name={item.icon}></n-icon>
+        {item.label}
+      </a>
+    ))}
+  </nav>
+  <div class="account-content">
+    <slot />
+  </div>
+</main>
+
+<style is:global>
+  @import '../styles/account.css';
+</style>

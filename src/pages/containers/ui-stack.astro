@@ -2,20 +2,27 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Stack">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Stack</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+      <span class="header-tag">&lt;n-stack&gt;</span> Flex layout utility. Vertical or horizontal stacking with configurable gap, alignment, and wrapping. CSS-only container.
+          </div>
+  </header>
+
   <main>
-<h1>&lt;n-stack&gt;</h1>
-    <n-text size="md" muted spacing="relaxed">
-      Flex layout utility. Vertical or horizontal stacking with configurable gap, alignment, and wrapping. CSS-only container.
-    </n-text>
 
     <!-- ── Vertical (default) ── -->
 
     <h2>Vertical (default)</h2>
     <n-panel bordered>
       <n-stack>
-        <div class="layout-box">Item 1</div>
-        <div class="layout-box">Item 2</div>
-        <div class="layout-box">Item 3</div>
+        <n-card class="layout-box">Item 1</n-card>
+        <n-card class="layout-box">Item 2</n-card>
+        <n-card class="layout-box">Item 3</n-card>
       </n-stack>
     <pre class="layout-code"><code>&lt;n-stack&gt;
   &lt;div&gt;Item 1&lt;/div&gt;
@@ -29,9 +36,9 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <h2>Horizontal</h2>
     <n-panel bordered>
       <n-stack direction="row">
-        <div class="layout-box">Item 1</div>
-        <div class="layout-box">Item 2</div>
-        <div class="layout-box">Item 3</div>
+        <n-card class="layout-box">Item 1</n-card>
+        <n-card class="layout-box">Item 2</n-card>
+        <n-card class="layout-box">Item 3</n-card>
       </n-stack>
     <pre class="layout-code"><code>&lt;n-stack direction="row"&gt;
   &lt;div&gt;Item 1&lt;/div&gt;
@@ -46,33 +53,33 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <n-panel bordered>
       <h3>gap="0"</h3>
       <n-stack direction="row" gap="0">
-        <div class="layout-box">A</div>
-        <div class="layout-box">B</div>
-        <div class="layout-box">C</div>
+        <n-card class="layout-box">A</n-card>
+        <n-card class="layout-box">B</n-card>
+        <n-card class="layout-box">C</n-card>
       </n-stack>
       <h3>gap="1"</h3>
       <n-stack direction="row" gap="1">
-        <div class="layout-box">A</div>
-        <div class="layout-box">B</div>
-        <div class="layout-box">C</div>
+        <n-card class="layout-box">A</n-card>
+        <n-card class="layout-box">B</n-card>
+        <n-card class="layout-box">C</n-card>
       </n-stack>
       <h3>gap="2" (default)</h3>
       <n-stack direction="row" gap="2">
-        <div class="layout-box">A</div>
-        <div class="layout-box">B</div>
-        <div class="layout-box">C</div>
+        <n-card class="layout-box">A</n-card>
+        <n-card class="layout-box">B</n-card>
+        <n-card class="layout-box">C</n-card>
       </n-stack>
       <h3>gap="4"</h3>
       <n-stack direction="row" gap="4">
-        <div class="layout-box">A</div>
-        <div class="layout-box">B</div>
-        <div class="layout-box">C</div>
+        <n-card class="layout-box">A</n-card>
+        <n-card class="layout-box">B</n-card>
+        <n-card class="layout-box">C</n-card>
       </n-stack>
       <h3>gap="8"</h3>
       <n-stack direction="row" gap="8">
-        <div class="layout-box">A</div>
-        <div class="layout-box">B</div>
-        <div class="layout-box">C</div>
+        <n-card class="layout-box">A</n-card>
+        <n-card class="layout-box">B</n-card>
+        <n-card class="layout-box">C</n-card>
       </n-stack>
     <pre class="layout-code"><code>&lt;n-stack direction="row" gap="0"&gt;...&lt;/n-stack&gt;
 &lt;n-stack direction="row" gap="2"&gt;...&lt;/n-stack&gt;
@@ -86,21 +93,21 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <n-panel bordered>
       <h3>align="start"</h3>
       <n-stack direction="row" align="start" class="align-demo">
-        <div class="layout-box">Short</div>
-        <div class="layout-box" style="padding: 1.5rem 1rem;">Tall</div>
-        <div class="layout-box">Short</div>
+        <n-card class="layout-box">Short</n-card>
+        <n-card class="layout-box layout-box-tall">Tall</n-card>
+        <n-card class="layout-box">Short</n-card>
       </n-stack>
       <h3>align="center"</h3>
       <n-stack direction="row" align="center" class="align-demo">
-        <div class="layout-box">Short</div>
-        <div class="layout-box" style="padding: 1.5rem 1rem;">Tall</div>
-        <div class="layout-box">Short</div>
+        <n-card class="layout-box">Short</n-card>
+        <n-card class="layout-box layout-box-tall">Tall</n-card>
+        <n-card class="layout-box">Short</n-card>
       </n-stack>
       <h3>align="end"</h3>
       <n-stack direction="row" align="end" class="align-demo">
-        <div class="layout-box">Short</div>
-        <div class="layout-box" style="padding: 1.5rem 1rem;">Tall</div>
-        <div class="layout-box">Short</div>
+        <n-card class="layout-box">Short</n-card>
+        <n-card class="layout-box layout-box-tall">Tall</n-card>
+        <n-card class="layout-box">Short</n-card>
       </n-stack>
     <pre class="layout-code"><code>&lt;n-stack direction="row" align="start"&gt;...&lt;/n-stack&gt;
 &lt;n-stack direction="row" align="center"&gt;...&lt;/n-stack&gt;
@@ -113,19 +120,19 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <n-panel bordered>
       <h3>justify="between"</h3>
       <n-stack direction="row" justify="between">
-        <div class="layout-box">Left</div>
-        <div class="layout-box">Right</div>
+        <n-card class="layout-box">Left</n-card>
+        <n-card class="layout-box">Right</n-card>
       </n-stack>
       <h3>justify="center"</h3>
       <n-stack direction="row" justify="center">
-        <div class="layout-box">Centered</div>
-        <div class="layout-box">Items</div>
+        <n-card class="layout-box">Centered</n-card>
+        <n-card class="layout-box">Items</n-card>
       </n-stack>
       <h3>justify="evenly"</h3>
       <n-stack direction="row" justify="evenly">
-        <div class="layout-box">A</div>
-        <div class="layout-box">B</div>
-        <div class="layout-box">C</div>
+        <n-card class="layout-box">A</n-card>
+        <n-card class="layout-box">B</n-card>
+        <n-card class="layout-box">C</n-card>
       </n-stack>
     <pre class="layout-code"><code>&lt;n-stack direction="row" justify="between"&gt;
   &lt;div&gt;Left&lt;/div&gt;
@@ -141,16 +148,16 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <h2>Wrap</h2>
     <n-panel bordered>
       <n-stack direction="row" wrap gap="2">
-        <div class="layout-box">Tag 1</div>
-        <div class="layout-box">Tag 2</div>
-        <div class="layout-box">Tag 3</div>
-        <div class="layout-box">Tag 4</div>
-        <div class="layout-box">Tag 5</div>
-        <div class="layout-box">Tag 6</div>
-        <div class="layout-box">Tag 7</div>
-        <div class="layout-box">Tag 8</div>
-        <div class="layout-box">Tag 9</div>
-        <div class="layout-box">Tag 10</div>
+        <n-card class="layout-box">Tag 1</n-card>
+        <n-card class="layout-box">Tag 2</n-card>
+        <n-card class="layout-box">Tag 3</n-card>
+        <n-card class="layout-box">Tag 4</n-card>
+        <n-card class="layout-box">Tag 5</n-card>
+        <n-card class="layout-box">Tag 6</n-card>
+        <n-card class="layout-box">Tag 7</n-card>
+        <n-card class="layout-box">Tag 8</n-card>
+        <n-card class="layout-box">Tag 9</n-card>
+        <n-card class="layout-box">Tag 10</n-card>
       </n-stack>
     <pre class="layout-code"><code>&lt;n-stack direction="row" wrap gap="2"&gt;
   &lt;div&gt;Tag 1&lt;/div&gt;
@@ -199,6 +206,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
   <style is:global>
     .align-demo { height: 6rem; }
+    .layout-box-tall { padding: 1.5rem 1rem; }
   </style>
 
 </SidebarLayout>

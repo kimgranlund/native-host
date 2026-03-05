@@ -2,13 +2,20 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="CodeMirror">
-  <main>
-<h1>&lt;native-codemirror&gt;</h1>
-    <n-text size="md" muted spacing="relaxed">
-      Shared CodeMirror 6 integration layer for the NativeUI ecosystem.
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Codemirror</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+      <span class="header-tag">&lt;native-codemirror&gt;</span> Shared CodeMirror 6 integration layer for the NativeUI ecosystem.
       Provides a dark theme, syntax highlighting, base extensions (keymaps, history, brackets, autocomplete, line numbers),
       and a <code>createEditorView()</code> factory.
-    </n-text>
+          </div>
+  </header>
+
+  <main>
 
     <!-- ── Factory: createEditorView ── -->
 

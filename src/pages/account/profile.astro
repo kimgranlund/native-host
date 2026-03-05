@@ -1,0 +1,81 @@
+---
+import SidebarLayout from '../../layouts/SidebarLayout.astro';
+import AccountLayout from '../../components/AccountLayout.astro';
+
+if (!Astro.locals.user) return Astro.redirect('/auth/login');
+
+const user = Astro.locals.user;
+---
+<SidebarLayout title="Profile - Settings">
+  <AccountLayout current="/account/profile">
+    <n-section>
+      <span slot="heading">Profile</span>
+      <span slot="description">Your account information.</span>
+
+      <p class="settings-status" id="profile-status"></p>
+
+      <form id="profile-form">
+        <n-stack gap="6">
+          <n-stack direction="row" align="center" gap="4">
+            <n-avatar name={user.name} size="lg" intent="accent"
+              src={user.image ? `/api/avatar/${user.id}` : undefined}></n-avatar>
+            <n-stack gap="1">
+              <n-text strong>{user.name}</n-text>
+              <n-text size="xs" muted>{user.email}</n-text>
+            </n-stack>
+          </n-stack>
+
+          <n-field required>
+            <label slot="label">Display name</label>
+            <n-input placeholder="Your display name" value={user.name} name="name"></n-input>
+          </n-field>
+
+          <n-field>
+            <label slot="label">Email</label>
+            <n-input type="email" value={user.email} name="email" disabled>
+              <n-icon name="envelope" slot="leading"></n-icon>
+            </n-input>
+            <span slot="description">Email cannot be changed.</span>
+          </n-field>
+
+          <n-stack direction="row" justify="end" padding="4 0 0 0">
+            <n-button variant="primary" intent="accent" type="submit">
+              <span slot="label">Save Profile</span>
+            </n-button>
+          </n-stack>
+        </n-stack>
+      </form>
+    </n-section>
+  </AccountLayout>
+</SidebarLayout>
+
+<script>
+  import { authClient } from '../../lib/auth-client';
+
+  document.addEventListener('astro:page-load', () => {
+    const form = document.getElementById('profile-form') as HTMLFormElement | null;
+    if (!form) return;
+
+    function showStatus(msg: string, isError: boolean) {
+      const el = document.getElementById('profile-status');
+      if (!el) return;
+      el.textContent = msg;
+      el.setAttribute('visible', '');
+      if (isError) el.setAttribute('data-error', '');
+      else el.removeAttribute('data-error');
+      setTimeout(() => el.removeAttribute('visible'), 3000);
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const name = data.get('name') as string;
+      const result = await authClient.updateUser({ name });
+      if (result.error) {
+        showStatus(result.error.message || 'Update failed.', true);
+      } else {
+        showStatus('Profile updated successfully.', false);
+      }
+    });
+  });
+</script>

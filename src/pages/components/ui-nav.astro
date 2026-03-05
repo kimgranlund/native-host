@@ -16,11 +16,18 @@ const codeExamples = {
 };
 ---
 <SidebarLayout title="Nav">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Sidebar Nav</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+      <span class="header-tag">&lt;n-sidebar-nav&gt;</span> Sidebar navigation list with keyboard nav and selection. Transparent wrapper — items sit flush with no inline padding.
+          </div>
+  </header>
+
   <main>
-<h1>&lt;n-sidebar-nav&gt;</h1>
-    <n-text size="md" muted spacing="relaxed">
-      Sidebar navigation list with keyboard nav and selection. Transparent wrapper — items sit flush with no inline padding.
-    </n-text>
 
     <!-- ── Basic ── -->
 

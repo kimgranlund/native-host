@@ -42,11 +42,20 @@ const detailValue = `{ value }`;
 const detailValuePrev = `{ value, previousValue }`;
 ---
 <SidebarLayout title="Editable">
-  <main>
-<h1>Editable</h1>
-    <n-text size="md" muted spacing="relaxed">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Editable</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+
       Inline editing pattern. Activate with click or double-click, commit with <strong>Enter</strong>, cancel with <strong>Escape</strong>. Blur also commits.
-    </n-text>
+
+    </div>
+  </header>
+
+  <main>
 
     <!-- ── Double-Click to Edit (Provider) ── -->
 

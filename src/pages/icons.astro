@@ -2,58 +2,85 @@
 import SidebarLayout from '../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Icons">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Icon</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+      <span class="header-tag">&lt;n-icon&gt;</span> Phosphor icon element with registry, late-registration, and accessibility support.
+          </div>
+  </header>
+
   <main>
-<h1>&lt;n-icon&gt;</h1>
-    <n-text size="md" muted spacing="relaxed">
-      Phosphor icon element with registry, late-registration, and accessibility support.
-    </n-text>
 
     <!-- ── Basic Icons ── -->
 
     <h2>Basic Icons</h2>
     <n-panel bordered>
-      <div class="icon-row">
-        <div class="icon-card">
+      <n-stack direction="row" wrap align="center" gap="3">
+        <n-card inline padding="tight" class="icon-card-wrap">
+          <n-stack align="center" gap="1">
           <n-icon name="house"></n-icon>
-          <span class="icon-card-label">house</span>
-        </div>
-        <div class="icon-card">
+          <n-text size="xs" muted class="icon-mono">house</n-text>
+          </n-stack>
+        </n-card>
+        <n-card inline padding="tight" class="icon-card-wrap">
+          <n-stack align="center" gap="1">
           <n-icon name="gear"></n-icon>
-          <span class="icon-card-label">gear</span>
-        </div>
-        <div class="icon-card">
+          <n-text size="xs" muted class="icon-mono">gear</n-text>
+          </n-stack>
+        </n-card>
+        <n-card inline padding="tight" class="icon-card-wrap">
+          <n-stack align="center" gap="1">
           <n-icon name="bell"></n-icon>
-          <span class="icon-card-label">bell</span>
-        </div>
-        <div class="icon-card">
+          <n-text size="xs" muted class="icon-mono">bell</n-text>
+          </n-stack>
+        </n-card>
+        <n-card inline padding="tight" class="icon-card-wrap">
+          <n-stack align="center" gap="1">
           <n-icon name="magnifying-glass"></n-icon>
-          <span class="icon-card-label">magnifying-glass</span>
-        </div>
-        <div class="icon-card">
+          <n-text size="xs" muted class="icon-mono">magnifying-glass</n-text>
+          </n-stack>
+        </n-card>
+        <n-card inline padding="tight" class="icon-card-wrap">
+          <n-stack align="center" gap="1">
           <n-icon name="heart"></n-icon>
-          <span class="icon-card-label">heart</span>
-        </div>
-        <div class="icon-card">
+          <n-text size="xs" muted class="icon-mono">heart</n-text>
+          </n-stack>
+        </n-card>
+        <n-card inline padding="tight" class="icon-card-wrap">
+          <n-stack align="center" gap="1">
           <n-icon name="star"></n-icon>
-          <span class="icon-card-label">star</span>
-        </div>
-        <div class="icon-card">
+          <n-text size="xs" muted class="icon-mono">star</n-text>
+          </n-stack>
+        </n-card>
+        <n-card inline padding="tight" class="icon-card-wrap">
+          <n-stack align="center" gap="1">
           <n-icon name="check"></n-icon>
-          <span class="icon-card-label">check</span>
-        </div>
-        <div class="icon-card">
+          <n-text size="xs" muted class="icon-mono">check</n-text>
+          </n-stack>
+        </n-card>
+        <n-card inline padding="tight" class="icon-card-wrap">
+          <n-stack align="center" gap="1">
           <n-icon name="x"></n-icon>
-          <span class="icon-card-label">x</span>
-        </div>
-        <div class="icon-card">
+          <n-text size="xs" muted class="icon-mono">x</n-text>
+          </n-stack>
+        </n-card>
+        <n-card inline padding="tight" class="icon-card-wrap">
+          <n-stack align="center" gap="1">
           <n-icon name="trash"></n-icon>
-          <span class="icon-card-label">trash</span>
-        </div>
-        <div class="icon-card">
+          <n-text size="xs" muted class="icon-mono">trash</n-text>
+          </n-stack>
+        </n-card>
+        <n-card inline padding="tight" class="icon-card-wrap">
+          <n-stack align="center" gap="1">
           <n-icon name="pencil-simple"></n-icon>
-          <span class="icon-card-label">pencil-simple</span>
-        </div>
-      </div>
+          <n-text size="xs" muted class="icon-mono">pencil-simple</n-text>
+          </n-stack>
+        </n-card>
+      </n-stack>
     </n-panel>
 
     <!-- ── Sizes ── -->
@@ -88,23 +115,13 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
 
     <h2>Color Inheritance</h2>
     <n-panel bordered>
-      <div class="icon-row">
-        <span style="color: var(--n-ink-accent);">
-          <n-icon name="heart"></n-icon> Accent
-        </span>
-        <span style="color: var(--n-ink-success);">
-          <n-icon name="check-circle"></n-icon> Success
-        </span>
-        <span style="color: var(--n-ink-warning);">
-          <n-icon name="warning"></n-icon> Warning
-        </span>
-        <span style="color: var(--n-ink-danger);">
-          <n-icon name="x-circle"></n-icon> Danger
-        </span>
-        <span style="color: var(--n-ink-info);">
-          <n-icon name="info"></n-icon> Info
-        </span>
-      </div>
+      <n-stack direction="row" wrap align="center" gap="3">
+        <n-text intent="accent"><n-icon name="heart"></n-icon> Accent</n-text>
+        <n-text intent="success"><n-icon name="check-circle"></n-icon> Success</n-text>
+        <n-text intent="warning"><n-icon name="warning"></n-icon> Warning</n-text>
+        <n-text intent="danger"><n-icon name="x-circle"></n-icon> Danger</n-text>
+        <n-text intent="info"><n-icon name="info"></n-icon> Info</n-text>
+      </n-stack>
     </n-panel>
 
     <!-- ── Accessibility ── -->
@@ -112,27 +129,23 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
     <h2>Accessibility</h2>
     <n-panel bordered>
       <h3>Decorative (default — aria-hidden="true")</h3>
-      <div class="icon-row">
+      <n-stack direction="row" wrap align="center" gap="3">
         <n-icon name="house"></n-icon>
-        <span style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); font-family: ui-monospace, monospace;">
-          → aria-hidden="true", no role
-        </span>
-      </div>
+        <n-text size="xs" muted class="icon-mono">→ aria-hidden="true", no role</n-text>
+      </n-stack>
 
       <h3>Meaningful (aria-label present)</h3>
-      <div class="icon-row">
+      <n-stack direction="row" wrap align="center" gap="3">
         <n-icon name="check-circle" aria-label="Approved"></n-icon>
-        <span style="font-size: 0.75rem; color: var(--n-ink-muted-neutral); font-family: ui-monospace, monospace;">
-          → role="img", aria-label="Approved"
-        </span>
-      </div>
+        <n-text size="xs" muted class="icon-mono">→ role="img", aria-label="Approved"</n-text>
+      </n-stack>
     </n-panel>
 
     <!-- ── Inside Buttons ── -->
 
     <h2>Inside Buttons</h2>
     <n-panel bordered intent="accent" size="sm">
-      <div class="icon-row">
+      <n-stack direction="row" wrap align="center" gap="3">
         <button variant="primary">
           <n-icon name="plus"></n-icon>
           <span slot="label">Add Item</span>
@@ -148,7 +161,7 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         <button variant="ghost" aria-label="Close">
           <n-icon name="x"></n-icon>
         </button>
-      </div>
+      </n-stack>
     </n-panel>
 
     <!-- ── Dynamic Name Change ── -->
@@ -176,55 +189,73 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
 
     <h2>Late Registration</h2>
     <n-panel bordered>
-      <n-text size="xs" muted style="margin-bottom: 0.5rem;">
+      <n-stack gap="2">
+      <n-text size="xs" muted>
         The icon below has name="late-demo" but the icon hasn't been registered yet.
         Click the button to register it dynamically.
       </n-text>
-      <div class="icon-row" style="margin-bottom: 0.5rem;">
+      <n-stack direction="row" wrap align="center" gap="3">
         <n-icon id="late-icon" name="late-demo" size="xl"></n-icon>
         <button id="register-btn" variant="secondary" size="sm">Register "late-demo" icon</button>
-      </div>
+      </n-stack>
       <div class="log" id="late-log"></div>
+      </n-stack>
     </n-panel>
 
     <!-- ── Navigation Icons ── -->
 
     <h2>Navigation Icons</h2>
     <n-panel bordered>
-      <div class="icon-row">
-        <div class="icon-card">
+      <n-stack direction="row" wrap align="center" gap="3">
+        <n-card inline padding="tight" class="icon-card-wrap">
+          <n-stack align="center" gap="1">
           <n-icon name="caret-up"></n-icon>
-          <span class="icon-card-label">caret-up</span>
-        </div>
-        <div class="icon-card">
+          <n-text size="xs" muted class="icon-mono">caret-up</n-text>
+          </n-stack>
+        </n-card>
+        <n-card inline padding="tight" class="icon-card-wrap">
+          <n-stack align="center" gap="1">
           <n-icon name="caret-down"></n-icon>
-          <span class="icon-card-label">caret-down</span>
-        </div>
-        <div class="icon-card">
+          <n-text size="xs" muted class="icon-mono">caret-down</n-text>
+          </n-stack>
+        </n-card>
+        <n-card inline padding="tight" class="icon-card-wrap">
+          <n-stack align="center" gap="1">
           <n-icon name="caret-left"></n-icon>
-          <span class="icon-card-label">caret-left</span>
-        </div>
-        <div class="icon-card">
+          <n-text size="xs" muted class="icon-mono">caret-left</n-text>
+          </n-stack>
+        </n-card>
+        <n-card inline padding="tight" class="icon-card-wrap">
+          <n-stack align="center" gap="1">
           <n-icon name="caret-right"></n-icon>
-          <span class="icon-card-label">caret-right</span>
-        </div>
-        <div class="icon-card">
+          <n-text size="xs" muted class="icon-mono">caret-right</n-text>
+          </n-stack>
+        </n-card>
+        <n-card inline padding="tight" class="icon-card-wrap">
+          <n-stack align="center" gap="1">
           <n-icon name="arrow-up"></n-icon>
-          <span class="icon-card-label">arrow-up</span>
-        </div>
-        <div class="icon-card">
+          <n-text size="xs" muted class="icon-mono">arrow-up</n-text>
+          </n-stack>
+        </n-card>
+        <n-card inline padding="tight" class="icon-card-wrap">
+          <n-stack align="center" gap="1">
           <n-icon name="arrow-down"></n-icon>
-          <span class="icon-card-label">arrow-down</span>
-        </div>
-        <div class="icon-card">
+          <n-text size="xs" muted class="icon-mono">arrow-down</n-text>
+          </n-stack>
+        </n-card>
+        <n-card inline padding="tight" class="icon-card-wrap">
+          <n-stack align="center" gap="1">
           <n-icon name="arrow-left"></n-icon>
-          <span class="icon-card-label">arrow-left</span>
-        </div>
-        <div class="icon-card">
+          <n-text size="xs" muted class="icon-mono">arrow-left</n-text>
+          </n-stack>
+        </n-card>
+        <n-card inline padding="tight" class="icon-card-wrap">
+          <n-stack align="center" gap="1">
           <n-icon name="arrow-right"></n-icon>
-          <span class="icon-card-label">arrow-right</span>
-        </div>
-      </div>
+          <n-text size="xs" muted class="icon-mono">arrow-right</n-text>
+          </n-stack>
+        </n-card>
+      </n-stack>
     </n-panel>
   </main>
 
@@ -256,28 +287,11 @@ import { logPrepend } from '../scripts/event-log';
       });
   </script>
   <style is:global>
-    .icon-row {
-      display: flex;
-      gap: 0.75rem;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .icon-card {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.25rem;
-      padding: 0.75rem;
-      background: var(--n-panel-neutral);
-      border: 1px solid var(--n-border-muted-neutral);
-      border-radius: 0.375rem;
+    .icon-card-wrap {
       min-width: 5rem;
     }
 
-    .icon-card-label {
-      font-size: 0.625rem;
-      color: var(--n-ink-muted-neutral);
+    .icon-mono {
       font-family: ui-monospace, monospace;
     }
 </style>

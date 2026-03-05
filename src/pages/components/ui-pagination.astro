@@ -13,11 +13,18 @@ const codeExamples = {
 };
 ---
 <SidebarLayout title="Pagination">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Pagination</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+      <span class="header-tag">&lt;n-pagination&gt;</span> Page navigation. Stamps prev/next + page numbers with ellipsis truncation.
+          </div>
+  </header>
+
   <main>
-<h1>&lt;n-pagination&gt;</h1>
-    <n-text size="md" muted spacing="relaxed">
-      Page navigation. Stamps prev/next + page numbers with ellipsis truncation.
-    </n-text>
 
     <!-- ── Basic ── -->
 

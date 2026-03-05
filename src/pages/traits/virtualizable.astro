@@ -54,11 +54,20 @@ host.addEventListener('native:virtual-change', (e) =&gt; {
 };
 ---
 <SidebarLayout title="Virtualizable">
-  <main>
-<h1>Virtualizable</h1>
-    <n-text size="md" muted spacing="relaxed">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Virtualizable</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+
       Composable trait for windowed rendering of large lists. Only renders visible items plus an overscan buffer. Dispatches <code>native:virtual-change</code> with the visible range so you can render only what's needed. All demos use <code>VirtualScrollController</code> directly since <code>enable(scrollEl, container, totalCount)</code> must be called to start virtualization. <code>n-controller</code> can create the controller declaratively, but <code>enable()</code> must still be called to begin.
-    </n-text>
+
+    </div>
+  </header>
+
+  <main>
 
     <!-- ── 10,000 Items ── -->
 

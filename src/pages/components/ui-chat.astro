@@ -2,11 +2,18 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Chat">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Chat</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+      <span class="header-tag">&lt;native-chat&gt;</span> Chat component system — message feed, avatars, markdown text, activity indicators, suggestion chips, GenUI cards, structured inputs, and composer.
+          </div>
+  </header>
+
   <main>
-<h1>&lt;native-chat&gt;</h1>
-    <n-text size="md" muted spacing="relaxed">
-      Chat component system — message feed, avatars, markdown text, activity indicators, suggestion chips, GenUI cards, structured inputs, and composer.
-    </n-text>
 
     <!-- ── Full Chat Shell ── -->
 

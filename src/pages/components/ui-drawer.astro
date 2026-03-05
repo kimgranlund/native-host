@@ -2,11 +2,18 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Drawer">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Drawer</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+      <span class="header-tag">&lt;n-drawer&gt;</span> Slide-in panel from any edge. Uses native <code>&lt;dialog&gt;</code> for top-layer + inert.
+          </div>
+  </header>
+
   <main>
-<h1>&lt;n-drawer&gt;</h1>
-    <n-text size="md" muted spacing="relaxed">
-      Slide-in panel from any edge. Uses native <code>&lt;dialog&gt;</code> for top-layer + inert.
-    </n-text>
 
     <!-- ── Right (default) ── -->
 
@@ -140,7 +147,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           <n-button slot="trailing" variant="ghost" id="close-top"><n-icon name="x"></n-icon></n-button>
         </n-header>
         <n-body>
-          <p style="margin: 0; font-size: 0.875rem;">This drawer slides in from the top edge.</p>
+          <n-text size="sm">This drawer slides in from the top edge.</n-text>
         </n-body>
       </n-drawer>
     </n-panel>
@@ -213,7 +220,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           <n-button slot="trailing" variant="ghost" id="close-no-escape"><n-icon name="x"></n-icon></n-button>
         </n-header>
         <n-body>
-          <p style="margin: 0; font-size: 0.875rem;">Pressing Escape won't close this drawer. Use the close button.</p>
+          <n-text size="sm">Pressing Escape won't close this drawer. Use the close button.</n-text>
         </n-body>
       </n-drawer>
       <n-drawer id="drawer-no-backdrop" no-close-on-backdrop>
@@ -222,7 +229,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           <n-button slot="trailing" variant="ghost" id="close-no-backdrop"><n-icon name="x"></n-icon></n-button>
         </n-header>
         <n-body>
-          <p style="margin: 0; font-size: 0.875rem;">Clicking the backdrop won't close this drawer. Use the close button or Escape.</p>
+          <n-text size="sm">Clicking the backdrop won't close this drawer. Use the close button or Escape.</n-text>
         </n-body>
       </n-drawer>
       <n-drawer id="drawer-persistent" no-close-on-escape no-close-on-backdrop>
@@ -231,7 +238,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           <n-button slot="trailing" variant="ghost" id="close-persistent"><n-icon name="x"></n-icon></n-button>
         </n-header>
         <n-body>
-          <p style="margin: 0; font-size: 0.875rem;">Neither Escape nor backdrop click will close this. Only the close button works.</p>
+          <n-text size="sm">Neither Escape nor backdrop click will close this. Only the close button works.</n-text>
         </n-body>
       </n-drawer>
     </n-panel>

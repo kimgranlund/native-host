@@ -17,11 +17,18 @@ const codeExamples = {
 };
 ---
 <SidebarLayout title="Avatar">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Avatar</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+      <span class="header-tag">&lt;n-avatar&gt;</span> User/entity image with initials fallback. Shows image, initials from name, or placeholder.
+          </div>
+  </header>
+
   <main>
-<h1>&lt;n-avatar&gt;</h1>
-    <n-text size="md" muted spacing="relaxed">
-      User/entity image with initials fallback. Shows image, initials from name, or placeholder.
-    </n-text>
 
     <!-- ── Initials ── -->
 

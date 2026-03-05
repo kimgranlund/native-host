@@ -2,11 +2,20 @@
 import SidebarLayout from '../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Changelog">
-  <main>
-    <h1>Changelog</h1>
-    <n-text size="md" muted spacing="relaxed">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Changelog</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+
       Version history for the NativeUI documentation site. Each release lists new features, updates, and breaking changes with links to relevant pages.
-    </n-text>
+
+    </div>
+  </header>
+
+  <main>
 
     <!-- ── 0.7.9 ── -->
 

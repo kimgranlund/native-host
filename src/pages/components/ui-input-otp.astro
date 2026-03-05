@@ -12,11 +12,18 @@ const codeExamples = {
 };
 ---
 <SidebarLayout title="Input OTP">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Input Otp</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+      <span class="header-tag">&lt;n-input-otp&gt;</span> Segmented OTP input. Auto-advance on entry, backspace returns, paste fills all cells.
+          </div>
+  </header>
+
   <main>
-<h1>&lt;n-input-otp&gt;</h1>
-    <n-text size="md" muted spacing="relaxed">
-      Segmented OTP input. Auto-advance on entry, backspace returns, paste fills all cells.
-    </n-text>
 
     <!-- ── Basic ── -->
 
@@ -106,7 +113,7 @@ const codeExamples = {
     <h2>Live Value</h2>
     <n-panel bordered>
       <n-field>
-        <label slot="label">Code: <span id="otp-value" style="font-size: 0.8125rem; color: var(--n-ink-muted-neutral); font-variant-numeric: tabular-nums;">______</span></label>
+        <label slot="label">Code: <n-text inline size="sm" muted id="otp-value" class="otp-value">______</n-text></label>
         <n-input-otp id="otp-live" length="6"></n-input-otp>
       </n-field>
       <pre class="layout-code"><code set:html={codeExamples.liveValue} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
@@ -121,11 +128,11 @@ const codeExamples = {
       </n-text>
       <n-stack gap="4">
         <div>
-          <div style="font-size: 0.625rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--n-ink-muted-neutral); margin-bottom: 0.5rem;">force-hover</div>
+          <div class="layout-col-label otp-debug-label">force-hover</div>
           <n-input-otp force-hover length="4"></n-input-otp>
         </div>
         <div>
-          <div style="font-size: 0.625rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--n-ink-muted-neutral); margin-bottom: 0.5rem;">force-focus</div>
+          <div class="layout-col-label otp-debug-label">force-focus</div>
           <n-input-otp force-focus length="4"></n-input-otp>
         </div>
       </n-stack>
@@ -144,4 +151,8 @@ document.addEventListener('astro:page-load', () => {
   });
 });
   </script>
+  <style is:global>
+    .otp-debug-label { margin-bottom: 0.5rem; }
+    .otp-value { font-variant-numeric: tabular-nums; }
+  </style>
 </SidebarLayout>

@@ -29,11 +29,20 @@ emailInput.addEventListener('focusout', () =&gt; {
 const detailMessage = `{ message }`;
 ---
 <SidebarLayout title="Validatable">
-  <main>
-<h1>Validatable</h1>
-    <n-text size="md" muted spacing="relaxed">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Validatable</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+
       Composable trait for declarative form validation. Attach rules to any element, call <code>validate()</code>, and react to <code>native:valid</code> / <code>native:invalid</code> events. Sets <code>[invalid]</code> and <code>aria-invalid</code> attributes automatically.
-    </n-text>
+
+    </div>
+  </header>
+
+  <main>
 
     <!-- ── Required Field ── -->
 

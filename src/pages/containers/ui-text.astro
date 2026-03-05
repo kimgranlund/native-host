@@ -40,11 +40,18 @@ const codeExamples = {
 };
 ---
 <SidebarLayout title="Text">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Text</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+      <span class="header-tag">&lt;n-text&gt;</span> CSS-only utility element for styled text blocks — muted descriptions, secondary labels, section intros. No JS registration needed.
+          </div>
+  </header>
+
   <main>
-<h1>&lt;n-text&gt;</h1>
-    <n-text size="md" muted spacing="relaxed">
-      CSS-only utility element for styled text blocks — muted descriptions, secondary labels, section intros. No JS registration needed.
-    </n-text>
 
     <!-- ── Basic ── -->
 

@@ -2,14 +2,20 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Form Contact">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Contact Us</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+
+      Have a question or feedback? Fill out the form below and we'll get back to you within 24 hours.
+
+    </div>
+  </header>
   <main>
 <n-stack gap="6">
-    <div>
-      <h1>Contact Us</h1>
-      <p class="demo-desc">
-        Have a question or feedback? Fill out the form below and we'll get back to you within 24 hours.
-      </p>
-    </div>
 
     <div class="form-wrapper">
       <n-card>

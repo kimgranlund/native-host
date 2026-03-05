@@ -3,11 +3,20 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 const detailPointerType = `{ pointerType }`;
 ---
 <SidebarLayout title="Hoverable">
-  <main>
-<h1>Hoverable</h1>
-    <n-text size="md" muted spacing="relaxed">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Hoverable</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+
       Pointer hover state with configurable enter/leave delays. Sets <code>[hovered]</code> attribute and dispatches <code>native:hover-enter</code> / <code>native:hover-leave</code> events.
-    </n-text>
+
+    </div>
+  </header>
+
+  <main>
 
     <!-- ── Instant Hover ── -->
 

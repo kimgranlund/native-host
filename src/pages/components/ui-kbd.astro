@@ -2,11 +2,18 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Kbd">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Kbd</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+      <span class="header-tag">&lt;n-kbd&gt;</span> Keyboard shortcut indicator. Own font/size scale like n-badge.
+          </div>
+  </header>
+
   <main>
-<h1>&lt;n-kbd&gt;</h1>
-    <n-text size="md" muted spacing="relaxed">
-      Keyboard shortcut indicator. Own font/size scale like n-badge.
-    </n-text>
 
     <!-- ── Sizes ── -->
 
