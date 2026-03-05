@@ -86,9 +86,14 @@ document.addEventListener('astro:before-swap', ((e: any) => {
 
       // Deferred upgrade: page-specific scripts (e.g. native-a2ui/register)
       // load async via swapHeadElements. The sync upgrade() above only covers
-      // already-registered elements. Schedule a second pass so elements whose
-      // definitions arrive after the swap still get upgraded.
-      requestAnimationFrame(() => customElements.upgrade(adopted));
+      // already-registered elements. For each still-undefined element, wait
+      // for its definition to arrive and then force an explicit upgrade —
+      // browser auto-upgrade can miss adopted nodes in edge cases.
+      for (const el of adopted.querySelectorAll(':not(:defined)')) {
+        customElements.whenDefined(el.localName).then(() => {
+          customElements.upgrade(el);
+        });
+      }
     }
 
     // Swap breadcrumb trailing buttons (panel toggles may differ)
