@@ -8,6 +8,52 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
       Version history for the NativeUI documentation site. Each release lists new features, updates, and breaking changes with links to relevant pages.
     </n-text>
 
+    <!-- ── 0.7.9 ── -->
+
+    <div class="changelog-version">
+      <h2>0.7.9 <span class="changelog-date">— March 2026</span></h2>
+
+      <div class="changelog-section">
+        <h3><n-badge size="xs" intent="danger">New</n-badge> New Components</h3>
+
+        <div class="changelog-entry">
+          <div class="changelog-entry-header"><a href="/components/ui-chart"><code>&lt;n-chart&gt;</code></a> <span class="changelog-sep">::</span> SVG charting component</div>
+          <ul>
+            <li>Line, bar, scatter, and sparkline chart types across three usage tiers</li>
+            <li>Reactive data store with auto-detected scales, crosshair + tooltip interactions</li>
+            <li>10 OKLCH color palettes (default, vivid, pastel, earth, ocean, sunset, forest, neon, mono, accessible)</li>
+            <li>Reference lines, average lines, stacked/grouped/horizontal modes</li>
+            <li>Comprehensive docs page with 20 interactive demos</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="changelog-section">
+        <h3><n-badge size="xs" intent="accent">Updated</n-badge> Updates</h3>
+
+        <div class="changelog-entry">
+          <div class="changelog-entry-header">Ecosystem upgrade <span class="changelog-sep">::</span> <code>native-ui@0.7.22</code>, <code>native-app@0.3.12</code>, <code>native-chat@0.5.12</code>, <code>native-tokens@0.5.10</code></div>
+          <ul>
+            <li>Coordinated release across all <code>@nonoun/*</code> packages</li>
+          </ul>
+        </div>
+
+        <div class="changelog-entry">
+          <div class="changelog-entry-header"><code>n-gripper</code> <span class="changelog-sep">::</span> Now auto-registered</div>
+          <ul>
+            <li>Included in <code>@nonoun/native-ui/register</code> since 0.7.17 — manual registration removed from <code>setup.ts</code></li>
+          </ul>
+        </div>
+
+        <div class="changelog-entry">
+          <div class="changelog-entry-header">Collapsed sidebar <span class="changelog-sep">::</span> Selected highlight removed</div>
+          <ul>
+            <li>Dark circle/pill highlight on the active section icon in collapsed mode removed — icon color change is sufficient</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
     <!-- ── 0.7.8 ── -->
 
     <div class="changelog-version">

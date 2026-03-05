@@ -1,0 +1,656 @@
+---
+import SidebarLayout from '../../layouts/SidebarLayout.astro';
+
+const codeExamples = {
+  basicLine: `&lt;n-chart type="line" aspect="21:9" animate y-label="Revenue ($K)"&gt;&lt;/n-chart&gt;
+
+&lt;script&gt;
+  chart.data = {
+    series: [{
+      name: 'Revenue',
+      data: [
+        { x: 'Jan', y: 42 }, { x: 'Feb', y: 58 },
+        { x: 'Mar', y: 65 }, { x: 'Apr', y: 51 },
+      ]
+    }]
+  };
+&lt;/script&gt;`,
+  sparkline: `&lt;n-chart type="sparkline"&gt;&lt;/n-chart&gt;
+
+&lt;script&gt;
+  chart.data = {
+    series: [{ name: 'Trend', data: [
+      { x: 0, y: 12 }, { x: 1, y: 15 }, { x: 2, y: 13 },
+      { x: 3, y: 18 }, { x: 4, y: 22 }, { x: 5, y: 20 },
+    ]}]
+  };
+&lt;/script&gt;`,
+  events: `chart.addEventListener('native:chart-hover', (e) =&gt; {
+  console.log(e.detail.series, e.detail.point);
+});
+
+chart.addEventListener('native:chart-select', (e) =&gt; {
+  console.log('Selected:', e.detail);
+});
+
+chart.addEventListener('native:chart-legend-toggle', (e) =&gt; {
+  console.log(e.detail.series, e.detail.visible);
+});`,
+  referenceLines: `chart.referenceLines = [
+  { axis: 'y', value: 80, label: 'Target', color: 'var(--n-color-success-500)', style: 'dashed' },
+  { axis: 'y', value: 50, label: 'Baseline', color: 'var(--n-color-warning-500)', style: 'dotted' },
+  { axis: 'x', value: 'Jul', label: 'Launch', color: 'var(--n-color-info-500)', style: 'solid' },
+];`,
+  customColors: `chart.data = {
+  series: [
+    { name: 'Alpha', color: 'oklch(0.65 0.2 260)', data: [&hellip;] },
+    { name: 'Beta',  color: 'oklch(0.7 0.18 340)', data: [&hellip;] },
+    { name: 'Gamma', color: 'oklch(0.75 0.15 140)', data: [&hellip;] },
+  ]
+};`,
+  refAvgCombined: `&lt;n-chart type="line" aspect="21:9" average animate&gt;&lt;/n-chart&gt;
+
+chart.referenceLines = [
+  { axis: 'y', value: 100, label: 'Goal', color: 'var(--n-color-success-500)', style: 'dashed' },
+];`,
+};
+---
+<SidebarLayout title="Chart">
+  <main>
+<h1>&lt;n-chart&gt;</h1>
+    <n-text size="md" muted spacing="relaxed">
+      SVG charting component with reactive store, auto-detected scales, crosshair + tooltip interactions, and OKLCH color palette.
+      Types: <code>line</code>, <code>bar</code>, <code>scatter</code>, <code>sparkline</code>.
+      Three usage tiers: widget (sparklines), card (compact panels), and dashboard (full axes + legend + tooltips).
+    </n-text>
+
+    <!-- ── Widget Tier — KPI Cards ── -->
+
+    <h2>Widget Tier — KPI Cards</h2>
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="regular">
+        Inline sparklines inside KPI cards. <code>type="sparkline"</code> renders with zero margins and no axes.
+      </n-text>
+      <div class="kpi-grid">
+        <n-card inline>
+          <n-stack gap="1">
+            <n-text size="xs" muted>Signups</n-text>
+            <div class="kpi-row">
+              <n-text size="lg"><strong>30</strong></n-text>
+              <span class="kpi-change up">+15%</span>
+            </div>
+            <n-chart class="kpi-sparkline" type="sparkline" id="spark-1"></n-chart>
+          </n-stack>
+        </n-card>
+        <n-card inline>
+          <n-stack gap="1">
+            <n-text size="xs" muted>Churn</n-text>
+            <div class="kpi-row">
+              <n-text size="lg"><strong>33</strong></n-text>
+              <span class="kpi-change down">-34%</span>
+            </div>
+            <n-chart class="kpi-sparkline" type="sparkline" id="spark-2"></n-chart>
+          </n-stack>
+        </n-card>
+        <n-card inline>
+          <n-stack gap="1">
+            <n-text size="xs" muted>Revenue</n-text>
+            <div class="kpi-row">
+              <n-text size="lg"><strong>$25K</strong></n-text>
+              <span class="kpi-change up">+400%</span>
+            </div>
+            <n-chart class="kpi-sparkline" type="sparkline" id="spark-3"></n-chart>
+          </n-stack>
+        </n-card>
+        <n-card inline>
+          <n-stack gap="1">
+            <n-text size="xs" muted>NPS</n-text>
+            <div class="kpi-row">
+              <n-text size="lg"><strong>112</strong></n-text>
+              <span class="kpi-change up">+12%</span>
+            </div>
+            <n-chart class="kpi-sparkline" type="sparkline" id="spark-4"></n-chart>
+          </n-stack>
+        </n-card>
+      </div>
+    <pre class="layout-code"><code set:html={codeExamples.sparkline} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Card Tier — Compact Charts ── -->
+
+    <h2>Card Tier — Compact Charts</h2>
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="regular">
+        Charts embedded in small panels or sidebar cards. Aspect ratio constrained, legend hidden to save space.
+      </n-text>
+      <div class="chart-grid-2">
+        <n-panel bordered>
+          <h3>Line</h3>
+          <n-chart id="card-line" type="line" legend="none" aspect="4:3" animate></n-chart>
+        </n-panel>
+        <n-panel bordered>
+          <h3>Bar</h3>
+          <n-chart id="card-bar" type="bar" legend="none" aspect="4:3" animate></n-chart>
+        </n-panel>
+        <n-panel bordered>
+          <h3>Area</h3>
+          <n-chart id="card-area" type="line" area smooth legend="none" aspect="4:3" animate></n-chart>
+        </n-panel>
+        <n-panel bordered>
+          <h3>Scatter</h3>
+          <n-chart id="card-scatter" type="scatter" legend="none" aspect="4:3" animate></n-chart>
+        </n-panel>
+      </div>
+    <pre class="layout-code"><code>&lt;n-chart type="line" legend="none" aspect="4:3" animate&gt;&lt;/n-chart&gt;
+&lt;n-chart type="bar" legend="none" aspect="4:3" animate&gt;&lt;/n-chart&gt;
+&lt;n-chart type="line" area smooth legend="none" aspect="4:3" animate&gt;&lt;/n-chart&gt;
+&lt;n-chart type="scatter" legend="none" aspect="4:3" animate&gt;&lt;/n-chart&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Dashboard — Line Chart ── -->
+
+    <h2>Dashboard — Line Chart</h2>
+    <n-panel bordered>
+      <n-chart id="chart-line" type="line" animate y-label="Revenue ($K)" aspect="21:9"></n-chart>
+    <pre class="layout-code"><code set:html={codeExamples.basicLine} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Smooth + Area ── -->
+
+    <h2>Smooth Line + Area</h2>
+    <n-panel bordered>
+      <n-chart type="line" aspect="21:9" smooth area animate id="chart-smooth-area"></n-chart>
+    <pre class="layout-code"><code>&lt;n-chart type="line" aspect="21:9" smooth area animate&gt;&lt;/n-chart&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Bar Chart Modes ── -->
+
+    <h2>Bar Chart Modes</h2>
+    <n-panel bordered>
+      <div class="chart-grid-2">
+        <div>
+          <div class="layout-label">Grouped</div>
+          <n-chart type="bar" aspect="4:3" animate id="chart-bar-grouped"></n-chart>
+        </div>
+        <div>
+          <div class="layout-label">Stacked</div>
+          <n-chart type="bar" aspect="4:3" stacked animate id="chart-bar-stacked"></n-chart>
+        </div>
+      </div>
+    <pre class="layout-code"><code>&lt;n-chart type="bar" aspect="4:3" animate&gt;&lt;/n-chart&gt;
+&lt;n-chart type="bar" aspect="4:3" stacked animate&gt;&lt;/n-chart&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Horizontal Bar ── -->
+
+    <h2>Horizontal Bar Chart</h2>
+    <n-panel bordered>
+      <n-chart type="bar" horizontal animate aspect="21:9" legend="none" id="chart-bar-horizontal"></n-chart>
+    <pre class="layout-code"><code>&lt;n-chart type="bar" horizontal animate aspect="21:9" legend="none"&gt;&lt;/n-chart&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Scatter / Bubble ── -->
+
+    <h2>Scatter / Bubble</h2>
+    <n-panel bordered>
+      <n-chart type="scatter" aspect="16:9" animate x-label="Metric X" y-label="Metric Y" id="chart-scatter"></n-chart>
+    <pre class="layout-code"><code>&lt;n-chart type="scatter" aspect="16:9" animate x-label="Metric X" y-label="Metric Y"&gt;&lt;/n-chart&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Stacked Area ── -->
+
+    <h2>Stacked Area (Multi-Series)</h2>
+    <n-panel bordered>
+      <n-chart type="line" aspect="21:9" area stacked animate legend="top" id="chart-stacked-area"></n-chart>
+    <pre class="layout-code"><code>&lt;n-chart type="line" aspect="21:9" area stacked animate legend="top"&gt;&lt;/n-chart&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Reference Lines ── -->
+
+    <h2>Reference Lines</h2>
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="regular">
+        Manual reference lines via the <code>referenceLines</code> property. Horizontal (y-axis), vertical (x-axis), with label and style options.
+      </n-text>
+      <n-chart type="line" aspect="21:9" animate id="chart-reference"></n-chart>
+    <pre class="layout-code"><code set:html={codeExamples.referenceLines} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Average Lines ── -->
+
+    <h2>Average Lines</h2>
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="regular">
+        <code>average</code> attribute auto-computes per-series average and renders dashed lines in series color.
+      </n-text>
+      <n-chart type="line" aspect="21:9" average animate id="chart-average"></n-chart>
+    <pre class="layout-code"><code>&lt;n-chart type="line" aspect="21:9" average animate&gt;&lt;/n-chart&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Reference + Average Combined ── -->
+
+    <h2>Reference + Average Combined</h2>
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="regular">
+        Manual reference lines combined with auto-computed averages.
+      </n-text>
+      <n-chart type="line" aspect="21:9" average animate id="chart-ref-avg"></n-chart>
+    <pre class="layout-code"><code set:html={codeExamples.refAvgCombined} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Grid Modes ── -->
+
+    <h2>Grid Modes</h2>
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="regular">
+        <code>grid</code> attribute: <code>horizontal</code> (default), <code>vertical</code>, <code>both</code>, <code>none</code>.
+      </n-text>
+      <div class="chart-grid-4">
+        <div>
+          <div class="layout-label">horizontal</div>
+          <n-chart type="line" aspect="4:3" grid="horizontal" legend="none" animate id="chart-grid-h"></n-chart>
+        </div>
+        <div>
+          <div class="layout-label">vertical</div>
+          <n-chart type="line" aspect="4:3" grid="vertical" legend="none" animate id="chart-grid-v"></n-chart>
+        </div>
+        <div>
+          <div class="layout-label">both</div>
+          <n-chart type="line" aspect="4:3" grid="both" legend="none" animate id="chart-grid-b"></n-chart>
+        </div>
+        <div>
+          <div class="layout-label">none</div>
+          <n-chart type="line" aspect="4:3" grid="none" legend="none" animate id="chart-grid-n"></n-chart>
+        </div>
+      </div>
+    <pre class="layout-code"><code>&lt;n-chart grid="horizontal"&gt;&lt;/n-chart&gt;
+&lt;n-chart grid="vertical"&gt;&lt;/n-chart&gt;
+&lt;n-chart grid="both"&gt;&lt;/n-chart&gt;
+&lt;n-chart grid="none"&gt;&lt;/n-chart&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Legend Positions ── -->
+
+    <h2>Legend Positions</h2>
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="regular">
+        <code>legend</code> attribute: <code>top</code>, <code>bottom</code> (default), <code>none</code>.
+      </n-text>
+      <div class="chart-grid-3">
+        <div>
+          <div class="layout-label">top</div>
+          <n-chart type="line" aspect="4:3" legend="top" animate id="chart-legend-top"></n-chart>
+        </div>
+        <div>
+          <div class="layout-label">bottom</div>
+          <n-chart type="line" aspect="4:3" legend="bottom" animate id="chart-legend-bottom"></n-chart>
+        </div>
+        <div>
+          <div class="layout-label">none</div>
+          <n-chart type="line" aspect="4:3" legend="none" animate id="chart-legend-none"></n-chart>
+        </div>
+      </div>
+    <pre class="layout-code"><code>&lt;n-chart legend="top"&gt;&lt;/n-chart&gt;
+&lt;n-chart legend="bottom"&gt;&lt;/n-chart&gt;
+&lt;n-chart legend="none"&gt;&lt;/n-chart&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Aspect Ratios ── -->
+
+    <h2>Aspect Ratios</h2>
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="regular">
+        <code>aspect</code> attribute constrains height from width: <code>16:9</code>, <code>4:3</code>, <code>1:1</code>, <code>21:9</code>.
+      </n-text>
+      <div class="chart-grid-2">
+        <div>
+          <div class="layout-label">16:9</div>
+          <n-chart type="line" aspect="16:9" legend="none" animate id="chart-aspect-16"></n-chart>
+        </div>
+        <div>
+          <div class="layout-label">1:1</div>
+          <n-chart type="bar" aspect="1:1" legend="none" animate id="chart-aspect-1"></n-chart>
+        </div>
+      </div>
+    <pre class="layout-code"><code>&lt;n-chart aspect="16:9"&gt;&lt;/n-chart&gt;
+&lt;n-chart aspect="4:3"&gt;&lt;/n-chart&gt;
+&lt;n-chart aspect="1:1"&gt;&lt;/n-chart&gt;
+&lt;n-chart aspect="21:9"&gt;&lt;/n-chart&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Custom Series Colors ── -->
+
+    <h2>Custom Series Colors</h2>
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="regular">
+        Per-series <code>color</code> override with raw OKLCH values.
+      </n-text>
+      <n-chart id="chart-custom-colors" type="line" smooth animate aspect="21:9"></n-chart>
+    <pre class="layout-code"><code set:html={codeExamples.customColors} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Multi-Series — Full Palette ── -->
+
+    <h2>Multi-Series — Full Palette</h2>
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="regular">
+        6 series auto-assigned from the OKLCH color palette (accent, success, warning, danger, info, neutral).
+      </n-text>
+      <n-chart id="chart-full-palette" type="line" animate legend="top" aspect="16:9"></n-chart>
+    </n-panel>
+
+    <!-- ── Palettes ── -->
+
+    <h2>Palettes</h2>
+    <n-panel bordered>
+      <n-stack gap="3">
+        <n-stack direction="row" align="center" gap="2">
+          <n-text size="sm" muted>Palette:</n-text>
+          <n-select size="sm" id="palette-select">
+            <option value="default">Default (tokens)</option>
+            <option value="vivid">Vivid</option>
+            <option value="pastel">Pastel</option>
+            <option value="earth">Earth</option>
+            <option value="ocean">Ocean</option>
+            <option value="sunset">Sunset</option>
+            <option value="forest">Forest</option>
+            <option value="neon">Neon</option>
+            <option value="mono">Mono (single-hue)</option>
+            <option value="accessible">Accessible (colorblind-safe)</option>
+          </n-select>
+        </n-stack>
+        <n-chart type="line" aspect="16:9" smooth animate id="chart-palette"></n-chart>
+      </n-stack>
+    <pre class="layout-code"><code>&lt;n-chart type="line" palette="vivid" smooth animate&gt;&lt;/n-chart&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Sparklines in Table ── -->
+
+    <h2>Sparklines in Table</h2>
+    <n-panel bordered>
+      <table class="sparkline-table">
+        <thead>
+          <tr><th>Metric</th><th>Trend</th><th>Current</th><th>Change</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Signups</td>
+            <td><n-chart class="table-sparkline" type="sparkline" id="table-spark-1"></n-chart></td>
+            <td class="val">30</td>
+            <td><span class="kpi-change up">+150%</span></td>
+          </tr>
+          <tr>
+            <td>Churn Rate</td>
+            <td><n-chart class="table-sparkline" type="sparkline" id="table-spark-2"></n-chart></td>
+            <td class="val">33</td>
+            <td><span class="kpi-change down">-34%</span></td>
+          </tr>
+          <tr>
+            <td>Revenue</td>
+            <td><n-chart class="table-sparkline" type="sparkline" id="table-spark-3"></n-chart></td>
+            <td class="val">$25K</td>
+            <td><span class="kpi-change up">+400%</span></td>
+          </tr>
+          <tr>
+            <td>NPS Score</td>
+            <td><n-chart class="table-sparkline" type="sparkline" id="table-spark-4"></n-chart></td>
+            <td class="val">112</td>
+            <td><span class="kpi-change up">+12%</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </n-panel>
+
+    <!-- ── Animate ── -->
+
+    <h2>Animate</h2>
+    <n-panel bordered>
+      <n-chart type="bar" aspect="16:9" animate id="chart-animate"></n-chart>
+    <pre class="layout-code"><code>&lt;n-chart type="bar" aspect="16:9" animate&gt;&lt;/n-chart&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Disabled ── -->
+
+    <h2>Disabled</h2>
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="regular">
+        <code>disabled</code> attribute greys out the chart and disables pointer interactions.
+      </n-text>
+      <n-chart type="line" aspect="21:9" disabled animate id="chart-disabled"></n-chart>
+    <pre class="layout-code"><code>&lt;n-chart type="line" aspect="21:9" disabled animate&gt;&lt;/n-chart&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Events ── -->
+
+    <h2>Events</h2>
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="regular">
+        Hover, click, or toggle legend items on the chart below.
+      </n-text>
+      <n-chart type="line" aspect="16:9" animate id="chart-events"></n-chart>
+      <div class="log" id="chart-event-log"></div>
+    <pre class="layout-code"><code set:html={codeExamples.events} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+  </main>
+
+  <script>
+import { logPrepend } from '../../scripts/event-log';
+
+document.addEventListener('astro:page-load', () => {
+  const lineChart = document.getElementById('chart-line') as any;
+  if (!lineChart) return;
+
+  // ── Shared data ──
+
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+  const revenueData = {
+    series: [
+      { name: 'Revenue', data: months.map((m, i) => ({ x: m, y: [42, 58, 65, 51, 73, 82, 91, 78, 88, 95, 102, 110][i] })) },
+      { name: 'Costs', data: months.map((m, i) => ({ x: m, y: [35, 40, 45, 42, 48, 52, 55, 50, 54, 58, 62, 65][i] })) },
+    ]
+  };
+
+  const productData = {
+    series: [
+      { name: 'Q1', data: [{ x: 'Product A', y: 120 }, { x: 'Product B', y: 95 }, { x: 'Product C', y: 150 }, { x: 'Product D', y: 80 }] },
+      { name: 'Q2', data: [{ x: 'Product A', y: 140 }, { x: 'Product B', y: 110 }, { x: 'Product C', y: 130 }, { x: 'Product D', y: 100 }] },
+    ]
+  };
+
+  const sixSeriesData = {
+    series: [
+      { name: 'Organic', data: months.map((m, i) => ({ x: m, y: 30 + Math.round(Math.sin(i * 0.5) * 15 + i * 3) })) },
+      { name: 'Paid', data: months.map((m, i) => ({ x: m, y: 20 + Math.round(Math.cos(i * 0.6) * 10 + i * 2) })) },
+      { name: 'Referral', data: months.map((m, i) => ({ x: m, y: 15 + Math.round(Math.sin(i * 0.3) * 8 + i * 1.5) })) },
+      { name: 'Social', data: months.map((m, i) => ({ x: m, y: 10 + Math.round(Math.cos(i * 0.4) * 6 + i * 1) })) },
+      { name: 'Email', data: months.map((m, i) => ({ x: m, y: 8 + Math.round(Math.sin(i * 0.7) * 5 + i * 0.8) })) },
+      { name: 'Direct', data: months.map((m, i) => ({ x: m, y: 25 + Math.round(Math.cos(i * 0.5) * 12 + i * 2.5) })) },
+    ]
+  };
+
+  const singleSeries = { series: [revenueData.series[0]] };
+
+  const sparkData = [
+    [12, 15, 13, 18, 22, 20, 25, 23, 28, 30],
+    [50, 48, 45, 47, 42, 40, 38, 35, 37, 33],
+    [5, 8, 12, 10, 15, 18, 14, 20, 22, 25],
+    [100, 98, 102, 97, 105, 103, 108, 110, 107, 112],
+  ];
+
+  // ── Widget Tier — KPI Sparklines ──
+
+  sparkData.forEach((values, i) => {
+    const el = document.getElementById(`spark-${i + 1}`) as any;
+    if (el) el.data = { series: [{ name: 'trend', data: values.map((y, x) => ({ x, y })) }] };
+  });
+
+  // ── Card Tier — Compact Charts ──
+
+  (document.getElementById('card-line') as any).data = revenueData;
+  (document.getElementById('card-bar') as any).data = productData;
+  (document.getElementById('card-area') as any).data = singleSeries;
+  (document.getElementById('card-scatter') as any).data = {
+    series: [{
+      name: 'Users',
+      data: Array.from({ length: 20 }, () => ({
+        x: Math.round(Math.random() * 100),
+        y: Math.round(Math.random() * 80 + 10),
+      })),
+    }],
+  };
+
+  // ── Dashboard charts ──
+
+  lineChart.data = revenueData;
+  (document.getElementById('chart-smooth-area') as any).data = revenueData;
+
+  // ── Bar Chart Modes ──
+
+  (document.getElementById('chart-bar-grouped') as any).data = productData;
+  (document.getElementById('chart-bar-stacked') as any).data = productData;
+
+  // ── Horizontal Bar ──
+
+  (document.getElementById('chart-bar-horizontal') as any).data = {
+    series: [{
+      name: 'Duration (min)',
+      data: [{ x: 'Setup', y: 12 }, { x: 'Build', y: 34 }, { x: 'Test', y: 28 }, { x: 'Deploy', y: 8 }, { x: 'Verify', y: 5 }],
+    }],
+  };
+
+  // ── Scatter / Bubble ──
+
+  (document.getElementById('chart-scatter') as any).data = {
+    series: [
+      { name: 'Cluster A', data: Array.from({ length: 30 }, () => ({ x: Math.random() * 100, y: Math.random() * 80 + 10, r: Math.random() * 20 + 5 })) },
+      { name: 'Cluster B', data: Array.from({ length: 25 }, () => ({ x: Math.random() * 60 + 40, y: Math.random() * 60 + 30, r: Math.random() * 15 + 3 })) },
+    ]
+  };
+
+  // ── Stacked Area ──
+
+  (document.getElementById('chart-stacked-area') as any).data = sixSeriesData;
+
+  // ── Reference Lines ──
+
+  const refChart = document.getElementById('chart-reference') as any;
+  refChart.data = revenueData;
+  refChart.referenceLines = [
+    { axis: 'y', value: 80, label: 'Target', color: 'var(--n-color-success-500)', style: 'dashed' },
+    { axis: 'y', value: 50, label: 'Baseline', color: 'var(--n-color-warning-500)', style: 'dotted' },
+    { axis: 'x', value: 'Jul', label: 'Launch', color: 'var(--n-color-info-500)', style: 'solid' },
+  ];
+
+  // ── Average Lines ──
+
+  (document.getElementById('chart-average') as any).data = revenueData;
+
+  // ── Reference + Average Combined ──
+
+  const refAvgChart = document.getElementById('chart-ref-avg') as any;
+  refAvgChart.data = revenueData;
+  refAvgChart.referenceLines = [
+    { axis: 'y', value: 100, label: 'Goal', color: 'var(--n-color-success-500)', style: 'dashed' },
+  ];
+
+  // ── Grid Modes ──
+
+  const gridData = {
+    series: [{ name: 'Sales', data: months.slice(0, 6).map((m, i) => ({ x: m, y: [20, 35, 28, 45, 38, 52][i] })) }],
+  };
+  ['h', 'v', 'b', 'n'].forEach(g => {
+    const el = document.getElementById(`chart-grid-${g}`) as any;
+    if (el) el.data = gridData;
+  });
+
+  // ── Legend Positions ──
+
+  ['top', 'bottom', 'none'].forEach(pos => {
+    const el = document.getElementById(`chart-legend-${pos}`) as any;
+    if (el) el.data = revenueData;
+  });
+
+  // ── Aspect Ratios ──
+
+  (document.getElementById('chart-aspect-16') as any).data = revenueData;
+  (document.getElementById('chart-aspect-1') as any).data = revenueData;
+
+  // ── Custom Series Colors ──
+
+  (document.getElementById('chart-custom-colors') as any).data = {
+    series: [
+      { name: 'Alpha', color: 'oklch(0.65 0.2 260)', data: months.slice(0, 6).map((m, i) => ({ x: m, y: [30, 45, 38, 55, 48, 62][i] })) },
+      { name: 'Beta', color: 'oklch(0.7 0.18 340)', data: months.slice(0, 6).map((m, i) => ({ x: m, y: [20, 32, 28, 42, 35, 50][i] })) },
+      { name: 'Gamma', color: 'oklch(0.75 0.15 140)', data: months.slice(0, 6).map((m, i) => ({ x: m, y: [15, 22, 18, 30, 25, 38][i] })) },
+    ],
+  };
+
+  // ── Multi-Series Full Palette ──
+
+  (document.getElementById('chart-full-palette') as any).data = sixSeriesData;
+
+  // ── Palette Switcher ──
+
+  const paletteChart = document.getElementById('chart-palette') as any;
+  paletteChart.data = sixSeriesData;
+  const paletteSelect = document.getElementById('palette-select') as any;
+  paletteSelect?.addEventListener('native:change', (e: any) => {
+    paletteChart.palette = e.detail.value;
+  });
+
+  // ── Sparklines in Table ──
+
+  sparkData.forEach((values, i) => {
+    const el = document.getElementById(`table-spark-${i + 1}`) as any;
+    if (el) el.data = { series: [{ name: 'trend', data: values.map((y, x) => ({ x, y })) }] };
+  });
+
+  // ── Animate ──
+
+  (document.getElementById('chart-animate') as any).data = productData;
+
+  // ── Disabled ──
+
+  (document.getElementById('chart-disabled') as any).data = revenueData;
+
+  // ── Events ──
+
+  const eventsChart = document.getElementById('chart-events') as any;
+  const eventLog = document.getElementById('chart-event-log');
+  eventsChart.data = revenueData;
+
+  eventsChart.addEventListener('native:chart-hover', (e: any) => {
+    if (e.detail?.point) logPrepend(eventLog, `hover — ${e.detail.series}: (${e.detail.point.x}, ${e.detail.point.y})`);
+  });
+  eventsChart.addEventListener('native:chart-select', (e: any) => {
+    logPrepend(eventLog, `select — ${e.detail.series}: (${e.detail.point.x}, ${e.detail.point.y})`);
+  });
+  eventsChart.addEventListener('native:chart-legend-toggle', (e: any) => {
+    logPrepend(eventLog, `legend-toggle — ${e.detail.series}: visible=${e.detail.visible}`);
+  });
+});
+  </script>
+
+  <style is:global>
+    .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; }
+    .kpi-row { display: flex; align-items: center; gap: 0.5rem; }
+    .kpi-change { font-size: 0.6875rem; font-weight: 600; }
+    .kpi-change.up { color: var(--n-color-success-500); }
+    .kpi-change.down { color: var(--n-color-danger-500); }
+    .chart-grid-2, .chart-grid-3, .chart-grid-4 {
+      display: grid;
+      gap: 1rem;
+    }
+    .chart-grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .chart-grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .chart-grid-4 { grid-template-columns: repeat(4, 1fr); }
+    .sparkline-table { width: 100%; border-collapse: collapse; }
+    .sparkline-table td, .sparkline-table th { padding: 0.5rem 1rem; text-align: left; border-bottom: 1px solid var(--n-border-muted); }
+    .sparkline-table th { font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--n-ink-muted-neutral); }
+    .sparkline-table .val { font-weight: 600; font-variant-numeric: tabular-nums; }
+    @media (max-width: 768px) {
+      .kpi-grid, .chart-grid-2, .chart-grid-3, .chart-grid-4 { grid-template-columns: 1fr; }
+    }
+  </style>
+</SidebarLayout>

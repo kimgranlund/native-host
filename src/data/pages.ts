@@ -22,6 +22,7 @@ const pageBadges: Record<string, BadgeKind> = {
   '/traits/presentable': 'new',
   '/traits/shortcutable': 'new',
   '/a2ui/a2ui-workbench': 'new',
+  '/components/ui-chart': 'new',
   '/changelog': 'new',
   '/components/ui-table': 'updated',
   '/components/ui-input': 'updated',

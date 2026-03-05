@@ -9,6 +9,7 @@ import '@nonoun/native-a2ui/register';
 import '@nonoun/native-editor/register';
 import '@nonoun/native-playground/register';
 import '@nonoun/native-codemirror/register';
+import '@nonoun/native-chart/register';
 import { registerAllTraits } from '@nonoun/native-ui';
 
 registerAllTraits();
