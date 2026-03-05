@@ -10,7 +10,7 @@ export const GET: APIRoute = async ({ locals }) => {
     });
   }
 
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const apiKey = import.meta.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
     return new Response(JSON.stringify({ error: { message: 'ANTHROPIC_API_KEY not configured', provider: 'anthropic', status: 500 } }), {
       status: 500,
