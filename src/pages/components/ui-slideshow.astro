@@ -197,9 +197,9 @@ const codeExamples = {
   </main>
 
   <script>
-import { onPageLoad } from '../../scripts/on-page-load';
-
-onPageLoad('event-demo', (demo) => {
+document.addEventListener('astro:page-load', () => {
+  const demo = document.getElementById('event-demo');
+  if (!demo) return;
   const log = document.getElementById('event-log');
   demo.addEventListener('native:slide-change', (e) => {
     const { index } = e.detail;

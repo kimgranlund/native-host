@@ -490,9 +490,9 @@ Step 4: Applying formatting rules...</pre>
   </main>
 
   <script>
-import { onPageLoad } from '../../scripts/on-page-load';
-
-onPageLoad('demo-feed-msg1', (feedMsg1: any) => {
+document.addEventListener('astro:page-load', () => {
+  const feedMsg1 = document.getElementById('demo-feed-msg1') as any;
+  if (!feedMsg1) return;
 
   // ── Feed Messages ──
 

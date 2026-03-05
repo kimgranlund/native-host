@@ -117,9 +117,8 @@ Content is not editable.
   import '@nonoun/native-editor/register';
   import { logPrepend } from '../../scripts/event-log';
 
-  import { onPageLoad } from '../../scripts/on-page-load';
-
-  onPageLoad('demo-default', () => {
+  document.addEventListener('astro:page-load', () => {
+  if (!document.getElementById('demo-default')) return;
 
   // ── Seed editor content via .value ──
 

@@ -224,9 +224,10 @@ const codeExamples = {
   <script>
     import { logAppend as appendLog } from '../../scripts/event-log';
 
-    import { onPageLoad } from '../../scripts/on-page-load';
+    document.addEventListener('astro:page-load', () => {
+      const basicDialog = document.getElementById('basic-dialog');
+      if (!basicDialog) return;
 
-    onPageLoad('basic-dialog', (basicDialog) => {
       const basicLog = document.getElementById('basic-log');
       const formLog = document.getElementById('form-log');
       const persistentLog = document.getElementById('persistent-log');

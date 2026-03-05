@@ -548,9 +548,9 @@ const codeExamples = {
   <script>
 import { logPrepend } from '../../scripts/event-log';
 
-import { onPageLoad } from '../../scripts/on-page-load';
-
-onPageLoad('event-select', (eventSelect) => {
+document.addEventListener('astro:page-load', () => {
+  const eventSelect = document.getElementById('event-select');
+  if (!eventSelect) return;
   const eventLog = document.getElementById('event-log');
   let count = 0;
 

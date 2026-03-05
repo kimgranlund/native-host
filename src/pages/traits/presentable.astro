@@ -268,9 +268,8 @@ ctrl.present();`,
     import { PresentController } from '@nonoun/native-ui';
     import { logAppend } from '../../scripts/event-log';
 
-    import { onPageLoad } from '../../scripts/on-page-load';
-
-    onPageLoad('present-content-1', () => {
+    document.addEventListener('astro:page-load', () => {
+      if (!document.getElementById('present-content-1')) return;
 
       // ── Basic Demo ──
 

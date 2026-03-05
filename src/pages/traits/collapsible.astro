@@ -150,9 +150,10 @@ const codeExamples = {
     }
 
     // Re-wire on every navigation (view transitions)
-    import { onPageLoad } from '../../scripts/on-page-load';
+    document.addEventListener('astro:page-load', () => {
+      const section1 = document.getElementById('section1');
+      if (!section1) return; // not on this page
 
-    onPageLoad('section1', (section1) => {
       // Event logging
       const logEl = document.getElementById('log');
       let count = 0;

@@ -164,9 +164,9 @@ popover.syncPopover(open.value);`,
 
     // ── Wire all popover demos ──
 
-    import { onPageLoad } from '../../scripts/on-page-load';
+    document.addEventListener('astro:page-load', () => {
+      if (!document.getElementById('pop-1')) return;
 
-    onPageLoad('pop-1', () => {
       wirePopDemo('pop-1', 'pop-trigger-1', 'pop-content-1');
       wirePopDemo('pop-2', 'pop-trigger-2', 'pop-content-2');
       wirePopDemo('pop-3', 'pop-trigger-3', 'pop-content-3');

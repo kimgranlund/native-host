@@ -15,9 +15,10 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   <script>
 import { Kernel, resetKernel } from "@nonoun/native-ui/kernel";
 import { createA2UIAdapter } from "@nonoun/native-a2ui";
-import { onPageLoad } from "../../scripts/on-page-load";
 
-onPageLoad('a2ui-components-page', async (pageEl) => {
+document.addEventListener('astro:page-load', async () => {
+      const pageEl = document.getElementById('a2ui-components-page');
+      if (!pageEl) return;
 
       // ── Boot ──
       resetKernel();

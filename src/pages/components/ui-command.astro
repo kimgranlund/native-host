@@ -421,9 +421,10 @@ const codeExamples = {
   <script>
 import { logPrepend } from '../../scripts/event-log';
 
-import { onPageLoad } from '../../scripts/on-page-load';
+document.addEventListener('astro:page-load', () => {
+  const basicCommand = document.getElementById('basic-command');
+  if (!basicCommand) return;
 
-onPageLoad('basic-command', (basicCommand) => {
   const basicLog = document.getElementById('basic-log');
   let count = 0;
 

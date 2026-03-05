@@ -112,9 +112,9 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   </main>
 
   <script>
-    import { onPageLoad } from '../../scripts/on-page-load';
+    document.addEventListener('astro:page-load', () => {
+      if (!document.getElementById('info-dialog')) return;
 
-    onPageLoad('info-dialog', () => {
       function wire(openId: string, dialogId: string, closeIds: string[]) {
         const dialog = document.getElementById(dialogId) as any;
         if (!dialog) return;

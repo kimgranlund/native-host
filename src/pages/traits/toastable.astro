@@ -124,9 +124,8 @@ toaster.dismissAllToasts();</code><n-button size="sm" variant="ghost" aria-label
   <script>
 import { ToastController } from '@nonoun/native-ui';
 
-import { onPageLoad } from '../../scripts/on-page-load';
-
-onPageLoad('info-btn', () => {
+document.addEventListener('astro:page-load', () => {
+      if (!document.getElementById('info-btn')) return;
 
       // ── Toast Controller — attached to body ──
 

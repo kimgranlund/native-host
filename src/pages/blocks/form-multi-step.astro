@@ -175,9 +175,10 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   </main>
 
   <script>
-    import { onPageLoad } from '../../scripts/on-page-load';
+    document.addEventListener('astro:page-load', () => {
+      const indicator = document.getElementById('step-indicator') as any;
+      if (!indicator) return;
 
-    onPageLoad('step-indicator', (indicator: any) => {
       const steps = ['personal', 'address', 'review'];
       let currentStep = 0;
 

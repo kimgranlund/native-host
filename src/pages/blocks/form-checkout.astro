@@ -194,9 +194,9 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   </main>
 
   <script>
-    import { onPageLoad } from '../../scripts/on-page-load';
-
-    onPageLoad('checkout-form', (form) => {
+    document.addEventListener('astro:page-load', () => {
+      const form = document.getElementById('checkout-form');
+      if (!form) return;
       form.addEventListener('submit', (e) => e.preventDefault());
     });
   </script>

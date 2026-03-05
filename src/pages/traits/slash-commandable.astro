@@ -175,9 +175,10 @@ const codeExamples = {
   <script>
     import { logAppend as appendLog } from '../../scripts/event-log';
 
-    import { onPageLoad } from '../../scripts/on-page-load';
+    document.addEventListener('astro:page-load', () => {
+      const basicTextarea = document.getElementById('basic-textarea');
+      if (!basicTextarea) return;
 
-    onPageLoad('basic-textarea', (basicTextarea) => {
       const basicLog = document.getElementById('basic-log');
       const tabLog = document.getElementById('tab-log');
       const inputLog = document.getElementById('input-log');

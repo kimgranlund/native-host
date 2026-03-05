@@ -154,9 +154,9 @@ const detailMessage = `{ message }`;
   <script>
 import { ValidateController } from '@nonoun/native-ui';
 
-import { onPageLoad } from '../../scripts/on-page-load';
+document.addEventListener('astro:page-load', () => {
+      if (!document.getElementById('required-field')) return;
 
-onPageLoad('required-field', () => {
       // ── Wire validation field ──
 
       function wireField(field: HTMLElement) {

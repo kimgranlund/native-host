@@ -442,9 +442,10 @@ const detailItem = `{ item }`;
   <script>
     import { logAppend as appendLog } from '../../scripts/event-log';
 
-    import { onPageLoad } from '../../scripts/on-page-load';
+    document.addEventListener('astro:page-load', () => {
+      const swapList = document.getElementById('swap-list');
+      if (!swapList) return;
 
-    onPageLoad('swap-list', (swapList) => {
       const swapLogEl = document.getElementById('swap-log');
       const replaceLogEl = document.getElementById('replace-log');
       const slotLogEl = document.getElementById('slot-log');

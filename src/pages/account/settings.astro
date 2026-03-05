@@ -125,11 +125,12 @@ const user = Astro.locals.user;
 
   <script>
     import { authClient } from '../../lib/auth-client';
-    import { onPageLoad } from '../../scripts/on-page-load';
 
-    onPageLoad('profile-form', (profileForm) => {
+    document.addEventListener('astro:page-load', () => {
+      const profileForm = document.getElementById('profile-form');
       const passwordForm = document.getElementById('password-form');
       const deleteBtn = document.getElementById('delete-account-btn');
+      if (!profileForm) return;
 
       function showStatus(id, msg, isError) {
         const el = document.getElementById(id);

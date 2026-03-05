@@ -133,9 +133,10 @@ const codeExamples = {
   </main>
 
   <script>
-import { onPageLoad } from '../../scripts/on-page-load';
+document.addEventListener('astro:page-load', () => {
+  const otp = document.getElementById('otp-live');
+  if (!otp) return;
 
-onPageLoad('otp-live', (otp) => {
   const display = document.getElementById('otp-value');
   otp.addEventListener('native:input', (e) => {
     const val = e.detail.value;

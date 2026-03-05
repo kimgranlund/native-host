@@ -132,9 +132,10 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 import { effect } from "@nonoun/native-ui";
 import { Kernel, Planner, resetKernel } from "@nonoun/native-ui/kernel";
 import { createA2UIAdapter } from "@nonoun/native-a2ui";
-import { onPageLoad } from "../../scripts/on-page-load";
 
-onPageLoad('a2ui-protocol-page', async (pageEl) => {
+document.addEventListener('astro:page-load', async () => {
+      const pageEl = document.getElementById('a2ui-protocol-page');
+      if (!pageEl) return;
 
       // ── Setup ──
       resetKernel();

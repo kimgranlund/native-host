@@ -142,9 +142,8 @@ dismissB.enable();
 import { DismissController } from '@nonoun/native-ui';
 import { logAppend as appendLog } from '../../scripts/event-log';
 
-import { onPageLoad } from '../../scripts/on-page-load';
-
-onPageLoad('panel', () => {
+document.addEventListener('astro:page-load', () => {
+      if (!document.getElementById('panel')) return;
 
       // ── Click Outside Demo ──
 

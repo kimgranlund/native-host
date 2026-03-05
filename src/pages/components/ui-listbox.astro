@@ -402,9 +402,10 @@ const codeExamples = {
   <script>
 import { logPrepend } from '../../scripts/event-log';
 
-import { onPageLoad } from '../../scripts/on-page-load';
+document.addEventListener('astro:page-load', () => {
+  const basicListbox = document.getElementById('basic-listbox');
+  if (!basicListbox) return;
 
-onPageLoad('basic-listbox', (basicListbox) => {
   // Basic listbox value tracking
   const basicValue = document.getElementById('basic-value');
 

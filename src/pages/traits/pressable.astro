@@ -128,9 +128,8 @@ const detailPointerType = `{ pointerType }`;
   <script>
 import { logAppend as appendLog } from '../../scripts/event-log';
 
-import { onPageLoad } from '../../scripts/on-page-load';
-
-onPageLoad('log', () => {
+document.addEventListener('astro:page-load', () => {
+  if (!document.getElementById('log')) return;
 
   // ── Basic Press log ──
 

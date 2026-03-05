@@ -244,9 +244,8 @@ const detailSwipe = `{ direction, distance, velocity }`;
 import { SwipeController } from '@nonoun/native-ui';
 import { logAppend as appendLog } from '../../scripts/event-log';
 
-import { onPageLoad } from '../../scripts/on-page-load';
-
-onPageLoad('h-card', () => {
+document.addEventListener('astro:page-load', () => {
+      if (!document.getElementById('h-card')) return;
 
       // ── Horizontal Swipe (provider) ──
 

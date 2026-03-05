@@ -186,9 +186,9 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     </n-stack>
   </main>
   <script>
-    import { onPageLoad } from '../../scripts/on-page-load';
-
-    onPageLoad('users-table', (table) => {
+    document.addEventListener('astro:page-load', () => {
+      const table = document.getElementById('users-table');
+      if (!table) return;
       const body = table.querySelector('n-table-body');
       if (!body) return;
       const columnMap: Record<string, number> = { name: 0, email: 1, role: 3 };

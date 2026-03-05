@@ -154,9 +154,8 @@ const detailWidthHeight = `{ width, height }`;
   <script>
 import { logAppend as appendLog } from '../../scripts/event-log';
 
-import { onPageLoad } from '../../scripts/on-page-load';
-
-onPageLoad('h-panel', () => {
+document.addEventListener('astro:page-load', () => {
+  if (!document.getElementById('h-panel')) return;
 
   // ── Horizontal ──
 

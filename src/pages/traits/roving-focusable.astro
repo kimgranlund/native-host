@@ -142,9 +142,8 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   </main>
 
   <script>
-import { onPageLoad } from '../../scripts/on-page-load';
-
-onPageLoad('tabbar', () => {
+document.addEventListener('astro:page-load', () => {
+  if (!document.getElementById('tabbar')) return;
 
   // ── Tab bar: active class switching ──
 

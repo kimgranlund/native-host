@@ -121,9 +121,8 @@ createEditorView(container, &#123;
   import { markdown } from '@codemirror/lang-markdown';
   import { logPrepend } from '../../scripts/event-log';
 
-  import { onPageLoad } from '../../scripts/on-page-load';
-
-  onPageLoad('factory-demo', () => {
+  document.addEventListener('astro:page-load', () => {
+  if (!document.getElementById('factory-demo')) return;
 
   // ── Factory demo ──
 

@@ -768,9 +768,9 @@ import { logAppend as appendLog } from '../../scripts/event-log';
 class InjectDemo extends NativeElement {}
 define('inject-demo', InjectDemo);
 
-import { onPageLoad } from '../../scripts/on-page-load';
-
-onPageLoad('inject-hover-log', (injectHoverLog) => {
+document.addEventListener('astro:page-load', () => {
+  const injectHoverLog = document.getElementById('inject-hover-log');
+  if (!injectHoverLog) return;
 
   // ═══════════════════════════════════════════
   // INJECTION — SIMPLE
