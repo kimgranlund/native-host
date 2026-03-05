@@ -12,9 +12,9 @@ export const POST: APIRoute = async ({ request, locals }) => {
     });
   }
 
-  const apiKey = process.env.CLAUDE_API_KEY;
+  const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
-    return new Response(JSON.stringify({ error: { message: 'CLAUDE_API_KEY not configured' } }), {
+    return new Response(JSON.stringify({ error: { message: 'ANTHROPIC_API_KEY not configured' } }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
     });
