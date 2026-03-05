@@ -11,7 +11,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     });
   }
 
-  const apiKey = import.meta.env.OPENAI_API_KEY;
+  const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
     return new Response(JSON.stringify({ error: { message: 'OPENAI_API_KEY not configured', provider: 'openai', status: 500 } }), {
       status: 500,
@@ -25,7 +25,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
   const headers: Record<string, string> = {
     'authorization': `Bearer ${apiKey}`,
   };
-  const org = import.meta.env.OPENAI_ORGANIZATION;
+  const org = process.env.OPENAI_ORGANIZATION;
   if (org) headers['openai-organization'] = org;
 
   request.headers.forEach((value, key) => {

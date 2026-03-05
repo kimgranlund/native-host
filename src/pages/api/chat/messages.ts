@@ -12,7 +12,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     });
   }
 
-  const apiKey = import.meta.env.CLAUDE_API_KEY;
+  const apiKey = process.env.CLAUDE_API_KEY;
   if (!apiKey) {
     return new Response(JSON.stringify({ error: { message: 'CLAUDE_API_KEY not configured' } }), {
       status: 500,
