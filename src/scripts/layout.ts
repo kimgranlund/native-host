@@ -233,6 +233,34 @@ function wireSidebar(layout: HTMLElement) {
       navigate(value);
     }
   }) as EventListener);
+
+  // ── Chat panel model picker ──
+
+  const chatPanel = document.getElementById('chat-panel') as any;
+  if (chatPanel) {
+    const wireModels = () => {
+      chatPanel.models = [
+        { value: 'claude-haiku-4-5-20251001', label: 'Claude Haiku 4.5' },
+        { value: 'claude-sonnet-4-6-20250514', label: 'Claude Sonnet 4.6' },
+        { value: 'claude-opus-4-20250514', label: 'Claude Opus 4' },
+        { value: 'gpt-4.1-nano', label: 'GPT-4.1 Nano' },
+        { value: 'gpt-4.1-mini', label: 'GPT-4.1 Mini' },
+        { value: 'gpt-4.1', label: 'GPT-4.1' },
+        { value: 'o3-mini', label: 'o3 Mini' },
+        { value: 'o3', label: 'o3' },
+        { value: 'o4-mini', label: 'o4 Mini' },
+      ];
+    };
+    if (chatPanel.ready) chatPanel.ready.then(wireModels);
+    else customElements.whenDefined('native-chat-panel').then(() => chatPanel.ready.then(wireModels));
+
+    chatPanel.addEventListener('native:model-change', ((e: CustomEvent) => {
+      const model = e.detail.value as string;
+      const isOpenAI = model.startsWith('gpt-') || model.startsWith('chatgpt-') || model.startsWith('o3') || model.startsWith('o4');
+      chatPanel.setAttribute('gateway', isOpenAI ? 'openai' : 'claude');
+      chatPanel.setAttribute('gateway-url', isOpenAI ? '/api/openai' : '/api/anthropic');
+    }) as EventListener);
+  }
 }
 
 // ── Panel toggle wiring ──

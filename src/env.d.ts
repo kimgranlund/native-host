@@ -7,6 +7,9 @@ interface ImportMetaEnv {
   readonly GOOGLE_CLIENT_SECRET: string;
   readonly BETTER_AUTH_SECRET: string;
   readonly BETTER_AUTH_URL: string;
+  readonly CLAUDE_API_KEY: string;
+  readonly OPENAI_API_KEY: string;
+  readonly OPENAI_ORGANIZATION?: string;
 }
 
 interface ImportMeta {

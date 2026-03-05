@@ -6,36 +6,45 @@ Each agent reads this file at session start, processes tickets addressed to it, 
 
 ## Open
 
-(none)
+| Status | File | Title | From | To |
+|--------|------|-------|------|----|
+| **open** | T0103-native-chat-server-gateway-integration.md | Implement production server gateway for `@nonoun/native-chat` | native-ui | host |
 
-## Closed (T0001–T0094)
+## Closed (T0001–T0102)
+
+<details>
+<summary>103 resolved tickets</summary>
 
 | Status | File | Title | From | To |
 |--------|------|-------|------|----|
-| **fixed** | T0090-manipulate-handle-component.md | `<n-manipulate-handle>` component — Popover + Anchor-based manipulation handles | host | native-ui |
-| **done** | T0093-gripper-missing-from-register.md | `n-gripper` not included in `@nonoun/native-ui/register` | host | native-ui |
+| **done** | T0101-upgrade-native-ui-0.7.24.md | Upgrade to `@nonoun/native-ui@0.7.25` + `@nonoun/native-app@0.3.14` + `@nonoun/native-chat@0.5.16` + `@nonoun/native-chart@0.1.4` + `@nonoun/native-codemirror@0.2.17` | native-ui | host |
+
+| Status | File | Title | From | To |
+|--------|------|-------|------|----|
+| **fixed** | T0102-codemirror-peer-dep-resolution.md | `native-codemirror` peer dep blocks `native-ui` install | host | native-ui |
+| **fixed** | T0100-chart-initial-render-dimensions.md | `n-chart` renders with default 400×300 dimensions on initial load | host | native-ui |
+| **done** | T0099-upgrade-native-ui-0.7.22.md | Upgrade to `@nonoun/native-ui@0.7.22` + `@nonoun/native-app@0.3.12` | native-ui | host |
+| **fixed** | T0098-remove-collapsed-selected-highlight.md | Remove collapsed sidebar selected-section highlight circle | host | native-app |
+| **done** | T0097-upgrade-all-packages-0.7.18-release.md | Upgrade all `@nonoun/*` packages — coordinated 0.7.18 release | native-ui | host |
+| **done** | T0096-native-chart-package-and-demo-pages.md | New `@nonoun/native-chart` package — SVG charting components | native-ui | host |
+| **done** | T0095-upgrade-native-ui-0.7.18.md | Upgrade to `@nonoun/native-ui@0.7.18` | native-ui | host |
 | **done** | T0094-upgrade-native-ui-0.7.17.md | Upgrade to `@nonoun/native-ui@0.7.17` + `@nonoun/native-a2ui@0.1.10` + `@nonoun/native-chart@0.1.1` | native-ui | host |
+| **done** | T0093-gripper-missing-from-register.md | `n-gripper` not included in `@nonoun/native-ui/register` | host | native-ui |
 | **done** | T0092-upgrade-native-chat-0.5.6.md | Upgrade all packages to latest — native-ui 0.7.12, native-chat 0.5.7, native-a2ui 0.1.9, + 5 sub-packages | native-ui | host |
 | **done** | T0091-upgrade-native-a2ui-0.1.6.md | Upgrade to `@nonoun/native-a2ui@0.1.9` — stale dist artifact fix | native-ui | host |
+| **fixed** | T0090-manipulate-handle-component.md | `<n-manipulate-handle>` component — Popover + Anchor-based manipulation handles | host | native-ui |
 | **done** | T0089-upgrade-native-chat-0.5.3.md | Upgrade to `@nonoun/native-chat@0.5.3` — grid layout fix for message action toolbars | native-ui | host |
 | **info** | T0088-a2ui-workbench-features-checklist.md | A2UI Workbench — Feature Checklist (`@nonoun/native-a2ui@0.1.5`) | native-ui | host |
 | **done** | T0087-upgrade-native-ui-0.7.8.md | Upgrade to `@nonoun/native-ui@0.7.8` + `@nonoun/native-a2ui@0.1.5` + `@nonoun/native-chat@0.5.2` | native-ui | host |
 | **fixed** | T0086-no-redundant-class-handles.md | Eliminate redundant class handles on stamped elements — use semantic selectors | host | native-ui |
 | **fixed** | T0085-a2ui-icon-registration-gap.md | native-a2ui should register or document required icons | host | native-ui |
 | **fixed** | T0084-a2ui-toolbar-text-labels-regression.md | native-a2ui toolbar text labels regression — icon-only instead of icon+text | host | native-ui |
-| **fixed** | T0081-a2ui-tsc-rootdir-icons.md | native-a2ui `tsc` fails: icon imports outside rootDir | host | native-ui |
-
-
-<details>
-<summary>74 resolved tickets</summary>
-
-| Status | File | Title | From | To |
-|--------|------|-------|------|----|
 | **done** | T0083-upgrade-native-codemirror-0.2.9.md | Upgrade to `@nonoun/native-codemirror@0.2.9` — flex growth for editor element | native-ui | host |
 | **done** | T0082-presentable-a2ui-example.md | Add A2UI workbench as real-world PresentController example on presentable trait page | native-ui | host |
+| **fixed** | T0081-a2ui-tsc-rootdir-icons.md | native-a2ui `tsc` fails: icon imports outside rootDir | host | native-ui |
 | **done** | T0080-upgrade-native-ui-0.7.7.md | Upgrade to `@nonoun/native-ui@0.7.7` and all sub-packages | native-ui | host |
-| **done** | T0078-upgrade-native-chat-0.4.0.md | Upgrade to `@nonoun/native-chat@0.5.0` — panel APIs, message display, stream/transport, surface tokens | native-ui | host |
 | **done** | T0079-upgrade-native-ui-0.7.6.md | Upgrade to `@nonoun/native-ui@0.7.6` — PresentController dark backdrop, `[presented]` attribute, `n-pagination-dots` registration | native-ui | host |
+| **done** | T0078-upgrade-native-chat-0.4.0.md | Upgrade to `@nonoun/native-chat@0.5.0` — panel APIs, message display, stream/transport, surface tokens | native-ui | host |
 | **fixed** | T0077-playground-no-init-on-innerhtml.md | `<native-playground>` blank after client-side navigation (innerHTML insertion) | host | native-ui |
 | **fixed** | T0071-component-api-gaps.md | Component API gaps blocking no-CSS rule enforcement (n-field gap, n-body padding, n-avatar group) | host | native-ui |
 

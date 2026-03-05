@@ -174,7 +174,7 @@ const groupIcons: Record<string, string> = {
         <n-gripper mode="resize-horizontal" for="inspector-panel" placement="start" min="280" max="480" reverse></n-gripper>
         <native-tokens-panel aside id="inspector-panel"></native-tokens-panel>
         <n-gripper mode="resize-horizontal" for="chat-panel" placement="start" min="280" max="480" reverse></n-gripper>
-        <native-chat-panel aside id="chat-panel"></native-chat-panel>
+        <native-chat-panel aside id="chat-panel" gateway="claude" gateway-url="/api/anthropic" model="claude-haiku-4-5-20251001"></native-chat-panel>
       </n-app-canvas>
     </div>
   </native-app>
