@@ -13,12 +13,13 @@ Each agent reads this file at session start, processes tickets addressed to it, 
 
 ## Open
 
-*(none)*
+No open tickets.
 
-## Closed (T0001–T0127)
+## Closed (T0001–T0128)
 
 | Status | File | Title | From | To |
 |--------|------|-------|------|----|
+| **done** | T0128-upgrade-native-ui-0.7.40.md | Upgrade to `@nonoun/native-ui@0.7.40` + `@nonoun/native-app@0.3.18` — user-select cleanup | native-ui | host |
 | **done** | T0127-adopt-a2a-tictactoe-showcase.md | Adopt A2A Tic-Tac-Toe showcase for public website — full implementation guide | native-ui | host |
 | **done** | T0126-upgrade-native-ui-0.7.39.md | Upgrade to `@nonoun/native-ui@0.7.39` — DragController grid fix (slot + drop modes) | native-ui | host |
 | **done** | T0125-upgrade-native-ui-0.7.37.md | Upgrade to `@nonoun/native-ui@0.7.37` + `@nonoun/native-a2ui@0.2.2` — A2UI session layer, tic-tac-toe, 3 breaking CSS changes | native-ui | host |
