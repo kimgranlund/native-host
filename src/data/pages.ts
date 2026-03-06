@@ -12,25 +12,8 @@ export interface PageEntry {
 
 // Badge assignments — pages with recent changes
 const pageBadges: Record<string, BadgeKind> = {
-  '/components/ui-pagination-dots': 'new',
-  '/containers/ui-body': 'new',
-  '/containers/ui-footer': 'new',
-  '/containers/ui-text': 'new',
-  '/traits/slash-commandable': 'new',
-  '/traits/dialogable': 'new',
-  '/traits/list-navigable': 'new',
-  '/traits/presentable': 'new',
-  '/traits/shortcutable': 'new',
-  '/a2ui/a2ui-workbench': 'new',
-  '/components/ui-chart': 'new',
-  '/changelog': 'new',
-  '/components/ui-table': 'updated',
-  '/components/ui-input': 'updated',
-  '/components/ui-textarea': 'updated',
-  '/containers/ui-header': 'updated',
-  '/containers/ui-panel': 'updated',
-  '/containers/ui-toolbar': 'updated',
-  '/traits/resizable': 'updated',
+  '/changelog': 'updated',
+  '/showcase/a2a-tictactoe': 'new',
 };
 
 // Directory → group mapping
@@ -41,12 +24,13 @@ const dirGroup: Record<string, string> = {
   blocks: 'Blocks',
   core: 'Core',
   packages: 'Packages',
+  showcase: 'Showcase',
   styles: 'Other',
   a2ui: 'Other',
 };
 
 // Group display order
-const groupOrder = ['Components', 'Containers', 'Traits', 'Blocks', 'Core', 'Packages', 'Other'];
+const groupOrder = ['Components', 'Containers', 'Traits', 'Blocks', 'Core', 'Packages', 'Showcase', 'Other'];
 
 // Group overrides for pages outside their natural directory
 const groupOverrides: Record<string, string> = {};
@@ -81,6 +65,7 @@ const titleOverrides: Record<string, string> = {
   '/a2ui/a2ui-workbench': 'A2UI Workbench',
   '/icons': 'Icons',
   '/kernel': 'Kernel',
+  '/showcase/a2a-tictactoe': 'Tic-Tac-Toe',
 };
 
 // Derive title from slug: "auth-login" → "Auth Login", "ui-button" → "Button"

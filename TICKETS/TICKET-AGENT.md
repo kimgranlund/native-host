@@ -13,14 +13,21 @@ Each agent reads this file at session start, processes tickets addressed to it, 
 
 ## Open
 
-| Status | File | Title | From | To |
-|--------|------|-------|------|----|
-| **open** | T0122-teardown-null-destroy.md | Teardown `destroy()` crashes on null controller reference during View Transition swap | host | native-ui |
+*(none)*
 
-## Closed (T0001–T0121)
+## Closed (T0001–T0127)
 
 | Status | File | Title | From | To |
 |--------|------|-------|------|----|
+| **done** | T0127-adopt-a2a-tictactoe-showcase.md | Adopt A2A Tic-Tac-Toe showcase for public website — full implementation guide | native-ui | host |
+| **done** | T0126-upgrade-native-ui-0.7.39.md | Upgrade to `@nonoun/native-ui@0.7.39` — DragController grid fix (slot + drop modes) | native-ui | host |
+| **done** | T0125-upgrade-native-ui-0.7.37.md | Upgrade to `@nonoun/native-ui@0.7.37` + `@nonoun/native-a2ui@0.2.2` — A2UI session layer, tic-tac-toe, 3 breaking CSS changes | native-ui | host |
+| **done** | T0124-upgrade-native-chat-0.5.24.md | Upgrade to `@nonoun/native-chat@0.5.24` — `.n-chat-starter` preset, compact variant | native-ui | host |
+| **done** | T0123-upgrade-native-ui-0.7.38.md | Upgrade to `@nonoun/native-ui@0.7.38` + `@nonoun/native-a2ui@0.2.3` — A2UI fixes, stack gap | native-ui | host |
+
+| Status | File | Title | From | To |
+|--------|------|-------|------|----|
+| **fixed** | T0122-teardown-null-destroy.md | Teardown `destroy()` crashes on null controller reference during View Transition swap | host | native-ui |
 | **done** | T0120-upgrade-native-ui-0.7.33.md | Upgrade to `@nonoun/native-ui@0.7.33` — diagnostic logging for drag/drop SSR debugging | native-ui | host |
 | **fixed** | T0121-draggable-drop-handler-not-firing-after-view-transition.md | `native:drop` handler not firing after View Transition — custom swap was skipping body script transfer | host | host |
 | **done** | T0119-upgrade-native-ui-0.7.31.md | Upgrade to `@nonoun/native-ui@0.7.31` — trait/controller SSR hydration hardening | native-ui | host |

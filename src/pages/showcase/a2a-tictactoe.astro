@@ -1,0 +1,596 @@
+---
+import SidebarLayout from '../../layouts/SidebarLayout.astro';
+---
+<SidebarLayout title="A2A Tic-Tac-Toe">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>A2A Tic-Tac-Toe</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+
+      Two AI agents play Tic-Tac-Toe through the A2A (Agent-to-Agent) protocol.
+      Each player gets its own A2UI surface — an independent rendering context where the agent
+      writes board state as declarative components. The kernel converts these into live DOM.
+
+    </div>
+  </header>
+
+  <main id="tictactoe-page">
+
+    <!-- ── Game Card ── -->
+
+    <n-card>
+      <n-header>
+        <n-toolbar slot="content" variant="ghost">
+          <n-button variant="primary" id="btn-auto">
+            <span slot="label">Auto Play</span>
+          </n-button>
+          <n-button id="btn-step">
+            <span slot="label">Next Move</span>
+          </n-button>
+          <n-switch id="switch-sim" checked>Simulation</n-switch>
+          <span class="ttt-spacer"></span>
+          <n-button id="btn-start">
+            <span slot="label">New Game</span>
+          </n-button>
+        </n-toolbar>
+      </n-header>
+      <n-body>
+        <n-grid cols="2" gap="4" id="grid-boards">
+          <n-card id="card-x">
+            <n-body padding="none">
+              <div class="ttt-surface" id="surface-x"></div>
+            </n-body>
+          </n-card>
+          <n-card id="card-o">
+            <n-body padding="none">
+              <div class="ttt-surface" id="surface-o"></div>
+            </n-body>
+          </n-card>
+        </n-grid>
+      </n-body>
+      <n-footer justify="space-between">
+        <n-select id="model-x" placeholder="X player" inline>
+          <n-button justify="spread"><span slot="label">Claude Haiku 4.5</span><n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
+          <n-listbox popover>
+            <n-option value="human">Human</n-option>
+            <n-option value="claude-haiku-4-5-20251001" selected>Claude Haiku 4.5</n-option>
+          </n-listbox>
+        </n-select>
+        <n-stack direction="row" gap="3" align="center" justify="center">
+          <span class="ttt-score-num" id="score-x">0</span>
+          <span class="ttt-score-dash">&ndash;</span>
+          <span class="ttt-score-num" id="score-o">0</span>
+        </n-stack>
+        <n-select id="model-o" placeholder="O player" inline>
+          <n-button justify="spread"><span slot="label">GPT-5 mini</span><n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
+          <n-listbox popover>
+            <n-option value="human">Human</n-option>
+            <n-option value="gpt-5-mini" selected>GPT-5 mini</n-option>
+            <n-option value="gpt-5-nano">GPT-5 nano</n-option>
+            <n-option value="gpt-4.1-mini">GPT-4.1 mini</n-option>
+            <n-option value="gpt-4.1-nano">GPT-4.1 nano</n-option>
+          </n-listbox>
+        </n-select>
+      </n-footer>
+    </n-card>
+
+    <!-- ── Event Log ── -->
+
+    <details class="ttt-log-details">
+      <summary class="ttt-log-summary">Session Events</summary>
+      <n-card>
+        <n-body show-scrollbar class="ttt-log-body">
+          <div id="event-log"></div>
+        </n-body>
+      </n-card>
+    </details>
+
+  </main>
+
+  <script>
+    import { Kernel, resetKernel } from '@nonoun/native-ui/kernel';
+    import { NSessionManager, buildCatalogFromRegistry, a2uiToUINode, conversionToPlan } from '@nonoun/native-a2ui';
+
+    document.addEventListener('astro:page-load', () => {
+      const page = document.getElementById('tictactoe-page');
+      if (!page || page.dataset.wired) return;
+      page.dataset.wired = '';
+
+      // ── Setup ──
+
+      resetKernel();
+      const kernel = new Kernel({ allowUnregistered: true });
+      const manager = new NSessionManager(kernel);
+      const catalog = buildCatalogFromRegistry('core-only');
+
+      const surfaceX = document.getElementById('surface-x')!;
+      const surfaceO = document.getElementById('surface-o')!;
+      manager.surfaces.registerMount('x-board', surfaceX);
+      manager.surfaces.registerMount('o-board', surfaceO);
+
+      const eventLog = document.getElementById('event-log')!;
+      const cardX = document.getElementById('card-x')!;
+      const cardO = document.getElementById('card-o')!;
+      const scoreXEl = document.getElementById('score-x')!;
+      const scoreOEl = document.getElementById('score-o')!;
+      const modelXSelect = document.getElementById('model-x') as any;
+      const modelOSelect = document.getElementById('model-o') as any;
+      const simSwitch = document.getElementById('switch-sim') as any;
+      const btnAuto = document.getElementById('btn-auto') as any;
+      const btnStep = document.getElementById('btn-step') as any;
+      const btnStart = document.getElementById('btn-start') as any;
+
+      // ── State ──
+
+      let xSession: any = null;
+      let oSession: any = null;
+      let board: (string | null)[] = Array(9).fill(null);
+      let currentPlayer = 'X';
+      let gameOver = false;
+      let moveInProgress = false;
+      let scores = { x: 0, o: 0 };
+      let autoRunning = false;
+      let humanMoveResolve: ((cell: number) => void) | null = null;
+      let pendingHumanCell = -1;
+
+      function isSimulation() { return simSwitch.checked; }
+      function isHuman(player: string) { return player === 'X' ? modelXSelect.value === 'human' : modelOSelect.value === 'human'; }
+      function getXModel() { return modelXSelect.value || 'claude-haiku-4-5-20251001'; }
+      function getOModel() { return modelOSelect.value || 'gpt-5-mini'; }
+
+      function modelLabel(player: string) {
+        const sel = player === 'X' ? modelXSelect : modelOSelect;
+        const opt = sel.querySelector('n-option[selected], n-option[aria-selected="true"]');
+        return opt?.textContent?.trim() || (player === 'X' ? 'Claude' : 'ChatGPT');
+      }
+
+      // ── Logging ──
+
+      function log(text: string, color = 'var(--n-ink-neutral)') {
+        const entry = document.createElement('div');
+        entry.style.color = color;
+        entry.textContent = `[${new Date().toLocaleTimeString()}] ${text}`;
+        eventLog.prepend(entry);
+      }
+
+      // ── Win detection ──
+
+      const WIN_LINES = [
+        [0,1,2], [3,4,5], [6,7,8],
+        [0,3,6], [1,4,7], [2,5,8],
+        [0,4,8], [2,4,6],
+      ];
+
+      function checkWin(b: (string | null)[], player: string) {
+        for (const line of WIN_LINES) {
+          if (line.every(i => b[i] === player)) return line;
+        }
+        return null;
+      }
+
+      // ── Board rendering (A2UI components) ──
+
+      const CELL_STYLE = 'display:flex; align-items:center; justify-content:center; border-radius:0; min-height:0; cursor:pointer';
+      const ICON_STYLE = 'width:75%; height:75%';
+
+      function buildBoardComponents(b: (string | null)[], winLine: number[] | null = null) {
+        const cellIds = Array.from({ length: 9 }, (_, i) => `cell-${i}`);
+        const components: any[] = [
+          {
+            id: 'board-root',
+            component: 'Column',
+            children: cellIds,
+            style: 'display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(3,1fr); gap:1px; width:100%; height:100%; background:var(--n-border-muted); flex:1',
+          },
+        ];
+
+        for (let i = 0; i < 9; i++) {
+          const player = b[i];
+          const isWin = winLine && winLine.includes(i);
+          let cellColor = '';
+
+          if (isWin && player === 'X') cellColor = '; background:var(--n-button-accent); color:white';
+          else if (isWin && player === 'O') cellColor = '; background:var(--n-button-danger); color:white';
+          else if (player === 'X') cellColor = '; background:var(--n-panel); color:var(--n-ink-accent)';
+          else if (player === 'O') cellColor = '; background:var(--n-panel); color:var(--n-ink-danger)';
+          else cellColor = '; background:var(--n-panel)';
+
+          const cellId = `cell-${i}`;
+          const iconId = `icon-${i}`;
+          let iconName = '';
+          if (player === 'X') iconName = 'x';
+          else if (player === 'O') iconName = 'circle';
+
+          if (iconName) {
+            components.push({ id: cellId, component: 'Column', children: [iconId], style: CELL_STYLE + cellColor });
+            components.push({ id: iconId, component: 'Icon', name: iconName, style: ICON_STYLE });
+          } else {
+            components.push({ id: cellId, component: 'Column', style: CELL_STYLE + cellColor, 'data-empty': '' });
+          }
+        }
+        return components;
+      }
+
+      function renderInitialBoard() {
+        const components = buildBoardComponents(board);
+        for (const mount of [surfaceX, surfaceO]) {
+          const conversion = a2uiToUINode(components, { surfaceId: 'init' });
+          const plan = conversionToPlan(conversion);
+          kernel.executePlan(plan, mount);
+        }
+      }
+
+      function sendBoardUpdate(winLine: number[] | null = null) {
+        const components = buildBoardComponents(board, winLine);
+        xSession?.receive({ updateComponents: { surfaceId: 'x-board', components } });
+        oSession?.receive({ updateComponents: { surfaceId: 'o-board', components } });
+      }
+
+      renderInitialBoard();
+
+      // ── Board formatting for LLM prompt ──
+
+      function formatBoard(b: (string | null)[]) {
+        const rows = [];
+        for (let r = 0; r < 3; r++) {
+          const cells = [];
+          for (let c = 0; c < 3; c++) {
+            const i = r * 3 + c;
+            cells.push(b[i] ?? String(i));
+          }
+          rows.push(cells.join(' | '));
+        }
+        return rows.join('\n---------\n');
+      }
+
+      function buildPrompt(b: (string | null)[], player: string) {
+        const opponent = player === 'X' ? 'O' : 'X';
+        const empty = b.map((v, i) => v === null ? i : -1).filter(i => i >= 0);
+        return `You are playing Tic-Tac-Toe as "${player}" against "${opponent}".
+The board is a 3x3 grid. Cells are numbered 0-8 (left to right, top to bottom).
+Empty cells show their number. Taken cells show X or O.
+
+Current board:
+${formatBoard(b)}
+
+Empty cells you can play: ${empty.join(', ')}
+
+Pick the best cell. Reply with ONLY the cell number (a single digit). Nothing else.`;
+      }
+
+      // ── LLM API calls (via server proxy) ──
+
+      async function callClaude(b: (string | null)[], player: string, model: string) {
+        const res = await fetch('/api/anthropic/messages', {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            model,
+            max_tokens: 10,
+            messages: [{ role: 'user', content: buildPrompt(b, player) }],
+          }),
+        });
+        if (!res.ok) {
+          const body = await res.text();
+          throw new Error(`Claude API ${res.status}: ${body.slice(0, 200)}`);
+        }
+        const data = await res.json();
+        return data.content?.[0]?.text ?? '';
+      }
+
+      async function callChatGPT(b: (string | null)[], player: string, model: string) {
+        const res = await fetch('/api/openai/chat/completions', {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            model,
+            max_completion_tokens: 10,
+            messages: [
+              { role: 'system', content: 'You are playing Tic-Tac-Toe. Reply with ONLY a single digit (the cell number). Nothing else.' },
+              { role: 'user', content: buildPrompt(b, player) },
+            ],
+          }),
+        });
+        if (!res.ok) {
+          const body = await res.text();
+          throw new Error(`OpenAI API ${res.status}: ${body.slice(0, 200)}`);
+        }
+        const data = await res.json();
+        return data.choices?.[0]?.message?.content ?? '';
+      }
+
+      function parseMoveFromResponse(text: string, b: (string | null)[]) {
+        if (!text) return null;
+        const match = text.match(/[0-8]/);
+        if (!match) return null;
+        const cell = parseInt(match[0], 10);
+        if (b[cell] !== null) return null;
+        return cell;
+      }
+
+      // ── Local AI fallback (minimax-lite) ──
+
+      function getLocalAIMove(b: (string | null)[], player: string) {
+        const opponent = player === 'X' ? 'O' : 'X';
+        const empty = b.map((v, i) => v === null ? i : -1).filter(i => i >= 0);
+
+        for (const i of empty) { b[i] = player; if (checkWin(b, player)) { b[i] = null; return i; } b[i] = null; }
+        for (const i of empty) { b[i] = opponent; if (checkWin(b, opponent)) { b[i] = null; return i; } b[i] = null; }
+        if (empty.includes(4)) return 4;
+        const corners = [0, 2, 6, 8].filter(i => empty.includes(i));
+        if (corners.length) return corners[Math.floor(Math.random() * corners.length)];
+        return empty[Math.floor(Math.random() * empty.length)];
+      }
+
+      // ── Human move ──
+
+      function handleCellClick(cellIndex: number) {
+        if (board[cellIndex] !== null) return;
+        if (!isHuman(currentPlayer) && !pendingHumanCell && !humanMoveResolve) return;
+        if (humanMoveResolve) { humanMoveResolve(cellIndex); humanMoveResolve = null; }
+        else { pendingHumanCell = cellIndex; }
+      }
+
+      function waitForHumanMove() {
+        if (pendingHumanCell >= 0) {
+          const cell = pendingHumanCell;
+          pendingHumanCell = -1;
+          return Promise.resolve(cell);
+        }
+        return new Promise<number>((resolve) => { humanMoveResolve = resolve; });
+      }
+
+      function getCellIndex(mount: Element, e: Event) {
+        const grid = mount.querySelector('n-stack');
+        if (!grid) return -1;
+        const cell = (e.target as Element).closest('n-stack');
+        if (!cell || cell === grid) return -1;
+        return Array.from(grid.children).indexOf(cell);
+      }
+
+      for (const mount of [surfaceX, surfaceO]) {
+        mount.addEventListener('click', (e) => {
+          const index = getCellIndex(mount, e);
+          if (index < 0 || index > 8) return;
+
+          if (!xSession || gameOver) {
+            const humanSide = mount === surfaceX ? 'X' : 'O';
+            const humanSelect = humanSide === 'X' ? modelXSelect : modelOSelect;
+            humanSelect.value = 'human';
+            startGame();
+            if (currentPlayer === humanSide) handleCellClick(index);
+            autoRunning = true;
+            setControlsDisabled(true);
+            autoLoop();
+            return;
+          }
+          handleCellClick(index);
+        });
+      }
+
+      // ── Get move ──
+
+      async function getMove(b: (string | null)[], player: string) {
+        const name = modelLabel(player);
+        const color = player === 'X' ? 'var(--n-ink-accent)' : 'var(--n-ink-danger)';
+
+        if (isHuman(player)) { log('Your turn — click a cell'); return waitForHumanMove(); }
+        if (isSimulation()) return getLocalAIMove([...b], player);
+
+        const modelVal = player === 'X' ? getXModel() : getOModel();
+        const isClaude = modelVal.startsWith('claude');
+
+        try {
+          log(`${name}: calling ${modelVal}...`, color);
+          const apiCall = isClaude ? callClaude : callChatGPT;
+          const response = await apiCall([...b], player, modelVal);
+          log(`${name} responded: "${response.trim()}"`, color);
+
+          const move = parseMoveFromResponse(response, b);
+          if (move !== null) return move;
+
+          log(`${name}: invalid move, retrying...`, 'var(--n-ink-danger)');
+          const retry = await apiCall([...b], player, modelVal);
+          const retryMove = parseMoveFromResponse(retry, b);
+          if (retryMove !== null) return retryMove;
+
+          log(`${name}: retry also invalid, using local AI`, 'var(--n-ink-danger)');
+          return getLocalAIMove([...b], player);
+        } catch (err: any) {
+          log(`${name} error: ${err.message}`, 'var(--n-ink-danger)');
+          return getLocalAIMove([...b], player);
+        }
+      }
+
+      // ── Card state ──
+
+      function setActiveCard(player: string) {
+        cardX.classList.toggle('active', player === 'X');
+        cardO.classList.toggle('active', player === 'O');
+        modelXSelect.classList.toggle('active', player === 'X');
+        modelOSelect.classList.toggle('active', player === 'O');
+      }
+
+      function setWinnerCard(player: string) {
+        cardX.classList.remove('active'); cardO.classList.remove('active');
+        modelXSelect.classList.remove('active'); modelOSelect.classList.remove('active');
+        if (player === 'X') cardX.classList.add('winner');
+        if (player === 'O') cardO.classList.add('winner');
+      }
+
+      function clearCardState() {
+        cardX.classList.remove('active', 'winner'); cardO.classList.remove('active', 'winner');
+        modelXSelect.classList.remove('active'); modelOSelect.classList.remove('active');
+      }
+
+      function setControlsDisabled(disabled: boolean) {
+        modelXSelect.disabled = disabled; modelOSelect.disabled = disabled;
+        btnAuto.disabled = disabled; btnStep.disabled = disabled;
+        btnStart.disabled = disabled; simSwitch.disabled = disabled;
+      }
+
+      // ── Game logic ──
+
+      async function makeMove() {
+        if (gameOver || moveInProgress) return;
+        moveInProgress = true;
+
+        const name = modelLabel(currentPlayer);
+        const color = currentPlayer === 'X' ? 'var(--n-ink-accent)' : 'var(--n-ink-danger)';
+
+        setActiveCard(currentPlayer);
+        if (!isHuman(currentPlayer)) log(`${name} is thinking...`);
+
+        const move = await getMove(board, currentPlayer);
+        board[move] = currentPlayer;
+
+        const row = Math.floor(move / 3) + 1;
+        const col = (move % 3) + 1;
+        log(`${name}: plays ${currentPlayer} at row ${row}, col ${col}`, color);
+
+        const winLine = checkWin(board, currentPlayer);
+        const isDraw = !winLine && board.every(c => c !== null);
+
+        sendBoardUpdate(winLine);
+
+        if (winLine) {
+          gameOver = true;
+          stopAuto();
+          setWinnerCard(currentPlayer);
+          log(`${name} WINS!`, color);
+          if (currentPlayer === 'X') scores.x++; else scores.o++;
+          scoreXEl.textContent = String(scores.x);
+          scoreOEl.textContent = String(scores.o);
+          moveInProgress = false;
+          return;
+        }
+
+        if (isDraw) {
+          gameOver = true;
+          stopAuto();
+          clearCardState();
+          log('Game ended in a draw', 'var(--n-ink-danger)');
+          moveInProgress = false;
+          return;
+        }
+
+        currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+        moveInProgress = false;
+      }
+
+      // ── New game ──
+
+      function startGame() {
+        stopAuto();
+        humanMoveResolve = null;
+        pendingHumanCell = -1;
+
+        if (xSession) {
+          manager.terminateAll();
+          manager.surfaces.clearOwner('x-board');
+          manager.surfaces.clearOwner('o-board');
+        }
+
+        board = Array(9).fill(null);
+        currentPlayer = 'X';
+        gameOver = false;
+        moveInProgress = false;
+        surfaceX.innerHTML = '';
+        surfaceO.innerHTML = '';
+
+        xSession = manager.createSession({ agentId: 'player-x', catalog, surfaces: ['x-board'] });
+        xSession.on('status-change', (s: string) => log(`X: ${s}`, 'var(--n-ink-accent)'));
+
+        oSession = manager.createSession({ agentId: 'player-o', catalog, surfaces: ['o-board'] });
+        oSession.on('status-change', (s: string) => log(`O: ${s}`, 'var(--n-ink-danger)'));
+
+        clearCardState();
+        setActiveCard('X');
+        sendBoardUpdate();
+
+        log(`New game — ${modelLabel('X')} (X) vs ${modelLabel('O')} (O)`, 'var(--n-ink-success)');
+      }
+
+      // ── Auto-play ──
+
+      function stopAuto() { autoRunning = false; setControlsDisabled(false); }
+
+      async function autoLoop() {
+        if (!autoRunning || gameOver) { stopAuto(); return; }
+        await makeMove();
+        if (autoRunning && !gameOver) setTimeout(autoLoop, 300);
+        else stopAuto();
+      }
+
+      btnStart.addEventListener('native:press', startGame);
+      btnStep.addEventListener('native:press', () => { if (!xSession || gameOver) startGame(); else makeMove(); });
+      btnAuto.addEventListener('native:press', () => {
+        if (autoRunning) return;
+        if (!xSession || gameOver) startGame();
+        autoRunning = true;
+        setControlsDisabled(true);
+        autoLoop();
+      });
+    });
+  </script>
+
+  <style is:global>
+    .ttt-surface {
+      flex: 1;
+      display: flex;
+      min-height: 0;
+    }
+
+    #grid-boards > n-card {
+      aspect-ratio: 1;
+      min-height: 420px;
+      transition: outline-color 0.2s, outline-width 0.2s;
+    }
+
+    #card-x.active { outline: 3px solid var(--n-ink-accent); outline-offset: 3px; animation: ttt-pulse-x 2s ease-in-out infinite; }
+    #card-o.active { outline: 3px solid var(--n-ink-danger); outline-offset: 3px; animation: ttt-pulse-o 2s ease-in-out infinite; }
+
+    @keyframes ttt-pulse-x {
+      0%, 100% { outline-color: var(--n-ink-accent); }
+      50% { outline-color: color-mix(in oklch, var(--n-ink-accent) 30%, transparent); }
+    }
+    @keyframes ttt-pulse-o {
+      0%, 100% { outline-color: var(--n-ink-danger); }
+      50% { outline-color: color-mix(in oklch, var(--n-ink-danger) 30%, transparent); }
+    }
+
+    #card-x.winner { outline: 6px solid var(--n-ink-accent); outline-offset: 3px; }
+    #card-o.winner { outline: 6px solid var(--n-ink-danger); outline-offset: 3px; }
+
+    #model-x.active > n-button { outline: 3px solid var(--n-ink-accent); outline-offset: 3px; }
+    #model-o.active > n-button { outline: 3px solid var(--n-ink-danger); outline-offset: 3px; }
+
+    .ttt-surface n-stack[data-empty]:hover {
+      background: var(--n-panel-hover) !important;
+      cursor: pointer;
+    }
+    .ttt-surface n-stack:not([data-empty]) {
+      cursor: default;
+    }
+    .ttt-surface n-icon {
+      animation: ttt-icon-in 0.2s var(--n-easing) both;
+    }
+    @keyframes ttt-icon-in {
+      from { opacity: 0; scale: 0.5; }
+      to { opacity: 1; scale: 1; }
+    }
+
+    .ttt-score-num { font-size: 2.25rem; line-height: 1; font-weight: 700; font-variant-numeric: tabular-nums; }
+    .ttt-score-dash { font-size: 1.5rem; color: var(--n-ink-muted); }
+    .ttt-spacer { flex: 1; }
+
+    .ttt-log-details { margin-top: 1rem; }
+    .ttt-log-summary { cursor: pointer; font-size: 0.75rem; color: var(--n-ink-muted-neutral); }
+    .ttt-log-body { max-height: 10rem; font-family: ui-monospace, monospace; font-size: 0.7rem; }
+  </style>
+</SidebarLayout>
