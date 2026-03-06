@@ -13,16 +13,21 @@ Each agent reads this file at session start, processes tickets addressed to it, 
 
 ## Open
 
-| Status | File | Title | From | To |
-|--------|------|-------|------|----|
-| **fixed** | T0116-a2ui-css-missing-from-dist.md | `@nonoun/native-a2ui@0.1.14` CSS missing from published dist — fixed in 0.1.15 | host | native-ui |
-| **open** | T0117-drop-mode-swap-not-persisting.md | Drop mode swap not persisting — `native:drop` fires but DOM changes appear reverted | host | native-ui |
-| **open** | T0118-a2ui-nested-component-css-broken.md | A2UI nested component CSS broken — segmented control renders unstyled | host | native-ui |
+(none)
 
-## Closed (T0001–T0115)
+## Closed (T0001–T0121)
 
 | Status | File | Title | From | To |
 |--------|------|-------|------|----|
+| **done** | T0120-upgrade-native-ui-0.7.33.md | Upgrade to `@nonoun/native-ui@0.7.33` — diagnostic logging for drag/drop SSR debugging | native-ui | host |
+| **fixed** | T0121-draggable-drop-handler-not-firing-after-view-transition.md | `native:drop` handler not firing after View Transition — custom swap was skipping body script transfer | host | host |
+| **done** | T0119-upgrade-native-ui-0.7.31.md | Upgrade to `@nonoun/native-ui@0.7.31` — trait/controller SSR hydration hardening | native-ui | host |
+| **fixed** | T0117-drop-mode-swap-not-persisting.md | Drop mode swap not persisting — fixed in 0.7.30 (pointer capture released before dispatch) | host | native-ui |
+
+| Status | File | Title | From | To |
+|--------|------|-------|------|----|
+| **done** | T0116-a2ui-css-missing-from-dist.md | `@nonoun/native-a2ui@0.1.14` CSS missing from published dist — fixed in 0.1.15 | host | native-ui |
+| **done** | T0118-a2ui-nested-component-css-broken.md | A2UI segmented control unstyled — fixed in 0.1.15 (missing `inline` attr + CSS token overrides) | host | native-ui |
 | **done** | T0113-upgrade-native-ui-0.7.29.md | Upgrade to `@nonoun/native-ui@0.7.29` + all sub-packages | native-ui | host |
 | **done** | T0114-native-chat-0.5.21-migration.md | `@nonoun/native-chat@0.5.21` migration — no breaking selectors/imports found in host | native-ui | host |
 | **done** | T0115-astro-host-adoption-0.7.29.md | Astro host adoption guide — workarounds removed, chat declarative attrs adopted | native-ui | host |

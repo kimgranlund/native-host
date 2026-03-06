@@ -195,6 +195,17 @@ document.addEventListener('astro:before-swap', ((e: any) => {
       }
     }
 
+    // Transfer page-specific scripts from the incoming document's body.
+    // Our custom swap skips swapBodyElement() (which would replace the entire body),
+    // so new <script> tags in the body are never moved to the live DOM.
+    for (const script of e.newDocument.body.querySelectorAll('script')) {
+      if (script.dataset.astroExec === '') continue; // already ran
+      const copy = document.createElement('script');
+      for (const attr of script.attributes) copy.setAttribute(attr.name, attr.value);
+      copy.textContent = script.textContent;
+      document.body.appendChild(copy);
+    }
+
     restore();
   };
 }) as EventListener);
@@ -204,7 +215,8 @@ document.addEventListener('astro:before-swap', ((e: any) => {
 
 1. **Both pages have sidebar** -- preserves the sidebar `<aside>`, swaps only the content panel (`n-app-panel:not([aside])`), breadcrumb text, and breadcrumb trailing buttons. Updates the active nav item via `value` attribute and `aria-current`.
 2. **Panel config differs** (e.g., a page with `panels={[]}` navigating to one with `panels={['inspector', 'chat']}`) -- swaps the entire `n-app-canvas` so aside panels appear or disappear correctly.
-3. **Sidebar to non-sidebar transition** (e.g., index page to a component page, or vice versa) -- falls through to Astro's default full-body swap since `currentSidebar` or `newSidebar` will be `null`.
+3. **Script transfer** -- because `swapBodyElement()` is skipped, body `<script>` tags must be manually transferred. The loop copies non-executed scripts (skipping those marked by `deselectScripts()`) into the live DOM so page-specific `astro:page-load` handlers execute.
+4. **Sidebar to non-sidebar transition** (e.g., index page to a component page, or vice versa) -- falls through to Astro's default full-body swap since `currentSidebar` or `newSidebar` will be `null`.
 
 ## Writing Page Scripts
 
