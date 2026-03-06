@@ -58,7 +58,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <n-stack gap="4">
     <h2>Maintenance</h2>
     <div class="error-page">
-      <span class="error-icon"><n-icon name="gear" size="xl" aria-hidden="true"></n-icon></span>
+      <span class="error-icon"><n-icon name="gear" size="xl" intent="muted" aria-hidden="true"></n-icon></span>
       <h3>We'll be back soon</h3>
       <p>We're performing scheduled maintenance to improve your experience. This usually takes less than 30 minutes. Thank you for your patience.</p>
       <n-button>
@@ -108,7 +108,6 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
     .error-icon {
       display: inline-flex;
-      color: var(--n-ink-muted-neutral);
       margin-bottom: 1rem;
     }
 

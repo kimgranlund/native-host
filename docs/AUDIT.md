@@ -17,7 +17,7 @@ Traits pages were fixed in `735c5a4` and are excluded from this audit.
 | **#5** Unscoped bare element selectors | 7 | 0 | **Fixed** |
 | **#6** Missing `:where()` on overrides | 1 | 0 | **Fixed** |
 | **#7** JS/CSS workarounds for component bugs | 0 | 0 | Clean |
-| **#8** Raw CSS on `n-*`/`native-*` | ~25 | ~25 | Open |
+| **#8** Raw CSS on `n-*`/`native-*` | ~25 | 2 | **~23 fixed** (2 known API gaps) |
 | **#9** CSS classes on `n-*`/`native-*` | ~820 | ~573 | **~250 fixed** (reference.astro deferred) |
 | **#10** `n-card` without sub-containers | ~115 | 0 | **Fixed** |
 | **#11** TypeScript in `<script>`/`.ts` | ~66 | 0 | **Fixed** |
@@ -25,8 +25,8 @@ Traits pages were fixed in `735c5a4` and are excluded from this audit.
 
 Rules #1–4, #7: **Clean** — no violations found.
 
-**Fixed:** ~460 violations across ~54 files
-**Remaining:** ~598 violations (~573 in reference.astro + ~25 Rule #8)
+**Fixed:** ~483 violations across ~60 files
+**Remaining:** ~575 violations (~573 in reference.astro + 2 known API gaps)
 
 ---
 
@@ -69,33 +69,30 @@ Files: `ui-stack.astro`, `ui-grid.astro`, `icons.astro`, `kernel.astro`, `auth/l
 
 ---
 
+### Rule #8 — Remaining Fixes
+
+**n-field gap workarounds removed** (8 files): `n-field` default gap was fixed in native-ui (T0039/T0071). Workarounds were redundant.
+
+**n-icon color → intent attribute** (4 files): Replaced raw CSS `color` with `intent` attribute (`muted`, `accent`, `success`).
+
+**n-body padding** (1 file): form-contact.astro now uses `padding="relaxed"` attribute.
+
+**n-button width** (1 file): Removed redundant `width: 100%` rule from notify-toast-demo.astro.
+
+**n-footer layout** (1 file): Already wrapped in `:where()` — acceptable pattern.
+
+**n-tab-panel padding** (1 file): Wrapped in `:where()` with known-API-gap comment.
+
+---
+
 ## Remaining Issues
 
-### Rule #8 — Raw CSS on n-* Elements (~25 violations, 13 files)
+### Rule #8 — Known API Gaps (2 violations, 2 files)
 
-These are **not yet fixed**. The `n-field { gap }` pattern (7+ files) is likely a missing component API — should file a ticket.
-
-| File | Element | Properties |
-|------|---------|-----------|
-| `components/ui-avatar.astro` | `n-avatar` | `outline`, `margin-inline-start` |
-| `blocks/auth-login.astro` | `n-field` | `gap` |
-| `auth/login.astro` | `n-field` | `gap` |
-| `auth/register.astro` | `n-field` | `gap` |
-| `blocks/auth-forgot-password.astro` | `n-field` | `gap` |
-| `blocks/auth-otp.astro` | `n-field` | `gap` |
-| `blocks/form-checkout.astro` | `n-field` | `gap` |
-| `blocks/form-contact.astro` | `n-body` padding; `n-field` gap |
-| `blocks/form-multi-step.astro` | `n-field` | `gap` |
-| `blocks/data-dashboard-stats.astro` | `n-footer` | layout properties |
-| `blocks/data-detail-page.astro` | `n-tab-panel` | `padding-block` |
-| `blocks/notify-empty-state.astro` | `n-icon` | `color`, `margin-bottom` |
-| `blocks/notify-error-page.astro` | `n-icon` | `color`, `margin-bottom` |
-| `blocks/notify-toast-demo.astro` | `n-button` | `width` |
-| `blocks/nav-header.astro` | `n-icon` | `color` |
-| `blocks/data-kanban.astro` | `n-icon` | `color` |
-| `blocks/account-settings.astro` | `n-field` | `gap` |
-
-**Recommended:** File ticket for `n-field` gap/spacing attribute, then mark these as known API gaps.
+| File | Element | Properties | Status |
+|------|---------|-----------|--------|
+| `components/ui-avatar.astro` | `n-avatar` | `outline`, `margin-inline-start` | Awaiting `n-avatar-group` component (T0071) |
+| `blocks/data-detail-page.astro` | `n-tab-panel` | `padding-block` | No API — wrapped in `:where()` |
 
 ### Rule #9 — reference.astro (~573 violations)
 
@@ -106,5 +103,3 @@ The design system reference page uses `demo-*` classes pervasively on native-ui 
 ## Decisions Needed
 
 1. **`reference.astro` (573 violations):** Infrastructure exception for Rule #9? The page's purpose is component showcase — restructuring to wrapper divs would be a massive effort with no UX benefit.
-
-2. **`n-field { gap }` pattern (7+ files):** File a ticket for `n-field` to support a `gap`/`spacing` attribute? These Rule #8 violations would then be marked as known API gaps pending the component fix.
