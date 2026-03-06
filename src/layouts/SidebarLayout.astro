@@ -30,7 +30,6 @@ const groupIcons: Record<string, string> = {
   Traits: 'lightning',
   Blocks: 'squares-four',
   Core: 'cpu',
-  Packages: 'stack-simple',
   Showcase: 'game-controller',
   Other: 'compass',
 };
@@ -71,23 +70,23 @@ const groupIcons: Record<string, string> = {
             <n-icon name="magnifying-glass" slot="leading"></n-icon>
             <span slot="label">Search</span>
             <n-kbd slot="trailing"><n-icon name="command"></n-icon>K</n-kbd>
+            <n-dialog id="nav-cmd-dialog" transition:animate="none">
+              <div class="nav-cmd-wrap"><n-command>
+                <n-command-input>
+                  <n-icon name="magnifying-glass"></n-icon>
+                  <input type="text" placeholder="Search pages..." />
+                </n-command-input>
+                <n-command-list>
+                  {sitemap.map(entry => (
+                    <n-command-item value={entry.path} keywords={entry.group}>
+                      {entry.title}
+                    </n-command-item>
+                  ))}
+                </n-command-list>
+                <n-command-empty>No pages found.</n-command-empty>
+              </n-command></div>
+            </n-dialog>
           </n-button>
-          <n-dialog id="nav-cmd-dialog" transition:animate="none">
-            <div class="nav-cmd-wrap"><n-command>
-              <n-command-input>
-                <n-icon name="magnifying-glass"></n-icon>
-                <input type="text" placeholder="Search pages..." />
-              </n-command-input>
-              <n-command-list>
-                {sitemap.map(entry => (
-                  <n-command-item value={entry.path} keywords={entry.group}>
-                    {entry.title}
-                  </n-command-item>
-                ))}
-              </n-command-list>
-              <n-command-empty>No pages found.</n-command-empty>
-            </n-command></div>
-          </n-dialog>
         </n-sidebar-item>
       </n-sidebar-header>
 

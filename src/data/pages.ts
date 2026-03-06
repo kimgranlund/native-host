@@ -23,14 +23,14 @@ const dirGroup: Record<string, string> = {
   traits: 'Traits',
   blocks: 'Blocks',
   core: 'Core',
-  packages: 'Packages',
+  packages: 'Showcase',
   showcase: 'Showcase',
   styles: 'Other',
-  a2ui: 'Other',
+  a2ui: 'Showcase',
 };
 
 // Group display order
-const groupOrder = ['Components', 'Containers', 'Traits', 'Blocks', 'Core', 'Packages', 'Showcase', 'Other'];
+const groupOrder = ['Components', 'Containers', 'Traits', 'Blocks', 'Core', 'Showcase', 'Other'];
 
 // Group overrides for pages outside their natural directory
 const groupOverrides: Record<string, string> = {};
@@ -65,7 +65,7 @@ const titleOverrides: Record<string, string> = {
   '/a2ui/a2ui-workbench': 'A2UI Workbench',
   '/icons': 'Icons',
   '/kernel': 'Kernel',
-  '/showcase/a2a-tictactoe': 'Tic-Tac-Toe',
+  '/showcase/a2a-tictactoe': 'A2A Demo',
 };
 
 // Derive title from slug: "auth-login" → "Auth Login", "ui-button" → "Button"

@@ -1,11 +1,11 @@
 ---
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
-<SidebarLayout title="A2A Tic-Tac-Toe">
+<SidebarLayout title="A2A Demo">
   <header>
     <div data-slot="title">
       <div data-slot="content">
-        <h1>A2A Tic-Tac-Toe</h1>
+        <h1>A2A Demo</h1>
       </div>
     </div>
     <div data-slot="description">
@@ -51,29 +51,31 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           </n-card>
         </n-grid>
       </n-body>
-      <n-footer justify="space-between">
-        <n-select id="model-x" placeholder="X player" inline>
-          <n-button justify="spread"><span slot="label">Claude Haiku 4.5</span><n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
-          <n-listbox popover>
-            <n-option value="human">Human</n-option>
-            <n-option value="claude-haiku-4-5-20251001" selected>Claude Haiku 4.5</n-option>
-          </n-listbox>
-        </n-select>
-        <n-stack direction="row" gap="3" align="center" justify="center">
-          <span class="ttt-score-num" id="score-x">0</span>
-          <span class="ttt-score-dash">&ndash;</span>
-          <span class="ttt-score-num" id="score-o">0</span>
+      <n-footer>
+        <n-stack direction="row" gap="4" align="center" justify="space-between">
+          <n-select id="model-x" placeholder="X player" inline>
+            <n-button justify="spread"><span slot="label">Claude Haiku 4.5</span><n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
+            <n-listbox popover="auto">
+              <n-option value="human">Human</n-option>
+              <n-option value="claude-haiku-4-5-20251001" selected>Claude Haiku 4.5</n-option>
+            </n-listbox>
+          </n-select>
+          <n-stack direction="row" gap="3" align="center" justify="center">
+            <span class="ttt-score-num" id="score-x">0</span>
+            <span class="ttt-score-dash">&ndash;</span>
+            <span class="ttt-score-num" id="score-o">0</span>
+          </n-stack>
+          <n-select id="model-o" placeholder="O player" inline>
+            <n-button justify="spread"><span slot="label">GPT-5 mini</span><n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
+            <n-listbox popover="auto">
+              <n-option value="human">Human</n-option>
+              <n-option value="gpt-5-mini" selected>GPT-5 mini</n-option>
+              <n-option value="gpt-5-nano">GPT-5 nano</n-option>
+              <n-option value="gpt-4.1-mini">GPT-4.1 mini</n-option>
+              <n-option value="gpt-4.1-nano">GPT-4.1 nano</n-option>
+            </n-listbox>
+          </n-select>
         </n-stack>
-        <n-select id="model-o" placeholder="O player" inline>
-          <n-button justify="spread"><span slot="label">GPT-5 mini</span><n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
-          <n-listbox popover>
-            <n-option value="human">Human</n-option>
-            <n-option value="gpt-5-mini" selected>GPT-5 mini</n-option>
-            <n-option value="gpt-5-nano">GPT-5 nano</n-option>
-            <n-option value="gpt-4.1-mini">GPT-4.1 mini</n-option>
-            <n-option value="gpt-4.1-nano">GPT-4.1 nano</n-option>
-          </n-listbox>
-        </n-select>
       </n-footer>
     </n-card>
 

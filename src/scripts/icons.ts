@@ -26,6 +26,7 @@ import chatCircle from '@phosphor-icons/core/assets/regular/chat-circle.svg?raw'
 import chatDots from '@phosphor-icons/core/assets/regular/chat-dots.svg?raw';
 import check from '@phosphor-icons/core/assets/regular/check.svg?raw';
 import checkCircle from '@phosphor-icons/core/assets/regular/check-circle.svg?raw';
+import circle from '@phosphor-icons/core/assets/regular/circle.svg?raw';
 import clipboard from '@phosphor-icons/core/assets/regular/clipboard.svg?raw';
 import clipboardText from '@phosphor-icons/core/assets/regular/clipboard-text.svg?raw';
 import code from '@phosphor-icons/core/assets/regular/code.svg?raw';
@@ -47,6 +48,7 @@ import floppyDisk from '@phosphor-icons/core/assets/regular/floppy-disk.svg?raw'
 import folder from '@phosphor-icons/core/assets/regular/folder.svg?raw';
 import folderOpen from '@phosphor-icons/core/assets/regular/folder-open.svg?raw';
 import funnel from '@phosphor-icons/core/assets/regular/funnel.svg?raw';
+import gameController from '@phosphor-icons/core/assets/regular/game-controller.svg?raw';
 import gear from '@phosphor-icons/core/assets/regular/gear.svg?raw';
 import githubLogo from '@phosphor-icons/core/assets/regular/github-logo.svg?raw';
 import googleLogo from '@phosphor-icons/core/assets/regular/google-logo.svg?raw';
@@ -159,6 +161,7 @@ const icons: Record<string, string> = {
   'clipboard-text': clipboardText,
   'code': code,
   'command': command,
+  'circle': circle,
   'compass': compass,
   'control': control,
   'copy': copy,
@@ -176,6 +179,7 @@ const icons: Record<string, string> = {
   'folder': folder,
   'folder-open': folderOpen,
   'funnel': funnel,
+  'game-controller': gameController,
   'gear': gear,
   'github-logo': githubLogo,
   'google-logo': googleLogo,

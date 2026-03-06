@@ -246,8 +246,13 @@ function wireSidebar(layout: HTMLElement) {
   userListbox?.addEventListener('native:change', (async (e: CustomEvent) => {
     const value = e.detail.value;
     if (value === 'sign-out') {
-      const { authClient } = await import('../lib/auth-client');
-      await authClient.signOut();
+      try {
+        await fetch('/api/auth/sign-out', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'same-origin',
+        });
+      } catch { /* best-effort */ }
       window.location.href = '/';
     } else if (value) {
       navigate(value);

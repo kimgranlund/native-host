@@ -68,7 +68,7 @@ export default defineConfig({
   adapter: vercel(),
   vite: {
     optimizeDeps: {
-      include: ['better-auth/client'],
+      include: ['better-auth/client', '@nonoun/native-a2ui', '@nonoun/native-ui/kernel'],
     },
     css: {
       // Allow @import of npm packages in <style> blocks
