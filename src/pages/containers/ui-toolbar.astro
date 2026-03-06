@@ -144,9 +144,9 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
     <h2>Plain Variant</h2>
     <n-panel bordered>
-      <n-text size="xs" muted class="layout-hint">
+      <div class="layout-hint"><n-text size="xs" muted>
         <code>variant="plain"</code> strips background, border, and radius so the toolbar can embed inside containers like <code>&lt;n-card&gt;</code> headers without doubling chrome.
-      </n-text>
+      </n-text></div>
       <n-stack gap="4">
         <n-toolbar aria-label="Default toolbar">
           <n-button variant="ghost"><n-icon name="text-b"></n-icon></n-button>
@@ -170,12 +170,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
     <h2>Orientation</h2>
     <n-panel bordered>
-      <n-text size="xs" muted class="layout-hint">
+      <div class="layout-hint"><n-text size="xs" muted>
         <code>orientation</code> controls layout direction and keyboard navigation. Arrow keys follow the orientation: Left/Right for horizontal, Up/Down for vertical.
-      </n-text>
+      </n-text></div>
       <div class="orientation-demo">
         <div>
-          <n-text size="xs" muted class="layout-hint">Horizontal (default)</n-text>
+          <div class="layout-hint"><n-text size="xs" muted>Horizontal (default)</n-text></div>
           <n-toolbar aria-label="Horizontal toolbar">
             <n-button variant="ghost"><n-icon name="text-b"></n-icon></n-button>
             <n-button variant="ghost"><n-icon name="text-italic"></n-icon></n-button>
@@ -183,7 +183,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           </n-toolbar>
         </div>
         <div>
-          <n-text size="xs" muted class="layout-hint">Vertical</n-text>
+          <div class="layout-hint"><n-text size="xs" muted>Vertical</n-text></div>
           <n-toolbar orientation="vertical" aria-label="Vertical toolbar">
             <n-button variant="ghost"><n-icon name="text-b"></n-icon></n-button>
             <n-button variant="ghost"><n-icon name="text-italic"></n-icon></n-button>
@@ -202,9 +202,9 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
     <h2>Fill Mode</h2>
     <n-panel bordered>
-      <n-text size="xs" muted class="layout-hint">
+      <div class="layout-hint"><n-text size="xs" muted>
         <code>[fill]</code> distributes available space evenly across items. Default is compact (intrinsic width).
-      </n-text>
+      </n-text></div>
       <n-stack gap="4">
         <n-toolbar aria-label="Compact toolbar (default)">
           <n-button variant="ghost"><n-icon name="floppy-disk" slot="leading"></n-icon><span slot="label">Save</span></n-button>
@@ -228,9 +228,9 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
     <h2>Responsive Overflow</h2>
     <n-panel bordered>
-      <n-text size="xs" muted class="layout-hint">
+      <div class="layout-hint"><n-text size="xs" muted>
         Resize the container to see items collapse into a &bull;&bull;&bull; overflow menu.
-      </n-text>
+      </n-text></div>
       <div style="resize: horizontal; overflow: hidden; border: 1px dashed var(--n-border-muted-neutral); padding: 0.5rem; min-width: 120px; max-width: 100%;">
         <n-toolbar aria-label="Overflow demo">
           <n-button variant="ghost"><n-icon name="text-b"></n-icon></n-button>
@@ -264,9 +264,9 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
     <h2>Grouped Overflow</h2>
     <n-panel bordered>
-      <n-text size="xs" muted class="layout-hint">
+      <div class="layout-hint"><n-text size="xs" muted>
         <code>&lt;n-toolbar-group&gt;</code> keeps related actions together — the entire group overflows as one unit instead of splitting.
-      </n-text>
+      </n-text></div>
       <div style="resize: horizontal; overflow: hidden; border: 1px dashed var(--n-border-muted-neutral); padding: 0.5rem; min-width: 120px; max-width: 100%;">
         <n-toolbar aria-label="Grouped overflow demo">
           <n-toolbar-group>

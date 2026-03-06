@@ -121,8 +121,8 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     document.addEventListener('astro:page-load', () => {
       if (!document.getElementById('info-dialog')) return;
 
-      function wire(openId: string, dialogId: string, closeIds: string[]) {
-        const dialog = document.getElementById(dialogId) as any;
+      function wire(openId, dialogId, closeIds) {
+        const dialog = document.getElementById(dialogId);
         if (!dialog) return;
         document.getElementById(openId)?.addEventListener('native:press', () => dialog.showModal());
         for (const id of closeIds) {

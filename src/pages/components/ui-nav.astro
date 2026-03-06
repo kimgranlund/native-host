@@ -211,12 +211,12 @@ const codeExamples = {
 
     <h2>Events</h2>
     <n-panel bordered size="sm">
-      <n-sidebar-nav class="demo-nav" id="event-nav">
+      <div class="demo-nav"><n-sidebar-nav id="event-nav">
         <n-sidebar-nav-item value="home">Home</n-sidebar-nav-item>
         <n-sidebar-nav-item value="docs">Documentation</n-sidebar-nav-item>
         <n-sidebar-nav-item value="api">API Reference</n-sidebar-nav-item>
         <n-sidebar-nav-item value="changelog">Changelog</n-sidebar-nav-item>
-      </n-sidebar-nav>
+      </n-sidebar-nav></div>
       <div class="log" id="event-log"></div>
       <pre class="layout-code"><code set:html={codeExamples.events} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
@@ -228,12 +228,12 @@ const codeExamples = {
       <n-text size="xs" muted spacing="regular">
         Attribute-driven pseudo-state overrides for DevTools debugging and visual testing. Applied to individual <code>n-sidebar-nav-item</code> elements.
       </n-text>
-      <n-sidebar-nav class="demo-nav">
+      <div class="demo-nav"><n-sidebar-nav>
         <n-sidebar-nav-item value="hover" force-hover>Force hover</n-sidebar-nav-item>
         <n-sidebar-nav-item value="active" force-active>Force active</n-sidebar-nav-item>
         <n-sidebar-nav-item value="focus" force-focus-visible>Force focus-visible</n-sidebar-nav-item>
         <n-sidebar-nav-item value="normal">Normal</n-sidebar-nav-item>
-      </n-sidebar-nav>
+      </n-sidebar-nav></div>
     </n-panel>
   </main>
 

@@ -87,7 +87,7 @@ chart.referenceLines = [
                 <n-text size="lg"><strong>30</strong></n-text>
                 <n-text inline size="xs" intent="success"><strong>+15%</strong></n-text>
               </n-stack>
-              <n-chart class="kpi-sparkline" type="sparkline" id="spark-1"></n-chart>
+              <n-chart type="sparkline" id="spark-1"></n-chart>
             </n-stack>
           </n-body>
         </n-card>
@@ -99,7 +99,7 @@ chart.referenceLines = [
                 <n-text size="lg"><strong>33</strong></n-text>
                 <n-text inline size="xs" intent="danger"><strong>-34%</strong></n-text>
               </n-stack>
-              <n-chart class="kpi-sparkline" type="sparkline" id="spark-2"></n-chart>
+              <n-chart type="sparkline" id="spark-2"></n-chart>
             </n-stack>
           </n-body>
         </n-card>
@@ -111,7 +111,7 @@ chart.referenceLines = [
                 <n-text size="lg"><strong>$25K</strong></n-text>
                 <n-text inline size="xs" intent="success"><strong>+400%</strong></n-text>
               </n-stack>
-              <n-chart class="kpi-sparkline" type="sparkline" id="spark-3"></n-chart>
+              <n-chart type="sparkline" id="spark-3"></n-chart>
             </n-stack>
           </n-body>
         </n-card>
@@ -123,7 +123,7 @@ chart.referenceLines = [
                 <n-text size="lg"><strong>112</strong></n-text>
                 <n-text inline size="xs" intent="success"><strong>+12%</strong></n-text>
               </n-stack>
-              <n-chart class="kpi-sparkline" type="sparkline" id="spark-4"></n-chart>
+              <n-chart type="sparkline" id="spark-4"></n-chart>
             </n-stack>
           </n-body>
         </n-card>
@@ -390,25 +390,25 @@ chart.referenceLines = [
         <tbody>
           <tr>
             <td>Signups</td>
-            <td><n-chart class="table-sparkline" type="sparkline" id="table-spark-1"></n-chart></td>
+            <td><n-chart type="sparkline" id="table-spark-1"></n-chart></td>
             <td class="val">30</td>
             <td><n-text inline size="xs" intent="success"><strong>+150%</strong></n-text></td>
           </tr>
           <tr>
             <td>Churn Rate</td>
-            <td><n-chart class="table-sparkline" type="sparkline" id="table-spark-2"></n-chart></td>
+            <td><n-chart type="sparkline" id="table-spark-2"></n-chart></td>
             <td class="val">33</td>
             <td><n-text inline size="xs" intent="danger"><strong>-34%</strong></n-text></td>
           </tr>
           <tr>
             <td>Revenue</td>
-            <td><n-chart class="table-sparkline" type="sparkline" id="table-spark-3"></n-chart></td>
+            <td><n-chart type="sparkline" id="table-spark-3"></n-chart></td>
             <td class="val">$25K</td>
             <td><n-text inline size="xs" intent="success"><strong>+400%</strong></n-text></td>
           </tr>
           <tr>
             <td>NPS Score</td>
-            <td><n-chart class="table-sparkline" type="sparkline" id="table-spark-4"></n-chart></td>
+            <td><n-chart type="sparkline" id="table-spark-4"></n-chart></td>
             <td class="val">112</td>
             <td><n-text inline size="xs" intent="success"><strong>+12%</strong></n-text></td>
           </tr>
@@ -452,7 +452,7 @@ chart.referenceLines = [
 import { logPrepend } from '../../scripts/event-log';
 
 document.addEventListener('astro:page-load', () => {
-  const lineChart = document.getElementById('chart-line') as any;
+  const lineChart = document.getElementById('chart-line');
   if (!lineChart) return;
 
   // ── Shared data ──
@@ -496,16 +496,16 @@ document.addEventListener('astro:page-load', () => {
   // ── Widget Tier — KPI Sparklines ──
 
   sparkData.forEach((values, i) => {
-    const el = document.getElementById(`spark-${i + 1}`) as any;
+    const el = document.getElementById(`spark-${i + 1}`);
     if (el) el.data = { series: [{ name: 'trend', data: values.map((y, x) => ({ x, y })) }] };
   });
 
   // ── Card Tier — Compact Charts ──
 
-  (document.getElementById('card-line') as any).data = revenueData;
-  (document.getElementById('card-bar') as any).data = productData;
-  (document.getElementById('card-area') as any).data = singleSeries;
-  (document.getElementById('card-scatter') as any).data = {
+  document.getElementById('card-line').data = revenueData;
+  document.getElementById('card-bar').data = productData;
+  document.getElementById('card-area').data = singleSeries;
+  document.getElementById('card-scatter').data = {
     series: [{
       name: 'Users',
       data: Array.from({ length: 20 }, () => ({
@@ -518,16 +518,16 @@ document.addEventListener('astro:page-load', () => {
   // ── Dashboard charts ──
 
   lineChart.data = revenueData;
-  (document.getElementById('chart-smooth-area') as any).data = revenueData;
+  document.getElementById('chart-smooth-area').data = revenueData;
 
   // ── Bar Chart Modes ──
 
-  (document.getElementById('chart-bar-grouped') as any).data = productData;
-  (document.getElementById('chart-bar-stacked') as any).data = productData;
+  document.getElementById('chart-bar-grouped').data = productData;
+  document.getElementById('chart-bar-stacked').data = productData;
 
   // ── Horizontal Bar ──
 
-  (document.getElementById('chart-bar-horizontal') as any).data = {
+  document.getElementById('chart-bar-horizontal').data = {
     series: [{
       name: 'Duration (min)',
       data: [{ x: 'Setup', y: 12 }, { x: 'Build', y: 34 }, { x: 'Test', y: 28 }, { x: 'Deploy', y: 8 }, { x: 'Verify', y: 5 }],
@@ -536,7 +536,7 @@ document.addEventListener('astro:page-load', () => {
 
   // ── Scatter / Bubble ──
 
-  (document.getElementById('chart-scatter') as any).data = {
+  document.getElementById('chart-scatter').data = {
     series: [
       { name: 'Cluster A', data: Array.from({ length: 30 }, () => ({ x: Math.random() * 100, y: Math.random() * 80 + 10, r: Math.random() * 20 + 5 })) },
       { name: 'Cluster B', data: Array.from({ length: 25 }, () => ({ x: Math.random() * 60 + 40, y: Math.random() * 60 + 30, r: Math.random() * 15 + 3 })) },
@@ -545,11 +545,11 @@ document.addEventListener('astro:page-load', () => {
 
   // ── Stacked Area ──
 
-  (document.getElementById('chart-stacked-area') as any).data = sixSeriesData;
+  document.getElementById('chart-stacked-area').data = sixSeriesData;
 
   // ── Reference Lines ──
 
-  const refChart = document.getElementById('chart-reference') as any;
+  const refChart = document.getElementById('chart-reference');
   refChart.data = revenueData;
   refChart.referenceLines = [
     { axis: 'y', value: 80, label: 'Target', color: 'var(--n-color-success-500)', style: 'dashed' },
@@ -559,11 +559,11 @@ document.addEventListener('astro:page-load', () => {
 
   // ── Average Lines ──
 
-  (document.getElementById('chart-average') as any).data = revenueData;
+  document.getElementById('chart-average').data = revenueData;
 
   // ── Reference + Average Combined ──
 
-  const refAvgChart = document.getElementById('chart-ref-avg') as any;
+  const refAvgChart = document.getElementById('chart-ref-avg');
   refAvgChart.data = revenueData;
   refAvgChart.referenceLines = [
     { axis: 'y', value: 100, label: 'Goal', color: 'var(--n-color-success-500)', style: 'dashed' },
@@ -575,25 +575,25 @@ document.addEventListener('astro:page-load', () => {
     series: [{ name: 'Sales', data: months.slice(0, 6).map((m, i) => ({ x: m, y: [20, 35, 28, 45, 38, 52][i] })) }],
   };
   ['h', 'v', 'b', 'n'].forEach(g => {
-    const el = document.getElementById(`chart-grid-${g}`) as any;
+    const el = document.getElementById(`chart-grid-${g}`);
     if (el) el.data = gridData;
   });
 
   // ── Legend Positions ──
 
   ['top', 'bottom', 'none'].forEach(pos => {
-    const el = document.getElementById(`chart-legend-${pos}`) as any;
+    const el = document.getElementById(`chart-legend-${pos}`);
     if (el) el.data = revenueData;
   });
 
   // ── Aspect Ratios ──
 
-  (document.getElementById('chart-aspect-16') as any).data = revenueData;
-  (document.getElementById('chart-aspect-1') as any).data = revenueData;
+  document.getElementById('chart-aspect-16').data = revenueData;
+  document.getElementById('chart-aspect-1').data = revenueData;
 
   // ── Custom Series Colors ──
 
-  (document.getElementById('chart-custom-colors') as any).data = {
+  document.getElementById('chart-custom-colors').data = {
     series: [
       { name: 'Alpha', color: 'oklch(0.65 0.2 260)', data: months.slice(0, 6).map((m, i) => ({ x: m, y: [30, 45, 38, 55, 48, 62][i] })) },
       { name: 'Beta', color: 'oklch(0.7 0.18 340)', data: months.slice(0, 6).map((m, i) => ({ x: m, y: [20, 32, 28, 42, 35, 50][i] })) },
@@ -603,45 +603,45 @@ document.addEventListener('astro:page-load', () => {
 
   // ── Multi-Series Full Palette ──
 
-  (document.getElementById('chart-full-palette') as any).data = sixSeriesData;
+  document.getElementById('chart-full-palette').data = sixSeriesData;
 
   // ── Palette Switcher ──
 
-  const paletteChart = document.getElementById('chart-palette') as any;
+  const paletteChart = document.getElementById('chart-palette');
   paletteChart.data = sixSeriesData;
-  const paletteSelect = document.getElementById('palette-select') as any;
-  paletteSelect?.addEventListener('native:change', (e: any) => {
+  const paletteSelect = document.getElementById('palette-select');
+  paletteSelect?.addEventListener('native:change', (e) => {
     paletteChart.palette = e.detail.value;
   });
 
   // ── Sparklines in Table ──
 
   sparkData.forEach((values, i) => {
-    const el = document.getElementById(`table-spark-${i + 1}`) as any;
+    const el = document.getElementById(`table-spark-${i + 1}`);
     if (el) el.data = { series: [{ name: 'trend', data: values.map((y, x) => ({ x, y })) }] };
   });
 
   // ── Animate ──
 
-  (document.getElementById('chart-animate') as any).data = productData;
+  document.getElementById('chart-animate').data = productData;
 
   // ── Disabled ──
 
-  (document.getElementById('chart-disabled') as any).data = revenueData;
+  document.getElementById('chart-disabled').data = revenueData;
 
   // ── Events ──
 
-  const eventsChart = document.getElementById('chart-events') as any;
+  const eventsChart = document.getElementById('chart-events');
   const eventLog = document.getElementById('chart-event-log');
   eventsChart.data = revenueData;
 
-  eventsChart.addEventListener('native:chart-hover', (e: any) => {
+  eventsChart.addEventListener('native:chart-hover', (e) => {
     if (e.detail?.point) logPrepend(eventLog, `hover — ${e.detail.series}: (${e.detail.point.x}, ${e.detail.point.y})`);
   });
-  eventsChart.addEventListener('native:chart-select', (e: any) => {
+  eventsChart.addEventListener('native:chart-select', (e) => {
     logPrepend(eventLog, `select — ${e.detail.series}: (${e.detail.point.x}, ${e.detail.point.y})`);
   });
-  eventsChart.addEventListener('native:chart-legend-toggle', (e: any) => {
+  eventsChart.addEventListener('native:chart-legend-toggle', (e) => {
     logPrepend(eventLog, `legend-toggle — ${e.detail.series}: visible=${e.detail.visible}`);
   });
 });

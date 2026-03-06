@@ -361,7 +361,8 @@ import { NativeElement, define, signal, computed, ContextProvider, ContextConsum
                 return;
               }
               this.innerHTML = list.map(n => `
-                <n-stack class="notif-row" direction="row" align="start" gap="2">
+                <div class="notif-row">
+                <n-stack direction="row" align="start" gap="2">
                   <div class="activity-dot ${n.type}">
                     <n-icon name="${INTENT_ICONS[n.type]}" size="14"></n-icon>
                   </div>
@@ -373,6 +374,7 @@ import { NativeElement, define, signal, computed, ContextProvider, ContextConsum
                     <n-icon name="x" slot="leading"></n-icon>
                   </n-button>
                 </n-stack>
+                </div>
               `).join('');
             });
           });
@@ -422,7 +424,8 @@ import { NativeElement, define, signal, computed, ContextProvider, ContextConsum
               return;
             }
             this.innerHTML = list.map(a => `
-              <n-stack class="activity-row" direction="row" align="start" gap="2">
+              <div class="activity-row">
+              <n-stack direction="row" align="start" gap="2">
                 <div class="activity-dot ${a.intent}">
                   <n-icon name="${a.icon}" size="14"></n-icon>
                 </div>
@@ -431,6 +434,7 @@ import { NativeElement, define, signal, computed, ContextProvider, ContextConsum
                   <div class="activity-time">${a.time}</div>
                 </div>
               </n-stack>
+              </div>
             `).join('');
           });
         }
@@ -454,13 +458,15 @@ import { NativeElement, define, signal, computed, ContextProvider, ContextConsum
           this.requestContext('session', (ctx) => {
             ctxLog('pref', 'Preferences subscribed to session');
             this.innerHTML = PREFS.map(p => `
-              <n-stack class="ctx-pref-row" direction="row" gap="3" align="center" justify="between">
+              <div class="ctx-pref-row">
+              <n-stack direction="row" gap="3" align="center" justify="between">
                 <div>
                   <div class="pref-label">${p.label}</div>
                   <div class="pref-desc">${p.desc}</div>
                 </div>
                 <n-switch size="sm" data-pref="${p.key}" ${ctx.prefs[p.key].value ? 'checked' : ''}></n-switch>
               </n-stack>
+              </div>
             `).join('');
           });
 
@@ -509,11 +515,11 @@ import { NativeElement, define, signal, computed, ContextProvider, ContextConsum
                       <div class="stat-label">Danger</div>
                     </n-stack>
                   </n-grid>
-                  <n-stack class="ctx-stats-summary" direction="row" gap="6" justify="center">
+                  <div class="ctx-stats-summary"><n-stack direction="row" gap="6" justify="center">
                     <n-text size="xs" muted><strong class="ctx-stat-strong">${s.total}</strong> total</n-text>
                     <n-text size="xs" muted><strong class="ctx-stat-strong">${s.dismissed}</strong> dismissed</n-text>
                     <n-text size="xs" muted><strong class="ctx-stat-strong">${ctx.count.value}</strong> pending</n-text>
-                  </n-stack>
+                  </n-stack></div>
                 </n-stack>`;
             });
           });

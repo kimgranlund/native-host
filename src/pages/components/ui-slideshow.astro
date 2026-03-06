@@ -82,11 +82,11 @@ const codeExamples = {
 
     <h2>Vertical</h2>
     <n-panel bordered>
-      <n-slideshow direction="vertical" controls indicators class="vertical-demo">
+      <div class="vertical-demo"><n-slideshow direction="vertical" controls indicators>
         <n-slide><div class="slide-content slide-1">Top</div></n-slide>
         <n-slide><div class="slide-content slide-2">Middle</div></n-slide>
         <n-slide><div class="slide-content slide-3">Bottom</div></n-slide>
-      </n-slideshow>
+      </n-slideshow></div>
     <pre class="layout-code"><code>&lt;n-slideshow direction="vertical" controls indicators&gt;
   &lt;n-slide&gt;&lt;div&gt;Top&lt;/div&gt;&lt;/n-slide&gt;
   &lt;n-slide&gt;&lt;div&gt;Middle&lt;/div&gt;&lt;/n-slide&gt;
@@ -187,17 +187,17 @@ const codeExamples = {
       <n-stack direction="row" gap="6" wrap>
         <div>
           <div class="layout-col-label slideshow-debug-label">force-hover</div>
-          <n-slideshow class="debug-slideshow" controls indicators force-hover>
+          <div class="debug-slideshow"><n-slideshow controls indicators force-hover>
             <n-slide><div class="slide-content slide-1">A</div></n-slide>
             <n-slide><div class="slide-content slide-2">B</div></n-slide>
-          </n-slideshow>
+          </n-slideshow></div>
         </div>
         <div>
           <div class="layout-col-label slideshow-debug-label">force-focus-visible</div>
-          <n-slideshow class="debug-slideshow" controls indicators force-focus-visible>
+          <div class="debug-slideshow"><n-slideshow controls indicators force-focus-visible>
             <n-slide><div class="slide-content slide-1">A</div></n-slide>
             <n-slide><div class="slide-content slide-2">B</div></n-slide>
-          </n-slideshow>
+          </n-slideshow></div>
         </div>
       </n-stack>
     </n-panel>
@@ -253,6 +253,9 @@ document.addEventListener('astro:page-load', () => {
     /* Vertical demo needs explicit height */
     .vertical-demo {
       height: 16rem;
+    }
+    .vertical-demo n-slideshow {
+      height: 100%;
     }
 
     /* Image slides */

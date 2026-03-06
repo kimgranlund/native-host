@@ -20,11 +20,11 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <div class="wizard-wrapper">
       <n-card>
         <n-header>
-          <n-segmented-control id="step-indicator" value="personal" slot="label" class="step-indicator-full">
+          <div class="step-indicator-full" slot="label"><n-segmented-control id="step-indicator" value="personal">
             <n-segment value="personal">1. Personal</n-segment>
             <n-segment value="address">2. Address</n-segment>
             <n-segment value="review">3. Review</n-segment>
-          </n-segmented-control>
+          </n-segmented-control></div>
         </n-header>
 
         <!-- ── Step 1: Personal Information ── -->
@@ -188,13 +188,13 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
   <script>
     document.addEventListener('astro:page-load', () => {
-      const indicator = document.getElementById('step-indicator') as any;
+      const indicator = document.getElementById('step-indicator');
       if (!indicator) return;
 
       const steps = ['personal', 'address', 'review'];
       let currentStep = 0;
 
-      function goToStep(index: number) {
+      function goToStep(index) {
         currentStep = index;
         const stepName = steps[index];
 
@@ -216,25 +216,25 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           const reviewZip = document.getElementById('review-zip');
 
           if (reviewName) reviewName.textContent =
-            (document.getElementById('input-name') as HTMLInputElement)?.value || '--';
+            document.getElementById('input-name')?.value || '--';
           if (reviewEmail) reviewEmail.textContent =
-            (document.getElementById('input-email') as HTMLInputElement)?.value || '--';
+            document.getElementById('input-email')?.value || '--';
           if (reviewPhone) reviewPhone.textContent =
-            (document.getElementById('input-phone') as HTMLInputElement)?.value || '--';
+            document.getElementById('input-phone')?.value || '--';
           if (reviewAddress) reviewAddress.textContent =
-            (document.getElementById('input-address') as HTMLInputElement)?.value || '--';
+            document.getElementById('input-address')?.value || '--';
           if (reviewCity) reviewCity.textContent =
-            (document.getElementById('input-city') as HTMLInputElement)?.value || '--';
-          const stateSelect = document.getElementById('input-state') as any;
+            document.getElementById('input-city')?.value || '--';
+          const stateSelect = document.getElementById('input-state');
           if (reviewState) reviewState.textContent =
             stateSelect?.value || '--';
           if (reviewZip) reviewZip.textContent =
-            (document.getElementById('input-zip') as HTMLInputElement)?.value || '--';
+            document.getElementById('input-zip')?.value || '--';
         }
       }
 
       // Segmented control click navigation
-      indicator.addEventListener('native:change', (e: CustomEvent) => {
+      indicator.addEventListener('native:change', (e) => {
         const idx = steps.indexOf(e.detail.value);
         if (idx >= 0) goToStep(idx);
       });
@@ -296,6 +296,10 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     }
 
     .step-indicator-full {
+      width: 100%;
+    }
+
+    .step-indicator-full n-segmented-control {
       width: 100%;
     }
 

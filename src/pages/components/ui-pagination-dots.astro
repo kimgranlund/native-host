@@ -205,11 +205,11 @@ dots.next();       // go to next`,
     <h2>Programmatic control</h2>
     <n-panel bordered>
       <n-pagination-dots count="5" active="0" paddles id="prog-demo"></n-pagination-dots>
-      <n-stack class="prog-controls" direction="row">
+      <div class="prog-controls"><n-stack direction="row">
         <n-button size="sm" variant="secondary" id="prog-prev">Previous</n-button>
         <n-button size="sm" variant="secondary" id="prog-next">Next</n-button>
         <n-button size="sm" variant="secondary" id="prog-reset">Reset</n-button>
-      </n-stack>
+      </n-stack></div>
     <pre class="layout-code"><code set:html={codeExamples.programmatic} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 

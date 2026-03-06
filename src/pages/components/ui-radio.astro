@@ -253,11 +253,11 @@ const codeExamples = {
     <h2>Form Association</h2>
     <n-panel bordered>
       <form id="demo-form">
-        <n-radio-group class="form-fields" name="plan" value="pro">
+        <div class="form-fields"><n-radio-group name="plan" value="pro">
           <n-radio value="free">Free</n-radio>
           <n-radio value="pro">Pro</n-radio>
           <n-radio value="enterprise">Enterprise</n-radio>
-        </n-radio-group>
+        </n-radio-group></div>
         <n-stack direction="row">
           <n-button variant="primary" type="submit"><span slot="label">Submit</span></n-button>
           <n-button variant="secondary" type="reset"><span slot="label">Reset</span></n-button>

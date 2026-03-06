@@ -90,7 +90,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         </n-button>
       </n-grid>
       <h3>Raw JSON Message</h3>
-      <n-textarea class="plan-input" id="message-input" rows="5" spellcheck="false"></n-textarea>
+      <div class="plan-input"><n-textarea id="message-input" rows="5" spellcheck="false"></n-textarea></div>
       <n-stack direction="row" wrap>
         <n-button size="sm" variant="primary" id="send-btn">
           <span slot="label">Send Message</span>
@@ -788,7 +788,7 @@ document.addEventListener('astro:page-load', async () => {
       font-weight: 600;
     }
 
-    .plan-input {
+    .plan-input n-textarea {
       font-family: ui-monospace, monospace;
       font-size: 0.75rem;
       tab-size: 2;

@@ -80,79 +80,96 @@ if (Astro.locals.user) return Astro.redirect('/blocks/data-dashboard-stats');
     }
   </style>
 
-  <n-stack class="auth-screen" align="center" justify="center">
-    <div class="auth-card-wrapper">
-      <n-stack align="center" class="auth-logo">
-        <Logo size={40} />
-      </n-stack>
-      <n-text size="lg" strong class="auth-heading">Create your account</n-text>
-      <n-text size="sm" muted class="auth-subheading">Get started with NativeUI for free</n-text>
+  <div class="auth-screen">
+    <n-stack align="center" justify="center">
+      <div class="auth-card-wrapper">
+        <div class="auth-logo">
+          <n-stack align="center">
+            <Logo size={40} />
+          </n-stack>
+        </div>
+        <div class="auth-heading">
+          <n-text size="lg" strong>Create your account</n-text>
+        </div>
+        <div class="auth-subheading">
+          <n-text size="sm" muted>Get started with NativeUI for free</n-text>
+        </div>
 
-      <n-text size="sm" intent="danger" class="auth-error" id="auth-error"></n-text>
+        <div class="auth-error" id="auth-error">
+          <n-text size="sm" intent="danger" id="auth-error-text"></n-text>
+        </div>
 
-      <div class="auth-card">
-        <n-card padding="relaxed">
-          <n-stack gap="8">
-            <form id="register-form">
-              <n-stack gap="6">
-                <n-field required>
-                  <label slot="label">Full name</label>
-                  <n-input size="lg" placeholder="Kim Granlund" name="name">
-                    <n-icon name="user" slot="leading"></n-icon>
-                  </n-input>
-                </n-field>
-                <n-field required>
-                  <label slot="label">Email</label>
-                  <n-input size="lg" type="email" placeholder="kim@example.com" name="email">
-                    <n-icon name="envelope" slot="leading"></n-icon>
-                  </n-input>
-                </n-field>
-                <n-field required>
-                  <label slot="label">Password</label>
-                  <n-input size="lg" type="password" placeholder="At least 8 characters" name="password">
-                    <n-icon name="lock" slot="leading"></n-icon>
-                  </n-input>
-                </n-field>
-                <n-button size="lg" variant="primary" intent="accent" type="submit" id="register-submit">
-                  <span slot="label">Create account</span>
+        <div class="auth-card">
+          <n-card padding="relaxed">
+            <n-body>
+              <n-stack gap="8">
+                <form id="register-form">
+                  <n-stack gap="6">
+                    <n-field required>
+                      <label slot="label">Full name</label>
+                      <n-input size="lg" placeholder="Kim Granlund" name="name">
+                        <n-icon name="user" slot="leading"></n-icon>
+                      </n-input>
+                    </n-field>
+                    <n-field required>
+                      <label slot="label">Email</label>
+                      <n-input size="lg" type="email" placeholder="kim@example.com" name="email">
+                        <n-icon name="envelope" slot="leading"></n-icon>
+                      </n-input>
+                    </n-field>
+                    <n-field required>
+                      <label slot="label">Password</label>
+                      <n-input size="lg" type="password" placeholder="At least 8 characters" name="password">
+                        <n-icon name="lock" slot="leading"></n-icon>
+                      </n-input>
+                    </n-field>
+                    <n-button size="lg" variant="primary" intent="accent" type="submit" id="register-submit">
+                      <span slot="label">Create account</span>
+                    </n-button>
+                  </n-stack>
+                </form>
+                <n-divider>or continue with</n-divider>
+                <n-button size="lg" id="google-register">
+                  <n-icon name="google-logo" slot="leading"></n-icon>
+                  <span slot="label">Google</span>
                 </n-button>
               </n-stack>
-            </form>
-            <n-divider>or continue with</n-divider>
-            <n-button size="lg" id="google-register">
-              <n-icon name="google-logo" slot="leading"></n-icon>
-              <span slot="label">Google</span>
-            </n-button>
-          </n-stack>
-        </n-card>
+            </n-body>
+          </n-card>
+        </div>
+        <div class="auth-footer">
+          <n-text size="sm" muted>
+            Already have an account? <a href="/auth/login">Sign in</a> | <a href="/blocks/data-dashboard-stats">Skip</a>
+          </n-text>
+        </div>
       </div>
-      <n-text size="sm" muted class="auth-footer">
-        Already have an account? <a href="/auth/login">Sign in</a> | <a href="/blocks/data-dashboard-stats">Skip</a>
-      </n-text>
-    </div>
 
-    <n-text size="xs" muted class="auth-legal">
-      By continuing, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
-    </n-text>
-  </n-stack>
+      <div class="auth-legal">
+        <n-text size="xs" muted>
+          By continuing, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+        </n-text>
+      </div>
+    </n-stack>
+  </div>
 
   <script>
     import { authClient } from '../../lib/auth-client';
 
     document.addEventListener('astro:page-load', () => {
       const form = document.getElementById('register-form');
-      const errorEl = document.getElementById('auth-error');
+      const errorWrap = document.getElementById('auth-error');
+      const errorEl = document.getElementById('auth-error-text');
       const googleBtn = document.getElementById('google-register');
       if (!form) return;
 
       function showError(msg) {
-        if (!errorEl) return;
+        if (!errorEl || !errorWrap) return;
         errorEl.textContent = msg;
-        errorEl.setAttribute('visible', '');
+        errorWrap.setAttribute('visible', '');
       }
 
       function hideError() {
-        errorEl?.removeAttribute('visible');
+        errorWrap?.removeAttribute('visible');
       }
 
       form.addEventListener('submit', async (e) => {

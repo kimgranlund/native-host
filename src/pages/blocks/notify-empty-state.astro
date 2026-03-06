@@ -58,7 +58,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <n-stack gap="4">
     <h2>Error State</h2>
     <div class="empty-state">
-      <n-icon name="warning" size="xl" aria-hidden="true" class="danger"></n-icon>
+      <span class="danger"><n-icon name="warning" size="xl" aria-hidden="true"></n-icon></span>
       <h3>Something went wrong</h3>
       <p>We couldn't load your projects. This might be a temporary issue. Please check your connection and try again.</p>
       <n-stack direction="row" gap="3">
@@ -100,12 +100,14 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       line-height: 1.5;
     }
 
-    .empty-state > n-icon {
+    .empty-state > n-icon,
+    .empty-state > .danger {
       color: var(--n-ink-muted-neutral);
       margin-bottom: 1rem;
     }
 
-    .empty-state > n-icon.danger {
+    .empty-state > .danger {
+      display: inline-flex;
       color: var(--n-ink-strong-danger);
     }
 </style>

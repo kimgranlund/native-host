@@ -47,21 +47,21 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
     <h2>Vertical</h2>
     <n-panel bordered>
-      <n-stack direction="row" align="center" gap="4" class="vertical-container">
+      <div class="vertical-container"><n-stack direction="row" align="center" gap="4">
         <n-text inline>Left</n-text>
         <n-divider orientation="vertical"></n-divider>
         <n-text inline>Right</n-text>
-      </n-stack>
+      </n-stack></div>
     </n-panel>
 
     <n-panel bordered>
-      <n-stack direction="row" align="center" gap="4" class="vertical-container">
+      <div class="vertical-container"><n-stack direction="row" align="center" gap="4">
         <n-text inline>One</n-text>
         <n-divider orientation="vertical"></n-divider>
         <n-text inline>Two</n-text>
         <n-divider orientation="vertical"></n-divider>
         <n-text inline>Three</n-text>
-      </n-stack>
+      </n-stack></div>
       <pre class="layout-code"><code>&lt;div style="display: flex; align-items: center; gap: 1rem; height: 4rem;"&gt;
   &lt;span&gt;Left&lt;/span&gt;
   &lt;n-divider orientation="vertical"&gt;&lt;/n-divider&gt;
@@ -73,11 +73,11 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
     <h2>Vertical With Label</h2>
     <n-panel bordered>
-      <n-stack direction="row" align="center" gap="4" class="vertical-container vertical-container--tall">
+      <div class="vertical-container vertical-container--tall"><n-stack direction="row" align="center" gap="4">
         <n-text inline>Left</n-text>
         <n-divider orientation="vertical">or</n-divider>
         <n-text inline>Right</n-text>
-      </n-stack>
+      </n-stack></div>
       <pre class="layout-code"><code>&lt;n-divider orientation="vertical"&gt;or&lt;/n-divider&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 

@@ -272,7 +272,7 @@ const codeExamples = {
     <h2>Form Association</h2>
     <n-panel bordered size="sm">
       <form id="demo-form">
-        <n-stack class="form-fields">
+        <div class="form-fields"><n-stack>
           <n-combobox name="country">
             <n-input placeholder="Country...">
               <n-icon name="magnifying-glass" slot="leading"></n-icon>
@@ -294,7 +294,7 @@ const codeExamples = {
               <n-option value="ja" label="Japanese">Japanese</n-option>
             </n-listbox>
           </n-combobox>
-        </n-stack>
+        </n-stack></div>
         <n-stack direction="row" wrap align="center">
           <n-button variant="primary" type="submit"><span slot="label">Submit</span></n-button>
           <n-button variant="secondary" type="reset"><span slot="label">Reset</span></n-button>

@@ -35,9 +35,13 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
           <span slot="label">Reset</span>
         </n-button>
       </n-stack>
-      <n-card size="sm" class="status-bar" id="counter-status">
-        <span><span class="label">Counter:</span> <n-text inline strong id="counter-value">0</n-text></span>
-        <span><span class="label">Commands:</span> <n-text inline strong id="cmd-count">0</n-text></span>
+      <n-card size="sm">
+        <n-body>
+          <div class="status-bar" id="counter-status">
+            <span><span class="label">Counter:</span> <n-text inline strong intent="accent" id="counter-value">0</n-text></span>
+            <span><span class="label">Commands:</span> <n-text inline strong intent="accent" id="cmd-count">0</n-text></span>
+          </div>
+        </n-body>
       </n-card>
       <div class="log" id="cmd-log"></div>
     </n-panel>
@@ -57,9 +61,13 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
           <span slot="label">Redo</span>
         </n-button>
       </n-stack>
-      <n-card size="sm" class="status-bar">
-        <span><span class="label">Undo stack:</span> <n-text inline strong id="undo-count">0</n-text></span>
-        <span><span class="label">Redo stack:</span> <n-text inline strong id="redo-count">0</n-text></span>
+      <n-card size="sm">
+        <n-body>
+          <div class="status-bar">
+            <span><span class="label">Undo stack:</span> <n-text inline strong intent="accent" id="undo-count">0</n-text></span>
+            <span><span class="label">Redo stack:</span> <n-text inline strong intent="accent" id="redo-count">0</n-text></span>
+          </div>
+        </n-body>
       </n-card>
     </n-panel>
 
@@ -92,9 +100,13 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
           <span slot="label">Close All</span>
         </n-button>
       </n-stack>
-      <n-card size="sm" class="status-bar">
-        <span><span class="label">Stack depth:</span> <n-text inline strong id="overlay-depth">0</n-text></span>
-        <span><span class="label">Top:</span> <n-text inline strong id="overlay-top">none</n-text></span>
+      <n-card size="sm">
+        <n-body>
+          <div class="status-bar">
+            <span><span class="label">Stack depth:</span> <n-text inline strong intent="accent" id="overlay-depth">0</n-text></span>
+            <span><span class="label">Top:</span> <n-text inline strong intent="accent" id="overlay-top">none</n-text></span>
+          </div>
+        </n-body>
       </n-card>
     </n-panel>
 
@@ -185,9 +197,13 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
           <span slot="label">Clear Log</span>
         </n-button>
       </n-stack>
-      <n-card size="sm" class="status-bar">
-        <span><span class="label">Log entries:</span> <n-text inline strong id="obs-count">0</n-text></span>
-        <span><span class="label">Perf samples:</span> <n-text inline strong id="obs-perf-count">0</n-text></span>
+      <n-card size="sm">
+        <n-body>
+          <div class="status-bar">
+            <span><span class="label">Log entries:</span> <n-text inline strong intent="accent" id="obs-count">0</n-text></span>
+            <span><span class="label">Perf samples:</span> <n-text inline strong intent="accent" id="obs-perf-count">0</n-text></span>
+          </div>
+        </n-body>
       </n-card>
       <div class="log" id="obs-log"></div>
     </n-panel>
@@ -213,10 +229,14 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
           <span slot="label">Snapshot</span>
         </n-button>
       </n-stack>
-      <n-card size="sm" class="status-bar">
-        <span><span class="label">State:</span> <n-text inline strong id="wf-state">-</n-text></span>
-        <span><span class="label">Running:</span> <n-text inline strong id="wf-running">false</n-text></span>
-        <span><span class="label">Cycles:</span> <n-text inline strong id="wf-cycles">0</n-text></span>
+      <n-card size="sm">
+        <n-body>
+          <div class="status-bar">
+            <span><span class="label">State:</span> <n-text inline strong intent="accent" id="wf-state">-</n-text></span>
+            <span><span class="label">Running:</span> <n-text inline strong intent="accent" id="wf-running">false</n-text></span>
+            <span><span class="label">Cycles:</span> <n-text inline strong intent="accent" id="wf-cycles">0</n-text></span>
+          </div>
+        </n-body>
       </n-card>
       <div class="log" id="wf-log"></div>
     </n-panel>
@@ -250,9 +270,13 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
           <span slot="label">Dispatch (needs admin)</span>
         </n-button>
       </n-stack>
-      <n-card size="sm" class="status-bar">
-        <span><span class="label">Denied:</span> <n-text inline strong id="pol-denied">0</n-text></span>
-        <span><span class="label">Last decision:</span> <n-text inline strong id="pol-last">-</n-text></span>
+      <n-card size="sm">
+        <n-body>
+          <div class="status-bar">
+            <span><span class="label">Denied:</span> <n-text inline strong intent="accent" id="pol-denied">0</n-text></span>
+            <span><span class="label">Last decision:</span> <n-text inline strong intent="accent" id="pol-last">-</n-text></span>
+          </div>
+        </n-body>
       </n-card>
       <div class="log" id="pol-log"></div>
     </n-panel>
@@ -275,9 +299,13 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
           <span slot="label">Install Event Bridge</span>
         </n-button>
       </n-stack>
-      <n-card size="sm" class="status-bar">
-        <span><span class="label">Components:</span> <n-text inline strong id="ci-count">-</n-text></span>
-        <span><span class="label">Bridge:</span> <n-text inline strong id="ci-bridge-status">not installed</n-text></span>
+      <n-card size="sm">
+        <n-body>
+          <div class="status-bar">
+            <span><span class="label">Components:</span> <n-text inline strong intent="accent" id="ci-count">-</n-text></span>
+            <span><span class="label">Bridge:</span> <n-text inline strong intent="accent" id="ci-bridge-status">not installed</n-text></span>
+          </div>
+        </n-body>
       </n-card>
       <div class="log" id="ci-log"></div>
     </n-panel>
@@ -311,10 +339,14 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
           <span slot="label">Stop</span>
         </n-button>
       </n-stack>
-      <n-card size="sm" class="status-bar">
-        <span><span class="label">Template:</span> <n-text inline strong id="wft-name">-</n-text></span>
-        <span><span class="label">State:</span> <n-text inline strong id="wft-state">-</n-text></span>
-        <span><span class="label">Events:</span> <n-text inline strong id="wft-events">-</n-text></span>
+      <n-card size="sm">
+        <n-body>
+          <div class="status-bar">
+            <span><span class="label">Template:</span> <n-text inline strong intent="accent" id="wft-name">-</n-text></span>
+            <span><span class="label">State:</span> <n-text inline strong intent="accent" id="wft-state">-</n-text></span>
+            <span><span class="label">Events:</span> <n-text inline strong intent="accent" id="wft-events">-</n-text></span>
+          </div>
+        </n-body>
       </n-card>
       <div class="log" id="wft-log"></div>
     </n-panel>
@@ -387,10 +419,14 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
           <span slot="label">Execute Generated Plan</span>
         </n-button>
       </n-stack>
-      <n-card size="sm" class="status-bar">
-        <span><span class="label">Valid:</span> <n-text inline strong id="gp-valid">-</n-text></span>
-        <span><span class="label">A11y:</span> <n-text inline strong id="gp-a11y">-</n-text></span>
-        <span><span class="label">Warnings:</span> <n-text inline strong id="gp-warnings">-</n-text></span>
+      <n-card size="sm">
+        <n-body>
+          <div class="status-bar">
+            <span><span class="label">Valid:</span> <n-text inline strong intent="accent" id="gp-valid">-</n-text></span>
+            <span><span class="label">A11y:</span> <n-text inline strong intent="accent" id="gp-a11y">-</n-text></span>
+            <span><span class="label">Warnings:</span> <n-text inline strong intent="accent" id="gp-warnings">-</n-text></span>
+          </div>
+        </n-body>
       </n-card>
       <h3>Generated Plan JSON</h3>
       <div class="log" id="gp-plan-json" style="max-height: 16rem;"></div>
@@ -403,7 +439,12 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
   <script>
 import { Kernel, Planner, WorkflowEngine, resetKernel } from "@nonoun/native-ui/kernel";
 import { effect } from "@nonoun/native-ui";
-// ── Initialize Kernel ──
+
+document.addEventListener('astro:page-load', () => {
+  const guardEl = document.getElementById('counter-status');
+  if (!guardEl) return;
+
+  // ── Initialize Kernel ──
 
       resetKernel();
       const kernel = new Kernel({ allowUnregistered: true, logCommands: true });
@@ -420,7 +461,7 @@ import { effect } from "@nonoun/native-ui";
         const entry = document.createElement('div');
         entry.className = `log-entry ${cls}`;
         entry.textContent = `[${new Date().toLocaleTimeString()}] ${text}`;
-        cmdLog.prepend(entry);
+        cmdLog?.prepend(entry);
       }
 
       function updateCounterUI() {
@@ -463,21 +504,21 @@ import { effect } from "@nonoun/native-ui";
       });
 
       // Wire buttons
-      document.getElementById('cmd-increment').addEventListener('native:press', () => {
+      document.getElementById('cmd-increment')?.addEventListener('native:press', () => {
         kernel.bus.dispatch('counter.increment', null, {
           undoType: 'counter.set',
           undoPayload: counter,
         });
       });
 
-      document.getElementById('cmd-decrement').addEventListener('native:press', () => {
+      document.getElementById('cmd-decrement')?.addEventListener('native:press', () => {
         kernel.bus.dispatch('counter.decrement', null, {
           undoType: 'counter.set',
           undoPayload: counter,
         });
       });
 
-      document.getElementById('cmd-reset').addEventListener('native:press', () => {
+      document.getElementById('cmd-reset')?.addEventListener('native:press', () => {
         kernel.bus.dispatch('counter.reset', null);
       });
 
@@ -498,8 +539,8 @@ import { effect } from "@nonoun/native-ui";
         if (cmd) logCmd(`Redo: ${cmd.type}`, 'undo');
       }
 
-      btnUndo.addEventListener('native:press', doUndo);
-      btnRedo.addEventListener('native:press', doRedo);
+      btnUndo?.addEventListener('native:press', doUndo);
+      btnRedo?.addEventListener('native:press', doRedo);
 
       // Reactive undo/redo status
       effect(() => {
@@ -520,7 +561,7 @@ import { effect } from "@nonoun/native-ui";
         const entry = document.createElement('div');
         entry.className = 'log-entry cmd';
         entry.textContent = `[${new Date().toLocaleTimeString()}] ${text}`;
-        shortcutLog.prepend(entry);
+        shortcutLog?.prepend(entry);
       }
 
       const isMac = navigator.platform.includes('Mac');
@@ -582,13 +623,13 @@ import { effect } from "@nonoun/native-ui";
 
         const kbdEl = document.createElement('div');
         kbdEl.innerHTML = `<n-kbd>${modParts.join(' + ')}</n-kbd>`;
-        shortcutList.appendChild(kbdEl);
+        shortcutList?.appendChild(kbdEl);
 
         const descEl = document.createElement('div');
         descEl.textContent = s.description;
         descEl.style.color = 'var(--n-ink-muted-neutral)';
         descEl.style.fontSize = '0.8125rem';
-        shortcutList.appendChild(descEl);
+        shortcutList?.appendChild(descEl);
       }
 
       // ── Overlay Manager ──
@@ -644,7 +685,7 @@ import { effect } from "@nonoun/native-ui";
         return id;
       }
 
-      document.getElementById('overlay-open-popover').addEventListener('native:press', (e) => {
+      document.getElementById('overlay-open-popover')?.addEventListener('native:press', (e) => {
         const rect = e.target.getBoundingClientRect();
         createOverlayBox(
           'popover',
@@ -655,7 +696,7 @@ import { effect } from "@nonoun/native-ui";
         );
       });
 
-      document.getElementById('overlay-open-dialog').addEventListener('native:press', (e) => {
+      document.getElementById('overlay-open-dialog')?.addEventListener('native:press', (e) => {
         const rect = e.target.getBoundingClientRect();
         createOverlayBox(
           'dialog',
@@ -666,7 +707,7 @@ import { effect } from "@nonoun/native-ui";
         );
       });
 
-      document.getElementById('overlay-close-all').addEventListener('native:press', () => {
+      document.getElementById('overlay-close-all')?.addEventListener('native:press', () => {
         // Remove all overlay DOM elements
         for (const entry of kernel.overlays.stack.value) {
           entry.element.remove();
@@ -737,7 +778,7 @@ import { effect } from "@nonoun/native-ui";
         const entry = document.createElement('div');
         entry.className = `log-entry ${cls}`;
         entry.textContent = `[${new Date().toLocaleTimeString()}] ${text}`;
-        planLog.prepend(entry);
+        planLog?.prepend(entry);
       }
 
       // Listen for plan commands
@@ -757,7 +798,7 @@ import { effect } from "@nonoun/native-ui";
 
       let currentPlanId = null;
 
-      document.getElementById('plan-execute').addEventListener('native:press', () => {
+      document.getElementById('plan-execute')?.addEventListener('native:press', () => {
         // Teardown previous
         if (currentPlanId) {
           kernel.executor.teardown(currentPlanId);
@@ -766,7 +807,7 @@ import { effect } from "@nonoun/native-ui";
         planOutput.innerHTML = '';
 
         try {
-          const plan = JSON.parse(planInput.value);
+          const plan = JSON.parse(planInput?.value);
           plan.timestamp = Date.now();
 
           const elements = kernel.executePlan(plan, planOutput);
@@ -777,7 +818,7 @@ import { effect } from "@nonoun/native-ui";
         }
       });
 
-      document.getElementById('plan-clear').addEventListener('native:press', () => {
+      document.getElementById('plan-clear')?.addEventListener('native:press', () => {
         if (currentPlanId) {
           kernel.executor.teardown(currentPlanId);
           currentPlanId = null;
@@ -786,7 +827,7 @@ import { effect } from "@nonoun/native-ui";
         logPlan('Output cleared');
       });
 
-      document.getElementById('plan-reset').addEventListener('native:press', () => {
+      document.getElementById('plan-reset')?.addEventListener('native:press', () => {
         planInput.value = JSON.stringify(defaultPlan, null, 2);
         logPlan('JSON reset to default');
       });
@@ -800,10 +841,10 @@ import { effect } from "@nonoun/native-ui";
         const entry = document.createElement('div');
         entry.className = `log-entry ${cls}`;
         entry.textContent = `[${new Date().toLocaleTimeString()}] ${text}`;
-        patchLog.prepend(entry);
+        patchLog?.prepend(entry);
       }
 
-      document.getElementById('patch-text').addEventListener('native:press', () => {
+      document.getElementById('patch-text')?.addEventListener('native:press', () => {
         if (!currentPlanId) { logPatch('No active plan — execute a plan first', 'error'); return; }
         const result = kernel.patchPlan({
           planId: currentPlanId,
@@ -814,7 +855,7 @@ import { effect } from "@nonoun/native-ui";
         logPatch(`set-text: applied=${result.applied}, errors=${result.errors.length}`);
       });
 
-      document.getElementById('patch-add').addEventListener('native:press', () => {
+      document.getElementById('patch-add')?.addEventListener('native:press', () => {
         if (!currentPlanId) { logPatch('No active plan — execute a plan first', 'error'); return; }
         const childId = `added-${++patchCounter}`;
         const result = kernel.patchPlan({
@@ -826,7 +867,7 @@ import { effect } from "@nonoun/native-ui";
         logPatch(`add: "${childId}" → applied=${result.applied}, errors=${result.errors.length}`);
       });
 
-      document.getElementById('patch-remove').addEventListener('native:press', () => {
+      document.getElementById('patch-remove')?.addEventListener('native:press', () => {
         if (!currentPlanId) { logPatch('No active plan — execute a plan first', 'error'); return; }
         const result = kernel.patchPlan({
           planId: currentPlanId,
@@ -837,7 +878,7 @@ import { effect } from "@nonoun/native-ui";
         logPatch(`remove "description": applied=${result.applied}, errors=${result.errors.length}`, result.errors.length ? 'error' : 'cmd');
       });
 
-      document.getElementById('patch-attr').addEventListener('native:press', () => {
+      document.getElementById('patch-attr')?.addEventListener('native:press', () => {
         if (!currentPlanId) { logPatch('No active plan — execute a plan first', 'error'); return; }
         const result = kernel.patchPlan({
           planId: currentPlanId,
@@ -856,12 +897,12 @@ import { effect } from "@nonoun/native-ui";
         const entry = document.createElement('div');
         entry.className = `log-entry ${cls}`;
         entry.textContent = `[${new Date().toLocaleTimeString()}] ${text}`;
-        a11yLog.prepend(entry);
+        a11yLog?.prepend(entry);
       }
 
-      document.getElementById('a11y-check-plan').addEventListener('native:press', () => {
+      document.getElementById('a11y-check-plan')?.addEventListener('native:press', () => {
         try {
-          const plan = JSON.parse(planInput.value);
+          const plan = JSON.parse(planInput?.value);
           const result = kernel.validatePlanAccessibility(plan);
           logA11y(`Valid: ${result.valid} — ${result.violations.length} violation(s)`, result.valid ? 'cmd' : 'error');
           for (const v of result.violations) {
@@ -872,7 +913,7 @@ import { effect } from "@nonoun/native-ui";
         }
       });
 
-      document.getElementById('a11y-check-bad').addEventListener('native:press', () => {
+      document.getElementById('a11y-check-bad')?.addEventListener('native:press', () => {
         const badPlan = {
           id: 'bad-a11y', version: 1, source: 'generated', timestamp: Date.now(),
           root: {
@@ -890,7 +931,7 @@ import { effect } from "@nonoun/native-ui";
         }
       });
 
-      document.getElementById('a11y-audit-dom').addEventListener('native:press', () => {
+      document.getElementById('a11y-audit-dom')?.addEventListener('native:press', () => {
         const root = document.querySelector('.plan-output');
         if (!root || !root.firstElementChild) { logA11y('No rendered plan to audit', 'error'); return; }
         const result = auditDOM(root);
@@ -913,21 +954,21 @@ import { effect } from "@nonoun/native-ui";
 
       effect(() => { renderObsStatus(); });
 
-      document.getElementById('obs-show-log').addEventListener('native:press', () => {
+      document.getElementById('obs-show-log')?.addEventListener('native:press', () => {
         obsLog.innerHTML = '';
         const entries = kernel.log.query({ limit: 20 });
         for (const e of entries) {
           const div = document.createElement('div');
           div.className = `log-entry ${e.category === 'error' ? 'error' : e.category === 'command' ? 'cmd' : ''}`;
           div.textContent = `[${new Date(e.timestamp).toLocaleTimeString()}] [${e.category}] ${e.summary}`;
-          obsLog.appendChild(div);
+          obsLog?.appendChild(div);
         }
         if (entries.length === 0) {
           obsLog.innerHTML = '<div class="log-entry">No log entries yet.</div>';
         }
       });
 
-      document.getElementById('obs-show-perf').addEventListener('native:press', () => {
+      document.getElementById('obs-show-perf')?.addEventListener('native:press', () => {
         obsLog.innerHTML = '';
         const labels = new Set(kernel.perf.samples.value.map(s => s.label));
         for (const label of labels) {
@@ -936,14 +977,14 @@ import { effect } from "@nonoun/native-ui";
           const div = document.createElement('div');
           div.className = 'log-entry cmd';
           div.textContent = `${label}: count=${summary.count}, avg=${summary.avg.toFixed(2)}ms, min=${summary.min.toFixed(2)}ms, max=${summary.max.toFixed(2)}ms, p95=${summary.p95.toFixed(2)}ms`;
-          obsLog.appendChild(div);
+          obsLog?.appendChild(div);
         }
         if (labels.size === 0) {
           obsLog.innerHTML = '<div class="log-entry">No perf samples yet.</div>';
         }
       });
 
-      document.getElementById('obs-clear').addEventListener('native:press', () => {
+      document.getElementById('obs-clear')?.addEventListener('native:press', () => {
         kernel.log.clear();
         kernel.perf.clear();
         obsLog.innerHTML = '<div class="log-entry">Cleared.</div>';
@@ -978,7 +1019,7 @@ import { effect } from "@nonoun/native-ui";
         const entry = document.createElement('div');
         entry.className = `log-entry ${cls}`;
         entry.textContent = `[${new Date().toLocaleTimeString()}] ${text}`;
-        wfLog.prepend(entry);
+        wfLog?.prepend(entry);
       }
 
       kernel.bus.on('light.changed', () => {
@@ -995,12 +1036,12 @@ import { effect } from "@nonoun/native-ui";
         wfCyclesEl.textContent = String(wfEngine.getContext('cycles') ?? 0);
       });
 
-      document.getElementById('wf-start').addEventListener('native:press', () => {
+      document.getElementById('wf-start')?.addEventListener('native:press', () => {
         wfEngine.start();
         logWf(`Started → ${wfEngine.currentState.value}`);
       });
 
-      document.getElementById('wf-next').addEventListener('native:press', () => {
+      document.getElementById('wf-next')?.addEventListener('native:press', () => {
         const record = wfEngine.send('NEXT');
         if (record) {
           logWf(`Transition: ${record.from} → ${record.to} (event: ${record.event})`);
@@ -1009,12 +1050,12 @@ import { effect } from "@nonoun/native-ui";
         }
       });
 
-      document.getElementById('wf-stop').addEventListener('native:press', () => {
+      document.getElementById('wf-stop')?.addEventListener('native:press', () => {
         wfEngine.stop();
         logWf('Stopped', 'undo');
       });
 
-      document.getElementById('wf-snapshot').addEventListener('native:press', () => {
+      document.getElementById('wf-snapshot')?.addEventListener('native:press', () => {
         const snap = wfEngine.snapshot();
         logWf(`Snapshot: state=${snap.currentState}, history=${snap.history.length} transitions, context=${JSON.stringify(snap.context)}`);
       });
@@ -1031,7 +1072,7 @@ import { effect } from "@nonoun/native-ui";
         const entry = document.createElement('div');
         entry.className = `log-entry ${cls}`;
         entry.textContent = `[${new Date().toLocaleTimeString()}] ${text}`;
-        polLog.prepend(entry);
+        polLog?.prepend(entry);
       }
 
       effect(() => {
@@ -1040,20 +1081,20 @@ import { effect } from "@nonoun/native-ui";
         polLastEl.textContent = last ? (last.allowed ? 'ALLOW' : `DENY: ${last.reason}`) : '-';
       });
 
-      document.getElementById('pol-grant').addEventListener('native:press', () => {
+      document.getElementById('pol-grant')?.addEventListener('native:press', () => {
         if (adminCapId) { logPol('Already granted', 'undo'); return; }
         adminCapId = kernel.policy.grant({ name: 'admin', patterns: ['admin.*'] });
         logPol(`Granted "admin" capability (id: ${adminCapId})`);
       });
 
-      document.getElementById('pol-revoke').addEventListener('native:press', () => {
+      document.getElementById('pol-revoke')?.addEventListener('native:press', () => {
         if (!adminCapId) { logPol('No admin capability to revoke', 'undo'); return; }
         kernel.policy.revoke(adminCapId);
         logPol(`Revoked "admin" (id: ${adminCapId})`);
         adminCapId = null;
       });
 
-      document.getElementById('pol-deny-rule').addEventListener('native:press', () => {
+      document.getElementById('pol-deny-rule')?.addEventListener('native:press', () => {
         if (denyRuleId) { logPol('Deny rule already active', 'undo'); return; }
         denyRuleId = kernel.policy.addRule({
           effect: 'deny',
@@ -1064,7 +1105,7 @@ import { effect } from "@nonoun/native-ui";
         logPol(`Added deny rule for "secret.*" (id: ${denyRuleId})`);
       });
 
-      document.getElementById('pol-remove-rule').addEventListener('native:press', () => {
+      document.getElementById('pol-remove-rule')?.addEventListener('native:press', () => {
         if (!denyRuleId) { logPol('No deny rule to remove', 'undo'); return; }
         kernel.policy.removeRule(denyRuleId);
         logPol(`Removed deny rule (id: ${denyRuleId})`);
@@ -1075,12 +1116,12 @@ import { effect } from "@nonoun/native-ui";
       kernel.bus.on('admin.action', () => logPol('Handler: admin.action executed'));
       kernel.bus.on('secret.action', () => logPol('Handler: secret.action executed'));
 
-      document.getElementById('pol-dispatch-open').addEventListener('native:press', () => {
+      document.getElementById('pol-dispatch-open')?.addEventListener('native:press', () => {
         kernel.bus.dispatch('open.action', null);
         logPol('Dispatched open.action');
       });
 
-      document.getElementById('pol-dispatch-protected').addEventListener('native:press', () => {
+      document.getElementById('pol-dispatch-protected')?.addEventListener('native:press', () => {
         kernel.bus.dispatch('admin.action', null, { capabilities: ['admin'] });
         const last = kernel.policy.lastDecision.value;
         logPol(`Dispatched admin.action → ${last?.allowed ? 'ALLOWED' : 'DENIED'}`, last?.allowed ? 'cmd' : 'error');
@@ -1099,31 +1140,31 @@ import { effect } from "@nonoun/native-ui";
         const entry = document.createElement('div');
         entry.className = `log-entry ${cls}`;
         entry.textContent = `[${new Date().toLocaleTimeString()}] ${text}`;
-        ciLog.prepend(entry);
+        ciLog?.prepend(entry);
       }
 
-      document.getElementById('ci-show-manifest').addEventListener('native:press', () => {
+      document.getElementById('ci-show-manifest')?.addEventListener('native:press', () => {
         ciLog.innerHTML = '';
         for (const d of COMPONENT_MANIFEST) {
           const div = document.createElement('div');
           div.className = 'log-entry';
           div.textContent = `${d.tag} — ${d.category}, form: ${d.formAssociated}, events: [${d.events.join(', ')}]`;
-          ciLog.appendChild(div);
+          ciLog?.appendChild(div);
         }
       });
 
-      document.getElementById('ci-by-category').addEventListener('native:press', () => {
+      document.getElementById('ci-by-category')?.addEventListener('native:press', () => {
         ciLog.innerHTML = '';
         for (const cat of ['form', 'display', 'navigation', 'overlay', 'container']) {
           const items = getDescriptorsByCategory(cat);
           const div = document.createElement('div');
           div.className = 'log-entry cmd';
           div.textContent = `${cat} (${items.length}): ${items.map(d => d.tag).join(', ')}`;
-          ciLog.appendChild(div);
+          ciLog?.appendChild(div);
         }
       });
 
-      document.getElementById('ci-install-bridge').addEventListener('native:press', () => {
+      document.getElementById('ci-install-bridge')?.addEventListener('native:press', () => {
         if (bridgeDispose) {
           bridgeDispose();
           bridgeDispose = null;
@@ -1156,7 +1197,7 @@ import { effect } from "@nonoun/native-ui";
         const entry = document.createElement('div');
         entry.className = `log-entry ${cls}`;
         entry.textContent = `[${new Date().toLocaleTimeString()}] ${text}`;
-        wftLog.prepend(entry);
+        wftLog?.prepend(entry);
       }
 
       function startTemplate(name, def) {
@@ -1177,27 +1218,27 @@ import { effect } from "@nonoun/native-ui";
         });
       }
 
-      document.getElementById('wft-form-wizard').addEventListener('native:press', () => {
+      document.getElementById('wft-form-wizard')?.addEventListener('native:press', () => {
         const def = formWizard({ steps: ['personal', 'address', 'payment', 'review'] });
         startTemplate('Form Wizard', def);
       });
 
-      document.getElementById('wft-crud').addEventListener('native:press', () => {
+      document.getElementById('wft-crud')?.addEventListener('native:press', () => {
         const def = crudLifecycle({ allowDelete: true });
         startTemplate('CRUD Lifecycle', def);
       });
 
-      document.getElementById('wft-auth').addEventListener('native:press', () => {
+      document.getElementById('wft-auth')?.addEventListener('native:press', () => {
         const def = authFlow({ mfaRequired: true });
         startTemplate('Auth Flow (MFA)', def);
       });
 
-      document.getElementById('wft-toggle').addEventListener('native:press', () => {
+      document.getElementById('wft-toggle')?.addEventListener('native:press', () => {
         const def = toggleFlow();
         startTemplate('Toggle', def);
       });
 
-      document.getElementById('wft-send').addEventListener('native:press', () => {
+      document.getElementById('wft-send')?.addEventListener('native:press', () => {
         if (!wftEngine) return;
         const events = wftEngine.getAvailableEvents();
         if (events.length === 0) {
@@ -1214,7 +1255,7 @@ import { effect } from "@nonoun/native-ui";
         }
       });
 
-      document.getElementById('wft-stop').addEventListener('native:press', () => {
+      document.getElementById('wft-stop')?.addEventListener('native:press', () => {
         if (wftEngine) {
           wftEngine.stop();
           wftSendBtn.disabled = true;
@@ -1231,10 +1272,10 @@ import { effect } from "@nonoun/native-ui";
         const entry = document.createElement('div');
         entry.className = `log-entry ${cls}`;
         entry.textContent = text;
-        scLog.appendChild(entry);
+        scLog?.appendChild(entry);
       }
 
-      document.getElementById('sc-list-all').addEventListener('native:press', () => {
+      document.getElementById('sc-list-all')?.addEventListener('native:press', () => {
         scLog.innerHTML = '';
         for (const [tag, schema] of SCHEMA_CATALOG) {
           logSc(`${tag} [${schema.category}] — ${schema.description}`, 'cmd');
@@ -1297,9 +1338,9 @@ import { effect } from "@nonoun/native-ui";
         }
       }
 
-      document.getElementById('sc-inspect-button').addEventListener('native:press', () => inspectSchema('n-button'));
-      document.getElementById('sc-inspect-input').addEventListener('native:press', () => inspectSchema('n-input'));
-      document.getElementById('sc-inspect-select').addEventListener('native:press', () => inspectSchema('n-select'));
+      document.getElementById('sc-inspect-button')?.addEventListener('native:press', () => inspectSchema('n-button'));
+      document.getElementById('sc-inspect-input')?.addEventListener('native:press', () => inspectSchema('n-input'));
+      document.getElementById('sc-inspect-select')?.addEventListener('native:press', () => inspectSchema('n-select'));
 
       // ── GenUI Planner ──
 
@@ -1319,7 +1360,7 @@ import { effect } from "@nonoun/native-ui";
         const entry = document.createElement('div');
         entry.className = `log-entry ${cls}`;
         entry.textContent = `[${new Date().toLocaleTimeString()}] ${text}`;
-        gpLog.prepend(entry);
+        gpLog?.prepend(entry);
       }
 
       function showPlanResult(result) {
@@ -1334,7 +1375,7 @@ import { effect } from "@nonoun/native-ui";
         pre.className = 'log-entry';
         pre.textContent = JSON.stringify(result.plan, null, 2);
         pre.style.whiteSpace = 'pre-wrap';
-        gpPlanJson.appendChild(pre);
+        gpPlanJson?.appendChild(pre);
 
         if (result.warnings.length) {
           logGp(`Warnings:`, 'undo');
@@ -1367,9 +1408,10 @@ import { effect } from "@nonoun/native-ui";
         ],
       };
 
-      document.getElementById('gp-intent-input').value = JSON.stringify(defaultIntent, null, 2);
+      const gpIntentInput = document.getElementById('gp-intent-input');
+      if (gpIntentInput) gpIntentInput.value = JSON.stringify(defaultIntent, null, 2);
 
-      document.getElementById('gp-login-form').addEventListener('native:press', () => {
+      document.getElementById('gp-login-form')?.addEventListener('native:press', () => {
         const result = Planner.form([
           { name: 'Email', type: 'email', placeholder: 'name@example.com', required: true },
           { name: 'Password', type: 'password', placeholder: 'Enter password', required: true },
@@ -1378,7 +1420,7 @@ import { effect } from "@nonoun/native-ui";
         logGp('Generated: Login form (Planner.form)', 'success');
       });
 
-      document.getElementById('gp-contact-form').addEventListener('native:press', () => {
+      document.getElementById('gp-contact-form')?.addEventListener('native:press', () => {
         const result = Planner.form([
           { name: 'Full Name', type: 'text', placeholder: 'Your name', required: true },
           { name: 'Email', type: 'email', placeholder: 'name@example.com', required: true },
@@ -1393,7 +1435,7 @@ import { effect } from "@nonoun/native-ui";
         logGp('Generated: Contact form (Planner.form)', 'success');
       });
 
-      document.getElementById('gp-action-bar').addEventListener('native:press', () => {
+      document.getElementById('gp-action-bar')?.addEventListener('native:press', () => {
         const result = Planner.actions([
           { label: 'Save', command: 'doc.save', variant: 'primary', intent: 'accent' },
           { label: 'Preview', command: 'doc.preview', variant: 'secondary' },
@@ -1403,7 +1445,7 @@ import { effect } from "@nonoun/native-ui";
         logGp('Generated: Action bar (Planner.actions)', 'success');
       });
 
-      document.getElementById('gp-card').addEventListener('native:press', () => {
+      document.getElementById('gp-card')?.addEventListener('native:press', () => {
         const result = Planner.card({
           heading: 'Welcome to native-ui',
           body: 'A web component library with a pure CSS design system built on OKLCH color science, CSS custom property inheritance, and zero-specificity attribute selectors.',
@@ -1416,7 +1458,7 @@ import { effect } from "@nonoun/native-ui";
         logGp('Generated: Content card (Planner.card)', 'success');
       });
 
-      document.getElementById('gp-dialog').addEventListener('native:press', () => {
+      document.getElementById('gp-dialog')?.addEventListener('native:press', () => {
         const result = Planner.dialog({
           title: 'Delete Project?',
           body: 'This action cannot be undone. All files and settings will be permanently removed.',
@@ -1430,7 +1472,7 @@ import { effect } from "@nonoun/native-ui";
         logGp('Generated: Confirmation dialog (Planner.dialog)', 'success');
       });
 
-      document.getElementById('gp-settings').addEventListener('native:press', () => {
+      document.getElementById('gp-settings')?.addEventListener('native:press', () => {
         const result = Planner.settings([
           { label: 'Push notifications', name: 'push', description: 'Receive alerts for new messages and updates', checked: true, command: 'settings.push' },
           { label: 'Dark mode', name: 'dark-mode', description: 'Switch to a darker color scheme', command: 'settings.darkMode' },
@@ -1441,7 +1483,7 @@ import { effect } from "@nonoun/native-ui";
         logGp('Generated: Settings toggles (Planner.settings)', 'success');
       });
 
-      document.getElementById('gp-tabs').addEventListener('native:press', () => {
+      document.getElementById('gp-tabs')?.addEventListener('native:press', () => {
         const result = Planner.tabs([
           { label: 'Overview', value: 'overview', content: 'The Interaction OS Kernel provides command bus, undo/redo, focus routing, overlay management, and plan execution.' },
           { label: 'Components', value: 'components', content: '27 interactive components, 8 containers, and 22 composable traits — all built on native web standards.' },
@@ -1451,7 +1493,7 @@ import { effect } from "@nonoun/native-ui";
         logGp('Generated: Tab panel (Planner.tabs)', 'success');
       });
 
-      document.getElementById('gp-nav').addEventListener('native:press', () => {
+      document.getElementById('gp-nav')?.addEventListener('native:press', () => {
         const result = Planner.nav([
           { label: 'Dashboard', value: 'dashboard', icon: 'house', group: 'Main' },
           { label: 'Analytics', value: 'analytics', icon: 'chart-bar', group: 'Main' },
@@ -1464,9 +1506,9 @@ import { effect } from "@nonoun/native-ui";
         logGp('Generated: Navigation list (Planner.nav)', 'success');
       });
 
-      document.getElementById('gp-generate').addEventListener('native:press', () => {
+      document.getElementById('gp-generate')?.addEventListener('native:press', () => {
         try {
-          const intent = JSON.parse(document.getElementById('gp-intent-input').value);
+          const intent = JSON.parse(document.getElementById('gp-intent-input')?.value);
           const result = planner.generate(intent);
           showPlanResult(result);
           logGp('Generated plan from custom intent', 'success');
@@ -1475,7 +1517,7 @@ import { effect } from "@nonoun/native-ui";
         }
       });
 
-      document.getElementById('gp-execute').addEventListener('native:press', () => {
+      document.getElementById('gp-execute')?.addEventListener('native:press', () => {
         if (!gpLastResult) return;
         // Teardown previous
         if (gpCurrentPlanId) {
@@ -1492,6 +1534,7 @@ import { effect } from "@nonoun/native-ui";
           logGp(`Execution error: ${err.message}`, 'error');
         }
       });
+}); // end astro:page-load
   </script>
   <style is:global>
     .status-bar {
@@ -1505,10 +1548,6 @@ import { effect } from "@nonoun/native-ui";
 
     .status-bar .label {
       color: var(--n-ink-muted-neutral);
-    }
-
-    .status-bar n-text {
-      color: var(--n-ink-accent);
     }
 
     .kernel-row-gap {

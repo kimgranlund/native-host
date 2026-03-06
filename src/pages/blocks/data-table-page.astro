@@ -195,15 +195,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       if (!table) return;
       const body = table.querySelector('n-table-body');
       if (!body) return;
-      const columnMap: Record<string, number> = { name: 0, email: 1, role: 3 };
-      const searchInput = document.getElementById('table-search') as HTMLInputElement;
-      const statusFilter = document.getElementById('table-status-filter') as HTMLSelectElement;
-      const roleFilter = document.getElementById('table-role-filter') as HTMLSelectElement;
+      const columnMap = { name: 0, email: 1, role: 3 };
+      const searchInput = document.getElementById('table-search');
+      const statusFilter = document.getElementById('table-status-filter');
+      const roleFilter = document.getElementById('table-role-filter');
       const pagination = document.querySelector('n-pagination');
       const showingText = document.querySelector('.demo-text-sm');
 
       // Sort
-      table.addEventListener('native:table-sort', (e: any) => {
+      table.addEventListener('native:table-sort', (e) => {
         const { column, direction } = e.detail;
         if (direction === 'none') return;
         const colIndex = columnMap[column];
@@ -235,7 +235,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           const matchesStatus = status === 'all' || rowStatus === status;
           const matchesRole = role === 'all' || rowRole === role;
           const show = matchesSearch && matchesStatus && matchesRole;
-          (row as HTMLElement).style.display = show ? '' : 'none';
+          row.style.display = show ? '' : 'none';
           if (show) visible++;
         }
         if (showingText) showingText.textContent = `Showing ${visible} of ${rows.length} users`;
@@ -246,7 +246,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       roleFilter?.addEventListener('native:change', filterRows);
 
       // Pagination (decorative — updates label text)
-      pagination?.addEventListener('native:change', (e: any) => {
+      pagination?.addEventListener('native:change', (e) => {
         const page = e.detail.value;
         const perPage = 10;
         const start = (page - 1) * perPage + 1;

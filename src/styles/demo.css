@@ -11,42 +11,11 @@ body {
   color: var(--n-color-neutral-950);
 }
 
-main {
-  padding: 2rem;
-}
+/* Heading styles are in layout-blocks.css, scoped to n-app-panel.
+   main padding is handled by --n-app-panel-content-padding. */
 
-main p {
+n-app-panel main p {
   margin: 0;
-}
-
-h1 {
-  font-size: 2.25rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  margin-top: 0rem;
-  color: var(--n-ink-strong-neutral);
-}
-
-h2 {
-  font-size: 1rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  margin-top: 2rem;
-  color: var(--n-ink-strong-neutral);
-}
-
-h3 {
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 0.5rem;
-  margin-top: 1.5rem;
-  color: var(--n-ink-muted-neutral);
-}
-
-h3:first-child {
-  margin-top: 0;
 }
 
 /* ── Demo Sections ── */

@@ -27,7 +27,8 @@ import Logo from '../../components/Logo.astro';
             <Logo size={48} />
           </div>
           <p class="auth-heading">Log in to NativeUI</p>
-          <n-stack gap="4" class="auth-provider-stack">
+          <div class="auth-provider-stack">
+          <n-stack gap="4">
             <n-button variant="primary" intent="accent" size="lg">
               <n-icon name="google-logo" slot="leading"></n-icon>
               <span slot="label">Continue with Google</span>
@@ -45,6 +46,7 @@ import Logo from '../../components/Logo.astro';
               <span slot="label">Log in with passkey</span>
             </n-button>
           </n-stack>
+          </div>
           <p class="auth-footer-text">
             Don't have an account? <a href="#">Sign up</a> or <a href="#">learn more</a>
           </p>
@@ -65,42 +67,44 @@ import Logo from '../../components/Logo.astro';
           <p class="auth-subheading">Sign in to your account to continue</p>
           <div class="auth-card">
             <n-card>
-              <n-stack gap="8">
-                <form>
-                  <n-stack gap="6">
-                    <n-field required>
-                      <label slot="label">Email</label>
-                      <n-input type="email" placeholder="kim@example.com" name="email">
-                        <n-icon name="envelope" slot="leading"></n-icon>
-                      </n-input>
-                    </n-field>
-                    <n-field required>
-                      <label slot="label">Password</label>
-                      <n-input type="password" placeholder="Enter your password" name="password">
-                        <n-icon name="lock" slot="leading"></n-icon>
-                      </n-input>
-                    </n-field>
-                    <div class="auth-row-between">
-                      <n-checkbox name="remember">Remember me</n-checkbox>
-                      <a href="#" class="auth-forgot-link">Forgot password?</a>
-                    </div>
-                    <n-button variant="primary" intent="accent" type="submit">
-                      <span slot="label">Sign In</span>
+              <n-body>
+                <n-stack gap="8">
+                  <form>
+                    <n-stack gap="6">
+                      <n-field required>
+                        <label slot="label">Email</label>
+                        <n-input type="email" placeholder="kim@example.com" name="email">
+                          <n-icon name="envelope" slot="leading"></n-icon>
+                        </n-input>
+                      </n-field>
+                      <n-field required>
+                        <label slot="label">Password</label>
+                        <n-input type="password" placeholder="Enter your password" name="password">
+                          <n-icon name="lock" slot="leading"></n-icon>
+                        </n-input>
+                      </n-field>
+                      <div class="auth-row-between">
+                        <n-checkbox name="remember">Remember me</n-checkbox>
+                        <a href="#" class="auth-forgot-link">Forgot password?</a>
+                      </div>
+                      <n-button variant="primary" intent="accent" type="submit">
+                        <span slot="label">Sign In</span>
+                      </n-button>
+                    </n-stack>
+                  </form>
+                  <n-divider>or continue with</n-divider>
+                  <div class="oauth-row">
+                    <n-button>
+                      <n-icon name="google-logo" slot="leading"></n-icon>
+                      <span slot="label">Google</span>
                     </n-button>
-                  </n-stack>
-                </form>
-                <n-divider>or continue with</n-divider>
-                <div class="oauth-row">
-                  <n-button>
-                    <n-icon name="google-logo" slot="leading"></n-icon>
-                    <span slot="label">Google</span>
-                  </n-button>
-                  <n-button>
-                    <n-icon name="github-logo" slot="leading"></n-icon>
-                    <span slot="label">GitHub</span>
-                  </n-button>
-                </div>
-              </n-stack>
+                    <n-button>
+                      <n-icon name="github-logo" slot="leading"></n-icon>
+                      <span slot="label">GitHub</span>
+                    </n-button>
+                  </div>
+                </n-stack>
+              </n-body>
             </n-card>
           </div>
           <p class="auth-footer-text">

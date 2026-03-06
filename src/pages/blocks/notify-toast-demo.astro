@@ -119,12 +119,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
     // Custom element with ToastController to host toast calls
     class ToastDemo extends NativeElement {
-      #toaster: ToastController;
+      #toaster;
       setup() {
         super.setup();
         this.#toaster = new ToastController(this);
       }
-      toast(options: any) { return this.#toaster.toast(options); }
+      toast(options) { return this.#toaster.toast(options); }
       dismissAllToasts() { this.#toaster.dismissAllToasts(); }
       teardown() { this.#toaster.destroy(); super.teardown(); }
     }
@@ -133,7 +133,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     document.addEventListener('astro:page-load', () => {
       if (!document.getElementById('toast-default')) return;
 
-      const host = document.createElement('toast-demo') as ToastDemo;
+      const host = document.createElement('toast-demo');
       document.body.appendChild(host);
 
       // Intent variant buttons

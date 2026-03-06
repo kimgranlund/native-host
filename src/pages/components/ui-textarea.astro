@@ -196,7 +196,7 @@ const codeExamples = {
 
     <n-panel bordered size="sm">
       <h3>Keyboard Shortcuts</h3>
-      <n-table class="shortcuts-table" variant="plain" size="sm">
+      <n-table variant="plain" size="sm" cols="auto auto auto">
         <n-table-head>
           <n-table-row>
             <n-table-header>Format</n-table-header>
@@ -222,9 +222,9 @@ const codeExamples = {
           </n-table-row>
         </n-table-body>
       </n-table>
-      <n-text class="hint" size="xs" muted>
+      <div class="hint"><n-text size="xs" muted>
         Programmatic API: <code>textarea.applyFormat('code')</code> — wraps the current selection. Also works with <code>'bold'</code> and <code>'italic'</code>.
-      </n-text>
+      </n-text></div>
     </n-panel>
 
     <!-- ── Maxlength ── -->
@@ -237,7 +237,7 @@ const codeExamples = {
         <span slot="description">100 character limit</span>
         <span slot="error">Exceeds maximum length</span>
       </n-field>
-      <n-text class="hint" size="xs" muted>Reports <code>tooLong</code> via the Constraint Validation API when the limit is exceeded. The value is not truncated.</n-text>
+      <div class="hint"><n-text size="xs" muted>Reports <code>tooLong</code> via the Constraint Validation API when the limit is exceeded. The value is not truncated.</n-text></div>
         <pre class="layout-code"><code>&lt;n-field&gt;
   &lt;label slot="label"&gt;Bio&lt;/label&gt;
   &lt;n-textarea placeholder="Max 100 characters..." maxlength="100"&gt;&lt;/n-textarea&gt;
@@ -345,10 +345,10 @@ const codeExamples = {
     <h2>Form Association</h2>
     <n-panel bordered>
       <form id="demo-form">
-        <n-stack class="form-fields" gap="3">
+        <div class="form-fields"><n-stack gap="3">
           <n-textarea name="bio" placeholder="Write your bio..."></n-textarea>
           <n-textarea name="notes" placeholder="Additional notes..." rows="2"></n-textarea>
-        </n-stack>
+        </n-stack></div>
         <n-stack direction="row">
           <n-button variant="primary" type="submit"><span slot="label">Submit</span></n-button>
           <n-button variant="secondary" type="reset"><span slot="label">Reset</span></n-button>
@@ -457,7 +457,6 @@ import { logPrepend } from '../../scripts/event-log';
       });
   </script>
   <style is:global>
-    .shortcuts-table { grid-template-columns: auto auto auto; }
     .hint { margin-top: 0.5rem; }
     .form-fields { margin-bottom: 0.75rem; }
   </style>

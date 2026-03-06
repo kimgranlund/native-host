@@ -336,7 +336,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       <n-text size="xs" muted spacing="regular">
         Header row stays fixed when scrolling vertically. Requires constrained height on the table.
       </n-text>
-      <n-table class="sticky-demo" sticky-header cols="1fr 1fr 100px">
+      <div class="sticky-demo"><n-table sticky-header cols="1fr 1fr 100px">
         <n-table-head>
           <n-table-row>
             <n-table-header>Name</n-table-header>
@@ -346,7 +346,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         </n-table-head>
         <n-table-body id="sticky-body">
         </n-table-body>
-      </n-table>
+      </n-table></div>
     <pre class="layout-code"><code>&lt;n-table sticky-header style="grid-template-columns: 1fr 1fr 100px; max-height: 200px;"&gt;
   &lt;n-table-head&gt;
     &lt;n-table-row&gt;
@@ -362,7 +362,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <!-- ── Sticky Column ── -->
 
     <h2>Sticky Column</h2>
-    <n-panel class="sticky-col-panel" bordered>
+    <div class="sticky-col-panel"><n-panel bordered>
       <n-text size="xs" muted spacing="regular">
         First column stays fixed when scrolling horizontally. Requires constrained width.
       </n-text>
@@ -411,7 +411,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   &lt;/n-table-head&gt;
   &lt;n-table-body&gt;...&lt;/n-table-body&gt;
 &lt;/n-table&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-panel></div>
 
     <!-- ── Sticky Colspan Rows ── -->
 
@@ -421,7 +421,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         Section headers stick below the table header as you scroll, like iOS section headers.
         Each section header pushes the previous one up.
       </n-text>
-      <n-table class="sticky-colspan-demo" sticky-header cols="2fr 1fr 80px">
+      <div class="sticky-colspan-demo"><n-table sticky-header cols="2fr 1fr 80px">
         <n-table-head>
           <n-table-row>
             <n-table-header>Name</n-table-header>
@@ -431,7 +431,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         </n-table-head>
         <n-table-body id="sticky-colspan-body">
         </n-table-body>
-      </n-table>
+      </n-table></div>
     <pre class="layout-code"><code>&lt;n-table sticky-header style="grid-template-columns: 2fr 1fr 80px; max-height: 280px;"&gt;
   &lt;n-table-body&gt;
     &lt;n-table-row colspan sticky&gt;
@@ -828,15 +828,15 @@ import { logPrepend } from '../../scripts/event-log';
       });
   </script>
   <style is:global>
-    h3:first-child {
+    n-app-panel h3:first-child {
       margin-top: 0;
     }
 
 
 
-    .sticky-demo { max-height: 200px; }
+    .sticky-demo n-table { max-height: 200px; }
     .sticky-col-panel { max-width: 400px; }
-    .sticky-colspan-demo { max-height: 280px; }
+    .sticky-colspan-demo n-table { max-height: 280px; }
 
     /* ── Code Blocks ── */
 </style>

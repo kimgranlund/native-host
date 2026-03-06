@@ -31,21 +31,23 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           </p>
           <div class="auth-card">
             <n-card>
-              <n-stack gap="8">
-                <form>
-                  <n-stack gap="6">
-                    <div class="otp-center">
-                      <n-input-otp name="otp" length="6"></n-input-otp>
-                    </div>
-                    <n-button variant="primary" intent="accent" type="submit">
-                      <span slot="label">Verify</span>
-                    </n-button>
-                  </n-stack>
-                </form>
-                <p class="auth-resend-text">
-                  Didn't receive a code? <button class="auth-resend-link" type="button">Resend code</button>
-                </p>
-              </n-stack>
+              <n-body>
+                <n-stack gap="8">
+                  <form>
+                    <n-stack gap="6">
+                      <div class="otp-center">
+                        <n-input-otp name="otp" length="6"></n-input-otp>
+                      </div>
+                      <n-button variant="primary" intent="accent" type="submit">
+                        <span slot="label">Verify</span>
+                      </n-button>
+                    </n-stack>
+                  </form>
+                  <p class="auth-resend-text">
+                    Didn't receive a code? <button class="auth-resend-link" type="button">Resend code</button>
+                  </p>
+                </n-stack>
+              </n-body>
             </n-card>
           </div>
           <a href="#" class="auth-back-link">

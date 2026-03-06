@@ -12,20 +12,22 @@ if (!Astro.locals.user) return Astro.redirect('/auth/login');
       <p class="settings-status" id="danger-status"></p>
 
       <n-card intent="danger">
-        <n-stack direction="row" align="center" gap="4" wrap padding="4">
-          <div class="danger-zone-text">
-            <n-stack gap="1">
-              <n-text size="sm" strong>Delete account</n-text>
-              <n-text size="xs" muted>
-                Permanently remove your account and all associated data. This action cannot be undone.
-              </n-text>
-            </n-stack>
-          </div>
-          <n-button variant="primary" intent="danger" id="delete-account-btn">
-            <n-icon name="trash" slot="leading"></n-icon>
-            <span slot="label">Delete Account</span>
-          </n-button>
-        </n-stack>
+        <n-body>
+          <n-stack direction="row" align="center" gap="4" wrap padding="4">
+            <div class="danger-zone-text">
+              <n-stack gap="1">
+                <n-text size="sm" strong>Delete account</n-text>
+                <n-text size="xs" muted>
+                  Permanently remove your account and all associated data. This action cannot be undone.
+                </n-text>
+              </n-stack>
+            </div>
+            <n-button variant="primary" intent="danger" id="delete-account-btn">
+              <n-icon name="trash" slot="leading"></n-icon>
+              <span slot="label">Delete Account</span>
+            </n-button>
+          </n-stack>
+        </n-body>
       </n-card>
     </n-section>
   </AccountLayout>
@@ -60,11 +62,11 @@ if (!Astro.locals.user) return Astro.redirect('/auth/login');
     const deleteBtn = document.getElementById('delete-account-btn');
     if (!deleteBtn) return;
 
-    const dialog = document.getElementById('delete-confirm-dialog') as HTMLElement & { showModal(): void; close(): void } | null;
+    const dialog = document.getElementById('delete-confirm-dialog');
     const cancelBtn = document.getElementById('delete-cancel');
     const confirmBtn = document.getElementById('delete-confirm');
 
-    function showStatus(msg: string, isError: boolean) {
+    function showStatus(msg, isError) {
       const el = document.getElementById('danger-status');
       if (!el) return;
       el.textContent = msg;

@@ -22,13 +22,15 @@ const hasCredential = linkedAccounts.some(a => a.providerId === 'credential');
 
         <n-stack gap="2">
           <n-card padding="tight">
-            <n-stack direction="row" align="center" gap="3" padding="3">
-              <n-icon name="google-logo" size="md"></n-icon>
-              <n-stack gap="0">
-                <n-text size="sm" strong>Google</n-text>
-                <n-text size="xs" muted>{hasGoogle ? 'Connected' : 'Not connected'}</n-text>
+            <n-body>
+              <n-stack direction="row" align="center" gap="3" padding="3">
+                <n-icon name="google-logo" size="md"></n-icon>
+                <n-stack gap="0">
+                  <n-text size="sm" strong>Google</n-text>
+                  <n-text size="xs" muted>{hasGoogle ? 'Connected' : 'Not connected'}</n-text>
+                </n-stack>
               </n-stack>
-            </n-stack>
+            </n-body>
           </n-card>
         </n-stack>
       </n-section>
@@ -72,10 +74,10 @@ const hasCredential = linkedAccounts.some(a => a.providerId === 'credential');
   import { authClient } from '../../lib/auth-client';
 
   document.addEventListener('astro:page-load', () => {
-    const form = document.getElementById('password-form') as HTMLFormElement | null;
+    const form = document.getElementById('password-form');
     if (!form) return;
 
-    function showStatus(msg: string, isError: boolean) {
+    function showStatus(msg, isError) {
       const el = document.getElementById('password-status');
       if (!el) return;
       el.textContent = msg;
@@ -88,8 +90,8 @@ const hasCredential = linkedAccounts.some(a => a.providerId === 'credential');
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const data = new FormData(form);
-      const currentPassword = data.get('currentPassword') as string;
-      const newPassword = data.get('newPassword') as string;
+      const currentPassword = data.get('currentPassword');
+      const newPassword = data.get('newPassword');
       const result = await authClient.changePassword({ currentPassword, newPassword });
       if (result.error) {
         showStatus(result.error.message || 'Password update failed.', true);

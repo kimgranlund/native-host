@@ -37,7 +37,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           <div class="stat-value">$45,231.89</div>
           <div class="stat-change">
             <n-badge intent="success">
-              <n-icon name="trend-up" class="trend-icon"></n-icon>
+              <span class="trend-icon"><n-icon name="trend-up"></n-icon></span>
               +20.1%
             </n-badge>
             <span class="stat-change-label">from last month</span>
@@ -54,7 +54,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           <div class="stat-value">2,350</div>
           <div class="stat-change">
             <n-badge intent="success">
-              <n-icon name="trend-up" class="trend-icon"></n-icon>
+              <span class="trend-icon"><n-icon name="trend-up"></n-icon></span>
               +180
             </n-badge>
             <span class="stat-change-label">this week</span>
@@ -71,7 +71,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           <div class="stat-value">12,234</div>
           <div class="stat-change">
             <n-badge intent="success">
-              <n-icon name="trend-up" class="trend-icon"></n-icon>
+              <span class="trend-icon"><n-icon name="trend-up"></n-icon></span>
               +19%
             </n-badge>
             <span class="stat-change-label">from last month</span>
@@ -88,7 +88,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           <div class="stat-value">3.2%</div>
           <div class="stat-change">
             <n-badge intent="danger">
-              <n-icon name="trend-down" class="trend-icon"></n-icon>
+              <span class="trend-icon"><n-icon name="trend-down"></n-icon></span>
               -0.4%
             </n-badge>
             <span class="stat-change-label">from last month</span>
@@ -429,6 +429,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     }
 
     .trend-icon {
+      display: inline-flex;
       width: 0.75rem;
       height: 0.75rem;
     }
@@ -577,7 +578,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
     /* ── Table Section ── */
 
-    n-footer {
+    :where(n-footer) {
       display: flex;
       align-items: center;
       justify-content: space-between;

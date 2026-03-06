@@ -235,7 +235,7 @@ function wireSidebar(layout: HTMLElement) {
 
   const uiCommand = dialog?.querySelector('n-command');
   uiCommand?.addEventListener('native:change', ((e: CustomEvent) => {
-    dialog!.close();
+    dialog?.close();
     navigate(e.detail.value);
   }) as EventListener);
 

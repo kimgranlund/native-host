@@ -115,7 +115,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       </div>
 
       <div class="faq-no-results" id="faq-no-results" hidden>
-        <n-icon name="magnifying-glass" size="lg" class="faq-no-results-icon"></n-icon>
+        <span class="faq-no-results-icon"><n-icon name="magnifying-glass" size="lg"></n-icon></span>
         <p>No matching questions found.</p>
       </div>
     </div>
@@ -131,23 +131,21 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       const noResults = document.getElementById('faq-no-results');
 
       searchInput.addEventListener('input', () => {
-        const query = (searchInput as HTMLInputElement).value.toLowerCase().trim();
+        const query = searchInput.value.toLowerCase().trim();
         let visibleCount = 0;
 
         items.forEach((item) => {
-          const el = item as HTMLElement;
-          const heading = el.querySelector('[slot="heading"]')?.textContent?.toLowerCase() || '';
-          const body = el.querySelector('p')?.textContent?.toLowerCase() || '';
+          const heading = item.querySelector('[slot="heading"]')?.textContent?.toLowerCase() || '';
+          const body = item.querySelector('p')?.textContent?.toLowerCase() || '';
           const matches = !query || heading.includes(query) || body.includes(query);
-          el.style.display = matches ? '' : 'none';
+          item.style.display = matches ? '' : 'none';
           if (matches) visibleCount++;
         });
 
         // Show/hide entire categories based on whether they have visible items
         categories.forEach((cat) => {
-          const catEl = cat as HTMLElement;
-          const hasVisible = catEl.querySelector('[data-faq]:not([style*="display: none"])');
-          catEl.style.display = hasVisible ? '' : 'none';
+          const hasVisible = cat.querySelector('[data-faq]:not([style*="display: none"])');
+          cat.style.display = hasVisible ? '' : 'none';
         });
 
         if (noResults) noResults.hidden = visibleCount > 0;
@@ -186,6 +184,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     }
 
     .faq-no-results-icon {
+      display: inline-flex;
       color: var(--n-ink-muted-neutral);
       margin-bottom: 0.5rem;
     }

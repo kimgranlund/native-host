@@ -9,42 +9,58 @@ if (Astro.locals.user) return Astro.redirect('/blocks/data-dashboard-stats');
     @import '../styles/layout.css';
   </style>
 
-  <n-stack class="login-screen" align="center" justify="center">
-    <div class="login-card">
-      <n-stack align="center" class="login-logo">
-        <Logo size={48} />
-      </n-stack>
-      <n-text size="lg" strong class="login-heading">Log in to NativeUI</n-text>
-      <n-text size="sm" muted class="login-subheading">Choose a method to continue</n-text>
+  <div class="login-screen">
+    <n-stack align="center" justify="center">
+      <div class="login-card">
+        <div class="login-logo">
+          <n-stack align="center">
+            <Logo size={48} />
+          </n-stack>
+        </div>
+        <div class="login-heading">
+          <n-text size="lg" strong>Log in to NativeUI</n-text>
+        </div>
+        <div class="login-subheading">
+          <n-text size="sm" muted>Choose a method to continue</n-text>
+        </div>
 
-      <n-stack gap="3" class="login-buttons">
-        <n-button variant="primary" intent="accent" size="lg" id="google-login">
-          <n-icon name="google-logo" slot="leading"></n-icon>
-          <span slot="label">Continue with Google</span>
-        </n-button>
-        <n-button size="lg" id="email-login">
-          <n-icon name="envelope" slot="leading"></n-icon>
-          <span slot="label">Continue with email</span>
-        </n-button>
-      </n-stack>
+        <div class="login-buttons">
+          <n-stack gap="3">
+            <n-button variant="primary" intent="accent" size="lg" id="google-login">
+              <n-icon name="google-logo" slot="leading"></n-icon>
+              <span slot="label">Continue with Google</span>
+            </n-button>
+            <n-button size="lg" id="email-login">
+              <n-icon name="envelope" slot="leading"></n-icon>
+              <span slot="label">Continue with email</span>
+            </n-button>
+          </n-stack>
+        </div>
 
-      <div class="login-divider-wrap">
-        <n-divider>or</n-divider>
+        <div class="login-divider-wrap">
+          <n-divider>or</n-divider>
+        </div>
+
+        <div class="login-skip">
+          <n-button size="lg" id="skip-login">
+            <span slot="label">Skip</span>
+          </n-button>
+        </div>
+
+        <div class="login-footer">
+          <n-text size="sm" muted>
+            Don't have an account? <a href="/auth/register">Sign up</a>
+          </n-text>
+        </div>
       </div>
 
-      <n-button size="lg" id="skip-login" class="login-skip">
-        <span slot="label">Skip</span>
-      </n-button>
-
-      <n-text size="sm" muted class="login-footer">
-        Don't have an account? <a href="/auth/register">Sign up</a>
-      </n-text>
-    </div>
-
-    <n-text size="xs" muted class="login-legal">
-      By continuing, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
-    </n-text>
-  </n-stack>
+      <div class="login-legal">
+        <n-text size="xs" muted>
+          By continuing, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+        </n-text>
+      </div>
+    </n-stack>
+  </div>
 
   <script>
     import { authClient } from '../lib/auth-client';
@@ -118,7 +134,7 @@ if (Astro.locals.user) return Astro.redirect('/blocks/data-dashboard-stats');
     }
 
     .login-skip {
-      width: 100%;
+      display: grid;
     }
 
     .login-legal {

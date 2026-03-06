@@ -193,13 +193,13 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         const board = document.getElementById('kanban-board');
         if (!board || board.hasAttribute('data-wired')) return;
         board.setAttribute('data-wired', '');
-        const filterInput = document.querySelector('#kanban-filter') as HTMLInputElement;
+        const filterInput = document.querySelector('#kanban-filter');
 
         filterInput?.addEventListener('input', () => {
           const query = (filterInput.value || '').toLowerCase();
           for (const card of board.querySelectorAll('.kanban-card')) {
             const title = card.querySelector('.kanban-card-title')?.textContent?.toLowerCase() || '';
-            (card as HTMLElement).style.display = title.includes(query) ? '' : 'none';
+            card.style.display = title.includes(query) ? '' : 'none';
           }
           updateCounts();
         });
@@ -208,13 +208,13 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           board.querySelectorAll('.kanban-column').forEach((col) => {
             const cards = col.querySelectorAll('.kanban-card');
             let count = 0;
-            for (const c of cards) if ((c as HTMLElement).style.display !== 'none') count++;
+            for (const c of cards) if (c.style.display !== 'none') count++;
             const badge = col.querySelector('.kanban-column-header n-badge');
             if (badge) badge.textContent = String(count);
           });
         }
 
-        board.addEventListener('native:drop', ((e: CustomEvent) => {
+        board.addEventListener('native:drop', (e) => {
           const { item, insertBefore, targetZone } = e.detail;
           if (!item) return;
           if (insertBefore) {
@@ -223,7 +223,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
             targetZone.appendChild(item);
           }
           updateCounts();
-        }) as EventListener);
+        });
       });
     }
 

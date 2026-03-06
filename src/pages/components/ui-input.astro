@@ -167,7 +167,7 @@ const codeExamples = {
 
       <h3>Ghost input inside a container</h3>
       <div class="search-container">
-        <n-icon name="magnifying-glass" class="search-icon"></n-icon>
+        <span class="search-icon"><n-icon name="magnifying-glass"></n-icon></span>
         <div class="search-input"><n-input variant="ghost" placeholder="Search inside container..."></n-input></div>
       </div>
     </n-panel>
@@ -252,7 +252,7 @@ const codeExamples = {
     <h2>Inline</h2>
     <n-panel bordered size="sm">
       <p class="inline-demo-text">
-        Enter your name: <n-input inline placeholder="Name" class="inline-input"></n-input> and submit.
+        Enter your name: <span class="inline-input"><n-input inline placeholder="Name"></n-input></span> and submit.
       </p>
       <n-text size="xs" muted>
         The <code>inline</code> attribute restores shrink-wrap sizing for inputs placed inline with text.
@@ -303,7 +303,7 @@ const codeExamples = {
     <h2>Form Association</h2>
     <n-panel bordered size="sm">
       <form id="demo-form">
-        <n-stack class="form-fields">
+        <div class="form-fields"><n-stack>
           <n-input name="username" placeholder="Username">
             <n-icon name="user" slot="leading"></n-icon>
           </n-input>
@@ -313,7 +313,7 @@ const codeExamples = {
           <n-input name="message" placeholder="Message">
             <n-icon name="pencil-simple" slot="leading"></n-icon>
           </n-input>
-        </n-stack>
+        </n-stack></div>
         <n-stack direction="row" wrap align="center">
           <n-button variant="primary" type="submit"><span slot="label">Submit</span></n-button>
           <n-button variant="secondary" type="reset"><span slot="label">Reset</span></n-button>
@@ -341,7 +341,7 @@ const codeExamples = {
         Wrap in <code>n-field</code> to show the error slot on invalid input.
       </n-text>
       <form id="validation-form" novalidate>
-        <n-stack gap="4" class="form-fields">
+        <div class="form-fields"><n-stack gap="4">
           <n-field>
             <label slot="label">Email</label>
             <n-input name="email" pattern="[^@]+@[^@]+\.[^@]+" required placeholder="you@example.com">
@@ -356,7 +356,7 @@ const codeExamples = {
             </n-input>
             <span slot="error">Enter a valid phone number (7+ digits)</span>
           </n-field>
-        </n-stack>
+        </n-stack></div>
         <n-stack direction="row" wrap align="center">
           <n-button variant="primary" type="submit"><span slot="label">Submit</span></n-button>
           <n-button variant="secondary" type="reset"><span slot="label">Reset</span></n-button>
@@ -519,8 +519,9 @@ import { logPrepend } from '../../scripts/event-log';
       align-items: center;
       gap: 0.5rem;
     }
-    .search-container .search-icon {
+    .search-icon {
       color: var(--n-ink-muted-neutral);
+      display: flex;
     }
     .search-container .search-input {
       flex: 1;
@@ -530,6 +531,7 @@ import { logPrepend } from '../../scripts/event-log';
       font-size: 0.875rem;
     }
     .inline-input {
+      display: inline-block;
       width: 12rem;
     }
     .form-fields {

@@ -22,7 +22,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       <!-- ── Sidebar: Tree Navigation ── -->
       <aside class="browser-sidebar">
         <div class="browser-sidebar-header">
-          <n-icon name="folder" class="browser-brand-icon"></n-icon>
+          <span class="browser-brand-icon"><n-icon name="folder"></n-icon></span>
           <span class="browser-project-name">my-project</span>
         </div>
         <n-tree id="file-tree">
@@ -275,6 +275,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     }
 
     .browser-brand-icon {
+      display: inline-flex;
       color: var(--n-ink-strong-accent);
     }
 </style>

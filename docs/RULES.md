@@ -2,6 +2,14 @@
 
 Concise reference for coding agents working on the native-host Astro project. Read this before writing or modifying any page.
 
+## Design Principles
+
+These come before every other rule. They define the project's relationship with native-ui.
+
+**P0 — Dogfood native-ui components.** Always reach for a native-ui component before writing custom HTML/CSS. You can only do this well if you keep the library's component index in memory and context — read `../native-ui/docs/` when unsure what's available.
+
+**P0 — Integrate via the component API, not raw CSS.** Configure native-ui components exclusively through their attribute API (`size`, `variant`, `intent`, `muted`, `spacing`, `bordered`, `cols`, `align`, etc.) and CSS custom properties (`--n-*`). Never override a component's appearance with raw CSS selectors or inline styles. If the API doesn't expose what you need, file a ticket — don't work around it.
+
 ## Hard Rules
 
 These are non-negotiable. Violating any of them will break the build or the UI.

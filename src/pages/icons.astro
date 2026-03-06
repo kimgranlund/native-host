@@ -20,66 +20,86 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
     <h2>Basic Icons</h2>
     <n-panel bordered>
       <n-stack direction="row" wrap align="center" gap="3">
-        <n-card inline padding="tight" class="icon-card-wrap">
-          <n-stack align="center" gap="1">
-          <n-icon name="house"></n-icon>
-          <n-text size="xs" muted class="icon-mono">house</n-text>
-          </n-stack>
-        </n-card>
-        <n-card inline padding="tight" class="icon-card-wrap">
-          <n-stack align="center" gap="1">
-          <n-icon name="gear"></n-icon>
-          <n-text size="xs" muted class="icon-mono">gear</n-text>
-          </n-stack>
-        </n-card>
-        <n-card inline padding="tight" class="icon-card-wrap">
-          <n-stack align="center" gap="1">
-          <n-icon name="bell"></n-icon>
-          <n-text size="xs" muted class="icon-mono">bell</n-text>
-          </n-stack>
-        </n-card>
-        <n-card inline padding="tight" class="icon-card-wrap">
-          <n-stack align="center" gap="1">
-          <n-icon name="magnifying-glass"></n-icon>
-          <n-text size="xs" muted class="icon-mono">magnifying-glass</n-text>
-          </n-stack>
-        </n-card>
-        <n-card inline padding="tight" class="icon-card-wrap">
-          <n-stack align="center" gap="1">
-          <n-icon name="heart"></n-icon>
-          <n-text size="xs" muted class="icon-mono">heart</n-text>
-          </n-stack>
-        </n-card>
-        <n-card inline padding="tight" class="icon-card-wrap">
-          <n-stack align="center" gap="1">
-          <n-icon name="star"></n-icon>
-          <n-text size="xs" muted class="icon-mono">star</n-text>
-          </n-stack>
-        </n-card>
-        <n-card inline padding="tight" class="icon-card-wrap">
-          <n-stack align="center" gap="1">
-          <n-icon name="check"></n-icon>
-          <n-text size="xs" muted class="icon-mono">check</n-text>
-          </n-stack>
-        </n-card>
-        <n-card inline padding="tight" class="icon-card-wrap">
-          <n-stack align="center" gap="1">
-          <n-icon name="x"></n-icon>
-          <n-text size="xs" muted class="icon-mono">x</n-text>
-          </n-stack>
-        </n-card>
-        <n-card inline padding="tight" class="icon-card-wrap">
-          <n-stack align="center" gap="1">
-          <n-icon name="trash"></n-icon>
-          <n-text size="xs" muted class="icon-mono">trash</n-text>
-          </n-stack>
-        </n-card>
-        <n-card inline padding="tight" class="icon-card-wrap">
-          <n-stack align="center" gap="1">
-          <n-icon name="pencil-simple"></n-icon>
-          <n-text size="xs" muted class="icon-mono">pencil-simple</n-text>
-          </n-stack>
-        </n-card>
+        <div class="icon-card-wrap">
+          <n-card inline padding="tight"><n-body>
+            <n-stack align="center" gap="1">
+              <n-icon name="house"></n-icon>
+              <n-text size="xs" muted><code>house</code></n-text>
+            </n-stack>
+          </n-body></n-card>
+        </div>
+        <div class="icon-card-wrap">
+          <n-card inline padding="tight"><n-body>
+            <n-stack align="center" gap="1">
+              <n-icon name="gear"></n-icon>
+              <n-text size="xs" muted><code>gear</code></n-text>
+            </n-stack>
+          </n-body></n-card>
+        </div>
+        <div class="icon-card-wrap">
+          <n-card inline padding="tight"><n-body>
+            <n-stack align="center" gap="1">
+              <n-icon name="bell"></n-icon>
+              <n-text size="xs" muted><code>bell</code></n-text>
+            </n-stack>
+          </n-body></n-card>
+        </div>
+        <div class="icon-card-wrap">
+          <n-card inline padding="tight"><n-body>
+            <n-stack align="center" gap="1">
+              <n-icon name="magnifying-glass"></n-icon>
+              <n-text size="xs" muted><code>magnifying-glass</code></n-text>
+            </n-stack>
+          </n-body></n-card>
+        </div>
+        <div class="icon-card-wrap">
+          <n-card inline padding="tight"><n-body>
+            <n-stack align="center" gap="1">
+              <n-icon name="heart"></n-icon>
+              <n-text size="xs" muted><code>heart</code></n-text>
+            </n-stack>
+          </n-body></n-card>
+        </div>
+        <div class="icon-card-wrap">
+          <n-card inline padding="tight"><n-body>
+            <n-stack align="center" gap="1">
+              <n-icon name="star"></n-icon>
+              <n-text size="xs" muted><code>star</code></n-text>
+            </n-stack>
+          </n-body></n-card>
+        </div>
+        <div class="icon-card-wrap">
+          <n-card inline padding="tight"><n-body>
+            <n-stack align="center" gap="1">
+              <n-icon name="check"></n-icon>
+              <n-text size="xs" muted><code>check</code></n-text>
+            </n-stack>
+          </n-body></n-card>
+        </div>
+        <div class="icon-card-wrap">
+          <n-card inline padding="tight"><n-body>
+            <n-stack align="center" gap="1">
+              <n-icon name="x"></n-icon>
+              <n-text size="xs" muted><code>x</code></n-text>
+            </n-stack>
+          </n-body></n-card>
+        </div>
+        <div class="icon-card-wrap">
+          <n-card inline padding="tight"><n-body>
+            <n-stack align="center" gap="1">
+              <n-icon name="trash"></n-icon>
+              <n-text size="xs" muted><code>trash</code></n-text>
+            </n-stack>
+          </n-body></n-card>
+        </div>
+        <div class="icon-card-wrap">
+          <n-card inline padding="tight"><n-body>
+            <n-stack align="center" gap="1">
+              <n-icon name="pencil-simple"></n-icon>
+              <n-text size="xs" muted><code>pencil-simple</code></n-text>
+            </n-stack>
+          </n-body></n-card>
+        </div>
       </n-stack>
     </n-panel>
 
@@ -131,13 +151,13 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
       <h3>Decorative (default — aria-hidden="true")</h3>
       <n-stack direction="row" wrap align="center" gap="3">
         <n-icon name="house"></n-icon>
-        <n-text size="xs" muted class="icon-mono">→ aria-hidden="true", no role</n-text>
+        <n-text size="xs" muted><code>&rarr; aria-hidden="true", no role</code></n-text>
       </n-stack>
 
       <h3>Meaningful (aria-label present)</h3>
       <n-stack direction="row" wrap align="center" gap="3">
         <n-icon name="check-circle" aria-label="Approved"></n-icon>
-        <n-text size="xs" muted class="icon-mono">→ role="img", aria-label="Approved"</n-text>
+        <n-text size="xs" muted><code>&rarr; role="img", aria-label="Approved"</code></n-text>
       </n-stack>
     </n-panel>
 
@@ -207,92 +227,110 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
     <h2>Navigation Icons</h2>
     <n-panel bordered>
       <n-stack direction="row" wrap align="center" gap="3">
-        <n-card inline padding="tight" class="icon-card-wrap">
-          <n-stack align="center" gap="1">
-          <n-icon name="caret-up"></n-icon>
-          <n-text size="xs" muted class="icon-mono">caret-up</n-text>
-          </n-stack>
-        </n-card>
-        <n-card inline padding="tight" class="icon-card-wrap">
-          <n-stack align="center" gap="1">
-          <n-icon name="caret-down"></n-icon>
-          <n-text size="xs" muted class="icon-mono">caret-down</n-text>
-          </n-stack>
-        </n-card>
-        <n-card inline padding="tight" class="icon-card-wrap">
-          <n-stack align="center" gap="1">
-          <n-icon name="caret-left"></n-icon>
-          <n-text size="xs" muted class="icon-mono">caret-left</n-text>
-          </n-stack>
-        </n-card>
-        <n-card inline padding="tight" class="icon-card-wrap">
-          <n-stack align="center" gap="1">
-          <n-icon name="caret-right"></n-icon>
-          <n-text size="xs" muted class="icon-mono">caret-right</n-text>
-          </n-stack>
-        </n-card>
-        <n-card inline padding="tight" class="icon-card-wrap">
-          <n-stack align="center" gap="1">
-          <n-icon name="arrow-up"></n-icon>
-          <n-text size="xs" muted class="icon-mono">arrow-up</n-text>
-          </n-stack>
-        </n-card>
-        <n-card inline padding="tight" class="icon-card-wrap">
-          <n-stack align="center" gap="1">
-          <n-icon name="arrow-down"></n-icon>
-          <n-text size="xs" muted class="icon-mono">arrow-down</n-text>
-          </n-stack>
-        </n-card>
-        <n-card inline padding="tight" class="icon-card-wrap">
-          <n-stack align="center" gap="1">
-          <n-icon name="arrow-left"></n-icon>
-          <n-text size="xs" muted class="icon-mono">arrow-left</n-text>
-          </n-stack>
-        </n-card>
-        <n-card inline padding="tight" class="icon-card-wrap">
-          <n-stack align="center" gap="1">
-          <n-icon name="arrow-right"></n-icon>
-          <n-text size="xs" muted class="icon-mono">arrow-right</n-text>
-          </n-stack>
-        </n-card>
+        <div class="icon-card-wrap">
+          <n-card inline padding="tight"><n-body>
+            <n-stack align="center" gap="1">
+              <n-icon name="caret-up"></n-icon>
+              <n-text size="xs" muted><code>caret-up</code></n-text>
+            </n-stack>
+          </n-body></n-card>
+        </div>
+        <div class="icon-card-wrap">
+          <n-card inline padding="tight"><n-body>
+            <n-stack align="center" gap="1">
+              <n-icon name="caret-down"></n-icon>
+              <n-text size="xs" muted><code>caret-down</code></n-text>
+            </n-stack>
+          </n-body></n-card>
+        </div>
+        <div class="icon-card-wrap">
+          <n-card inline padding="tight"><n-body>
+            <n-stack align="center" gap="1">
+              <n-icon name="caret-left"></n-icon>
+              <n-text size="xs" muted><code>caret-left</code></n-text>
+            </n-stack>
+          </n-body></n-card>
+        </div>
+        <div class="icon-card-wrap">
+          <n-card inline padding="tight"><n-body>
+            <n-stack align="center" gap="1">
+              <n-icon name="caret-right"></n-icon>
+              <n-text size="xs" muted><code>caret-right</code></n-text>
+            </n-stack>
+          </n-body></n-card>
+        </div>
+        <div class="icon-card-wrap">
+          <n-card inline padding="tight"><n-body>
+            <n-stack align="center" gap="1">
+              <n-icon name="arrow-up"></n-icon>
+              <n-text size="xs" muted><code>arrow-up</code></n-text>
+            </n-stack>
+          </n-body></n-card>
+        </div>
+        <div class="icon-card-wrap">
+          <n-card inline padding="tight"><n-body>
+            <n-stack align="center" gap="1">
+              <n-icon name="arrow-down"></n-icon>
+              <n-text size="xs" muted><code>arrow-down</code></n-text>
+            </n-stack>
+          </n-body></n-card>
+        </div>
+        <div class="icon-card-wrap">
+          <n-card inline padding="tight"><n-body>
+            <n-stack align="center" gap="1">
+              <n-icon name="arrow-left"></n-icon>
+              <n-text size="xs" muted><code>arrow-left</code></n-text>
+            </n-stack>
+          </n-body></n-card>
+        </div>
+        <div class="icon-card-wrap">
+          <n-card inline padding="tight"><n-body>
+            <n-stack align="center" gap="1">
+              <n-icon name="arrow-right"></n-icon>
+              <n-text size="xs" muted><code>arrow-right</code></n-text>
+            </n-stack>
+          </n-body></n-card>
+        </div>
       </n-stack>
     </n-panel>
   </main>
 
   <script>
 import { logPrepend } from '../scripts/event-log';
-// Register specific icons for the demo
+import { registerIcon } from '@nonoun/native-ui';
 
-      // Dynamic name change
-      const dynamicIcon = document.getElementById('dynamic-icon');
-      const iconPicker = document.getElementById('icon-picker');
-      iconPicker.addEventListener('change', () => {
-        dynamicIcon.setAttribute('name', iconPicker.value);
-      });
+document.addEventListener('astro:page-load', () => {
+  const dynamicIcon = document.getElementById('dynamic-icon');
+  if (!dynamicIcon) return;
 
-      // Late registration demo
-      const registerBtn = document.getElementById('register-btn');
-      const lateLog = document.getElementById('late-log');
+  // ── Dynamic name change ──
 
-      function log(msg) {
-        logPrepend(lateLog, msg);
-      }
+  const iconPicker = document.getElementById('icon-picker');
+  iconPicker?.addEventListener('change', () => {
+    dynamicIcon.setAttribute('name', iconPicker?.value ?? 'house');
+  });
 
-      log('n-icon[name="late-demo"] created — icon not yet registered, renders empty.');
+  // ── Late registration demo ──
 
-      registerBtn.addEventListener('click', () => {
-        registerIcon('late-demo', '<svg viewBox="0 0 256 256" fill="currentColor"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>');
-        log('registerIcon("late-demo", ...) called — icon should now appear!');
-        registerBtn.disabled = true;
-      });
+  const registerBtn = document.getElementById('register-btn');
+  const lateLog = document.getElementById('late-log');
+
+  function log(msg) {
+    logPrepend(lateLog, msg);
+  }
+
+  log('n-icon[name="late-demo"] created — icon not yet registered, renders empty.');
+
+  registerBtn?.addEventListener('click', () => {
+    registerIcon('late-demo', '<svg viewBox="0 0 256 256" fill="currentColor"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>');
+    log('registerIcon("late-demo", ...) called — icon should now appear!');
+    if (registerBtn) registerBtn.disabled = true;
+  });
+});
   </script>
   <style is:global>
     .icon-card-wrap {
       min-width: 5rem;
-    }
-
-    .icon-mono {
-      font-family: ui-monospace, monospace;
     }
 </style>
 

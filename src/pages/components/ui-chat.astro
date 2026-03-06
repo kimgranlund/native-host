@@ -114,7 +114,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
                         </n-option-group>
                       </n-listbox>
                     </n-select>
-                    <n-button variant="primary" intent="accent" radius="round" inline disabled class="submit-btn"><n-icon name="arrow-up"></n-icon></n-button>
+                    <n-button variant="primary" intent="accent" radius="round" inline disabled><n-icon name="arrow-up"></n-icon></n-button>
                   </n-chat-input-actions>
                 </n-chat-input>
               </n-footer>
@@ -470,7 +470,7 @@ Step 4: Applying formatting rules...</pre>
               <n-chat-input-actions>
                 <n-button variant="ghost" inline><n-icon name="plus"></n-icon></n-button>
                 <n-button variant="ghost" inline><n-icon name="microphone"></n-icon></n-button>
-                <n-button variant="primary" intent="accent" radius="round" inline disabled class="submit-btn"><n-icon name="arrow-up"></n-icon></n-button>
+                <n-button variant="primary" intent="accent" radius="round" inline disabled><n-icon name="arrow-up"></n-icon></n-button>
               </n-chat-input-actions>
             </n-chat-input>
           </n-footer>
@@ -498,17 +498,17 @@ Step 4: Applying formatting rules...</pre>
 
   <script>
 document.addEventListener('astro:page-load', () => {
-  const feedMsg1 = document.getElementById('demo-feed-msg1') as any;
+  const feedMsg1 = document.getElementById('demo-feed-msg1');
   if (!feedMsg1) return;
 
   // ── Feed Messages ──
 
   feedMsg1.content = "Hello! I'm your AI assistant. How can I help you today?";
 
-  const feedMsg2 = document.getElementById('demo-feed-msg2') as any;
+  const feedMsg2 = document.getElementById('demo-feed-msg2');
   if (feedMsg2) feedMsg2.content = 'Can you explain how web components work?';
 
-  const feedMsg3 = document.getElementById('demo-feed-msg3') as any;
+  const feedMsg3 = document.getElementById('demo-feed-msg3');
   if (feedMsg3) feedMsg3.content = `Web components are a set of **browser APIs** that let you create reusable custom elements. The main specs are:
 
 1. **Custom Elements** — define new HTML tags with \`customElements.define()\`
@@ -528,13 +528,13 @@ customElements.define('my-button', MyButton);
 
 They work in **all modern browsers** without a framework.`;
 
-  const feedMsgA1 = document.getElementById('demo-feed-msg-a1') as any;
+  const feedMsgA1 = document.getElementById('demo-feed-msg-a1');
   if (feedMsgA1) feedMsgA1.content = 'Hey, quick question';
 
-  const feedMsgA2 = document.getElementById('demo-feed-msg-a2') as any;
+  const feedMsgA2 = document.getElementById('demo-feed-msg-a2');
   if (feedMsgA2) feedMsgA2.content = "What's the difference between shadow DOM and light DOM?";
 
-  const feedMsgA3 = document.getElementById('demo-feed-msg-a3') as any;
+  const feedMsgA3 = document.getElementById('demo-feed-msg-a3');
   if (feedMsgA3) feedMsgA3.content = `**Light DOM** is the regular DOM tree — children you write in HTML. **Shadow DOM** is an encapsulated tree attached via \`attachShadow()\`.
 
 Key differences:
@@ -543,12 +543,12 @@ Key differences:
 - External styles don't reach in (unless using CSS custom properties or \`::part()\`)
 - Shadow DOM creates a _flat tree_ for rendering`;
 
-  const feedMsgA4 = document.getElementById('demo-feed-msg-a4') as any;
+  const feedMsgA4 = document.getElementById('demo-feed-msg-a4');
   if (feedMsgA4) feedMsgA4.content = 'This library (`native-ui`) deliberately avoids Shadow DOM — all components use **light DOM** so CSS custom properties cascade naturally.';
 
   // ── Message Text ──
 
-  const mdFull = document.getElementById('demo-md-full') as any;
+  const mdFull = document.getElementById('demo-md-full');
   if (mdFull) {
     mdFull.content = `## Web Components
 
@@ -573,14 +573,14 @@ class MyEl extends HTMLElement {
 Visit [MDN](https://developer.mozilla.org) for more.`;
   }
 
-  const mdPlain = document.getElementById('demo-md-plain') as any;
+  const mdPlain = document.getElementById('demo-md-plain');
   if (mdPlain) {
     mdPlain.content = 'This is plain text. No **bold** or *italic* formatting is applied. Links like https://example.com stay as text.';
   }
 
   // ── Seed Chips ──
 
-  const seeds = document.getElementById('demo-seeds') as any;
+  const seeds = document.getElementById('demo-seeds');
   if (seeds) {
     seeds.options = [
       { value: 'explain', label: 'Explain this code' },
@@ -590,7 +590,7 @@ Visit [MDN](https://developer.mozilla.org) for more.`;
     ];
   }
 
-  const seedsDisabled = document.getElementById('demo-seeds-disabled') as any;
+  const seedsDisabled = document.getElementById('demo-seeds-disabled');
   if (seedsDisabled) {
     seedsDisabled.options = [
       { value: 'explain', label: 'Explain this code' },
@@ -600,7 +600,7 @@ Visit [MDN](https://developer.mozilla.org) for more.`;
 
   // ── Structured Input ──
 
-  const structSingle = document.getElementById('demo-structured-single') as any;
+  const structSingle = document.getElementById('demo-structured-single');
   if (structSingle) {
     structSingle.options = [
       { value: 'ts', label: 'TypeScript' },
@@ -610,7 +610,7 @@ Visit [MDN](https://developer.mozilla.org) for more.`;
     ];
   }
 
-  const structMulti = document.getElementById('demo-structured-multi') as any;
+  const structMulti = document.getElementById('demo-structured-multi');
   if (structMulti) {
     structMulti.options = [
       { value: 'signals', label: 'Reactive signals' },
@@ -622,7 +622,7 @@ Visit [MDN](https://developer.mozilla.org) for more.`;
 
   // ── GenUI ──
 
-  const genuiInline = document.getElementById('demo-genui-inline') as any;
+  const genuiInline = document.getElementById('demo-genui-inline');
   if (genuiInline) {
     genuiInline.schema = {
       tag: 'n-card',
@@ -641,7 +641,7 @@ Visit [MDN](https://developer.mozilla.org) for more.`;
     };
   }
 
-  const genuiLightbox = document.getElementById('demo-genui-lightbox') as any;
+  const genuiLightbox = document.getElementById('demo-genui-lightbox');
   if (genuiLightbox) {
     genuiLightbox.schema = {
       tag: 'n-card',
