@@ -71,6 +71,22 @@ const groupIcons: Record<string, string> = {
             <span slot="label">Search</span>
             <n-kbd slot="trailing"><n-icon name="command"></n-icon>K</n-kbd>
           </n-button>
+          <n-dialog id="nav-cmd-dialog" transition:animate="none">
+            <div class="nav-cmd-wrap"><n-command>
+              <n-command-input>
+                <n-icon name="magnifying-glass"></n-icon>
+                <input type="text" placeholder="Search pages..." />
+              </n-command-input>
+              <n-command-list>
+                {sitemap.map(entry => (
+                  <n-command-item value={entry.path} keywords={entry.group}>
+                    {entry.title}
+                  </n-command-item>
+                ))}
+              </n-command-list>
+              <n-command-empty>No pages found.</n-command-empty>
+            </n-command></div>
+          </n-dialog>
         </n-sidebar-item>
       </n-sidebar-header>
 
@@ -182,24 +198,6 @@ const groupIcons: Record<string, string> = {
         <native-chat-panel aside id="chat-panel" gateway="claude" gateway-url="/api/anthropic" model="claude-haiku-4-5-20251001" models="claude-haiku-4-5-20251001,claude-sonnet-4-6-20250514,claude-opus-4-20250514,gpt-4.1-nano,gpt-4.1-mini,gpt-4.1,o3-mini,o3,o4-mini" gateway-urls='{"claude":"/api/anthropic","openai":"/api/openai"}'></native-chat-panel>
       </n-app-canvas>
     </div>
-
-    <!-- Command palette dialog -->
-    <n-dialog id="nav-cmd-dialog" transition:animate="none">
-      <div class="nav-cmd-wrap"><n-command>
-        <n-command-input>
-          <n-icon name="magnifying-glass"></n-icon>
-          <input type="text" placeholder="Search pages..." />
-        </n-command-input>
-        <n-command-list>
-          {sitemap.map(entry => (
-            <n-command-item value={entry.path} keywords={entry.group}>
-              {entry.title}
-            </n-command-item>
-          ))}
-        </n-command-list>
-        <n-command-empty>No pages found.</n-command-empty>
-      </n-command></div>
-    </n-dialog>
   </native-app>
 
   <script>

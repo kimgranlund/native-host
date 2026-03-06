@@ -13,7 +13,7 @@
     "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
-    "@astrojs/vercel": "^9.0.4",
+    "@astrojs/vercel": "^8.0.4",
     "@better-auth/drizzle-adapter": "^1.5.3",
     "@codemirror/lang-css": "^6.3.1",
     "@codemirror/lang-html": "^6.4.11",
@@ -28,13 +28,13 @@
     "@nonoun/native-editor": "^0.2.13",
     "@nonoun/native-playground": "^0.2.13",
     "@nonoun/native-tokens": "^0.5.13",
-    "@nonoun/native-ui": "^0.7.31",
+    "@nonoun/native-ui": "^0.7.32",
     "astro": "^5.17.1",
     "better-auth": "^1.5.3",
     "drizzle-orm": "^0.45.1"
   },
   "devDependencies": {
     "@phosphor-icons/core": "^2.1.1",
-    "drizzle-kit": "^0.31.9"
+    "drizzle-kit": "^0.18.1"
   }
 }
