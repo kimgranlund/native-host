@@ -39,6 +39,7 @@ These are non-negotiable. Violating any of them will break the build or the UI.
    - **Use positional/contextual selectors** (`.layout-code > n-button`, `n-chat-message > n-toolbar`).
    - **Wrap in a plain `<div>` with a class** if you need layout CSS on the component (`<div class="auth-card"><n-card>…</n-card></div>`).
    - This applies to both host-authored markup and component-stamped internals (see `T0086`).
+   - **Infrastructure exception:** `styles/reference.astro` uses status-indicator classes (`y`, `a`, `n`, `p`) on `n-table-cell` elements throughout its data tables. Wrapping 573 table cells in `<div>` wrappers is impractical and would break the table grid layout.
 
 10. **`n-card` content must always use sub-containers** -- never put bare content directly inside `<n-card>`. Always use one of:
     ```html

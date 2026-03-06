@@ -18,7 +18,7 @@ Traits pages were fixed in `735c5a4` and are excluded from this audit.
 | **#6** Missing `:where()` on overrides | 1 | 0 | **Fixed** |
 | **#7** JS/CSS workarounds for component bugs | 0 | 0 | Clean |
 | **#8** Raw CSS on `n-*`/`native-*` | ~25 | 2 | **~23 fixed** (2 known API gaps) |
-| **#9** CSS classes on `n-*`/`native-*` | ~820 | ~573 | **~250 fixed** (reference.astro deferred) |
+| **#9** CSS classes on `n-*`/`native-*` | ~820 | 0 | **~250 fixed** + infrastructure exception for reference.astro |
 | **#10** `n-card` without sub-containers | ~115 | 0 | **Fixed** |
 | **#11** TypeScript in `<script>`/`.ts` | ~66 | 0 | **Fixed** |
 | **#12** Missing/weak `astro:page-load` guard | 2 | 0 | **Fixed** |
@@ -26,7 +26,7 @@ Traits pages were fixed in `735c5a4` and are excluded from this audit.
 Rules #1–4, #7: **Clean** — no violations found.
 
 **Fixed:** ~483 violations across ~60 files
-**Remaining:** ~575 violations (~573 in reference.astro + 2 known API gaps)
+**Remaining:** 2 known API gaps (all other violations resolved or excepted)
 
 ---
 
@@ -94,12 +94,6 @@ Files: `ui-stack.astro`, `ui-grid.astro`, `icons.astro`, `kernel.astro`, `auth/l
 | `components/ui-avatar.astro` | `n-avatar` | `outline`, `margin-inline-start` | Awaiting `n-avatar-group` component (T0071) |
 | `blocks/data-detail-page.astro` | `n-tab-panel` | `padding-block` | No API — wrapped in `:where()` |
 
-### Rule #9 — reference.astro (~573 violations)
+### Rule #9 — reference.astro (~573 violations → Infrastructure Exception)
 
-The design system reference page uses `demo-*` classes pervasively on native-ui elements. Restructuring would be a massive effort. **Recommended:** Grant an infrastructure exception for `reference.astro`.
-
----
-
-## Decisions Needed
-
-1. **`reference.astro` (573 violations):** Infrastructure exception for Rule #9? The page's purpose is component showcase — restructuring to wrapper divs would be a massive effort with no UX benefit.
+The component state reference page uses status-indicator classes (`y`, `a`, `n`, `p`) on `n-table-cell` elements throughout its data tables. Wrapping 573 table cells in `<div>` wrappers is impractical and would break the table grid layout. **Granted infrastructure exception** — added to Rule #9 in `docs/RULES.md`.
