@@ -204,13 +204,18 @@ document.addEventListener('astro:page-load', () => {
   const filesZone = document.getElementById('files-zone');
   if (!filesZone) return;
 
-  function formatSize(bytes: number) {
+  /** @param {number} bytes */
+  function formatSize(bytes) {
     if (bytes < 1024) return bytes + ' B';
     if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
     return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
   }
 
-  function renderFiles(listEl: HTMLElement | null, files: File[]) {
+  /**
+   * @param {HTMLElement | null} listEl
+   * @param {File[]} files
+   */
+  function renderFiles(listEl, files) {
     if (!listEl) return;
     listEl.innerHTML = '';
     listEl.classList.remove('drop-hidden');
@@ -222,36 +227,40 @@ document.addEventListener('astro:page-load', () => {
     }
   }
 
-  filesZone.addEventListener('native:drop', (e: CustomEvent) => {
-    if (e.detail.type !== 'file') return;
-    renderFiles(document.getElementById('files-list'), e.detail.files);
-    for (const file of e.detail.files) {
+  filesZone.addEventListener('native:drop', (e) => {
+    /** @type {CustomEvent} */ const evt = e;
+    if (evt.detail.type !== 'file') return;
+    renderFiles(document.getElementById('files-list'), evt.detail.files);
+    for (const file of evt.detail.files) {
       appendLog(document.getElementById('files-log'), `${file.name} (${formatSize(file.size)})`);
     }
   });
 
-  document.getElementById('images-zone')?.addEventListener('native:drop', (e: CustomEvent) => {
-    if (e.detail.type !== 'file') return;
-    renderFiles(document.getElementById('images-list'), e.detail.files);
-    for (const file of e.detail.files) {
+  document.getElementById('images-zone')?.addEventListener('native:drop', (e) => {
+    /** @type {CustomEvent} */ const evt = e;
+    if (evt.detail.type !== 'file') return;
+    renderFiles(document.getElementById('images-list'), evt.detail.files);
+    for (const file of evt.detail.files) {
       appendLog(document.getElementById('images-log'), `${file.name} (${file.type}, ${formatSize(file.size)})`);
     }
   });
 
-  document.getElementById('text-zone')?.addEventListener('native:drop', (e: CustomEvent) => {
-    if (e.detail.type !== 'text') return;
-    const contentEl = document.getElementById('text-content') as HTMLElement | null;
+  document.getElementById('text-zone')?.addEventListener('native:drop', (e) => {
+    /** @type {CustomEvent} */ const evt = e;
+    if (evt.detail.type !== 'text') return;
+    const contentEl = document.getElementById('text-content');
     if (contentEl) {
       contentEl.classList.remove('drop-hidden');
-      contentEl.textContent = e.detail.text;
+      contentEl.textContent = evt.detail.text;
     }
-    appendLog(document.getElementById('text-log'), `Dropped ${e.detail.text.length} characters`);
+    appendLog(document.getElementById('text-log'), `Dropped ${evt.detail.text.length} characters`);
   });
 
-  document.getElementById('single-zone')?.addEventListener('native:drop', (e: CustomEvent) => {
-    if (e.detail.type !== 'file') return;
-    renderFiles(document.getElementById('single-list'), e.detail.files);
-    const file = e.detail.files[0];
+  document.getElementById('single-zone')?.addEventListener('native:drop', (e) => {
+    /** @type {CustomEvent} */ const evt = e;
+    if (evt.detail.type !== 'file') return;
+    renderFiles(document.getElementById('single-list'), evt.detail.files);
+    const file = evt.detail.files[0];
     appendLog(document.getElementById('single-log'), `${file.name} (${formatSize(file.size)}) — only 1 file accepted`);
   });
 });

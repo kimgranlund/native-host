@@ -198,11 +198,16 @@ document.addEventListener('astro:before-swap', ((e: any) => {
     // Transfer page-specific scripts from the incoming document's body.
     // Our custom swap skips swapBodyElement() (which would replace the entire body),
     // so new <script> tags in the body are never moved to the live DOM.
+    // Remove previously-transferred scripts first to prevent DOM bloat.
+    for (const old of document.body.querySelectorAll('script[data-swapped]')) {
+      old.remove();
+    }
     for (const script of e.newDocument.body.querySelectorAll('script')) {
       if (script.dataset.astroExec === '') continue; // already ran
       const copy = document.createElement('script');
       for (const attr of script.attributes) copy.setAttribute(attr.name, attr.value);
       copy.textContent = script.textContent;
+      copy.setAttribute('data-swapped', '');
       document.body.appendChild(copy);
     }
 

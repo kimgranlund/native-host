@@ -74,11 +74,11 @@ const detailItem = `{ item }`;
       </n-text>
       <n-controller traits="draggable" draggable-selector=".drag-item" draggable-axis="vertical" draggable-mode="drop">
         <div id="swap-list" class="drag-list">
-          <div class="drag-item"><span class="handle">&#x2807;</span><n-text inline class="label">Design mockups</n-text></div>
-          <div class="drag-item"><span class="handle">&#x2807;</span><n-text inline class="label">Write component API</n-text></div>
-          <div class="drag-item"><span class="handle">&#x2807;</span><n-text inline class="label">Implement CSS</n-text></div>
-          <div class="drag-item"><span class="handle">&#x2807;</span><n-text inline class="label">Add keyboard support</n-text></div>
-          <div class="drag-item"><span class="handle">&#x2807;</span><n-text inline class="label">Write tests</n-text></div>
+          <div class="drag-item"><span class="handle">&#x2807;</span><n-text inline>Design mockups</n-text></div>
+          <div class="drag-item"><span class="handle">&#x2807;</span><n-text inline>Write component API</n-text></div>
+          <div class="drag-item"><span class="handle">&#x2807;</span><n-text inline>Implement CSS</n-text></div>
+          <div class="drag-item"><span class="handle">&#x2807;</span><n-text inline>Add keyboard support</n-text></div>
+          <div class="drag-item"><span class="handle">&#x2807;</span><n-text inline>Write tests</n-text></div>
         </div>
       </n-controller>
       <div id="swap-log" class="output"></div>
@@ -126,11 +126,11 @@ const detailItem = `{ item }`;
       </n-text>
       <n-controller traits="draggable" draggable-selector=".drag-item" draggable-axis="vertical" draggable-mode="slot">
         <div id="slot-list" class="drag-list">
-          <div class="drag-item"><span class="handle">&#x2807;</span><n-text inline class="label">Research</n-text></div>
-          <div class="drag-item"><span class="handle">&#x2807;</span><n-text inline class="label">Prototype</n-text></div>
-          <div class="drag-item"><span class="handle">&#x2807;</span><n-text inline class="label">Build</n-text></div>
-          <div class="drag-item"><span class="handle">&#x2807;</span><n-text inline class="label">Test</n-text></div>
-          <div class="drag-item"><span class="handle">&#x2807;</span><n-text inline class="label">Ship</n-text></div>
+          <div class="drag-item"><span class="handle">&#x2807;</span><n-text inline>Research</n-text></div>
+          <div class="drag-item"><span class="handle">&#x2807;</span><n-text inline>Prototype</n-text></div>
+          <div class="drag-item"><span class="handle">&#x2807;</span><n-text inline>Build</n-text></div>
+          <div class="drag-item"><span class="handle">&#x2807;</span><n-text inline>Test</n-text></div>
+          <div class="drag-item"><span class="handle">&#x2807;</span><n-text inline>Ship</n-text></div>
         </div>
       </n-controller>
       <div id="slot-log" class="output"></div>
@@ -460,75 +460,75 @@ const detailItem = `{ item }`;
       const slotLogEl = document.getElementById('slot-log');
       const previewLogEl = document.getElementById('preview-log');
 
-      function swapLog(msg: string) { appendLog(swapLogEl!, msg); }
-      function replaceLog(msg: string) { appendLog(replaceLogEl!, msg); }
-      function slotLog(msg: string) { appendLog(slotLogEl!, msg); }
-      function previewLog(msg: string) { appendLog(previewLogEl!, msg); }
+      function swapLog(msg) { if (swapLogEl) appendLog(swapLogEl, msg); }
+      function replaceLog(msg) { if (replaceLogEl) appendLog(replaceLogEl, msg); }
+      function slotLog(msg) { if (slotLogEl) appendLog(slotLogEl, msg); }
+      function previewLog(msg) { if (previewLogEl) appendLog(previewLogEl, msg); }
 
       // ── Drop mode — swap ──
 
-      swapList.addEventListener('native:drop', ((e: CustomEvent) => {
-        const { item, target } = e.detail;
+      swapList.addEventListener('native:drop', (e) => {
+        const { item, target } = /** @type {CustomEvent} */ (e).detail;
         if (!target || target === item) return;
-        const itemLabel = item.querySelector('.label').textContent;
-        const targetLabel = target.querySelector('.label').textContent;
+        const itemLabel = item.querySelector('n-text')?.textContent;
+        const targetLabel = target.querySelector('n-text')?.textContent;
         const placeholder = document.createElement('div');
         item.before(placeholder);
         target.before(item);
         placeholder.replaceWith(target);
         swapLog(`Swapped "${itemLabel}" ↔ "${targetLabel}"`);
-      }) as EventListener);
-      swapList.addEventListener('native:drag-cancel', ((e: CustomEvent) => {
-        swapLog(`Cancelled: "${e.detail.item.querySelector('.label').textContent}"`);
-      }) as EventListener);
+      });
+      swapList.addEventListener('native:drag-cancel', (e) => {
+        swapLog(`Cancelled: "${/** @type {CustomEvent} */ (e).detail.item.querySelector('n-text')?.textContent}"`);
+      });
 
       // ── Drop mode — replace ──
 
       const replaceList = document.getElementById('replace-list');
-      replaceList?.addEventListener('native:drop', ((e: CustomEvent) => {
-        const { item, target } = e.detail;
+      replaceList?.addEventListener('native:drop', (e) => {
+        const { item, target } = /** @type {CustomEvent} */ (e).detail;
         if (!target) return;
         const slot = target.querySelector('.role-assignee');
         const name = item.textContent;
-        const role = target.querySelector('.role-name').textContent;
-        slot.textContent = name;
+        const role = target.querySelector('.role-name')?.textContent;
+        if (slot) slot.textContent = name;
         replaceLog(`Assigned "${name}" → ${role}`);
-      }) as EventListener);
+      });
 
       // ── Slot mode — vertical list ──
 
       const slotList = document.getElementById('slot-list');
-      slotList?.addEventListener('native:drop', ((e: CustomEvent) => {
-        const { item, insertBefore, fromIndex, toIndex } = e.detail;
+      slotList?.addEventListener('native:drop', (e) => {
+        const { item, insertBefore, fromIndex, toIndex } = /** @type {CustomEvent} */ (e).detail;
         if (toIndex === -1) return;
         if (insertBefore) {
           insertBefore.before(item);
         } else {
-          slotList.appendChild(item);
+          slotList?.appendChild(item);
         }
-        slotLog(`Inserted "${item.querySelector('.label').textContent}" at position ${toIndex}`);
-      }) as EventListener);
+        slotLog(`Inserted "${item.querySelector('n-text')?.textContent}" at position ${toIndex}`);
+      });
 
       // ── Slot mode — horizontal cards ──
 
       const cardRow = document.getElementById('card-row');
-      cardRow?.addEventListener('native:drop', ((e: CustomEvent) => {
-        const { item, insertBefore } = e.detail;
+      cardRow?.addEventListener('native:drop', (e) => {
+        const { item, insertBefore } = /** @type {CustomEvent} */ (e).detail;
         if (insertBefore) {
           insertBefore.before(item);
         } else {
-          cardRow.appendChild(item);
+          cardRow?.appendChild(item);
         }
-      }) as EventListener);
+      });
 
       // ── Cross-zone — kanban ──
 
       const kanbanBoard = document.getElementById('kanban-board');
       const kanbanLogEl = document.getElementById('kanban-log');
-      function kanbanLog(msg: string) { appendLog(kanbanLogEl!, msg); }
+      function kanbanLog(msg) { if (kanbanLogEl) appendLog(kanbanLogEl, msg); }
 
-      kanbanBoard?.addEventListener('native:drop', ((e: CustomEvent) => {
-        const { item, insertBefore, sourceZone, targetZone } = e.detail;
+      kanbanBoard?.addEventListener('native:drop', (e) => {
+        const { item, insertBefore, sourceZone, targetZone } = /** @type {CustomEvent} */ (e).detail;
         const label = item.textContent.trim();
         if (insertBefore) {
           insertBefore.before(item);
@@ -542,18 +542,18 @@ const detailItem = `{ item }`;
         } else {
           kanbanLog(`Reordered "${label}" within ${sourceZone.querySelector('.kanban-column-title')?.textContent}`);
         }
-      }) as EventListener);
+      });
 
       // ── Preview mode — grid reorder ──
 
       const previewGrid = document.getElementById('preview-grid');
-      previewGrid?.addEventListener('native:drop', ((e: CustomEvent) => {
-        const { item, fromIndex, toIndex } = e.detail;
+      previewGrid?.addEventListener('native:drop', (e) => {
+        const { item, fromIndex, toIndex } = /** @type {CustomEvent} */ (e).detail;
         previewLog(`Moved cell ${item.textContent.trim()} from position ${fromIndex} → ${toIndex}`);
-      }) as EventListener);
-      previewGrid?.addEventListener('native:drag-cancel', ((e: CustomEvent) => {
-        previewLog(`Cancelled: cell ${e.detail.item.textContent.trim()} restored`);
-      }) as EventListener);
+      });
+      previewGrid?.addEventListener('native:drag-cancel', (e) => {
+        previewLog(`Cancelled: cell ${/** @type {CustomEvent} */ (e).detail.item.textContent.trim()} restored`);
+      });
     });
   </script>
   <style is:global>
@@ -587,7 +587,7 @@ const detailItem = `{ item }`;
       font-size: 0.875rem;
     }
 
-    .drag-item .label {
+    .drag-item > n-text {
       flex: 1;
     }
 

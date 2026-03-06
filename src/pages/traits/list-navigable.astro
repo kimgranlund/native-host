@@ -4,41 +4,41 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 const codeExamples = {
   basic: `&lt;n-controller
   traits="list-navigable"
-  list-navigable-item-selector=".nav-item"
+  list-navigable-item-selector="n-option"
   list-navigable-orientation="vertical"
 &gt;
   &lt;div&gt;
     &lt;div class="nav-list" role="listbox"&gt;
-      &lt;n-option class="nav-item" value="inbox"&gt;Inbox&lt;/n-option&gt;
-      &lt;n-option class="nav-item" value="drafts"&gt;Drafts&lt;/n-option&gt;
-      &lt;n-option class="nav-item" value="sent"&gt;Sent&lt;/n-option&gt;
-      &lt;n-option class="nav-item" value="archive"&gt;Archive&lt;/n-option&gt;
-      &lt;n-option class="nav-item" value="trash"&gt;Trash&lt;/n-option&gt;
+      &lt;n-option value="inbox"&gt;Inbox&lt;/n-option&gt;
+      &lt;n-option value="drafts"&gt;Drafts&lt;/n-option&gt;
+      &lt;n-option value="sent"&gt;Sent&lt;/n-option&gt;
+      &lt;n-option value="archive"&gt;Archive&lt;/n-option&gt;
+      &lt;n-option value="trash"&gt;Trash&lt;/n-option&gt;
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/n-controller&gt;`,
   horizontal: `&lt;n-controller
   traits="list-navigable"
-  list-navigable-item-selector=".filter-item"
+  list-navigable-item-selector="n-option"
   list-navigable-orientation="horizontal"
 &gt;
   &lt;div&gt;
     &lt;div class="filter-bar" role="listbox"&gt;
-      &lt;n-option class="filter-item" value="all"&gt;All&lt;/n-option&gt;
-      &lt;n-option class="filter-item" value="active"&gt;Active&lt;/n-option&gt;
-      &lt;n-option class="filter-item" value="completed"&gt;Completed&lt;/n-option&gt;
+      &lt;n-option value="all"&gt;All&lt;/n-option&gt;
+      &lt;n-option value="active"&gt;Active&lt;/n-option&gt;
+      &lt;n-option value="completed"&gt;Completed&lt;/n-option&gt;
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/n-controller&gt;`,
   events: `&lt;n-controller
   traits="list-navigable"
-  list-navigable-item-selector=".event-item"
+  list-navigable-item-selector="n-option"
 &gt;
   &lt;div&gt;
     &lt;div class="nav-list" role="listbox"&gt;
-      &lt;n-option class="event-item" value="alpha"&gt;Alpha&lt;/n-option&gt;
-      &lt;n-option class="event-item" value="beta"&gt;Beta&lt;/n-option&gt;
-      &lt;n-option class="event-item" value="gamma"&gt;Gamma&lt;/n-option&gt;
+      &lt;n-option value="alpha"&gt;Alpha&lt;/n-option&gt;
+      &lt;n-option value="beta"&gt;Beta&lt;/n-option&gt;
+      &lt;n-option value="gamma"&gt;Gamma&lt;/n-option&gt;
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/n-controller&gt;
@@ -75,14 +75,14 @@ host.addEventListener('native:change', (e) =&gt; {
       <n-text size="xs" muted spacing="tight">
         Arrow Up/Down to navigate, Enter/Click to select. The controller listens for <code>native:select</code> from child items and dispatches <code>native:change</code> with the selected value.
       </n-text>
-      <n-controller id="basic-list" traits="list-navigable" list-navigable-item-selector=".nav-item" list-navigable-orientation="vertical">
+      <n-controller id="basic-list" traits="list-navigable" list-navigable-item-selector="n-option" list-navigable-orientation="vertical">
         <div>
           <div class="nav-list" role="listbox">
-            <n-option class="nav-item" value="inbox">Inbox</n-option>
-            <n-option class="nav-item" value="drafts">Drafts</n-option>
-            <n-option class="nav-item" value="sent">Sent</n-option>
-            <n-option class="nav-item" value="archive">Archive</n-option>
-            <n-option class="nav-item" value="trash">Trash</n-option>
+            <n-option value="inbox">Inbox</n-option>
+            <n-option value="drafts">Drafts</n-option>
+            <n-option value="sent">Sent</n-option>
+            <n-option value="archive">Archive</n-option>
+            <n-option value="trash">Trash</n-option>
           </div>
         </div>
       </n-controller>
@@ -97,12 +97,12 @@ host.addEventListener('native:change', (e) =&gt; {
       <n-text size="xs" muted spacing="tight">
         Orientation set to <code>'horizontal'</code>. Use Left/Right arrows to navigate between filter options.
       </n-text>
-      <n-controller id="horizontal-list" traits="list-navigable" list-navigable-item-selector=".filter-item" list-navigable-orientation="horizontal">
+      <n-controller id="horizontal-list" traits="list-navigable" list-navigable-item-selector="n-option" list-navigable-orientation="horizontal">
         <div>
           <div class="filter-bar" role="listbox">
-            <n-option class="filter-item" value="all">All</n-option>
-            <n-option class="filter-item" value="active">Active</n-option>
-            <n-option class="filter-item" value="completed">Completed</n-option>
+            <n-option value="all">All</n-option>
+            <n-option value="active">Active</n-option>
+            <n-option value="completed">Completed</n-option>
           </div>
         </div>
       </n-controller>
@@ -117,12 +117,12 @@ host.addEventListener('native:change', (e) =&gt; {
       <n-text size="xs" muted spacing="tight">
         Click an item or use keyboard navigation + Enter. Both <code>native:select</code> (from child) and <code>native:change</code> (from controller) are logged.
       </n-text>
-      <n-controller id="event-list" traits="list-navigable" list-navigable-item-selector=".event-item">
+      <n-controller id="event-list" traits="list-navigable" list-navigable-item-selector="n-option">
         <div>
           <div class="nav-list" role="listbox">
-            <n-option class="event-item" value="alpha">Alpha</n-option>
-            <n-option class="event-item" value="beta">Beta</n-option>
-            <n-option class="event-item" value="gamma">Gamma</n-option>
+            <n-option value="alpha">Alpha</n-option>
+            <n-option value="beta">Beta</n-option>
+            <n-option value="gamma">Gamma</n-option>
           </div>
         </div>
       </n-controller>
@@ -239,38 +239,38 @@ host.addEventListener('native:change', (e) =&gt; {
 import { logAppend as appendLog } from '../../scripts/event-log';
 
 document.addEventListener('astro:page-load', () => {
-  if (!document.getElementById('basic-list')) return;
+  const basicList = document.getElementById('basic-list');
+  if (!basicList) return;
 
   // ── Basic (Vertical) ──
 
-  const basicList = document.getElementById('basic-list')!;
-  const basicValueEl = document.querySelector('#basic-value span')!;
-  basicList.addEventListener('native:change', (e: Event) => {
-    const { value } = (e as CustomEvent).detail;
-    basicValueEl.textContent = value;
+  const basicValueEl = document.querySelector('#basic-value span');
+  basicList.addEventListener('native:change', (e) => {
+    const { value } = /** @type {CustomEvent} */ (e).detail;
+    if (basicValueEl) basicValueEl.textContent = value;
   });
 
   // ── Horizontal ──
 
-  const horizontalList = document.getElementById('horizontal-list')!;
-  const horizontalValueEl = document.querySelector('#horizontal-value span')!;
-  horizontalList.addEventListener('native:change', (e: Event) => {
-    const { value } = (e as CustomEvent).detail;
-    horizontalValueEl.textContent = value;
+  const horizontalList = document.getElementById('horizontal-list');
+  const horizontalValueEl = document.querySelector('#horizontal-value span');
+  horizontalList?.addEventListener('native:change', (e) => {
+    const { value } = /** @type {CustomEvent} */ (e).detail;
+    if (horizontalValueEl) horizontalValueEl.textContent = value;
   });
 
   // ── Events ──
 
-  const eventList = document.getElementById('event-list')!;
+  const eventList = document.getElementById('event-list');
   const eventLogEl = document.getElementById('event-log');
 
-  eventList.addEventListener('native:select', (e: Event) => {
-    const { value, label } = (e as CustomEvent).detail;
+  eventList?.addEventListener('native:select', (e) => {
+    const { value, label } = /** @type {CustomEvent} */ (e).detail;
     appendLog(eventLogEl, `native:select — value: ${value}, label: ${label}`);
   });
 
-  eventList.addEventListener('native:change', (e: Event) => {
-    const { value, label } = (e as CustomEvent).detail;
+  eventList?.addEventListener('native:change', (e) => {
+    const { value, label } = /** @type {CustomEvent} */ (e).detail;
     appendLog(eventLogEl, `native:change — value: ${value}, label: ${label}`);
   });
 });
@@ -286,93 +286,11 @@ document.addEventListener('astro:page-load', () => {
       min-width: 12rem;
     }
 
-    .nav-item {
-      display: flex;
-      align-items: center;
-      padding: 0.5rem 0.75rem;
-      background: transparent;
-      border-radius: 0.375rem;
-      font-size: 0.875rem;
-      cursor: pointer;
-      outline: none;
-      transition: background 100ms ease;
-    }
-
-    .nav-item:hover {
-      background: var(--n-panel-hover-neutral);
-    }
-
-    .nav-item:focus-visible {
-      outline: 2px solid var(--n-focus-ring);
-      outline-offset: -2px;
-    }
-
-    .nav-item[aria-selected="true"] {
-      background: var(--n-surface-accent);
-      color: var(--n-surface-ink-accent);
-    }
-
     /* ── Horizontal filter bar ── */
 
     .filter-bar {
       display: flex;
       gap: 0.25rem;
-    }
-
-    .filter-item {
-      display: flex;
-      align-items: center;
-      padding: 0.375rem 0.75rem;
-      background: transparent;
-      border: 1px solid var(--n-border-muted-neutral);
-      border-radius: 9999px;
-      font-size: 0.8125rem;
-      cursor: pointer;
-      outline: none;
-      transition: background 100ms ease, border-color 100ms ease;
-    }
-
-    .filter-item:hover {
-      background: var(--n-panel-hover-neutral);
-    }
-
-    .filter-item:focus-visible {
-      outline: 2px solid var(--n-focus-ring);
-      outline-offset: -2px;
-    }
-
-    .filter-item[aria-selected="true"] {
-      background: var(--n-surface-accent);
-      color: var(--n-surface-ink-accent);
-      border-color: var(--n-border-accent);
-    }
-
-    /* ── Event items ── */
-
-    .event-item {
-      display: flex;
-      align-items: center;
-      padding: 0.5rem 0.75rem;
-      background: transparent;
-      border-radius: 0.375rem;
-      font-size: 0.875rem;
-      cursor: pointer;
-      outline: none;
-      transition: background 100ms ease;
-    }
-
-    .event-item:hover {
-      background: var(--n-panel-hover-neutral);
-    }
-
-    .event-item:focus-visible {
-      outline: 2px solid var(--n-focus-ring);
-      outline-offset: -2px;
-    }
-
-    .event-item[aria-selected="true"] {
-      background: var(--n-surface-accent);
-      color: var(--n-surface-ink-accent);
     }
 
     /* ── Value display ── */

@@ -80,44 +80,52 @@ chart.referenceLines = [
       </n-text>
       <div class="kpi-grid">
         <n-card inline>
-          <n-stack gap="1">
-            <n-text size="xs" muted>Signups</n-text>
-            <n-stack direction="row" align="center" gap="1">
-              <n-text size="lg"><strong>30</strong></n-text>
-              <n-text inline size="xs" intent="success"><strong>+15%</strong></n-text>
+          <n-body>
+            <n-stack gap="1">
+              <n-text size="xs" muted>Signups</n-text>
+              <n-stack direction="row" align="center" gap="1">
+                <n-text size="lg"><strong>30</strong></n-text>
+                <n-text inline size="xs" intent="success"><strong>+15%</strong></n-text>
+              </n-stack>
+              <n-chart class="kpi-sparkline" type="sparkline" id="spark-1"></n-chart>
             </n-stack>
-            <n-chart class="kpi-sparkline" type="sparkline" id="spark-1"></n-chart>
-          </n-stack>
+          </n-body>
         </n-card>
         <n-card inline>
-          <n-stack gap="1">
-            <n-text size="xs" muted>Churn</n-text>
-            <n-stack direction="row" align="center" gap="1">
-              <n-text size="lg"><strong>33</strong></n-text>
-              <n-text inline size="xs" intent="danger"><strong>-34%</strong></n-text>
+          <n-body>
+            <n-stack gap="1">
+              <n-text size="xs" muted>Churn</n-text>
+              <n-stack direction="row" align="center" gap="1">
+                <n-text size="lg"><strong>33</strong></n-text>
+                <n-text inline size="xs" intent="danger"><strong>-34%</strong></n-text>
+              </n-stack>
+              <n-chart class="kpi-sparkline" type="sparkline" id="spark-2"></n-chart>
             </n-stack>
-            <n-chart class="kpi-sparkline" type="sparkline" id="spark-2"></n-chart>
-          </n-stack>
+          </n-body>
         </n-card>
         <n-card inline>
-          <n-stack gap="1">
-            <n-text size="xs" muted>Revenue</n-text>
-            <n-stack direction="row" align="center" gap="1">
-              <n-text size="lg"><strong>$25K</strong></n-text>
-              <n-text inline size="xs" intent="success"><strong>+400%</strong></n-text>
+          <n-body>
+            <n-stack gap="1">
+              <n-text size="xs" muted>Revenue</n-text>
+              <n-stack direction="row" align="center" gap="1">
+                <n-text size="lg"><strong>$25K</strong></n-text>
+                <n-text inline size="xs" intent="success"><strong>+400%</strong></n-text>
+              </n-stack>
+              <n-chart class="kpi-sparkline" type="sparkline" id="spark-3"></n-chart>
             </n-stack>
-            <n-chart class="kpi-sparkline" type="sparkline" id="spark-3"></n-chart>
-          </n-stack>
+          </n-body>
         </n-card>
         <n-card inline>
-          <n-stack gap="1">
-            <n-text size="xs" muted>NPS</n-text>
-            <n-stack direction="row" align="center" gap="1">
-              <n-text size="lg"><strong>112</strong></n-text>
-              <n-text inline size="xs" intent="success"><strong>+12%</strong></n-text>
+          <n-body>
+            <n-stack gap="1">
+              <n-text size="xs" muted>NPS</n-text>
+              <n-stack direction="row" align="center" gap="1">
+                <n-text size="lg"><strong>112</strong></n-text>
+                <n-text inline size="xs" intent="success"><strong>+12%</strong></n-text>
+              </n-stack>
+              <n-chart class="kpi-sparkline" type="sparkline" id="spark-4"></n-chart>
             </n-stack>
-            <n-chart class="kpi-sparkline" type="sparkline" id="spark-4"></n-chart>
-          </n-stack>
+          </n-body>
         </n-card>
       </div>
     <pre class="layout-code"><code set:html={codeExamples.sparkline} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>

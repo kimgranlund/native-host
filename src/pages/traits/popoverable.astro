@@ -51,7 +51,7 @@ popover.syncPopover(open.value);`,
       <n-text size="xs" muted spacing="tight">
         Uses <code>PopoverController</code> directly to wire an anchor button to a popover panel. Click outside or press Escape to close.
       </n-text>
-      <div id="pop-1" class="popover-anchor">
+      <div id="popoverable-demo-1" class="popover-anchor">
         <n-button id="pop-trigger-1">Toggle Popover</n-button>
         <div class="pop-content" id="pop-content-1" popover="manual">
           <n-text>This popover is anchored to the button using CSS Anchor positioning. Click outside or press Escape to close.</n-text>
@@ -147,7 +147,12 @@ popover.syncPopover(open.value);`,
 
     // ── Helper: wire a popover instance ──
 
-    function wirePopDemo(hostId: string, triggerId: string, contentId: string) {
+    /**
+     * @param {string} hostId
+     * @param {string} triggerId
+     * @param {string} contentId
+     */
+    function wirePopDemo(hostId, triggerId, contentId) {
       const host = document.getElementById(hostId);
       const trigger = document.getElementById(triggerId);
       const content = document.getElementById(contentId);
@@ -174,9 +179,9 @@ popover.syncPopover(open.value);`,
     // ── Wire all popover demos ──
 
     document.addEventListener('astro:page-load', () => {
-      if (!document.getElementById('pop-1')) return;
+      if (!document.getElementById('popoverable-demo-1')) return;
 
-      wirePopDemo('pop-1', 'pop-trigger-1', 'pop-content-1');
+      wirePopDemo('popoverable-demo-1', 'pop-trigger-1', 'pop-content-1');
       wirePopDemo('pop-2', 'pop-trigger-2', 'pop-content-2');
       wirePopDemo('pop-3', 'pop-trigger-3', 'pop-content-3');
     });

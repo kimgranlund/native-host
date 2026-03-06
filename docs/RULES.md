@@ -32,6 +32,25 @@ These are non-negotiable. Violating any of them will break the build or the UI.
    - **Wrap in a plain `<div>` with a class** if you need layout CSS on the component (`<div class="auth-card"><n-card>…</n-card></div>`).
    - This applies to both host-authored markup and component-stamped internals (see `T0086`).
 
+10. **`n-card` content must always use sub-containers** -- never put bare content directly inside `<n-card>`. Always use one of:
+    ```html
+    <!-- Body only -->
+    <n-card>
+      <n-body>{contents}</n-body>
+    </n-card>
+
+    <!-- With header/footer -->
+    <n-card>
+      <n-header>{title}</n-header>
+      <n-body>{contents}</n-body>
+      <n-footer>{actions}</n-footer>
+    </n-card>
+    ```
+
+11. **No TypeScript syntax in `<script>` blocks** -- esbuild may parse them as JS. No `!` non-null assertions, no `as Type` casts, no `: Type` annotations. Use optional chaining (`?.`), null guards (`if (!el) return`), and JSDoc (`/** @type {CustomEvent} */`) instead.
+
+12. **`astro:page-load` guards must use a unique element ID** -- the guard ID must be specific to that page (e.g. `getter-demo`, `swap-list`). Generic IDs like `log`, `panel`, `output` exist on multiple pages and will cause cross-page crashes when listeners accumulate during View Transition navigation.
+
 ## CSS Gotchas
 
 **Use `@import`, never `<link>`, for npm packages.** Vite does not resolve bare specifiers in `<link>` tags.
@@ -58,7 +77,7 @@ These are non-negotiable. Violating any of them will break the build or the UI.
 
 **Curly braces in `<code>` blocks need HTML entities.** Astro interprets `{`/`}` as JSX expressions. Use `&#123;` and `&#125;`.
 
-**`n-body` inside `n-card` without headers/footers creates double padding.** Only use `<n-body>` when the card also has `<n-header>` or `<n-footer>`.
+**`n-card` always needs sub-containers.** See Hard Rule #10. Never put bare content directly inside `<n-card>` — always wrap in `<n-body>` (and optionally `<n-header>`/`<n-footer>`).
 
 **`CollapsibleController` needs consumer CSS.** It sets a `[collapsed]` attribute after animation ends but removes inline styles. Without CSS, content pops back to visible:
 

@@ -13,7 +13,9 @@ Each agent reads this file at session start, processes tickets addressed to it, 
 
 ## Open
 
-(none)
+| Status | File | Title | From | To |
+|--------|------|-------|------|----|
+| **open** | T0122-teardown-null-destroy.md | Teardown `destroy()` crashes on null controller reference during View Transition swap | host | native-ui |
 
 ## Closed (T0001–T0121)
 

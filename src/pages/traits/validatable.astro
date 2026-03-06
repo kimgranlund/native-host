@@ -168,10 +168,10 @@ document.addEventListener('astro:page-load', () => {
 
       // ── Wire validation field ──
 
-      function wireField(field: HTMLElement) {
+      function wireField(field) {
         const errorEl = field.querySelector('.error-msg');
-        field.addEventListener('native:invalid', (e: CustomEvent) => {
-          if (errorEl) errorEl.textContent = e.detail.message;
+        field.addEventListener('native:invalid', (e) => {
+          if (errorEl) errorEl.textContent = /** @type {CustomEvent} */ (e).detail.message;
         });
         field.addEventListener('native:valid', () => {
           if (errorEl) errorEl.textContent = '';
@@ -180,7 +180,8 @@ document.addEventListener('astro:page-load', () => {
 
       // ── Required Field ──
 
-      const reqField = document.getElementById('required-field')!;
+      const reqField = document.getElementById('required-field');
+      if (!reqField) return;
       const reqValidator = new ValidateController(reqField);
       reqValidator.rules = [
         ValidateController.required('Name is required'),
@@ -194,7 +195,8 @@ document.addEventListener('astro:page-load', () => {
 
       // ── Password Field ──
 
-      const pwField = document.getElementById('password-field')!;
+      const pwField = document.getElementById('password-field');
+      if (!pwField) return;
       const pwValidator = new ValidateController(pwField);
       pwValidator.rules = [
         ValidateController.required('Password is required'),
@@ -211,7 +213,8 @@ document.addEventListener('astro:page-load', () => {
 
       // ── Email Field (blur validation) ──
 
-      const emailField = document.getElementById('email-field')!;
+      const emailField = document.getElementById('email-field');
+      if (!emailField) return;
       const emailValidator = new ValidateController(emailField);
       emailValidator.rules = [
         ValidateController.required('Email is required'),

@@ -42,7 +42,7 @@ toaster.toast({ message: 'Sticky!', intent: 'warning', duration: 0 });`,
       <n-text size="xs" muted spacing="tight">
         Uses <code>ToastController</code> directly on a host element. Each intent maps to a different surface color.
       </n-text>
-      <div class="button-row">
+      <div id="toastable-intent-row" class="button-row">
         <n-button id="info-btn" intent="info">Info Toast</n-button>
         <n-button id="success-btn" intent="success">Success Toast</n-button>
         <n-button id="warning-btn" intent="warning">Warning Toast</n-button>
@@ -134,7 +134,7 @@ toaster.dismissAllToasts();</code><n-button size="sm" variant="ghost" aria-label
 import { ToastController } from '@nonoun/native-ui';
 
 document.addEventListener('astro:page-load', () => {
-      if (!document.getElementById('info-btn')) return;
+      if (!document.getElementById('toastable-intent-row')) return;
 
       // ── Toast Controller — attached to body ──
 
@@ -170,7 +170,7 @@ document.addEventListener('astro:page-load', () => {
       // ── Batch demos ──
 
       document.getElementById('batch-btn')?.addEventListener('native:press', () => {
-        const intents = ['info', 'success', 'warning', 'danger', 'info'] as const;
+        const intents = ['info', 'success', 'warning', 'danger', 'info'];
         intents.forEach((intent, i) => {
           setTimeout(() => {
             toaster.toast({ message: `Toast #${i + 1} (${intent})`, intent, duration: 6000 });

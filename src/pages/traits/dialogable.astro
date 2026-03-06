@@ -244,15 +244,15 @@ const codeExamples = {
 
       // ── Basic demo ──
 
-      const basicCtrl = (basicDialog as any).getTraitController('dialogable');
+      const basicCtrl = (basicDialog as any)?.getTraitController('dialogable');
 
       document.getElementById('basic-open-btn')?.addEventListener('native:press', () => {
-        basicCtrl.showModal();
+        basicCtrl?.showModal();
         appendLog(basicLog, 'showModal()');
       });
 
       document.getElementById('basic-close-btn')?.addEventListener('native:press', () => {
-        basicCtrl.close();
+        basicCtrl?.close();
       });
 
       basicDialog.addEventListener('close', () => {

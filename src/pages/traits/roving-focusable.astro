@@ -156,10 +156,10 @@ document.addEventListener('astro:page-load', () => {
 
   // ── Tab bar: active class switching ──
 
-  const tabbar = document.getElementById('tabbar')!;
-  tabbar.addEventListener('focusin', (e: FocusEvent) => {
+  const tabbar = document.getElementById('tabbar');
+  tabbar?.addEventListener('focusin', (e) => {
     for (const item of tabbar.querySelectorAll('.tab-item')) item.classList.remove('active');
-    if (e.target !== tabbar) (e.target as HTMLElement).classList.add('active');
+    if (e.target !== tabbar && e.target instanceof HTMLElement) e.target.classList.add('active');
   });
 });
   </script>

@@ -207,7 +207,7 @@ document.addEventListener('astro:page-load', () => {
 
       // ── Helper: render rows into a content container ──
 
-      function renderRows(container: HTMLElement, start: number, end: number, prefix: string) {
+      function renderRows(container, start, end, prefix) {
         const old = container.querySelectorAll('.virtual-row');
         for (const r of old) r.remove();
 
@@ -226,9 +226,10 @@ document.addEventListener('astro:page-load', () => {
       // ── 10,000 Items Demo ──
 
       const TOTAL1 = 10000;
-      const host1 = document.getElementById('host1')!;
-      const viewport1 = document.getElementById('viewport1')!;
-      const content1 = document.getElementById('content1')!;
+      const host1 = document.getElementById('host1');
+      const viewport1 = document.getElementById('viewport1');
+      const content1 = document.getElementById('content1');
+      if (!host1 || !viewport1 || !content1) return;
       const renderedEl = document.getElementById('rendered-count');
       const rangeEl = document.getElementById('range-display');
 
@@ -238,8 +239,8 @@ document.addEventListener('astro:page-load', () => {
       });
       vctrl1.enable(viewport1, content1, TOTAL1);
 
-      host1.addEventListener('native:virtual-change', (e: CustomEvent) => {
-        const { start, end } = e.detail;
+      host1.addEventListener('native:virtual-change', (e) => {
+        const { start, end } = /** @type {CustomEvent} */ (e).detail;
         renderRows(content1, start, end, 'Row');
         if (renderedEl) renderedEl.textContent = String(end - start);
         if (rangeEl) rangeEl.textContent = `${start}\u2013${end}`;
@@ -253,9 +254,10 @@ document.addEventListener('astro:page-load', () => {
       // ── Dynamic Count Demo ──
 
       let dynamicCount = 100;
-      const host2 = document.getElementById('host2')!;
-      const viewport2 = document.getElementById('viewport2')!;
-      const content2 = document.getElementById('content2')!;
+      const host2 = document.getElementById('host2');
+      const viewport2 = document.getElementById('viewport2');
+      const content2 = document.getElementById('content2');
+      if (!host2 || !viewport2 || !content2) return;
       const dynOut = document.getElementById('dynamic-output');
 
       const vctrl2 = new VirtualScrollController(host2, {
@@ -264,8 +266,8 @@ document.addEventListener('astro:page-load', () => {
       });
       vctrl2.enable(viewport2, content2, dynamicCount);
 
-      host2.addEventListener('native:virtual-change', (e: CustomEvent) => {
-        const { start, end, totalCount } = e.detail;
+      host2.addEventListener('native:virtual-change', (e) => {
+        const { start, end, totalCount } = /** @type {CustomEvent} */ (e).detail;
         renderRows(content2, start, end, 'Dynamic row');
         if (dynOut) dynOut.textContent = `${totalCount} items \u2014 showing ${start}\u2013${end}`;
       });
@@ -288,9 +290,10 @@ document.addEventListener('astro:page-load', () => {
       // ── VirtualScrollController — Attach to Any Element ──
 
       const CTRL_TOTAL = 5000;
-      const ctrlHost = document.getElementById('ctrl-host')!;
-      const ctrlViewport = document.getElementById('ctrl-viewport')!;
-      const ctrlContent = document.getElementById('ctrl-content')!;
+      const ctrlHost = document.getElementById('ctrl-host');
+      const ctrlViewport = document.getElementById('ctrl-viewport');
+      const ctrlContent = document.getElementById('ctrl-content');
+      if (!ctrlHost || !ctrlViewport || !ctrlContent) return;
       const ctrlRendered = document.getElementById('ctrl-rendered');
       const ctrlRange = document.getElementById('ctrl-range');
 
@@ -300,8 +303,8 @@ document.addEventListener('astro:page-load', () => {
       });
       vctrl3.enable(ctrlViewport, ctrlContent, CTRL_TOTAL);
 
-      ctrlHost.addEventListener('native:virtual-change', (e: CustomEvent) => {
-        const { start, end } = e.detail;
+      ctrlHost.addEventListener('native:virtual-change', (e) => {
+        const { start, end } = /** @type {CustomEvent} */ (e).detail;
         renderRows(ctrlContent, start, end, 'Controller row');
         if (ctrlRendered) ctrlRendered.textContent = String(end - start);
         if (ctrlRange) ctrlRange.textContent = `${start}\u2013${end}`;

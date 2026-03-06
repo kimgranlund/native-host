@@ -160,13 +160,15 @@ const codeExamples = {
 
     // Re-wire on every navigation (view transitions)
     document.addEventListener('astro:page-load', () => {
+      const toggleBtn = document.getElementById('toggle-btn');
+      if (!toggleBtn) return; // not on this page
+
       const section1 = document.getElementById('section1');
-      if (!section1) return; // not on this page
 
       // Event logging
       const logEl = document.getElementById('log');
       let count = 0;
-      function log(msg: string) {
+      function log(msg) {
         count++;
         const line = document.createElement('div');
         line.textContent = `#${count} ${msg}`;
@@ -175,24 +177,24 @@ const codeExamples = {
       }
 
       // Basic toggle
-      document.getElementById('toggle-btn')?.addEventListener('native:press', () => {
-        (section1 as any).getTraitController('collapsible').toggle();
+      toggleBtn.addEventListener('native:press', () => {
+        section1?.getTraitController('collapsible').toggle();
       });
-      section1.addEventListener('native:expand', () => log('Expanded'));
-      section1.addEventListener('native:collapse', () => log('Collapsed'));
+      section1?.addEventListener('native:expand', () => log('Expanded'));
+      section1?.addEventListener('native:collapse', () => log('Collapsed'));
 
       // Initially collapsed
       const section2 = document.getElementById('section2');
       document.getElementById('expand-btn')?.addEventListener('native:press', () => {
-        const ctrl = (section2 as any).getTraitController('collapsible');
-        if (ctrl.collapsed) ctrl.expand();
-        else ctrl.collapse();
+        const ctrl = section2?.getTraitController('collapsible');
+        if (ctrl?.collapsed) ctrl.expand();
+        else ctrl?.collapse();
       });
 
       // Custom duration (500ms)
       const section3 = document.getElementById('section3');
       document.getElementById('slow-btn')?.addEventListener('native:press', () => {
-        (section3 as any).getTraitController('collapsible').toggle();
+        section3?.getTraitController('collapsible').toggle();
       });
     });
   </script>

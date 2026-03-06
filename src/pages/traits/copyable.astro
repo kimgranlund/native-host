@@ -182,7 +182,8 @@ if (!customElements.get('copy-demo')) {
 }
 
 document.addEventListener('astro:page-load', () => {
-      if (!document.getElementById('basic-log')) return;
+      const getterEl = document.getElementById('getter-demo');
+      if (!getterEl) return;
 
       // ── Basic Copy (injection) — wire native:press → copy ──
 
@@ -193,13 +194,12 @@ document.addEventListener('astro:page-load', () => {
       }
 
       const basicLogEl = document.getElementById('basic-log');
-      document.querySelector('copy-demo[copyable-value="npm install native-ui"]')?.addEventListener('native:copy', (e: CustomEvent) => {
-        appendLog(basicLogEl, `Copied: "${e.detail.value}"`);
+      document.querySelector('copy-demo[copyable-value="npm install native-ui"]')?.addEventListener('native:copy', (e) => {
+        appendLog(basicLogEl, `Copied: "${(e as CustomEvent).detail.value}"`);
       });
 
       // ── Copy with Getter (CopyController direct) ──
 
-      const getterEl = document.getElementById('getter-demo')!;
       const getterCopy = new CopyController(getterEl, {
         value: () => new Date().toISOString(),
       });
@@ -207,15 +207,15 @@ document.addEventListener('astro:page-load', () => {
       getterEl.addEventListener('native:press', () => getterCopy.copy());
 
       const getterLogEl = document.getElementById('getter-log');
-      getterEl.addEventListener('native:copy', (e: CustomEvent) => {
-        appendLog(getterLogEl, `Copied: "${e.detail.value}"`);
+      getterEl.addEventListener('native:copy', (e) => {
+        appendLog(getterLogEl, `Copied: "${(e as CustomEvent).detail.value}"`);
       });
 
       // ── Custom Duration (injection) — log ──
 
       const fastLogEl = document.getElementById('fast-log');
-      document.querySelector('copy-demo[copyable-feedback-duration="500"]')?.addEventListener('native:copy', (e: CustomEvent) => {
-        appendLog(fastLogEl, `Copied: "${e.detail.value}"`);
+      document.querySelector('copy-demo[copyable-feedback-duration="500"]')?.addEventListener('native:copy', (e) => {
+        appendLog(fastLogEl, `Copied: "${(e as CustomEvent).detail.value}"`);
       });
 
       // ── Provider Pattern — wire click → copy ──
@@ -233,8 +233,8 @@ document.addEventListener('astro:page-load', () => {
       });
 
       const providerLogEl = document.getElementById('provider-log');
-      providerCard?.addEventListener('native:copy', (e: CustomEvent) => {
-        appendLog(providerLogEl, `Copied: "${e.detail.value}"`);
+      providerCard?.addEventListener('native:copy', (e) => {
+        appendLog(providerLogEl, `Copied: "${(e as CustomEvent).detail.value}"`);
       });
 });
   </script>

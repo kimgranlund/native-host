@@ -21,11 +21,11 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <n-panel bordered>
       <div class="demo-card">
         <n-card>
-          <p>A simple card with just body content. No header or footer.</p>
+          <n-body><p>A simple card with just body content. No header or footer.</p></n-body>
         </n-card>
       </div>
     <pre class="layout-code"><code>&lt;n-card&gt;
-  &lt;p&gt;A simple card with just body content.&lt;/p&gt;
+  &lt;n-body&gt;&lt;p&gt;A simple card with just body content.&lt;/p&gt;&lt;/n-body&gt;
 &lt;/n-card&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
@@ -146,17 +146,17 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       <n-stack direction="row" wrap align="center">
         <div class="demo-card-xs">
           <n-card interactive>
-            <n-text>Click this card. It has hover and focus states.</n-text>
+            <n-body><n-text>Click this card. It has hover and focus states.</n-text></n-body>
           </n-card>
         </div>
         <div class="demo-card-xs">
           <n-card interactive>
-            <n-text>Another interactive card. Tab to focus.</n-text>
+            <n-body><n-text>Another interactive card. Tab to focus.</n-text></n-body>
           </n-card>
         </div>
       </n-stack>
       <pre class="layout-code"><code>&lt;n-card interactive&gt;
-  &lt;p&gt;Click this card. It has hover and focus states.&lt;/p&gt;
+  &lt;n-body&gt;&lt;p&gt;Click this card. It has hover and focus states.&lt;/p&gt;&lt;/n-body&gt;
 &lt;/n-card&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 

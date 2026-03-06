@@ -189,12 +189,13 @@ const detailIntersection = `{ isIntersecting, ratio }`;
 import { logAppend as appendLog } from '../../scripts/event-log';
 
 document.addEventListener('astro:page-load', () => {
-  if (!document.getElementById('scroll-log')) return;
+  if (!document.getElementById('once-a')) return;
 
-  function bindStatus(el: Element) {
+  function bindStatus(el) {
     const badge = el.querySelector('.intersect-status');
-    el.addEventListener('native:intersect', (e: CustomEvent) => {
-      if (badge) badge.textContent = e.detail.isIntersecting ? 'visible' : 'hidden';
+    el.addEventListener('native:intersect', (e) => {
+      /** @type {CustomEvent} */ const ce = e;
+      if (badge) badge.textContent = ce.detail.isIntersecting ? 'visible' : 'hidden';
     });
   }
 
@@ -207,9 +208,10 @@ document.addEventListener('astro:page-load', () => {
   // ── Once mode: add .revealed class on first intersection ──
 
   for (const el of [document.getElementById('once-a'), document.getElementById('once-b'), document.getElementById('once-c')]) {
-    el?.addEventListener('native:intersect', ((e: CustomEvent) => {
-      if (e.detail.isIntersecting) el.classList.add('revealed');
-    }) as EventListener);
+    el?.addEventListener('native:intersect', (e) => {
+      /** @type {CustomEvent} */ const ce = e;
+      if (ce.detail.isIntersecting) el.classList.add('revealed');
+    });
   }
 
   // ── Event logging: Scroll Into View ──
@@ -217,9 +219,10 @@ document.addEventListener('astro:page-load', () => {
   const scrollLogEl = document.getElementById('scroll-log');
   const scrollBoxes = document.querySelectorAll('.layout-section:nth-of-type(1) .intersect-box');
   for (const el of scrollBoxes) {
-    el.addEventListener('native:intersect', (e: CustomEvent) => {
+    el.addEventListener('native:intersect', (e) => {
+      /** @type {CustomEvent} */ const ce = e;
       const label = el.querySelector('.intersect-label')?.textContent;
-      appendLog(scrollLogEl, `${label}: ${e.detail.isIntersecting ? 'enter' : 'leave'} (ratio: ${e.detail.ratio.toFixed(2)})`);
+      appendLog(scrollLogEl, `${label}: ${ce.detail.isIntersecting ? 'enter' : 'leave'} (ratio: ${ce.detail.ratio.toFixed(2)})`);
     });
   }
 
@@ -227,10 +230,11 @@ document.addEventListener('astro:page-load', () => {
 
   const onceLogEl = document.getElementById('once-log');
   for (const el of [document.getElementById('once-a'), document.getElementById('once-b'), document.getElementById('once-c')]) {
-    el?.addEventListener('native:intersect', ((e: CustomEvent) => {
+    el?.addEventListener('native:intersect', (e) => {
+      /** @type {CustomEvent} */ const ce = e;
       const label = el.querySelector('.intersect-label')?.textContent;
-      appendLog(onceLogEl, `${label}: ${e.detail.isIntersecting ? 'enter (observer disconnects)' : 'leave'}`);
-    }) as EventListener);
+      appendLog(onceLogEl, `${label}: ${ce.detail.isIntersecting ? 'enter (observer disconnects)' : 'leave'}`);
+    });
   }
 
   // ── Event logging: Threshold ──
@@ -238,9 +242,10 @@ document.addEventListener('astro:page-load', () => {
   const thresholdLogEl = document.getElementById('threshold-log');
   const thresholdBoxes = document.querySelectorAll('.layout-section:last-of-type .intersect-box');
   for (const el of thresholdBoxes) {
-    el.addEventListener('native:intersect', (e: CustomEvent) => {
+    el.addEventListener('native:intersect', (e) => {
+      /** @type {CustomEvent} */ const ce = e;
       const label = el.querySelector('.intersect-label')?.textContent;
-      appendLog(thresholdLogEl, `${label}: ${e.detail.isIntersecting ? 'enter' : 'leave'} (ratio: ${e.detail.ratio.toFixed(2)})`);
+      appendLog(thresholdLogEl, `${label}: ${ce.detail.isIntersecting ? 'enter' : 'leave'} (ratio: ${ce.detail.ratio.toFixed(2)})`);
     });
   }
 });

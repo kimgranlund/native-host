@@ -95,11 +95,13 @@ ctrl.present();`,
         Click the button to present the card in a fullscreen overlay. Close with the X button, click outside, or press Escape.
       </n-text>
       <n-button id="present-basic">Present Content</n-button>
-      <n-card id="present-content-1" class="present-card">
-        <h3 class="present-card-title">Presented Content</h3>
-        <n-text size="sm">This card is now displayed in a full-viewport dialog overlay. The content is wrapped in a modal <code>&lt;dialog&gt;</code> using <code>showModal()</code> for top-layer rendering.</n-text>
-        <n-text size="sm">Close by clicking the X button, clicking the backdrop, or pressing Escape.</n-text>
-      </n-card>
+      <div class="present-card"><n-card id="present-content-1">
+        <n-header><h3>Presented Content</h3></n-header>
+        <n-body>
+          <n-text size="sm">This card is now displayed in a full-viewport dialog overlay. The content is wrapped in a modal <code>&lt;dialog&gt;</code> using <code>showModal()</code> for top-layer rendering.</n-text>
+          <n-text size="sm">Close by clicking the X button, clicking the backdrop, or pressing Escape.</n-text>
+        </n-body>
+      </n-card></div>
       <pre class="layout-code"><code set:html={codeExamples.basicPresent} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
@@ -115,10 +117,12 @@ ctrl.present();`,
         <n-button id="present-inset-4rem">Inset: 4rem</n-button>
         <n-button id="present-inset-8rem">Inset: 8rem</n-button>
       </n-stack>
-      <n-card id="present-content-2" class="present-card">
-        <h3 class="present-card-title">Custom Inset</h3>
-        <n-text size="sm">This card is presented with a custom inset value. The inset controls how much space is reserved between the dialog wrapper and the viewport edges.</n-text>
-      </n-card>
+      <div class="present-card"><n-card id="present-content-2">
+        <n-header><h3>Custom Inset</h3></n-header>
+        <n-body>
+          <n-text size="sm">This card is presented with a custom inset value. The inset controls how much space is reserved between the dialog wrapper and the viewport edges.</n-text>
+        </n-body>
+      </n-card></div>
       <pre class="layout-code"><code set:html={codeExamples.customInset} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
@@ -130,10 +134,12 @@ ctrl.present();`,
         Set <code>closeButton: false</code> to hide the X button. The overlay can still be dismissed via backdrop click or Escape, or programmatically with <code>dismiss()</code>.
       </n-text>
       <n-button id="present-no-close">Present (no X button)</n-button>
-      <n-card id="present-content-3" class="present-card">
-        <h3 class="present-card-title">No Close Button</h3>
-        <n-text size="sm">There is no X button in this overlay. Click outside the card or press Escape to dismiss.</n-text>
-      </n-card>
+      <div class="present-card"><n-card id="present-content-3">
+        <n-header><h3>No Close Button</h3></n-header>
+        <n-body>
+          <n-text size="sm">There is no X button in this overlay. Click outside the card or press Escape to dismiss.</n-text>
+        </n-body>
+      </n-card></div>
       <pre class="layout-code"><code set:html={codeExamples.noCloseButton} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
@@ -145,10 +151,12 @@ ctrl.present();`,
         <code>native:present</code> fires after the dialog opens. <code>native:dismiss</code> fires after the dialog closes and the host is restored to its original DOM position.
       </n-text>
       <n-button id="present-events">Present with Events</n-button>
-      <n-card id="present-content-4" class="present-card">
-        <h3 class="present-card-title">Event Demo</h3>
-        <n-text size="sm">Open and close this overlay to see events logged below.</n-text>
-      </n-card>
+      <div class="present-card"><n-card id="present-content-4">
+        <n-header><h3>Event Demo</h3></n-header>
+        <n-body>
+          <n-text size="sm">Open and close this overlay to see events logged below.</n-text>
+        </n-body>
+      </n-card></div>
       <div id="log" class="output"></div>
     </n-panel>
 
@@ -278,11 +286,12 @@ ctrl.present();`,
     import { logAppend } from '../../scripts/event-log';
 
     document.addEventListener('astro:page-load', () => {
-      if (!document.getElementById('present-content-1')) return;
+      if (!document.getElementById('present-basic')) return;
 
       // ── Basic Demo ──
 
-      const content1 = document.getElementById('present-content-1')!;
+      const content1 = document.getElementById('present-content-1');
+      if (!content1) return;
       const ctrl1 = new PresentController(content1);
 
       document.getElementById('present-basic')?.addEventListener('native:press', () => {
@@ -291,10 +300,11 @@ ctrl.present();`,
 
       // ── Custom Inset Demo ──
 
-      const content2 = document.getElementById('present-content-2')!;
-      let ctrl2: PresentController | null = null;
+      const content2 = document.getElementById('present-content-2');
+      if (!content2) return;
+      let ctrl2 = null;
 
-      function presentWithInset(inset: string) {
+      function presentWithInset(inset) {
         // Destroy previous controller to reset options
         ctrl2?.destroy();
         ctrl2 = new PresentController(content2, { inset });
@@ -307,7 +317,8 @@ ctrl.present();`,
 
       // ── No Close Button Demo ──
 
-      const content3 = document.getElementById('present-content-3')!;
+      const content3 = document.getElementById('present-content-3');
+      if (!content3) return;
       const ctrl3 = new PresentController(content3, { closeButton: false });
 
       document.getElementById('present-no-close')?.addEventListener('native:press', () => {
@@ -316,7 +327,8 @@ ctrl.present();`,
 
       // ── Events Demo ──
 
-      const content4 = document.getElementById('present-content-4')!;
+      const content4 = document.getElementById('present-content-4');
+      if (!content4) return;
       const ctrl4 = new PresentController(content4);
       const logEl = document.getElementById('log');
       let count = 0;
@@ -340,12 +352,6 @@ ctrl.present();`,
     .present-card {
       margin-top: 0.75rem;
       max-width: 32rem;
-    }
-
-    .present-card-title {
-      margin: 0 0 0.75rem;
-      font-size: 1rem;
-      font-weight: 600;
     }
 
     .output {

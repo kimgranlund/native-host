@@ -233,49 +233,60 @@ document.addEventListener('astro:page-load', () => {
       // Events bubble up from each item to the list container.
 
       const dblLogEl = document.getElementById('dbl-log');
-      const dblList = document.getElementById('dbl-list')!;
+      const dblList = document.getElementById('dbl-list');
 
-      dblList.addEventListener('native:edit-start', (e: CustomEvent) => {
-        appendLog(dblLogEl, `Editing: "${e.detail.value}"`);
+      dblList?.addEventListener('native:edit-start', (e) => {
+        /** @type {CustomEvent} */ const ce = e;
+        appendLog(dblLogEl, `Editing: "${ce.detail.value}"`);
       });
-      dblList.addEventListener('native:edit-commit', (e: CustomEvent) => {
-        appendLog(dblLogEl, `Committed: "${e.detail.value}" (was "${e.detail.previousValue}")`);
+      dblList?.addEventListener('native:edit-commit', (e) => {
+        /** @type {CustomEvent} */ const ce = e;
+        appendLog(dblLogEl, `Committed: "${ce.detail.value}" (was "${ce.detail.previousValue}")`);
       });
-      dblList.addEventListener('native:edit-cancel', (e: CustomEvent) => {
-        appendLog(dblLogEl, `Cancelled: "${e.detail.value}"`);
+      dblList?.addEventListener('native:edit-cancel', (e) => {
+        /** @type {CustomEvent} */ const ce = e;
+        appendLog(dblLogEl, `Cancelled: "${ce.detail.value}"`);
       });
 
       // ── Click to Edit (provider) ──
 
       const clickLogEl = document.getElementById('click-log');
-      const clickList = document.getElementById('click-list')!;
+      const clickList = document.getElementById('click-list');
 
-      clickList.addEventListener('native:edit-start', (e: CustomEvent) => {
-        appendLog(clickLogEl, `Editing: "${e.detail.value}"`);
+      clickList?.addEventListener('native:edit-start', (e) => {
+        /** @type {CustomEvent} */ const ce = e;
+        appendLog(clickLogEl, `Editing: "${ce.detail.value}"`);
       });
-      clickList.addEventListener('native:edit-commit', (e: CustomEvent) => {
-        appendLog(clickLogEl, `Committed: "${e.detail.value}" (was "${e.detail.previousValue}")`);
+      clickList?.addEventListener('native:edit-commit', (e) => {
+        /** @type {CustomEvent} */ const ce = e;
+        appendLog(clickLogEl, `Committed: "${ce.detail.value}" (was "${ce.detail.previousValue}")`);
       });
-      clickList.addEventListener('native:edit-cancel', (e: CustomEvent) => {
-        appendLog(clickLogEl, `Cancelled: "${e.detail.value}"`);
+      clickList?.addEventListener('native:edit-cancel', (e) => {
+        /** @type {CustomEvent} */ const ce = e;
+        appendLog(clickLogEl, `Cancelled: "${ce.detail.value}"`);
       });
 
       // ── EditController — attach to plain element ──
 
-      const ctrlItem = document.getElementById('controller-item')!;
-      const ctrlEditor = new EditController(ctrlItem, { trigger: 'dblclick' });
+      const ctrlItem = document.getElementById('controller-item');
+      if (ctrlItem) {
+        const ctrlEditor = new EditController(ctrlItem, { trigger: 'dblclick' });
 
-      const ctrlLogEl = document.getElementById('ctrl-log');
+        const ctrlLogEl = document.getElementById('ctrl-log');
 
-      ctrlItem.addEventListener('native:edit-start', (e: CustomEvent) => {
-        appendLog(ctrlLogEl, `Editing: "${e.detail.value}"`);
-      });
-      ctrlItem.addEventListener('native:edit-commit', (e: CustomEvent) => {
-        appendLog(ctrlLogEl, `Committed: "${e.detail.value}" (was "${e.detail.previousValue}")`);
-      });
-      ctrlItem.addEventListener('native:edit-cancel', (e: CustomEvent) => {
-        appendLog(ctrlLogEl, `Cancelled: "${e.detail.value}"`);
-      });
+        ctrlItem.addEventListener('native:edit-start', (e) => {
+          /** @type {CustomEvent} */ const ce = e;
+          appendLog(ctrlLogEl, `Editing: "${ce.detail.value}"`);
+        });
+        ctrlItem.addEventListener('native:edit-commit', (e) => {
+          /** @type {CustomEvent} */ const ce = e;
+          appendLog(ctrlLogEl, `Committed: "${ce.detail.value}" (was "${ce.detail.previousValue}")`);
+        });
+        ctrlItem.addEventListener('native:edit-cancel', (e) => {
+          /** @type {CustomEvent} */ const ce = e;
+          appendLog(ctrlLogEl, `Cancelled: "${ce.detail.value}"`);
+        });
+      }
 });
   </script>
   <style is:global>

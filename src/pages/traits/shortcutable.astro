@@ -347,7 +347,7 @@ import { ShortcutController } from '@nonoun/native-ui';
 import { logAppend as appendLog } from '../../scripts/event-log';
 
 document.addEventListener('astro:page-load', () => {
-  if (!document.getElementById('log-global')) return;
+  if (!document.getElementById('declarative-ctrl')) return;
 
   // ── Global Shortcuts ──
 
@@ -366,7 +366,8 @@ document.addEventListener('astro:page-load', () => {
 
   // ── Scoped Shortcuts ──
 
-  const scopedZone = document.getElementById('scoped-zone')!;
+  const scopedZone = document.getElementById('scoped-zone');
+  if (!scopedZone) return;
   const scopedLogEl = document.getElementById('log-scoped');
 
   const scopedCtrl = new ShortcutController(scopedZone, {
@@ -378,7 +379,8 @@ document.addEventListener('astro:page-load', () => {
 
   // ── Allow Editable ──
 
-  const editableZone = document.getElementById('editable-zone')!;
+  const editableZone = document.getElementById('editable-zone');
+  if (!editableZone) return;
   const editableLogEl = document.getElementById('log-editable');
 
   const editCtrl = new ShortcutController(editableZone, {
@@ -396,8 +398,9 @@ document.addEventListener('astro:page-load', () => {
   // ── Conditional Guard ──
 
   const guardLogEl = document.getElementById('log-guard');
-  const guardToggle = document.getElementById('guard-toggle')!;
-  const guardStatus = document.getElementById('guard-status')!;
+  const guardToggle = document.getElementById('guard-toggle');
+  const guardStatus = document.getElementById('guard-status');
+  if (!guardToggle || !guardStatus) return;
   let guardEnabled = false;
 
   const guardHost = document.createElement('div');
@@ -418,7 +421,7 @@ document.addEventListener('astro:page-load', () => {
   guardToggle.addEventListener('native:press', () => {
     guardEnabled = !guardEnabled;
     guardToggle.textContent = guardEnabled ? 'Disable shortcut' : 'Enable shortcut';
-    (guardToggle as HTMLElement).setAttribute('intent', guardEnabled ? 'accent' : 'neutral');
+    guardToggle.setAttribute('intent', guardEnabled ? 'accent' : 'neutral');
     guardStatus.textContent = guardEnabled ? 'on' : 'off';
     guardStatus.className = guardEnabled ? 'guard-badge guard-badge--on' : 'guard-badge guard-badge--off';
   });
@@ -427,8 +430,9 @@ document.addEventListener('astro:page-load', () => {
 
   const declarativeCtrl = document.getElementById('declarative-ctrl');
   const declarativeLogEl = document.getElementById('log-declarative');
-  declarativeCtrl?.addEventListener('native:shortcut', (e: CustomEvent) => {
-    appendLog(declarativeLogEl, `${e.detail.id} — ${e.detail.combo}`);
+  declarativeCtrl?.addEventListener('native:shortcut', (e) => {
+    /** @type {CustomEvent} */ const ce = e;
+    appendLog(declarativeLogEl, `${ce.detail.id} — ${ce.detail.combo}`);
   });
 });
   </script>
