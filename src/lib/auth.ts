@@ -1,4 +1,5 @@
 import { betterAuth } from 'better-auth';
+import { organization } from 'better-auth/plugins';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { db } from '../db/client';
 
@@ -26,4 +27,9 @@ export const auth = betterAuth({
   session: {
     cookieCache: { enabled: true, maxAge: 300 },
   },
+  plugins: [
+    organization({
+      allowUserToCreateOrganization: false,
+    }),
+  ],
 });
