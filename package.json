@@ -28,7 +28,7 @@
     "@nonoun/native-editor": "^0.2.13",
     "@nonoun/native-playground": "^0.2.13",
     "@nonoun/native-tokens": "^0.5.13",
-    "@nonoun/native-ui": "^0.7.32",
+    "@nonoun/native-ui": "^0.7.33",
     "astro": "^5.17.1",
     "better-auth": "^1.5.3",
     "drizzle-orm": "^0.45.1"
