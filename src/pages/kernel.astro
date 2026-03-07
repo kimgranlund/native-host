@@ -36,12 +36,12 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         </n-button>
       </n-stack>
       <n-card size="sm">
-        <n-body>
+        <section>
           <div class="status-bar" id="counter-status">
             <span><span class="label">Counter:</span> <n-text inline strong intent="accent" id="counter-value">0</n-text></span>
             <span><span class="label">Commands:</span> <n-text inline strong intent="accent" id="cmd-count">0</n-text></span>
           </div>
-        </n-body>
+        </section>
       </n-card>
       <div class="log" id="cmd-log"></div>
     </n-panel>
@@ -62,12 +62,12 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         </n-button>
       </n-stack>
       <n-card size="sm">
-        <n-body>
+        <section>
           <div class="status-bar">
             <span><span class="label">Undo stack:</span> <n-text inline strong intent="accent" id="undo-count">0</n-text></span>
             <span><span class="label">Redo stack:</span> <n-text inline strong intent="accent" id="redo-count">0</n-text></span>
           </div>
-        </n-body>
+        </section>
       </n-card>
     </n-panel>
 
@@ -101,12 +101,12 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         </n-button>
       </n-stack>
       <n-card size="sm">
-        <n-body>
+        <section>
           <div class="status-bar">
             <span><span class="label">Stack depth:</span> <n-text inline strong intent="accent" id="overlay-depth">0</n-text></span>
             <span><span class="label">Top:</span> <n-text inline strong intent="accent" id="overlay-top">none</n-text></span>
           </div>
-        </n-body>
+        </section>
       </n-card>
     </n-panel>
 
@@ -198,12 +198,12 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         </n-button>
       </n-stack>
       <n-card size="sm">
-        <n-body>
+        <section>
           <div class="status-bar">
             <span><span class="label">Log entries:</span> <n-text inline strong intent="accent" id="obs-count">0</n-text></span>
             <span><span class="label">Perf samples:</span> <n-text inline strong intent="accent" id="obs-perf-count">0</n-text></span>
           </div>
-        </n-body>
+        </section>
       </n-card>
       <div class="log" id="obs-log"></div>
     </n-panel>
@@ -230,13 +230,13 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         </n-button>
       </n-stack>
       <n-card size="sm">
-        <n-body>
+        <section>
           <div class="status-bar">
             <span><span class="label">State:</span> <n-text inline strong intent="accent" id="wf-state">-</n-text></span>
             <span><span class="label">Running:</span> <n-text inline strong intent="accent" id="wf-running">false</n-text></span>
             <span><span class="label">Cycles:</span> <n-text inline strong intent="accent" id="wf-cycles">0</n-text></span>
           </div>
-        </n-body>
+        </section>
       </n-card>
       <div class="log" id="wf-log"></div>
     </n-panel>
@@ -271,12 +271,12 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         </n-button>
       </n-stack>
       <n-card size="sm">
-        <n-body>
+        <section>
           <div class="status-bar">
             <span><span class="label">Denied:</span> <n-text inline strong intent="accent" id="pol-denied">0</n-text></span>
             <span><span class="label">Last decision:</span> <n-text inline strong intent="accent" id="pol-last">-</n-text></span>
           </div>
-        </n-body>
+        </section>
       </n-card>
       <div class="log" id="pol-log"></div>
     </n-panel>
@@ -300,12 +300,12 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         </n-button>
       </n-stack>
       <n-card size="sm">
-        <n-body>
+        <section>
           <div class="status-bar">
             <span><span class="label">Components:</span> <n-text inline strong intent="accent" id="ci-count">-</n-text></span>
             <span><span class="label">Bridge:</span> <n-text inline strong intent="accent" id="ci-bridge-status">not installed</n-text></span>
           </div>
-        </n-body>
+        </section>
       </n-card>
       <div class="log" id="ci-log"></div>
     </n-panel>
@@ -340,13 +340,13 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         </n-button>
       </n-stack>
       <n-card size="sm">
-        <n-body>
+        <section>
           <div class="status-bar">
             <span><span class="label">Template:</span> <n-text inline strong intent="accent" id="wft-name">-</n-text></span>
             <span><span class="label">State:</span> <n-text inline strong intent="accent" id="wft-state">-</n-text></span>
             <span><span class="label">Events:</span> <n-text inline strong intent="accent" id="wft-events">-</n-text></span>
           </div>
-        </n-body>
+        </section>
       </n-card>
       <div class="log" id="wft-log"></div>
     </n-panel>
@@ -420,13 +420,13 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         </n-button>
       </n-stack>
       <n-card size="sm">
-        <n-body>
+        <section>
           <div class="status-bar">
             <span><span class="label">Valid:</span> <n-text inline strong intent="accent" id="gp-valid">-</n-text></span>
             <span><span class="label">A11y:</span> <n-text inline strong intent="accent" id="gp-a11y">-</n-text></span>
             <span><span class="label">Warnings:</span> <n-text inline strong intent="accent" id="gp-warnings">-</n-text></span>
           </div>
-        </n-body>
+        </section>
       </n-card>
       <h3>Generated Plan JSON</h3>
       <div class="log" id="gp-plan-json" style="max-height: 16rem;"></div>
@@ -666,7 +666,7 @@ document.addEventListener('astro:page-load', () => {
 
         const closeBtn = document.createElement('n-button');
         closeBtn.setAttribute('size', 'xs');
-        closeBtn.innerHTML = '<span slot="label">Close</span>';
+        closeBtn.innerHTML = '<span>Close</span>';
         box.appendChild(closeBtn);
 
         document.body.appendChild(box);

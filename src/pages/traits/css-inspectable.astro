@@ -131,8 +131,8 @@ el.addEventListener('native:inspect', (e) =&gt; {
 
       <!-- Options -->
       <n-card>
-        <n-header><span slot="label">Options</span></n-header>
-        <n-body>
+        <header><span>Options</span></header>
+        <section>
           <n-stack gap="3">
             <n-stack direction="row" align="center" gap="3">
               <n-text size="sm" class="opt-label">Depth: <strong id="depth-val">16</strong>px</n-text>
@@ -158,7 +158,7 @@ el.addEventListener('native:inspect', (e) =&gt; {
               <n-switch id="opt-labels" checked>Show layer labels</n-switch>
             </n-stack>
           </n-stack>
-        </n-body>
+        </section>
       </n-card>
 
       <div id="controller-log" class="output"></div>

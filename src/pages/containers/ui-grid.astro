@@ -20,12 +20,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <h2>Auto-fill (default, min 16rem)</h2>
     <n-panel bordered>
       <n-grid>
-        <div class="layout-box"><n-card><n-body>Card 1</n-body></n-card></div>
-        <div class="layout-box"><n-card><n-body>Card 2</n-body></n-card></div>
-        <div class="layout-box"><n-card><n-body>Card 3</n-body></n-card></div>
-        <div class="layout-box"><n-card><n-body>Card 4</n-body></n-card></div>
-        <div class="layout-box"><n-card><n-body>Card 5</n-body></n-card></div>
-        <div class="layout-box"><n-card><n-body>Card 6</n-body></n-card></div>
+        <div class="layout-box"><n-card><section>Card 1</section></n-card></div>
+        <div class="layout-box"><n-card><section>Card 2</section></n-card></div>
+        <div class="layout-box"><n-card><section>Card 3</section></n-card></div>
+        <div class="layout-box"><n-card><section>Card 4</section></n-card></div>
+        <div class="layout-box"><n-card><section>Card 5</section></n-card></div>
+        <div class="layout-box"><n-card><section>Card 6</section></n-card></div>
       </n-grid>
     <pre class="layout-code"><code>&lt;n-grid&gt;
   &lt;div&gt;Card 1&lt;/div&gt;
@@ -41,23 +41,23 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <n-panel bordered>
       <h3>cols="2"</h3>
       <n-grid cols="2">
-        <div class="layout-box"><n-card><n-body>Col 1</n-body></n-card></div>
-        <div class="layout-box"><n-card><n-body>Col 2</n-body></n-card></div>
-        <div class="layout-box"><n-card><n-body>Col 3</n-body></n-card></div>
-        <div class="layout-box"><n-card><n-body>Col 4</n-body></n-card></div>
+        <div class="layout-box"><n-card><section>Col 1</section></n-card></div>
+        <div class="layout-box"><n-card><section>Col 2</section></n-card></div>
+        <div class="layout-box"><n-card><section>Col 3</section></n-card></div>
+        <div class="layout-box"><n-card><section>Col 4</section></n-card></div>
       </n-grid>
       <h3>cols="3"</h3>
       <n-grid cols="3">
-        <div class="layout-box"><n-card><n-body>Col 1</n-body></n-card></div>
-        <div class="layout-box"><n-card><n-body>Col 2</n-body></n-card></div>
-        <div class="layout-box"><n-card><n-body>Col 3</n-body></n-card></div>
+        <div class="layout-box"><n-card><section>Col 1</section></n-card></div>
+        <div class="layout-box"><n-card><section>Col 2</section></n-card></div>
+        <div class="layout-box"><n-card><section>Col 3</section></n-card></div>
       </n-grid>
       <h3>cols="4"</h3>
       <n-grid cols="4">
-        <div class="layout-box"><n-card><n-body>1</n-body></n-card></div>
-        <div class="layout-box"><n-card><n-body>2</n-body></n-card></div>
-        <div class="layout-box"><n-card><n-body>3</n-body></n-card></div>
-        <div class="layout-box"><n-card><n-body>4</n-body></n-card></div>
+        <div class="layout-box"><n-card><section>1</section></n-card></div>
+        <div class="layout-box"><n-card><section>2</section></n-card></div>
+        <div class="layout-box"><n-card><section>3</section></n-card></div>
+        <div class="layout-box"><n-card><section>4</section></n-card></div>
       </n-grid>
     <pre class="layout-code"><code>&lt;n-grid cols="2"&gt;
   &lt;div&gt;Col 1&lt;/div&gt;
@@ -74,19 +74,19 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <n-panel bordered>
       <h3>min="10rem" (more columns)</h3>
       <n-grid min="10rem">
-        <div class="layout-box"><n-card><n-body>A</n-body></n-card></div>
-        <div class="layout-box"><n-card><n-body>B</n-body></n-card></div>
-        <div class="layout-box"><n-card><n-body>C</n-body></n-card></div>
-        <div class="layout-box"><n-card><n-body>D</n-body></n-card></div>
-        <div class="layout-box"><n-card><n-body>E</n-body></n-card></div>
-        <div class="layout-box"><n-card><n-body>F</n-body></n-card></div>
+        <div class="layout-box"><n-card><section>A</section></n-card></div>
+        <div class="layout-box"><n-card><section>B</section></n-card></div>
+        <div class="layout-box"><n-card><section>C</section></n-card></div>
+        <div class="layout-box"><n-card><section>D</section></n-card></div>
+        <div class="layout-box"><n-card><section>E</section></n-card></div>
+        <div class="layout-box"><n-card><section>F</section></n-card></div>
       </n-grid>
       <h3>min="24rem" (fewer columns)</h3>
       <n-grid min="24rem">
-        <div class="layout-box"><n-card><n-body>A</n-body></n-card></div>
-        <div class="layout-box"><n-card><n-body>B</n-body></n-card></div>
-        <div class="layout-box"><n-card><n-body>C</n-body></n-card></div>
-        <div class="layout-box"><n-card><n-body>D</n-body></n-card></div>
+        <div class="layout-box"><n-card><section>A</section></n-card></div>
+        <div class="layout-box"><n-card><section>B</section></n-card></div>
+        <div class="layout-box"><n-card><section>C</section></n-card></div>
+        <div class="layout-box"><n-card><section>D</section></n-card></div>
       </n-grid>
     <pre class="layout-code"><code>&lt;n-grid min="10rem"&gt;
   &lt;div&gt;A&lt;/div&gt;
@@ -103,21 +103,21 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <n-panel bordered>
       <h3>gap="1"</h3>
       <n-grid cols="3" gap="1">
-        <div class="layout-box"><n-card><n-body>A</n-body></n-card></div>
-        <div class="layout-box"><n-card><n-body>B</n-body></n-card></div>
-        <div class="layout-box"><n-card><n-body>C</n-body></n-card></div>
+        <div class="layout-box"><n-card><section>A</section></n-card></div>
+        <div class="layout-box"><n-card><section>B</section></n-card></div>
+        <div class="layout-box"><n-card><section>C</section></n-card></div>
       </n-grid>
       <h3>gap="4"</h3>
       <n-grid cols="3" gap="4">
-        <div class="layout-box"><n-card><n-body>A</n-body></n-card></div>
-        <div class="layout-box"><n-card><n-body>B</n-body></n-card></div>
-        <div class="layout-box"><n-card><n-body>C</n-body></n-card></div>
+        <div class="layout-box"><n-card><section>A</section></n-card></div>
+        <div class="layout-box"><n-card><section>B</section></n-card></div>
+        <div class="layout-box"><n-card><section>C</section></n-card></div>
       </n-grid>
       <h3>gap="8"</h3>
       <n-grid cols="3" gap="8">
-        <div class="layout-box"><n-card><n-body>A</n-body></n-card></div>
-        <div class="layout-box"><n-card><n-body>B</n-body></n-card></div>
-        <div class="layout-box"><n-card><n-body>C</n-body></n-card></div>
+        <div class="layout-box"><n-card><section>A</section></n-card></div>
+        <div class="layout-box"><n-card><section>B</section></n-card></div>
+        <div class="layout-box"><n-card><section>C</section></n-card></div>
       </n-grid>
     <pre class="layout-code"><code>&lt;n-grid cols="3" gap="1"&gt;...&lt;/n-grid&gt;
 &lt;n-grid cols="3" gap="4"&gt;...&lt;/n-grid&gt;

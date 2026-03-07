@@ -24,11 +24,11 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       <div data-slot="actions">
         <n-button size="sm">
           <n-icon name="pencil-simple" slot="leading"></n-icon>
-          <span slot="label">Edit</span>
+          <span>Edit</span>
         </n-button>
         <n-button size="sm" intent="danger">
           <n-icon name="trash" slot="leading"></n-icon>
-          <span slot="label">Delete</span>
+          <span>Delete</span>
         </n-button>
       </div>
     </div>
@@ -45,11 +45,11 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           <n-stack gap="4">
             <n-grid cols="2" gap="4">
               <n-card>
-                <n-header>
-                  <n-icon name="user" slot="leading"></n-icon>
-                  <span slot="label">Personal Information</span>
-                </n-header>
-                <n-body>
+                <header>
+                  <nav><n-icon name="user"></n-icon></nav>
+                  <span>Personal Information</span>
+                </header>
+                <section>
                   <n-stack gap="3">
                     <div class="detail-item">
                       <span class="detail-label">Full Name</span>
@@ -68,15 +68,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
                       <span class="detail-value">San Francisco, CA</span>
                     </div>
                   </n-stack>
-                </n-body>
+                </section>
               </n-card>
 
               <n-card>
-                <n-header>
-                  <n-icon name="clipboard-text" slot="leading"></n-icon>
-                  <span slot="label">Work Information</span>
-                </n-header>
-                <n-body>
+                <header>
+                  <nav><n-icon name="clipboard-text"></n-icon></nav>
+                  <span>Work Information</span>
+                </header>
+                <section>
                   <n-stack gap="3">
                     <div class="detail-item">
                       <span class="detail-label">Department</span>
@@ -95,17 +95,17 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
                       <span class="detail-value">EMP-2023-0472</span>
                     </div>
                   </n-stack>
-                </n-body>
+                </section>
               </n-card>
             </n-grid>
 
             <!-- ── Recent Projects ── -->
             <n-card>
-              <n-header>
-                <n-icon name="lightning" slot="leading"></n-icon>
-                <span slot="label">Recent Projects</span>
-              </n-header>
-              <n-body>
+              <header>
+                <nav><n-icon name="lightning"></n-icon></nav>
+                <span>Recent Projects</span>
+              </header>
+              <section>
                 <div class="table-scroll">
                   <n-table cols="2fr 1fr 100px 80px">
                     <n-table-head>
@@ -144,7 +144,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
                     </n-table-body>
                   </n-table>
                 </div>
-              </n-body>
+              </section>
             </n-card>
           </n-stack>
         </n-tab-panel>
@@ -152,11 +152,11 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         <!-- ── Activity Panel ── -->
         <n-tab-panel value="activity">
           <n-card>
-            <n-header>
-              <n-icon name="pulse" slot="leading"></n-icon>
-              <span slot="label">Recent Activity</span>
-            </n-header>
-            <n-body>
+            <header>
+              <nav><n-icon name="pulse"></n-icon></nav>
+              <span>Recent Activity</span>
+            </header>
+            <section>
               <n-stack gap="2">
                 <div class="activity-item">
                   <span class="activity-dot"></span>
@@ -208,7 +208,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
                   </div>
                 </div>
               </n-stack>
-            </n-body>
+            </section>
           </n-card>
         </n-tab-panel>
 
@@ -217,11 +217,11 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           <n-stack gap="4">
             <n-grid cols="2" gap="4">
               <n-card>
-                <n-header>
-                  <n-icon name="bell" slot="leading"></n-icon>
-                  <span slot="label">Notifications</span>
-                </n-header>
-                <n-body>
+                <header>
+                  <nav><n-icon name="bell"></n-icon></nav>
+                  <span>Notifications</span>
+                </header>
+                <section>
                   <n-stack gap="2">
                     <div class="settings-row">
                       <div>
@@ -245,15 +245,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
                       <n-switch></n-switch>
                     </div>
                   </n-stack>
-                </n-body>
+                </section>
               </n-card>
 
               <n-card>
-                <n-header>
-                  <n-icon name="shield-check" slot="leading"></n-icon>
-                  <span slot="label">Security</span>
-                </n-header>
-                <n-body>
+                <header>
+                  <nav><n-icon name="shield-check"></n-icon></nav>
+                  <span>Security</span>
+                </header>
+                <section>
                   <n-stack gap="2">
                     <div class="settings-row">
                       <div>
@@ -283,16 +283,16 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
                       </n-button>
                     </div>
                   </n-stack>
-                </n-body>
+                </section>
               </n-card>
             </n-grid>
 
             <n-card>
-              <n-header>
-                <n-icon name="warning" slot="leading"></n-icon>
-                <span slot="label" class="danger-label">Danger Zone</span>
-              </n-header>
-              <n-body>
+              <header>
+                <nav><n-icon name="warning"></n-icon></nav>
+                <span class="danger-label">Danger Zone</span>
+              </header>
+              <section>
                 <n-stack gap="0">
                   <div class="settings-row">
                     <div>
@@ -310,11 +310,11 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
                     </div>
                     <n-button variant="primary" size="xs" intent="danger">
                       <n-icon name="trash" slot="leading"></n-icon>
-                      <span slot="label">Delete Account</span>
+                      <span>Delete Account</span>
                     </n-button>
                   </div>
                 </n-stack>
-              </n-body>
+              </section>
             </n-card>
           </n-stack>
         </n-tab-panel>

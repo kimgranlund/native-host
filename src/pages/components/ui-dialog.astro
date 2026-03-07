@@ -22,14 +22,14 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       <n-button id="open-basic">Open Dialog</n-button>
       <n-dialog id="basic-dialog">
         <div class="dialog-card"><n-card>
-          <n-header><span slot="label">Confirm Action</span></n-header>
-          <n-body>
+          <header><span>Confirm Action</span></header>
+          <section>
             <n-text size="md" muted>Are you sure you want to continue? This action cannot be undone.</n-text>
-          </n-body>
-          <n-footer>
+          </section>
+          <footer>
             <n-button id="basic-cancel">Cancel</n-button>
             <n-button id="basic-confirm" intent="accent">Confirm</n-button>
-          </n-footer>
+          </footer>
         </n-card></div>
       </n-dialog>
       <pre class="layout-code"><code>&lt;n-button id="open-btn"&gt;Open Dialog&lt;/n-button&gt;
@@ -65,8 +65,8 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       <n-button id="open-form">Edit Profile</n-button>
       <n-dialog id="form-dialog">
         <div class="dialog-card"><n-card>
-          <n-header><span slot="label">Edit Profile</span></n-header>
-          <n-body>
+          <header><span>Edit Profile</span></header>
+          <section>
             <n-text size="md" muted spacing="tight">Update your display name and email address.</n-text>
             <n-stack gap="3">
               <n-field>
@@ -78,11 +78,11 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
                 <n-input type="email" placeholder="you@example.com"></n-input>
               </n-field>
             </n-stack>
-          </n-body>
-          <n-footer>
+          </section>
+          <footer>
             <n-button id="form-cancel">Cancel</n-button>
             <n-button id="form-save" intent="accent">Save Changes</n-button>
-          </n-footer>
+          </footer>
         </n-card></div>
       </n-dialog>
       <pre class="layout-code"><code>&lt;n-dialog id="form-dialog"&gt;
@@ -118,13 +118,13 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       <n-button id="open-persistent">Open Persistent Dialog</n-button>
       <n-dialog id="persistent-dialog" no-close-on-backdrop>
         <div class="dialog-card"><n-card>
-          <n-header><span slot="label">Important Notice</span></n-header>
-          <n-body>
+          <header><span>Important Notice</span></header>
+          <section>
             <n-text size="md" muted>This dialog can only be closed by clicking the button below. Clicking the backdrop or pressing Escape won't dismiss it.</n-text>
-          </n-body>
-          <n-footer>
+          </section>
+          <footer>
             <n-button id="persistent-close" intent="accent">Got it</n-button>
-          </n-footer>
+          </footer>
         </n-card></div>
       </n-dialog>
       <pre class="layout-code"><code>&lt;n-dialog no-close-on-backdrop&gt;
@@ -148,13 +148,13 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       <n-button id="open-no-esc">Open (no Escape close)</n-button>
       <n-dialog id="no-esc-dialog" no-close-on-escape>
         <div class="dialog-card"><n-card>
-          <n-header><span slot="label">Escape Disabled</span></n-header>
-          <n-body>
+          <header><span>Escape Disabled</span></header>
+          <section>
             <n-text size="md" muted>Press Escape — nothing happens. Click the backdrop or the button to close.</n-text>
-          </n-body>
-          <n-footer>
+          </section>
+          <footer>
             <n-button id="no-esc-close">Close</n-button>
-          </n-footer>
+          </footer>
         </n-card></div>
       </n-dialog>
     </n-panel>
@@ -166,14 +166,14 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       <n-button id="open-danger" intent="danger">Delete Account</n-button>
       <n-dialog id="danger-dialog">
         <div class="dialog-card"><n-card>
-          <n-header><span slot="label" style="color: var(--n-ink-strong-danger);">Delete Account</span></n-header>
-          <n-body>
+          <header><span style="color: var(--n-ink-strong-danger);">Delete Account</span></header>
+          <section>
             <n-text size="md" muted>This will permanently delete your account and all associated data. This action cannot be reversed.</n-text>
-          </n-body>
-          <n-footer>
+          </section>
+          <footer>
             <n-button id="danger-cancel">Cancel</n-button>
             <n-button id="danger-confirm" intent="danger">Delete Forever</n-button>
-          </n-footer>
+          </footer>
         </n-card></div>
       </n-dialog>
       <pre class="layout-code"><code>&lt;n-button intent="danger"&gt;Delete Account&lt;/n-button&gt;

@@ -41,13 +41,13 @@ function roleIntent(role: string) {
           <n-table id="members-table" cols="1fr 1fr auto auto">
             <n-table-row colspan>
               <n-table-cell>
-                <n-header>
+                <header>
                   <h2>Members</h2>
-                  <n-button id="invite-btn" variant="primary" intent="accent" slot="trailing">
+                  <aside><n-button id="invite-btn" variant="primary" intent="accent">
                     <n-icon name="user-plus" slot="leading"></n-icon>
-                    <span slot="label">Invite Member</span>
-                  </n-button>
-                </n-header>
+                    <span>Invite Member</span>
+                  </n-button></aside>
+                </header>
               </n-table-cell>
             </n-table-row>
             <n-table-row header>
@@ -80,7 +80,7 @@ function roleIntent(role: string) {
                         data-member-id={m.id}
                         data-user-name={m.userName}
                       >
-                        <n-icon name="pencil-simple" slot="leading"></n-icon>
+                        <nav><n-icon name="pencil-simple"></n-icon></nav>
                       </n-button>
                       <n-button
                         variant="ghost"
@@ -90,7 +90,7 @@ function roleIntent(role: string) {
                         data-member-id={m.id}
                         data-user-name={m.userName}
                       >
-                        <n-icon name="trash" slot="leading"></n-icon>
+                        <nav><n-icon name="trash"></n-icon></nav>
                       </n-button>
                     </n-stack>
                   )}
@@ -103,9 +103,9 @@ function roleIntent(role: string) {
               <n-table id="invitations-table" cols="1fr auto auto auto">
                 <n-table-row colspan>
                   <n-table-cell>
-                    <n-header>
+                    <header>
                       <h2>Pending Invitations</h2>
-                    </n-header>
+                    </header>
                   </n-table-cell>
                 </n-table-row>
                 <n-table-row header>
@@ -133,8 +133,8 @@ function roleIntent(role: string) {
                         data-action="revoke"
                         data-invitation-id={inv.id}
                       >
-                        <n-icon name="x" slot="leading"></n-icon>
-                        <span slot="label">Revoke</span>
+                        <nav><n-icon name="x"></n-icon></nav>
+                        <span>Revoke</span>
                       </n-button>
                     </n-table-cell>
                   </n-table-row>
@@ -146,10 +146,10 @@ function roleIntent(role: string) {
     <n-dialog id="invite-dialog">
       <div class="admin-dialog-card">
         <n-card>
-          <n-header>
-            <span slot="label">Invite Member</span>
-          </n-header>
-          <n-body>
+          <header>
+            <span>Invite Member</span>
+          </header>
+          <section>
             <n-stack gap="4">
               <n-field required>
                 <label slot="label">Email address</label>
@@ -162,15 +162,15 @@ function roleIntent(role: string) {
                 <n-select id="invite-role" value="member" options='[{"value":"member","label":"Member"},{"value":"admin","label":"Admin"}]'></n-select>
               </n-field>
             </n-stack>
-          </n-body>
-          <n-footer>
+          </section>
+          <footer>
             <n-button id="invite-cancel">
               <span slot="label">Cancel</span>
             </n-button>
             <n-button id="invite-submit" variant="primary" intent="accent">
               <span slot="label">Send Invite</span>
             </n-button>
-          </n-footer>
+          </footer>
         </n-card>
       </div>
     </n-dialog>
@@ -179,10 +179,10 @@ function roleIntent(role: string) {
     <n-dialog id="role-dialog">
       <div class="admin-dialog-card">
         <n-card>
-          <n-header>
-            <span slot="label">Change Role</span>
-          </n-header>
-          <n-body>
+          <header>
+            <span>Change Role</span>
+          </header>
+          <section>
             <n-stack gap="4">
               <n-text muted size="sm">Update the role for <n-text id="role-name" variant="strong"></n-text></n-text>
               <n-field>
@@ -190,15 +190,15 @@ function roleIntent(role: string) {
                 <n-select id="role-select" value="member" options='[{"value":"member","label":"Member"},{"value":"admin","label":"Admin"},{"value":"owner","label":"Owner"}]'></n-select>
               </n-field>
             </n-stack>
-          </n-body>
-          <n-footer>
+          </section>
+          <footer>
             <n-button id="role-cancel">
               <span slot="label">Cancel</span>
             </n-button>
             <n-button id="role-submit" variant="primary" intent="accent">
               <span slot="label">Save</span>
             </n-button>
-          </n-footer>
+          </footer>
         </n-card>
       </div>
     </n-dialog>
@@ -207,22 +207,22 @@ function roleIntent(role: string) {
     <n-dialog id="remove-dialog">
       <div class="admin-dialog-card">
         <n-card>
-          <n-header>
-            <n-icon name="warning" slot="leading" size="lg"></n-icon>
-            <span slot="label">Remove Member?</span>
-          </n-header>
-          <n-body>
+          <header>
+            <nav><n-icon name="warning" size="lg"></n-icon></nav>
+            <span>Remove Member?</span>
+          </header>
+          <section>
             <n-text>Are you sure you want to remove <n-text id="remove-name" variant="strong"></n-text> from the organization? This action cannot be undone.</n-text>
-          </n-body>
-          <n-footer>
+          </section>
+          <footer>
             <n-button id="remove-cancel">
               <span slot="label">Cancel</span>
             </n-button>
             <n-button id="remove-submit" variant="primary" intent="danger">
               <n-icon name="trash" slot="leading"></n-icon>
-              <span slot="label">Remove</span>
+              <span>Remove</span>
             </n-button>
-          </n-footer>
+          </footer>
         </n-card>
       </div>
     </n-dialog>

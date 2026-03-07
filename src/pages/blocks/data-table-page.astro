@@ -10,7 +10,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       <div data-slot="actions">
         <n-button variant="primary" intent="accent" size="md">
           <n-icon name="plus" slot="leading"></n-icon>
-          <span slot="label">New User</span>
+          <span>New User</span>
         </n-button>
       </div>
     </div>
@@ -25,12 +25,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
     <!-- ── Table Card ── -->
     <n-card>
-      <n-header>
-        <n-icon name="users" slot="leading"></n-icon>
-        <span slot="label">All Users</span>
-      </n-header>
+      <header>
+        <nav><n-icon name="users"></n-icon></nav>
+        <span>All Users</span>
+      </header>
 
-      <n-body>
+      <section>
         <!-- ── Toolbar ── -->
         <n-stack direction="row" gap="3" align="center" wrap>
           <div class="table-search-input"><n-input id="table-search" size="sm" placeholder="Search users...">
@@ -180,12 +180,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
             </n-table-body>
           </n-table>
         </div>
-      </n-body>
+      </section>
 
-      <n-footer justify="between">
+      <footer justify="between">
         <span class="demo-text-sm">Showing 1-10 of 87 users</span>
         <n-pagination total="9" value="1" size="sm"></n-pagination>
-      </n-footer>
+      </footer>
     </n-card>
     </n-stack>
   </main>

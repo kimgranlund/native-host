@@ -33,13 +33,13 @@ function statusIntent(status: string) {
           <n-table id="llm-table" cols="1fr auto auto auto auto auto">
             <n-table-row colspan>
               <n-table-cell>
-                <n-header>
+                <header>
                   <h2>LLM Registry</h2>
-                  <n-button id="create-llm-btn" variant="primary" intent="accent" slot="trailing">
+                  <aside><n-button id="create-llm-btn" variant="primary" intent="accent">
                     <n-icon name="plus" slot="leading"></n-icon>
-                    <span slot="label">Add Model</span>
-                  </n-button>
-                </n-header>
+                    <span>Add Model</span>
+                  </n-button></aside>
+                </header>
               </n-table-cell>
             </n-table-row>
             <n-table-row header>
@@ -80,7 +80,7 @@ function statusIntent(status: string) {
                       data-entry-description={e.parsed.description as string || ''}
                       data-entry-status={e.status}
                     >
-                      <n-icon name="pencil-simple" slot="leading"></n-icon>
+                      <nav><n-icon name="pencil-simple"></n-icon></nav>
                     </n-button>
                     <n-button
                       variant="ghost"
@@ -90,7 +90,7 @@ function statusIntent(status: string) {
                       data-entry-id={e.id}
                       data-entry-name={e.parsed.name as string || e.slug}
                     >
-                      <n-icon name="trash" slot="leading"></n-icon>
+                      <nav><n-icon name="trash"></n-icon></nav>
                     </n-button>
                   </n-stack>
                 </n-table-cell>
@@ -102,10 +102,10 @@ function statusIntent(status: string) {
     <n-dialog id="llm-dialog">
       <div class="admin-dialog-card">
         <n-card>
-          <n-header>
-            <span slot="label" id="llm-dialog-title">Add Model</span>
-          </n-header>
-          <n-body>
+          <header>
+            <span id="llm-dialog-title">Add Model</span>
+          </header>
+          <section>
             <n-stack gap="4">
               <n-field required>
                 <label slot="label">Name</label>
@@ -128,15 +128,15 @@ function statusIntent(status: string) {
                 <n-select id="llm-status" value="active" options='[{"value":"active","label":"Active"},{"value":"deprecated","label":"Deprecated"},{"value":"draft","label":"Draft"}]'></n-select>
               </n-field>
             </n-stack>
-          </n-body>
-          <n-footer>
+          </section>
+          <footer>
             <n-button id="llm-cancel">
               <span slot="label">Cancel</span>
             </n-button>
             <n-button id="llm-submit" variant="primary" intent="accent">
               <span slot="label">Save</span>
             </n-button>
-          </n-footer>
+          </footer>
         </n-card>
       </div>
     </n-dialog>
@@ -145,22 +145,22 @@ function statusIntent(status: string) {
     <n-dialog id="llm-delete-dialog">
       <div class="admin-dialog-card">
         <n-card>
-          <n-header>
-            <n-icon name="warning" slot="leading" size="lg"></n-icon>
-            <span slot="label">Delete Model?</span>
-          </n-header>
-          <n-body>
+          <header>
+            <nav><n-icon name="warning" size="lg"></n-icon></nav>
+            <span>Delete Model?</span>
+          </header>
+          <section>
             <n-text>Are you sure you want to delete <n-text id="llm-delete-name" variant="strong"></n-text>? This action cannot be undone.</n-text>
-          </n-body>
-          <n-footer>
+          </section>
+          <footer>
             <n-button id="llm-delete-cancel">
               <span slot="label">Cancel</span>
             </n-button>
             <n-button id="llm-delete-submit" variant="primary" intent="danger">
               <n-icon name="trash" slot="leading"></n-icon>
-              <span slot="label">Delete</span>
+              <span>Delete</span>
             </n-button>
-          </n-footer>
+          </footer>
         </n-card>
       </div>
     </n-dialog>

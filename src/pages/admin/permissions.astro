@@ -38,9 +38,9 @@ const permissionsJson = JSON.stringify(allPermissions.map(p => ({ value: p.id, l
             <n-table id="tier-matrix-table" cols="1fr auto auto auto auto">
               <n-table-row colspan>
                 <n-table-cell>
-                  <n-header>
+                  <header>
                     <h2>Tier Matrix</h2>
-                  </n-header>
+                  </header>
                 </n-table-cell>
               </n-table-row>
               <n-table-row header>
@@ -72,7 +72,7 @@ const permissionsJson = JSON.stringify(allPermissions.map(p => ({ value: p.id, l
                           data-perm-id={p.id}
                           data-enabled={enabled ? 'true' : 'false'}
                         >
-                          <n-icon name={enabled ? 'check-circle' : 'circle'} slot="leading" weight={enabled ? 'fill' : undefined}></n-icon>
+                          <nav><n-icon name={enabled ? 'check-circle' : 'circle'} weight={enabled ? 'fill' : undefined}></n-icon></nav>
                         </n-button>
                       </n-table-cell>
                     );
@@ -85,13 +85,13 @@ const permissionsJson = JSON.stringify(allPermissions.map(p => ({ value: p.id, l
             <n-table id="grants-table" cols="1fr 1fr auto auto auto">
               <n-table-row colspan>
                 <n-table-cell>
-                  <n-header>
+                  <header>
                     <h2>Grant Overrides</h2>
-                    <n-button id="add-grant-btn" variant="primary" intent="accent" slot="trailing">
+                    <aside><n-button id="add-grant-btn" variant="primary" intent="accent">
                       <n-icon name="plus" slot="leading"></n-icon>
-                      <span slot="label">Add Grant</span>
-                    </n-button>
-                  </n-header>
+                      <span>Add Grant</span>
+                    </n-button></aside>
+                  </header>
                 </n-table-cell>
               </n-table-row>
               <n-table-row header>
@@ -137,7 +137,7 @@ const permissionsJson = JSON.stringify(allPermissions.map(p => ({ value: p.id, l
                         data-action="delete-grant"
                         data-grant-id={g.id}
                       >
-                        <n-icon name="trash" slot="leading"></n-icon>
+                        <nav><n-icon name="trash"></n-icon></nav>
                       </n-button>
                     </n-table-cell>
                   </n-table-row>
@@ -150,10 +150,10 @@ const permissionsJson = JSON.stringify(allPermissions.map(p => ({ value: p.id, l
     <n-dialog id="grant-dialog">
       <div class="admin-dialog-card">
         <n-card>
-          <n-header>
-            <span slot="label">Add Grant Override</span>
-          </n-header>
-          <n-body>
+          <header>
+            <span>Add Grant Override</span>
+          </header>
+          <section>
             <n-stack gap="4">
               <n-field required>
                 <label slot="label">Subject Type</label>
@@ -180,15 +180,15 @@ const permissionsJson = JSON.stringify(allPermissions.map(p => ({ value: p.id, l
                 </n-input>
               </n-field>
             </n-stack>
-          </n-body>
-          <n-footer>
+          </section>
+          <footer>
             <n-button id="grant-cancel">
               <span slot="label">Cancel</span>
             </n-button>
             <n-button id="grant-submit" variant="primary" intent="accent">
               <span slot="label">Add Grant</span>
             </n-button>
-          </n-footer>
+          </footer>
         </n-card>
       </div>
     </n-dialog>
@@ -197,22 +197,22 @@ const permissionsJson = JSON.stringify(allPermissions.map(p => ({ value: p.id, l
     <n-dialog id="delete-grant-dialog">
       <div class="admin-dialog-card">
         <n-card>
-          <n-header>
-            <n-icon name="warning" slot="leading" size="lg"></n-icon>
-            <span slot="label">Delete Grant?</span>
-          </n-header>
-          <n-body>
+          <header>
+            <nav><n-icon name="warning" size="lg"></n-icon></nav>
+            <span>Delete Grant?</span>
+          </header>
+          <section>
             <n-text>Are you sure you want to delete this grant override? This action cannot be undone.</n-text>
-          </n-body>
-          <n-footer>
+          </section>
+          <footer>
             <n-button id="delete-grant-cancel">
               <span slot="label">Cancel</span>
             </n-button>
             <n-button id="delete-grant-submit" variant="primary" intent="danger">
               <n-icon name="trash" slot="leading"></n-icon>
-              <span slot="label">Delete</span>
+              <span>Delete</span>
             </n-button>
-          </n-footer>
+          </footer>
         </n-card>
       </div>
     </n-dialog>

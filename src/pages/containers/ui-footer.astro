@@ -21,16 +21,16 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <n-panel bordered>
       <div class="footer-card-wrap">
         <n-card>
-          <n-header>
-            <span slot="label">Panel Title</span>
-          </n-header>
-          <n-body>
+          <header>
+            <span>Panel Title</span>
+          </header>
+          <section>
             <n-text>Content above the footer. The footer sits at the bottom with action buttons end-aligned by default.</n-text>
-          </n-body>
-          <n-footer>
-            <n-button variant="ghost"><span slot="label">Cancel</span></n-button>
-            <n-button variant="primary" intent="accent"><span slot="label">Save</span></n-button>
-          </n-footer>
+          </section>
+          <footer>
+            <n-button variant="ghost"><span>Cancel</span></n-button>
+            <n-button variant="primary" intent="accent"><span>Save</span></n-button>
+          </footer>
         </n-card>
       </div>
     <pre class="layout-code"><code>&lt;n-card&gt;
@@ -54,41 +54,41 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       <n-stack gap="4">
         <div class="footer-card-wrap">
           <n-card>
-            <n-header><span slot="label">End (default)</span></n-header>
-            <n-body><n-text>Actions aligned to the right.</n-text></n-body>
-            <n-footer>
-              <n-button variant="ghost"><span slot="label">Cancel</span></n-button>
-              <n-button variant="primary" intent="accent"><span slot="label">Confirm</span></n-button>
-            </n-footer>
+            <header><span>End (default)</span></header>
+            <section><n-text>Actions aligned to the right.</n-text></section>
+            <footer>
+              <n-button variant="ghost"><span>Cancel</span></n-button>
+              <n-button variant="primary" intent="accent"><span>Confirm</span></n-button>
+            </footer>
           </n-card>
         </div>
         <div class="footer-card-wrap">
           <n-card>
-            <n-header><span slot="label">Spread</span></n-header>
-            <n-body><n-text>Cancel left, Save right.</n-text></n-body>
-            <n-footer justify="spread">
-              <n-button variant="ghost"><span slot="label">Cancel</span></n-button>
-              <n-button variant="primary" intent="accent"><span slot="label">Save</span></n-button>
-            </n-footer>
+            <header><span>Spread</span></header>
+            <section><n-text>Cancel left, Save right.</n-text></section>
+            <footer justify="spread">
+              <n-button variant="ghost"><span>Cancel</span></n-button>
+              <n-button variant="primary" intent="accent"><span>Save</span></n-button>
+            </footer>
           </n-card>
         </div>
         <div class="footer-card-wrap">
           <n-card>
-            <n-header><span slot="label">Start</span></n-header>
-            <n-body><n-text>Actions aligned left.</n-text></n-body>
-            <n-footer justify="start">
-              <n-button variant="ghost"><span slot="label">Back</span></n-button>
-              <n-button variant="primary" intent="accent"><span slot="label">Next</span></n-button>
-            </n-footer>
+            <header><span>Start</span></header>
+            <section><n-text>Actions aligned left.</n-text></section>
+            <footer justify="start">
+              <n-button variant="ghost"><span>Back</span></n-button>
+              <n-button variant="primary" intent="accent"><span>Next</span></n-button>
+            </footer>
           </n-card>
         </div>
         <div class="footer-card-wrap">
           <n-card>
-            <n-header><span slot="label">Center</span></n-header>
-            <n-body><n-text>Centered actions.</n-text></n-body>
-            <n-footer justify="center">
-              <n-button variant="primary" intent="accent"><span slot="label">Got it</span></n-button>
-            </n-footer>
+            <header><span>Center</span></header>
+            <section><n-text>Centered actions.</n-text></section>
+            <footer justify="center">
+              <n-button variant="primary" intent="accent"><span>Got it</span></n-button>
+            </footer>
           </n-card>
         </div>
       </n-stack>
@@ -104,14 +104,14 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <n-panel bordered>
       <div class="footer-card-wrap">
         <n-card>
-          <n-header><span slot="label">With Divider</span></n-header>
-          <n-body>
+          <header><span>With Divider</span></header>
+          <section>
             <n-text>The <code>dividers</code> attribute adds a top border line to visually separate the footer from the body.</n-text>
-          </n-body>
-          <n-footer dividers>
-            <n-button variant="ghost"><span slot="label">Cancel</span></n-button>
-            <n-button variant="primary" intent="accent"><span slot="label">Apply</span></n-button>
-          </n-footer>
+          </section>
+          <footer dividers>
+            <n-button variant="ghost"><span>Cancel</span></n-button>
+            <n-button variant="primary" intent="accent"><span>Apply</span></n-button>
+          </footer>
         </n-card>
       </div>
     <pre class="layout-code"><code>&lt;n-footer dividers&gt;
@@ -126,17 +126,17 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <n-panel bordered>
       <div class="footer-card-wrap footer-card-wrap--fixed-height">
         <n-card>
-          <n-header><span slot="label">Scrollable with Sticky Footer</span></n-header>
-          <n-body>
+          <header><span>Scrollable with Sticky Footer</span></header>
+          <section>
             <n-text>When content scrolls, the sticky footer stays anchored at the bottom of the scrollable container.</n-text>
             <n-text>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</n-text>
             <n-text>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</n-text>
             <n-text>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</n-text>
             <n-text>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</n-text>
-          </n-body>
-          <n-footer sticky dividers>
-            <n-button variant="primary" intent="accent"><span slot="label">Done</span></n-button>
-          </n-footer>
+          </section>
+          <footer sticky dividers>
+            <n-button variant="primary" intent="accent"><span>Done</span></n-button>
+          </footer>
         </n-card>
       </div>
     <pre class="layout-code"><code>&lt;n-card style="height: 16rem;"&gt;
@@ -158,26 +158,26 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         <div class="footer-card-wrap footer-card-wrap--narrow">
           <n-card>
             <div slot="media" class="footer-media footer-media--accent"></div>
-            <n-body>
+            <section>
               <h3 class="footer-card-title">Product Name</h3>
               <n-text size="sm" muted>A short description of the product.</n-text>
-            </n-body>
-            <n-footer>
-              <n-button variant="primary" intent="accent" size="sm"><span slot="label">Buy Now</span></n-button>
-            </n-footer>
+            </section>
+            <footer>
+              <n-button variant="primary" intent="accent" size="sm"><span>Buy Now</span></n-button>
+            </footer>
           </n-card>
         </div>
         <div class="footer-card-wrap footer-card-wrap--narrow">
           <n-card>
             <div slot="media" class="footer-media footer-media--success"></div>
-            <n-body>
+            <section>
               <h3 class="footer-card-title">Another Item</h3>
               <n-text size="sm" muted>Another brief description.</n-text>
-            </n-body>
-            <n-footer justify="spread">
+            </section>
+            <footer justify="spread">
               <n-text size="sm" muted>$29.99</n-text>
-              <n-button variant="primary" intent="accent" size="sm"><span slot="label">Add</span></n-button>
-            </n-footer>
+              <n-button variant="primary" intent="accent" size="sm"><span>Add</span></n-button>
+            </footer>
           </n-card>
         </div>
       </n-stack>
@@ -197,19 +197,19 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
     <h2>With Dialog</h2>
     <n-panel bordered>
-      <n-button id="open-footer-dialog"><span slot="label">Open Dialog</span></n-button>
+      <n-button id="open-footer-dialog"><span>Open Dialog</span></n-button>
       <n-dialog id="footer-dialog-demo">
-        <n-header>
-          <span slot="label">Confirm Action</span>
-          <n-button slot="trailing" variant="ghost" id="close-footer-dialog"><n-icon name="x"></n-icon></n-button>
-        </n-header>
-        <n-body>
+        <header>
+          <span>Confirm Action</span>
+          <aside><n-button variant="ghost" id="close-footer-dialog"><n-icon name="x"></n-icon></n-button></aside>
+        </header>
+        <section>
           <n-text>Are you sure you want to proceed? This action cannot be undone.</n-text>
-        </n-body>
-        <n-footer justify="spread">
-          <n-button variant="ghost" id="cancel-footer-dialog"><span slot="label">Cancel</span></n-button>
-          <n-button variant="primary" intent="danger"><span slot="label">Delete</span></n-button>
-        </n-footer>
+        </section>
+        <footer justify="spread">
+          <n-button variant="ghost" id="cancel-footer-dialog"><span>Cancel</span></n-button>
+          <n-button variant="primary" intent="danger"><span>Delete</span></n-button>
+        </footer>
       </n-dialog>
     <pre class="layout-code"><code>&lt;n-dialog&gt;
   &lt;n-header&gt;
@@ -233,38 +233,38 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       <n-stack gap="4">
         <div class="footer-card-wrap">
           <n-card>
-            <n-header><span slot="label">None</span></n-header>
-            <n-body><n-text>No padding on the footer.</n-text></n-body>
-            <n-footer padding="none">
-              <n-button variant="primary" intent="accent"><span slot="label">OK</span></n-button>
-            </n-footer>
+            <header><span>None</span></header>
+            <section><n-text>No padding on the footer.</n-text></section>
+            <footer padding="none">
+              <n-button variant="primary" intent="accent"><span>OK</span></n-button>
+            </footer>
           </n-card>
         </div>
         <div class="footer-card-wrap">
           <n-card>
-            <n-header><span slot="label">Tight (default)</span></n-header>
-            <n-body><n-text>Default compact padding.</n-text></n-body>
-            <n-footer padding="tight">
-              <n-button variant="primary" intent="accent"><span slot="label">OK</span></n-button>
-            </n-footer>
+            <header><span>Tight (default)</span></header>
+            <section><n-text>Default compact padding.</n-text></section>
+            <footer padding="tight">
+              <n-button variant="primary" intent="accent"><span>OK</span></n-button>
+            </footer>
           </n-card>
         </div>
         <div class="footer-card-wrap">
           <n-card>
-            <n-header><span slot="label">Regular</span></n-header>
-            <n-body><n-text>More breathing room.</n-text></n-body>
-            <n-footer padding="regular">
-              <n-button variant="primary" intent="accent"><span slot="label">OK</span></n-button>
-            </n-footer>
+            <header><span>Regular</span></header>
+            <section><n-text>More breathing room.</n-text></section>
+            <footer padding="regular">
+              <n-button variant="primary" intent="accent"><span>OK</span></n-button>
+            </footer>
           </n-card>
         </div>
         <div class="footer-card-wrap">
           <n-card>
-            <n-header><span slot="label">Relaxed</span></n-header>
-            <n-body><n-text>Spacious footer padding.</n-text></n-body>
-            <n-footer padding="relaxed">
-              <n-button variant="primary" intent="accent"><span slot="label">OK</span></n-button>
-            </n-footer>
+            <header><span>Relaxed</span></header>
+            <section><n-text>Spacious footer padding.</n-text></section>
+            <footer padding="relaxed">
+              <n-button variant="primary" intent="accent"><span>OK</span></n-button>
+            </footer>
           </n-card>
         </div>
       </n-stack>

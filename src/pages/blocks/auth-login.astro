@@ -31,19 +31,19 @@ import Logo from '../../components/Logo.astro';
           <n-stack gap="4">
             <n-button variant="primary" intent="accent" size="lg">
               <n-icon name="google-logo" slot="leading"></n-icon>
-              <span slot="label">Continue with Google</span>
+              <span>Continue with Google</span>
             </n-button>
             <n-button size="lg">
               <n-icon name="envelope" slot="leading"></n-icon>
-              <span slot="label">Continue with email</span>
+              <span>Continue with email</span>
             </n-button>
             <n-button size="lg">
               <n-icon name="shield-check" slot="leading"></n-icon>
-              <span slot="label">Continue with SAML SSO</span>
+              <span>Continue with SAML SSO</span>
             </n-button>
             <n-button size="lg">
               <n-icon name="lock" slot="leading"></n-icon>
-              <span slot="label">Log in with passkey</span>
+              <span>Log in with passkey</span>
             </n-button>
           </n-stack>
           </div>
@@ -67,7 +67,7 @@ import Logo from '../../components/Logo.astro';
           <p class="auth-subheading">Sign in to your account to continue</p>
           <div class="auth-card">
             <n-card padding="relaxed">
-              <n-body>
+              <section>
                 <n-stack gap="8">
                   <form>
                     <n-stack gap="6">
@@ -96,15 +96,15 @@ import Logo from '../../components/Logo.astro';
                   <div class="oauth-row">
                     <n-button>
                       <n-icon name="google-logo" slot="leading"></n-icon>
-                      <span slot="label">Google</span>
+                      <span>Google</span>
                     </n-button>
                     <n-button>
                       <n-icon name="github-logo" slot="leading"></n-icon>
-                      <span slot="label">GitHub</span>
+                      <span>GitHub</span>
                     </n-button>
                   </div>
                 </n-stack>
-              </n-body>
+              </section>
             </n-card>
           </div>
           <p class="auth-footer-text">
@@ -155,11 +155,11 @@ import Logo from '../../components/Logo.astro';
                 <div class="oauth-row">
                   <n-button>
                     <n-icon name="google-logo" slot="leading"></n-icon>
-                    <span slot="label">Google</span>
+                    <span>Google</span>
                   </n-button>
                   <n-button>
                     <n-icon name="github-logo" slot="leading"></n-icon>
-                    <span slot="label">GitHub</span>
+                    <span>GitHub</span>
                   </n-button>
                 </div>
               </n-stack>

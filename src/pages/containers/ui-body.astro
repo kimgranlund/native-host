@@ -21,15 +21,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <n-panel bordered>
       <div class="body-card-wrap">
       <n-card>
-        <n-header>
-          <span slot="label">Panel Title</span>
-        </n-header>
-        <n-body>
+        <header>
+          <span>Panel Title</span>
+        </header>
+        <section>
           <n-text>Body content with default inline padding and flex column layout. The body fills remaining space between header and footer.</n-text>
-        </n-body>
-        <n-footer>
-          <n-button variant="primary" intent="accent"><span slot="label">OK</span></n-button>
-        </n-footer>
+        </section>
+        <footer>
+          <n-button variant="primary" intent="accent"><span>OK</span></n-button>
+        </footer>
       </n-card>
       </div>
     <pre class="layout-code"><code>&lt;n-card&gt;
@@ -51,19 +51,19 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <n-panel bordered>
       <div class="body-card-wrap body-card-wrap--h16">
       <n-card>
-        <n-header>
-          <span slot="label">Scrollable Card</span>
-        </n-header>
-        <n-body>
+        <header>
+          <span>Scrollable Card</span>
+        </header>
+        <section>
           <n-text>When the parent has a fixed height, n-body scrolls independently while the header and footer stay pinned.</n-text>
           <n-text>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</n-text>
           <n-text>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</n-text>
           <n-text>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</n-text>
           <n-text>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</n-text>
-        </n-body>
-        <n-footer>
-          <n-button variant="primary" intent="accent"><span slot="label">Done</span></n-button>
-        </n-footer>
+        </section>
+        <footer>
+          <n-button variant="primary" intent="accent"><span>Done</span></n-button>
+        </footer>
       </n-card>
       </div>
     <pre class="layout-code"><code>&lt;n-card style="height: 16rem;"&gt;
@@ -83,13 +83,13 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <n-panel bordered>
       <div class="body-card-wrap body-card-wrap--h14">
       <n-card>
-        <n-header><span slot="label">With Scrollbar</span></n-header>
-        <n-body show-scrollbar>
+        <header><span>With Scrollbar</span></header>
+        <section show-scrollbar>
           <n-text>The <code>show-scrollbar</code> attribute switches from <code>scrollbar-width: none</code> to <code>scrollbar-width: thin</code>.</n-text>
           <n-text>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</n-text>
           <n-text>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</n-text>
           <n-text>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</n-text>
-        </n-body>
+        </section>
       </n-card>
       </div>
     <pre class="layout-code"><code>&lt;n-body show-scrollbar&gt;
@@ -104,34 +104,34 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       <n-stack gap="4">
         <div class="body-card-wrap body-card-wrap--md">
         <n-card>
-          <n-header><span slot="label">padding="none"</span></n-header>
-          <n-body padding="none">
+          <header><span>padding="none"</span></header>
+          <section padding="none">
             <n-text>No inline padding. Content reaches the edges.</n-text>
-          </n-body>
+          </section>
         </n-card>
         </div>
         <div class="body-card-wrap body-card-wrap--md">
         <n-card>
-          <n-header><span slot="label">Default (tight)</span></n-header>
-          <n-body>
+          <header><span>Default (tight)</span></header>
+          <section>
             <n-text>Default inline padding (<code>--n-space * 4</code>).</n-text>
-          </n-body>
+          </section>
         </n-card>
         </div>
         <div class="body-card-wrap body-card-wrap--md">
         <n-card>
-          <n-header><span slot="label">padding="regular"</span></n-header>
-          <n-body padding="regular">
+          <header><span>padding="regular"</span></header>
+          <section padding="regular">
             <n-text>Regular padding adds both block and wider inline spacing.</n-text>
-          </n-body>
+          </section>
         </n-card>
         </div>
         <div class="body-card-wrap body-card-wrap--md">
         <n-card>
-          <n-header><span slot="label">padding="relaxed"</span></n-header>
-          <n-body padding="relaxed">
+          <header><span>padding="relaxed"</span></header>
+          <section padding="relaxed">
             <n-text>Relaxed padding for spacious layouts.</n-text>
-          </n-body>
+          </section>
         </n-card>
         </div>
       </n-stack>
@@ -147,15 +147,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <n-panel bordered>
       <div class="body-card-wrap">
       <n-card>
-        <n-header>
-          <n-badge slot="leading" intent="accent">3</n-badge>
-          <span slot="label">Notifications</span>
-          <n-button slot="trailing" variant="ghost"><n-icon name="dots-three"></n-icon></n-button>
-        </n-header>
-        <n-body>
+        <header>
+          <nav><n-badge intent="accent">3</n-badge></nav>
+          <span>Notifications</span>
+          <aside><n-button variant="ghost"><n-icon name="dots-three"></n-icon></n-button></aside>
+        </header>
+        <section>
           <n-text>You have 3 unread notifications. Check your inbox for details.</n-text>
           <n-text>The body provides a scrollable region between the header and any footer.</n-text>
-        </n-body>
+        </section>
       </n-card>
       </div>
     <pre class="layout-code"><code>&lt;n-card&gt;
@@ -179,15 +179,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <n-panel bordered>
       <div class="body-card-wrap">
       <n-card>
-        <n-header dividers>
-          <span slot="label">With Divider</span>
-        </n-header>
-        <n-body>
+        <header dividers>
+          <span>With Divider</span>
+        </header>
+        <section>
           <n-text>The body gets automatic top padding because the header above has the <code>dividers</code> attribute.</n-text>
-        </n-body>
-        <n-footer dividers>
-          <n-button variant="primary" intent="accent"><span slot="label">Save</span></n-button>
-        </n-footer>
+        </section>
+        <footer dividers>
+          <n-button variant="primary" intent="accent"><span>Save</span></n-button>
+        </footer>
       </n-card>
       </div>
     <pre class="layout-code"><code>&lt;n-header dividers&gt;

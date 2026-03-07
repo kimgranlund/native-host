@@ -12,7 +12,7 @@ if (!Astro.locals.user) return Astro.redirect('/auth/login');
       <p class="settings-status" id="danger-status"></p>
 
       <n-card intent="danger">
-        <n-body>
+        <section>
           <n-stack direction="row" align="center" gap="4" wrap padding="4">
             <div class="danger-zone-text">
               <n-stack gap="1">
@@ -27,7 +27,7 @@ if (!Astro.locals.user) return Astro.redirect('/auth/login');
               <span slot="label">Delete Account</span>
             </n-button>
           </n-stack>
-        </n-body>
+        </section>
       </n-card>
     </n-section>
   </AccountLayout>
@@ -35,21 +35,21 @@ if (!Astro.locals.user) return Astro.redirect('/auth/login');
   <n-dialog id="delete-confirm-dialog">
     <div class="delete-confirm-wrap">
       <n-card padding="relaxed">
-        <n-header>
-          <n-icon name="warning" slot="leading"></n-icon>
+        <header>
+          <nav><n-icon name="warning"></n-icon></nav>
           Delete Account
-        </n-header>
-        <n-body>
+        </header>
+        <section>
           <p>Are you sure you want to delete your account? This action is permanent and cannot be undone.</p>
-        </n-body>
-        <n-footer>
+        </section>
+        <footer>
           <n-button id="delete-cancel">
             <span slot="label">Cancel</span>
           </n-button>
           <n-button variant="primary" intent="danger" id="delete-confirm">
             <span slot="label">Delete Account</span>
           </n-button>
-        </n-footer>
+        </footer>
       </n-card>
     </div>
   </n-dialog>
