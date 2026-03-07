@@ -1,9 +1,20 @@
 /* Shared layout-block styles — documentation layout, not component styling.
-   Scoped to <main> to avoid leaking into sidebar/breadcrumb/dialog. */
+   Scoped to <main> to avoid leaking into sidebar/breadcrumb/dialog.
+
+   Structure: main > header (sticky page header) + section (scrollable body).
+   The package CSS handles overflow, flex, borders, and max-width centering.
+   We add padding and typography. */
 
 main {
   --n-dashboard-panel-content-max-width: 1180px;
   --n-dashboard-panel-content-padding: 2rem;
+}
+
+/* Padding for semantic sub-containers — the package's semantic layout CSS
+   doesn't include padding (unlike the old n-dashboard-panel rules). */
+main > header,
+main > section {
+  padding: var(--n-dashboard-panel-content-padding, 2rem);
 }
 
 main h1 {
@@ -14,7 +25,7 @@ main h1 {
   color: var(--n-ink-strong-neutral);
 }
 
-main > h2 {
+main > section > h2 {
   font-size: 1.375rem;
   font-weight: 700;
   margin-bottom: 1rem;
@@ -84,7 +95,7 @@ main > header > [data-slot="actions"] {
 
 /* ── Dogfooded n-panel sections ── */
 
-main > main > :where(n-panel[bordered]) {
+main > section > :where(n-panel[bordered]) {
   margin-bottom: 1rem;
 }
 

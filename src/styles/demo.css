@@ -12,9 +12,9 @@ body {
 }
 
 /* Heading styles are in layout-blocks.css, scoped to <main>.
-   Main padding is handled by --n-dashboard-panel-content-padding. */
+   Content lives inside main > section (scrollable body). */
 
-main p {
+main > section p {
   margin: 0;
 }
 

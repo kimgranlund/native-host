@@ -10,7 +10,7 @@ const navItems = [
   { path: '/account/danger', label: 'Danger Zone', icon: 'warning' },
 ];
 ---
-<main class="account-layout">
+<section class="account-layout">
   <nav class="account-nav" aria-label="Account settings">
     {navItems.map(item => (
       <a
@@ -26,7 +26,7 @@ const navItems = [
   <div class="account-content">
     <slot />
   </div>
-</main>
+</section>
 
 <style is:global>
   @import '../styles/account.css';

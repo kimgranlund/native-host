@@ -2,7 +2,7 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="A2UI Protocol">
-  <main id="a2ui-protocol-page">
+  <section id="a2ui-protocol-page">
 <h1>A2UI Protocol</h1>
     <n-text size="md" muted spacing="relaxed">
       Google A2UI (Agent-to-UI) protocol compatibility layer. Bidirectional conversion between A2UI flat adjacency lists and native-ui component trees.
@@ -126,7 +126,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       </n-grid>
       <div class="log" id="emit-output" style="max-height: 16rem; white-space: pre-wrap; word-break: break-all;">Click an emit button to convert a Planner result to A2UI format...</div>
     </n-panel>
-  </main>
+  </section>
 
   <script>
 import { effect } from "@nonoun/native-ui";

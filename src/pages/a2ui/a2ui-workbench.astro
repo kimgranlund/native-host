@@ -2,7 +2,7 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="A2UI Workbench">
-  <main id="a2ui-workbench-page">
+  <section id="a2ui-workbench-page">
     <h1>A2UI Protocol Workbench</h1>
     <n-text size="md" muted spacing="relaxed">
       JSONL editor with sandboxed kernel preview and protocol inspector.
@@ -12,7 +12,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <!-- ── Workbench ── -->
 
     <native-a2ui id="workbench"></native-a2ui>
-  </main>
+  </section>
 
   <style is:global>
     @import '@nonoun/native-ai/css';
