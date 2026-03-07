@@ -22,8 +22,8 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <!-- ── Game Card ── -->
 
     <n-card>
-      <n-header>
-        <n-toolbar slot="content" variant="ghost">
+      <header>
+        <n-toolbar variant="ghost">
           <n-button variant="primary" id="btn-auto">
             <span slot="label">Auto Play</span>
           </n-button>
@@ -36,25 +36,25 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
             <span slot="label">New Game</span>
           </n-button>
         </n-toolbar>
-      </n-header>
-      <n-body>
+      </header>
+      <section>
         <n-grid cols="2" gap="4" id="grid-boards">
           <n-card id="card-x">
-            <n-body padding="none">
+            <section padding="none">
               <div class="ttt-surface" id="surface-x"></div>
-            </n-body>
+            </section>
           </n-card>
           <n-card id="card-o">
-            <n-body padding="none">
+            <section padding="none">
               <div class="ttt-surface" id="surface-o"></div>
-            </n-body>
+            </section>
           </n-card>
         </n-grid>
-      </n-body>
-      <n-footer>
+      </section>
+      <footer>
         <n-stack direction="row" gap="4" align="center" justify="space-between">
           <n-select id="model-x" placeholder="X player" inline>
-            <n-button justify="spread"><span slot="label">Claude Haiku 4.5</span><n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
+            <n-button justify="spread"><aside>Claude Haiku 4.5</aside><n-icon name="caret-up-down"></n-icon></n-button>
             <n-listbox popover="auto">
               <n-option value="human">Human</n-option>
               <n-option value="claude-haiku-4-5-20251001" selected>Claude Haiku 4.5</n-option>
@@ -66,7 +66,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
             <span class="ttt-score-num" id="score-o">0</span>
           </n-stack>
           <n-select id="model-o" placeholder="O player" inline>
-            <n-button justify="spread"><span slot="label">GPT-5 mini</span><n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
+            <n-button justify="spread"><aside>GPT-5 mini</aside><n-icon name="caret-up-down"></n-icon></n-button>
             <n-listbox popover="auto">
               <n-option value="human">Human</n-option>
               <n-option value="gpt-5-mini" selected>GPT-5 mini</n-option>
@@ -76,7 +76,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
             </n-listbox>
           </n-select>
         </n-stack>
-      </n-footer>
+      </footer>
     </n-card>
 
     <!-- ── Event Log ── -->
@@ -84,9 +84,9 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <details class="ttt-log-details">
       <summary class="ttt-log-summary">Session Events</summary>
       <n-card>
-        <n-body show-scrollbar class="ttt-log-body">
+        <section show-scrollbar class="ttt-log-body">
           <div id="event-log"></div>
-        </n-body>
+        </section>
       </n-card>
     </details>
 

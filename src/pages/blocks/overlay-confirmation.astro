@@ -25,15 +25,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <div class="trigger-row">
       <n-button id="open-info" intent="info">
         <n-icon name="info" slot="leading"></n-icon>
-        <span slot="label">Archive Project</span>
+        <span>Archive Project</span>
       </n-button>
       <n-button id="open-warning" intent="warning">
         <n-icon name="warning" slot="leading"></n-icon>
-        <span slot="label">Unsaved Changes</span>
+        <span>Unsaved Changes</span>
       </n-button>
       <n-button id="open-danger" intent="danger">
         <n-icon name="trash" slot="leading"></n-icon>
-        <span slot="label">Delete Account</span>
+        <span>Delete Account</span>
       </n-button>
     </div>
     </n-stack>
@@ -42,7 +42,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
     <n-dialog id="info-dialog">
       <div class="dialog-card"><n-card>
-        <n-body>
+        <section>
           <div class="dialog-icon dialog-icon-info">
             <n-icon name="info" aria-hidden="true"></n-icon>
           </div>
@@ -52,15 +52,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
             but all data and history will be preserved. You can restore it at any time from
             the archive.
           </p>
-        </n-body>
-        <n-footer>
+        </section>
+        <footer>
           <n-button id="info-cancel">
             <span slot="label">Cancel</span>
           </n-button>
           <n-button id="info-confirm" intent="info">
             <span slot="label">Archive</span>
           </n-button>
-        </n-footer>
+        </footer>
       </n-card></div>
     </n-dialog>
 
@@ -68,7 +68,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
     <n-dialog id="warning-dialog">
       <div class="dialog-card"><n-card>
-        <n-body>
+        <section>
           <div class="dialog-icon dialog-icon-warning">
             <n-icon name="warning" aria-hidden="true"></n-icon>
           </div>
@@ -77,15 +77,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
             You have unsaved changes that will be lost if you leave this page.
             Would you like to save your work before continuing?
           </p>
-        </n-body>
-        <n-footer>
+        </section>
+        <footer>
           <n-button id="warning-discard">
             <span slot="label">Discard</span>
           </n-button>
           <n-button id="warning-save" intent="accent">
             <span slot="label">Save</span>
           </n-button>
-        </n-footer>
+        </footer>
       </n-card></div>
     </n-dialog>
 
@@ -93,7 +93,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
     <n-dialog id="danger-dialog">
       <div class="dialog-card"><n-card>
-        <n-body>
+        <section>
           <div class="dialog-icon dialog-icon-danger">
             <n-icon name="trash" aria-hidden="true"></n-icon>
           </div>
@@ -102,16 +102,16 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
             This action cannot be undone. All your data, projects, and settings
             will be permanently removed. Any active subscriptions will be cancelled immediately.
           </p>
-        </n-body>
-        <n-footer>
+        </section>
+        <footer>
           <n-button id="danger-cancel">
             <span slot="label">Cancel</span>
           </n-button>
           <n-button id="danger-confirm" intent="danger">
             <n-icon name="trash" slot="leading"></n-icon>
-            <span slot="label">Delete</span>
+            <span>Delete</span>
           </n-button>
-        </n-footer>
+        </footer>
       </n-card></div>
     </n-dialog>
     </n-stack>

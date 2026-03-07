@@ -26,17 +26,17 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           <span class="layout-col-label">Idle (empty input)</span>
           <n-chat>
             <n-panel>
-              <n-header dividers>
-                <span slot="leading"><n-icon name="chat-dots"></n-icon></span>
+              <header dividers>
+                <nav><n-icon name="chat-dots"></n-icon></nav>
                 <span>Assistant</span>
-                <span slot="trailing"><n-button variant="ghost"><n-icon name="dots-three"></n-icon></n-button></span>
-              </n-header>
-              <n-body>
+                <aside><n-button variant="ghost"><n-icon name="dots-three"></n-icon></n-button></aside>
+              </header>
+              <section>
                 <n-chat-content>
                   <n-text size="sm" muted>Messages will appear here.</n-text>
                 </n-chat-content>
-              </n-body>
-              <n-footer dividers>
+              </section>
+              <footer dividers>
                 <n-chat-input>
                   <n-textarea placeholder="Ask anything" autogrow rows="3"></n-textarea>
                   <n-chat-input-actions>
@@ -66,7 +66,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
                     </n-select>
                   </n-chat-input-actions>
                 </n-chat-input>
-              </n-footer>
+              </footer>
             </n-panel>
           </n-chat>
         </n-stack>
@@ -76,17 +76,17 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           <span class="layout-col-label">Typing (with send button)</span>
           <n-chat>
             <n-panel>
-              <n-header dividers>
-                <span slot="leading"><n-icon name="chat-dots"></n-icon></span>
+              <header dividers>
+                <nav><n-icon name="chat-dots"></n-icon></nav>
                 <span>Assistant</span>
-                <span slot="trailing"><n-button variant="ghost"><n-icon name="dots-three"></n-icon></n-button></span>
-              </n-header>
-              <n-body>
+                <aside><n-button variant="ghost"><n-icon name="dots-three"></n-icon></n-button></aside>
+              </header>
+              <section>
                 <n-chat-content>
                   <n-text size="sm" muted>Messages will appear here.</n-text>
                 </n-chat-content>
-              </n-body>
-              <n-footer dividers>
+              </section>
+              <footer dividers>
                 <n-chat-input>
                   <n-textarea placeholder="Ask anything" autogrow rows="3"></n-textarea>
                   <n-chat-input-actions>
@@ -117,7 +117,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
                     <n-button variant="primary" intent="accent" radius="round" inline disabled><n-icon name="arrow-up"></n-icon></n-button>
                   </n-chat-input-actions>
                 </n-chat-input>
-              </n-footer>
+              </footer>
             </n-panel>
           </n-chat>
         </n-stack>
@@ -429,7 +429,7 @@ Step 4: Applying formatting rules...</pre>
       <div class="layout-grid">
         <n-stack>
           <span class="layout-col-label">Inside n-footer container</span>
-          <n-footer dividers>
+          <footer dividers>
             <n-chat-input>
               <n-textarea placeholder="Ask anything" autogrow rows="2"></n-textarea>
               <n-chat-input-actions>
@@ -459,12 +459,12 @@ Step 4: Applying formatting rules...</pre>
                 </n-select>
               </n-chat-input-actions>
             </n-chat-input>
-          </n-footer>
+          </footer>
         </n-stack>
 
         <n-stack>
           <span class="layout-col-label">Compact (single row)</span>
-          <n-footer dividers>
+          <footer dividers>
             <n-chat-input compact>
               <n-textarea placeholder="Type a message..." autogrow rows="1"></n-textarea>
               <n-chat-input-actions>
@@ -473,7 +473,7 @@ Step 4: Applying formatting rules...</pre>
                 <n-button variant="primary" intent="accent" radius="round" inline disabled><n-icon name="arrow-up"></n-icon></n-button>
               </n-chat-input-actions>
             </n-chat-input>
-          </n-footer>
+          </footer>
         </n-stack>
       </div>
       <pre class="layout-code"><code>&lt;!-- Wrap in a container for surface styling --&gt;

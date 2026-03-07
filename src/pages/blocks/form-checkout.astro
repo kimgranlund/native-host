@@ -23,11 +23,11 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         <n-stack gap="6">
           <!-- ── Shipping Information ── -->
           <n-card>
-            <n-header>
-              <n-icon name="package" slot="leading"></n-icon>
-              <span slot="label">Shipping Information</span>
-            </n-header>
-            <n-body>
+            <header>
+              <nav><n-icon name="package"></n-icon></nav>
+              <span>Shipping Information</span>
+            </header>
+            <section>
               <n-stack gap="6">
                 <div class="grid-2">
                   <n-field required>
@@ -67,7 +67,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
                   <n-select name="country">
                     <n-button justify="spread">
                       <span slot="label">Select country</span>
-                      <n-icon name="caret-up-down" slot="trailing"></n-icon>
+                      <aside><n-icon name="caret-up-down"></n-icon></aside>
                     </n-button>
                     <n-listbox popover="manual">
                       <n-option value="us">United States</n-option>
@@ -80,16 +80,16 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
                   </n-select>
                 </n-field>
               </n-stack>
-            </n-body>
+            </section>
           </n-card>
 
           <!-- ── Payment Method ── -->
           <n-card>
-            <n-header>
-              <n-icon name="credit-card" slot="leading"></n-icon>
-              <span slot="label">Payment Method</span>
-            </n-header>
-            <n-body>
+            <header>
+              <nav><n-icon name="credit-card"></n-icon></nav>
+              <span>Payment Method</span>
+            </header>
+            <section>
               <n-stack gap="6">
                 <n-field>
                   <label slot="label">Payment type</label>
@@ -125,18 +125,18 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
                 <n-checkbox name="save_card">Save card for future purchases</n-checkbox>
               </n-stack>
-            </n-body>
+            </section>
           </n-card>
         </n-stack>
 
         <!-- ── Right Column: Order Summary ── -->
         <div>
           <n-card>
-            <n-header>
-              <n-icon name="receipt" slot="leading"></n-icon>
-              <span slot="label">Order Summary</span>
-            </n-header>
-            <n-body>
+            <header>
+              <nav><n-icon name="receipt"></n-icon></nav>
+              <span>Order Summary</span>
+            </header>
+            <section>
               <n-stack gap="4">
                 <div class="summary-line">
                   <div>
@@ -180,18 +180,18 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
                   <span class="item-price">$232.38</span>
                 </div>
               </n-stack>
-            </n-body>
-            <n-footer justify="center">
+            </section>
+            <footer justify="center">
               <n-stack gap="3" align="stretch">
                 <n-button variant="primary" intent="accent" type="submit" form="checkout-form">
                   <n-icon name="shopping-cart" slot="leading"></n-icon>
-                  <span slot="label">Place Order</span>
+                  <span>Place Order</span>
                 </n-button>
                 <p class="demo-caption checkout-secure-note">
                   Your payment information is encrypted and secure.
                 </p>
               </n-stack>
-            </n-footer>
+            </footer>
           </n-card>
         </div>
       </div>

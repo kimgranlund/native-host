@@ -19,10 +19,10 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
     <div class="form-wrapper">
       <n-card>
-        <n-header>
-          <span slot="label">Send us a message</span>
-        </n-header>
-        <n-body padding="relaxed">
+        <header>
+          <span>Send us a message</span>
+        </header>
+        <section padding="relaxed">
           <form id="contact-form">
             <n-stack gap="8">
               <n-field required>
@@ -45,7 +45,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
                 <n-select name="subject" placeholder="Select a topic">
                   <n-button justify="spread">
                     <span slot="label">Select a topic</span>
-                    <n-icon name="caret-up-down" slot="trailing"></n-icon>
+                    <aside><n-icon name="caret-up-down"></n-icon></aside>
                   </n-button>
                   <n-listbox popover="manual">
                     <n-option value="general">General Inquiry</n-option>
@@ -63,14 +63,14 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
               </n-field>
             </n-stack>
           </form>
-        </n-body>
-        <n-footer>
-          <n-button variant="ghost"><span slot="label">Cancel</span></n-button>
+        </section>
+        <footer>
+          <n-button variant="ghost"><span>Cancel</span></n-button>
           <n-button variant="primary" intent="accent" type="submit" form="contact-form">
             <n-icon name="envelope" slot="leading"></n-icon>
-            <span slot="label">Send Message</span>
+            <span>Send Message</span>
           </n-button>
-        </n-footer>
+        </footer>
       </n-card>
     </div>
     </n-stack>

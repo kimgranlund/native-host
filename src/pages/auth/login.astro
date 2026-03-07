@@ -101,7 +101,7 @@ if (Astro.locals.user) return Astro.redirect('/blocks/data-dashboard-stats');
 
         <div class="auth-card">
           <n-card padding="relaxed">
-            <n-body>
+            <section>
               <n-stack gap="8">
                 <form id="login-form">
                   <n-stack gap="6">
@@ -128,7 +128,7 @@ if (Astro.locals.user) return Astro.redirect('/blocks/data-dashboard-stats');
                   <span slot="label">Google</span>
                 </n-button>
               </n-stack>
-            </n-body>
+            </section>
           </n-card>
         </div>
         <div class="auth-footer">

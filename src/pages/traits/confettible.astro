@@ -89,8 +89,8 @@ const detailCountOrigin = `{ count, origin: { x, y } }`;
         Programmatic <code>fire()</code> after a fake form submission. The button disables, shows progress text, then fires confetti on success.
       </n-text>
       <n-card id="confetti-form-card">
-        <n-header>Contact Form</n-header>
-        <n-body>
+        <header>Contact Form</header>
+        <section>
           <n-stack gap="3">
             <n-field label="Name">
               <n-input placeholder="Jane Doe"></n-input>
@@ -100,7 +100,7 @@ const detailCountOrigin = `{ count, origin: { x, y } }`;
             </n-field>
             <n-button id="confetti-form-submit" intent="accent" primary>Submit</n-button>
           </n-stack>
-        </n-body>
+        </section>
       </n-card>
       <pre class="layout-code"><code set:html={codeExamples.formSuccess} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
@@ -155,7 +155,7 @@ const detailCountOrigin = `{ count, origin: { x, y } }`;
         Adjust the confetti parameters and fire from either button. The "Target" button fires confetti from its own position.
       </n-text>
       <n-card id="confetti-playground-card">
-        <n-body>
+        <section>
           <n-stack gap="3">
             <n-field label="Count">
               <n-range id="opt-count" min="5" max="100" step="5" value="30"></n-range>
@@ -177,7 +177,7 @@ const detailCountOrigin = `{ count, origin: { x, y } }`;
               <n-button id="opt-target" variant="secondary">Target (fire from here)</n-button>
             </n-stack>
           </n-stack>
-        </n-body>
+        </section>
       </n-card>
     </n-panel>
 

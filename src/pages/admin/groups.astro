@@ -33,13 +33,13 @@ function tierIntent(tier: string) {
           <n-table id="groups-table" cols="1fr 1fr auto auto auto">
             <n-table-row colspan>
               <n-table-cell>
-                <n-header>
+                <header>
                   <h2>Groups</h2>
-                  <n-button id="create-group-btn" variant="primary" intent="accent" slot="trailing">
+                  <aside><n-button id="create-group-btn" variant="primary" intent="accent">
                     <n-icon name="plus" slot="leading"></n-icon>
-                    <span slot="label">Create Group</span>
-                  </n-button>
-                </n-header>
+                    <span>Create Group</span>
+                  </n-button></aside>
+                </header>
               </n-table-cell>
             </n-table-row>
             <n-table-row header>
@@ -74,7 +74,7 @@ function tierIntent(tier: string) {
                       data-group-description={g.description || ''}
                       data-group-tier={g.defaultTier}
                     >
-                      <n-icon name="pencil-simple" slot="leading"></n-icon>
+                      <nav><n-icon name="pencil-simple"></n-icon></nav>
                     </n-button>
                     <n-button
                       variant="ghost"
@@ -84,7 +84,7 @@ function tierIntent(tier: string) {
                       data-group-id={g.id}
                       data-group-name={g.name}
                     >
-                      <n-icon name="trash" slot="leading"></n-icon>
+                      <nav><n-icon name="trash"></n-icon></nav>
                     </n-button>
                   </n-stack>
                 </n-table-cell>
@@ -96,10 +96,10 @@ function tierIntent(tier: string) {
     <n-dialog id="group-dialog">
       <div class="admin-dialog-card">
         <n-card>
-          <n-header>
-            <span slot="label" id="group-dialog-title">Create Group</span>
-          </n-header>
-          <n-body>
+          <header>
+            <span id="group-dialog-title">Create Group</span>
+          </header>
+          <section>
             <n-stack gap="4">
               <n-field required>
                 <label slot="label">Name</label>
@@ -114,15 +114,15 @@ function tierIntent(tier: string) {
                 <n-select id="group-tier" value="user" options='[{"value":"owner","label":"Owner"},{"value":"admin","label":"Admin"},{"value":"user","label":"User"},{"value":"preview","label":"Preview"}]'></n-select>
               </n-field>
             </n-stack>
-          </n-body>
-          <n-footer>
+          </section>
+          <footer>
             <n-button id="group-cancel">
               <span slot="label">Cancel</span>
             </n-button>
             <n-button id="group-submit" variant="primary" intent="accent">
               <span slot="label">Save</span>
             </n-button>
-          </n-footer>
+          </footer>
         </n-card>
       </div>
     </n-dialog>
@@ -131,22 +131,22 @@ function tierIntent(tier: string) {
     <n-dialog id="delete-dialog">
       <div class="admin-dialog-card">
         <n-card>
-          <n-header>
-            <n-icon name="warning" slot="leading" size="lg"></n-icon>
-            <span slot="label">Delete Group?</span>
-          </n-header>
-          <n-body>
+          <header>
+            <nav><n-icon name="warning" size="lg"></n-icon></nav>
+            <span>Delete Group?</span>
+          </header>
+          <section>
             <n-text>Are you sure you want to delete <n-text id="delete-group-name" variant="strong"></n-text>? All memberships in this group will be removed. This action cannot be undone.</n-text>
-          </n-body>
-          <n-footer>
+          </section>
+          <footer>
             <n-button id="delete-cancel">
               <span slot="label">Cancel</span>
             </n-button>
             <n-button id="delete-submit" variant="primary" intent="danger">
               <n-icon name="trash" slot="leading"></n-icon>
-              <span slot="label">Delete</span>
+              <span>Delete</span>
             </n-button>
-          </n-footer>
+          </footer>
         </n-card>
       </div>
     </n-dialog>

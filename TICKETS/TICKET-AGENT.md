@@ -15,7 +15,8 @@ Each agent reads this file at session start, processes tickets addressed to it, 
 
 | Status | File | Title | From | To |
 |--------|------|-------|------|----|
-No open tickets.
+| **open** | T0133-semantic-container-migration.md | Semantic container migration — `n-header`/`n-body`/`n-footer` → `<header>`/`<section>`/`<footer>` (non-breaking, dual CSS selectors) | native-ui | host |
+| **open** | T0134-semantic-layout-migration.md | Semantic layout migration — `n-dashboard-breadcrumb`/`n-dashboard-canvas`/`n-dashboard-panel` → `<nav>`/`<section>`/`<main>` (non-breaking, dual CSS selectors) | native-ui | host |
 
 ## Recently Closed
 

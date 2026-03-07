@@ -19,17 +19,17 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
     <div class="wizard-wrapper">
       <n-card>
-        <n-header>
-          <div class="step-indicator-full" slot="label"><n-segmented-control id="step-indicator" value="personal">
+        <header>
+          <div class="step-indicator-full"><n-segmented-control id="step-indicator" value="personal">
             <n-segment value="personal">1. Personal</n-segment>
             <n-segment value="address">2. Address</n-segment>
             <n-segment value="review">3. Review</n-segment>
           </n-segmented-control></div>
-        </n-header>
+        </header>
 
         <!-- ── Step 1: Personal Information ── -->
         <div class="step-panel" id="step-personal" active>
-          <n-body><n-stack gap="6">
+          <section><n-stack gap="6">
             <n-field required>
               <label slot="label">Full name</label>
               <n-input placeholder="Jane Doe" id="input-name" name="name">
@@ -52,24 +52,24 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
               </n-input>
             </n-field>
           </n-stack>
-          </n-body>
+          </section>
 
-          <n-footer>
+          <footer>
           <div class="step-actions">
             <div></div>
             <div class="right">
               <n-button variant="primary" intent="accent" id="btn-next-1">
                 <span slot="label">Next</span>
-                <n-icon name="arrow-right" slot="trailing"></n-icon>
+                <aside><n-icon name="arrow-right"></n-icon></aside>
               </n-button>
             </div>
           </div>
-          </n-footer>
+          </footer>
         </div>
 
         <!-- ── Step 2: Address ── -->
         <div class="step-panel" id="step-address">
-          <n-body><n-stack gap="6">
+          <section><n-stack gap="6">
             <n-field required>
               <label slot="label">Street address</label>
               <n-input placeholder="123 Main Street" id="input-address" name="address">
@@ -87,7 +87,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
               <n-select id="input-state" name="state">
                 <n-button justify="spread">
                   <span slot="label">Select state</span>
-                  <n-icon name="caret-up-down" slot="trailing"></n-icon>
+                  <aside><n-icon name="caret-up-down"></n-icon></aside>
                 </n-button>
                 <n-listbox popover="manual">
                   <n-option value="ca">California</n-option>
@@ -104,27 +104,27 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
               <n-input placeholder="94102" id="input-zip" name="zip"></n-input>
             </n-field>
           </n-stack>
-          </n-body>
+          </section>
 
-          <n-footer>
+          <footer>
           <div class="step-actions">
             <n-button variant="ghost" id="btn-prev-2">
               <n-icon name="arrow-left" slot="leading"></n-icon>
-              <span slot="label">Previous</span>
+              <span>Previous</span>
             </n-button>
             <div class="right">
               <n-button variant="primary" intent="accent" id="btn-next-2">
                 <span slot="label">Next</span>
-                <n-icon name="arrow-right" slot="trailing"></n-icon>
+                <aside><n-icon name="arrow-right"></n-icon></aside>
               </n-button>
             </div>
           </div>
-          </n-footer>
+          </footer>
         </div>
 
         <!-- ── Step 3: Review ── -->
         <div class="step-panel" id="step-review">
-          <n-body>
+          <section>
           <n-stack gap="4">
           <div>
             <h2>Review your information</h2>
@@ -164,22 +164,22 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
             </div>
           </n-stack>
           </n-stack>
-          </n-body>
+          </section>
 
-          <n-footer>
+          <footer>
           <div class="step-actions">
             <n-button variant="ghost" id="btn-prev-3">
               <n-icon name="arrow-left" slot="leading"></n-icon>
-              <span slot="label">Previous</span>
+              <span>Previous</span>
             </n-button>
             <div class="right">
               <n-button variant="primary" intent="accent" id="btn-submit">
                 <n-icon name="check" slot="leading"></n-icon>
-                <span slot="label">Create Account</span>
+                <span>Create Account</span>
               </n-button>
             </div>
           </div>
-          </n-footer>
+          </footer>
         </div>
       </n-card>
     </div>
