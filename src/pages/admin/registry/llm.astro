@@ -1,0 +1,297 @@
+---
+import SidebarLayout from '../../../layouts/SidebarLayout.astro';
+import AdminLayout from '../../../components/AdminLayout.astro';
+import { requireAdmin } from '../../../lib/permissions';
+import { db } from '../../../db/client';
+import { contentType, contentObject } from '../../../db/schema';
+import { eq } from 'drizzle-orm';
+
+const ctx = await requireAdmin(Astro.locals);
+if (ctx instanceof Response) return ctx;
+
+// Get the LLM content type (may not exist yet)
+const [llmType] = await db.select().from(contentType).where(eq(contentType.slug, 'llm-description'));
+
+const entries = llmType
+  ? await db.select().from(contentObject).where(eq(contentObject.contentTypeId, llmType.id))
+  : [];
+
+// Parse data JSON for display
+const llmEntries = entries.map(e => ({
+  ...e,
+  parsed: JSON.parse(e.data) as Record<string, unknown>,
+}));
+
+function statusIntent(status: string) {
+  if (status === 'active') return 'success';
+  if (status === 'deprecated') return 'warning';
+  return 'neutral';
+}
+---
+<SidebarLayout title="LLM Registry">
+  <AdminLayout current="/admin/registry/llm" orgId={ctx.orgId}>
+          <n-table id="llm-table" cols="1fr auto auto auto auto auto">
+            <n-table-row colspan>
+              <n-table-cell>
+                <n-header>
+                  <h2>LLM Registry</h2>
+                  <n-button id="create-llm-btn" variant="primary" intent="accent" slot="trailing">
+                    <n-icon name="plus" slot="leading"></n-icon>
+                    <span slot="label">Add Model</span>
+                  </n-button>
+                </n-header>
+              </n-table-cell>
+            </n-table-row>
+            <n-table-row header>
+              <n-table-cell>Name</n-table-cell>
+              <n-table-cell>Provider</n-table-cell>
+              <n-table-cell>Model ID</n-table-cell>
+              <n-table-cell>Status</n-table-cell>
+              <n-table-cell>Version</n-table-cell>
+              <n-table-cell>Actions</n-table-cell>
+            </n-table-row>
+            {llmEntries.map(e => (
+              <n-table-row>
+                <n-table-cell>
+                  <n-text strong>{e.parsed.name as string || e.slug}</n-text>
+                </n-table-cell>
+                <n-table-cell>
+                  <n-text size="sm">{e.parsed.provider as string || '\u2014'}</n-text>
+                </n-table-cell>
+                <n-table-cell>
+                  <n-text muted size="sm">{e.parsed.modelId as string || '\u2014'}</n-text>
+                </n-table-cell>
+                <n-table-cell>
+                  <n-badge intent={statusIntent(e.status)}>{e.status}</n-badge>
+                </n-table-cell>
+                <n-table-cell>
+                  <n-text size="sm">v{e.version}</n-text>
+                </n-table-cell>
+                <n-table-cell>
+                  <n-stack direction="row" gap="1">
+                    <n-button
+                      variant="ghost"
+                      size="sm"
+                      data-action="edit"
+                      data-entry-id={e.id}
+                      data-entry-name={e.parsed.name as string || ''}
+                      data-entry-provider={e.parsed.provider as string || ''}
+                      data-entry-model-id={e.parsed.modelId as string || ''}
+                      data-entry-description={e.parsed.description as string || ''}
+                      data-entry-status={e.status}
+                    >
+                      <n-icon name="pencil-simple" slot="leading"></n-icon>
+                    </n-button>
+                    <n-button
+                      variant="ghost"
+                      size="sm"
+                      intent="danger"
+                      data-action="delete"
+                      data-entry-id={e.id}
+                      data-entry-name={e.parsed.name as string || e.slug}
+                    >
+                      <n-icon name="trash" slot="leading"></n-icon>
+                    </n-button>
+                  </n-stack>
+                </n-table-cell>
+              </n-table-row>
+            ))}
+          </n-table>
+
+    <!-- Create / Edit dialog -->
+    <n-dialog id="llm-dialog">
+      <div class="admin-dialog-card">
+        <n-card>
+          <n-header>
+            <span slot="label" id="llm-dialog-title">Add Model</span>
+          </n-header>
+          <n-body>
+            <n-stack gap="4">
+              <n-field required>
+                <label slot="label">Name</label>
+                <n-input id="llm-name" placeholder="e.g. Claude Sonnet 4"></n-input>
+              </n-field>
+              <n-field required>
+                <label slot="label">Provider</label>
+                <n-input id="llm-provider" placeholder="e.g. anthropic"></n-input>
+              </n-field>
+              <n-field required>
+                <label slot="label">Model ID</label>
+                <n-input id="llm-model-id" placeholder="e.g. claude-sonnet-4-6"></n-input>
+              </n-field>
+              <n-field>
+                <label slot="label">Description</label>
+                <n-input id="llm-description" placeholder="Optional description"></n-input>
+              </n-field>
+              <n-field>
+                <label slot="label">Status</label>
+                <n-select id="llm-status" value="active" options='[{"value":"active","label":"Active"},{"value":"deprecated","label":"Deprecated"},{"value":"draft","label":"Draft"}]'></n-select>
+              </n-field>
+            </n-stack>
+          </n-body>
+          <n-footer>
+            <n-button id="llm-cancel">
+              <span slot="label">Cancel</span>
+            </n-button>
+            <n-button id="llm-submit" variant="primary" intent="accent">
+              <span slot="label">Save</span>
+            </n-button>
+          </n-footer>
+        </n-card>
+      </div>
+    </n-dialog>
+
+    <!-- Delete confirmation dialog -->
+    <n-dialog id="llm-delete-dialog">
+      <div class="admin-dialog-card">
+        <n-card>
+          <n-header>
+            <n-icon name="warning" slot="leading" size="lg"></n-icon>
+            <span slot="label">Delete Model?</span>
+          </n-header>
+          <n-body>
+            <n-text>Are you sure you want to delete <n-text id="llm-delete-name" variant="strong"></n-text>? This action cannot be undone.</n-text>
+          </n-body>
+          <n-footer>
+            <n-button id="llm-delete-cancel">
+              <span slot="label">Cancel</span>
+            </n-button>
+            <n-button id="llm-delete-submit" variant="primary" intent="danger">
+              <n-icon name="trash" slot="leading"></n-icon>
+              <span slot="label">Delete</span>
+            </n-button>
+          </n-footer>
+        </n-card>
+      </div>
+    </n-dialog>
+  </AdminLayout>
+</SidebarLayout>
+
+<script>
+document.addEventListener('astro:page-load', () => {
+  const table = document.getElementById('llm-table');
+  if (!table || table.hasAttribute('data-wired')) return;
+  table.setAttribute('data-wired', '');
+
+  // State
+  let editingId = '';
+  let deletingId = '';
+
+  // Dialogs
+  const formDialog = document.getElementById('llm-dialog') as any;
+  const deleteDialog = document.getElementById('llm-delete-dialog') as any;
+
+  // Form elements
+  const dialogTitle = document.getElementById('llm-dialog-title');
+  const nameInput = document.getElementById('llm-name') as any;
+  const providerInput = document.getElementById('llm-provider') as any;
+  const modelIdInput = document.getElementById('llm-model-id') as any;
+  const descInput = document.getElementById('llm-description') as any;
+  const statusSelect = document.getElementById('llm-status') as any;
+
+  function resetForm() {
+    editingId = '';
+    if (nameInput) nameInput.value = '';
+    if (providerInput) providerInput.value = '';
+    if (modelIdInput) modelIdInput.value = '';
+    if (descInput) descInput.value = '';
+    if (statusSelect) statusSelect.value = 'active';
+    if (dialogTitle) dialogTitle.textContent = 'Add Model';
+  }
+
+  function nameToSlug(name: string) {
+    return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  }
+
+  // Create button
+  document.getElementById('create-llm-btn')?.addEventListener('native:press', () => {
+    resetForm();
+    formDialog?.showModal();
+  });
+
+  // Edit buttons
+  table.querySelectorAll('[data-action="edit"]').forEach(btn => {
+    btn.addEventListener('native:press', () => {
+      editingId = btn.getAttribute('data-entry-id') || '';
+      if (dialogTitle) dialogTitle.textContent = 'Edit Model';
+      if (nameInput) nameInput.value = btn.getAttribute('data-entry-name') || '';
+      if (providerInput) providerInput.value = btn.getAttribute('data-entry-provider') || '';
+      if (modelIdInput) modelIdInput.value = btn.getAttribute('data-entry-model-id') || '';
+      if (descInput) descInput.value = btn.getAttribute('data-entry-description') || '';
+      if (statusSelect) statusSelect.value = btn.getAttribute('data-entry-status') || 'active';
+      formDialog?.showModal();
+    });
+  });
+
+  // Form dialog cancel / submit
+  document.getElementById('llm-cancel')?.addEventListener('native:press', () => formDialog?.close());
+  document.getElementById('llm-submit')?.addEventListener('native:press', async () => {
+    const name = nameInput?.value?.trim();
+    if (!name) return;
+
+    const data = {
+      name,
+      provider: providerInput?.value?.trim() || '',
+      modelId: modelIdInput?.value?.trim() || '',
+      description: descInput?.value?.trim() || '',
+    };
+
+    if (editingId) {
+      // Update existing
+      const res = await fetch(`/api/admin/registry/llm-description/${editingId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'same-origin',
+        body: JSON.stringify({
+          slug: nameToSlug(name),
+          data,
+          status: statusSelect?.value || 'active',
+        }),
+      });
+      if (res.ok) {
+        formDialog?.close();
+        location.reload();
+      }
+    } else {
+      // Create new
+      const res = await fetch('/api/admin/registry/llm-description', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'same-origin',
+        body: JSON.stringify({
+          slug: nameToSlug(name),
+          data,
+          status: statusSelect?.value || 'active',
+        }),
+      });
+      if (res.ok) {
+        formDialog?.close();
+        location.reload();
+      }
+    }
+  });
+
+  // Delete buttons
+  table.querySelectorAll('[data-action="delete"]').forEach(btn => {
+    btn.addEventListener('native:press', () => {
+      deletingId = btn.getAttribute('data-entry-id') || '';
+      const nameEl = document.getElementById('llm-delete-name');
+      if (nameEl) nameEl.textContent = btn.getAttribute('data-entry-name') || '';
+      deleteDialog?.showModal();
+    });
+  });
+
+  // Delete dialog cancel / submit
+  document.getElementById('llm-delete-cancel')?.addEventListener('native:press', () => deleteDialog?.close());
+  document.getElementById('llm-delete-submit')?.addEventListener('native:press', async () => {
+    const res = await fetch(`/api/admin/registry/llm-description/${deletingId}`, {
+      method: 'DELETE',
+      credentials: 'same-origin',
+    });
+    if (res.ok) {
+      deleteDialog?.close();
+      location.reload();
+    }
+  });
+});
+</script>

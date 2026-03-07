@@ -3,7 +3,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
 const codeExamples = {
   doubleClickToEditProvider: `&lt;n-controller traits="editable"
-  editable-trigger="dblclick"
+  data-trait-editable-trigger="dblclick"
   for=".edit-item"&gt;
   &lt;div class="edit-list"&gt;
     &lt;div class="edit-item"&gt;Project Roadmap&lt;/div&gt;
@@ -64,7 +64,7 @@ const detailValuePrev = `{ value, previousValue }`;
       <n-text size="xs" muted spacing="tight">
         <code>&lt;n-controller&gt;</code> with <code>for=".edit-item"</code> applies an <code>EditController</code> to each matching item. Double-click to start editing. Press <strong>Enter</strong> to commit or <strong>Escape</strong> to cancel.
       </n-text>
-      <n-controller traits="editable" editable-trigger="dblclick" for=".edit-item">
+      <n-controller traits="editable" data-trait-editable-trigger="dblclick" for=".edit-item">
         <div id="dbl-list" class="edit-list">
           <div class="edit-item">Project Roadmap</div>
           <div class="edit-item">Sprint Planning</div>
@@ -83,7 +83,7 @@ const detailValuePrev = `{ value, previousValue }`;
       <n-text size="xs" muted spacing="tight">
         Trigger set to <code>'click'</code>. Single click activates editing mode. The <code>for</code> selector applies the trait to each matching descendant individually.
       </n-text>
-      <n-controller traits="editable" editable-trigger="click" for=".edit-item">
+      <n-controller traits="editable" data-trait-editable-trigger="click" for=".edit-item">
         <div id="click-list" class="edit-list">
           <div class="edit-item">Task Alpha</div>
           <div class="edit-item">Task Bravo</div>
@@ -92,7 +92,7 @@ const detailValuePrev = `{ value, previousValue }`;
       </n-controller>
       <div id="click-log" class="output"></div>
       <pre class="layout-code"><code>&lt;n-controller traits="editable"
-  editable-trigger="click"
+  data-trait-editable-trigger="click"
   for=".edit-item"&gt;
   &lt;div class="edit-list"&gt;
     &lt;div class="edit-item"&gt;Task Alpha&lt;/div&gt;
@@ -122,13 +122,13 @@ const detailValuePrev = `{ value, previousValue }`;
         <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Type</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
         <n-table-body>
           <n-table-row>
-            <n-table-cell><code>editable-trigger</code></n-table-cell>
+            <n-table-cell><code>data-trait-editable-trigger</code></n-table-cell>
             <n-table-cell><code>'click' | 'dblclick'</code></n-table-cell>
             <n-table-cell><code>'dblclick'</code></n-table-cell>
             <n-table-cell>Which event activates editing mode.</n-table-cell>
           </n-table-row>
           <n-table-row>
-            <n-table-cell><code>editable-disabled</code></n-table-cell>
+            <n-table-cell><code>data-trait-editable-disabled</code></n-table-cell>
             <n-table-cell><code>boolean</code></n-table-cell>
             <n-table-cell><code>false</code></n-table-cell>
             <n-table-cell>Disables editing when true.</n-table-cell>

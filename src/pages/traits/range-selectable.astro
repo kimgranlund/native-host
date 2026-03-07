@@ -3,8 +3,8 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
 const codeExamples = {
   dragModeCalendarGridProvider: `&lt;n-controller traits="range-selectable"
-  range-selectable-selector=".cell"
-  range-selectable-mode="drag"&gt;
+  data-trait-range-selectable-selector=".cell"
+  data-trait-range-selectable-mode="drag"&gt;
   &lt;div class="grid-container"&gt;
     &lt;div class="cell"&gt;1&lt;/div&gt;
     &lt;div class="cell"&gt;2&lt;/div&gt;
@@ -86,7 +86,7 @@ const detailRange = `{ startIndex, endIndex, items }`;
         <div class="day-header">Fr</div>
         <div class="day-header">Sa</div>
       </div>
-      <n-controller traits="range-selectable" range-selectable-selector=".cell" range-selectable-mode="drag">
+      <n-controller traits="range-selectable" data-trait-range-selectable-selector=".cell" data-trait-range-selectable-mode="drag">
         <div id="drag-grid" class="grid-container"></div>
       </n-controller>
       <div id="drag-output" class="output">Click and drag to select a range</div>
@@ -124,7 +124,7 @@ const detailRange = `{ startIndex, endIndex, items }`;
       <n-text size="xs" muted spacing="tight">
         <code>&lt;n-controller&gt;</code> applies range-selectable to a vertical list. Click and drag to select a contiguous range of days.
       </n-text>
-      <n-controller traits="range-selectable" range-selectable-selector=".list-item">
+      <n-controller traits="range-selectable" data-trait-range-selectable-selector=".list-item">
         <div id="list" class="list-container">
           <div class="list-item">Monday</div>
           <div class="list-item">Tuesday</div>
@@ -137,7 +137,7 @@ const detailRange = `{ startIndex, endIndex, items }`;
       </n-controller>
       <div id="list-output" class="output">Click and drag to select a range</div>
       <pre class="layout-code"><code>&lt;n-controller traits="range-selectable"
-  range-selectable-selector=".list-item"&gt;
+  data-trait-range-selectable-selector=".list-item"&gt;
   &lt;div class="list-container"&gt;
     &lt;div class="list-item"&gt;Monday&lt;/div&gt;
     &lt;div class="list-item"&gt;Tuesday&lt;/div&gt;
@@ -173,19 +173,19 @@ const detailRange = `{ startIndex, endIndex, items }`;
         <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Type</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
         <n-table-body>
           <n-table-row>
-            <n-table-cell><code>range-selectable-selector</code></n-table-cell>
+            <n-table-cell><code>data-trait-range-selectable-selector</code></n-table-cell>
             <n-table-cell><code>string</code></n-table-cell>
             <n-table-cell>—</n-table-cell>
             <n-table-cell>CSS selector for selectable items within the host. Required.</n-table-cell>
           </n-table-row>
           <n-table-row>
-            <n-table-cell><code>range-selectable-mode</code></n-table-cell>
+            <n-table-cell><code>data-trait-range-selectable-mode</code></n-table-cell>
             <n-table-cell><code>'drag' | 'click'</code></n-table-cell>
             <n-table-cell><code>'drag'</code></n-table-cell>
             <n-table-cell><strong>drag</strong>: click-drag-release. <strong>click</strong>: click start, hover to preview, click to commit.</n-table-cell>
           </n-table-row>
           <n-table-row>
-            <n-table-cell><code>range-selectable-disabled</code></n-table-cell>
+            <n-table-cell><code>data-trait-range-selectable-disabled</code></n-table-cell>
             <n-table-cell><code>boolean</code></n-table-cell>
             <n-table-cell><code>false</code></n-table-cell>
             <n-table-cell>Disables range selection when true.</n-table-cell>

@@ -1,0 +1,394 @@
+---
+import SidebarLayout from '../../layouts/SidebarLayout.astro';
+import AdminLayout from '../../components/AdminLayout.astro';
+import { requireAdmin } from '../../lib/permissions';
+import { db } from '../../db/client';
+import { contentType, contentObject } from '../../db/schema';
+import { eq, count } from 'drizzle-orm';
+
+const ctx = await requireAdmin(Astro.locals);
+if (ctx instanceof Response) return ctx;
+
+const types = await db.select().from(contentType);
+
+// Get object counts per type
+const counts = await db
+  .select({ contentTypeId: contentObject.contentTypeId, count: count() })
+  .from(contentObject)
+  .groupBy(contentObject.contentTypeId);
+
+const countMap = new Map(counts.map(c => [c.contentTypeId, c.count]));
+
+const typeEntries = types.map(t => ({
+  ...t,
+  objectCount: countMap.get(t.id) || 0,
+  schemaPreview: (() => {
+    try {
+      const parsed = JSON.parse(t.schema);
+      const props = parsed.properties ? Object.keys(parsed.properties) : [];
+      return props.length > 0 ? props.join(', ') : 'Empty schema';
+    } catch { return 'Invalid JSON'; }
+  })(),
+}));
+
+function formatDate(d: Date) {
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+---
+<SidebarLayout title="Content Types">
+  <AdminLayout current="/admin/content-types" orgId={ctx.orgId}>
+          <n-table id="ct-table" cols="1fr auto auto auto auto auto">
+            <n-table-row colspan>
+              <n-table-cell>
+                <n-header>
+                  <h2>Content Types</h2>
+                  <n-button id="create-ct-btn" variant="primary" intent="accent" slot="trailing">
+                    <n-icon name="plus" slot="leading"></n-icon>
+                    <span slot="label">Add Content Type</span>
+                  </n-button>
+                </n-header>
+              </n-table-cell>
+            </n-table-row>
+            <n-table-row header>
+              <n-table-cell>Name</n-table-cell>
+              <n-table-cell>Slug</n-table-cell>
+              <n-table-cell>Fields</n-table-cell>
+              <n-table-cell>Versioned</n-table-cell>
+              <n-table-cell>Objects</n-table-cell>
+              <n-table-cell>Actions</n-table-cell>
+            </n-table-row>
+            {typeEntries.length === 0 && (
+              <n-table-row>
+                <n-table-cell colspan="6">
+                  <n-text muted>No content types defined yet. Create one to get started.</n-text>
+                </n-table-cell>
+              </n-table-row>
+            )}
+            {typeEntries.map(t => (
+              <n-table-row>
+                <n-table-cell>
+                  <n-text strong>{t.name}</n-text>
+                </n-table-cell>
+                <n-table-cell>
+                  <n-badge variant="muted">{t.slug}</n-badge>
+                </n-table-cell>
+                <n-table-cell>
+                  <n-text muted size="sm" title={t.schemaPreview}>
+                    {t.schemaPreview.length > 30 ? t.schemaPreview.slice(0, 30) + '…' : t.schemaPreview}
+                  </n-text>
+                </n-table-cell>
+                <n-table-cell>
+                  <n-badge intent={t.versioned ? 'success' : 'neutral'}>
+                    {t.versioned ? 'Yes' : 'No'}
+                  </n-badge>
+                </n-table-cell>
+                <n-table-cell>
+                  <n-text size="sm">{t.objectCount}</n-text>
+                </n-table-cell>
+                <n-table-cell>
+                  <n-stack direction="row" gap="1">
+                    <n-button
+                      variant="ghost"
+                      size="sm"
+                      data-action="edit"
+                      data-ct-id={t.id}
+                      data-ct-name={t.name}
+                      data-ct-slug={t.slug}
+                      data-ct-schema={t.schema}
+                      data-ct-versioned={t.versioned ? 'true' : 'false'}
+                    >
+                      <n-icon name="pencil-simple" slot="leading"></n-icon>
+                    </n-button>
+                    <n-button
+                      variant="ghost"
+                      size="sm"
+                      intent="danger"
+                      data-action="delete"
+                      data-ct-id={t.id}
+                      data-ct-name={t.name}
+                      data-ct-objects={String(t.objectCount)}
+                    >
+                      <n-icon name="trash" slot="leading"></n-icon>
+                    </n-button>
+                  </n-stack>
+                </n-table-cell>
+              </n-table-row>
+            ))}
+          </n-table>
+
+    <!-- Create / Edit dialog -->
+    <n-dialog id="ct-dialog">
+      <div class="admin-dialog-card ct-dialog-wide">
+        <n-card>
+          <n-header>
+            <span slot="label" id="ct-dialog-title">Add Content Type</span>
+          </n-header>
+          <n-body>
+            <n-stack gap="4">
+              <n-stack direction="row" gap="4">
+                <n-field required style="flex: 1;">
+                  <label slot="label">Name</label>
+                  <n-input id="ct-name" placeholder="e.g. LLM Description"></n-input>
+                </n-field>
+                <n-field required style="flex: 1;">
+                  <label slot="label">Slug</label>
+                  <n-input id="ct-slug" placeholder="e.g. llm-description"></n-input>
+                </n-field>
+              </n-stack>
+              <n-field>
+                <n-stack direction="row" align="center" justify="between" slot="label">
+                  <label>JSON Schema</label>
+                  <n-switch id="ct-versioned" checked size="sm">
+                    <span slot="label">Versioned</span>
+                  </n-switch>
+                </n-stack>
+                <textarea id="ct-schema" rows="12" class="ct-schema-editor" spellcheck="false"></textarea>
+              </n-field>
+            </n-stack>
+          </n-body>
+          <n-footer>
+            <n-button id="ct-cancel">
+              <span slot="label">Cancel</span>
+            </n-button>
+            <n-button id="ct-submit" variant="primary" intent="accent">
+              <span slot="label">Save</span>
+            </n-button>
+          </n-footer>
+        </n-card>
+      </div>
+    </n-dialog>
+
+    <!-- Delete confirmation dialog -->
+    <n-dialog id="ct-delete-dialog">
+      <div class="admin-dialog-card">
+        <n-card>
+          <n-header>
+            <n-icon name="warning" slot="leading" size="lg"></n-icon>
+            <span slot="label">Delete Content Type?</span>
+          </n-header>
+          <n-body>
+            <n-stack gap="2">
+              <n-text>Are you sure you want to delete <n-text id="ct-delete-name" variant="strong"></n-text>?</n-text>
+              <n-text id="ct-delete-warning" muted size="sm"></n-text>
+              <n-text size="sm" intent="danger">This action cannot be undone.</n-text>
+            </n-stack>
+          </n-body>
+          <n-footer>
+            <n-button id="ct-delete-cancel">
+              <span slot="label">Cancel</span>
+            </n-button>
+            <n-button id="ct-delete-submit" variant="primary" intent="danger">
+              <n-icon name="trash" slot="leading"></n-icon>
+              <span slot="label">Delete</span>
+            </n-button>
+          </n-footer>
+        </n-card>
+      </div>
+    </n-dialog>
+  </AdminLayout>
+</SidebarLayout>
+
+<style is:global>
+  .ct-dialog-wide {
+    max-width: 40rem;
+  }
+
+  .ct-schema-editor {
+    width: 100%;
+    font-family: var(--n-font-mono);
+    font-size: var(--n-font-size-sm);
+    line-height: 1.5;
+    padding: var(--n-space-3);
+    border: 1px solid var(--n-border);
+    border-radius: var(--n-radius-md);
+    background: var(--n-surface-sunken);
+    color: var(--n-text);
+    resize: vertical;
+    tab-size: 2;
+  }
+
+  .ct-schema-editor:focus {
+    outline: 2px solid var(--n-accent);
+    outline-offset: -1px;
+    border-color: transparent;
+  }
+</style>
+
+<script>
+document.addEventListener('astro:page-load', () => {
+  const table = document.getElementById('ct-table');
+  if (!table || table.hasAttribute('data-wired')) return;
+  table.setAttribute('data-wired', '');
+
+  // State
+  let editingId = '';
+  let deletingId = '';
+
+  // Dialogs
+  const formDialog = document.getElementById('ct-dialog') as any;
+  const deleteDialog = document.getElementById('ct-delete-dialog') as any;
+
+  // Form elements
+  const dialogTitle = document.getElementById('ct-dialog-title');
+  const nameInput = document.getElementById('ct-name') as any;
+  const slugInput = document.getElementById('ct-slug') as any;
+  const schemaTextarea = document.getElementById('ct-schema') as HTMLTextAreaElement;
+  const versionedSwitch = document.getElementById('ct-versioned') as any;
+
+  const defaultSchema = JSON.stringify({
+    type: 'object',
+    properties: {
+      name: { type: 'string' },
+      description: { type: 'string' },
+    },
+    required: ['name'],
+  }, null, 2);
+
+  function resetForm() {
+    editingId = '';
+    if (nameInput) nameInput.value = '';
+    if (slugInput) slugInput.value = '';
+    if (schemaTextarea) schemaTextarea.value = defaultSchema;
+    if (versionedSwitch) versionedSwitch.checked = true;
+    if (dialogTitle) dialogTitle.textContent = 'Add Content Type';
+  }
+
+  function nameToSlug(name: string) {
+    return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  }
+
+  // Auto-generate slug from name (only for new types)
+  nameInput?.addEventListener('input', () => {
+    if (!editingId && slugInput) {
+      slugInput.value = nameToSlug(nameInput.value || '');
+    }
+  });
+
+  // Tab key inserts spaces in schema editor
+  schemaTextarea?.addEventListener('keydown', (e: KeyboardEvent) => {
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      const start = schemaTextarea.selectionStart;
+      const end = schemaTextarea.selectionEnd;
+      schemaTextarea.value = schemaTextarea.value.substring(0, start) + '  ' + schemaTextarea.value.substring(end);
+      schemaTextarea.selectionStart = schemaTextarea.selectionEnd = start + 2;
+    }
+  });
+
+  // Create button
+  document.getElementById('create-ct-btn')?.addEventListener('native:press', () => {
+    resetForm();
+    formDialog?.showModal();
+  });
+
+  // Edit buttons
+  table.querySelectorAll('[data-action="edit"]').forEach(btn => {
+    btn.addEventListener('native:press', () => {
+      editingId = btn.getAttribute('data-ct-id') || '';
+      if (dialogTitle) dialogTitle.textContent = 'Edit Content Type';
+      if (nameInput) nameInput.value = btn.getAttribute('data-ct-name') || '';
+      if (slugInput) slugInput.value = btn.getAttribute('data-ct-slug') || '';
+      if (schemaTextarea) {
+        try {
+          schemaTextarea.value = JSON.stringify(JSON.parse(btn.getAttribute('data-ct-schema') || '{}'), null, 2);
+        } catch {
+          schemaTextarea.value = btn.getAttribute('data-ct-schema') || '{}';
+        }
+      }
+      if (versionedSwitch) versionedSwitch.checked = btn.getAttribute('data-ct-versioned') === 'true';
+      formDialog?.showModal();
+    });
+  });
+
+  // Form dialog cancel / submit
+  document.getElementById('ct-cancel')?.addEventListener('native:press', () => formDialog?.close());
+  document.getElementById('ct-submit')?.addEventListener('native:press', async () => {
+    const name = nameInput?.value?.trim();
+    const slug = slugInput?.value?.trim();
+    if (!name || !slug) return;
+
+    // Validate JSON
+    let schema: string;
+    try {
+      schema = JSON.stringify(JSON.parse(schemaTextarea?.value || '{}'));
+    } catch {
+      // Show validation error via toast
+      const { ToastController } = await import('@nonoun/native-ui');
+      const toast = new ToastController();
+      toast.show({ message: 'Invalid JSON schema', intent: 'danger', duration: 3000 });
+      return;
+    }
+
+    const payload = {
+      name,
+      slug,
+      schema,
+      versioned: versionedSwitch?.checked ?? true,
+    };
+
+    if (editingId) {
+      const res = await fetch(`/api/admin/content-types/${editingId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'same-origin',
+        body: JSON.stringify(payload),
+      });
+      if (res.ok) {
+        formDialog?.close();
+        location.reload();
+      } else {
+        const err = await res.json().catch(() => ({ error: 'Failed to update' }));
+        const { ToastController } = await import('@nonoun/native-ui');
+        const toast = new ToastController();
+        toast.show({ message: err.error || 'Failed to update', intent: 'danger', duration: 3000 });
+      }
+    } else {
+      const res = await fetch('/api/admin/content-types', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'same-origin',
+        body: JSON.stringify(payload),
+      });
+      if (res.ok) {
+        formDialog?.close();
+        location.reload();
+      } else {
+        const err = await res.json().catch(() => ({ error: 'Failed to create' }));
+        const { ToastController } = await import('@nonoun/native-ui');
+        const toast = new ToastController();
+        toast.show({ message: err.error || 'Failed to create', intent: 'danger', duration: 3000 });
+      }
+    }
+  });
+
+  // Delete buttons
+  table.querySelectorAll('[data-action="delete"]').forEach(btn => {
+    btn.addEventListener('native:press', () => {
+      deletingId = btn.getAttribute('data-ct-id') || '';
+      const nameEl = document.getElementById('ct-delete-name');
+      if (nameEl) nameEl.textContent = btn.getAttribute('data-ct-name') || '';
+      const warnEl = document.getElementById('ct-delete-warning');
+      const objCount = parseInt(btn.getAttribute('data-ct-objects') || '0', 10);
+      if (warnEl) {
+        warnEl.textContent = objCount > 0
+          ? `This will also delete ${objCount} content object${objCount !== 1 ? 's' : ''} of this type.`
+          : 'This content type has no objects.';
+      }
+      deleteDialog?.showModal();
+    });
+  });
+
+  // Delete dialog cancel / submit
+  document.getElementById('ct-delete-cancel')?.addEventListener('native:press', () => deleteDialog?.close());
+  document.getElementById('ct-delete-submit')?.addEventListener('native:press', async () => {
+    const res = await fetch(`/api/admin/content-types/${deletingId}`, {
+      method: 'DELETE',
+      credentials: 'same-origin',
+    });
+    if (res.ok) {
+      deleteDialog?.close();
+      location.reload();
+    }
+  });
+});
+</script>

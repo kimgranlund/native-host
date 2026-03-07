@@ -30,10 +30,10 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     </n-stack>
 
     <n-controller traits="draggable"
-      draggable-selector=".kanban-card"
-      draggable-zone-selector=".kanban-column-body"
-      draggable-axis="vertical"
-      draggable-mode="slot">
+      data-trait-draggable-selector=".kanban-card"
+      data-trait-draggable-zone-selector=".kanban-column-body"
+      data-trait-draggable-axis="vertical"
+      data-trait-draggable-mode="slot">
 
       <div class="board" id="kanban-board">
         <!-- ── To Do ── -->

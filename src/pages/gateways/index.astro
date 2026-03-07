@@ -1,0 +1,117 @@
+---
+import SidebarLayout from '../../layouts/SidebarLayout.astro';
+
+const codeGateway = `import { LLMGatewayController } from '@nonoun/native-ui';
+
+const gateway = new LLMGatewayController(element, {
+  gateway: 'claude',
+  gatewayUrl: '/api/anthropic',
+  model: 'claude-sonnet-4-6',
+});`;
+
+const codeDeclarative = `<n-chat-input
+  gateway="claude"
+  gateway-url="/api/anthropic"
+  model="claude-sonnet-4-6"
+  models="claude-haiku-4-5,claude-sonnet-4-6,claude-opus-4"
+  gateway-urls='{"claude":"/api/anthropic","openai":"/api/openai"}'
+></n-chat-input>`;
+---
+<SidebarLayout title="Gateways">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Gateways</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+      Gateways route LLM requests through server-side proxies, abstracting away provider-specific APIs. A single gateway URL handles authentication, model selection, and streaming responses.
+    </div>
+  </header>
+  <main>
+    <n-stack gap="6">
+
+      <!-- Overview -->
+      <n-section>
+        <n-text variant="heading" size="md" slot="heading">Overview</n-text>
+        <n-stack gap="3">
+          <n-text>
+            The gateway pattern decouples client-side AI components from provider-specific APIs.
+            Instead of embedding API keys in the browser, components send requests to a gateway URL
+            on your server, which proxies the request to the appropriate LLM provider.
+          </n-text>
+          <n-text>
+            Gateways support multiple providers (Anthropic, OpenAI, etc.) and can be switched at runtime
+            using the <code>gateway-urls</code> attribute — a JSON map of gateway names to URLs.
+          </n-text>
+        </n-stack>
+      </n-section>
+
+      <!-- Programmatic -->
+      <n-section>
+        <n-text variant="heading" size="md" slot="heading">Programmatic Usage</n-text>
+        <n-stack gap="3">
+          <n-text>Use <code>LLMGatewayController</code> to programmatically configure a gateway on any element.</n-text>
+          <div class="layout-code">
+            <n-button variant="ghost" size="xs" aria-label="Copy"><n-icon name="copy"></n-icon></n-button>
+            <pre><code set:html={codeGateway} /></pre>
+          </div>
+        </n-stack>
+      </n-section>
+
+      <!-- Declarative -->
+      <n-section>
+        <n-text variant="heading" size="md" slot="heading">Declarative (Chat Components)</n-text>
+        <n-stack gap="3">
+          <n-text>Chat components accept gateway configuration directly as attributes.</n-text>
+          <div class="layout-code">
+            <n-button variant="ghost" size="xs" aria-label="Copy"><n-icon name="copy"></n-icon></n-button>
+            <pre><code set:html={codeDeclarative} /></pre>
+          </div>
+        </n-stack>
+      </n-section>
+
+      <!-- Attributes -->
+      <n-section>
+        <n-text variant="heading" size="md" slot="heading">Attributes</n-text>
+        <n-card>
+          <n-body>
+            <n-table cols="auto 1fr auto">
+              <n-table-row header>
+                <n-table-cell>Attribute</n-table-cell>
+                <n-table-cell>Description</n-table-cell>
+                <n-table-cell>Default</n-table-cell>
+              </n-table-row>
+              <n-table-row>
+                <n-table-cell><code>gateway</code></n-table-cell>
+                <n-table-cell>Gateway identifier (e.g. <code>"claude"</code>, <code>"openai"</code>)</n-table-cell>
+                <n-table-cell>—</n-table-cell>
+              </n-table-row>
+              <n-table-row>
+                <n-table-cell><code>gateway-url</code></n-table-cell>
+                <n-table-cell>Server endpoint that proxies LLM requests</n-table-cell>
+                <n-table-cell>—</n-table-cell>
+              </n-table-row>
+              <n-table-row>
+                <n-table-cell><code>model</code></n-table-cell>
+                <n-table-cell>Active model identifier</n-table-cell>
+                <n-table-cell>—</n-table-cell>
+              </n-table-row>
+              <n-table-row>
+                <n-table-cell><code>models</code></n-table-cell>
+                <n-table-cell>Comma-separated list of available model IDs</n-table-cell>
+                <n-table-cell>—</n-table-cell>
+              </n-table-row>
+              <n-table-row>
+                <n-table-cell><code>gateway-urls</code></n-table-cell>
+                <n-table-cell>JSON map of gateway names to URLs for auto-switching</n-table-cell>
+                <n-table-cell>—</n-table-cell>
+              </n-table-row>
+            </n-table>
+          </n-body>
+        </n-card>
+      </n-section>
+
+    </n-stack>
+  </main>
+</SidebarLayout>

@@ -15,6 +15,7 @@ import {
   PREF_SIDEBAR_WIDTH,
   PREF_GROUP_STATES,
   PREF_SHOW_CODE,
+  PREF_PINNED_PAGES,
 } from '../lib/preferences';
 
 function setCookie(name: string, value: string, days = 365) {
@@ -75,10 +76,10 @@ document.addEventListener('astro:before-swap', ((e: any) => {
     const restore = swapFunctions.saveFocus();
 
     // Swap only the main content panel — aside panels are always present and persist
-    const currentCanvas = currentSidebar.querySelector(':scope > div > n-app-canvas');
-    const newCanvas = newSidebar.querySelector(':scope > div > n-app-canvas');
-    const currentPanel = currentCanvas?.querySelector('n-app-panel:not([aside])');
-    const newPanel = newCanvas?.querySelector('n-app-panel:not([aside])');
+    const currentCanvas = currentSidebar.querySelector(':scope > div > n-dashboard-canvas');
+    const newCanvas = newSidebar.querySelector(':scope > div > n-dashboard-canvas');
+    const currentPanel = currentCanvas?.querySelector('n-dashboard-panel:not([aside])');
+    const newPanel = newCanvas?.querySelector('n-dashboard-panel:not([aside])');
     if (currentPanel && newPanel) {
       const adopted = document.adoptNode(newPanel);
       currentPanel.replaceWith(adopted);
@@ -86,15 +87,15 @@ document.addEventListener('astro:before-swap', ((e: any) => {
     }
 
     // Swap breadcrumb trailing buttons (panel toggles may differ)
-    const currentTrailing = currentSidebar.querySelector('n-app-breadcrumb [slot="trailing"]');
-    const newTrailing = newSidebar.querySelector('n-app-breadcrumb [slot="trailing"]');
+    const currentTrailing = currentSidebar.querySelector('n-dashboard-breadcrumb [slot="trailing"]');
+    const newTrailing = newSidebar.querySelector('n-dashboard-breadcrumb [slot="trailing"]');
     if (currentTrailing && newTrailing) {
       currentTrailing.replaceWith(document.adoptNode(newTrailing));
     }
 
     // Swap breadcrumb text
-    const currentBreadcrumb = currentSidebar.querySelector('n-app-breadcrumb n-breadcrumb');
-    const newBreadcrumb = newSidebar.querySelector('n-app-breadcrumb n-breadcrumb');
+    const currentBreadcrumb = currentSidebar.querySelector('n-dashboard-breadcrumb n-breadcrumb');
+    const newBreadcrumb = newSidebar.querySelector('n-dashboard-breadcrumb n-breadcrumb');
     if (currentBreadcrumb && newBreadcrumb) {
       currentBreadcrumb.replaceWith(document.adoptNode(newBreadcrumb));
     }
@@ -239,6 +240,17 @@ function wireSidebar(layout: HTMLElement) {
     navigate(e.detail.value);
   }) as EventListener);
 
+  // ── Org menu (team switcher + admin navigation) ──
+
+  const orgItem = layout.querySelector('n-sidebar-header n-sidebar-item');
+  const orgListbox = orgItem?.querySelector('n-listbox');
+  orgListbox?.addEventListener('native:change', ((e: CustomEvent) => {
+    const value = e.detail.value;
+    if (value && value.startsWith('/')) {
+      navigate(value);
+    }
+  }) as EventListener);
+
   // ── User menu (sign-out + account navigation) ──
 
   const userMenu = document.getElementById('user-menu');
@@ -287,6 +299,69 @@ function wireToggle(btnId: string, panelId: string) {
       if (panel.hasAttribute('open')) icon.setAttribute('weight', 'fill');
       else icon.removeAttribute('weight');
     }).observe(panel, { attributes: true, attributeFilter: ['open'] });
+  }
+}
+
+// ── Sitemap data island ──
+
+let sitemapData: { path: string; title: string; group: string }[] | null = null;
+
+function getSitemapData() {
+  if (!sitemapData) {
+    try {
+      sitemapData = JSON.parse(document.getElementById('sitemap-data')?.textContent || '[]');
+    } catch { sitemapData = []; }
+  }
+  return sitemapData!;
+}
+
+// ── Pinned group DOM update ──
+
+function updatePinnedGroup(pinned: string[]) {
+  const nav = document.querySelector('n-sidebar-nav');
+  if (!nav) return;
+
+  const existingLabel = nav.querySelector(':scope > n-sidebar-section-label');
+  const isPinnedLabel = existingLabel?.textContent?.trim() === 'Pinned';
+  const existingGroup = document.getElementById('pinned-group');
+  if (pinned.length === 0) {
+    // Remove pinned section entirely
+    if (isPinnedLabel) existingLabel!.remove();
+    existingGroup?.remove();
+    return;
+  }
+
+  const data = getSitemapData();
+  const currentPath = nav.getAttribute('value') || '';
+
+  // Build items HTML
+  const itemsHtml = pinned.map(p => {
+    const entry = data.find(e => e.path === p);
+    if (!entry) return '';
+    const ariaCurrent = p === currentPath ? ' aria-current="page"' : '';
+    return `<n-sidebar-nav-item value="${p}"${ariaCurrent}>${entry.title}</n-sidebar-nav-item>`;
+  }).join('');
+
+  if (existingGroup) {
+    // Remove existing nav items but preserve the <details>/<summary> structure
+    // that n-sidebar-group stamps internally.
+    existingGroup.querySelectorAll(':scope n-sidebar-nav-item').forEach(el => el.remove());
+    // Append new items — inside the <details> if the component has stamped one
+    const details = existingGroup.querySelector(':scope > details');
+    const target = details || existingGroup;
+    target.insertAdjacentHTML('beforeend', itemsHtml);
+  } else {
+    // Create new pinned section at the top of nav
+    const label = document.createElement('n-sidebar-section-label');
+    label.textContent = 'Pinned';
+
+    const group = document.createElement('n-sidebar-group');
+    group.id = 'pinned-group';
+    group.setAttribute('open', '');
+    group.innerHTML = `<n-sidebar-group-header><n-icon name="star"></n-icon>Pinned</n-sidebar-group-header>${itemsHtml}`;
+
+    nav.prepend(group);
+    nav.prepend(label);
   }
 }
 
@@ -353,6 +428,41 @@ function setupPage() {
       }
     });
   }
+
+  // ── Pin toggle (per-page: button lives in breadcrumb trailing slot, swapped on navigation) ──
+
+  const pinToggle = document.getElementById('pin-toggle');
+  pinToggle?.addEventListener('click', () => {
+    const path = pinToggle.dataset.path;
+    if (!path) return;
+
+    let pinned: string[] = [];
+    try {
+      pinned = JSON.parse(localStorage.getItem(PREF_PINNED_PAGES) || '[]');
+    } catch { /* use empty */ }
+
+    const idx = pinned.indexOf(path);
+    if (idx >= 0) {
+      pinned.splice(idx, 1);
+    } else {
+      pinned.push(path);
+    }
+
+    const json = JSON.stringify(pinned);
+    localStorage.setItem(PREF_PINNED_PAGES, json);
+    setCookie(PREF_PINNED_PAGES, json);
+    syncPreferences({ pinnedPages: pinned });
+
+    // Update icon fill
+    const icon = pinToggle.querySelector('n-icon');
+    if (icon) {
+      if (idx >= 0) icon.removeAttribute('weight');
+      else icon.setAttribute('weight', 'fill');
+    }
+
+    // Update pinned group in sidebar
+    updatePinnedGroup(pinned);
+  });
 
   // ── Copy buttons (per-page: new content has new buttons) ──
 

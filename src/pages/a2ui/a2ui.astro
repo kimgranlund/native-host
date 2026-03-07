@@ -131,7 +131,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   <script>
 import { effect } from "@nonoun/native-ui";
 import { Kernel, Planner, resetKernel } from "@nonoun/native-ui/kernel";
-import { createA2UIAdapter } from "@nonoun/native-a2ui";
+import { createA2UIAdapter } from "@nonoun/native-ai";
 
 document.addEventListener('astro:page-load', async () => {
       const pageEl = document.getElementById('a2ui-protocol-page');
@@ -764,7 +764,7 @@ document.addEventListener('astro:page-load', async () => {
 });
   </script>
   <style is:global>
-    @import '@nonoun/native-a2ui/css';
+    @import '@nonoun/native-ai/css';
 
     .status-bar {
       display: flex;

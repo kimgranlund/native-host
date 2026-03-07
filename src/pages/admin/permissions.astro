@@ -1,0 +1,339 @@
+---
+import SidebarLayout from '../../layouts/SidebarLayout.astro';
+import AdminLayout from '../../components/AdminLayout.astro';
+import { requireAdmin } from '../../lib/permissions';
+import { db } from '../../db/client';
+import { permission, tierPermission, grant } from '../../db/schema';
+import { eq } from 'drizzle-orm';
+
+const ctx = await requireAdmin(Astro.locals);
+if (ctx instanceof Response) return ctx;
+
+// Fetch all permissions
+const allPermissions = await db.select().from(permission);
+
+// Fetch tier-permission mappings
+const allTierPerms = await db.select().from(tierPermission);
+
+// Build a Set for quick lookup: "tier:permId"
+const tierPermSet = new Set(allTierPerms.map(tp => `${tp.tier}:${tp.permissionId}`));
+
+// Fetch all grants for this org
+const grants = await db.select().from(grant).where(eq(grant.organizationId, ctx.orgId));
+
+const tiers = ['owner', 'admin', 'user', 'preview'] as const;
+
+function effectIntent(effect: string) {
+  return effect === 'deny' ? 'danger' : 'success';
+}
+
+// Serialize permissions for the script block
+const permissionsJson = JSON.stringify(allPermissions.map(p => ({ value: p.id, label: `${p.resource}:${p.action}` })));
+---
+<SidebarLayout title="Permissions">
+  <AdminLayout current="/admin/permissions" orgId={ctx.orgId}>
+    <n-stack id="permissions-page" gap="6">
+
+      <!-- Tier Permission Matrix -->
+            <n-table id="tier-matrix-table" cols="1fr auto auto auto auto">
+              <n-table-row colspan>
+                <n-table-cell>
+                  <n-header>
+                    <h2>Tier Matrix</h2>
+                  </n-header>
+                </n-table-cell>
+              </n-table-row>
+              <n-table-row header>
+                <n-table-cell>Permission</n-table-cell>
+                {tiers.map(t => (
+                  <n-table-cell>{t.charAt(0).toUpperCase() + t.slice(1)}</n-table-cell>
+                ))}
+              </n-table-row>
+              {allPermissions.map(p => (
+                <n-table-row>
+                  <n-table-cell>
+                    <n-stack gap="0">
+                      <n-text size="sm" strong>{p.resource}:{p.action}</n-text>
+                      {p.description && <n-text size="xs" muted>{p.description}</n-text>}
+                    </n-stack>
+                  </n-table-cell>
+                  {tiers.map(t => {
+                    const enabled = t === 'owner' || tierPermSet.has(`${t}:${p.id}`);
+                    const isOwner = t === 'owner';
+                    return (
+                      <n-table-cell>
+                        <n-button
+                          variant="ghost"
+                          size="sm"
+                          intent={enabled ? 'accent' : undefined}
+                          disabled={isOwner || undefined}
+                          data-tier-toggle
+                          data-tier={t}
+                          data-perm-id={p.id}
+                          data-enabled={enabled ? 'true' : 'false'}
+                        >
+                          <n-icon name={enabled ? 'check-circle' : 'circle'} slot="leading" weight={enabled ? 'fill' : undefined}></n-icon>
+                        </n-button>
+                      </n-table-cell>
+                    );
+                  })}
+                </n-table-row>
+              ))}
+            </n-table>
+
+      <!-- Grant Overrides -->
+            <n-table id="grants-table" cols="1fr 1fr auto auto auto">
+              <n-table-row colspan>
+                <n-table-cell>
+                  <n-header>
+                    <h2>Grant Overrides</h2>
+                    <n-button id="add-grant-btn" variant="primary" intent="accent" slot="trailing">
+                      <n-icon name="plus" slot="leading"></n-icon>
+                      <span slot="label">Add Grant</span>
+                    </n-button>
+                  </n-header>
+                </n-table-cell>
+              </n-table-row>
+              <n-table-row header>
+                <n-table-cell>Subject</n-table-cell>
+                <n-table-cell>Permission</n-table-cell>
+                <n-table-cell>Effect</n-table-cell>
+                <n-table-cell>Resource</n-table-cell>
+                <n-table-cell>Actions</n-table-cell>
+              </n-table-row>
+              {grants.length === 0 ? (
+                <n-table-row>
+                  <n-table-cell>
+                    <n-text muted size="sm">No grant overrides configured</n-text>
+                  </n-table-cell>
+                  <n-table-cell></n-table-cell>
+                  <n-table-cell></n-table-cell>
+                  <n-table-cell></n-table-cell>
+                  <n-table-cell></n-table-cell>
+                </n-table-row>
+              ) : (
+                grants.map(g => (
+                  <n-table-row>
+                    <n-table-cell>
+                      <n-stack direction="row" gap="2" align="center">
+                        <n-icon name={g.subjectType === 'user' ? 'user' : 'users-three'} size="sm"></n-icon>
+                        <n-text size="sm">{g.subjectType}:{g.subjectId}</n-text>
+                      </n-stack>
+                    </n-table-cell>
+                    <n-table-cell>
+                      <n-text size="sm">{g.permissionId}</n-text>
+                    </n-table-cell>
+                    <n-table-cell>
+                      <n-badge intent={effectIntent(g.effect)}>{g.effect}</n-badge>
+                    </n-table-cell>
+                    <n-table-cell>
+                      <n-text muted size="sm">{g.resourceId || '*'}</n-text>
+                    </n-table-cell>
+                    <n-table-cell>
+                      <n-button
+                        variant="ghost"
+                        size="sm"
+                        intent="danger"
+                        data-action="delete-grant"
+                        data-grant-id={g.id}
+                      >
+                        <n-icon name="trash" slot="leading"></n-icon>
+                      </n-button>
+                    </n-table-cell>
+                  </n-table-row>
+                ))
+              )}
+            </n-table>
+    </n-stack>
+
+    <!-- Add Grant dialog -->
+    <n-dialog id="grant-dialog">
+      <div class="admin-dialog-card">
+        <n-card>
+          <n-header>
+            <span slot="label">Add Grant Override</span>
+          </n-header>
+          <n-body>
+            <n-stack gap="4">
+              <n-field required>
+                <label slot="label">Subject Type</label>
+                <n-select id="grant-subject-type" value="user" options='[{"value":"user","label":"User"},{"value":"group","label":"Group"}]'></n-select>
+              </n-field>
+              <n-field required>
+                <label slot="label">Subject ID</label>
+                <n-input id="grant-subject-id" placeholder="User or group ID">
+                  <n-icon name="identification-card" slot="leading"></n-icon>
+                </n-input>
+              </n-field>
+              <n-field required>
+                <label slot="label">Permission</label>
+                <n-select id="grant-permission" data-options={permissionsJson}></n-select>
+              </n-field>
+              <n-field>
+                <label slot="label">Effect</label>
+                <n-select id="grant-effect" value="allow" options='[{"value":"allow","label":"Allow"},{"value":"deny","label":"Deny"}]'></n-select>
+              </n-field>
+              <n-field>
+                <label slot="label">Resource ID (optional)</label>
+                <n-input id="grant-resource-id" placeholder="Leave blank for all resources">
+                  <n-icon name="cube" slot="leading"></n-icon>
+                </n-input>
+              </n-field>
+            </n-stack>
+          </n-body>
+          <n-footer>
+            <n-button id="grant-cancel">
+              <span slot="label">Cancel</span>
+            </n-button>
+            <n-button id="grant-submit" variant="primary" intent="accent">
+              <span slot="label">Add Grant</span>
+            </n-button>
+          </n-footer>
+        </n-card>
+      </div>
+    </n-dialog>
+
+    <!-- Delete grant confirmation dialog -->
+    <n-dialog id="delete-grant-dialog">
+      <div class="admin-dialog-card">
+        <n-card>
+          <n-header>
+            <n-icon name="warning" slot="leading" size="lg"></n-icon>
+            <span slot="label">Delete Grant?</span>
+          </n-header>
+          <n-body>
+            <n-text>Are you sure you want to delete this grant override? This action cannot be undone.</n-text>
+          </n-body>
+          <n-footer>
+            <n-button id="delete-grant-cancel">
+              <span slot="label">Cancel</span>
+            </n-button>
+            <n-button id="delete-grant-submit" variant="primary" intent="danger">
+              <n-icon name="trash" slot="leading"></n-icon>
+              <span slot="label">Delete</span>
+            </n-button>
+          </n-footer>
+        </n-card>
+      </div>
+    </n-dialog>
+  </AdminLayout>
+</SidebarLayout>
+
+<script>
+document.addEventListener('astro:page-load', () => {
+  const page = document.getElementById('permissions-page');
+  if (!page || page.hasAttribute('data-wired')) return;
+  page.setAttribute('data-wired', '');
+
+  // ── Tier Matrix toggles ──
+  page.querySelectorAll('[data-tier-toggle]').forEach(btn => {
+    btn.addEventListener('native:press', async () => {
+      const tier = btn.getAttribute('data-tier');
+      const permId = btn.getAttribute('data-perm-id');
+      const currentlyEnabled = btn.getAttribute('data-enabled') === 'true';
+      const newEnabled = !currentlyEnabled;
+
+      const res = await fetch('/api/admin/tier-permissions', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'same-origin',
+        body: JSON.stringify({ tier, permissionId: permId, enabled: newEnabled }),
+      });
+
+      if (res.ok) {
+        // Update UI optimistically
+        btn.setAttribute('data-enabled', String(newEnabled));
+        const icon = btn.querySelector('n-icon');
+        if (icon) {
+          icon.setAttribute('name', newEnabled ? 'check-circle' : 'circle');
+          if (newEnabled) {
+            icon.setAttribute('weight', 'fill');
+          } else {
+            icon.removeAttribute('weight');
+          }
+        }
+        if (newEnabled) {
+          btn.setAttribute('intent', 'accent');
+        } else {
+          btn.removeAttribute('intent');
+        }
+      }
+    });
+  });
+
+  // ── Grant dialog ──
+  const grantDialog = document.getElementById('grant-dialog') as any;
+  const deleteGrantDialog = document.getElementById('delete-grant-dialog') as any;
+  let deletingGrantId = '';
+
+  // Set permission options from data attribute
+  const permSelect = document.getElementById('grant-permission') as any;
+  if (permSelect) {
+    const optionsData = permSelect.getAttribute('data-options');
+    if (optionsData) {
+      permSelect.setAttribute('options', optionsData);
+      permSelect.removeAttribute('data-options');
+    }
+  }
+
+  // Open add grant dialog
+  document.getElementById('add-grant-btn')?.addEventListener('native:press', () => {
+    // Reset form
+    const subjectType = document.getElementById('grant-subject-type') as any;
+    const subjectId = document.getElementById('grant-subject-id') as any;
+    const effect = document.getElementById('grant-effect') as any;
+    const resourceId = document.getElementById('grant-resource-id') as any;
+    if (subjectType) subjectType.value = 'user';
+    if (subjectId) subjectId.value = '';
+    if (permSelect) permSelect.value = '';
+    if (effect) effect.value = 'allow';
+    if (resourceId) resourceId.value = '';
+    grantDialog?.showModal();
+  });
+
+  // Cancel / submit grant
+  document.getElementById('grant-cancel')?.addEventListener('native:press', () => grantDialog?.close());
+  document.getElementById('grant-submit')?.addEventListener('native:press', async () => {
+    const subjectType = (document.getElementById('grant-subject-type') as any)?.value;
+    const subjectId = (document.getElementById('grant-subject-id') as any)?.value?.trim();
+    const permissionId = (document.getElementById('grant-permission') as any)?.value;
+    const effect = (document.getElementById('grant-effect') as any)?.value || 'allow';
+    const resourceId = (document.getElementById('grant-resource-id') as any)?.value?.trim() || null;
+
+    if (!subjectType || !subjectId || !permissionId) return;
+
+    const res = await fetch('/api/admin/grants', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'same-origin',
+      body: JSON.stringify({ subjectType, subjectId, permissionId, effect, resourceId }),
+    });
+
+    if (res.ok) {
+      grantDialog?.close();
+      location.reload();
+    }
+  });
+
+  // Delete grant buttons
+  page.querySelectorAll('[data-action="delete-grant"]').forEach(btn => {
+    btn.addEventListener('native:press', () => {
+      deletingGrantId = btn.getAttribute('data-grant-id') || '';
+      deleteGrantDialog?.showModal();
+    });
+  });
+
+  // Cancel / confirm delete grant
+  document.getElementById('delete-grant-cancel')?.addEventListener('native:press', () => deleteGrantDialog?.close());
+  document.getElementById('delete-grant-submit')?.addEventListener('native:press', async () => {
+    const res = await fetch(`/api/admin/grants/${deletingGrantId}`, {
+      method: 'DELETE',
+      credentials: 'same-origin',
+    });
+    if (res.ok) {
+      deleteGrantDialog?.close();
+      location.reload();
+    }
+  });
+});
+</script>

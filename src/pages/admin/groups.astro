@@ -1,0 +1,251 @@
+---
+import SidebarLayout from '../../layouts/SidebarLayout.astro';
+import AdminLayout from '../../components/AdminLayout.astro';
+import { requireAdmin } from '../../lib/permissions';
+import { db } from '../../db/client';
+import { group, groupMembership } from '../../db/schema';
+import { eq, sql } from 'drizzle-orm';
+
+const ctx = await requireAdmin(Astro.locals);
+if (ctx instanceof Response) return ctx;
+
+const groups = await db
+  .select({
+    id: group.id,
+    name: group.name,
+    description: group.description,
+    defaultTier: group.defaultTier,
+    createdAt: group.createdAt,
+    memberCount: sql<number>`(SELECT COUNT(*) FROM group_membership WHERE group_id = ${group.id})`,
+  })
+  .from(group)
+  .where(eq(group.organizationId, ctx.orgId));
+
+function tierIntent(tier: string) {
+  if (tier === 'owner') return 'accent';
+  if (tier === 'admin') return 'info';
+  if (tier === 'preview') return 'warning';
+  return 'neutral';
+}
+---
+<SidebarLayout title="Groups">
+  <AdminLayout current="/admin/groups" orgId={ctx.orgId}>
+          <n-table id="groups-table" cols="1fr 1fr auto auto auto">
+            <n-table-row colspan>
+              <n-table-cell>
+                <n-header>
+                  <h2>Groups</h2>
+                  <n-button id="create-group-btn" variant="primary" intent="accent" slot="trailing">
+                    <n-icon name="plus" slot="leading"></n-icon>
+                    <span slot="label">Create Group</span>
+                  </n-button>
+                </n-header>
+              </n-table-cell>
+            </n-table-row>
+            <n-table-row header>
+              <n-table-cell>Name</n-table-cell>
+              <n-table-cell>Description</n-table-cell>
+              <n-table-cell>Default Tier</n-table-cell>
+              <n-table-cell>Members</n-table-cell>
+              <n-table-cell>Actions</n-table-cell>
+            </n-table-row>
+            {groups.map(g => (
+              <n-table-row>
+                <n-table-cell>
+                  <n-text strong>{g.name}</n-text>
+                </n-table-cell>
+                <n-table-cell>
+                  <n-text muted size="sm">{g.description || '\u2014'}</n-text>
+                </n-table-cell>
+                <n-table-cell>
+                  <n-badge intent={tierIntent(g.defaultTier)}>{g.defaultTier}</n-badge>
+                </n-table-cell>
+                <n-table-cell>
+                  <n-text size="sm">{g.memberCount}</n-text>
+                </n-table-cell>
+                <n-table-cell>
+                  <n-stack direction="row" gap="1">
+                    <n-button
+                      variant="ghost"
+                      size="sm"
+                      data-action="edit"
+                      data-group-id={g.id}
+                      data-group-name={g.name}
+                      data-group-description={g.description || ''}
+                      data-group-tier={g.defaultTier}
+                    >
+                      <n-icon name="pencil-simple" slot="leading"></n-icon>
+                    </n-button>
+                    <n-button
+                      variant="ghost"
+                      size="sm"
+                      intent="danger"
+                      data-action="delete"
+                      data-group-id={g.id}
+                      data-group-name={g.name}
+                    >
+                      <n-icon name="trash" slot="leading"></n-icon>
+                    </n-button>
+                  </n-stack>
+                </n-table-cell>
+              </n-table-row>
+            ))}
+          </n-table>
+
+    <!-- Create / Edit group dialog -->
+    <n-dialog id="group-dialog">
+      <div class="admin-dialog-card">
+        <n-card>
+          <n-header>
+            <span slot="label" id="group-dialog-title">Create Group</span>
+          </n-header>
+          <n-body>
+            <n-stack gap="4">
+              <n-field required>
+                <label slot="label">Name</label>
+                <n-input id="group-name" placeholder="e.g. Engineering"></n-input>
+              </n-field>
+              <n-field>
+                <label slot="label">Description</label>
+                <n-input id="group-description" placeholder="Optional description"></n-input>
+              </n-field>
+              <n-field>
+                <label slot="label">Default Tier</label>
+                <n-select id="group-tier" value="user" options='[{"value":"owner","label":"Owner"},{"value":"admin","label":"Admin"},{"value":"user","label":"User"},{"value":"preview","label":"Preview"}]'></n-select>
+              </n-field>
+            </n-stack>
+          </n-body>
+          <n-footer>
+            <n-button id="group-cancel">
+              <span slot="label">Cancel</span>
+            </n-button>
+            <n-button id="group-submit" variant="primary" intent="accent">
+              <span slot="label">Save</span>
+            </n-button>
+          </n-footer>
+        </n-card>
+      </div>
+    </n-dialog>
+
+    <!-- Delete confirmation dialog -->
+    <n-dialog id="delete-dialog">
+      <div class="admin-dialog-card">
+        <n-card>
+          <n-header>
+            <n-icon name="warning" slot="leading" size="lg"></n-icon>
+            <span slot="label">Delete Group?</span>
+          </n-header>
+          <n-body>
+            <n-text>Are you sure you want to delete <n-text id="delete-group-name" variant="strong"></n-text>? All memberships in this group will be removed. This action cannot be undone.</n-text>
+          </n-body>
+          <n-footer>
+            <n-button id="delete-cancel">
+              <span slot="label">Cancel</span>
+            </n-button>
+            <n-button id="delete-submit" variant="primary" intent="danger">
+              <n-icon name="trash" slot="leading"></n-icon>
+              <span slot="label">Delete</span>
+            </n-button>
+          </n-footer>
+        </n-card>
+      </div>
+    </n-dialog>
+  </AdminLayout>
+</SidebarLayout>
+
+<script>
+document.addEventListener('astro:page-load', () => {
+  const table = document.getElementById('groups-table');
+  if (!table || table.hasAttribute('data-wired')) return;
+  table.setAttribute('data-wired', '');
+
+  // State
+  let editingGroupId = '';
+  let deletingGroupId = '';
+
+  // Dialogs
+  const groupDialog = document.getElementById('group-dialog') as any;
+  const deleteDialog = document.getElementById('delete-dialog') as any;
+
+  // Form elements
+  const dialogTitle = document.getElementById('group-dialog-title');
+  const nameInput = document.getElementById('group-name') as any;
+  const descInput = document.getElementById('group-description') as any;
+  const tierSelect = document.getElementById('group-tier') as any;
+
+  function resetForm() {
+    editingGroupId = '';
+    if (nameInput) nameInput.value = '';
+    if (descInput) descInput.value = '';
+    if (tierSelect) tierSelect.value = 'user';
+    if (dialogTitle) dialogTitle.textContent = 'Create Group';
+  }
+
+  // Create button
+  document.getElementById('create-group-btn')?.addEventListener('native:press', () => {
+    resetForm();
+    groupDialog?.showModal();
+  });
+
+  // Edit buttons
+  table.querySelectorAll('[data-action="edit"]').forEach(btn => {
+    btn.addEventListener('native:press', () => {
+      editingGroupId = btn.getAttribute('data-group-id') || '';
+      if (dialogTitle) dialogTitle.textContent = 'Edit Group';
+      if (nameInput) nameInput.value = btn.getAttribute('data-group-name') || '';
+      if (descInput) descInput.value = btn.getAttribute('data-group-description') || '';
+      if (tierSelect) tierSelect.value = btn.getAttribute('data-group-tier') || 'user';
+      groupDialog?.showModal();
+    });
+  });
+
+  // Group dialog cancel / submit
+  document.getElementById('group-cancel')?.addEventListener('native:press', () => groupDialog?.close());
+  document.getElementById('group-submit')?.addEventListener('native:press', async () => {
+    const name = nameInput?.value?.trim();
+    if (!name) return;
+    const payload = {
+      name,
+      description: descInput?.value?.trim() || '',
+      defaultTier: tierSelect?.value || 'user',
+    };
+
+    const url = editingGroupId ? `/api/admin/groups/${editingGroupId}` : '/api/admin/groups';
+    const method = editingGroupId ? 'PATCH' : 'POST';
+
+    const res = await fetch(url, {
+      method,
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'same-origin',
+      body: JSON.stringify(payload),
+    });
+    if (res.ok) {
+      groupDialog?.close();
+      location.reload();
+    }
+  });
+
+  // Delete buttons
+  table.querySelectorAll('[data-action="delete"]').forEach(btn => {
+    btn.addEventListener('native:press', () => {
+      deletingGroupId = btn.getAttribute('data-group-id') || '';
+      const nameEl = document.getElementById('delete-group-name');
+      if (nameEl) nameEl.textContent = btn.getAttribute('data-group-name') || '';
+      deleteDialog?.showModal();
+    });
+  });
+
+  // Delete dialog cancel / submit
+  document.getElementById('delete-cancel')?.addEventListener('native:press', () => deleteDialog?.close());
+  document.getElementById('delete-submit')?.addEventListener('native:press', async () => {
+    const res = await fetch(`/api/admin/groups/${deletingGroupId}`, {
+      method: 'DELETE',
+      credentials: 'same-origin',
+    });
+    if (res.ok) {
+      deleteDialog?.close();
+      location.reload();
+    }
+  });
+});
+</script>

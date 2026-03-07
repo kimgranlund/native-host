@@ -12,6 +12,7 @@ import arrowUp from '@phosphor-icons/core/assets/regular/arrow-up.svg?raw';
 import arrowsInSimple from '@phosphor-icons/core/assets/regular/arrows-in-simple.svg?raw';
 import arrowsOut from '@phosphor-icons/core/assets/regular/arrows-out.svg?raw';
 import arrowsOutSimple from '@phosphor-icons/core/assets/regular/arrows-out-simple.svg?raw';
+import buildings from '@phosphor-icons/core/assets/regular/buildings.svg?raw';
 import backspace from '@phosphor-icons/core/assets/regular/backspace.svg?raw';
 import bell from '@phosphor-icons/core/assets/regular/bell.svg?raw';
 import bookOpen from '@phosphor-icons/core/assets/regular/book-open.svg?raw';
@@ -38,6 +39,7 @@ import cpu from '@phosphor-icons/core/assets/regular/cpu.svg?raw';
 import creditCard from '@phosphor-icons/core/assets/regular/credit-card.svg?raw';
 import cube from '@phosphor-icons/core/assets/regular/cube.svg?raw';
 import currencyDollar from '@phosphor-icons/core/assets/regular/currency-dollar.svg?raw';
+import database from '@phosphor-icons/core/assets/regular/database.svg?raw';
 import dotsThree from '@phosphor-icons/core/assets/regular/dots-three.svg?raw';
 import download from '@phosphor-icons/core/assets/regular/download.svg?raw';
 import envelope from '@phosphor-icons/core/assets/regular/envelope.svg?raw';
@@ -62,6 +64,7 @@ import lightning from '@phosphor-icons/core/assets/regular/lightning.svg?raw';
 import link from '@phosphor-icons/core/assets/regular/link.svg?raw';
 import list from '@phosphor-icons/core/assets/regular/list.svg?raw';
 import listBullets from '@phosphor-icons/core/assets/regular/list-bullets.svg?raw';
+import listDashes from '@phosphor-icons/core/assets/regular/list-dashes.svg?raw';
 import listNumbers from '@phosphor-icons/core/assets/regular/list-numbers.svg?raw';
 import lock from '@phosphor-icons/core/assets/regular/lock.svg?raw';
 import magnifyingGlass from '@phosphor-icons/core/assets/regular/magnifying-glass.svg?raw';
@@ -76,12 +79,15 @@ import quotes from '@phosphor-icons/core/assets/regular/quotes.svg?raw';
 import pencilSimple from '@phosphor-icons/core/assets/regular/pencil-simple.svg?raw';
 import percent from '@phosphor-icons/core/assets/regular/percent.svg?raw';
 import phone from '@phosphor-icons/core/assets/regular/phone.svg?raw';
+import plug from '@phosphor-icons/core/assets/regular/plug.svg?raw';
+import plugsConnected from '@phosphor-icons/core/assets/regular/plugs-connected.svg?raw';
 import play from '@phosphor-icons/core/assets/regular/play.svg?raw';
 import plus from '@phosphor-icons/core/assets/regular/plus.svg?raw';
 import printer from '@phosphor-icons/core/assets/regular/printer.svg?raw';
 import pulse from '@phosphor-icons/core/assets/regular/pulse.svg?raw';
 import receipt from '@phosphor-icons/core/assets/regular/receipt.svg?raw';
 import repeat from '@phosphor-icons/core/assets/regular/repeat.svg?raw';
+import robot from '@phosphor-icons/core/assets/regular/robot.svg?raw';
 import rocketLaunch from '@phosphor-icons/core/assets/regular/rocket-launch.svg?raw';
 import scissors from '@phosphor-icons/core/assets/regular/scissors.svg?raw';
 import selectionAll from '@phosphor-icons/core/assets/regular/selection-all.svg?raw';
@@ -93,6 +99,7 @@ import sidebarSimple from '@phosphor-icons/core/assets/regular/sidebar-simple.sv
 import signOut from '@phosphor-icons/core/assets/regular/sign-out.svg?raw';
 import skipBack from '@phosphor-icons/core/assets/regular/skip-back.svg?raw';
 import skipForward from '@phosphor-icons/core/assets/regular/skip-forward.svg?raw';
+import sliders from '@phosphor-icons/core/assets/regular/sliders.svg?raw';
 import slidersHorizontal from '@phosphor-icons/core/assets/regular/sliders-horizontal.svg?raw';
 import sortAscending from '@phosphor-icons/core/assets/regular/sort-ascending.svg?raw';
 import sparkle from '@phosphor-icons/core/assets/regular/sparkle.svg?raw';
@@ -119,7 +126,9 @@ import user from '@phosphor-icons/core/assets/regular/user.svg?raw';
 import userCircle from '@phosphor-icons/core/assets/regular/user-circle.svg?raw';
 import userPlus from '@phosphor-icons/core/assets/regular/user-plus.svg?raw';
 import users from '@phosphor-icons/core/assets/regular/users.svg?raw';
+import usersThree from '@phosphor-icons/core/assets/regular/users-three.svg?raw';
 import warning from '@phosphor-icons/core/assets/regular/warning.svg?raw';
+import wrench from '@phosphor-icons/core/assets/regular/wrench.svg?raw';
 import warningCircle from '@phosphor-icons/core/assets/regular/warning-circle.svg?raw';
 import x from '@phosphor-icons/core/assets/regular/x.svg?raw';
 import xCircle from '@phosphor-icons/core/assets/regular/x-circle.svg?raw';
@@ -131,6 +140,7 @@ import dotsThreeOutlineFill from '@phosphor-icons/core/assets/fill/dots-three-ou
 import sidebarSimpleFill from '@phosphor-icons/core/assets/fill/sidebar-simple-fill.svg?raw';
 import playFill from '@phosphor-icons/core/assets/fill/play-fill.svg?raw';
 import slidersHorizontalFill from '@phosphor-icons/core/assets/fill/sliders-horizontal-fill.svg?raw';
+import starFill from '@phosphor-icons/core/assets/fill/star-fill.svg?raw';
 
 // Register all — single map + loop to keep registration in sync with imports.
 const icons: Record<string, string> = {
@@ -143,6 +153,7 @@ const icons: Record<string, string> = {
   'arrows-in-simple': arrowsInSimple,
   'arrows-out': arrowsOut,
   'arrows-out-simple': arrowsOutSimple,
+  'buildings': buildings,
   'backspace': backspace,
   'bell': bell,
   'book-open': bookOpen,
@@ -169,6 +180,7 @@ const icons: Record<string, string> = {
   'credit-card': creditCard,
   'cube': cube,
   'currency-dollar': currencyDollar,
+  'database': database,
   'dots-three': dotsThree,
   'download': download,
   'envelope': envelope,
@@ -193,6 +205,7 @@ const icons: Record<string, string> = {
   'link': link,
   'list': list,
   'list-bullets': listBullets,
+  'list-dashes': listDashes,
   'list-numbers': listNumbers,
   'lock': lock,
   'magnifying-glass': magnifyingGlass,
@@ -207,12 +220,15 @@ const icons: Record<string, string> = {
   'pencil-simple': pencilSimple,
   'percent': percent,
   'phone': phone,
+  'plug': plug,
+  'plugs-connected': plugsConnected,
   'play': play,
   'plus': plus,
   'printer': printer,
   'pulse': pulse,
   'receipt': receipt,
   'repeat': repeat,
+  'robot': robot,
   'rocket-launch': rocketLaunch,
   'scissors': scissors,
   'selection-all': selectionAll,
@@ -224,6 +240,7 @@ const icons: Record<string, string> = {
   'sign-out': signOut,
   'skip-back': skipBack,
   'skip-forward': skipForward,
+  'sliders': sliders,
   'sliders-horizontal': slidersHorizontal,
   'sort-ascending': sortAscending,
   'sparkle': sparkle,
@@ -250,7 +267,9 @@ const icons: Record<string, string> = {
   'user-circle': userCircle,
   'user-plus': userPlus,
   'users': users,
+  'users-three': usersThree,
   'warning': warning,
+  'wrench': wrench,
   'warning-circle': warningCircle,
   'x': x,
   'x-circle': xCircle,
@@ -260,6 +279,7 @@ const icons: Record<string, string> = {
   'play-fill': playFill,
   'sidebar-simple-fill': sidebarSimpleFill,
   'sliders-horizontal-fill': slidersHorizontalFill,
+  'star-fill': starFill,
 };
 
 for (const [name, svg] of Object.entries(icons)) {

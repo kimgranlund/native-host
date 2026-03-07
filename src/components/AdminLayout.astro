@@ -1,0 +1,79 @@
+---
+import { db } from '../db/client';
+import { member, group, permission, contentType } from '../db/schema';
+import { eq, count } from 'drizzle-orm';
+
+interface Props {
+  current: string;
+  orgId: string;
+}
+const { current, orgId } = Astro.props;
+
+// Fetch counts in parallel
+const [memberCount, groupCount, permissionCount, contentTypeCount] = await Promise.all([
+  db.select({ count: count() }).from(member).where(eq(member.organizationId, orgId)).then(r => r[0]?.count ?? 0),
+  db.select({ count: count() }).from(group).where(eq(group.organizationId, orgId)).then(r => r[0]?.count ?? 0),
+  db.select({ count: count() }).from(permission).then(r => r[0]?.count ?? 0),
+  db.select({ count: count() }).from(contentType).then(r => r[0]?.count ?? 0),
+]);
+
+const stats = [
+  { label: 'Members', value: memberCount, path: '/admin/members' },
+  { label: 'Groups', value: groupCount, path: '/admin/groups' },
+  { label: 'Permissions', value: permissionCount, path: '/admin/permissions' },
+  { label: 'Content Types', value: contentTypeCount, path: '/admin/content-types' },
+];
+
+const navItems = [
+  { path: '/admin/members', label: 'Members', icon: 'users' },
+  { path: '/admin/groups', label: 'Groups', icon: 'users-three' },
+  { path: '/admin/permissions', label: 'Permissions', icon: 'shield-check' },
+  { path: '/admin/registry/llm', label: 'LLM Registry', icon: 'sparkle' },
+  { path: '/admin/registry/connectors', label: 'Connectors', icon: 'plug' },
+  { path: '/admin/content-types', label: 'Content Types', icon: 'database' },
+];
+---
+<header>
+  <div data-slot="title">
+    <div data-slot="content">
+      <n-stack direction="row" align="center" gap="8">
+        <h1>Admin</h1>
+        <n-stack direction="row" gap="6" wrap>
+          {stats.map(s => (
+            <a href={s.path} class="admin-stat" aria-current={current === s.path ? 'page' : undefined}>
+              <span class="admin-stat-label">{s.label}</span>
+              <span class="admin-stat-value">{s.value}</span>
+            </a>
+          ))}
+        </n-stack>
+      </n-stack>
+    </div>
+  </div>
+  <n-tabs id="admin-tabs" value={current}>
+    {navItems.map(item => (
+      <n-tab value={item.path}>{item.label}</n-tab>
+    ))}
+  </n-tabs>
+</header>
+<main>
+  <div class="admin-content">
+    <slot />
+  </div>
+</main>
+
+<style is:global>
+  @import '../styles/admin.css';
+</style>
+
+<script>
+document.addEventListener('astro:page-load', () => {
+  const tabs = document.getElementById('admin-tabs');
+  if (!tabs || tabs.hasAttribute('data-wired')) return;
+  tabs.setAttribute('data-wired', '');
+
+  tabs.addEventListener('native:change', (e: any) => {
+    const path = e.detail?.value;
+    if (path) window.location.href = path;
+  });
+});
+</script>

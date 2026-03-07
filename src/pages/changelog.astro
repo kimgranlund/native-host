@@ -17,6 +17,71 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
 
   <main>
 
+    <!-- ── 0.7.11 ── -->
+
+    <div class="changelog-version">
+      <h2>0.7.11 <span class="changelog-date">— March 2026</span></h2>
+
+      <div class="changelog-section">
+        <h3><n-badge size="xs" intent="danger">New</n-badge> New Features</h3>
+
+        <div class="changelog-entry">
+          <div class="changelog-entry-header">Admin pages <span class="changelog-sep">::</span> Org management interfaces</div>
+          <ul>
+            <li><a href="/admin/members">Members</a> — invite, change roles, remove org members</li>
+            <li><a href="/admin/groups">Groups</a> — create groups with tier-based access</li>
+            <li><a href="/admin/permissions">Permissions</a> — tier permission matrix + grant overrides</li>
+            <li><a href="/admin/registry/llm">LLM Registry</a> and <a href="/admin/registry/connectors">Connectors</a> — content object CRUD</li>
+            <li>Admin nav in org dropdown menu (owner/admin only)</li>
+          </ul>
+        </div>
+
+        <div class="changelog-entry">
+          <div class="changelog-entry-header">6 new fun traits <span class="changelog-sep">::</span> Physics and visual effects</div>
+          <ul>
+            <li><a href="/traits/tossable">Tossable</a> — physics-based throw with momentum and bounce</li>
+            <li><a href="/traits/flippable">Flippable</a> — 3D card flip between front/back faces</li>
+            <li><a href="/traits/parallaxable">Parallaxable</a> — holographic tilt following pointer</li>
+            <li><a href="/traits/confettible">Confettible</a> — confetti particle burst</li>
+            <li><a href="/traits/magnetizable">Magnetizable</a> — snap-to-guide alignment</li>
+            <li><a href="/traits/css-inspectable">CSSInspectable</a> — 3D layer inspector (Alt+click)</li>
+          </ul>
+        </div>
+
+        <div class="changelog-entry">
+          <div class="changelog-entry-header">Four-layer data model <span class="changelog-sep">::</span> Identity, Permissions, Content Schemas, Registries</div>
+          <ul>
+            <li>10 new database tables: organization, member, invitation, group, permission, grant, contentType, contentObject, and more</li>
+            <li>better-auth organization plugin with tier-based access (owner/admin/user/preview)</li>
+            <li>Permission resolution with baseline tiers + explicit grant overrides</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="changelog-section">
+        <h3>Breaking Changes</h3>
+
+        <div class="changelog-entry">
+          <div class="changelog-entry-header">Trait option attributes <span class="changelog-sep">::</span> <code>data-trait-*</code> namespace</div>
+          <ul>
+            <li>All trait options renamed: <code>draggable-axis</code> → <code>data-trait-draggable-axis</code></li>
+            <li>Prevents collisions between trait options and component API attributes</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="changelog-section">
+        <h3><n-badge size="xs" intent="accent">Updated</n-badge> Updates</h3>
+
+        <div class="changelog-entry">
+          <div class="changelog-entry-header">Ecosystem upgrade <span class="changelog-sep">::</span> <code>native-ui@0.7.45</code>, <code>native-app@0.3.19</code></div>
+          <ul>
+            <li><code>n-app-panel</code> body scroll delegation — header/footer stay fixed</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
     <!-- ── 0.7.10 ── -->
 
     <div class="changelog-version">

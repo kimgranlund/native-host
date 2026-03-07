@@ -1,0 +1,304 @@
+---
+import SidebarLayout from '../../../layouts/SidebarLayout.astro';
+import AdminLayout from '../../../components/AdminLayout.astro';
+import { requireAdmin } from '../../../lib/permissions';
+import { db } from '../../../db/client';
+import { contentType, contentObject } from '../../../db/schema';
+import { eq } from 'drizzle-orm';
+
+const ctx = await requireAdmin(Astro.locals);
+if (ctx instanceof Response) return ctx;
+
+// Get the connector content type (may not exist yet)
+const [connectorType] = await db.select().from(contentType).where(eq(contentType.slug, 'connector'));
+
+const entries = connectorType
+  ? await db.select().from(contentObject).where(eq(contentObject.contentTypeId, connectorType.id))
+  : [];
+
+// Parse data JSON for display
+const connectorEntries = entries.map(e => ({
+  ...e,
+  parsed: JSON.parse(e.data) as Record<string, unknown>,
+}));
+
+function statusIntent(status: string) {
+  if (status === 'active') return 'success';
+  if (status === 'deprecated') return 'warning';
+  return 'neutral';
+}
+
+function typeIntent(type: string) {
+  if (type === 'mcp-server') return 'accent';
+  if (type === 'tool') return 'info';
+  if (type === 'resource') return 'warning';
+  return 'neutral';
+}
+---
+<SidebarLayout title="Connectors">
+  <AdminLayout current="/admin/registry/connectors" orgId={ctx.orgId}>
+          <n-table id="connectors-table" cols="1fr auto 1fr auto auto auto">
+            <n-table-row colspan>
+              <n-table-cell>
+                <n-header>
+                  <h2>Connectors</h2>
+                  <n-button id="create-connector-btn" variant="primary" intent="accent" slot="trailing">
+                    <n-icon name="plus" slot="leading"></n-icon>
+                    <span slot="label">Add Connector</span>
+                  </n-button>
+                </n-header>
+              </n-table-cell>
+            </n-table-row>
+            <n-table-row header>
+              <n-table-cell>Name</n-table-cell>
+              <n-table-cell>Type</n-table-cell>
+              <n-table-cell>Endpoint</n-table-cell>
+              <n-table-cell>Status</n-table-cell>
+              <n-table-cell>Version</n-table-cell>
+              <n-table-cell>Actions</n-table-cell>
+            </n-table-row>
+            {connectorEntries.map(e => (
+              <n-table-row>
+                <n-table-cell>
+                  <n-text strong>{e.parsed.name as string || e.slug}</n-text>
+                </n-table-cell>
+                <n-table-cell>
+                  <n-badge intent={typeIntent(e.parsed.type as string || '')}>{e.parsed.type as string || '\u2014'}</n-badge>
+                </n-table-cell>
+                <n-table-cell>
+                  <n-text muted size="sm">{e.parsed.endpoint as string || '\u2014'}</n-text>
+                </n-table-cell>
+                <n-table-cell>
+                  <n-badge intent={statusIntent(e.status)}>{e.status}</n-badge>
+                </n-table-cell>
+                <n-table-cell>
+                  <n-text size="sm">v{e.version}</n-text>
+                </n-table-cell>
+                <n-table-cell>
+                  <n-stack direction="row" gap="1">
+                    <n-button
+                      variant="ghost"
+                      size="sm"
+                      data-action="edit"
+                      data-entry-id={e.id}
+                      data-entry-name={e.parsed.name as string || ''}
+                      data-entry-type={e.parsed.type as string || ''}
+                      data-entry-endpoint={e.parsed.endpoint as string || ''}
+                      data-entry-description={e.parsed.description as string || ''}
+                      data-entry-status={e.status}
+                    >
+                      <n-icon name="pencil-simple" slot="leading"></n-icon>
+                    </n-button>
+                    <n-button
+                      variant="ghost"
+                      size="sm"
+                      intent="danger"
+                      data-action="delete"
+                      data-entry-id={e.id}
+                      data-entry-name={e.parsed.name as string || e.slug}
+                    >
+                      <n-icon name="trash" slot="leading"></n-icon>
+                    </n-button>
+                  </n-stack>
+                </n-table-cell>
+              </n-table-row>
+            ))}
+          </n-table>
+
+    <!-- Create / Edit dialog -->
+    <n-dialog id="connector-dialog">
+      <div class="admin-dialog-card">
+        <n-card>
+          <n-header>
+            <span slot="label" id="connector-dialog-title">Add Connector</span>
+          </n-header>
+          <n-body>
+            <n-stack gap="4">
+              <n-field required>
+                <label slot="label">Name</label>
+                <n-input id="connector-name" placeholder="e.g. GitHub MCP Server"></n-input>
+              </n-field>
+              <n-field required>
+                <label slot="label">Type</label>
+                <n-select id="connector-type" value="mcp-server" options='[{"value":"mcp-server","label":"MCP Server"},{"value":"tool","label":"Tool"},{"value":"resource","label":"Resource"},{"value":"api","label":"API"}]'></n-select>
+              </n-field>
+              <n-field>
+                <label slot="label">Endpoint</label>
+                <n-input id="connector-endpoint" placeholder="e.g. https://api.example.com/mcp"></n-input>
+              </n-field>
+              <n-field>
+                <label slot="label">Description</label>
+                <n-input id="connector-description" placeholder="Optional description"></n-input>
+              </n-field>
+              <n-field>
+                <label slot="label">Status</label>
+                <n-select id="connector-status" value="active" options='[{"value":"active","label":"Active"},{"value":"deprecated","label":"Deprecated"},{"value":"draft","label":"Draft"}]'></n-select>
+              </n-field>
+            </n-stack>
+          </n-body>
+          <n-footer>
+            <n-button id="connector-cancel">
+              <span slot="label">Cancel</span>
+            </n-button>
+            <n-button id="connector-submit" variant="primary" intent="accent">
+              <span slot="label">Save</span>
+            </n-button>
+          </n-footer>
+        </n-card>
+      </div>
+    </n-dialog>
+
+    <!-- Delete confirmation dialog -->
+    <n-dialog id="connector-delete-dialog">
+      <div class="admin-dialog-card">
+        <n-card>
+          <n-header>
+            <n-icon name="warning" slot="leading" size="lg"></n-icon>
+            <span slot="label">Delete Connector?</span>
+          </n-header>
+          <n-body>
+            <n-text>Are you sure you want to delete <n-text id="connector-delete-name" variant="strong"></n-text>? This action cannot be undone.</n-text>
+          </n-body>
+          <n-footer>
+            <n-button id="connector-delete-cancel">
+              <span slot="label">Cancel</span>
+            </n-button>
+            <n-button id="connector-delete-submit" variant="primary" intent="danger">
+              <n-icon name="trash" slot="leading"></n-icon>
+              <span slot="label">Delete</span>
+            </n-button>
+          </n-footer>
+        </n-card>
+      </div>
+    </n-dialog>
+  </AdminLayout>
+</SidebarLayout>
+
+<script>
+document.addEventListener('astro:page-load', () => {
+  const table = document.getElementById('connectors-table');
+  if (!table || table.hasAttribute('data-wired')) return;
+  table.setAttribute('data-wired', '');
+
+  // State
+  let editingId = '';
+  let deletingId = '';
+
+  // Dialogs
+  const formDialog = document.getElementById('connector-dialog') as any;
+  const deleteDialog = document.getElementById('connector-delete-dialog') as any;
+
+  // Form elements
+  const dialogTitle = document.getElementById('connector-dialog-title');
+  const nameInput = document.getElementById('connector-name') as any;
+  const typeSelect = document.getElementById('connector-type') as any;
+  const endpointInput = document.getElementById('connector-endpoint') as any;
+  const descInput = document.getElementById('connector-description') as any;
+  const statusSelect = document.getElementById('connector-status') as any;
+
+  function resetForm() {
+    editingId = '';
+    if (nameInput) nameInput.value = '';
+    if (typeSelect) typeSelect.value = 'mcp-server';
+    if (endpointInput) endpointInput.value = '';
+    if (descInput) descInput.value = '';
+    if (statusSelect) statusSelect.value = 'active';
+    if (dialogTitle) dialogTitle.textContent = 'Add Connector';
+  }
+
+  function nameToSlug(name: string) {
+    return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  }
+
+  // Create button
+  document.getElementById('create-connector-btn')?.addEventListener('native:press', () => {
+    resetForm();
+    formDialog?.showModal();
+  });
+
+  // Edit buttons
+  table.querySelectorAll('[data-action="edit"]').forEach(btn => {
+    btn.addEventListener('native:press', () => {
+      editingId = btn.getAttribute('data-entry-id') || '';
+      if (dialogTitle) dialogTitle.textContent = 'Edit Connector';
+      if (nameInput) nameInput.value = btn.getAttribute('data-entry-name') || '';
+      if (typeSelect) typeSelect.value = btn.getAttribute('data-entry-type') || 'mcp-server';
+      if (endpointInput) endpointInput.value = btn.getAttribute('data-entry-endpoint') || '';
+      if (descInput) descInput.value = btn.getAttribute('data-entry-description') || '';
+      if (statusSelect) statusSelect.value = btn.getAttribute('data-entry-status') || 'active';
+      formDialog?.showModal();
+    });
+  });
+
+  // Form dialog cancel / submit
+  document.getElementById('connector-cancel')?.addEventListener('native:press', () => formDialog?.close());
+  document.getElementById('connector-submit')?.addEventListener('native:press', async () => {
+    const name = nameInput?.value?.trim();
+    if (!name) return;
+
+    const data = {
+      name,
+      type: typeSelect?.value || 'mcp-server',
+      endpoint: endpointInput?.value?.trim() || '',
+      description: descInput?.value?.trim() || '',
+    };
+
+    if (editingId) {
+      // Update existing
+      const res = await fetch(`/api/admin/registry/connector/${editingId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'same-origin',
+        body: JSON.stringify({
+          slug: nameToSlug(name),
+          data,
+          status: statusSelect?.value || 'active',
+        }),
+      });
+      if (res.ok) {
+        formDialog?.close();
+        location.reload();
+      }
+    } else {
+      // Create new
+      const res = await fetch('/api/admin/registry/connector', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'same-origin',
+        body: JSON.stringify({
+          slug: nameToSlug(name),
+          data,
+          status: statusSelect?.value || 'active',
+        }),
+      });
+      if (res.ok) {
+        formDialog?.close();
+        location.reload();
+      }
+    }
+  });
+
+  // Delete buttons
+  table.querySelectorAll('[data-action="delete"]').forEach(btn => {
+    btn.addEventListener('native:press', () => {
+      deletingId = btn.getAttribute('data-entry-id') || '';
+      const nameEl = document.getElementById('connector-delete-name');
+      if (nameEl) nameEl.textContent = btn.getAttribute('data-entry-name') || '';
+      deleteDialog?.showModal();
+    });
+  });
+
+  // Delete dialog cancel / submit
+  document.getElementById('connector-delete-cancel')?.addEventListener('native:press', () => deleteDialog?.close());
+  document.getElementById('connector-delete-submit')?.addEventListener('native:press', async () => {
+    const res = await fetch(`/api/admin/registry/connector/${deletingId}`, {
+      method: 'DELETE',
+      credentials: 'same-origin',
+    });
+    if (res.ok) {
+      deleteDialog?.close();
+      location.reload();
+    }
+  });
+});
+</script>
