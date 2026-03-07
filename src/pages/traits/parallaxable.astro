@@ -1,0 +1,562 @@
+---
+import SidebarLayout from '../../layouts/SidebarLayout.astro';
+
+const codeExamples = {
+  basicTilt: `&lt;n-controller traits="parallaxable"&gt;
+  &lt;div class="parallax-card holo-1"&gt;
+    &lt;span class="card-label"&gt;Amethyst&lt;/span&gt;
+    &lt;span class="card-sub"&gt;Basic Tilt&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/n-controller&gt;`,
+  withGlare: `&lt;n-controller traits="parallaxable"
+  data-trait-parallaxable-glare="true"
+  data-trait-parallaxable-glare-opacity="0.4"&gt;
+  &lt;div class="parallax-card holo-2"&gt;
+    &lt;span class="card-label"&gt;Sapphire&lt;/span&gt;
+    &lt;span class="card-sub"&gt;With Glare&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/n-controller&gt;`,
+  multipleCards: `&lt;div style="display: grid; grid-template-columns: repeat(3, auto); gap: 1rem;"&gt;
+  &lt;n-controller traits="parallaxable" data-trait-parallaxable-glare="true"&gt;
+    &lt;div class="parallax-card holo-1"&gt;
+      &lt;span class="card-label"&gt;Amethyst&lt;/span&gt;
+      &lt;span class="card-sub"&gt;Rare&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/n-controller&gt;
+  &lt;!-- ...repeat for each card --&gt;
+&lt;/div&gt;`,
+  highTilt: `&lt;n-controller traits="parallaxable"
+  data-trait-parallaxable-max-tilt="25"
+  data-trait-parallaxable-scale="1.1"
+  data-trait-parallaxable-glare="true"
+  data-trait-parallaxable-glare-opacity="0.5"&gt;
+  &lt;div class="parallax-card holo-3" style="width: 18rem; height: 12rem;"&gt;
+    &lt;span class="card-label"&gt;Emerald&lt;/span&gt;
+    &lt;span class="card-sub"&gt;High Tilt&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/n-controller&gt;`,
+  controller: `import { ParallaxController } from '@nonoun/native-ui';
+
+const card = document.querySelector('#ctrl-card');
+const parallax = new ParallaxController(card, {
+  maxTilt: 15,
+  perspective: 1000,
+  scale: 1.05,
+  speed: 300,
+  glare: false,
+  glareOpacity: 0.35,
+});
+
+// Update options at runtime:
+parallax.maxTilt = 25;
+parallax.glare = true;
+parallax.reset();
+parallax.destroy();`,
+  cssCustomProperty: `&lt;n-controller traits="parallaxable"&gt;
+  &lt;div class="shadow-card"&gt;
+    &lt;span class="card-label"&gt;Shadow A&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/n-controller&gt;
+
+&lt;style&gt;
+.shadow-card {
+  box-shadow:
+    calc(var(--parallax-percent-x, 0) * 20px)
+    calc(var(--parallax-percent-y, 0) * 20px)
+    30px rgba(0,0,0,0.2);
+}
+&lt;/style&gt;`,
+};
+const detailMove = `{ tiltX, tiltY, percentX, percentY }`;
+---
+<SidebarLayout title="Parallaxable">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Parallaxable</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+
+      Holographic tilt effect that follows the pointer position. Sets a CSS <code>transform</code> with <code>perspective</code>, <code>rotateX</code>/<code>rotateY</code>, and <code>scale</code>. Dispatches <code>native:parallax-move</code> on every pointer move and exposes <code>--parallax-percent-x</code>/<code>--parallax-percent-y</code> CSS custom properties.
+
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ── Basic Tilt ── -->
+
+    <h2>Basic Tilt</h2>
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
+        Move your pointer over the card. Default: 15deg max tilt, 1000px perspective, 1.05x scale on hover.
+      </n-text>
+      <n-controller traits="parallaxable">
+        <div class="parallax-card holo-1" id="parallax-basic">
+          <span class="card-label">Amethyst</span>
+          <span class="card-sub">Basic Tilt</span>
+        </div>
+      </n-controller>
+      <div id="provider-log" class="output"></div>
+      <pre class="layout-code"><code set:html={codeExamples.basicTilt} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── With Glare ── -->
+
+    <h2>With Glare</h2>
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
+        Adds a radial glare overlay that follows the pointer. <code>data-trait-parallaxable-glare="true"</code> enables it; <code>data-trait-parallaxable-glare-opacity</code> sets the max opacity.
+      </n-text>
+      <n-controller traits="parallaxable" data-trait-parallaxable-glare="true" data-trait-parallaxable-glare-opacity="0.4">
+        <div class="parallax-card holo-2" id="parallax-glare">
+          <span class="card-label">Sapphire</span>
+          <span class="card-sub">With Glare</span>
+        </div>
+      </n-controller>
+      <pre class="layout-code"><code set:html={codeExamples.withGlare} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Multiple Cards Grid ── -->
+
+    <h2>Multiple Cards Grid</h2>
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
+        Six holographic trading cards in a grid, each with independent parallax + glare.
+      </n-text>
+      <div style="display: grid; grid-template-columns: repeat(3, auto); gap: 1rem;">
+        <n-controller traits="parallaxable" data-trait-parallaxable-glare="true">
+          <div class="parallax-card holo-1" id="grid-card-1">
+            <span class="card-label">Amethyst</span>
+            <span class="card-sub">Rare</span>
+          </div>
+        </n-controller>
+        <n-controller traits="parallaxable" data-trait-parallaxable-glare="true">
+          <div class="parallax-card holo-2" id="grid-card-2">
+            <span class="card-label">Sapphire</span>
+            <span class="card-sub">Epic</span>
+          </div>
+        </n-controller>
+        <n-controller traits="parallaxable" data-trait-parallaxable-glare="true">
+          <div class="parallax-card holo-3" id="grid-card-3">
+            <span class="card-label">Emerald</span>
+            <span class="card-sub">Legendary</span>
+          </div>
+        </n-controller>
+        <n-controller traits="parallaxable" data-trait-parallaxable-glare="true">
+          <div class="parallax-card holo-4" id="grid-card-4">
+            <span class="card-label">Ruby</span>
+            <span class="card-sub">Mythic</span>
+          </div>
+        </n-controller>
+        <n-controller traits="parallaxable" data-trait-parallaxable-glare="true">
+          <div class="parallax-card holo-5" id="grid-card-5">
+            <span class="card-label">Opal</span>
+            <span class="card-sub">Ultra Rare</span>
+          </div>
+        </n-controller>
+        <n-controller traits="parallaxable" data-trait-parallaxable-glare="true">
+          <div class="parallax-card holo-6" id="grid-card-6">
+            <span class="card-label">Diamond</span>
+            <span class="card-sub">Prismatic</span>
+          </div>
+        </n-controller>
+      </div>
+      <pre class="layout-code"><code set:html={codeExamples.multipleCards} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── High Tilt (Exaggerated) ── -->
+
+    <h2>High Tilt (Exaggerated)</h2>
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
+        Cranked up: <code>max-tilt="25"</code>, <code>scale="1.1"</code>, glare with <code>opacity="0.5"</code>. Larger card for dramatic effect.
+      </n-text>
+      <n-controller traits="parallaxable" data-trait-parallaxable-max-tilt="25" data-trait-parallaxable-scale="1.1" data-trait-parallaxable-glare="true" data-trait-parallaxable-glare-opacity="0.5">
+        <div class="parallax-card holo-3" id="parallax-high" style="width: 18rem; height: 12rem;">
+          <span class="card-label">Emerald</span>
+          <span class="card-sub">High Tilt</span>
+        </div>
+      </n-controller>
+      <pre class="layout-code"><code set:html={codeExamples.highTilt} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Controller (Programmatic) ── -->
+
+    <h2>Controller (Programmatic)</h2>
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
+        <code>new ParallaxController(el, options)</code> attaches directly to any element. Adjust options in real time with the controls below.
+      </n-text>
+      <n-stack direction="row" gap="6" wrap>
+        <div class="parallax-card holo-5" id="ctrl-card" style="width: 16rem; height: 12rem;">
+          <span class="card-label">Opal</span>
+          <span class="card-sub">Programmatic</span>
+        </div>
+        <n-card padding="relaxed" style="flex: 1; min-width: 16rem;">
+          <n-stack gap="3">
+            <n-stack gap="1">
+              <n-text size="xs" muted>Max Tilt: <span id="ctrl-tilt-val">15</span>deg</n-text>
+              <n-range id="ctrl-tilt" min="1" max="45" step="1" value="15"></n-range>
+            </n-stack>
+            <n-stack gap="1">
+              <n-text size="xs" muted>Perspective: <span id="ctrl-persp-val">1000</span>px</n-text>
+              <n-range id="ctrl-persp" min="200" max="2000" step="50" value="1000"></n-range>
+            </n-stack>
+            <n-stack gap="1">
+              <n-text size="xs" muted>Scale: <span id="ctrl-scale-val">1.05</span></n-text>
+              <n-range id="ctrl-scale" min="1" max="1.3" step="0.01" value="1.05"></n-range>
+            </n-stack>
+            <n-stack gap="1">
+              <n-text size="xs" muted>Speed: <span id="ctrl-speed-val">300</span>ms</n-text>
+              <n-range id="ctrl-speed" min="50" max="800" step="25" value="300"></n-range>
+            </n-stack>
+            <n-stack direction="row" gap="2" align="center">
+              <n-switch id="ctrl-glare"></n-switch>
+              <n-text size="xs" muted>Glare overlay</n-text>
+            </n-stack>
+            <n-stack gap="1">
+              <n-text size="xs" muted>Glare opacity: <span id="ctrl-gopacity-val">0.35</span></n-text>
+              <n-range id="ctrl-gopacity" min="0" max="1" step="0.05" value="0.35"></n-range>
+            </n-stack>
+            <n-button id="ctrl-reset" size="sm" variant="ghost">Reset Tilt</n-button>
+          </n-stack>
+        </n-card>
+      </n-stack>
+      <div id="ctrl-log" class="output"></div>
+      <pre class="layout-code"><code set:html={codeExamples.controller} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── CSS Custom Property Demo ── -->
+
+    <h2>CSS Custom Property Demo</h2>
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
+        <code>--parallax-percent-x</code> and <code>--parallax-percent-y</code> are set on the host during pointer move. Use them to drive any CSS property, such as <code>box-shadow</code>.
+      </n-text>
+      <n-stack direction="row" gap="4" wrap>
+        <n-controller traits="parallaxable">
+          <div class="shadow-card" id="shadow-a">
+            <span class="card-label">Shadow A</span>
+            <span class="card-sub">Default</span>
+          </div>
+        </n-controller>
+        <n-controller traits="parallaxable" data-trait-parallaxable-max-tilt="20" data-trait-parallaxable-scale="1">
+          <div class="shadow-card" id="shadow-b">
+            <span class="card-label">Shadow B</span>
+            <span class="card-sub">max-tilt: 20, scale: 1</span>
+          </div>
+        </n-controller>
+      </n-stack>
+      <div id="shadow-log" class="output"></div>
+      <pre class="layout-code"><code set:html={codeExamples.cssCustomProperty} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── API Reference ── -->
+
+    <h2>API</h2>
+      <h3>Adapter Attributes</h3>
+      <n-table variant="plain" size="sm" cols="auto auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Type</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>data-trait-parallaxable-max-tilt</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell><code>15</code></n-table-cell>
+            <n-table-cell>Max rotation degrees</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-parallaxable-perspective</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell><code>1000</code></n-table-cell>
+            <n-table-cell>CSS perspective in px</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-parallaxable-scale</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell><code>1.05</code></n-table-cell>
+            <n-table-cell>Hover scale factor</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-parallaxable-speed</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell><code>300</code></n-table-cell>
+            <n-table-cell>Transition speed in ms</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-parallaxable-glare</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>false</code></n-table-cell>
+            <n-table-cell>Enable glare overlay</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-parallaxable-glare-opacity</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell><code>0.35</code></n-table-cell>
+            <n-table-cell>Max glare opacity (0-1)</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-parallaxable-disabled</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>false</code></n-table-cell>
+            <n-table-cell>Disable parallax effect</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>Events</h3>
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Event</n-table-header><n-table-header>Detail</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>native:parallax-move</code></n-table-cell>
+            <n-table-cell><code set:html={detailMove} /></n-table-cell>
+            <n-table-cell>Fired on every pointer move over the element. <code>tiltX</code>/<code>tiltY</code> in degrees, <code>percentX</code>/<code>percentY</code> in -1..1 range.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>CSS</h3>
+      <n-table variant="plain" size="sm" cols="auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Selector / Property</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>[parallax-active]</code></n-table-cell>
+            <n-table-cell>Present on the element while the pointer is over it. Removed on leave.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>--parallax-percent-x</code></n-table-cell>
+            <n-table-cell>Pointer X position relative to center (-1 to 1). Use in <code>calc()</code> for dynamic styles.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>--parallax-percent-y</code></n-table-cell>
+            <n-table-cell>Pointer Y position relative to center (-1 to 1). Use in <code>calc()</code> for dynamic styles.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+  </main>
+
+  <script>
+import { ParallaxController } from '@nonoun/native-ui';
+import { logAppend as appendLog } from '../../scripts/event-log';
+
+document.addEventListener('astro:page-load', () => {
+  if (!document.getElementById('parallax-basic')) return;
+
+  // ── Provider event log (Basic Tilt section — throttle to 30 entries) ──
+
+  const providerLogEl = document.getElementById('provider-log');
+  let providerCount = 0;
+  const basicCard = document.getElementById('parallax-basic');
+  basicCard?.addEventListener('native:parallax-move', (e) => {
+    providerCount++;
+    if (providerCount % 4 !== 0) return;
+    const { tiltX, tiltY, percentX, percentY } = /** @type {CustomEvent} */ (e).detail;
+    appendLog(providerLogEl, `tiltX: ${tiltX.toFixed(1)}, tiltY: ${tiltY.toFixed(1)}, %X: ${percentX.toFixed(2)}, %Y: ${percentY.toFixed(2)}`, 30);
+  });
+
+  // ── Controller (Programmatic) ──
+
+  const ctrlCard = document.getElementById('ctrl-card');
+  if (!ctrlCard) return;
+
+  const parallax = new ParallaxController(ctrlCard, {
+    maxTilt: 15,
+    perspective: 1000,
+    scale: 1.05,
+    speed: 300,
+    glare: false,
+    glareOpacity: 0.35,
+  });
+
+  const ctrlLogEl = document.getElementById('ctrl-log');
+  let ctrlCount = 0;
+  ctrlCard.addEventListener('native:parallax-move', (e) => {
+    ctrlCount++;
+    if (ctrlCount % 3 !== 0) return;
+    const { tiltX, tiltY, percentX, percentY } = /** @type {CustomEvent} */ (e).detail;
+    appendLog(ctrlLogEl, `tiltX: ${tiltX.toFixed(1)}, tiltY: ${tiltY.toFixed(1)}, %X: ${percentX.toFixed(2)}, %Y: ${percentY.toFixed(2)}`, 50);
+  });
+
+  // ── Option controls ──
+
+  /** @param {string} id @param {string} prop @param {string} valId @param {(v: string) => any} parse */
+  function wireRange(id, prop, valId, parse) {
+    const el = document.getElementById(id);
+    const valEl = document.getElementById(valId);
+    el?.addEventListener('input', (e) => {
+      const raw = /** @type {HTMLInputElement} */ (e.target).value;
+      if (valEl) valEl.textContent = raw;
+      parallax[prop] = parse(raw);
+    });
+  }
+
+  wireRange('ctrl-tilt', 'maxTilt', 'ctrl-tilt-val', Number);
+  wireRange('ctrl-persp', 'perspective', 'ctrl-persp-val', Number);
+  wireRange('ctrl-scale', 'scale', 'ctrl-scale-val', Number);
+  wireRange('ctrl-speed', 'speed', 'ctrl-speed-val', Number);
+  wireRange('ctrl-gopacity', 'glareOpacity', 'ctrl-gopacity-val', Number);
+
+  // ── Glare switch — detach/attach cycle ──
+
+  const glareSwitch = document.getElementById('ctrl-glare');
+  glareSwitch?.addEventListener('change', (e) => {
+    const on = /** @type {HTMLInputElement} */ (e.target).checked;
+    parallax.detach();
+    parallax.glare = on;
+    parallax.attach();
+  });
+
+  // ── Reset button ──
+
+  document.getElementById('ctrl-reset')?.addEventListener('click', () => {
+    parallax.reset();
+  });
+
+  // ── CSS Custom Property Demo log ──
+
+  const shadowLogEl = document.getElementById('shadow-log');
+  let shadowCount = 0;
+  for (const id of ['shadow-a', 'shadow-b']) {
+    const card = document.getElementById(id);
+    card?.addEventListener('native:parallax-move', (e) => {
+      shadowCount++;
+      if (shadowCount % 4 !== 0) return;
+      const { percentX, percentY } = /** @type {CustomEvent} */ (e).detail;
+      appendLog(shadowLogEl, `${id} — %X: ${percentX.toFixed(2)}, %Y: ${percentY.toFixed(2)}`, 50);
+    });
+  }
+});
+  </script>
+  <style is:global>
+    /* ── Parallax Card ── */
+
+    .parallax-card {
+      width: 14rem;
+      height: 10rem;
+      border-radius: 0.75rem;
+      user-select: none;
+      transform-style: preserve-3d;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.25rem;
+      cursor: default;
+    }
+
+    .parallax-card .card-label {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fff;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    }
+
+    .parallax-card .card-sub {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.8);
+    }
+
+    /* ── Holographic gradients ── */
+
+    .holo-1 {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      box-shadow: 0 4px 20px rgba(102,126,234,0.3);
+    }
+    .holo-1[parallax-active] {
+      box-shadow: 0 8px 30px rgba(102,126,234,0.5);
+    }
+
+    .holo-2 {
+      background: linear-gradient(135deg, #f093fb, #f5576c);
+      box-shadow: 0 4px 20px rgba(240,147,251,0.3);
+    }
+    .holo-2[parallax-active] {
+      box-shadow: 0 8px 30px rgba(240,147,251,0.5);
+    }
+
+    .holo-3 {
+      background: linear-gradient(135deg, #4facfe, #00f2fe);
+      box-shadow: 0 4px 20px rgba(79,172,254,0.3);
+    }
+    .holo-3[parallax-active] {
+      box-shadow: 0 8px 30px rgba(79,172,254,0.5);
+    }
+
+    .holo-4 {
+      background: linear-gradient(135deg, #43e97b, #38f9d7);
+      box-shadow: 0 4px 20px rgba(67,233,123,0.3);
+    }
+    .holo-4[parallax-active] {
+      box-shadow: 0 8px 30px rgba(67,233,123,0.5);
+    }
+
+    .holo-5 {
+      background: linear-gradient(135deg, #fa709a, #fee140);
+      box-shadow: 0 4px 20px rgba(250,112,154,0.3);
+    }
+    .holo-5[parallax-active] {
+      box-shadow: 0 8px 30px rgba(250,112,154,0.5);
+    }
+
+    .holo-6 {
+      background: linear-gradient(135deg, #a18cd1, #fbc2eb);
+      box-shadow: 0 4px 20px rgba(161,140,209,0.3);
+    }
+    .holo-6[parallax-active] {
+      box-shadow: 0 8px 30px rgba(161,140,209,0.5);
+    }
+
+    /* ── Shadow card (CSS custom property demo) ── */
+
+    .shadow-card {
+      width: 14rem;
+      height: 10rem;
+      border-radius: 0.75rem;
+      background: var(--n-panel-neutral);
+      border: 1px solid var(--n-border-muted-neutral);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.25rem;
+      user-select: none;
+      transform-style: preserve-3d;
+      position: relative;
+      overflow: hidden;
+      cursor: default;
+      box-shadow:
+        calc(var(--parallax-percent-x, 0) * 20px)
+        calc(var(--parallax-percent-y, 0) * 20px)
+        30px rgba(0,0,0,0.15);
+      transition: box-shadow 50ms ease;
+    }
+
+    .shadow-card .card-label {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--n-ink-neutral);
+    }
+
+    .shadow-card .card-sub {
+      font-size: 0.75rem;
+      color: var(--n-ink-muted-neutral);
+    }
+
+    /* ── Output log ── */
+
+    .output {
+      font-family: monospace;
+      font-size: 0.75rem;
+      color: var(--n-ink-muted-neutral);
+      max-height: 6rem;
+      overflow-y: auto;
+      margin-top: 0.75rem;
+      padding: 0.5rem;
+      background: var(--n-panel-neutral);
+      border-radius: 0.25rem;
+    }
+</style>
+
+</SidebarLayout>

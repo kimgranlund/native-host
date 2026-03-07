@@ -13,7 +13,21 @@ Each agent reads this file at session start, processes tickets addressed to it, 
 
 ## Open
 
+| Status | File | Title | From | To |
+|--------|------|-------|------|----|
 No open tickets.
+
+## Recently Closed
+
+| Status | File | Title | From | To |
+|--------|------|-------|------|----|
+| **fixed** | T0132-sidebar-section-header-element.md | Sidebar section header element — `<n-option-group-header>` is wrong element, causes collapsed sidebar rendering bug. Fixed in dashboard@0.4.4: new `<n-sidebar-section-label>` element. Host migrated. | host | native-ui |
+| **fixed** | T0131-dashboard-tag-name-broken-in-dist.md | Multiple packages have broken dist — wrong tag names, empty register.js files, missing define() calls (dashboard, ai, code, design). Fixed in ai@1.0.4, code@1.0.4, dashboard@0.4.4. | host | native-ui |
+
+| Status | File | Title | From | To |
+|--------|------|-------|------|----|
+| **done** | T0130-package-consolidation-migration.md | Package consolidation migration — 10 packages → 7 (renames + merges, all imports change). Bumped to 0.4.3 (0.4.2 had broken tag name) | native-ui | host |
+| **done** | T0129-upgrade-native-ui-0.7.45.md | Upgrade to `@nonoun/native-ui@0.7.45` + `@nonoun/native-app@0.3.19` — 6 fun traits + `data-trait-*` namespace (breaking) | native-ui | host |
 
 ## Closed (T0001–T0128)
 

@@ -6,7 +6,7 @@ const detailCommand = `{ command }`;
 
 const codeExamples = {
   basic: `&lt;n-controller traits="slash-commandable"
-  slash-commandable-commands='[
+  data-trait-slash-commandable-commands='[
     {"value":"help","label":"Help","description":"Get assistance"},
     {"value":"settings","label":"Settings","description":"Open preferences"}
   ]'&gt;
@@ -43,7 +43,7 @@ const codeExamples = {
       <n-text size="xs" muted spacing="tight">
         Type <code>/</code> to open the command popover. Arrow keys navigate, Enter or click selects. The <code>/query</code> text is replaced with a styled tag.
       </n-text>
-      <n-controller traits="slash-commandable" slash-commandable-commands='[{"value":"help","label":"Help","description":"Get assistance"},{"value":"settings","label":"Settings","description":"Open preferences"},{"value":"search","label":"Search","description":"Find content"},{"value":"code","label":"Code Block","description":"Insert code snippet"}]'>
+      <n-controller traits="slash-commandable" data-trait-slash-commandable-commands='[{"value":"help","label":"Help","description":"Get assistance"},{"value":"settings","label":"Settings","description":"Open preferences"},{"value":"search","label":"Search","description":"Find content"},{"value":"code","label":"Code Block","description":"Insert code snippet"}]'>
         <n-textarea id="basic-textarea" rows="2" placeholder="Type / to see commands..."></n-textarea>
       </n-controller>
       <div id="basic-log" class="output"></div>
@@ -57,7 +57,7 @@ const codeExamples = {
       <n-text size="xs" muted spacing="tight">
         Type <code>/he</code> then press <strong>Tab</strong> to select the closest matching command. Requires a query of 2+ characters. Try <code>/se</code> for "Search" or "Settings".
       </n-text>
-      <n-controller traits="slash-commandable" slash-commandable-commands='[{"value":"help","label":"Help","description":"Get assistance"},{"value":"heading","label":"Heading","description":"Insert heading"},{"value":"search","label":"Search","description":"Find content"},{"value":"settings","label":"Settings","description":"Open preferences"}]'>
+      <n-controller traits="slash-commandable" data-trait-slash-commandable-commands='[{"value":"help","label":"Help","description":"Get assistance"},{"value":"heading","label":"Heading","description":"Insert heading"},{"value":"search","label":"Search","description":"Find content"},{"value":"settings","label":"Settings","description":"Open preferences"}]'>
         <n-textarea id="tab-textarea" rows="2" placeholder="Type /he then press Tab..."></n-textarea>
       </n-controller>
       <div id="tab-log" class="output"></div>
@@ -70,7 +70,7 @@ const codeExamples = {
       <n-text size="xs" muted spacing="tight">
         Works with single-line <code>&lt;n-input&gt;</code> as well. Type <code>/</code> to trigger.
       </n-text>
-      <n-controller traits="slash-commandable" slash-commandable-commands='[{"value":"bold","label":"Bold","description":"Make text bold"},{"value":"italic","label":"Italic","description":"Make text italic"},{"value":"link","label":"Link","description":"Insert hyperlink"}]'>
+      <n-controller traits="slash-commandable" data-trait-slash-commandable-commands='[{"value":"bold","label":"Bold","description":"Make text bold"},{"value":"italic","label":"Italic","description":"Make text italic"},{"value":"link","label":"Link","description":"Insert hyperlink"}]'>
         <n-input id="input-demo" placeholder="Type / for formatting commands..."></n-input>
       </n-controller>
       <div id="input-log" class="output"></div>
@@ -83,7 +83,7 @@ const codeExamples = {
       <n-text size="xs" muted spacing="tight">
         Press <n-kbd><n-icon name="command"></n-icon>/</n-kbd> to insert a <code>/</code> and open the command popover. Press again to dismiss.
       </n-text>
-      <n-controller traits="slash-commandable" slash-commandable-commands='[{"value":"task","label":"Task","description":"Create a task"},{"value":"note","label":"Note","description":"Add a note"},{"value":"mention","label":"Mention","description":"Mention someone"}]'>
+      <n-controller traits="slash-commandable" data-trait-slash-commandable-commands='[{"value":"task","label":"Task","description":"Create a task"},{"value":"note","label":"Note","description":"Add a note"},{"value":"mention","label":"Mention","description":"Mention someone"}]'>
         <n-textarea id="shortcut-textarea" rows="2" placeholder="Press Cmd+/ to trigger..."></n-textarea>
       </n-controller>
     </n-panel>
@@ -96,7 +96,7 @@ const codeExamples = {
         <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Type</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
         <n-table-body>
           <n-table-row>
-            <n-table-cell><code>slash-commandable-commands</code></n-table-cell>
+            <n-table-cell><code>data-trait-slash-commandable-commands</code></n-table-cell>
             <n-table-cell><code>JSON string</code></n-table-cell>
             <n-table-cell><code>[]</code></n-table-cell>
             <n-table-cell>JSON array of <code>SlashCommand</code> objects. Automatically finds the first <code>&lt;n-input&gt;</code>, <code>&lt;n-textarea&gt;</code>, <code>&lt;input&gt;</code>, or <code>&lt;textarea&gt;</code> child as the input.</n-table-cell>

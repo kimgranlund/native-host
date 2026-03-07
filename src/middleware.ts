@@ -14,6 +14,11 @@ export const onRequest = defineMiddleware(async (context, next) => {
     context.locals.session = null;
   }
 
+  // Gate /admin/* for unauthenticated users
+  if (!isAuthed && new URL(context.request.url).pathname.startsWith('/admin/')) {
+    return context.redirect('/auth/login');
+  }
+
   const response = await next();
 
   if (context.locals.user) {

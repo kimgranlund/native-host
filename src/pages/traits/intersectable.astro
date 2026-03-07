@@ -78,29 +78,29 @@ const detailIntersection = `{ isIntersecting, ratio }`;
     <h2>Once Mode (Provider)</h2>
     <n-panel bordered>
       <n-text size="xs" muted spacing="tight">
-        <code>intersectable-once="true"</code>. The element fades in and stays visible permanently. The observer disconnects after the first intersection.
+        <code>data-trait-intersectable-once="true"</code>. The element fades in and stays visible permanently. The observer disconnects after the first intersection.
       </n-text>
       <div class="scroll-spacer">&#8595; Scroll down — these only animate once &#8595;</div>
-      <n-controller traits="intersectable" intersectable-once="true">
+      <n-controller traits="intersectable" data-trait-intersectable-once="true">
         <div class="intersect-box" id="once-a">
           <span class="intersect-label">Once A</span>
           <span class="intersect-status">hidden</span>
         </div>
       </n-controller>
-      <n-controller traits="intersectable" intersectable-once="true">
+      <n-controller traits="intersectable" data-trait-intersectable-once="true">
         <div class="intersect-box" id="once-b">
           <span class="intersect-label">Once B</span>
           <span class="intersect-status">hidden</span>
         </div>
       </n-controller>
-      <n-controller traits="intersectable" intersectable-once="true">
+      <n-controller traits="intersectable" data-trait-intersectable-once="true">
         <div class="intersect-box" id="once-c">
           <span class="intersect-label">Once C</span>
           <span class="intersect-status">hidden</span>
         </div>
       </n-controller>
       <div id="once-log" class="output"></div>
-      <pre class="layout-code"><code>&lt;n-controller traits="intersectable" intersectable-once="true"&gt;
+      <pre class="layout-code"><code>&lt;n-controller traits="intersectable" data-trait-intersectable-once="true"&gt;
   &lt;div class="intersect-box"&gt;
     Once A
   &lt;/div&gt;
@@ -112,23 +112,23 @@ const detailIntersection = `{ isIntersecting, ratio }`;
     <h2>Threshold (50%)</h2>
     <n-panel bordered>
       <n-text size="xs" muted spacing="tight">
-        <code>intersectable-threshold="0.5"</code>. Only triggers when at least 50% of the element is visible.
+        <code>data-trait-intersectable-threshold="0.5"</code>. Only triggers when at least 50% of the element is visible.
       </n-text>
       <div class="scroll-spacer">&#8595; Scroll down — requires 50% visibility &#8595;</div>
-      <n-controller traits="intersectable" intersectable-threshold="0.5">
+      <n-controller traits="intersectable" data-trait-intersectable-threshold="0.5">
         <div class="intersect-box">
           <span class="intersect-label">50% Threshold A</span>
           <span class="intersect-status">hidden</span>
         </div>
       </n-controller>
-      <n-controller traits="intersectable" intersectable-threshold="0.5">
+      <n-controller traits="intersectable" data-trait-intersectable-threshold="0.5">
         <div class="intersect-box">
           <span class="intersect-label">50% Threshold B</span>
           <span class="intersect-status">hidden</span>
         </div>
       </n-controller>
       <div id="threshold-log" class="output"></div>
-      <pre class="layout-code"><code>&lt;n-controller traits="intersectable" intersectable-threshold="0.5"&gt;
+      <pre class="layout-code"><code>&lt;n-controller traits="intersectable" data-trait-intersectable-threshold="0.5"&gt;
   &lt;div class="intersect-box"&gt;
     50% Threshold
   &lt;/div&gt;
@@ -143,19 +143,19 @@ const detailIntersection = `{ isIntersecting, ratio }`;
         <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Type</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
         <n-table-body>
           <n-table-row>
-            <n-table-cell><code>intersectable-threshold</code></n-table-cell>
+            <n-table-cell><code>data-trait-intersectable-threshold</code></n-table-cell>
             <n-table-cell><code>number</code></n-table-cell>
             <n-table-cell><code>0</code></n-table-cell>
             <n-table-cell>Visibility ratio (0 to 1) required to trigger. <code>0</code> = any pixel visible.</n-table-cell>
           </n-table-row>
           <n-table-row>
-            <n-table-cell><code>intersectable-once</code></n-table-cell>
+            <n-table-cell><code>data-trait-intersectable-once</code></n-table-cell>
             <n-table-cell><code>boolean</code></n-table-cell>
             <n-table-cell><code>false</code></n-table-cell>
             <n-table-cell>When <code>"true"</code>, the observer disconnects after the first intersection.</n-table-cell>
           </n-table-row>
           <n-table-row>
-            <n-table-cell><code>intersectable-disabled</code></n-table-cell>
+            <n-table-cell><code>data-trait-intersectable-disabled</code></n-table-cell>
             <n-table-cell><code>boolean</code></n-table-cell>
             <n-table-cell><code>false</code></n-table-cell>
             <n-table-cell>Disables the observer when <code>"true"</code>.</n-table-cell>

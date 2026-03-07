@@ -183,8 +183,8 @@ Four layers, each with a distinct lifecycle.
 Loaded by BaseLayout. Registers all custom elements:
 
 - `import '@nonoun/native-ui/register'` -- all `n-*` components
-- `import '@nonoun/native-app'` -- sidebar/nav elements
-- `import '@nonoun/native-chat/register'` -- chat components
+- `import '@nonoun/native-dashboard'` -- sidebar/nav elements
+- `import '@nonoun/native-ai/register'` -- chat components
 - `registerAllTraits()` -- Pressable, Focusable, etc.
 - Defines a minimal `n-app-panel` stub (CSS-driven element removed from native-app 0.3.0 JS, but CSS still targets it)
 
@@ -199,7 +199,7 @@ Loaded by SidebarLayout. Persists across navigations.
 **Document-level (once):**
 - Cmd+K / Ctrl+K keyboard shortcut for command palette
 - `astro:before-swap` custom swap handler (see View Transitions)
-- `@nonoun/native-tokens` import
+- `@nonoun/native-design` import
 
 **Per-sidebar-instance (`wireSidebar`, once per DOM instance):**
 - Sidebar collapse/expand (writes localStorage + cookie)

@@ -23,7 +23,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <n-text size="sm" muted spacing="tight">One-line factory — creates a themed editor with all base extensions.</n-text>
     <n-panel bordered>
       <div class="editor-container" id="factory-demo"></div>
-    <pre class="layout-code"><code>import &#123; createEditorView &#125; from '@nonoun/native-codemirror';
+    <pre class="layout-code"><code>import &#123; createEditorView &#125; from '@nonoun/native-code';
 import &#123; javascript &#125; from '@codemirror/lang-javascript';
 
 const view = createEditorView(document.getElementById('editor'), &#123;
@@ -104,7 +104,7 @@ createEditorView(container, &#123;
     <n-panel bordered>
       <div class="editor-container editor-container-sm" id="custom-demo"></div>
       <div class="log" id="change-log" style="max-height: 80px;"></div>
-    <pre class="layout-code"><code>import &#123; EditorView &#125; from '@nonoun/native-codemirror';
+    <pre class="layout-code"><code>import &#123; EditorView &#125; from '@nonoun/native-code';
 
 createEditorView(container, &#123;
   doc: source,
@@ -121,7 +121,7 @@ createEditorView(container, &#123;
   </main>
 
   <script>
-  import { createEditorView, EditorView } from '@nonoun/native-codemirror';
+  import { createEditorView, EditorView } from '@nonoun/native-code';
   import { javascript } from '@codemirror/lang-javascript';
   import { html } from '@codemirror/lang-html';
   import { css } from '@codemirror/lang-css';
@@ -134,7 +134,7 @@ createEditorView(container, &#123;
   // ── Factory demo ──
 
   createEditorView(document.getElementById('factory-demo'), {
-    doc: `import { createEditorView } from '@nonoun/native-codemirror';
+    doc: `import { createEditorView } from '@nonoun/native-code';
 
 const view = createEditorView(document.getElementById('editor'), {
   doc: 'console.log("hello");',
@@ -336,7 +336,7 @@ console.log(greeting);`,
   });
 </script>
   <style is:global>
-    @import '@nonoun/native-codemirror/css';
+    @import '@nonoun/native-code/css';
 
     .editor-container {
       overflow: hidden;

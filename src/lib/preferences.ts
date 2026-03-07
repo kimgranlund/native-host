@@ -4,6 +4,7 @@ export const PREF_SIDEBAR_COLLAPSED = 'nav-sidebar-collapsed';
 export const PREF_GROUP_STATES = 'nav-group-states';
 export const PREF_SHOW_CODE = 'demo-show-code';
 export const PREF_SIDEBAR_WIDTH = 'nav-sidebar-width';
+export const PREF_PINNED_PAGES = 'nav-pinned-pages';
 
 export interface Preferences {
   colorScheme: string;
@@ -11,6 +12,7 @@ export interface Preferences {
   sidebarWidth: string;
   groupStates: Record<string, boolean>;
   showCode: boolean;
+  pinnedPages: string[];
 }
 
 /** Default group states: only "Components" is open */
@@ -32,7 +34,13 @@ export function parsePreferences(cookies: {
 
   const showCode = cookies.get(PREF_SHOW_CODE)?.value === 'true';
 
-  return { colorScheme, sidebarCollapsed, sidebarWidth, groupStates, showCode };
+  let pinnedPages: string[] = [];
+  try {
+    const raw = cookies.get(PREF_PINNED_PAGES)?.value;
+    if (raw) pinnedPages = JSON.parse(decodeURIComponent(raw));
+  } catch { /* use default */ }
+
+  return { colorScheme, sidebarCollapsed, sidebarWidth, groupStates, showCode, pinnedPages };
 }
 
 /**
@@ -52,8 +60,14 @@ export async function loadPreferences(
   const { userPreferences } = await import('../db/schema');
   const { eq } = await import('drizzle-orm');
 
-  const rows = await db.select().from(userPreferences).where(eq(userPreferences.userId, locals.user.id));
-  const row = rows[0];
+  let row: typeof userPreferences.$inferSelect | undefined;
+  try {
+    const rows = await db.select().from(userPreferences).where(eq(userPreferences.userId, locals.user.id));
+    row = rows[0];
+  } catch {
+    // Column may not exist yet (migration pending) — fall back to cookies
+    return cookiePrefs;
+  }
 
   if (!row) return cookiePrefs;
 
@@ -63,5 +77,8 @@ export async function loadPreferences(
     sidebarWidth: cookiePrefs.sidebarWidth,
     groupStates: row.groupStates ? JSON.parse(row.groupStates) : cookiePrefs.groupStates,
     showCode: row.showCode ?? cookiePrefs.showCode,
+    pinnedPages: (row as Record<string, unknown>).pinnedPages
+      ? JSON.parse((row as Record<string, unknown>).pinnedPages as string)
+      : cookiePrefs.pinnedPages,
   };
 }

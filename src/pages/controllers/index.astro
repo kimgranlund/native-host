@@ -1,0 +1,89 @@
+---
+import SidebarLayout from '../../layouts/SidebarLayout.astro';
+
+const controllers = [
+  { name: 'DialogController', description: 'Manages modal dialog lifecycle — open, close, return value, focus trap.', trait: '/traits/dialogable' },
+  { name: 'ToastController', description: 'Creates and manages toast notifications with intent, duration, and positioning.', trait: '/traits/toastable' },
+  { name: 'DragController', description: 'Adds pointer-based dragging with constraints, zones, and snapping.', trait: '/traits/draggable' },
+  { name: 'SortController', description: 'Enables drag-to-reorder within a container with animated transitions.', trait: '/traits/sortable' },
+  { name: 'FlipController', description: 'Adds 3D card-flip animations with configurable axis and trigger.', trait: '/traits/flippable' },
+  { name: 'TossController', description: 'Physics-based toss with friction, gravity, bounce, and return.', trait: '/traits/tossable' },
+  { name: 'ParallaxController', description: 'Applies tilt and parallax effects based on pointer or device orientation.', trait: '/traits/parallaxable' },
+  { name: 'ConfettiController', description: 'Fires confetti bursts with configurable colors, shapes, and physics.', trait: '/traits/confettible' },
+  { name: 'MagnetController', description: 'Snaps elements to siblings, grids, or container edges during drag.', trait: '/traits/magnetizable' },
+  { name: 'CSSInspectController', description: 'Visual CSS inspector with depth control, tilt, and pick mode.', trait: '/traits/css-inspectable' },
+  { name: 'FocusTrapController', description: 'Traps keyboard focus within a container — Tab and Shift+Tab cycle.', trait: '/traits/focus-trappable' },
+  { name: 'ShortcutController', description: 'Keyboard shortcut bindings with global, scoped, and allow-editable modes.', trait: '/traits/shortcutable' },
+  { name: 'LLMGatewayController', description: 'Routes LLM requests through server-side gateway proxies.', trait: '/gateways' },
+];
+---
+<SidebarLayout title="Controllers">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>Controllers</h1>
+      </div>
+    </div>
+    <div data-slot="description">
+      Controllers are the programmatic API for native-ui behaviors. While traits are declarative (attributes on elements), controllers provide fine-grained control — instantiation, configuration, method calls, and lifecycle management.
+    </div>
+  </header>
+  <main>
+    <n-stack gap="6">
+
+      <!-- Usage pattern -->
+      <n-section>
+        <n-text variant="heading" size="md" slot="heading">Pattern</n-text>
+        <n-stack gap="3">
+          <n-text>
+            Every controller follows the same pattern: import the class, instantiate with an element and options,
+            then call methods or listen for events.
+          </n-text>
+          <div class="layout-code">
+            <n-button variant="ghost" size="xs" aria-label="Copy"><n-icon name="copy"></n-icon></n-button>
+            <pre><code>import {'{'} DragController {'}'} from '@nonoun/native-ui';
+
+const drag = new DragController(element, {'{'} axis: 'x', bounds: 'parent' {'}'});
+drag.enable();
+drag.disable();
+drag.destroy();</code></pre>
+          </div>
+          <n-text muted size="sm">
+            All controllers accept an element as the first argument and an options object as the second.
+            They expose <code>enable()</code>, <code>disable()</code>, and <code>destroy()</code> lifecycle methods.
+          </n-text>
+        </n-stack>
+      </n-section>
+
+      <!-- Controller list -->
+      <n-section>
+        <n-text variant="heading" size="md" slot="heading">Available Controllers</n-text>
+        <n-card>
+          <n-body>
+            <n-table cols="auto 1fr auto">
+              <n-table-row header>
+                <n-table-cell>Controller</n-table-cell>
+                <n-table-cell>Description</n-table-cell>
+                <n-table-cell>Trait Page</n-table-cell>
+              </n-table-row>
+              {controllers.map(c => (
+                <n-table-row>
+                  <n-table-cell>
+                    <n-text strong size="sm">{c.name}</n-text>
+                  </n-table-cell>
+                  <n-table-cell>
+                    <n-text size="sm">{c.description}</n-text>
+                  </n-table-cell>
+                  <n-table-cell>
+                    <a href={c.trait}><n-badge size="xs">View</n-badge></a>
+                  </n-table-cell>
+                </n-table-row>
+              ))}
+            </n-table>
+          </n-body>
+        </n-card>
+      </n-section>
+
+    </n-stack>
+  </main>
+</SidebarLayout>

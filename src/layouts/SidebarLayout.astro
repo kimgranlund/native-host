@@ -1,8 +1,9 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import Logo from '../components/Logo.astro';
-import { sitemap, type PageEntry, type BadgeKind } from '../data/pages';
+import { sitemap, type PageEntry, type BadgeKind, getNewAndUpdatedPages, demoHighlights, caseStudyGroups, nativeGroups } from '../data/pages';
 import { loadPreferences } from '../lib/preferences';
+import { resolveUserTier, type Tier } from '../lib/permissions';
 
 const badgeLabels: Record<BadgeKind, string> = { new: 'New', updated: 'Updated', recent: 'Recent' };
 const badgeIntents: Record<BadgeKind, string> = { new: 'danger', updated: 'accent', recent: 'warning' };
@@ -17,6 +18,17 @@ const user = Astro.locals.user;
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 const currentEntry = sitemap.find(e => e.path === currentPath);
 
+// Resolve tier for admin sidebar visibility
+let userTier: Tier | null = null;
+if (user) {
+  const orgId = (Astro.locals.session as Record<string, unknown>)?.activeOrganizationId as string | undefined;
+  if (orgId) {
+    userTier = await resolveUserTier(user.id, orgId);
+  }
+}
+const showAdmin = userTier === 'owner' || userTier === 'admin';
+
+
 // Group sitemap entries
 const groups = new Map<string, PageEntry[]>();
 for (const entry of sitemap) {
@@ -24,21 +36,40 @@ for (const entry of sitemap) {
   groups.get(entry.group)!.push(entry);
 }
 
+const newAndUpdatedPages = getNewAndUpdatedPages();
+
+// Group sitemap into section buckets
+const caseStudyGroupEntries = caseStudyGroups
+  .map(name => [name, groups.get(name) || []] as const)
+  .filter(([, entries]) => entries.length > 0);
+
+const nativeGroupEntries = nativeGroups
+  .map(name => [name, groups.get(name) || []] as const)
+  .filter(([, entries]) => entries.length > 0);
+
+const otherEntries = groups.get('Other') || [];
+
 const groupIcons: Record<string, string> = {
+  'Pinned': 'star',
+  'New & Updates': 'sparkle',
+  'Demo Highlights': 'game-controller',
+  'Agentic AI': 'robot',
+  Traits: 'lightning',
+  Gateways: 'plugs-connected',
+  Controllers: 'sliders',
+  Utilities: 'wrench',
+  Blocks: 'squares-four',
   Components: 'cube',
   Containers: 'package',
-  Traits: 'lightning',
-  Blocks: 'squares-four',
-  Core: 'cpu',
-  Showcase: 'game-controller',
-  Other: 'compass',
+  'Core Systems': 'cpu',
+  Other: 'dots-three',
 };
 ---
 <BaseLayout title={title}>
   <style is:global>
     @import '../styles/layout.css';
     @import '../styles/layout-blocks.css';
-    @import '@nonoun/native-tokens/css';
+    @import '@nonoun/native-design/css';
   </style>
 
   <native-app id="layout-sidebar" collapsed={prefs.sidebarCollapsed ? '' : undefined} data-authenticated={user ? '' : undefined} style={prefs.sidebarWidth ? `--n-sidebar-width: ${prefs.sidebarWidth}` : undefined}>
@@ -56,6 +87,17 @@ const groupIcons: Record<string, string> = {
                 NativeUI
               </n-option>
             </n-option-group>
+            {showAdmin && (
+              <n-option-group>
+                <n-option-group-header>Admin</n-option-group-header>
+                <n-option value="/admin/members"><n-icon name="users"></n-icon> Members</n-option>
+                <n-option value="/admin/groups"><n-icon name="users-three"></n-icon> Groups</n-option>
+                <n-option value="/admin/permissions"><n-icon name="shield-check"></n-icon> Permissions</n-option>
+                <n-option value="/admin/content-types"><n-icon name="list-dashes"></n-icon> Content Types</n-option>
+                <n-option value="/admin/registry/llm"><n-icon name="sparkle"></n-icon> LLM Registry</n-option>
+                <n-option value="/admin/registry/connectors"><n-icon name="plug"></n-icon> Connectors</n-option>
+              </n-option-group>
+            )}
             <n-option-group>
               <n-option value="add-team"><n-icon name="plus"></n-icon> Add team</n-option>
             </n-option-group>
@@ -92,26 +134,133 @@ const groupIcons: Record<string, string> = {
 
       <n-sidebar-content>
         <n-sidebar-nav value={currentEntry?.path}>
-          {[...groups.entries()].map(([groupName, entries]) => {
-            const isOpen = prefs.groupStates[groupName] ?? (groupName === 'Components');
+
+          {/* ── PINNED ── */}
+          {prefs.pinnedPages.length > 0 && (
+            <>
+              <n-sidebar-section-label>Pinned</n-sidebar-section-label>
+              <n-sidebar-group open="" id="pinned-group">
+                <n-sidebar-group-header>
+                  <n-icon name="star"></n-icon>
+                  Pinned
+                </n-sidebar-group-header>
+                {prefs.pinnedPages.map(path => {
+                  const entry = sitemap.find(e => e.path === path);
+                  if (!entry) return null;
+                  return (
+                    <n-sidebar-nav-item
+                      value={entry.path}
+                      aria-current={currentPath === entry.path ? 'page' : undefined}
+                    >
+                      {entry.title}
+                    </n-sidebar-nav-item>
+                  );
+                })}
+              </n-sidebar-group>
+            </>
+          )}
+
+          {/* ── NEW & UPDATES ── */}
+          {newAndUpdatedPages.length > 0 && (
+            <>
+              <n-sidebar-section-label>New & Updates</n-sidebar-section-label>
+              <n-sidebar-group open={prefs.groupStates['New & Updates'] ?? true ? '' : undefined} data-has-badges="">
+                <n-sidebar-group-header>
+                  <n-icon name="sparkle"></n-icon>
+                  New & Updates
+                </n-sidebar-group-header>
+                {newAndUpdatedPages.map(e => (
+                  <n-sidebar-nav-item
+                    value={e.path}
+                    aria-current={currentPath === e.path ? 'page' : undefined}
+                  >
+                    {e.title}
+                    {e.badge && <n-badge size="xs" intent={badgeIntents[e.badge]}>{badgeLabels[e.badge]}</n-badge>}
+                  </n-sidebar-nav-item>
+                ))}
+              </n-sidebar-group>
+            </>
+          )}
+
+          {/* ── DEMO HIGHLIGHTS ── */}
+          <n-sidebar-group open={prefs.groupStates['Demo Highlights'] ?? false ? '' : undefined}>
+            <n-sidebar-group-header>
+              <n-icon name="game-controller"></n-icon>
+              Demo Highlights
+            </n-sidebar-group-header>
+            {demoHighlights.map(item => (
+              <n-sidebar-nav-item
+                value={item.path}
+                aria-current={currentPath === item.path ? 'page' : undefined}
+              >
+                {item.title}
+              </n-sidebar-nav-item>
+            ))}
+          </n-sidebar-group>
+
+          {/* ── CASE STUDIES ── */}
+          <n-sidebar-section-label>Case Studies</n-sidebar-section-label>
+          {caseStudyGroupEntries.map(([groupName, entries]) => {
+            const isOpen = prefs.groupStates[groupName] ?? false;
             return (
-            <n-sidebar-group open={isOpen ? '' : undefined} data-has-badges={entries.some(e => e.badge) ? '' : undefined}>
-              <n-sidebar-group-header>
-                <n-icon name={groupIcons[groupName] || 'compass'}></n-icon>
-                {groupName}
-              </n-sidebar-group-header>
-              {entries.map(e => (
-                <n-sidebar-nav-item
-                  value={e.path}
-                  aria-current={currentPath === e.path ? 'page' : undefined}
-                >
-                  {e.title}
-                  {e.badge && <n-badge size="xs" intent={badgeIntents[e.badge]}>{badgeLabels[e.badge]}</n-badge>}
-                </n-sidebar-nav-item>
-              ))}
-            </n-sidebar-group>
+              <n-sidebar-group open={isOpen ? '' : undefined} data-has-badges={entries.some(e => e.badge) ? '' : undefined}>
+                <n-sidebar-group-header>
+                  <n-icon name={groupIcons[groupName] || 'compass'}></n-icon>
+                  {groupName}
+                </n-sidebar-group-header>
+                {entries.map(e => (
+                  <n-sidebar-nav-item
+                    value={e.path}
+                    aria-current={currentPath === e.path ? 'page' : undefined}
+                  >
+                    {e.title}
+                    {e.badge && <n-badge size="xs" intent={badgeIntents[e.badge]}>{badgeLabels[e.badge]}</n-badge>}
+                  </n-sidebar-nav-item>
+                ))}
+              </n-sidebar-group>
             );
           })}
+
+          {/* ── NATIVE ── */}
+          <n-sidebar-section-label>Native</n-sidebar-section-label>
+          {nativeGroupEntries.map(([groupName, entries]) => {
+            const isOpen = prefs.groupStates[groupName] ?? (groupName === 'Components');
+            return (
+              <n-sidebar-group open={isOpen ? '' : undefined}>
+                <n-sidebar-group-header>
+                  <n-icon name={groupIcons[groupName] || 'compass'}></n-icon>
+                  {groupName}
+                </n-sidebar-group-header>
+                {entries.map(e => (
+                  <n-sidebar-nav-item
+                    value={e.path}
+                    aria-current={currentPath === e.path ? 'page' : undefined}
+                  >
+                    {e.title}
+                  </n-sidebar-nav-item>
+                ))}
+              </n-sidebar-group>
+            );
+          })}
+
+          {/* ── OTHER ── */}
+          <n-sidebar-section-label>Other</n-sidebar-section-label>
+          <n-sidebar-group open={prefs.groupStates['Other'] ?? false ? '' : undefined}>
+            <n-sidebar-group-header>
+              <n-icon name="dots-three"></n-icon>
+              Other
+            </n-sidebar-group-header>
+            {otherEntries.map(e => (
+              <n-sidebar-nav-item
+                value={e.path}
+                aria-current={currentPath === e.path ? 'page' : undefined}
+              >
+                {e.title}
+              </n-sidebar-nav-item>
+            ))}
+          </n-sidebar-group>
+
+
         </n-sidebar-nav>
       </n-sidebar-content>
 
@@ -145,7 +294,7 @@ const groupIcons: Record<string, string> = {
     </n-sidebar>
 
     <div>
-      <n-app-breadcrumb>
+      <n-dashboard-breadcrumb>
         <n-button
           variant="ghost"
           size="sm"
@@ -162,6 +311,11 @@ const groupIcons: Record<string, string> = {
               <n-breadcrumb-item>{currentEntry.group}</n-breadcrumb-item>
               <n-breadcrumb-item current>{currentEntry.title}</n-breadcrumb-item>
             </>
+          ) : currentPath.startsWith('/admin/') ? (
+            <>
+              <n-breadcrumb-item>Admin</n-breadcrumb-item>
+              <n-breadcrumb-item current>{title}</n-breadcrumb-item>
+            </>
           ) : currentPath.startsWith('/account/') ? (
             <>
               <n-breadcrumb-item>Account</n-breadcrumb-item>
@@ -173,6 +327,11 @@ const groupIcons: Record<string, string> = {
         </n-breadcrumb>
 
         <div slot="trailing" style="display:flex;align-items:center;gap:0.125rem">
+          {currentEntry && (
+            <n-button variant="ghost" size="sm" aria-label="Pin page" id="pin-toggle" data-path={currentEntry.path}>
+              <n-icon name="star" size="md" weight={prefs.pinnedPages.includes(currentEntry.path) ? 'fill' : undefined}></n-icon>
+            </n-button>
+          )}
           <n-button variant="ghost" size="sm" aria-label="Toggle inspector" id="inspector-toggle">
             <n-icon name="sliders-horizontal" size="md"></n-icon>
           </n-button>
@@ -186,19 +345,21 @@ const groupIcons: Record<string, string> = {
             <n-icon name={prefs.colorScheme === 'dark' ? 'sun' : 'moon'} size="md"></n-icon>
           </n-button>
         </div>
-      </n-app-breadcrumb>
+      </n-dashboard-breadcrumb>
 
-      <n-app-canvas>
-        <n-app-panel transition:animate="fade">
+      <n-dashboard-canvas>
+        <n-dashboard-panel transition:animate="fade">
           <slot />
-        </n-app-panel>
+        </n-dashboard-panel>
         <n-gripper mode="resize-horizontal" for="inspector-panel" placement="start" min="280" max="480" reverse></n-gripper>
-        <native-tokens-panel aside id="inspector-panel"></native-tokens-panel>
+        <native-design-panel aside id="inspector-panel"></native-design-panel>
         <n-gripper mode="resize-horizontal" for="chat-panel" placement="start" min="280" max="480" reverse></n-gripper>
         <native-chat-panel aside id="chat-panel" gateway="claude" gateway-url="/api/anthropic" model="claude-haiku-4-5-20251001" models="claude-haiku-4-5-20251001,claude-sonnet-4-6-20250514,claude-opus-4-20250514,gpt-4.1-nano,gpt-4.1-mini,gpt-4.1,o3-mini,o3,o4-mini" gateway-urls='{"claude":"/api/anthropic","openai":"/api/openai"}'></native-chat-panel>
-      </n-app-canvas>
+      </n-dashboard-canvas>
     </div>
   </native-app>
+
+  <script is:inline type="application/json" id="sitemap-data" set:html={JSON.stringify(sitemap.map(e => ({ path: e.path, title: e.title, group: e.group })))}></script>
 
   <script>
     import '../scripts/layout.ts';

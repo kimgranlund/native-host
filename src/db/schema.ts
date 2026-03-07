@@ -185,5 +185,6 @@ export const userPreferences = sqliteTable('user_preferences', {
   sidebarCollapsed: integer('sidebar_collapsed', { mode: 'boolean' }).default(false),
   groupStates: text('group_states').default('{}'),
   showCode: integer('show_code', { mode: 'boolean' }).default(false),
+  pinnedPages: text('pinned_pages').default('[]'),
   updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull().$defaultFn(() => new Date()),
 });

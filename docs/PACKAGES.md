@@ -11,12 +11,12 @@ native-host depends on 7 @nonoun packages. All are light DOM web component libra
 | Package | Version | HTML Tags | JS Registration | CSS Import | Role |
 |---------|---------|-----------|-----------------|------------|------|
 | @nonoun/native-ui | 0.6.1 | `n-*` (n-button, n-dialog, n-icon, etc.) | `import '@nonoun/native-ui/register'` | `@import '@nonoun/native-ui/css/foundation'` + `@import '@nonoun/native-ui/css/components'` | Core component library |
-| @nonoun/native-app | 0.3.1 | native-app, n-sidebar-nav, n-sidebar-nav-item, n-sidebar-group, n-sidebar-group-header, n-sidebar-item, n-sidebar-header, n-sidebar-content, n-sidebar-footer (CSS-only: n-app-breadcrumb, n-app-canvas, n-app-panel) | `import '@nonoun/native-app'` | `@import '@nonoun/native-app/css'` | Layout, sidebar, nav |
-| @nonoun/native-tokens | 0.5.1 | native-tokens, native-tokens-* | `import '@nonoun/native-tokens'` | `@import '@nonoun/native-tokens/css'` | Inspector widget |
-| @nonoun/native-chat | 0.1.2 | n-chat, n-chat-* | `import '@nonoun/native-chat/register'` | `@import '@nonoun/native-chat/css'` | Chat panel |
-| @nonoun/native-editor | 0.2.5 | native-editor | `import '@nonoun/native-editor/register'` | -- | Markdown editor (CodeMirror) |
-| @nonoun/native-playground | 0.2.5 | native-playground | `import '@nonoun/native-playground/register'` | -- | Live code sandbox |
-| @nonoun/native-codemirror | 0.2.6 | native-codemirror | `import '@nonoun/native-codemirror/register'` | `@import '@nonoun/native-codemirror/css'` | CodeMirror element + utilities |
+| @nonoun/native-dashboard | 0.3.1 | native-app, n-sidebar-nav, n-sidebar-nav-item, n-sidebar-group, n-sidebar-group-header, n-sidebar-item, n-sidebar-header, n-sidebar-content, n-sidebar-footer (CSS-only: n-app-breadcrumb, n-app-canvas, n-app-panel) | `import '@nonoun/native-dashboard'` | `@import '@nonoun/native-dashboard/css'` | Layout, sidebar, nav |
+| @nonoun/native-design | 0.5.1 | native-tokens, native-tokens-* | `import '@nonoun/native-design'` | `@import '@nonoun/native-design/css'` | Inspector widget |
+| @nonoun/native-ai | 0.1.2 | n-chat, n-chat-* | `import '@nonoun/native-ai/register'` | `@import '@nonoun/native-ai/css'` | Chat panel |
+| @nonoun/native-code | 0.2.5 | native-editor | `import '@nonoun/native-code/register'` | -- | Markdown editor (CodeMirror) |
+| @nonoun/native-code | 0.2.5 | native-playground | `import '@nonoun/native-code/register'` | -- | Live code sandbox |
+| @nonoun/native-code | 0.2.6 | native-codemirror | `import '@nonoun/native-code/register'` | `@import '@nonoun/native-code/css'` | CodeMirror element + utilities |
 
 Dev dependency: `@phosphor-icons/core` (icon SVG source, not shipped to client).
 
@@ -36,8 +36,8 @@ Registration happens in `src/scripts/setup.ts`, loaded via `BaseLayout.astro`.
 ```ts
 // src/scripts/setup.ts
 import '@nonoun/native-ui/register';
-import '@nonoun/native-app';
-import '@nonoun/native-chat/register';
+import '@nonoun/native-dashboard';
+import '@nonoun/native-ai/register';
 import { registerAllTraits } from '@nonoun/native-ui';
 
 registerAllTraits();
@@ -65,15 +65,15 @@ All CSS is loaded in layouts via `<style is:global>` with `@import`. Never use `
 /* src/layouts/BaseLayout.astro */
 @import '@nonoun/native-ui/css/foundation';
 @import '@nonoun/native-ui/css/components';
-@import '@nonoun/native-app/css';
-@import '@nonoun/native-chat/css';
+@import '@nonoun/native-dashboard/css';
+@import '@nonoun/native-ai/css';
 ```
 
 **SidebarLayout.astro** adds the inspector CSS:
 
 ```css
 /* src/layouts/SidebarLayout.astro */
-@import '@nonoun/native-tokens/css';
+@import '@nonoun/native-design/css';
 ```
 
 native-editor, native-playground, and native-codemirror have no separate CSS imports.

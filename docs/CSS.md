@@ -18,14 +18,14 @@ Every `<style>` block targeting `n-*` or `native-*` elements **must** use `is:gl
 BaseLayout.astro
   @import '@nonoun/native-ui/css/foundation'   -- tokens, reset, base typography
   @import '@nonoun/native-ui/css/components'    -- all n-* component styles
-  @import '@nonoun/native-app/css'              -- sidebar, nav, breadcrumb, canvas
-  @import '@nonoun/native-chat/css'             -- chat component styles
+  @import '@nonoun/native-dashboard/css'              -- sidebar, nav, breadcrumb, canvas
+  @import '@nonoun/native-ai/css'             -- chat component styles
 
 SidebarLayout.astro
   @import '../styles/layout.css'                -- app chrome (reset, logo, search, command dialog)
     @import './demo.css'                        -- demo page base styles (.demo-* classes)
   @import '../styles/layout-blocks.css'         -- documentation layout utilities (.layout-* classes)
-  @import '@nonoun/native-tokens/css'           -- inspector panel styles
+  @import '@nonoun/native-design/css'           -- inspector panel styles
 
 Per-page .astro files
   <style is:global>                             -- page-specific demo styles

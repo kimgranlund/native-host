@@ -20,7 +20,7 @@ Every page rendered through `SidebarLayout` can control which aside panels appea
 
 Key structural details:
 
-- **Aside panels use component-specific elements** from `@nonoun/native-tokens` and `@nonoun/native-chat`. Each panel extends `NativeElement` and stamps its own `<n-header>`, `<n-body>`, and (for chat) `<n-footer>` sub-containers internally during `setup()`.
+- **Aside panels use component-specific elements** from `@nonoun/native-design` and `@nonoun/native-ai`. Each panel extends `NativeElement` and stamps its own `<n-header>`, `<n-body>`, and (for chat) `<n-footer>` sub-containers internally during `setup()`.
 
 - **Resize handles use `<n-gripper>`** from native-ui. Each gripper uses Popover API (top-layer rendering) and CSS Anchor Positioning to auto-position on the target panel's start edge. No JS wiring needed — fully declarative via attributes (`mode`, `for`, `placement`, `min`, `max`, `reverse`).
 
@@ -102,13 +102,13 @@ A `slot="chat"` works identically for the chat panel.
 
 ## Inspector Panel
 
-The default inspector is `<native-tokens-panel aside>` from `@nonoun/native-tokens`. It stamps its own `<n-header>` (with icon, title, theme/family selects) and `<n-body>` containing `<native-tokens>`. The package is self-registering -- `layout.ts` imports `@nonoun/native-tokens` as a side effect, and `SidebarLayout` loads the CSS via `@import '@nonoun/native-tokens/css'`.
+The default inspector is `<native-tokens-panel aside>` from `@nonoun/native-design`. It stamps its own `<n-header>` (with icon, title, theme/family selects) and `<n-body>` containing `<native-tokens>`. The package is self-registering -- `layout.ts` imports `@nonoun/native-design` as a side effect, and `SidebarLayout` loads the CSS via `@import '@nonoun/native-design/css'`.
 
 The inspector can be overridden on a per-page basis via `slot="inspector"` (see Custom panel content above).
 
 ## Chat Panel
 
-The default chat is `<native-chat-panel aside>` from `@nonoun/native-chat`. It stamps `<n-header>` (icon + title), `<n-body>` (with `<n-chat-content>`), and `<n-footer>` (with `<n-chat-input>`). Registered in `setup.ts` via `import '@nonoun/native-chat/register'`.
+The default chat is `<native-chat-panel aside>` from `@nonoun/native-ai`. It stamps `<n-header>` (icon + title), `<n-body>` (with `<n-chat-content>`), and `<n-footer>` (with `<n-chat-input>`). Registered in `setup.ts` via `import '@nonoun/native-ai/register'`.
 
 The chat panel can be overridden via `slot="chat"`.
 

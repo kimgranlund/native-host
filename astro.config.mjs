@@ -18,8 +18,7 @@ function resolveLocalPackages() {
 
   const pkgDirs = [
     uiRoot,
-    ...['native-a2ui', 'native-app', 'native-chat', 'native-tokens',
-        'native-codemirror', 'native-editor', 'native-playground',
+    ...['native-ai', 'native-dashboard', 'native-code', 'native-design', 'native-data-viz',
     ].map(name => resolve(uiRoot, 'packages', name)),
   ];
 
@@ -68,7 +67,7 @@ export default defineConfig({
   adapter: vercel(),
   vite: {
     optimizeDeps: {
-      include: ['better-auth/client', '@nonoun/native-a2ui', '@nonoun/native-ui/kernel'],
+      include: ['better-auth/client', '@nonoun/native-ai', '@nonoun/native-ui/kernel'],
     },
     css: {
       // Allow @import of npm packages in <style> blocks

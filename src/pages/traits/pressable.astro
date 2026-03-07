@@ -54,7 +54,7 @@ const detailPointerType = `{ pointerType }`;
         <n-controller traits="pressable">
           <div class="press-box" tabindex="0">Another pressable</div>
         </n-controller>
-        <n-controller traits="pressable" pressable-disabled="true">
+        <n-controller traits="pressable" data-trait-pressable-disabled="true">
           <div class="press-box" tabindex="0" disabled>Disabled</div>
         </n-controller>
       </n-stack>
@@ -104,7 +104,7 @@ const detailPointerType = `{ pointerType }`;
         <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Type</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
         <n-table-body>
           <n-table-row>
-            <n-table-cell><code>pressable-disabled</code></n-table-cell>
+            <n-table-cell><code>data-trait-pressable-disabled</code></n-table-cell>
             <n-table-cell><code>boolean</code></n-table-cell>
             <n-table-cell><code>false</code></n-table-cell>
             <n-table-cell>Disables press behavior when <code>"true"</code>. Pointer events are ignored.</n-table-cell>

@@ -14,6 +14,12 @@ export interface PageEntry {
 const pageBadges: Record<string, BadgeKind> = {
   '/changelog': 'updated',
   '/showcase/a2a-tictactoe': 'new',
+  '/traits/tossable': 'new',
+  '/traits/flippable': 'new',
+  '/traits/parallaxable': 'new',
+  '/traits/confettible': 'new',
+  '/traits/magnetizable': 'new',
+  '/traits/css-inspectable': 'new',
 };
 
 // Directory → group mapping
@@ -22,18 +28,29 @@ const dirGroup: Record<string, string> = {
   containers: 'Containers',
   traits: 'Traits',
   blocks: 'Blocks',
-  core: 'Core',
-  packages: 'Showcase',
-  showcase: 'Showcase',
+  core: 'Core Systems',
+  packages: 'Utilities',
+  showcase: 'Agentic AI',
   styles: 'Other',
-  a2ui: 'Showcase',
+  a2ui: 'Agentic AI',
+  gateways: 'Gateways',
+  controllers: 'Controllers',
 };
 
-// Group display order
-const groupOrder = ['Components', 'Containers', 'Traits', 'Blocks', 'Core', 'Showcase', 'Other'];
+// Group display order (flat — section headers are layout-only in SidebarLayout)
+const groupOrder = [
+  'New & Updates', 'Demo Highlights',
+  'Agentic AI', 'Traits', 'Gateways', 'Controllers', 'Utilities',
+  'Blocks', 'Components', 'Containers', 'Core Systems',
+  'Other',
+];
 
 // Group overrides for pages outside their natural directory
-const groupOverrides: Record<string, string> = {};
+const groupOverrides: Record<string, string> = {
+  '/kernel': 'Core Systems',
+  '/icons': 'Core Systems',
+  '/changelog': 'Other',
+};
 
 // Title overrides for pages where filename ≠ display title
 const titleOverrides: Record<string, string> = {
@@ -49,6 +66,7 @@ const titleOverrides: Record<string, string> = {
   '/traits/slash-commandable': 'SlashCommandable',
   '/traits/shortcutable': 'Shortcutable',
   '/traits/list-navigable': 'ListNavigable',
+  '/traits/css-inspectable': 'CSSInspectable',
   '/blocks/data-dashboard-stats': 'Dashboard Stats',
   '/blocks/notify-toast-demo': 'Toast Demo',
   '/blocks/notify-empty-state': 'Empty State',
@@ -66,6 +84,12 @@ const titleOverrides: Record<string, string> = {
   '/icons': 'Icons',
   '/kernel': 'Kernel',
   '/showcase/a2a-tictactoe': 'A2A Demo',
+  '/changelog': 'Changelog',
+  '/gateways': 'Gateways',
+  '/controllers': 'Controllers',
+  '/styles/reference': 'Reference',
+  '/styles/state-grid': 'State Grid',
+  '/styles/colors': 'Colors',
 };
 
 // Derive title from slug: "auth-login" → "Auth Login", "ui-button" → "Button"
@@ -92,25 +116,28 @@ function buildSitemap(): PageEntry[] {
     // /src/pages/components/ui-button.astro → /components/ui-button
     const relative = filePath.replace('/src/pages', '').replace(/\.astro$/, '');
 
-    // Skip index page (it's the landing page, not a doc page)
+    // Skip index pages (landing page, directory index pages render at directory path)
     if (relative === '/index') continue;
 
-    // Skip auth, account, and API pages (not doc pages)
-    if (relative.startsWith('/auth/') || relative.startsWith('/account/') || relative.startsWith('/api/')) continue;
+    // Skip auth, account, API, admin, and signup pages
+    if (relative.startsWith('/auth/') || relative.startsWith('/account/') || relative.startsWith('/api/') || relative.startsWith('/admin/')) continue;
+    if (relative === '/signup') continue;
 
     // Parse directory and slug
     const parts = relative.split('/').filter(Boolean); // ["components", "ui-button"]
     const slug = parts[parts.length - 1];
     const dir = parts.length > 1 ? parts[0] : null;
 
-    // Determine group
-    const group = groupOverrides[relative] ?? (dir ? (dirGroup[dir] || 'Other') : 'Other');
+    // Directory index files: /gateways/index → path "/gateways", slug uses dir name
+    const isIndex = slug === 'index';
+    const path = isIndex ? `/${dir}` : relative;
+    const effectiveSlug = isIndex ? dir! : slug;
 
-    // Determine path
-    const path = relative;
+    // Determine group
+    const group = groupOverrides[path] ?? (dir ? (dirGroup[dir] || 'Other') : 'Other');
 
     // Determine title
-    const title = titleOverrides[path] || slugToTitle(slug, group);
+    const title = titleOverrides[path] || slugToTitle(effectiveSlug, group);
 
     const badge = pageBadges[path];
     entries.push({ title, path, group, ...(badge && { badge }) });
@@ -128,3 +155,23 @@ function buildSitemap(): PageEntry[] {
 }
 
 export const sitemap = buildSitemap();
+
+// Demo Highlights — hardcoded featured pages
+export const demoHighlights: { path: string; title: string }[] = [
+  { path: '/showcase/a2a-tictactoe', title: 'A2A Demo' },
+  { path: '/a2ui/a2ui-workbench', title: 'A2UI Workbench' },
+];
+
+// New & Updated pages — filtered from sitemap badges
+export function getNewAndUpdatedPages(): PageEntry[] {
+  const order: Record<string, number> = { new: 0, updated: 1, recent: 2 };
+  return sitemap
+    .filter(e => e.badge)
+    .sort((a, b) => {
+      return (order[a.badge!] ?? 9) - (order[b.badge!] ?? 9) || a.title.localeCompare(b.title);
+    });
+}
+
+// Section definitions for sidebar layout
+export const caseStudyGroups = ['Agentic AI', 'Traits', 'Gateways', 'Controllers', 'Utilities'];
+export const nativeGroups = ['Blocks', 'Components', 'Containers', 'Core Systems'];

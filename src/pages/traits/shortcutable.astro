@@ -53,8 +53,8 @@ toggleBtn.addEventListener('click', () =&gt; {
 });`,
   declarative: `&lt;n-controller
   traits="shortcutable"
-  shortcutable-shortcuts='[{"id":"hello","combo":"ctrl+h"},{"id":"world","combo":"ctrl+j"}]'
-  shortcutable-global="true"
+  data-trait-shortcutable-shortcuts='[{"id":"hello","combo":"ctrl+h"},{"id":"world","combo":"ctrl+j"}]'
+  data-trait-shortcutable-global="true"
 &gt;
   &lt;div&gt;...&lt;/div&gt;
 &lt;/n-controller&gt;
@@ -173,13 +173,13 @@ toggleBtn.addEventListener('click', () =&gt; {
     <h2>Declarative (Provider)</h2>
     <n-panel bordered>
       <n-text size="xs" muted spacing="tight">
-        Use <code>&lt;n-controller traits="shortcutable"&gt;</code> with the <code>shortcutable-shortcuts</code> JSON attribute and optional <code>shortcutable-global</code>. Listen for <code>native:shortcut</code> on the host.
+        Use <code>&lt;n-controller traits="shortcutable"&gt;</code> with the <code>data-trait-shortcutable-shortcuts</code> JSON attribute and optional <code>data-trait-shortcutable-global</code>. Listen for <code>native:shortcut</code> on the host.
       </n-text>
       <n-controller
         id="declarative-ctrl"
         traits="shortcutable"
-        shortcutable-shortcuts='[{"id":"hello","combo":"ctrl+h"},{"id":"world","combo":"ctrl+j"}]'
-        shortcutable-global="true"
+        data-trait-shortcutable-shortcuts='[{"id":"hello","combo":"ctrl+h"},{"id":"world","combo":"ctrl+j"}]'
+        data-trait-shortcutable-global="true"
       >
         <div class="declarative-zone">
           <n-stack direction="row" gap="3" wrap>
@@ -329,12 +329,12 @@ toggleBtn.addEventListener('click', () =&gt; {
         <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Type</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
         <n-table-body>
           <n-table-row>
-            <n-table-cell><code>shortcutable-shortcuts</code></n-table-cell>
+            <n-table-cell><code>data-trait-shortcutable-shortcuts</code></n-table-cell>
             <n-table-cell><code>JSON string</code></n-table-cell>
             <n-table-cell>JSON array of <code>ShortcutBinding</code> objects. <code>handler</code> and <code>when</code> are not available declaratively — use <code>native:shortcut</code> event instead.</n-table-cell>
           </n-table-row>
           <n-table-row>
-            <n-table-cell><code>shortcutable-global</code></n-table-cell>
+            <n-table-cell><code>data-trait-shortcutable-global</code></n-table-cell>
             <n-table-cell><code>"true" | "false"</code></n-table-cell>
             <n-table-cell>Sets <code>global</code> option. Default <code>"false"</code>.</n-table-cell>
           </n-table-row>

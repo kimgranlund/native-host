@@ -1,0 +1,38 @@
+/* Shared styles for /admin/* pages */
+
+.admin-content {
+  min-width: 0;
+}
+
+.admin-dialog-card {
+  width: min(28rem, calc(100vw - 2rem));
+}
+
+/* ── Stats row ── */
+
+.admin-stat {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--n-space) * 0.5);
+  text-decoration: none;
+  color: inherit;
+}
+
+.admin-stat-label {
+  font-size: 0.625rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--n-ink-muted-neutral);
+}
+
+.admin-stat-value {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--n-ink-neutral);
+}
+
+.admin-stat[aria-current='page'] .admin-stat-value {
+  color: var(--n-ink-accent);
+}
+

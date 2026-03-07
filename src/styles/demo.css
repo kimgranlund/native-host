@@ -11,10 +11,10 @@ body {
   color: var(--n-color-neutral-950);
 }
 
-/* Heading styles are in layout-blocks.css, scoped to n-app-panel.
-   main padding is handled by --n-app-panel-content-padding. */
+/* Heading styles are in layout-blocks.css, scoped to n-dashboard-panel.
+   main padding is handled by --n-dashboard-panel-content-padding. */
 
-n-app-panel main p {
+n-dashboard-panel main p {
   margin: 0;
 }
 

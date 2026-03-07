@@ -1,0 +1,321 @@
+---
+import SidebarLayout from '../../layouts/SidebarLayout.astro';
+import AdminLayout from '../../components/AdminLayout.astro';
+import { requireAdmin } from '../../lib/permissions';
+import { db } from '../../db/client';
+import { member, user, invitation } from '../../db/schema';
+import { eq } from 'drizzle-orm';
+
+const ctx = await requireAdmin(Astro.locals);
+if (ctx instanceof Response) return ctx;
+
+const members = await db
+  .select({
+    id: member.id,
+    role: member.role,
+    createdAt: member.createdAt,
+    userId: user.id,
+    userName: user.name,
+    userEmail: user.email,
+    userImage: user.image,
+  })
+  .from(member)
+  .innerJoin(user, eq(member.userId, user.id))
+  .where(eq(member.organizationId, ctx.orgId));
+
+const invitations = await db
+  .select()
+  .from(invitation)
+  .where(eq(invitation.organizationId, ctx.orgId));
+
+const pendingInvitations = invitations.filter(i => i.status === 'pending');
+
+function roleIntent(role: string) {
+  if (role === 'owner') return 'accent';
+  if (role === 'admin') return 'info';
+  return 'neutral';
+}
+---
+<SidebarLayout title="Members">
+  <AdminLayout current="/admin/members" orgId={ctx.orgId}>
+          <n-table id="members-table" cols="1fr 1fr auto auto">
+            <n-table-row colspan>
+              <n-table-cell>
+                <n-header>
+                  <h2>Members</h2>
+                  <n-button id="invite-btn" variant="primary" intent="accent" slot="trailing">
+                    <n-icon name="user-plus" slot="leading"></n-icon>
+                    <span slot="label">Invite Member</span>
+                  </n-button>
+                </n-header>
+              </n-table-cell>
+            </n-table-row>
+            <n-table-row header>
+              <n-table-cell>Name</n-table-cell>
+              <n-table-cell>Email</n-table-cell>
+              <n-table-cell>Role</n-table-cell>
+              <n-table-cell>Actions</n-table-cell>
+            </n-table-row>
+            {members.map(m => (
+              <n-table-row>
+                <n-table-cell>
+                  <n-stack direction="row" gap="2" align="center">
+                    <n-avatar size="sm" name={m.userName} src={m.userImage || undefined}></n-avatar>
+                    <n-text>{m.userName}</n-text>
+                  </n-stack>
+                </n-table-cell>
+                <n-table-cell>
+                  <n-text muted size="sm">{m.userEmail}</n-text>
+                </n-table-cell>
+                <n-table-cell>
+                  <n-badge intent={roleIntent(m.role)}>{m.role}</n-badge>
+                </n-table-cell>
+                <n-table-cell>
+                  {m.role !== 'owner' && (
+                    <n-stack direction="row" gap="1">
+                      <n-button
+                        variant="ghost"
+                        size="sm"
+                        data-action="edit-role"
+                        data-member-id={m.id}
+                        data-user-name={m.userName}
+                      >
+                        <n-icon name="pencil-simple" slot="leading"></n-icon>
+                      </n-button>
+                      <n-button
+                        variant="ghost"
+                        size="sm"
+                        intent="danger"
+                        data-action="remove"
+                        data-member-id={m.id}
+                        data-user-name={m.userName}
+                      >
+                        <n-icon name="trash" slot="leading"></n-icon>
+                      </n-button>
+                    </n-stack>
+                  )}
+                </n-table-cell>
+              </n-table-row>
+            ))}
+          </n-table>
+    <!-- Pending invitations -->
+    {pendingInvitations.length > 0 && (
+              <n-table id="invitations-table" cols="1fr auto auto auto">
+                <n-table-row colspan>
+                  <n-table-cell>
+                    <n-header>
+                      <h2>Pending Invitations</h2>
+                    </n-header>
+                  </n-table-cell>
+                </n-table-row>
+                <n-table-row header>
+                  <n-table-cell>Email</n-table-cell>
+                  <n-table-cell>Role</n-table-cell>
+                  <n-table-cell>Status</n-table-cell>
+                  <n-table-cell>Actions</n-table-cell>
+                </n-table-row>
+                {pendingInvitations.map(inv => (
+                  <n-table-row>
+                    <n-table-cell>
+                      <n-text size="sm">{inv.email}</n-text>
+                    </n-table-cell>
+                    <n-table-cell>
+                      <n-badge intent={roleIntent(inv.role)}>{inv.role}</n-badge>
+                    </n-table-cell>
+                    <n-table-cell>
+                      <n-badge intent="warning">{inv.status}</n-badge>
+                    </n-table-cell>
+                    <n-table-cell>
+                      <n-button
+                        variant="ghost"
+                        size="sm"
+                        intent="danger"
+                        data-action="revoke"
+                        data-invitation-id={inv.id}
+                      >
+                        <n-icon name="x" slot="leading"></n-icon>
+                        <span slot="label">Revoke</span>
+                      </n-button>
+                    </n-table-cell>
+                  </n-table-row>
+                ))}
+              </n-table>
+    )}
+
+    <!-- Invite dialog -->
+    <n-dialog id="invite-dialog">
+      <div class="admin-dialog-card">
+        <n-card>
+          <n-header>
+            <span slot="label">Invite Member</span>
+          </n-header>
+          <n-body>
+            <n-stack gap="4">
+              <n-field required>
+                <label slot="label">Email address</label>
+                <n-input id="invite-email" type="email" placeholder="user@example.com">
+                  <n-icon name="envelope" slot="leading"></n-icon>
+                </n-input>
+              </n-field>
+              <n-field>
+                <label slot="label">Role</label>
+                <n-select id="invite-role" value="member" options='[{"value":"member","label":"Member"},{"value":"admin","label":"Admin"}]'></n-select>
+              </n-field>
+            </n-stack>
+          </n-body>
+          <n-footer>
+            <n-button id="invite-cancel">
+              <span slot="label">Cancel</span>
+            </n-button>
+            <n-button id="invite-submit" variant="primary" intent="accent">
+              <span slot="label">Send Invite</span>
+            </n-button>
+          </n-footer>
+        </n-card>
+      </div>
+    </n-dialog>
+
+    <!-- Role change dialog -->
+    <n-dialog id="role-dialog">
+      <div class="admin-dialog-card">
+        <n-card>
+          <n-header>
+            <span slot="label">Change Role</span>
+          </n-header>
+          <n-body>
+            <n-stack gap="4">
+              <n-text muted size="sm">Update the role for <n-text id="role-name" variant="strong"></n-text></n-text>
+              <n-field>
+                <label slot="label">Role</label>
+                <n-select id="role-select" value="member" options='[{"value":"member","label":"Member"},{"value":"admin","label":"Admin"},{"value":"owner","label":"Owner"}]'></n-select>
+              </n-field>
+            </n-stack>
+          </n-body>
+          <n-footer>
+            <n-button id="role-cancel">
+              <span slot="label">Cancel</span>
+            </n-button>
+            <n-button id="role-submit" variant="primary" intent="accent">
+              <span slot="label">Save</span>
+            </n-button>
+          </n-footer>
+        </n-card>
+      </div>
+    </n-dialog>
+
+    <!-- Remove confirmation dialog -->
+    <n-dialog id="remove-dialog">
+      <div class="admin-dialog-card">
+        <n-card>
+          <n-header>
+            <n-icon name="warning" slot="leading" size="lg"></n-icon>
+            <span slot="label">Remove Member?</span>
+          </n-header>
+          <n-body>
+            <n-text>Are you sure you want to remove <n-text id="remove-name" variant="strong"></n-text> from the organization? This action cannot be undone.</n-text>
+          </n-body>
+          <n-footer>
+            <n-button id="remove-cancel">
+              <span slot="label">Cancel</span>
+            </n-button>
+            <n-button id="remove-submit" variant="primary" intent="danger">
+              <n-icon name="trash" slot="leading"></n-icon>
+              <span slot="label">Remove</span>
+            </n-button>
+          </n-footer>
+        </n-card>
+      </div>
+    </n-dialog>
+  </AdminLayout>
+</SidebarLayout>
+
+<script>
+document.addEventListener('astro:page-load', () => {
+  const table = document.getElementById('members-table');
+  if (!table || table.hasAttribute('data-wired')) return;
+  table.setAttribute('data-wired', '');
+
+  // Wire invite dialog
+  const inviteDialog = document.getElementById('invite-dialog') as any;
+  document.getElementById('invite-btn')?.addEventListener('native:press', () => inviteDialog?.showModal());
+  document.getElementById('invite-cancel')?.addEventListener('native:press', () => inviteDialog?.close());
+  document.getElementById('invite-submit')?.addEventListener('native:press', async () => {
+    const email = (document.getElementById('invite-email') as any)?.value;
+    const role = (document.getElementById('invite-role') as any)?.value || 'member';
+    if (!email) return;
+    const res = await fetch('/api/admin/members', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'same-origin',
+      body: JSON.stringify({ email, role }),
+    });
+    if (res.ok) {
+      inviteDialog?.close();
+      location.reload();
+    }
+  });
+
+  // Wire role change buttons
+  const roleDialog = document.getElementById('role-dialog') as any;
+  let activeRoleMemberId = '';
+  table.querySelectorAll('[data-action="edit-role"]').forEach(btn => {
+    btn.addEventListener('native:press', () => {
+      activeRoleMemberId = btn.getAttribute('data-member-id') || '';
+      const name = btn.getAttribute('data-user-name') || '';
+      const nameEl = document.getElementById('role-name');
+      if (nameEl) nameEl.textContent = name;
+      roleDialog?.showModal();
+    });
+  });
+  document.getElementById('role-cancel')?.addEventListener('native:press', () => roleDialog?.close());
+  document.getElementById('role-submit')?.addEventListener('native:press', async () => {
+    const role = (document.getElementById('role-select') as any)?.value || 'member';
+    const res = await fetch(`/api/admin/members/${activeRoleMemberId}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'same-origin',
+      body: JSON.stringify({ role }),
+    });
+    if (res.ok) {
+      roleDialog?.close();
+      location.reload();
+    }
+  });
+
+  // Wire remove buttons
+  const removeDialog = document.getElementById('remove-dialog') as any;
+  let activeRemoveMemberId = '';
+  table.querySelectorAll('[data-action="remove"]').forEach(btn => {
+    btn.addEventListener('native:press', () => {
+      activeRemoveMemberId = btn.getAttribute('data-member-id') || '';
+      const name = btn.getAttribute('data-user-name') || '';
+      const nameEl = document.getElementById('remove-name');
+      if (nameEl) nameEl.textContent = name;
+      removeDialog?.showModal();
+    });
+  });
+  document.getElementById('remove-cancel')?.addEventListener('native:press', () => removeDialog?.close());
+  document.getElementById('remove-submit')?.addEventListener('native:press', async () => {
+    const res = await fetch(`/api/admin/members/${activeRemoveMemberId}`, {
+      method: 'DELETE',
+      credentials: 'same-origin',
+    });
+    if (res.ok) {
+      removeDialog?.close();
+      location.reload();
+    }
+  });
+
+  // Wire invitation revoke buttons
+  document.querySelectorAll('[data-action="revoke"]').forEach(btn => {
+    btn.addEventListener('native:press', async () => {
+      const id = btn.getAttribute('data-invitation-id');
+      const res = await fetch(`/api/admin/invitations/${id}`, {
+        method: 'DELETE',
+        credentials: 'same-origin',
+      });
+      if (res.ok) location.reload();
+    });
+  });
+});
+</script>

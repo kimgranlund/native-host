@@ -2,7 +2,7 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
 const codeExamples = {
-  basicTableSort: `&lt;n-controller traits="sortable" sortable-selector="th"&gt;
+  basicTableSort: `&lt;n-controller traits="sortable" data-trait-sortable-selector="th"&gt;
   &lt;div&gt;
     &lt;table class="sort-table"&gt;
       &lt;thead&gt;
@@ -40,7 +40,7 @@ const codeExamples = {
     for (const row of rows) tbody.appendChild(row);
   });
 &lt;/script&gt;`,
-  customSelector: `&lt;n-controller traits="sortable" sortable-selector="[data-column]"&gt;
+  customSelector: `&lt;n-controller traits="sortable" data-trait-sortable-selector="[data-column]"&gt;
   &lt;div&gt;
     &lt;table class="sort-table"&gt;
       &lt;thead&gt;
@@ -104,7 +104,7 @@ const detailColumnDirection = `{ column, direction }`;
       <n-text size="xs" muted spacing="tight">
         <code>&lt;n-controller&gt;</code> wraps a plain <code>&lt;div&gt;</code> and applies the sortable trait. Click column headers to cycle sort direction. ARIA <code>aria-sort</code> is synced automatically.
       </n-text>
-      <n-controller traits="sortable" sortable-selector="th">
+      <n-controller traits="sortable" data-trait-sortable-selector="th">
         <div id="basic-wrapper">
           <table class="sort-table">
             <thead>
@@ -135,7 +135,7 @@ const detailColumnDirection = `{ column, direction }`;
       <n-text size="xs" muted spacing="tight">
         Using <code>data-column</code> attributes on headers with a <code>[data-column]</code> selector. Column identity comes from the attribute rather than text content.
       </n-text>
-      <n-controller traits="sortable" sortable-selector="[data-column]">
+      <n-controller traits="sortable" data-trait-sortable-selector="[data-column]">
         <div id="custom-wrapper">
           <table class="sort-table">
             <thead>
@@ -167,13 +167,13 @@ const detailColumnDirection = `{ column, direction }`;
         <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Type</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
         <n-table-body>
           <n-table-row>
-            <n-table-cell><code>sortable-selector</code></n-table-cell>
+            <n-table-cell><code>data-trait-sortable-selector</code></n-table-cell>
             <n-table-cell><code>string</code></n-table-cell>
             <n-table-cell><code>''</code></n-table-cell>
             <n-table-cell>CSS selector for clickable header elements within the host.</n-table-cell>
           </n-table-row>
           <n-table-row>
-            <n-table-cell><code>sortable-disabled</code></n-table-cell>
+            <n-table-cell><code>data-trait-sortable-disabled</code></n-table-cell>
             <n-table-cell><code>boolean</code></n-table-cell>
             <n-table-cell><code>false</code></n-table-cell>
             <n-table-cell>Disables sort cycling when true. Header clicks are ignored.</n-table-cell>
