@@ -76,26 +76,25 @@ document.addEventListener('astro:before-swap', ((e: any) => {
     const restore = swapFunctions.saveFocus();
 
     // Swap only the main content panel — aside panels are always present and persist
-    const currentCanvas = currentSidebar.querySelector(':scope > div > n-dashboard-canvas');
-    const newCanvas = newSidebar.querySelector(':scope > div > n-dashboard-canvas');
-    const currentPanel = currentCanvas?.querySelector('n-dashboard-panel:not([aside])');
-    const newPanel = newCanvas?.querySelector('n-dashboard-panel:not([aside])');
+    const currentCanvas = currentSidebar.querySelector(':scope > section > section.content');
+    const newCanvas = newSidebar.querySelector(':scope > section > section.content');
+    const currentPanel = currentCanvas?.querySelector('main');
+    const newPanel = newCanvas?.querySelector('main');
     if (currentPanel && newPanel) {
       const adopted = document.adoptNode(newPanel);
       currentPanel.replaceWith(adopted);
-      customElements.upgrade(adopted);
     }
 
     // Swap breadcrumb trailing buttons (panel toggles may differ)
-    const currentTrailing = currentSidebar.querySelector('n-dashboard-breadcrumb [slot="trailing"]');
-    const newTrailing = newSidebar.querySelector('n-dashboard-breadcrumb [slot="trailing"]');
+    const currentTrailing = currentSidebar.querySelector(':scope > section > nav > aside');
+    const newTrailing = newSidebar.querySelector(':scope > section > nav > aside');
     if (currentTrailing && newTrailing) {
       currentTrailing.replaceWith(document.adoptNode(newTrailing));
     }
 
     // Swap breadcrumb text
-    const currentBreadcrumb = currentSidebar.querySelector('n-dashboard-breadcrumb n-breadcrumb');
-    const newBreadcrumb = newSidebar.querySelector('n-dashboard-breadcrumb n-breadcrumb');
+    const currentBreadcrumb = currentSidebar.querySelector(':scope > section > nav n-breadcrumb');
+    const newBreadcrumb = newSidebar.querySelector(':scope > section > nav n-breadcrumb');
     if (currentBreadcrumb && newBreadcrumb) {
       currentBreadcrumb.replaceWith(document.adoptNode(newBreadcrumb));
     }

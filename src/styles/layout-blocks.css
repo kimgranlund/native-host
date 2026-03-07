@@ -1,14 +1,12 @@
 /* Shared layout-block styles — documentation layout, not component styling.
-   Scoped to n-dashboard-panel to avoid leaking into sidebar/breadcrumb/dialog.
-   n-dashboard-panel is used as a SCOPE (targets standard HTML descendants h1-h3, main),
-   which is an accepted infrastructure exception to rule #8 (no CSS on components). */
+   Scoped to <main> to avoid leaking into sidebar/breadcrumb/dialog. */
 
-n-dashboard-panel:not([aside]) {
+main {
   --n-dashboard-panel-content-max-width: 1180px;
   --n-dashboard-panel-content-padding: 2rem;
 }
 
-n-dashboard-panel h1 {
+main h1 {
   font-size: 1.75rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
@@ -16,7 +14,7 @@ n-dashboard-panel h1 {
   color: var(--n-ink-strong-neutral);
 }
 
-n-dashboard-panel > h2 {
+main > h2 {
   font-size: 1.375rem;
   font-weight: 700;
   margin-bottom: 1rem;
@@ -24,7 +22,7 @@ n-dashboard-panel > h2 {
   color: var(--n-ink-strong-neutral);
 }
 
-n-dashboard-panel h3 {
+main h3 {
   font-size: 0.8125rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -36,36 +34,36 @@ n-dashboard-panel h3 {
 
 /* ── Header layout ── */
 
-n-dashboard-panel > header {
+main > header {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
 }
 
-n-dashboard-panel > header > [data-slot="title"] {
+main > header > [data-slot="title"] {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
 }
 
-n-dashboard-panel > header > [data-slot="title"] > [data-slot="leading"] {
+main > header > [data-slot="title"] > [data-slot="leading"] {
   flex-shrink: 0;
 }
 
-n-dashboard-panel > header > [data-slot="title"] > [data-slot="content"] {
+main > header > [data-slot="title"] > [data-slot="content"] {
   flex: 1;
   min-width: 0;
 }
 
-n-dashboard-panel > header [data-slot="actions"] {
+main > header [data-slot="actions"] {
   display: flex;
   align-items: center;
   justify-content: flex-end;
   gap: 0.5rem;
 }
 
-n-dashboard-panel > header > [data-slot="description"] {
+main > header > [data-slot="description"] {
   font-size: 1.125rem;
   color: var(--n-ink-muted-neutral);
 }
@@ -80,13 +78,13 @@ n-dashboard-panel > header > [data-slot="description"] {
   color: var(--n-surface-ink-neutral);
 }
 
-n-dashboard-panel > header > [data-slot="actions"] {
+main > header > [data-slot="actions"] {
   margin-top: 0.5rem;
 }
 
 /* ── Dogfooded n-panel sections ── */
 
-n-dashboard-panel > main > :where(n-panel[bordered]) {
+main > main > :where(n-panel[bordered]) {
   margin-bottom: 1rem;
 }
 

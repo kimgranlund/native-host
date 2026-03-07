@@ -293,12 +293,11 @@ const groupIcons: Record<string, string> = {
       </n-sidebar-footer>
     </n-sidebar>
 
-    <div>
-      <n-dashboard-breadcrumb>
+    <section>
+      <nav>
         <n-button
           variant="ghost"
           size="sm"
-          slot="leading"
           aria-label="Toggle sidebar"
           id="sidebar-toggle"
         >
@@ -326,7 +325,7 @@ const groupIcons: Record<string, string> = {
           )}
         </n-breadcrumb>
 
-        <div slot="trailing" style="display:flex;align-items:center;gap:0.125rem">
+        <aside style="display:flex;align-items:center;gap:0.125rem">
           {currentEntry && (
             <n-button variant="ghost" size="sm" aria-label="Pin page" id="pin-toggle" data-path={currentEntry.path}>
               <n-icon name="star" size="md" weight={prefs.pinnedPages.includes(currentEntry.path) ? 'fill' : undefined}></n-icon>
@@ -344,19 +343,19 @@ const groupIcons: Record<string, string> = {
           <n-button variant="ghost" size="sm" aria-label="Toggle color scheme" id="theme-toggle">
             <n-icon name={prefs.colorScheme === 'dark' ? 'sun' : 'moon'} size="md"></n-icon>
           </n-button>
-        </div>
-      </n-dashboard-breadcrumb>
+        </aside>
+      </nav>
 
-      <n-dashboard-canvas>
-        <n-dashboard-panel transition:animate="fade">
+      <section class="content">
+        <main transition:animate="fade">
           <slot />
-        </n-dashboard-panel>
+        </main>
         <n-gripper mode="resize-horizontal" for="inspector-panel" placement="start" min="280" max="480" reverse></n-gripper>
         <native-design-panel aside id="inspector-panel"></native-design-panel>
         <n-gripper mode="resize-horizontal" for="chat-panel" placement="start" min="280" max="480" reverse></n-gripper>
         <native-chat-panel aside id="chat-panel" gateway="claude" gateway-url="/api/anthropic" model="claude-haiku-4-5-20251001" models="claude-haiku-4-5-20251001,claude-sonnet-4-6-20250514,claude-opus-4-20250514,gpt-4.1-nano,gpt-4.1-mini,gpt-4.1,o3-mini,o3,o4-mini" gateway-urls='{"claude":"/api/anthropic","openai":"/api/openai"}'></native-chat-panel>
-      </n-dashboard-canvas>
-    </div>
+      </section>
+    </section>
   </native-app>
 
   <script is:inline type="application/json" id="sitemap-data" set:html={JSON.stringify(sitemap.map(e => ({ path: e.path, title: e.title, group: e.group })))}></script>

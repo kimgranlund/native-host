@@ -13,15 +13,14 @@ Each agent reads this file at session start, processes tickets addressed to it, 
 
 ## Open
 
-| Status | File | Title | From | To |
-|--------|------|-------|------|----|
-| **open** | T0133-semantic-container-migration.md | Semantic container migration — `n-header`/`n-body`/`n-footer` → `<header>`/`<section>`/`<footer>` (non-breaking, dual CSS selectors) | native-ui | host |
-| **open** | T0134-semantic-layout-migration.md | Semantic layout migration — `n-dashboard-breadcrumb`/`n-dashboard-canvas`/`n-dashboard-panel` → `<nav>`/`<section>`/`<main>` (non-breaking, dual CSS selectors) | native-ui | host |
+(none)
 
 ## Recently Closed
 
 | Status | File | Title | From | To |
 |--------|------|-------|------|----|
+| **done** | T0134-semantic-layout-migration.md | Semantic layout migration — `n-dashboard-breadcrumb`/`n-dashboard-canvas`/`n-dashboard-panel` → `<nav>`/`<section class="content">`/`<main>`. Migrated SidebarLayout, layout.ts, setup.ts, layout-blocks.css, demo.css. Removed stub registration. | native-ui | host |
+| **done** | T0133-semantic-container-migration.md | Semantic container migration — `n-header`/`n-body`/`n-footer` → `<header>`/`<section>`/`<footer>`. Upgraded packages, migrated 52 files, zero old tags remain. | native-ui | host |
 | **fixed** | T0132-sidebar-section-header-element.md | Sidebar section header element — `<n-option-group-header>` is wrong element, causes collapsed sidebar rendering bug. Fixed in dashboard@0.4.4: new `<n-sidebar-section-label>` element. Host migrated. | host | native-ui |
 | **fixed** | T0131-dashboard-tag-name-broken-in-dist.md | Multiple packages have broken dist — wrong tag names, empty register.js files, missing define() calls (dashboard, ai, code, design). Fixed in ai@1.0.4, code@1.0.4, dashboard@0.4.4. | host | native-ui |
 
