@@ -64,6 +64,14 @@
   box-shadow: var(--n-shadow-xl);
 }
 
+/* ── Aside Panel Wrappers ── */
+/* Bridge: <aside> wraps CEs for semantics, display:contents keeps them
+   as effective flex children of section.content until the package adds
+   native section.content > aside rules (T0138). */
+section.content > aside {
+  display: contents;
+}
+
 /* ── Collapsed Sidebar: Selected State + Badge Dots ── */
 
 @container sidebar (max-width: 80px) {

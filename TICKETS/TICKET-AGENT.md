@@ -13,7 +13,17 @@ Each agent reads this file at session start, processes tickets addressed to it, 
 
 ## Open
 
-(none)
+| Status | File | Title | From | To |
+|--------|------|-------|------|----|
+| **fixed** | T0135-semantic-layout-parity-gaps.md | Semantic layout CSS parity gaps — padding/gap variables + [show-scrollbar] fix. Fixed in dashboard@0.4.6. | host | native-ui |
+| **fixed** | T0136-semantic-nav-breadcrumb-gaps.md | Semantic nav gaps — leading flex, min-width guard, slot trailing. Fixed in dashboard@0.4.6. | host | native-ui |
+| **fixed** | T0137-dashboard-css-hardcoded-values.md | Dashboard CSS hardcoded magic numbers → CSS variables. Fixed in dashboard@0.4.6. Dead CE CSS kept for compat. | host | native-ui |
+| **fixed** | T0138-semantic-aside-panels.md | Semantic aside support — full `<aside>` rules in section.content. Fixed in dashboard@0.4.6. | host | native-ui |
+| **open** | T0139-dom-architecture-alignment.md | DOM architecture alignment — canonical page templates, CSS contract, what package owns vs host | host | native-ui |
+| **open** | T0140-content-typography-stylesheet.md | Opt-in content typography stylesheet — `main h1/h2/h3` using design tokens | host | native-ui |
+| **open** | T0141-data-slot-header-layout.md | Ship `data-slot` layout rules for `main > header` — flex layout for title/leading/content/actions/description | host | native-ui |
+| **open** | T0142-base-layer-stylesheet.md | Base layer stylesheet — box-sizing reset, body defaults, reduced-motion `--n-duration: 0s` | host | native-ui |
+| **open** | T0143-collapsed-sidebar-badge-dots.md | Collapsed sidebar badge indicator dots — package should own `[data-has-badges]` visual treatment | host | native-ui |
 
 ## Recently Closed
 

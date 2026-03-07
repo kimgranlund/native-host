@@ -9,7 +9,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       </div>
     </div>
     <div data-slot="description">
-      <span class="header-tag">&lt;n-body&gt;</span> Generic scrollable content region. CSS-only sub-container that fills remaining flex space inside n-panel, n-card, n-drawer, or any flex column parent. Scrollbar hidden by default.
+      <span class="header-tag">&lt;section&gt;</span> Generic scrollable content region. Semantic sub-container that fills remaining flex space inside n-panel, n-card, n-drawer, or any flex column parent. Scrollbar hidden by default.
           </div>
   </header>
 
@@ -33,15 +33,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       </n-card>
       </div>
     <pre class="layout-code"><code>&lt;n-card&gt;
-  &lt;n-header&gt;
+  &lt;header&gt;
     &lt;span slot="label"&gt;Panel Title&lt;/span&gt;
-  &lt;/n-header&gt;
-  &lt;n-body&gt;
+  &lt;/header&gt;
+  &lt;section&gt;
     &lt;p&gt;Body content here.&lt;/p&gt;
-  &lt;/n-body&gt;
-  &lt;n-footer&gt;
+  &lt;/section&gt;
+  &lt;footer&gt;
     &lt;n-button variant="primary" intent="accent"&gt;OK&lt;/n-button&gt;
-  &lt;/n-footer&gt;
+  &lt;/footer&gt;
 &lt;/n-card&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
@@ -67,13 +67,13 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       </n-card>
       </div>
     <pre class="layout-code"><code>&lt;n-card style="height: 16rem;"&gt;
-  &lt;n-header&gt;&lt;span slot="label"&gt;Scrollable&lt;/span&gt;&lt;/n-header&gt;
-  &lt;n-body&gt;
+  &lt;header&gt;&lt;span slot="label"&gt;Scrollable&lt;/span&gt;&lt;/header&gt;
+  &lt;section&gt;
     &lt;p&gt;Long content that scrolls...&lt;/p&gt;
-  &lt;/n-body&gt;
-  &lt;n-footer&gt;
+  &lt;/section&gt;
+  &lt;footer&gt;
     &lt;n-button variant="primary" intent="accent"&gt;Done&lt;/n-button&gt;
-  &lt;/n-footer&gt;
+  &lt;/footer&gt;
 &lt;/n-card&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
@@ -92,9 +92,9 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         </section>
       </n-card>
       </div>
-    <pre class="layout-code"><code>&lt;n-body show-scrollbar&gt;
+    <pre class="layout-code"><code>&lt;section show-scrollbar&gt;
   &lt;p&gt;Scrollable content with a thin visible scrollbar.&lt;/p&gt;
-&lt;/n-body&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/section&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Padding Variants ── -->
@@ -135,10 +135,10 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         </n-card>
         </div>
       </n-stack>
-    <pre class="layout-code"><code>&lt;n-body padding="none"&gt;...&lt;/n-body&gt;
-&lt;n-body&gt;...&lt;/n-body&gt;                     &lt;!-- default (tight) --&gt;
-&lt;n-body padding="regular"&gt;...&lt;/n-body&gt;
-&lt;n-body padding="relaxed"&gt;...&lt;/n-body&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    <pre class="layout-code"><code>&lt;section padding="none"&gt;...&lt;/section&gt;
+&lt;section&gt;...&lt;/section&gt;                     &lt;!-- default (tight) --&gt;
+&lt;section padding="regular"&gt;...&lt;/section&gt;
+&lt;section padding="relaxed"&gt;...&lt;/section&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── With Card ── -->
@@ -159,14 +159,14 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       </n-card>
       </div>
     <pre class="layout-code"><code>&lt;n-card&gt;
-  &lt;n-header&gt;
+  &lt;header&gt;
     &lt;n-badge slot="leading" intent="accent"&gt;3&lt;/n-badge&gt;
     &lt;span slot="label"&gt;Notifications&lt;/span&gt;
     &lt;n-button slot="trailing" variant="ghost"&gt;...&lt;/n-button&gt;
-  &lt;/n-header&gt;
-  &lt;n-body&gt;
+  &lt;/header&gt;
+  &lt;section&gt;
     &lt;p&gt;Card body content.&lt;/p&gt;
-  &lt;/n-body&gt;
+  &lt;/section&gt;
 &lt;/n-card&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
@@ -190,15 +190,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         </footer>
       </n-card>
       </div>
-    <pre class="layout-code"><code>&lt;n-header dividers&gt;
+    <pre class="layout-code"><code>&lt;header dividers&gt;
   &lt;span slot="label"&gt;With Divider&lt;/span&gt;
-&lt;/n-header&gt;
-&lt;n-body&gt;
+&lt;/header&gt;
+&lt;section&gt;
   &lt;p&gt;Auto block-padding next to dividers.&lt;/p&gt;
-&lt;/n-body&gt;
-&lt;n-footer dividers&gt;
+&lt;/section&gt;
+&lt;footer dividers&gt;
   &lt;n-button variant="primary" intent="accent"&gt;Save&lt;/n-button&gt;
-&lt;/n-footer&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/footer&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── API ── -->

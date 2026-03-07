@@ -677,11 +677,11 @@ pointer-events: none;</code><n-button size="sm" variant="ghost" aria-label="Copy
     const badgeAttr = badgeIntent ? ` intent="${badgeIntent}"` : '';
 
     card.innerHTML = `
-      <div slot="header">
+      <header>
         <span class="comp-card-name">${comp.name}</span>
         <n-badge size="xs"${badgeAttr}>${categoryLabels[comp.category]}</n-badge>
-      </div>
-      <div class="comp-card-body">${bodyHTML}</div>
+      </header>
+      <section class="comp-card-body">${bodyHTML}</section>
     `;
 
     grid.appendChild(card);

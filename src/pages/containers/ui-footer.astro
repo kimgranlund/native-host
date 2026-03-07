@@ -9,7 +9,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       </div>
     </div>
     <div data-slot="description">
-      <span class="header-tag">&lt;n-footer&gt;</span> CSS-only sub-container for bottom-anchored actions. Flex row, end-aligned by default. Works inside n-card, n-panel, n-drawer, n-dialog, or any flex column parent.
+      <span class="header-tag">&lt;footer&gt;</span> CSS-only sub-container for bottom-anchored actions. Flex row, end-aligned by default. Works inside n-card, n-panel, n-drawer, n-dialog, or any flex column parent.
           </div>
   </header>
 
@@ -34,16 +34,16 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         </n-card>
       </div>
     <pre class="layout-code"><code>&lt;n-card&gt;
-  &lt;n-header&gt;
+  &lt;header&gt;
     &lt;span slot="label"&gt;Panel Title&lt;/span&gt;
-  &lt;/n-header&gt;
-  &lt;n-body&gt;
+  &lt;/header&gt;
+  &lt;section&gt;
     &lt;p&gt;Content above the footer.&lt;/p&gt;
-  &lt;/n-body&gt;
-  &lt;n-footer&gt;
+  &lt;/section&gt;
+  &lt;footer&gt;
     &lt;n-button variant="ghost"&gt;Cancel&lt;/n-button&gt;
     &lt;n-button variant="primary" intent="accent"&gt;Save&lt;/n-button&gt;
-  &lt;/n-footer&gt;
+  &lt;/footer&gt;
 &lt;/n-card&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
@@ -92,10 +92,10 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           </n-card>
         </div>
       </n-stack>
-    <pre class="layout-code"><code>&lt;n-footer&gt;...&lt;/n-footer&gt;                   &lt;!-- end (default) --&gt;
-&lt;n-footer justify="spread"&gt;...&lt;/n-footer&gt;  &lt;!-- space-between --&gt;
-&lt;n-footer justify="start"&gt;...&lt;/n-footer&gt;   &lt;!-- left-aligned --&gt;
-&lt;n-footer justify="center"&gt;...&lt;/n-footer&gt;  &lt;!-- centered --&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    <pre class="layout-code"><code>&lt;footer&gt;...&lt;/footer&gt;                   &lt;!-- end (default) --&gt;
+&lt;footer justify="spread"&gt;...&lt;/footer&gt;  &lt;!-- space-between --&gt;
+&lt;footer justify="start"&gt;...&lt;/footer&gt;   &lt;!-- left-aligned --&gt;
+&lt;footer justify="center"&gt;...&lt;/footer&gt;  &lt;!-- centered --&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Dividers ── -->
@@ -114,10 +114,10 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           </footer>
         </n-card>
       </div>
-    <pre class="layout-code"><code>&lt;n-footer dividers&gt;
+    <pre class="layout-code"><code>&lt;footer dividers&gt;
   &lt;n-button variant="ghost"&gt;Cancel&lt;/n-button&gt;
   &lt;n-button variant="primary" intent="accent"&gt;Apply&lt;/n-button&gt;
-&lt;/n-footer&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/footer&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Sticky ── -->
@@ -140,13 +140,13 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         </n-card>
       </div>
     <pre class="layout-code"><code>&lt;n-card style="height: 16rem;"&gt;
-  &lt;n-header&gt;&lt;span slot="label"&gt;Scrollable&lt;/span&gt;&lt;/n-header&gt;
-  &lt;n-body&gt;
+  &lt;header&gt;&lt;span slot="label"&gt;Scrollable&lt;/span&gt;&lt;/header&gt;
+  &lt;section&gt;
     &lt;p&gt;Long scrollable content...&lt;/p&gt;
-  &lt;/n-body&gt;
-  &lt;n-footer sticky dividers&gt;
+  &lt;/section&gt;
+  &lt;footer sticky dividers&gt;
     &lt;n-button variant="primary" intent="accent"&gt;Done&lt;/n-button&gt;
-  &lt;/n-footer&gt;
+  &lt;/footer&gt;
 &lt;/n-card&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
@@ -183,13 +183,13 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       </n-stack>
     <pre class="layout-code"><code>&lt;n-card&gt;
   &lt;div slot="media"&gt;...&lt;/div&gt;
-  &lt;n-body&gt;
+  &lt;section&gt;
     &lt;h3&gt;Product Name&lt;/h3&gt;
     &lt;n-text size="sm" muted&gt;Description.&lt;/n-text&gt;
-  &lt;/n-body&gt;
-  &lt;n-footer&gt;
+  &lt;/section&gt;
+  &lt;footer&gt;
     &lt;n-button variant="primary" intent="accent" size="sm"&gt;Buy Now&lt;/n-button&gt;
-  &lt;/n-footer&gt;
+  &lt;/footer&gt;
 &lt;/n-card&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
@@ -212,17 +212,17 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         </footer>
       </n-dialog>
     <pre class="layout-code"><code>&lt;n-dialog&gt;
-  &lt;n-header&gt;
+  &lt;header&gt;
     &lt;span slot="label"&gt;Confirm Action&lt;/span&gt;
     &lt;n-button slot="trailing" variant="ghost"&gt;&lt;n-icon name="x"&gt;&lt;/n-icon&gt;&lt;/n-button&gt;
-  &lt;/n-header&gt;
-  &lt;n-body&gt;
+  &lt;/header&gt;
+  &lt;section&gt;
     &lt;p&gt;Are you sure you want to proceed?&lt;/p&gt;
-  &lt;/n-body&gt;
-  &lt;n-footer justify="spread"&gt;
+  &lt;/section&gt;
+  &lt;footer justify="spread"&gt;
     &lt;n-button variant="ghost"&gt;Cancel&lt;/n-button&gt;
     &lt;n-button variant="primary" intent="danger"&gt;Delete&lt;/n-button&gt;
-  &lt;/n-footer&gt;
+  &lt;/footer&gt;
 &lt;/n-dialog&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
@@ -268,10 +268,10 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           </n-card>
         </div>
       </n-stack>
-    <pre class="layout-code"><code>&lt;n-footer padding="none"&gt;...&lt;/n-footer&gt;
-&lt;n-footer padding="tight"&gt;...&lt;/n-footer&gt;    &lt;!-- default --&gt;
-&lt;n-footer padding="regular"&gt;...&lt;/n-footer&gt;
-&lt;n-footer padding="relaxed"&gt;...&lt;/n-footer&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    <pre class="layout-code"><code>&lt;footer padding="none"&gt;...&lt;/footer&gt;
+&lt;footer padding="tight"&gt;...&lt;/footer&gt;    &lt;!-- default --&gt;
+&lt;footer padding="regular"&gt;...&lt;/footer&gt;
+&lt;footer padding="relaxed"&gt;...&lt;/footer&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── API ── -->

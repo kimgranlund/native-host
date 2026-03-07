@@ -124,22 +124,22 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       </div>
       <pre class="layout-code"><code>&lt;n-chat&gt;
   &lt;n-panel&gt;
-    &lt;n-header dividers&gt;
+    &lt;header dividers&gt;
       &lt;span slot="leading"&gt;&lt;n-icon name="chat-dots"&gt;&lt;/n-icon&gt;&lt;/span&gt;
       &lt;span&gt;Assistant&lt;/span&gt;
       &lt;span slot="trailing"&gt;...&lt;/span&gt;
-    &lt;/n-header&gt;
-    &lt;n-body&gt;
+    &lt;/header&gt;
+    &lt;section&gt;
       &lt;n-chat-content&gt;...&lt;/n-chat-content&gt;
-    &lt;/n-body&gt;
-    &lt;n-footer dividers&gt;
+    &lt;/section&gt;
+    &lt;footer dividers&gt;
       &lt;n-chat-input&gt;
         &lt;n-textarea placeholder="Ask anything" autogrow rows="3"&gt;&lt;/n-textarea&gt;
         &lt;n-chat-input-actions&gt;
           &lt;n-button variant="ghost" inline&gt;&lt;n-icon name="plus"&gt;&lt;/n-icon&gt;&lt;/n-button&gt;
         &lt;/n-chat-input-actions&gt;
       &lt;/n-chat-input&gt;
-    &lt;/n-footer&gt;
+    &lt;/footer&gt;
   &lt;/n-panel&gt;
 &lt;/n-chat&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
@@ -477,22 +477,22 @@ Step 4: Applying formatting rules...</pre>
         </n-stack>
       </div>
       <pre class="layout-code"><code>&lt;!-- Wrap in a container for surface styling --&gt;
-&lt;n-footer dividers&gt;
+&lt;footer dividers&gt;
   &lt;n-chat-input&gt;
     &lt;n-textarea placeholder="Ask anything" autogrow rows="2"&gt;&lt;/n-textarea&gt;
     &lt;n-chat-input-actions&gt;
       &lt;n-button variant="ghost" inline&gt;&lt;n-icon name="plus"&gt;&lt;/n-icon&gt;&lt;/n-button&gt;
     &lt;/n-chat-input-actions&gt;
   &lt;/n-chat-input&gt;
-&lt;/n-footer&gt;
+&lt;/footer&gt;
 
 &lt;!-- Compact --&gt;
-&lt;n-footer dividers&gt;
+&lt;footer dividers&gt;
   &lt;n-chat-input compact&gt;
     &lt;n-textarea placeholder="Type a message..." autogrow rows="1"&gt;&lt;/n-textarea&gt;
     &lt;n-chat-input-actions&gt;...&lt;/n-chat-input-actions&gt;
   &lt;/n-chat-input&gt;
-&lt;/n-footer&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/footer&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
   </section>
 

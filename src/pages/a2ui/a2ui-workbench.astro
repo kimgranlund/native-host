@@ -2,15 +2,19 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="A2UI Workbench">
-  <section id="a2ui-workbench-page">
-    <h1>A2UI Protocol Workbench</h1>
-    <n-text size="md" muted spacing="relaxed">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>A2UI Protocol Workbench</h1>
+      </div>
+    </div>
+    <div data-slot="description">
       JSONL editor with sandboxed kernel preview and protocol inspector.
       Pick a preset from the dropdown or edit envelopes directly, then step through with the playback controls.
-    </n-text>
+    </div>
+  </header>
 
-    <!-- ── Workbench ── -->
-
+  <section id="a2ui-workbench-page">
     <native-a2ui id="workbench"></native-a2ui>
   </section>
 

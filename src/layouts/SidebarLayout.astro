@@ -351,9 +351,13 @@ const groupIcons: Record<string, string> = {
           <slot />
         </main>
         <n-gripper mode="resize-horizontal" for="inspector-panel" placement="start" min="280" max="480" reverse></n-gripper>
-        <native-design-panel aside id="inspector-panel"></native-design-panel>
+        <aside>
+          <native-design-panel aside id="inspector-panel"></native-design-panel>
+        </aside>
         <n-gripper mode="resize-horizontal" for="chat-panel" placement="start" min="280" max="480" reverse></n-gripper>
-        <native-chat-panel aside id="chat-panel" gateway="claude" gateway-url="/api/anthropic" model="claude-haiku-4-5-20251001" models="claude-haiku-4-5-20251001,claude-sonnet-4-6-20250514,claude-opus-4-20250514,gpt-4.1-nano,gpt-4.1-mini,gpt-4.1,o3-mini,o3,o4-mini" gateway-urls='{"claude":"/api/anthropic","openai":"/api/openai"}'></native-chat-panel>
+        <aside>
+          <native-chat-panel aside id="chat-panel" gateway="claude" gateway-url="/api/anthropic" model="claude-haiku-4-5-20251001" models="claude-haiku-4-5-20251001,claude-sonnet-4-6-20250514,claude-opus-4-20250514,gpt-4.1-nano,gpt-4.1-mini,gpt-4.1,o3-mini,o3,o4-mini" gateway-urls='{"claude":"/api/anthropic","openai":"/api/openai"}'></native-chat-panel>
+        </aside>
       </section>
     </section>
   </native-app>

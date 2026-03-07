@@ -36,14 +36,14 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
 &lt;n-dialog id="my-dialog"&gt;
   &lt;n-card&gt;
-    &lt;n-header&gt;&lt;span slot="label"&gt;Confirm Action&lt;/span&gt;&lt;/n-header&gt;
-    &lt;n-body&gt;
+    &lt;header&gt;&lt;span slot="label"&gt;Confirm Action&lt;/span&gt;&lt;/header&gt;
+    &lt;section&gt;
       &lt;p&gt;Are you sure you want to continue?&lt;/p&gt;
-    &lt;/n-body&gt;
-    &lt;n-footer&gt;
+    &lt;/section&gt;
+    &lt;footer&gt;
       &lt;n-button id="cancel-btn"&gt;Cancel&lt;/n-button&gt;
       &lt;n-button id="confirm-btn" intent="accent"&gt;Confirm&lt;/n-button&gt;
-    &lt;/n-footer&gt;
+    &lt;/footer&gt;
   &lt;/n-card&gt;
 &lt;/n-dialog&gt;
 
@@ -87,8 +87,8 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       </n-dialog>
       <pre class="layout-code"><code>&lt;n-dialog id="form-dialog"&gt;
   &lt;n-card&gt;
-    &lt;n-header&gt;&lt;span slot="label"&gt;Edit Profile&lt;/span&gt;&lt;/n-header&gt;
-    &lt;n-body&gt;
+    &lt;header&gt;&lt;span slot="label"&gt;Edit Profile&lt;/span&gt;&lt;/header&gt;
+    &lt;section&gt;
       &lt;n-stack gap="3"&gt;
         &lt;n-field&gt;
           &lt;label slot="label"&gt;Name&lt;/label&gt;
@@ -99,11 +99,11 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           &lt;n-input type="email" placeholder="you@example.com"&gt;&lt;/n-input&gt;
         &lt;/n-field&gt;
       &lt;/n-stack&gt;
-    &lt;/n-body&gt;
-    &lt;n-footer&gt;
+    &lt;/section&gt;
+    &lt;footer&gt;
       &lt;n-button&gt;Cancel&lt;/n-button&gt;
       &lt;n-button intent="accent"&gt;Save Changes&lt;/n-button&gt;
-    &lt;/n-footer&gt;
+    &lt;/footer&gt;
   &lt;/n-card&gt;
 &lt;/n-dialog&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
@@ -129,11 +129,11 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       </n-dialog>
       <pre class="layout-code"><code>&lt;n-dialog no-close-on-backdrop&gt;
   &lt;n-card&gt;
-    &lt;n-header&gt;&lt;span slot="label"&gt;Important Notice&lt;/span&gt;&lt;/n-header&gt;
-    &lt;n-body&gt;&lt;p&gt;Clicking outside won't close this dialog.&lt;/p&gt;&lt;/n-body&gt;
-    &lt;n-footer&gt;
+    &lt;header&gt;&lt;span slot="label"&gt;Important Notice&lt;/span&gt;&lt;/header&gt;
+    &lt;section&gt;&lt;p&gt;Clicking outside won't close this dialog.&lt;/p&gt;&lt;/section&gt;
+    &lt;footer&gt;
       &lt;n-button intent="accent"&gt;Got it&lt;/n-button&gt;
-    &lt;/n-footer&gt;
+    &lt;/footer&gt;
   &lt;/n-card&gt;
 &lt;/n-dialog&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
@@ -180,16 +180,16 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
 &lt;n-dialog id="danger-dialog"&gt;
   &lt;n-card&gt;
-    &lt;n-header&gt;
+    &lt;header&gt;
       &lt;span slot="label" style="color: var(--n-ink-strong-danger);"&gt;Delete Account&lt;/span&gt;
-    &lt;/n-header&gt;
-    &lt;n-body&gt;
+    &lt;/header&gt;
+    &lt;section&gt;
       &lt;p&gt;This will permanently delete your account.&lt;/p&gt;
-    &lt;/n-body&gt;
-    &lt;n-footer&gt;
+    &lt;/section&gt;
+    &lt;footer&gt;
       &lt;n-button&gt;Cancel&lt;/n-button&gt;
       &lt;n-button intent="danger"&gt;Delete Forever&lt;/n-button&gt;
-    &lt;/n-footer&gt;
+    &lt;/footer&gt;
   &lt;/n-card&gt;
 &lt;/n-dialog&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>

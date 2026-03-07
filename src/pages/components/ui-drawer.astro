@@ -42,18 +42,18 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 &lt;/n-button&gt;
 
 &lt;n-drawer id="drawer-right"&gt;
-  &lt;n-header&gt;
+  &lt;header&gt;
     &lt;span slot="label"&gt;Settings&lt;/span&gt;
     &lt;n-button slot="trailing" variant="ghost" id="close-right"&gt;
       &lt;n-icon name="x"&gt;&lt;/n-icon&gt;
     &lt;/n-button&gt;
-  &lt;/n-header&gt;
-  &lt;n-body&gt;
+  &lt;/header&gt;
+  &lt;section&gt;
     &lt;n-field&gt;
       &lt;label slot="label"&gt;Display name&lt;/label&gt;
       &lt;n-input placeholder="Kim Granlund"&gt;&lt;/n-input&gt;
     &lt;/n-field&gt;
-  &lt;/n-body&gt;
+  &lt;/section&gt;
 &lt;/n-drawer&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
@@ -92,13 +92,13 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         </section>
       </n-drawer>
       <pre class="layout-code"><code>&lt;n-drawer id="drawer-left" side="left"&gt;
-  &lt;n-header&gt;
+  &lt;header&gt;
     &lt;span slot="label"&gt;Documentation&lt;/span&gt;
     &lt;n-button slot="trailing" variant="ghost"&gt;
       &lt;n-icon name="x"&gt;&lt;/n-icon&gt;
     &lt;/n-button&gt;
-  &lt;/n-header&gt;
-  &lt;n-body&gt;...&lt;/n-body&gt;
+  &lt;/header&gt;
+  &lt;section&gt;...&lt;/section&gt;
 &lt;/n-drawer&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
@@ -121,18 +121,18 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         </section>
       </n-drawer>
       <pre class="layout-code"><code>&lt;n-drawer id="drawer-bottom" side="bottom"&gt;
-  &lt;n-header&gt;
+  &lt;header&gt;
     &lt;span slot="label"&gt;Filters&lt;/span&gt;
     &lt;n-button slot="trailing" variant="ghost"&gt;
       &lt;n-icon name="x"&gt;&lt;/n-icon&gt;
     &lt;/n-button&gt;
-  &lt;/n-header&gt;
-  &lt;n-body&gt;
+  &lt;/header&gt;
+  &lt;section&gt;
     &lt;n-stack direction="row" gap="2" wrap&gt;
       &lt;n-checkbox&gt;In Stock&lt;/n-checkbox&gt;
       &lt;n-checkbox&gt;On Sale&lt;/n-checkbox&gt;
     &lt;/n-stack&gt;
-  &lt;/n-body&gt;
+  &lt;/section&gt;
 &lt;/n-drawer&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
@@ -186,22 +186,22 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         </footer>
       </n-drawer>
       <pre class="layout-code"><code>&lt;n-drawer id="drawer-footer"&gt;
-  &lt;n-header&gt;
+  &lt;header&gt;
     &lt;span slot="label"&gt;Edit Profile&lt;/span&gt;
     &lt;n-button slot="trailing" variant="ghost"&gt;
       &lt;n-icon name="x"&gt;&lt;/n-icon&gt;
     &lt;/n-button&gt;
-  &lt;/n-header&gt;
-  &lt;n-body&gt;
+  &lt;/header&gt;
+  &lt;section&gt;
     &lt;n-field&gt;
       &lt;label slot="label"&gt;Display name&lt;/label&gt;
       &lt;n-input placeholder="Kim Granlund"&gt;&lt;/n-input&gt;
     &lt;/n-field&gt;
-  &lt;/n-body&gt;
-  &lt;n-footer justify="spread"&gt;
+  &lt;/section&gt;
+  &lt;footer justify="spread"&gt;
     &lt;n-button variant="ghost"&gt;Cancel&lt;/n-button&gt;
     &lt;n-button variant="primary" intent="accent"&gt;Save Changes&lt;/n-button&gt;
-  &lt;/n-footer&gt;
+  &lt;/footer&gt;
 &lt;/n-drawer&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 

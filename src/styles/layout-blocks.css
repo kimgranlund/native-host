@@ -6,15 +6,17 @@
    We add padding and typography. */
 
 main {
-  --n-dashboard-panel-content-max-width: 1180px;
-  --n-dashboard-panel-content-padding: 2rem;
+  --n-content-max-width: 1180px;
+  --n-content-padding: 2rem;
+  /* Alias — package CSS reads the old name for max-width centering */
+  --n-dashboard-panel-content-max-width: var(--n-content-max-width);
 }
 
 /* Padding for semantic sub-containers — the package's semantic layout CSS
    doesn't include padding (unlike the old n-dashboard-panel rules). */
 main > header,
 main > section {
-  padding: var(--n-dashboard-panel-content-padding, 2rem);
+  padding: var(--n-content-padding, 2rem);
 }
 
 main h1 {

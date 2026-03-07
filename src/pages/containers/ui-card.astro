@@ -25,7 +25,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         </n-card>
       </div>
     <pre class="layout-code"><code>&lt;n-card&gt;
-  &lt;n-body&gt;&lt;p&gt;A simple card with just body content.&lt;/p&gt;&lt;/n-body&gt;
+  &lt;section&gt;&lt;p&gt;A simple card with just body content.&lt;/p&gt;&lt;/section&gt;
 &lt;/n-card&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
@@ -49,17 +49,17 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         </n-card>
       </div>
     <pre class="layout-code"><code>&lt;n-card&gt;
-  &lt;n-header&gt;
+  &lt;header&gt;
     &lt;span slot="label"&gt;Card Title&lt;/span&gt;
     &lt;n-button slot="trailing" variant="ghost"&gt;...&lt;/n-button&gt;
-  &lt;/n-header&gt;
-  &lt;n-body&gt;
+  &lt;/header&gt;
+  &lt;section&gt;
     &lt;p&gt;Card body content goes here.&lt;/p&gt;
-  &lt;/n-body&gt;
-  &lt;n-footer&gt;
+  &lt;/section&gt;
+  &lt;footer&gt;
     &lt;n-button variant="ghost"&gt;Cancel&lt;/n-button&gt;
     &lt;n-button variant="primary" intent="accent"&gt;Save&lt;/n-button&gt;
-  &lt;/n-footer&gt;
+  &lt;/footer&gt;
 &lt;/n-card&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
@@ -95,13 +95,13 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       </n-stack>
       <pre class="layout-code"><code>&lt;n-card&gt;
   &lt;div slot="media" class="media-placeholder"&gt;&lt;/div&gt;
-  &lt;n-body&gt;
+  &lt;section&gt;
     &lt;h3&gt;Product Name&lt;/h3&gt;
     &lt;p&gt;A short description.&lt;/p&gt;
-  &lt;/n-body&gt;
-  &lt;n-footer&gt;
+  &lt;/section&gt;
+  &lt;footer&gt;
     &lt;n-button variant="primary" intent="accent" size="sm"&gt;Buy Now&lt;/n-button&gt;
-  &lt;/n-footer&gt;
+  &lt;/footer&gt;
 &lt;/n-card&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
@@ -126,16 +126,16 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         </n-card>
       </div>
     <pre class="layout-code"><code>&lt;n-card&gt;
-  &lt;n-header&gt;
+  &lt;header&gt;
     &lt;n-badge slot="leading" intent="accent"&gt;New&lt;/n-badge&gt;
     &lt;span slot="label"&gt;Card with Actions&lt;/span&gt;
     &lt;n-button slot="trailing" variant="ghost"&gt;...&lt;/n-button&gt;
-  &lt;/n-header&gt;
-  &lt;n-body&gt;...&lt;/n-body&gt;
-  &lt;n-footer justify="spread"&gt;
+  &lt;/header&gt;
+  &lt;section&gt;...&lt;/section&gt;
+  &lt;footer justify="spread"&gt;
     &lt;n-button variant="ghost"&gt;Cancel&lt;/n-button&gt;
     &lt;n-button variant="primary" intent="accent"&gt;Save&lt;/n-button&gt;
-  &lt;/n-footer&gt;
+  &lt;/footer&gt;
 &lt;/n-card&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
@@ -156,7 +156,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         </div>
       </n-stack>
       <pre class="layout-code"><code>&lt;n-card interactive&gt;
-  &lt;n-body&gt;&lt;p&gt;Click this card. It has hover and focus states.&lt;/p&gt;&lt;/n-body&gt;
+  &lt;section&gt;&lt;p&gt;Click this card. It has hover and focus states.&lt;/p&gt;&lt;/section&gt;
 &lt;/n-card&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
@@ -179,13 +179,13 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         </n-card>
       </div>
     <pre class="layout-code"><code>&lt;n-card size="sm"&gt;
-  &lt;n-header&gt;&lt;span slot="label"&gt;Small Card&lt;/span&gt;&lt;/n-header&gt;
-  &lt;n-body&gt;&lt;p&gt;Compact padding.&lt;/p&gt;&lt;/n-body&gt;
+  &lt;header&gt;&lt;span slot="label"&gt;Small Card&lt;/span&gt;&lt;/header&gt;
+  &lt;section&gt;&lt;p&gt;Compact padding.&lt;/p&gt;&lt;/section&gt;
 &lt;/n-card&gt;
 
 &lt;n-card size="lg"&gt;
-  &lt;n-header&gt;&lt;span slot="label"&gt;Large Card&lt;/span&gt;&lt;/n-header&gt;
-  &lt;n-body&gt;&lt;p&gt;Spacious padding.&lt;/p&gt;&lt;/n-body&gt;
+  &lt;header&gt;&lt;span slot="label"&gt;Large Card&lt;/span&gt;&lt;/header&gt;
+  &lt;section&gt;&lt;p&gt;Spacious padding.&lt;/p&gt;&lt;/section&gt;
 &lt;/n-card&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
@@ -209,8 +209,8 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       </n-grid>
     <pre class="layout-code"><code>&lt;n-grid cols="3" gap="4"&gt;
   &lt;n-card&gt;
-    &lt;n-header&gt;&lt;span slot="label"&gt;Revenue&lt;/span&gt;&lt;/n-header&gt;
-    &lt;n-body&gt;&lt;p&gt;$45,231&lt;/p&gt;&lt;/n-body&gt;
+    &lt;header&gt;&lt;span slot="label"&gt;Revenue&lt;/span&gt;&lt;/header&gt;
+    &lt;section&gt;&lt;p&gt;$45,231&lt;/p&gt;&lt;/section&gt;
   &lt;/n-card&gt;
   &lt;n-card&gt;...&lt;/n-card&gt;
   &lt;n-card&gt;...&lt;/n-card&gt;

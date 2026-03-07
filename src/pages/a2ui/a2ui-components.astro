@@ -2,15 +2,19 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="A2UI Components">
-  <section id="a2ui-components-page">
-<div class="nav-main">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
         <h1>A2UI Styled Components</h1>
-        <n-text size="sm" muted spacing="relaxed">
-          All components below are rendered through the A2UI protocol adapter into the chat panel.
-          Each element carries a <code>[data-a2ui]</code> attribute and is styled via <code>a2ui.css</code>.
-        </n-text>
       </div>
-  </section>
+    </div>
+    <div data-slot="description">
+      All components below are rendered through the A2UI protocol adapter into the chat panel.
+      Each element carries a <code>[data-a2ui]</code> attribute and is styled via <code>a2ui.css</code>.
+    </div>
+  </header>
+
+  <section id="a2ui-components-page"></section>
 
   <script>
 import { Kernel, resetKernel } from "@nonoun/native-ui/kernel";

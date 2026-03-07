@@ -2,12 +2,18 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="A2UI Protocol">
-  <section id="a2ui-protocol-page">
-<h1>A2UI Protocol</h1>
-    <n-text size="md" muted spacing="relaxed">
+  <header>
+    <div data-slot="title">
+      <div data-slot="content">
+        <h1>A2UI Protocol</h1>
+      </div>
+    </div>
+    <div data-slot="description">
       Google A2UI (Agent-to-UI) protocol compatibility layer. Bidirectional conversion between A2UI flat adjacency lists and native-ui component trees.
-    </n-text>
+    </div>
+  </header>
 
+  <section id="a2ui-protocol-page">
     <!-- ── Receive A2UI Messages ── -->
 
     <h2>Receive A2UI Messages</h2>
