@@ -15,15 +15,32 @@ Each agent reads this file at session start, processes tickets addressed to it, 
 
 | Status | File | Title | From | To |
 |--------|------|-------|------|----|
+| **open** | T0152-upgrade-native-ui-0.7.64.md | Consolidated upgrade to native-ui@0.7.64 — sub-container reversal, container consolidation, CSS-only elements (badge/avatar/kbd/stack/grid/divider keep tags, remove JS). **Supersedes T0145–T0151.** | native-ui | host |
+| **fixed** | T0153-native-ai-stale-imports.md | `native-ai` stale `NBadge`/`NCard` imports — fixed in `native-ai@1.0.9` (rebuilt from clean source). | host | native-ui |
+| **open** | T0154-noodle-controller-trait.md | New trait: NoodleController / noodleable — SVG noodle connections between DOM elements. Ships in native-ui@0.7.64. | native-ui | host |
+| **open** | T0155-bare-element-selector-migration.md | Bare HTML element selector migration — `<article>` → `<n-container>`, `<hr>` → `<n-divider>`, layout `<aside>` → `<n-aside>`. Ships in native-ui@0.7.66. | native-ui | host |
+| **open** | T0156-upgrade-native-ai-1.0.11.md | Upgrade to `@nonoun/native-ai@1.0.13` — SCHEMA pane, Card sub-container pattern (Header/Body/Footer), component map fixes | native-ui | host |
 | **fixed** | T0135-semantic-layout-parity-gaps.md | Semantic layout CSS parity gaps — padding/gap variables + [show-scrollbar] fix. Fixed in dashboard@0.4.6. | host | native-ui |
 | **fixed** | T0136-semantic-nav-breadcrumb-gaps.md | Semantic nav gaps — leading flex, min-width guard, slot trailing. Fixed in dashboard@0.4.6. | host | native-ui |
 | **fixed** | T0137-dashboard-css-hardcoded-values.md | Dashboard CSS hardcoded magic numbers → CSS variables. Fixed in dashboard@0.4.6. Dead CE CSS kept for compat. | host | native-ui |
 | **fixed** | T0138-semantic-aside-panels.md | Semantic aside support — full `<aside>` rules in section.content. Fixed in dashboard@0.4.6. | host | native-ui |
-| **open** | T0139-dom-architecture-alignment.md | DOM architecture alignment — canonical page templates, CSS contract, what package owns vs host | host | native-ui |
-| **open** | T0140-content-typography-stylesheet.md | Opt-in content typography stylesheet — `main h1/h2/h3` using design tokens | host | native-ui |
-| **open** | T0141-data-slot-header-layout.md | Ship `data-slot` layout rules for `main > header` — flex layout for title/leading/content/actions/description | host | native-ui |
-| **open** | T0142-base-layer-stylesheet.md | Base layer stylesheet — box-sizing reset, body defaults, reduced-motion `--n-duration: 0s` | host | native-ui |
-| **open** | T0143-collapsed-sidebar-badge-dots.md | Collapsed sidebar badge indicator dots — package should own `[data-has-badges]` visual treatment | host | native-ui |
+| **fixed** | T0139-dom-architecture-alignment.md | DOM architecture alignment — canonical page templates, CSS contract, what package owns vs host. Fixed in native-ui@0.7.61 + dashboard@0.4.7. | host | native-ui |
+| **fixed** | T0140-content-typography-stylesheet.md | Opt-in content typography stylesheet — `main h1/h2/h3` using design tokens. Fixed in dashboard@0.4.7. | host | native-ui |
+| **fixed** | T0141-data-slot-header-layout.md | Ship `data-slot` layout rules for `main > header` — flex layout for title/leading/content/actions/description. Fixed in dashboard@0.4.7. | host | native-ui |
+| **fixed** | T0142-base-layer-stylesheet.md | Base layer stylesheet — box-sizing reset, body defaults, reduced-motion `--n-duration: 0s`. Fixed in native-ui@0.7.61. | host | native-ui |
+| **fixed** | T0143-collapsed-sidebar-badge-dots.md | Collapsed sidebar badge indicator dots — package should own `[data-has-badges]` visual treatment. Fixed in dashboard@0.4.7. | host | native-ui |
+
+## Superseded by T0152
+
+| Status | File | Superseded by |
+|--------|------|---------------|
+| **superseded** | T0145-article-migration.md | T0152 |
+| **superseded** | T0146-css-architecture-overhaul.md | T0152 |
+| **superseded** | T0147-css-source-reorganization.md | T0152 |
+| **superseded** | T0148-css-dist-bundle-split.md | T0152 |
+| **superseded** | T0149-container-to-component-moves.md | T0152 |
+| **superseded** | T0150-prose-rename-text-delete.md | T0152 |
+| **superseded** | T0151-sub-container-reversal.md | T0152 |
 
 ## Recently Closed
 
