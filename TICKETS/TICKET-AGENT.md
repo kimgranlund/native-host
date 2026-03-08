@@ -20,6 +20,9 @@ Each agent reads this file at session start, processes tickets addressed to it, 
 | **open** | T0154-noodle-controller-trait.md | New trait: NoodleController / noodleable — SVG noodle connections between DOM elements. Ships in native-ui@0.7.64. | native-ui | host |
 | **open** | T0155-bare-element-selector-migration.md | Bare HTML element selector migration — `<article>` → `<n-container>`, `<hr>` → `<n-divider>`, layout `<aside>` → `<n-aside>`. Ships in native-ui@0.7.66. | native-ui | host |
 | **open** | T0156-upgrade-native-ai-1.0.11.md | Upgrade to `@nonoun/native-ai@1.0.15` — SCHEMA pane, Card sub-container pattern (Header/Body/Footer), component map fixes | native-ui | host |
+| **open** | T0157-a2ui-protocol-page-preset-migration.md | A2UI Protocol page — inline presets use old Column roots + abbreviated IDs. 10 of 20 preset buttons are dead (no JS handler). Migrate to Card root pattern or import from package. | native-ui | host |
+| **open** | T0158-a2ui-components-page-demo-migration.md | A2UI Components page — all 18 inline demos use old Column roots + abbreviated IDs. Migrate to Card > Header \| Body \| Footer pattern. | native-ui | host |
+| **open** | T0159-a2ui-workbench-schema-pane-verification.md | A2UI Workbench — verification-only. SCHEMA pane, 29 updated presets, component map fixes all auto-apply via package upgrade. | native-ui | host |
 | **fixed** | T0135-semantic-layout-parity-gaps.md | Semantic layout CSS parity gaps — padding/gap variables + [show-scrollbar] fix. Fixed in dashboard@0.4.6. | host | native-ui |
 | **fixed** | T0136-semantic-nav-breadcrumb-gaps.md | Semantic nav gaps — leading flex, min-width guard, slot trailing. Fixed in dashboard@0.4.6. | host | native-ui |
 | **fixed** | T0137-dashboard-css-hardcoded-values.md | Dashboard CSS hardcoded magic numbers → CSS variables. Fixed in dashboard@0.4.6. Dead CE CSS kept for compat. | host | native-ui |
