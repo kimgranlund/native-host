@@ -29,12 +29,12 @@ el.addEventListener('native:press', () =&gt; copy.copy());`,
 ---
 <SidebarLayout title="Copyable">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>Copyable</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
 
       One-click copy-to-clipboard with visual confirmation feedback. Sets the <code>[copied]</code> attribute during the feedback window and dispatches <code>native:copy</code>.
 
@@ -55,7 +55,7 @@ el.addEventListener('native:press', () =&gt; copy.copy());`,
         <span class="copy-indicator"><n-icon name="copy"></n-icon> Copy</span>
       </copy-demo>
       <div id="basic-log" class="output"></div>
-      <pre class="layout-code"><code set:html={codeExamples.basicCopyInjection} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.basicCopyInjection} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Copy with Getter ── -->
@@ -70,7 +70,7 @@ el.addEventListener('native:press', () =&gt; copy.copy());`,
         <span class="copy-indicator"><n-icon name="copy"></n-icon> Copy</span>
       </copy-demo>
       <div id="getter-log" class="output"></div>
-      <pre class="layout-code"><code set:html={codeExamples.copyWithGetter} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.copyWithGetter} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Custom Duration (Injection) ── -->
@@ -85,7 +85,7 @@ el.addEventListener('native:press', () =&gt; copy.copy());`,
         <span class="copy-indicator"><n-icon name="copy"></n-icon> Copy</span>
       </copy-demo>
       <div id="fast-log" class="output"></div>
-      <pre class="layout-code"><code>&lt;copy-demo traits="copyable pressable"
+      <pre class="code-block"><code>&lt;copy-demo traits="copyable pressable"
   data-trait-copyable-value="Quick feedback copy"
   data-trait-copyable-feedback-duration="500"&gt;
   &lt;span class="copy-label"&gt;Quick feedback copy&lt;/span&gt;
@@ -107,7 +107,7 @@ el.addEventListener('native:press', () =&gt; copy.copy());`,
         </div>
       </n-controller>
       <div id="provider-log" class="output"></div>
-      <pre class="layout-code"><code>&lt;n-controller traits="copyable"
+      <pre class="code-block"><code>&lt;n-controller traits="copyable"
   data-trait-copyable-value="npx create-native-ui@latest"&gt;
   &lt;div class="copy-card"&gt;
     &lt;span class="copy-label"&gt;npx create-native-ui@latest&lt;/span&gt;

@@ -73,12 +73,12 @@ ctrl.present();`,
 ---
 <SidebarLayout title="Presentable">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>Presentable</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
 
       Composable trait that shows content in a full-viewport dialog overlay. Wraps the host element in a modal <code>&lt;dialog&gt;</code> at its current DOM position so CSS custom properties inherit normally. On dismiss the host is unwrapped back to its original position.
 
@@ -102,7 +102,7 @@ ctrl.present();`,
           <n-text size="sm">Close by clicking the X button, clicking the backdrop, or pressing Escape.</n-text>
         </section>
       </n-card></div>
-      <pre class="layout-code"><code set:html={codeExamples.basicPresent} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.basicPresent} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Custom Inset ── -->
@@ -123,7 +123,7 @@ ctrl.present();`,
           <n-text size="sm">This card is presented with a custom inset value. The inset controls how much space is reserved between the dialog wrapper and the viewport edges.</n-text>
         </section>
       </n-card></div>
-      <pre class="layout-code"><code set:html={codeExamples.customInset} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.customInset} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Without Close Button ── -->
@@ -140,7 +140,7 @@ ctrl.present();`,
           <n-text size="sm">There is no X button in this overlay. Click outside the card or press Escape to dismiss.</n-text>
         </section>
       </n-card></div>
-      <pre class="layout-code"><code set:html={codeExamples.noCloseButton} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.noCloseButton} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Events ── -->
@@ -171,12 +171,12 @@ ctrl.present();`,
       <n-text size="xs" muted spacing="tight">
         The component creates a <code>PresentController</code> on itself during <code>setup()</code> and wires an expand button to call <code>present()</code>. The controller is destroyed in <code>teardown()</code>.
       </n-text>
-      <pre class="layout-code"><code set:html={codeExamples.realWorldJs} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.realWorldJs} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
       <h3>CSS Hook — <code>[presented]</code></h3>
       <n-text size="xs" muted spacing="tight">
         When <code>present()</code> is called, PresentController sets <code>[presented]</code> on the host element. The component uses this to switch from a bounded card layout to full-viewport mode. On dismiss, the attribute is removed and CSS reverts.
       </n-text>
-      <pre class="layout-code"><code set:html={codeExamples.realWorldCss} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.realWorldCss} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
       <h3>Key Design Decisions</h3>
       <n-table variant="plain" size="sm" cols="auto 1fr">
         <n-table-body>

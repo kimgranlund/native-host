@@ -49,12 +49,12 @@ const detailCountOrigin = `{ count, origin: { x, y } }`;
 ---
 <SidebarLayout title="Confettible">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>Confettible</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
 
       Triggers a confetti particle burst on the host element. Press the element to dispatch a <code>native:confetti</code> event with a particle animation. Combine with <code>pressable</code> for press-to-celebrate interactions.
 
@@ -78,7 +78,7 @@ const detailCountOrigin = `{ count, origin: { x, y } }`;
           <n-button intent="success">Big Burst</n-button>
         </n-controller>
       </n-stack>
-      <pre class="layout-code"><code set:html={codeExamples.clickToCelebrate} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.clickToCelebrate} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Form Success ── -->
@@ -102,7 +102,7 @@ const detailCountOrigin = `{ count, origin: { x, y } }`;
           </n-stack>
         </section>
       </n-card>
-      <pre class="layout-code"><code set:html={codeExamples.formSuccess} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.formSuccess} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Custom Colors ── -->
@@ -123,7 +123,7 @@ const detailCountOrigin = `{ count, origin: { x, y } }`;
           <n-button intent="success">Green Rush</n-button>
         </n-controller>
       </n-stack>
-      <pre class="layout-code"><code set:html={codeExamples.customColors} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.customColors} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Shapes ── -->
@@ -144,7 +144,7 @@ const detailCountOrigin = `{ count, origin: { x, y } }`;
           <n-button variant="secondary">Mixed</n-button>
         </n-controller>
       </n-stack>
-      <pre class="layout-code"><code set:html={codeExamples.shapes} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.shapes} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Options Playground ── -->
@@ -193,7 +193,7 @@ const detailCountOrigin = `{ count, origin: { x, y } }`;
         <n-button id="preset-party" intent="accent" primary>Party</n-button>
         <n-button id="preset-explosion" intent="danger" primary>Explosion</n-button>
       </n-stack>
-      <pre class="layout-code"><code set:html={codeExamples.presets} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.presets} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Global Event Log ── -->
@@ -204,7 +204,7 @@ const detailCountOrigin = `{ count, origin: { x, y } }`;
         Listens on <code>document</code> for all <code>native:confetti</code> events. Shows the particle count and origin coordinates.
       </n-text>
       <div id="confetti-global-log" class="output"></div>
-      <pre class="layout-code"><code set:html={codeExamples.globalEvent} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.globalEvent} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── API Reference ── -->

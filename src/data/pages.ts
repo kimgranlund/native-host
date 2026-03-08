@@ -54,9 +54,9 @@ const groupOverrides: Record<string, string> = {
 
 // Title overrides for pages where filename ≠ display title
 const titleOverrides: Record<string, string> = {
-  '/containers/ui-header': 'Header',
-  '/components/ui-input-otp': 'Input OTP',
-  '/components/ui-kbd': 'Kbd',
+  '/containers/header': 'Header',
+  '/components/input-otp': 'Input OTP',
+  '/components/kbd': 'Kbd',
   '/packages/native-editor': 'Editor',
   '/packages/native-playground': 'Playground',
   '/packages/native-codemirror': 'CodeMirror',
@@ -92,12 +92,11 @@ const titleOverrides: Record<string, string> = {
   '/styles/colors': 'Colors',
 };
 
-// Derive title from slug: "auth-login" → "Auth Login", "ui-button" → "Button"
+// Derive title from slug: "auth-login" → "Auth Login", "button" → "Button"
 function slugToTitle(slug: string, group: string): string {
-  // Components & Containers: strip "ui-" prefix, Title Case
+  // Components & Containers: Title Case
   if (group === 'Components' || group === 'Containers') {
-    const name = slug.replace(/^ui-/, '');
-    return name.split('-').map(w => w[0].toUpperCase() + w.slice(1)).join(' ');
+    return slug.split('-').map(w => w[0].toUpperCase() + w.slice(1)).join(' ');
   }
   // Traits: PascalCase from slug
   if (group === 'Traits') {
@@ -113,7 +112,7 @@ function buildSitemap(): PageEntry[] {
   const entries: PageEntry[] = [];
 
   for (const filePath of Object.keys(modules)) {
-    // /src/pages/components/ui-button.astro → /components/ui-button
+    // /src/pages/components/button.astro → /components/button
     const relative = filePath.replace('/src/pages', '').replace(/\.astro$/, '');
 
     // Skip index pages (landing page, directory index pages render at directory path)
@@ -124,7 +123,7 @@ function buildSitemap(): PageEntry[] {
     if (relative === '/signup') continue;
 
     // Parse directory and slug
-    const parts = relative.split('/').filter(Boolean); // ["components", "ui-button"]
+    const parts = relative.split('/').filter(Boolean); // ["components", "button"]
     const slug = parts[parts.length - 1];
     const dir = parts.length > 1 ? parts[0] : null;
 

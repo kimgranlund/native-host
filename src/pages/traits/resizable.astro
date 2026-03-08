@@ -4,12 +4,12 @@ const detailWidthHeight = `{ width, height }`;
 ---
 <SidebarLayout title="Resizable">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>Resizable</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
 
       Composable trait for drag-to-resize functionality. Configure axis constraints, min/max sizes, and handle selectors. Dispatches <code>native:resize-start</code>, <code>native:resize-move</code>, and <code>native:resize-end</code> events. Press Escape to cancel.
 
@@ -29,7 +29,7 @@ const detailWidthHeight = `{ width, height }`;
         </div>
       </n-controller>
       <div id="h-output" class="output">Width: 300px</div>
-      <pre class="layout-code"><code>&lt;n-controller traits="resizable"
+      <pre class="code-block"><code>&lt;n-controller traits="resizable"
   data-trait-resizable-handle-selector=".resize-handle-right"
   data-trait-resizable-axis="horizontal"
   data-trait-resizable-min="150"
@@ -52,7 +52,7 @@ const detailWidthHeight = `{ width, height }`;
         </div>
       </n-controller>
       <div id="v-output" class="output">Height: 120px</div>
-      <pre class="layout-code"><code>&lt;n-controller traits="resizable"
+      <pre class="code-block"><code>&lt;n-controller traits="resizable"
   data-trait-resizable-handle-selector=".resize-handle-bottom"
   data-trait-resizable-axis="vertical"
   data-trait-resizable-min="60"
@@ -75,7 +75,7 @@ const detailWidthHeight = `{ width, height }`;
         </div>
       </n-controller>
       <div id="both-output" class="output">300 x 120</div>
-      <pre class="layout-code"><code>&lt;n-controller traits="resizable"
+      <pre class="code-block"><code>&lt;n-controller traits="resizable"
   data-trait-resizable-handle-selector=".resize-handle-corner"
   data-trait-resizable-axis="both"
   data-trait-resizable-min="150"

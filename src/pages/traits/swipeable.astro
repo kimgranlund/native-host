@@ -34,12 +34,12 @@ const detailSwipe = `{ direction, distance, velocity }`;
 ---
 <SidebarLayout title="Swipeable">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>Swipeable</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
 
       Touch/pointer swipe gesture recognition with direction, velocity, and threshold. Supports horizontal, vertical, and both axes.
 
@@ -62,7 +62,7 @@ const detailSwipe = `{ direction, distance, velocity }`;
         </div>
       </n-controller>
       <div id="h-log" class="output"></div>
-      <pre class="layout-code"><code set:html={codeExamples.horizontalSwipeProvider} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.horizontalSwipeProvider} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Vertical Swipe (Provider) ── -->
@@ -79,7 +79,7 @@ const detailSwipe = `{ direction, distance, velocity }`;
         </div>
       </n-controller>
       <div id="v-log" class="output"></div>
-      <pre class="layout-code"><code>&lt;n-controller traits="swipeable"
+      <pre class="code-block"><code>&lt;n-controller traits="swipeable"
   data-trait-swipeable-axis="vertical"&gt;
   &lt;div class="swipe-card"&gt;
     &lt;span class="swipe-label"&gt;Swipe Up or Down&lt;/span&gt;
@@ -102,7 +102,7 @@ const detailSwipe = `{ direction, distance, velocity }`;
         </div>
       </n-controller>
       <div id="b-log" class="output"></div>
-      <pre class="layout-code"><code>&lt;n-controller traits="swipeable"
+      <pre class="code-block"><code>&lt;n-controller traits="swipeable"
   data-trait-swipeable-axis="both"&gt;
   &lt;div class="swipe-card"&gt;
     &lt;span class="swipe-label"&gt;Swipe Any Direction&lt;/span&gt;
@@ -125,7 +125,7 @@ const detailSwipe = `{ direction, distance, velocity }`;
         </div>
       </n-controller>
       <div id="c-log" class="output"></div>
-      <pre class="layout-code"><code>&lt;n-controller traits="swipeable"
+      <pre class="code-block"><code>&lt;n-controller traits="swipeable"
   data-trait-swipeable-axis="horizontal"
   data-trait-swipeable-threshold="100"
   data-trait-swipeable-velocity-threshold="0.5"&gt;
@@ -148,7 +148,7 @@ const detailSwipe = `{ direction, distance, velocity }`;
         <span class="swipe-hint">SwipeController attached to a plain div</span>
       </div>
       <div id="ctrl-log" class="output"></div>
-      <pre class="layout-code"><code set:html={codeExamples.swipecontrollerAttachToAnyElement} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.swipecontrollerAttachToAnyElement} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── API Reference ── -->

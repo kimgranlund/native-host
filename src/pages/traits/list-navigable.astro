@@ -54,12 +54,12 @@ host.addEventListener('native:change', (e) =&gt; {
 ---
 <SidebarLayout title="ListNavigable">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>ListNavigable</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
 
       Composable trait that coordinates keyboard navigation, ARIA selection sync, and value tracking for list-based components. Builds on <code>RovingFocusController</code> internally, adding <code>native:select</code> event handling and <code>native:change</code> dispatch.
 
@@ -87,7 +87,7 @@ host.addEventListener('native:change', (e) =&gt; {
         </div>
       </n-controller>
       <div id="basic-value" class="value-display">Selected: <span>none</span></div>
-      <pre class="layout-code"><code set:html={codeExamples.basic} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.basic} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Horizontal ── -->
@@ -107,7 +107,7 @@ host.addEventListener('native:change', (e) =&gt; {
         </div>
       </n-controller>
       <div id="horizontal-value" class="value-display">Selected: <span>none</span></div>
-      <pre class="layout-code"><code set:html={codeExamples.horizontal} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.horizontal} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Events ── -->
@@ -127,7 +127,7 @@ host.addEventListener('native:change', (e) =&gt; {
         </div>
       </n-controller>
       <div id="event-log" class="output"></div>
-      <pre class="layout-code"><code set:html={codeExamples.events} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.events} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── API Reference ── -->

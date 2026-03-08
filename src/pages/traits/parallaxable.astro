@@ -71,12 +71,12 @@ const detailMove = `{ tiltX, tiltY, percentX, percentY }`;
 ---
 <SidebarLayout title="Parallaxable">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>Parallaxable</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
 
       Holographic tilt effect that follows the pointer position. Sets a CSS <code>transform</code> with <code>perspective</code>, <code>rotateX</code>/<code>rotateY</code>, and <code>scale</code>. Dispatches <code>native:parallax-move</code> on every pointer move and exposes <code>--parallax-percent-x</code>/<code>--parallax-percent-y</code> CSS custom properties.
 
@@ -99,7 +99,7 @@ const detailMove = `{ tiltX, tiltY, percentX, percentY }`;
         </div>
       </n-controller>
       <div id="provider-log" class="output"></div>
-      <pre class="layout-code"><code set:html={codeExamples.basicTilt} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.basicTilt} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── With Glare ── -->
@@ -115,7 +115,7 @@ const detailMove = `{ tiltX, tiltY, percentX, percentY }`;
           <span class="card-sub">With Glare</span>
         </div>
       </n-controller>
-      <pre class="layout-code"><code set:html={codeExamples.withGlare} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.withGlare} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Multiple Cards Grid ── -->
@@ -163,7 +163,7 @@ const detailMove = `{ tiltX, tiltY, percentX, percentY }`;
           </div>
         </n-controller>
       </div>
-      <pre class="layout-code"><code set:html={codeExamples.multipleCards} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.multipleCards} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── High Tilt (Exaggerated) ── -->
@@ -179,7 +179,7 @@ const detailMove = `{ tiltX, tiltY, percentX, percentY }`;
           <span class="card-sub">High Tilt</span>
         </div>
       </n-controller>
-      <pre class="layout-code"><code set:html={codeExamples.highTilt} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.highTilt} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Controller (Programmatic) ── -->
@@ -225,7 +225,7 @@ const detailMove = `{ tiltX, tiltY, percentX, percentY }`;
         </n-card>
       </n-stack>
       <div id="ctrl-log" class="output"></div>
-      <pre class="layout-code"><code set:html={codeExamples.controller} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.controller} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── CSS Custom Property Demo ── -->
@@ -250,7 +250,7 @@ const detailMove = `{ tiltX, tiltY, percentX, percentY }`;
         </n-controller>
       </n-stack>
       <div id="shadow-log" class="output"></div>
-      <pre class="layout-code"><code set:html={codeExamples.cssCustomProperty} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.cssCustomProperty} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── API Reference ── -->

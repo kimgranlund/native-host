@@ -4,12 +4,12 @@ import Logo from '../../components/Logo.astro';
 ---
 <SidebarLayout title="Auth Login">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>Sign In</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
 
       Login block with provider login, centered card, and split layout variants.
 
@@ -20,7 +20,7 @@ import Logo from '../../components/Logo.astro';
     <!-- ── Variant 1: Provider Login ── -->
 
     <h2>Provider Login</h2>
-    <div class="demo-section">
+    <div class="section">
       <div class="auth-centered auth-centered-tall">
         <div class="auth-card-wrapper">
           <div class="auth-logo">
@@ -57,7 +57,7 @@ import Logo from '../../components/Logo.astro';
     <!-- ── Variant 2: Centered Card ── -->
 
     <h2>Centered Card</h2>
-    <div class="demo-section">
+    <div class="section">
       <div class="auth-centered auth-centered-tall">
         <div class="auth-card-wrapper">
           <div class="auth-logo">
@@ -117,13 +117,13 @@ import Logo from '../../components/Logo.astro';
     <!-- ── Variant 3: Split Layout ── -->
 
     <h2>Split Layout</h2>
-    <div class="demo-section">
+    <div class="section">
       <div class="auth-split auth-split-tall">
         <div class="auth-split-image">
           <n-stack align="center" gap="4">
             <Logo size={56} />
             <p class="auth-hero-tagline">Build something great.</p>
-            <p class="demo-text auth-hero-subtitle">Trusted by over 10,000 teams worldwide.</p>
+            <p class="text auth-hero-subtitle">Trusted by over 10,000 teams worldwide.</p>
           </n-stack>
         </div>
         <div class="auth-split-form">

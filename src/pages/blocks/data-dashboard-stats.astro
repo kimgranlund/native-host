@@ -3,11 +3,11 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Dashboard Stats">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>Dashboard</h1>
       </div>
-      <div data-slot="actions">
+      <div slot="actions">
         <n-select size="md" placeholder="Last 30 days"
           options='[{"value":"7d","label":"Last 7 days"},{"value":"30d","label":"Last 30 days"},{"value":"90d","label":"Last 90 days"},{"value":"12m","label":"Last 12 months"}]'>
         </n-select>
@@ -17,7 +17,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         </n-button>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
 
       Key performance indicators for the current period.
 
@@ -29,71 +29,63 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <!-- ── Stat Cards ── -->
     <div class="stats-grid">
       <n-card>
-        <section>
-          <div class="stat-header">
-            <span class="stat-label">Total Revenue</span>
-            <span class="stat-icon"><n-icon name="currency-dollar"></n-icon></span>
-          </div>
-          <div class="stat-value">$45,231.89</div>
-          <div class="stat-change">
-            <n-badge intent="success">
-              <span class="trend-icon"><n-icon name="trend-up"></n-icon></span>
-              +20.1%
-            </n-badge>
-            <span class="stat-change-label">from last month</span>
-          </div>
-        </section>
+        <header>
+          <span class="stat-label">Total Revenue</span>
+          <span class="stat-icon"><n-icon name="currency-dollar"></n-icon></span>
+        </header>
+        <section><span class="stat-value">$45,231.89</span></section>
+        <footer>
+          <n-badge intent="success">
+            <span class="trend-icon"><n-icon name="trend-up"></n-icon></span>
+            +20.1%
+          </n-badge>
+          <span class="stat-change-label">from last month</span>
+        </footer>
       </n-card>
 
       <n-card>
-        <section>
-          <div class="stat-header">
-            <span class="stat-label">Active Users</span>
-            <span class="stat-icon"><n-icon name="users"></n-icon></span>
-          </div>
-          <div class="stat-value">2,350</div>
-          <div class="stat-change">
-            <n-badge intent="success">
-              <span class="trend-icon"><n-icon name="trend-up"></n-icon></span>
-              +180
-            </n-badge>
-            <span class="stat-change-label">this week</span>
-          </div>
-        </section>
+        <header>
+          <span class="stat-label">Active Users</span>
+          <span class="stat-icon"><n-icon name="users"></n-icon></span>
+        </header>
+        <section><span class="stat-value">2,350</span></section>
+        <footer>
+          <n-badge intent="success">
+            <span class="trend-icon"><n-icon name="trend-up"></n-icon></span>
+            +180
+          </n-badge>
+          <span class="stat-change-label">this week</span>
+        </footer>
       </n-card>
 
       <n-card>
-        <section>
-          <div class="stat-header">
-            <span class="stat-label">Orders</span>
-            <span class="stat-icon"><n-icon name="shopping-bag"></n-icon></span>
-          </div>
-          <div class="stat-value">12,234</div>
-          <div class="stat-change">
-            <n-badge intent="success">
-              <span class="trend-icon"><n-icon name="trend-up"></n-icon></span>
-              +19%
-            </n-badge>
-            <span class="stat-change-label">from last month</span>
-          </div>
-        </section>
+        <header>
+          <span class="stat-label">Orders</span>
+          <span class="stat-icon"><n-icon name="shopping-bag"></n-icon></span>
+        </header>
+        <section><span class="stat-value">12,234</span></section>
+        <footer>
+          <n-badge intent="success">
+            <span class="trend-icon"><n-icon name="trend-up"></n-icon></span>
+            +19%
+          </n-badge>
+          <span class="stat-change-label">from last month</span>
+        </footer>
       </n-card>
 
       <n-card>
-        <section>
-          <div class="stat-header">
-            <span class="stat-label">Conversion Rate</span>
-            <span class="stat-icon"><n-icon name="percent"></n-icon></span>
-          </div>
-          <div class="stat-value">3.2%</div>
-          <div class="stat-change">
-            <n-badge intent="danger">
-              <span class="trend-icon"><n-icon name="trend-down"></n-icon></span>
-              -0.4%
-            </n-badge>
-            <span class="stat-change-label">from last month</span>
-          </div>
-        </section>
+        <header>
+          <span class="stat-label">Conversion Rate</span>
+          <span class="stat-icon"><n-icon name="percent"></n-icon></span>
+        </header>
+        <section><span class="stat-value">3.2%</span></section>
+        <footer>
+          <n-badge intent="danger">
+            <span class="trend-icon"><n-icon name="trend-down"></n-icon></span>
+            -0.4%
+          </n-badge>
+          <span class="stat-change-label">from last month</span>
+        </footer>
       </n-card>
     </div>
 
@@ -385,11 +377,10 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       .stats-grid { grid-template-columns: 1fr; }
     }
 
-    .stat-header {
+    .stats-grid header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 0.75rem;
     }
 
     .stat-label {
@@ -413,11 +404,10 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       font-size: 1.5rem;
       font-weight: 700;
       line-height: 1;
-      margin-bottom: 0.5rem;
       font-variant-numeric: tabular-nums;
     }
 
-    .stat-change {
+    .stats-grid footer {
       display: flex;
       align-items: center;
       gap: 0.5rem;
@@ -578,7 +568,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
     /* ── Table Section ── */
 
-    :where(n-footer) {
+    :where(n-card) > :where(footer):has(.table-info) {
       display: flex;
       align-items: center;
       justify-content: space-between;

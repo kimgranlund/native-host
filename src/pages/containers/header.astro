@@ -1,0 +1,327 @@
+---
+import SidebarLayout from '../../layouts/SidebarLayout.astro';
+---
+<SidebarLayout title="Header / Body / Footer">
+  <header>
+    <div slot="title">
+      <div slot="content">
+        <h1>Header / Body / Footer</h1>
+      </div>
+    </div>
+    <div slot="description">
+      <span class="header-tag">&lt;header&gt; / &lt;section&gt; / &lt;footer&gt;</span> Composable sub-containers for structuring surfaces. Semantic HTML. Work inside n-card, n-drawer, n-panel, or any flex column.
+          </div>
+  </header>
+
+  <section>
+
+    <!-- ── n-header: Basic ── -->
+
+    <h2>n-header — Basic</h2>
+    <n-panel bordered>
+      <div class="header-card-wrap header-card-wrap--sm">
+        <n-card>
+          <header>
+            <span>Card Title</span>
+          </header>
+          <section>
+            <n-text>Body content with the default padding and scrollable overflow.</n-text>
+          </section>
+        </n-card>
+      </div>
+    <pre class="code-block"><code>&lt;n-card&gt;
+  &lt;header&gt;
+    &lt;span slot="label"&gt;Card Title&lt;/span&gt;
+  &lt;/header&gt;
+  &lt;section&gt;
+    &lt;p&gt;Body content here.&lt;/p&gt;
+  &lt;/section&gt;
+&lt;/n-card&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── n-header: With Slots ── -->
+
+    <h2>n-header — Leading & Trailing Slots</h2>
+    <n-panel bordered>
+      <div class="header-card-wrap header-card-wrap--md">
+        <n-card>
+          <header>
+            <nav><n-badge intent="accent">New</n-badge></nav>
+            <span>Card with Actions</span>
+            <aside><n-button variant="ghost"><n-icon name="dots-three"></n-icon></n-button></aside>
+          </header>
+          <section>
+            <n-text>The header uses a 3-column grid: leading / label / trailing.</n-text>
+          </section>
+          <footer>
+            <n-button variant="ghost"><span>Cancel</span></n-button>
+            <n-button variant="primary" intent="accent"><span>Save</span></n-button>
+          </footer>
+        </n-card>
+      </div>
+    <pre class="code-block"><code>&lt;header&gt;
+  &lt;n-badge slot="leading" intent="accent"&gt;New&lt;/n-badge&gt;
+  &lt;span slot="label"&gt;Card with Actions&lt;/span&gt;
+  &lt;n-button slot="trailing" variant="ghost"&gt;...&lt;/n-button&gt;
+&lt;/header&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── n-header: Align ── -->
+
+    <h2>n-header — Align</h2>
+    <n-panel bordered>
+      <n-stack direction="row" wrap align="center">
+        <div class="header-card-wrap header-card-wrap--xs">
+          <n-card>
+            <header>
+              <span>Default (start)</span>
+            </header>
+            <section><n-text>Left-aligned label.</n-text></section>
+          </n-card>
+        </div>
+        <div class="header-card-wrap header-card-wrap--xs">
+          <n-card>
+            <header align="center">
+              <span>Centered</span>
+            </header>
+            <section><n-text>Center-aligned label.</n-text></section>
+          </n-card>
+        </div>
+        <div class="header-card-wrap header-card-wrap--xs">
+          <n-card>
+            <header align="end">
+              <span>End</span>
+            </header>
+            <section><n-text>End-aligned label.</n-text></section>
+          </n-card>
+        </div>
+      </n-stack>
+      <pre class="code-block"><code>&lt;header&gt;...&lt;/header&gt;
+&lt;header align="center"&gt;...&lt;/header&gt;
+&lt;header align="end"&gt;...&lt;/header&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── n-header: Centered with leading/trailing ── -->
+
+    <h2>n-header — Centered with Actions</h2>
+    <n-panel bordered>
+      <div class="header-card-wrap header-card-wrap--md">
+        <n-card>
+          <header align="center">
+            <n-button slot="leading" variant="ghost"><n-icon name="caret-left"></n-icon></n-button>
+            <span>Step 2 of 4</span>
+            <aside><n-button variant="ghost"><n-icon name="x"></n-icon></n-button></aside>
+          </header>
+          <section>
+            <n-text>Common pattern: back button, centered title, close button.</n-text>
+          </section>
+        </n-card>
+      </div>
+    <pre class="code-block"><code>&lt;header align="center"&gt;
+  &lt;n-button slot="leading" variant="ghost"&gt;&lt;n-icon name="caret-left"&gt;&lt;/n-icon&gt;&lt;/n-button&gt;
+  &lt;span slot="label"&gt;Step 2 of 4&lt;/span&gt;
+  &lt;n-button slot="trailing" variant="ghost"&gt;&lt;n-icon name="x"&gt;&lt;/n-icon&gt;&lt;/n-button&gt;
+&lt;/header&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── n-body: Scrollable ── -->
+
+    <h2>n-body — Scrollable Content</h2>
+    <n-panel bordered>
+      <div class="header-card-wrap header-card-wrap--sm header-card-wrap--h-lg">
+        <n-card>
+          <header>
+            <span>Scrollable Card</span>
+          </header>
+          <section>
+            <n-text>This card has a fixed height. The body scrolls independently while the header stays pinned.</n-text>
+            <n-text>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</n-text>
+            <n-text>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</n-text>
+            <n-text>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</n-text>
+            <n-text>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</n-text>
+          </section>
+          <footer>
+            <n-button variant="primary" intent="accent"><span>Done</span></n-button>
+          </footer>
+        </n-card>
+      </div>
+    <pre class="code-block"><code>&lt;n-card style="height: 16rem;"&gt;
+  &lt;header&gt;&lt;span slot="label"&gt;Scrollable&lt;/span&gt;&lt;/header&gt;
+  &lt;section&gt;
+    &lt;p&gt;Long content that scrolls...&lt;/p&gt;
+  &lt;/section&gt;
+  &lt;footer&gt;
+    &lt;n-button variant="primary" intent="accent"&gt;Done&lt;/n-button&gt;
+  &lt;/footer&gt;
+&lt;/n-card&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── n-body: Show Scrollbar ── -->
+
+    <h2>n-body — Visible Scrollbar</h2>
+    <n-panel bordered>
+      <div class="header-card-wrap header-card-wrap--sm header-card-wrap--h-md">
+        <n-card>
+          <header><span>With Scrollbar</span></header>
+          <section show-scrollbar>
+            <n-text>The <code>show-scrollbar</code> attribute reveals a thin scrollbar.</n-text>
+            <n-text>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</n-text>
+            <n-text>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</n-text>
+            <n-text>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.</n-text>
+          </section>
+        </n-card>
+      </div>
+    <pre class="code-block"><code>&lt;section show-scrollbar&gt;
+  &lt;p&gt;Scrollable content with a visible scrollbar.&lt;/p&gt;
+&lt;/section&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── n-footer: Justify ── -->
+
+    <h2>n-footer — Justify Variants</h2>
+    <n-panel bordered>
+      <n-stack gap="4">
+        <div class="header-card-wrap header-card-wrap--md">
+          <n-card>
+            <header><span>End (default)</span></header>
+            <section><n-text>Actions aligned to the right.</n-text></section>
+            <footer>
+              <n-button variant="ghost"><span>Cancel</span></n-button>
+              <n-button variant="primary" intent="accent"><span>Confirm</span></n-button>
+            </footer>
+          </n-card>
+        </div>
+        <div class="header-card-wrap header-card-wrap--md">
+          <n-card>
+            <header><span>Spread</span></header>
+            <section><n-text>Cancel left, Save right.</n-text></section>
+            <footer justify="spread">
+              <n-button variant="ghost"><span>Cancel</span></n-button>
+              <n-button variant="primary" intent="accent"><span>Save</span></n-button>
+            </footer>
+          </n-card>
+        </div>
+        <div class="header-card-wrap header-card-wrap--md">
+          <n-card>
+            <header><span>Start</span></header>
+            <section><n-text>Actions aligned left.</n-text></section>
+            <footer justify="start">
+              <n-button variant="ghost"><span>Back</span></n-button>
+              <n-button variant="primary" intent="accent"><span>Next</span></n-button>
+            </footer>
+          </n-card>
+        </div>
+        <div class="header-card-wrap header-card-wrap--md">
+          <n-card>
+            <header><span>Center</span></header>
+            <section><n-text>Centered actions.</n-text></section>
+            <footer justify="center">
+              <n-button variant="primary" intent="accent"><span>Got it</span></n-button>
+            </footer>
+          </n-card>
+        </div>
+      </n-stack>
+    <pre class="code-block"><code>&lt;footer&gt;...&lt;/footer&gt;                &lt;!-- end (default) --&gt;
+&lt;footer justify="spread"&gt;...&lt;/footer&gt;  &lt;!-- space-between --&gt;
+&lt;footer justify="start"&gt;...&lt;/footer&gt;   &lt;!-- left-aligned --&gt;
+&lt;footer justify="center"&gt;...&lt;/footer&gt;  &lt;!-- centered --&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Sizes ── -->
+
+    <h2>Sizes (inherit from parent)</h2>
+    <n-panel bordered>
+      <n-stack direction="row" wrap align="center">
+        <div class="header-card-wrap header-card-wrap--xs">
+          <n-card size="sm">
+            <header><span>Small</span></header>
+            <section><n-text>Compact padding.</n-text></section>
+            <footer><n-button size="sm" variant="primary" intent="accent"><span>OK</span></n-button></footer>
+          </n-card>
+        </div>
+        <div class="header-card-wrap header-card-wrap--xs">
+          <n-card>
+            <header><span>Medium</span></header>
+            <section><n-text>Default padding.</n-text></section>
+            <footer><n-button variant="primary" intent="accent"><span>OK</span></n-button></footer>
+          </n-card>
+        </div>
+        <div class="header-card-wrap header-card-wrap--xs">
+          <n-card size="lg">
+            <header><span>Large</span></header>
+            <section><n-text>Spacious padding.</n-text></section>
+            <footer><n-button size="lg" variant="primary" intent="accent"><span>OK</span></n-button></footer>
+          </n-card>
+        </div>
+      </n-stack>
+      <pre class="code-block"><code>&lt;n-card size="sm"&gt;
+  &lt;header&gt;...&lt;/header&gt;
+  &lt;section&gt;...&lt;/section&gt;
+  &lt;footer&gt;...&lt;/footer&gt;
+&lt;/n-card&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── In Drawer ── -->
+
+    <h2>Inside a Drawer</h2>
+    <n-panel bordered>
+      <n-button id="open-drawer"><span>Open Drawer</span></n-button>
+      <n-drawer id="drawer-demo">
+        <header>
+          <span>Drawer Title</span>
+          <aside><n-button variant="ghost" id="close-drawer"><n-icon name="x"></n-icon></n-button></aside>
+        </header>
+        <section>
+          <n-text>The drawer uses n-header / n-body / n-footer. The header and footer stay fixed while the body scrolls.</n-text>
+          <n-text>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.</n-text>
+          <n-text>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</n-text>
+          <n-text>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</n-text>
+          <n-text>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit.</n-text>
+          <n-text>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.</n-text>
+          <n-text>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</n-text>
+          <n-text>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</n-text>
+        </section>
+        <footer justify="spread">
+          <n-button variant="ghost" id="cancel-drawer"><span>Cancel</span></n-button>
+          <n-button variant="primary" intent="accent"><span>Save Changes</span></n-button>
+        </footer>
+      </n-drawer>
+    <pre class="code-block"><code>&lt;n-drawer&gt;
+  &lt;header&gt;
+    &lt;span slot="label"&gt;Drawer Title&lt;/span&gt;
+    &lt;n-button slot="trailing" variant="ghost"&gt;&lt;n-icon name="x"&gt;&lt;/n-icon&gt;&lt;/n-button&gt;
+  &lt;/header&gt;
+  &lt;section&gt;
+    &lt;p&gt;Scrollable content...&lt;/p&gt;
+  &lt;/section&gt;
+  &lt;footer justify="spread"&gt;
+    &lt;n-button variant="ghost"&gt;Cancel&lt;/n-button&gt;
+    &lt;n-button variant="primary" intent="accent"&gt;Save&lt;/n-button&gt;
+  &lt;/footer&gt;
+&lt;/n-drawer&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+  </section>
+
+  <script>
+// Drawer demo
+      const drawer = document.getElementById('drawer-demo');
+      document.getElementById('open-drawer').addEventListener('native:press', () => drawer.show());
+      document.getElementById('close-drawer').addEventListener('native:press', () => drawer.close());
+      document.getElementById('cancel-drawer').addEventListener('native:press', () => drawer.close());
+  </script>
+</SidebarLayout>
+
+<style is:global>
+  .header-card-wrap {
+    display: contents;
+  }
+  .header-card-wrap > n-card {
+    max-width: var(--_header-card-max-width);
+    height: var(--_header-card-height, auto);
+  }
+  .header-card-wrap--xs { --_header-card-max-width: 18rem; }
+  .header-card-wrap--sm { --_header-card-max-width: 24rem; }
+  .header-card-wrap--md { --_header-card-max-width: 28rem; }
+  .header-card-wrap--h-md { --_header-card-height: 14rem; }
+  .header-card-wrap--h-lg { --_header-card-height: 16rem; }
+</style>

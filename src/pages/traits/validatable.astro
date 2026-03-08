@@ -30,12 +30,12 @@ const detailMessage = `{ message }`;
 ---
 <SidebarLayout title="Validatable">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>Validatable</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
 
       Composable trait for declarative form validation. Attach rules to any element, call <code>validate()</code>, and react to <code>native:valid</code> / <code>native:invalid</code> events. Sets <code>[invalid]</code> and <code>aria-invalid</code> attributes automatically.
 
@@ -58,7 +58,7 @@ const detailMessage = `{ message }`;
       </div>
       <n-button id="validate-required">Validate</n-button>
       <div id="required-output" class="output"></div>
-      <pre class="layout-code"><code set:html={codeExamples.requiredField} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.requiredField} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Multiple Rules ── -->
@@ -72,7 +72,7 @@ const detailMessage = `{ message }`;
       </div>
       <n-button id="validate-password">Validate</n-button>
       <div id="password-output" class="output"></div>
-      <pre class="layout-code"><code>validator.rules = [
+      <pre class="code-block"><code>validator.rules = [
   ValidateController.required('Password is required'),
   ValidateController.minLength(8, 'Must be at least 8 characters'),
   ValidateController.pattern(/[A-Z]/, 'Must contain an uppercase letter'),
@@ -92,7 +92,7 @@ const detailMessage = `{ message }`;
       <n-text size="xs" muted>
         Focus the input, type something, then tab away. Validation runs on blur.
       </n-text>
-      <pre class="layout-code"><code set:html={codeExamples.validateOnBlur} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.validateOnBlur} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── API Reference ── -->

@@ -22,12 +22,12 @@ const codeExamples = {
 ---
 <SidebarLayout title="Collapsible">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>Collapsible</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
 
       Composable trait for animated show/hide with smooth height transitions. Dispatches <code>native:expand</code> and <code>native:collapse</code> events.
 
@@ -48,7 +48,7 @@ const codeExamples = {
         </div>
       </collapse-demo>
       <div id="log"></div>
-    <pre class="layout-code"><code>&lt;!-- Declarative: n-controller with collapsible trait --&gt;
+    <pre class="code-block"><code>&lt;!-- Declarative: n-controller with collapsible trait --&gt;
 &lt;n-controller traits="collapsible"&gt;
   &lt;div id="my-section"&gt;
     &lt;p&gt;Collapsible content here&lt;/p&gt;
@@ -76,7 +76,7 @@ const codeExamples = {
           <p>I was hidden on page load. Click "Expand" to reveal me with a smooth animation.</p>
         </div>
       </collapse-demo>
-    <pre class="layout-code"><code>&lt;!-- Start collapsed with the collapsed attribute --&gt;
+    <pre class="code-block"><code>&lt;!-- Start collapsed with the collapsed attribute --&gt;
 &lt;n-controller traits="collapsible"&gt;
   &lt;div collapsed&gt;
     &lt;p&gt;Hidden on page load&lt;/p&gt;
@@ -101,7 +101,7 @@ const codeExamples = {
           <p>This section uses a custom <code>collapsible-duration="500"</code> for a slower, more dramatic animation.</p>
         </div>
       </collapse-demo>
-    <pre class="layout-code"><code set:html={codeExamples.customDuration500ms} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    <pre class="code-block"><code set:html={codeExamples.customDuration500ms} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── API Reference ── -->

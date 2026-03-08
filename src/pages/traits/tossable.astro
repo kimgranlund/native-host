@@ -53,12 +53,12 @@ const detailBounce = `{ edge, x, y }`;
 ---
 <SidebarLayout title="Tossable">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>Tossable</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
 
       Physics-based throw/toss with momentum. Sets a <code>[tossing]</code> attribute during deceleration and dispatches <code>native:toss</code> on release and <code>native:bounce</code> when hitting container edges.
 
@@ -121,7 +121,7 @@ const detailBounce = `{ edge, x, y }`;
       </div>
 
       <div id="provider-log" class="output"></div>
-      <pre class="layout-code"><code set:html={codeProvider} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeProvider} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Controller Demo ── -->
@@ -140,7 +140,7 @@ const detailBounce = `{ edge, x, y }`;
       </div>
 
       <div id="controller-log" class="output"></div>
-      <pre class="layout-code"><code set:html={codeController} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeController} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Options Card ── -->

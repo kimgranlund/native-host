@@ -3,12 +3,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Form Checkout">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>Checkout</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
 
       Complete your purchase by filling in the details below.
 
@@ -67,7 +67,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
                   <n-select name="country">
                     <n-button justify="spread">
                       <span slot="label">Select country</span>
-                      <aside><n-icon name="caret-up-down"></n-icon></aside>
+                      <n-icon name="caret-up-down" slot="trailing"></n-icon>
                     </n-button>
                     <n-listbox popover="manual">
                       <n-option value="us">United States</n-option>
@@ -187,7 +187,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
                   <n-icon name="shopping-cart" slot="leading"></n-icon>
                   <span>Place Order</span>
                 </n-button>
-                <p class="demo-caption checkout-secure-note">
+                <p class="caption checkout-secure-note">
                   Your payment information is encrypted and secure.
                 </p>
               </n-stack>

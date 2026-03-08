@@ -8,20 +8,20 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       <n-breadcrumb-item href="/users">Users</n-breadcrumb-item>
       <n-breadcrumb-item current>Kim Granlund</n-breadcrumb-item>
     </n-breadcrumb>
-    <div data-slot="title">
-      <div data-slot="leading">
+    <div slot="title">
+      <div slot="leading">
         <n-avatar name="Kim Granlund" size="xl" intent="accent"></n-avatar>
       </div>
-      <div data-slot="content">
+      <div slot="content">
         <n-stack gap="1">
           <n-stack direction="row" align="center" gap="2">
             <h1>Kim Granlund</h1>
             <n-badge intent="success">Active</n-badge>
           </n-stack>
-          <span class="demo-text">Senior Product Designer &middot; Design Team &middot; Joined Mar 2023</span>
+          <span class="text">Senior Product Designer &middot; Design Team &middot; Joined Mar 2023</span>
         </n-stack>
       </div>
-      <div data-slot="actions">
+      <div slot="actions">
         <n-button size="sm">
           <n-icon name="pencil-simple" slot="leading"></n-icon>
           <span>Edit</span>

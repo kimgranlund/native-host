@@ -402,10 +402,10 @@ function setupPage() {
 
   const codeToggle = document.getElementById('code-toggle') as HTMLElement | null;
   if (codeToggle) {
-    const hasCode = document.querySelectorAll('.layout-code').length > 0;
+    const hasCode = document.querySelectorAll('.code-block').length > 0;
     if (hasCode) codeToggle.removeAttribute('disabled');
     if (hasCode && localStorage.getItem(PREF_SHOW_CODE) === 'true') {
-      for (const block of document.querySelectorAll('.layout-code')) {
+      for (const block of document.querySelectorAll('.code-block')) {
         block.setAttribute('visible', '');
       }
       const icon = codeToggle.querySelector('n-icon');
@@ -421,7 +421,7 @@ function setupPage() {
         if (willShow) icon.setAttribute('weight', 'fill');
         else icon.removeAttribute('weight');
       }
-      for (const block of document.querySelectorAll('.layout-code')) {
+      for (const block of document.querySelectorAll('.code-block')) {
         if (willShow) block.setAttribute('visible', '');
         else block.removeAttribute('visible');
       }
@@ -467,7 +467,7 @@ function setupPage() {
 
   for (const btn of document.querySelectorAll('n-button[aria-label="Copy"]')) {
     btn.addEventListener('click', async () => {
-      const code = btn.closest('.layout-code')?.querySelector('code');
+      const code = btn.closest('.code-block')?.querySelector('code');
       if (!code) return;
       await navigator.clipboard.writeText(code.textContent ?? '');
       const icon = btn.querySelector('n-icon');

@@ -3,12 +3,12 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Icons">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>Icon</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
       <span class="header-tag">&lt;n-icon&gt;</span> Phosphor icon element with registry, late-registration, and accessibility support.
           </div>
   </header>
@@ -107,25 +107,25 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
 
     <h2>Sizes</h2>
     <n-panel bordered>
-      <div class="layout-grid">
+      <div class="grid">
         <n-stack>
-          <span class="layout-col-label">xs (0.75rem)</span>
+          <span class="col-label">xs (0.75rem)</span>
           <n-icon name="house" size="xs"></n-icon>
         </n-stack>
         <n-stack>
-          <span class="layout-col-label">sm (0.875rem)</span>
+          <span class="col-label">sm (0.875rem)</span>
           <n-icon name="house" size="sm"></n-icon>
         </n-stack>
         <n-stack>
-          <span class="layout-col-label">md (1rem, default)</span>
+          <span class="col-label">md (1rem, default)</span>
           <n-icon name="house" size="md"></n-icon>
         </n-stack>
         <n-stack>
-          <span class="layout-col-label">lg (1.125rem)</span>
+          <span class="col-label">lg (1.125rem)</span>
           <n-icon name="house" size="lg"></n-icon>
         </n-stack>
         <n-stack>
-          <span class="layout-col-label">xl (1.25rem)</span>
+          <span class="col-label">xl (1.25rem)</span>
           <n-icon name="house" size="xl"></n-icon>
         </n-stack>
       </div>
@@ -188,7 +188,7 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
 
     <h2>Dynamic Name Change</h2>
     <n-panel bordered>
-      <div class="layout-grid">
+      <div class="grid">
         <n-stack>
           <n-icon id="dynamic-icon" name="house" size="xl"></n-icon>
           <select id="icon-picker" style="font-size: 0.75rem; padding: 0.25rem;">

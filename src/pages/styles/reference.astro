@@ -60,12 +60,12 @@ const scopedIntentCSS = `/* All controls inside .danger-zone get danger colors *
 ---
 <SidebarLayout title="Reference">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>Component State Reference</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
 
       Aggregate view of every UI component and the CSS states, ARIA attributes, and configuration attributes each supports.
 
@@ -468,7 +468,7 @@ const scopedIntentCSS = `/* All controls inside .danger-zone get danger colors *
       </div>
 
       <n-panel bordered>
-      <pre class="layout-code"><code>&lt;!-- Interactive state attributes on components --&gt;
+      <pre class="code-block"><code>&lt;!-- Interactive state attributes on components --&gt;
 &lt;n-button force-hover&gt;Hovered&lt;/n-button&gt;
 &lt;n-button force-active&gt;Active&lt;/n-button&gt;
 &lt;n-button disabled&gt;Disabled&lt;/n-button&gt;
@@ -704,7 +704,7 @@ const scopedIntentCSS = `/* All controls inside .danger-zone get danger colors *
       </div>
 
       <n-panel bordered>
-      <pre class="layout-code"><code>&lt;!-- Selection states --&gt;
+      <pre class="code-block"><code>&lt;!-- Selection states --&gt;
 &lt;n-option aria-selected="true"&gt;Selected&lt;/n-option&gt;
 &lt;n-checkbox aria-checked="true"&gt;Checked&lt;/n-checkbox&gt;
 &lt;n-checkbox aria-checked="mixed"&gt;Indeterminate&lt;/n-checkbox&gt;
@@ -758,7 +758,7 @@ const scopedIntentCSS = `/* All controls inside .danger-zone get danger colors *
       </n-table>
 
       <n-panel bordered>
-      <pre class="layout-code"><code>&lt;!-- Primitive attributes cascade via CSS custom properties --&gt;
+      <pre class="code-block"><code>&lt;!-- Primitive attributes cascade via CSS custom properties --&gt;
 &lt;div size="sm" intent="accent" density="compact" radius="round"&gt;
   &lt;n-button variant="primary"&gt;Inherits all&lt;/n-button&gt;
   &lt;n-input placeholder="Also inherits"&gt;&lt;/n-input&gt;
@@ -1071,7 +1071,7 @@ const scopedIntentCSS = `/* All controls inside .danger-zone get danger colors *
       </n-table>
 
       <n-panel bordered>
-      <pre class="layout-code"><code>&lt;!-- Component-specific attributes --&gt;
+      <pre class="code-block"><code>&lt;!-- Component-specific attributes --&gt;
 &lt;n-button justify="spread"&gt;
   &lt;span slot="label"&gt;Select...&lt;/span&gt;
   &lt;n-icon name="caret-up-down" slot="trailing"&gt;&lt;/n-icon&gt;
@@ -1143,7 +1143,7 @@ const scopedIntentCSS = `/* All controls inside .danger-zone get danger colors *
       </n-table>
 
       <n-panel bordered>
-      <pre class="layout-code"><code>&lt;!-- Container layout attributes --&gt;
+      <pre class="code-block"><code>&lt;!-- Container layout attributes --&gt;
 &lt;n-stack direction="row" gap="4" align="center" wrap&gt;
   &lt;n-button&gt;A&lt;/n-button&gt;
   &lt;n-button&gt;B&lt;/n-button&gt;
@@ -1411,7 +1411,7 @@ const scopedIntentCSS = `/* All controls inside .danger-zone get danger colors *
       </div>
 
       <n-panel bordered>
-      <pre class="layout-code"><code set:html={codeExamples.events} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.events} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
       </n-panel>
 
       <!-- ========================================== -->
@@ -1509,7 +1509,7 @@ const scopedIntentCSS = `/* All controls inside .danger-zone get danger colors *
       </n-table>
 
       <n-panel bordered>
-      <pre class="layout-code"><code set:html={codeExamples.formAssociation} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.formAssociation} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
       </n-panel>
 
       <!-- ========================================== -->
@@ -1565,7 +1565,7 @@ const scopedIntentCSS = `/* All controls inside .danger-zone get danger colors *
       </n-table>
 
       <n-panel bordered>
-      <pre class="layout-code"><code>&lt;!-- ARIA roles are set automatically via ElementInternals --&gt;
+      <pre class="code-block"><code>&lt;!-- ARIA roles are set automatically via ElementInternals --&gt;
 &lt;!-- No manual role attributes needed --&gt;
 &lt;n-button&gt;role="button"&lt;/n-button&gt;
 &lt;n-input&gt; &lt;!-- role="textbox" --&gt;
@@ -1692,7 +1692,7 @@ const scopedIntentCSS = `/* All controls inside .danger-zone get danger colors *
       </n-table>
 
       <n-panel bordered>
-      <pre class="layout-code"><code>&lt;!-- Keyboard patterns are built-in --&gt;
+      <pre class="code-block"><code>&lt;!-- Keyboard patterns are built-in --&gt;
 &lt;!-- Listbox: Arrow keys, Home, End, Enter --&gt;
 &lt;n-listbox&gt;
   &lt;n-option value="a"&gt;Option A&lt;/n-option&gt;

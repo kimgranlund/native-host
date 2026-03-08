@@ -5,7 +5,7 @@
 
 for (const btn of document.querySelectorAll('n-button[aria-label="Copy"]')) {
   btn.addEventListener('click', async () => {
-    const code = btn.closest('.layout-code')?.querySelector('code');
+    const code = btn.closest('.code-block')?.querySelector('code');
     if (!code) return;
     await navigator.clipboard.writeText(code.textContent ?? '');
     const icon = btn.querySelector('n-icon');

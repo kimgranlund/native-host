@@ -55,12 +55,12 @@ host.addEventListener('native:virtual-change', (e) =&gt; {
 ---
 <SidebarLayout title="Virtualizable">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>Virtualizable</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
 
       Composable trait for windowed rendering of large lists. Only renders visible items plus an overscan buffer. Dispatches <code>native:virtual-change</code> with the visible range so you can render only what's needed. All demos use <code>VirtualScrollController</code> directly since <code>enable(scrollEl, container, totalCount)</code> must be called to start virtualization. <code>n-controller</code> can create the controller declaratively, but <code>enable()</code> must still be called to begin.
 
@@ -83,7 +83,7 @@ host.addEventListener('native:virtual-change', (e) =&gt; {
           <div class="scroll-content" id="content1"></div>
         </div>
       </div>
-      <pre class="layout-code"><code set:html={codeExamples.tenThousandItems} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.tenThousandItems} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Dynamic Count ── -->
@@ -100,7 +100,7 @@ host.addEventListener('native:virtual-change', (e) =&gt; {
         </div>
       </div>
       <div id="dynamic-output" class="output">100 items</div>
-      <pre class="layout-code"><code set:html={codeExamples.dynamicCount} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.dynamicCount} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── VirtualScrollController: Attach to Any Element ── -->
@@ -120,7 +120,7 @@ host.addEventListener('native:virtual-change', (e) =&gt; {
           <div class="scroll-content" id="ctrl-content"></div>
         </div>
       </div>
-      <pre class="layout-code"><code set:html={codeExamples.virtualscrollcontrollerAttachToAnyElement} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.virtualscrollcontrollerAttachToAnyElement} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── API Reference ── -->

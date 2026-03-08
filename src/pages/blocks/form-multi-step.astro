@@ -3,12 +3,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Form Multi-Step">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>Create Account</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
 
       Complete the steps below to set up your new account.
 
@@ -60,7 +60,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
             <div class="right">
               <n-button variant="primary" intent="accent" id="btn-next-1">
                 <span slot="label">Next</span>
-                <aside><n-icon name="arrow-right"></n-icon></aside>
+                <n-icon name="arrow-right" slot="trailing"></n-icon>
               </n-button>
             </div>
           </div>
@@ -87,7 +87,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
               <n-select id="input-state" name="state">
                 <n-button justify="spread">
                   <span slot="label">Select state</span>
-                  <aside><n-icon name="caret-up-down"></n-icon></aside>
+                  <n-icon name="caret-up-down" slot="trailing"></n-icon>
                 </n-button>
                 <n-listbox popover="manual">
                   <n-option value="ca">California</n-option>
@@ -115,7 +115,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
             <div class="right">
               <n-button variant="primary" intent="accent" id="btn-next-2">
                 <span slot="label">Next</span>
-                <aside><n-icon name="arrow-right"></n-icon></aside>
+                <n-icon name="arrow-right" slot="trailing"></n-icon>
               </n-button>
             </div>
           </div>
@@ -128,7 +128,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           <n-stack gap="4">
           <div>
             <h2>Review your information</h2>
-            <p class="demo-text">
+            <p class="text">
             Please verify that all details are correct before submitting.
           </p>
           </div>

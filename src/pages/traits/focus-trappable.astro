@@ -20,12 +20,12 @@ function hide() {
 ---
 <SidebarLayout title="FocusTrappable">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>FocusTrappable</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
 
       Composable trait for trapping Tab focus within a container. When enabled, Tab and Shift+Tab cycle through focusable children without leaving the container. On enable, focus moves to <code>[autofocus]</code> or the first focusable element. On disable, focus returns to the previously focused element.
 
@@ -61,7 +61,7 @@ function hide() {
           <n-button id="close-btn">Close</n-button>
         </div>
       </div>
-      <pre class="layout-code"><code set:html={codeExamples.focusTrap} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.focusTrap} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Without Autofocus ── -->

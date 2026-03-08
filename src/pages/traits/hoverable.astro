@@ -4,12 +4,12 @@ const detailPointerType = `{ pointerType }`;
 ---
 <SidebarLayout title="Hoverable">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>Hoverable</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
 
       Pointer hover state with configurable enter/leave delays. Sets <code>[hovered]</code> attribute and dispatches <code>native:hover-enter</code> / <code>native:hover-leave</code> events.
 
@@ -31,7 +31,7 @@ const detailPointerType = `{ pointerType }`;
         </div>
       </n-controller>
       <div id="instant-log" class="output"></div>
-      <pre class="layout-code"><code>&lt;n-controller traits="hoverable"&gt;
+      <pre class="code-block"><code>&lt;n-controller traits="hoverable"&gt;
   &lt;div class="hover-card"&gt;
     Hover over me
   &lt;/div&gt;
@@ -51,7 +51,7 @@ const detailPointerType = `{ pointerType }`;
         </div>
       </n-controller>
       <div id="intent-log" class="output"></div>
-      <pre class="layout-code"><code>&lt;n-controller traits="hoverable" data-trait-hoverable-delay="500"&gt;
+      <pre class="code-block"><code>&lt;n-controller traits="hoverable" data-trait-hoverable-delay="500"&gt;
   &lt;div class="hover-card"&gt;
     Hover and wait 500ms
   &lt;/div&gt;
@@ -71,7 +71,7 @@ const detailPointerType = `{ pointerType }`;
         </div>
       </n-controller>
       <div id="sticky-log" class="output"></div>
-      <pre class="layout-code"><code>&lt;n-controller traits="hoverable" data-trait-hoverable-leave-delay="300"&gt;
+      <pre class="code-block"><code>&lt;n-controller traits="hoverable" data-trait-hoverable-leave-delay="300"&gt;
   &lt;div class="hover-card"&gt;
     Hover, then leave slowly
   &lt;/div&gt;
@@ -91,7 +91,7 @@ const detailPointerType = `{ pointerType }`;
         </div>
       </n-controller>
       <div id="combined-log" class="output"></div>
-      <pre class="layout-code"><code>&lt;n-controller traits="hoverable" data-trait-hoverable-delay="400" data-trait-hoverable-leave-delay="200"&gt;
+      <pre class="code-block"><code>&lt;n-controller traits="hoverable" data-trait-hoverable-delay="400" data-trait-hoverable-leave-delay="200"&gt;
   &lt;div class="hover-card"&gt;
     400ms enter + 200ms leave
   &lt;/div&gt;

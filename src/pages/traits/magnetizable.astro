@@ -53,11 +53,11 @@ ctrl.gridSize = 25;`,
   data-trait-magnetizable-snap-to-edges="true"
   data-trait-magnetizable-snap-to-siblings="true"&gt;
   &lt;div class="magnet-arena"&gt;
-    &lt;div class="layout-box"&gt;Header&lt;/div&gt;
-    &lt;div class="layout-box wide"&gt;Nav Bar&lt;/div&gt;
-    &lt;div class="layout-box tall"&gt;Sidebar&lt;/div&gt;
-    &lt;div class="layout-box"&gt;Content&lt;/div&gt;
-    &lt;div class="layout-box wide"&gt;Footer&lt;/div&gt;
+    &lt;div class="box"&gt;Header&lt;/div&gt;
+    &lt;div class="box wide"&gt;Nav Bar&lt;/div&gt;
+    &lt;div class="box tall"&gt;Sidebar&lt;/div&gt;
+    &lt;div class="box"&gt;Content&lt;/div&gt;
+    &lt;div class="box wide"&gt;Footer&lt;/div&gt;
   &lt;/div&gt;
 &lt;/n-controller&gt;`,
 };
@@ -76,12 +76,12 @@ document.addEventListener('native:magnet-drop', (e) =&gt; {
 ---
 <SidebarLayout title="Magnetizable">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>Magnetizable</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
 
       Snaps elements to alignment guides when dragged near siblings or container edges. Supports grid snapping, configurable threshold and strength, and visual guide lines. Dispatches <code>native:magnet-snap</code> on snap and <code>native:magnet-drop</code> on release.
 
@@ -106,7 +106,7 @@ document.addEventListener('native:magnet-drop', (e) =&gt; {
           <div class="magnet-box danger" style="left: 18rem; top: 6rem;">E</div>
         </div>
       </n-controller>
-      <pre class="layout-code"><code set:html={codeExamples.siblingSnap} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.siblingSnap} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Grid Snap ── -->
@@ -124,7 +124,7 @@ document.addEventListener('native:magnet-drop', (e) =&gt; {
           <div class="magnet-box warning" style="left: 150px; top: 150px;">4</div>
         </div>
       </n-controller>
-      <pre class="layout-code"><code set:html={codeExamples.gridSnap} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.gridSnap} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Edge Snap Only ── -->
@@ -140,7 +140,7 @@ document.addEventListener('native:magnet-drop', (e) =&gt; {
           <div class="magnet-box neutral" style="left: 12rem; top: 8rem;">Y</div>
         </div>
       </n-controller>
-      <pre class="layout-code"><code set:html={codeExamples.edgeOnly} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.edgeOnly} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Options Playground ── -->
@@ -188,7 +188,7 @@ document.addEventListener('native:magnet-drop', (e) =&gt; {
           <n-button id="opt-reset" size="sm" variant="ghost">Reset Positions</n-button>
         </n-stack>
       </n-card>
-      <pre class="layout-code"><code set:html={codeExamples.playground} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.playground} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Alignment Tool ── -->
@@ -200,14 +200,14 @@ document.addEventListener('native:magnet-drop', (e) =&gt; {
       </n-text>
       <n-controller traits="magnetizable" data-trait-magnetizable-threshold="15" data-trait-magnetizable-strength="0.5" data-trait-magnetizable-snap-to-edges="true" data-trait-magnetizable-snap-to-siblings="true">
         <div class="magnet-arena magnet-arena--tall" id="alignment-arena">
-          <div class="magnet-box layout-box accent" style="left: 2rem; top: 2rem;">Header</div>
-          <div class="magnet-box layout-box wide info" style="left: 2rem; top: 9rem;">Nav Bar</div>
-          <div class="magnet-box layout-box tall success" style="left: 16rem; top: 2rem;">Sidebar</div>
-          <div class="magnet-box layout-box warning" style="left: 6rem; top: 14rem;">Content</div>
-          <div class="magnet-box layout-box wide danger" style="left: 2rem; top: 22rem;">Footer</div>
+          <div class="magnet-box box accent" style="left: 2rem; top: 2rem;">Header</div>
+          <div class="magnet-box box wide info" style="left: 2rem; top: 9rem;">Nav Bar</div>
+          <div class="magnet-box box tall success" style="left: 16rem; top: 2rem;">Sidebar</div>
+          <div class="magnet-box box warning" style="left: 6rem; top: 14rem;">Content</div>
+          <div class="magnet-box box wide danger" style="left: 2rem; top: 22rem;">Footer</div>
         </div>
       </n-controller>
-      <pre class="layout-code"><code set:html={codeExamples.alignmentTool} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.alignmentTool} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Global Event Log ── -->
@@ -218,7 +218,7 @@ document.addEventListener('native:magnet-drop', (e) =&gt; {
         Listens on <code>document</code> for all <code>native:magnet-snap</code> and <code>native:magnet-drop</code> events from any arena on this page.
       </n-text>
       <div id="magnet-global-log" class="output"></div>
-      <pre class="layout-code"><code set:html={eventLogCode} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={eventLogCode} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── API Reference ── -->
@@ -468,18 +468,18 @@ document.addEventListener('astro:page-load', () => {
 
     /* ── Layout Boxes (Alignment Tool) ── */
 
-    .layout-box {
+    .box {
       width: 8rem;
       height: 5rem;
       font-size: 0.6875rem;
     }
 
-    .layout-box.wide {
+    .box.wide {
       width: 12rem;
       height: 3rem;
     }
 
-    .layout-box.tall {
+    .box.tall {
       width: 4rem;
       height: 8rem;
     }

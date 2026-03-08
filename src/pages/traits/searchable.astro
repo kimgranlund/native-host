@@ -67,12 +67,12 @@ const detailQueryMatchTotal = `{ query, matchCount, total }`;
 ---
 <SidebarLayout title="Searchable">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>Searchable</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
 
       Text filtering with match/hide attributes and highlight support. Non-matching items receive <code>[search-hidden]</code>, matching items get <code>[search-match]</code>. Since searching requires calling <code>filter()</code> imperatively from input events, all demos use direct <code>SearchController</code> instantiation. The <code>&lt;n-controller traits="searchable"&gt;</code> provider can create the controller declaratively, but <code>filter()</code> must still be called.
 
@@ -101,7 +101,7 @@ const detailQueryMatchTotal = `{ query, matchCount, total }`;
         </div>
       </div>
       <div id="basic-log" class="output"></div>
-      <pre class="layout-code"><code set:html={codeExamples.basicFilter} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.basicFilter} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Custom Text Field ── -->
@@ -122,7 +122,7 @@ const detailQueryMatchTotal = `{ query, matchCount, total }`;
           <div class="search-item" data-search="typography font text">Typography Scale</div>
         </div>
       </div>
-      <pre class="layout-code"><code set:html={codeExamples.customTextField} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.customTextField} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Highlight ── -->
@@ -142,7 +142,7 @@ const detailQueryMatchTotal = `{ query, matchCount, total }`;
           <div class="search-item" data-original="PureScript">PureScript</div>
         </div>
       </div>
-      <pre class="layout-code"><code set:html={codeExamples.highlightMatches} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.highlightMatches} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── SearchController Direct ── -->
@@ -165,7 +165,7 @@ const detailQueryMatchTotal = `{ query, matchCount, total }`;
         </div>
       </div>
       <div id="ctrl-log" class="output"></div>
-      <pre class="layout-code"><code set:html={codeExamples.searchcontrollerAttachToAnyElement} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.searchcontrollerAttachToAnyElement} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── API Reference ── -->

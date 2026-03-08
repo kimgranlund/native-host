@@ -3,12 +3,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Form Contact">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>Contact Us</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
 
       Have a question or feedback? Fill out the form below and we'll get back to you within 24 hours.
 
@@ -45,7 +45,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
                 <n-select name="subject" placeholder="Select a topic">
                   <n-button justify="spread">
                     <span slot="label">Select a topic</span>
-                    <aside><n-icon name="caret-up-down"></n-icon></aside>
+                    <n-icon name="caret-up-down" slot="trailing"></n-icon>
                   </n-button>
                   <n-listbox popover="manual">
                     <n-option value="general">General Inquiry</n-option>

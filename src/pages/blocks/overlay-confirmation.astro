@@ -3,12 +3,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Confirmation Dialog">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>Confirmation Dialogs</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
 
       Modal confirmation patterns for different severity levels. Each dialog
       clearly communicates the action, its consequences, and provides cancel/confirm options.
@@ -47,7 +47,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
             <n-icon name="info" aria-hidden="true"></n-icon>
           </div>
           <h3 class="dialog-title">Archive project?</h3>
-          <p class="demo-text">
+          <p class="text">
             This project will be moved to the archive. Team members will lose edit access,
             but all data and history will be preserved. You can restore it at any time from
             the archive.
@@ -73,7 +73,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
             <n-icon name="warning" aria-hidden="true"></n-icon>
           </div>
           <h3 class="dialog-title">Unsaved changes</h3>
-          <p class="demo-text">
+          <p class="text">
             You have unsaved changes that will be lost if you leave this page.
             Would you like to save your work before continuing?
           </p>
@@ -98,7 +98,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
             <n-icon name="trash" aria-hidden="true"></n-icon>
           </div>
           <h3 class="dialog-title danger">Delete account?</h3>
-          <p class="demo-text">
+          <p class="text">
             This action cannot be undone. All your data, projects, and settings
             will be permanently removed. Any active subscriptions will be cancelled immediately.
           </p>

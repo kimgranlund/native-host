@@ -111,7 +111,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       <div class="layout-row">
         <!-- live demo elements -->
       </div>
-      <pre class="layout-code"><code><!-- escaped HTML --></code>
+      <pre class="code-block"><code><!-- escaped HTML --></code>
         <n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy">
           <n-icon name="copy"></n-icon>
         </n-button>
@@ -136,7 +136,7 @@ Rules:
 - `<style is:global>` is mandatory for styles targeting `n-*` / `native-*` elements
 - Scripts must wrap in `astro:page-load` with a guard element ID check
 - Heading hierarchy: `h1` (page), `h2` (section), `h3` (subsection)
-- Layout classes: `.layout-section`, `.layout-row`, `.layout-label`, `.layout-code`, `.layout-grid`, `.layout-col`, `.layout-box`, `.layout-card`, `.layout-hint`, `.log`
+- Layout classes: `.layout-section`, `.layout-row`, `.label`, `.code-block`, `.grid`, `.layout-col`, `.box`, `.card`, `.hint`, `.log`
 
 ### Pattern 2: Block page (~22 pages)
 
@@ -204,14 +204,14 @@ Loaded by SidebarLayout. Persists across navigations.
 **Per-sidebar-instance (`wireSidebar`, once per DOM instance):**
 - Sidebar collapse/expand (writes localStorage + cookie)
 - Theme toggle light/dark (writes localStorage + cookie)
-- Code toggle: show/hide `.layout-code` blocks
+- Code toggle: show/hide `.code-block` blocks
 - Nav group open/close persistence (MutationObserver on `n-sidebar-group[open]`)
 - Nav item navigation via `native:change` event
 - Command palette open/close and selection
 
 **Per-page (`setupPage`, every `astro:page-load`):**
 - Wire inspector/chat panel toggles (WeakSet tracks wired panels)
-- Show/hide code toggle based on `.layout-code` presence
+- Show/hide code toggle based on `.code-block` presence
 - Wire copy-to-clipboard buttons
 
 **Auth-aware features:**

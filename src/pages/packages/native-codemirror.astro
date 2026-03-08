@@ -3,12 +3,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="CodeMirror">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>Codemirror</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
       <span class="header-tag">&lt;native-codemirror&gt;</span> Shared CodeMirror 6 integration layer for the NativeUI ecosystem.
       Provides a dark theme, syntax highlighting, base extensions (keymaps, history, brackets, autocomplete, line numbers),
       and a <code>createEditorView()</code> factory.
@@ -23,7 +23,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <n-text size="sm" muted spacing="tight">One-line factory — creates a themed editor with all base extensions.</n-text>
     <n-panel bordered>
       <div class="editor-container" id="factory-demo"></div>
-    <pre class="layout-code"><code>import &#123; createEditorView &#125; from '@nonoun/native-code';
+    <pre class="code-block"><code>import &#123; createEditorView &#125; from '@nonoun/native-code';
 import &#123; javascript &#125; from '@codemirror/lang-javascript';
 
 const view = createEditorView(document.getElementById('editor'), &#123;
@@ -37,7 +37,7 @@ const view = createEditorView(document.getElementById('editor'), &#123;
     <h2>JavaScript</h2>
     <n-panel bordered>
       <div class="editor-container" id="js-demo"></div>
-    <pre class="layout-code"><code>import &#123; javascript &#125; from '@codemirror/lang-javascript';
+    <pre class="code-block"><code>import &#123; javascript &#125; from '@codemirror/lang-javascript';
 
 createEditorView(container, &#123;
   doc: source,
@@ -50,7 +50,7 @@ createEditorView(container, &#123;
     <h2>HTML</h2>
     <n-panel bordered>
       <div class="editor-container" id="html-demo"></div>
-    <pre class="layout-code"><code>import &#123; html &#125; from '@codemirror/lang-html';
+    <pre class="code-block"><code>import &#123; html &#125; from '@codemirror/lang-html';
 
 createEditorView(container, &#123;
   doc: source,
@@ -63,7 +63,7 @@ createEditorView(container, &#123;
     <h2>CSS</h2>
     <n-panel bordered>
       <div class="editor-container" id="css-demo"></div>
-    <pre class="layout-code"><code>import &#123; css &#125; from '@codemirror/lang-css';
+    <pre class="code-block"><code>import &#123; css &#125; from '@codemirror/lang-css';
 
 createEditorView(container, &#123;
   doc: source,
@@ -76,7 +76,7 @@ createEditorView(container, &#123;
     <h2>Markdown</h2>
     <n-panel bordered>
       <div class="editor-container" id="md-demo"></div>
-    <pre class="layout-code"><code>import &#123; markdown &#125; from '@codemirror/lang-markdown';
+    <pre class="code-block"><code>import &#123; markdown &#125; from '@codemirror/lang-markdown';
 
 createEditorView(container, &#123;
   doc: source,
@@ -90,7 +90,7 @@ createEditorView(container, &#123;
     <n-text size="sm" muted spacing="tight">Selectable but not editable. Useful for documentation code blocks.</n-text>
     <n-panel bordered>
       <div class="editor-container editor-container-sm" id="readonly-demo"></div>
-    <pre class="layout-code"><code>createEditorView(container, &#123;
+    <pre class="code-block"><code>createEditorView(container, &#123;
   doc: source,
   extensions: [javascript()],
   readonly: true,
@@ -104,7 +104,7 @@ createEditorView(container, &#123;
     <n-panel bordered>
       <div class="editor-container editor-container-sm" id="custom-demo"></div>
       <div class="log" id="change-log" style="max-height: 80px;"></div>
-    <pre class="layout-code"><code>import &#123; EditorView &#125; from '@nonoun/native-code';
+    <pre class="code-block"><code>import &#123; EditorView &#125; from '@nonoun/native-code';
 
 createEditorView(container, &#123;
   doc: source,

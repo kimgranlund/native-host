@@ -19,12 +19,12 @@ const codeDeclarative = `<n-chat-input
 ---
 <SidebarLayout title="Gateways">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>Gateways</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
       Gateways route LLM requests through server-side proxies, abstracting away provider-specific APIs. A single gateway URL handles authentication, model selection, and streaming responses.
     </div>
   </header>
@@ -52,7 +52,7 @@ const codeDeclarative = `<n-chat-input
         <n-text variant="heading" size="md" slot="heading">Programmatic Usage</n-text>
         <n-stack gap="3">
           <n-text>Use <code>LLMGatewayController</code> to programmatically configure a gateway on any element.</n-text>
-          <div class="layout-code">
+          <div class="code-block">
             <n-button variant="ghost" size="xs" aria-label="Copy"><n-icon name="copy"></n-icon></n-button>
             <pre><code set:html={codeGateway} /></pre>
           </div>
@@ -64,7 +64,7 @@ const codeDeclarative = `<n-chat-input
         <n-text variant="heading" size="md" slot="heading">Declarative (Chat Components)</n-text>
         <n-stack gap="3">
           <n-text>Chat components accept gateway configuration directly as attributes.</n-text>
-          <div class="layout-code">
+          <div class="code-block">
             <n-button variant="ghost" size="xs" aria-label="Copy"><n-icon name="copy"></n-icon></n-button>
             <pre><code set:html={codeDeclarative} /></pre>
           </div>

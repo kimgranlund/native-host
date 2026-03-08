@@ -1,0 +1,269 @@
+---
+import SidebarLayout from '../../layouts/SidebarLayout.astro';
+
+const codeExamples = {
+  changeEvents: `&lt;n-checkbox id="event-cb" intent="accent"&gt;Toggle me&lt;/n-checkbox&gt;
+
+&lt;script&gt;
+  document.getElementById('event-cb')
+    .addEventListener('native:change', (e) =&gt; {
+      console.log(e.detail.checked, e.detail.value);
+    });
+&lt;/script&gt;`,
+};
+---
+<SidebarLayout title="Checkbox">
+  <header>
+    <div slot="title">
+      <div slot="content">
+        <h1>Checkbox</h1>
+      </div>
+    </div>
+    <div slot="description">
+      <span class="header-tag">&lt;n-checkbox&gt;</span> Custom checkbox with Pressable trait, form association, and indeterminate support.
+          </div>
+  </header>
+
+  <section>
+
+    <!-- ── Basic ── -->
+
+    <h2>Basic</h2>
+    <n-panel bordered>
+      <n-stack>
+        <n-checkbox>Accept terms and conditions</n-checkbox>
+        <n-checkbox checked>Email notifications</n-checkbox>
+        <n-checkbox indeterminate>Select all</n-checkbox>
+      </n-stack>
+      <pre class="code-block"><code>&lt;n-checkbox&gt;Accept terms and conditions&lt;/n-checkbox&gt;
+&lt;n-checkbox checked&gt;Email notifications&lt;/n-checkbox&gt;
+&lt;n-checkbox indeterminate&gt;Select all&lt;/n-checkbox&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Sizes ── -->
+
+    <h2>Sizes</h2>
+    <n-panel bordered>
+      <n-stack direction="row" wrap align="center">
+        <span class="label">xs</span>
+        <n-checkbox size="xs" checked>Extra small</n-checkbox>
+      </n-stack>
+      <n-stack direction="row" wrap align="center">
+        <span class="label">sm</span>
+        <n-checkbox size="sm" checked>Small</n-checkbox>
+      </n-stack>
+      <n-stack direction="row" wrap align="center">
+        <span class="label">md</span>
+        <n-checkbox size="md" checked>Medium</n-checkbox>
+      </n-stack>
+      <n-stack direction="row" wrap align="center">
+        <span class="label">lg</span>
+        <n-checkbox size="lg" checked>Large</n-checkbox>
+      </n-stack>
+      <n-stack direction="row" wrap align="center">
+        <span class="label">xl</span>
+        <n-checkbox size="xl" checked>Extra large</n-checkbox>
+      </n-stack>
+      <pre class="code-block"><code>&lt;n-checkbox size="xs" checked&gt;Extra small&lt;/n-checkbox&gt;
+&lt;n-checkbox size="sm" checked&gt;Small&lt;/n-checkbox&gt;
+&lt;n-checkbox size="md" checked&gt;Medium&lt;/n-checkbox&gt;
+&lt;n-checkbox size="lg" checked&gt;Large&lt;/n-checkbox&gt;
+&lt;n-checkbox size="xl" checked&gt;Extra large&lt;/n-checkbox&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Density ── -->
+
+    <h2>Density</h2>
+    <n-panel bordered>
+      <h3>compact</h3>
+      <n-stack density="compact">
+        <n-checkbox size="sm" checked>Small compact</n-checkbox>
+        <n-checkbox checked>Medium compact</n-checkbox>
+        <n-checkbox size="lg" checked>Large compact</n-checkbox>
+      </n-stack>
+      <h3>default</h3>
+      <n-stack>
+        <n-checkbox size="sm" checked>Small default</n-checkbox>
+        <n-checkbox checked>Medium default</n-checkbox>
+        <n-checkbox size="lg" checked>Large default</n-checkbox>
+      </n-stack>
+      <h3>loose</h3>
+      <n-stack density="loose">
+        <n-checkbox size="sm" checked>Small loose</n-checkbox>
+        <n-checkbox checked>Medium loose</n-checkbox>
+        <n-checkbox size="lg" checked>Large loose</n-checkbox>
+      </n-stack>
+      <pre class="code-block"><code>&lt;div density="compact"&gt;
+  &lt;n-checkbox checked&gt;Compact&lt;/n-checkbox&gt;
+&lt;/div&gt;
+&lt;div density="loose"&gt;
+  &lt;n-checkbox checked&gt;Loose&lt;/n-checkbox&gt;
+&lt;/div&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Radius ── -->
+
+    <h2>Radius</h2>
+    <n-panel bordered>
+      <n-stack direction="row" wrap align="center">
+        <span class="label">default</span>
+        <n-checkbox checked>Checked</n-checkbox>
+        <n-checkbox indeterminate>Indeterminate</n-checkbox>
+        <n-checkbox>Unchecked</n-checkbox>
+      </n-stack>
+      <n-stack direction="row" wrap align="center">
+        <span class="label">sharp</span>
+        <n-checkbox radius="sharp" checked>Checked</n-checkbox>
+        <n-checkbox radius="sharp" indeterminate>Indeterminate</n-checkbox>
+        <n-checkbox radius="sharp">Unchecked</n-checkbox>
+      </n-stack>
+      <pre class="code-block"><code>&lt;n-checkbox checked&gt;Default radius&lt;/n-checkbox&gt;
+&lt;n-checkbox radius="sharp" checked&gt;Sharp radius&lt;/n-checkbox&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Intents ── -->
+
+    <h2>Intents</h2>
+    <n-panel bordered>
+      <n-stack>
+        <n-checkbox intent="neutral" checked>Neutral</n-checkbox>
+        <n-checkbox intent="accent" checked>Accent</n-checkbox>
+        <n-checkbox intent="info" checked>Info</n-checkbox>
+        <n-checkbox intent="success" checked>Success</n-checkbox>
+        <n-checkbox intent="warning" checked>Warning</n-checkbox>
+        <n-checkbox intent="danger" checked>Danger</n-checkbox>
+      </n-stack>
+      <pre class="code-block"><code>&lt;n-checkbox intent="accent" checked&gt;Accent&lt;/n-checkbox&gt;
+&lt;n-checkbox intent="success" checked&gt;Success&lt;/n-checkbox&gt;
+&lt;n-checkbox intent="warning" checked&gt;Warning&lt;/n-checkbox&gt;
+&lt;n-checkbox intent="danger" checked&gt;Danger&lt;/n-checkbox&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Disabled ── -->
+
+    <h2>Disabled</h2>
+    <n-panel bordered>
+      <n-stack>
+        <n-checkbox disabled>Unchecked disabled</n-checkbox>
+        <n-checkbox disabled checked>Checked disabled</n-checkbox>
+        <n-checkbox disabled indeterminate>Indeterminate disabled</n-checkbox>
+      </n-stack>
+      <pre class="code-block"><code>&lt;n-checkbox disabled&gt;Unchecked disabled&lt;/n-checkbox&gt;
+&lt;n-checkbox disabled checked&gt;Checked disabled&lt;/n-checkbox&gt;
+&lt;n-checkbox disabled indeterminate&gt;Indeterminate disabled&lt;/n-checkbox&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── States ── -->
+
+    <h2>States</h2>
+    <n-panel bordered>
+      <n-stack>
+        <n-checkbox>Unchecked</n-checkbox>
+        <n-checkbox checked>Checked</n-checkbox>
+        <n-checkbox indeterminate>Indeterminate</n-checkbox>
+      </n-stack>
+      <pre class="code-block"><code>&lt;n-checkbox&gt;Unchecked&lt;/n-checkbox&gt;
+&lt;n-checkbox checked&gt;Checked&lt;/n-checkbox&gt;
+&lt;n-checkbox indeterminate&gt;Indeterminate&lt;/n-checkbox&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Events ── -->
+
+    <h2>Change Events</h2>
+    <n-panel bordered>
+      <n-stack>
+        <n-checkbox id="event-cb" intent="accent">Toggle me</n-checkbox>
+      </n-stack>
+      <div class="log" id="event-log"></div>
+      <pre class="code-block"><code set:html={codeExamples.changeEvents} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Form Association ── -->
+
+    <h2>Form Association</h2>
+    <n-panel bordered>
+      <form id="demo-form">
+        <div class="form-fields"><n-stack>
+          <n-checkbox name="agree" value="yes" required>I agree to terms</n-checkbox>
+          <n-checkbox name="newsletter" value="yes" checked>Subscribe to newsletter</n-checkbox>
+          <n-checkbox name="beta" value="yes">Join beta program</n-checkbox>
+        </n-stack></div>
+        <n-stack direction="row" wrap align="center">
+          <n-button variant="primary" type="submit"><span>Submit</span></n-button>
+          <n-button variant="secondary" type="reset"><span>Reset</span></n-button>
+        </n-stack>
+      </form>
+      <div class="log" id="form-log"></div>
+      <pre class="code-block"><code>&lt;form&gt;
+  &lt;n-checkbox name="agree" value="yes" required&gt;I agree to terms&lt;/n-checkbox&gt;
+  &lt;n-checkbox name="newsletter" value="yes" checked&gt;Subscribe to newsletter&lt;/n-checkbox&gt;
+  &lt;n-button variant="primary" type="submit"&gt;
+    &lt;span slot="label"&gt;Submit&lt;/span&gt;
+  &lt;/n-button&gt;
+&lt;/form&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Cascading ── -->
+
+    <h2>Cascading</h2>
+    <n-panel bordered>
+      <h3>Parent size="sm", intent="accent"</h3>
+      <n-stack size="sm" intent="accent">
+        <n-checkbox checked>Inherited sm accent</n-checkbox>
+        <n-checkbox checked size="lg">Override lg</n-checkbox>
+        <n-checkbox checked intent="danger">Override danger</n-checkbox>
+      </n-stack>
+      <pre class="code-block"><code>&lt;div size="sm" intent="accent"&gt;
+  &lt;n-checkbox checked&gt;Inherited sm accent&lt;/n-checkbox&gt;
+  &lt;n-checkbox checked size="lg"&gt;Override lg&lt;/n-checkbox&gt;
+  &lt;n-checkbox checked intent="danger"&gt;Override danger&lt;/n-checkbox&gt;
+&lt;/div&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Debug States (force-*) ── -->
+
+    <h2>Debug States (<code>force-*</code>)</h2>
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="regular">
+        Attribute-driven pseudo-state overrides for DevTools debugging and visual testing.
+      </n-text>
+      <n-stack direction="row" wrap align="center">
+        <n-checkbox force-hover>Force hover</n-checkbox>
+        <n-checkbox force-hover checked>Force hover (checked)</n-checkbox>
+        <n-checkbox force-focus-visible>Force focus-visible</n-checkbox>
+        <n-checkbox force-focus-visible checked>Force focus-visible (checked)</n-checkbox>
+      </n-stack>
+    </n-panel>
+  </section>
+
+  <script>
+import { logPrepend } from '../../scripts/event-log';
+// Change event logging
+      const eventCb = document.getElementById('event-cb');
+      const eventLog = document.getElementById('event-log');
+      let count = 0;
+
+      eventCb.addEventListener('native:change', (e) => {
+        count++;
+        logPrepend(eventLog, `#${count} native:change — checked: ${e.detail.checked}, value: "${e.detail.value}"`);
+      });
+
+      // Form logging
+      const form = document.getElementById('demo-form');
+      const formLog = document.getElementById('form-log');
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const data = new FormData(form);
+        const entries = [...data.entries()].map(([k, v]) => `${k}=${v}`).join(', ');
+        logPrepend(formLog, `submit — ${entries || '(empty)'}`);
+      });
+
+      form.addEventListener('reset', () => {
+        logPrepend(formLog, 'reset');
+      });
+  </script>
+  <style is:global>
+    .form-fields { margin-bottom: 1rem; }
+  </style>
+</SidebarLayout>

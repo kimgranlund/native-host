@@ -200,12 +200,12 @@ body {
 ---
 <SidebarLayout title="Playground">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>Playground</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
       <span class="header-tag">&lt;native-playground&gt;</span> Embeddable live code sandbox with tabbed CodeMirror editors, sandboxed iframe preview, and console capture.
           </div>
   </header>
@@ -216,7 +216,7 @@ body {
 
     <h2>Basic</h2>
     <div class="playground-wrap"><native-playground auto-run set:html={basicPlayground} /></div>
-    <pre class="layout-code"><code>&lt;native-playground auto-run&gt;
+    <pre class="code-block"><code>&lt;native-playground auto-run&gt;
   &lt;script type="playground/html"&gt;
     &lt;button class="btn primary"&gt;Hello Playground&lt;/button&gt;
   &lt;/script&gt;
@@ -233,7 +233,7 @@ body {
 
     <h2>Vertical Orientation</h2>
     <div class="playground-wrap"><native-playground orientation="vertical" auto-run set:html={verticalPlayground} /></div>
-    <pre class="layout-code"><code>&lt;native-playground orientation="vertical" auto-run&gt;
+    <pre class="code-block"><code>&lt;native-playground orientation="vertical" auto-run&gt;
   &lt;script type="playground/html"&gt;
     &lt;span class="badge"&gt;Badge&lt;/span&gt;
     &lt;span class="badge accent"&gt;Accent&lt;/span&gt;
@@ -246,9 +246,9 @@ body {
     <!-- ── Console Capture ── -->
 
     <h2>Console Capture</h2>
-    <div class="layout-hint"><n-text size="xs" muted>Click "Console" in the toolbar, then press the button to see captured logs.</n-text></div>
+    <div class="hint"><n-text size="xs" muted>Click "Console" in the toolbar, then press the button to see captured logs.</n-text></div>
     <div class="playground-wrap"><native-playground auto-run console-open set:html={consolePlayground} /></div>
-    <pre class="layout-code"><code>&lt;native-playground auto-run console-open&gt;
+    <pre class="code-block"><code>&lt;native-playground auto-run console-open&gt;
   &lt;script type="playground/html"&gt;
     &lt;button id="log-btn"&gt;Log Something&lt;/button&gt;
   &lt;/script&gt;
@@ -267,9 +267,9 @@ body {
     <!-- ── Read-only ── -->
 
     <h2>Read-only</h2>
-    <div class="layout-hint"><n-text size="xs" muted>Editors are non-editable. Useful for documentation showcases.</n-text></div>
+    <div class="hint"><n-text size="xs" muted>Editors are non-editable. Useful for documentation showcases.</n-text></div>
     <div class="playground-wrap"><native-playground readonly auto-run set:html={readonlyPlayground} /></div>
-    <pre class="layout-code"><code>&lt;native-playground readonly auto-run&gt;
+    <pre class="code-block"><code>&lt;native-playground readonly auto-run&gt;
   &lt;script type="playground/html"&gt;
     &lt;input type="text" placeholder="Type here..." /&gt;
   &lt;/script&gt;
@@ -281,9 +281,9 @@ body {
     <!-- ── Active Tab: CSS ── -->
 
     <h2>Active Tab: CSS</h2>
-    <div class="layout-hint"><n-text size="xs" muted>Opens with the CSS tab pre-selected.</n-text></div>
+    <div class="hint"><n-text size="xs" muted>Opens with the CSS tab pre-selected.</n-text></div>
     <div class="playground-wrap"><native-playground active-tab="css" auto-run set:html={activeTabPlayground} /></div>
-    <pre class="layout-code"><code>&lt;native-playground active-tab="css" auto-run&gt;
+    <pre class="code-block"><code>&lt;native-playground active-tab="css" auto-run&gt;
   &lt;script type="playground/html"&gt;
     &lt;div class="card"&gt;
       &lt;h2&gt;Styled Card&lt;/h2&gt;

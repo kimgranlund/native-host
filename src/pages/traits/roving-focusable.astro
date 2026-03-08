@@ -3,12 +3,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="RovingFocusable">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>RovingFocusable</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
 
       Composable trait for keyboard navigation within a group. Only one item has <code>tabindex="0"</code> at a time — arrow keys move focus between items, Home/End jump to first/last. Skips disabled items.
 
@@ -35,7 +35,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           </div>
         </div>
       </n-controller>
-      <pre class="layout-code"><code>&lt;n-controller traits="roving-focusable"
+      <pre class="code-block"><code>&lt;n-controller traits="roving-focusable"
   roving-focusable-selector=".tool-btn:not([disabled])"
   roving-focusable-orientation="vertical"&gt;
   &lt;div&gt;
@@ -65,7 +65,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           </div>
         </div>
       </n-controller>
-      <pre class="layout-code"><code>&lt;n-controller traits="roving-focusable"
+      <pre class="code-block"><code>&lt;n-controller traits="roving-focusable"
   roving-focusable-selector=".tab-item"
   roving-focusable-orientation="horizontal"&gt;
   &lt;div&gt;

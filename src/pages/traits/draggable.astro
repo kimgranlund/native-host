@@ -51,12 +51,12 @@ const detailItem = `{ item }`;
 ---
 <SidebarLayout title="Draggable">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>Draggable</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
 
       Composable trait for drag-and-drop. Supports three modes: <strong>drop</strong> (outlines the target element), <strong>slot</strong> (shows a gap indicator between items for insertion), and <strong>preview</strong> (live DOM reordering as you drag). Ghost renders in the top layer via popover. Press Escape to cancel.
 
@@ -82,7 +82,7 @@ const detailItem = `{ item }`;
         </div>
       </n-controller>
       <div id="swap-log" class="output"></div>
-      <pre class="layout-code"><code set:html={codeExamples.dropModeSwapProvider} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.dropModeSwapProvider} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Drop Mode: Replace (Provider) ── -->
@@ -105,7 +105,7 @@ const detailItem = `{ item }`;
         </div>
       </n-controller>
       <div id="replace-log" class="output"></div>
-      <pre class="layout-code"><code>&lt;n-controller traits="draggable"
+      <pre class="code-block"><code>&lt;n-controller traits="draggable"
   data-trait-draggable-selector=".drag-person"
   data-trait-draggable-drop-zone-selector=".drag-role"
   data-trait-draggable-mode="drop"&gt;
@@ -134,7 +134,7 @@ const detailItem = `{ item }`;
         </div>
       </n-controller>
       <div id="slot-log" class="output"></div>
-      <pre class="layout-code"><code set:html={codeExamples.slotModeVerticalListProvider} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.slotModeVerticalListProvider} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Slot Mode: Horizontal Cards (Provider) ── -->
@@ -149,7 +149,7 @@ const detailItem = `{ item }`;
           <div class="drag-card">D</div>
         </div>
       </n-controller>
-      <pre class="layout-code"><code>&lt;n-controller traits="draggable"
+      <pre class="code-block"><code>&lt;n-controller traits="draggable"
   data-trait-draggable-selector=".drag-card"
   data-trait-draggable-axis="horizontal"
   data-trait-draggable-mode="slot"&gt;
@@ -197,7 +197,7 @@ const detailItem = `{ item }`;
         </div>
       </n-controller>
       <div id="preview-log" class="output"></div>
-      <pre class="layout-code"><code>&lt;n-controller traits="draggable"
+      <pre class="code-block"><code>&lt;n-controller traits="draggable"
   data-trait-draggable-selector=".grid-cell"
   data-trait-draggable-axis="both"
   data-trait-draggable-mode="preview"&gt;
@@ -240,7 +240,7 @@ const detailItem = `{ item }`;
         </div>
       </n-controller>
       <div id="kanban-log" class="output"></div>
-      <pre class="layout-code"><code>&lt;n-controller traits="draggable"
+      <pre class="code-block"><code>&lt;n-controller traits="draggable"
   data-trait-draggable-selector=".kanban-card"
   data-trait-draggable-zone-selector=".kanban-column"
   data-trait-draggable-axis="vertical"

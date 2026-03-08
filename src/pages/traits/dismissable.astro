@@ -22,12 +22,12 @@ panel.addEventListener('native:dismiss', () =&gt; hidePanel());`,
 ---
 <SidebarLayout title="Dismissable">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>Dismissable</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
 
       Composable trait that manages a global layer stack. When enabled, clicking outside the element or pressing Escape dispatches a <code>native:dismiss</code> event. Only the topmost layer in the stack receives dismiss events.
 
@@ -50,7 +50,7 @@ panel.addEventListener('native:dismiss', () =&gt; hidePanel());`,
         Clicking inside the panel will not dismiss it.
       </div>
       <div id="log" class="output"></div>
-      <pre class="layout-code"><code set:html={codeExamples.clickOutsideToDismiss} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.clickOutsideToDismiss} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Nested Layers ── -->
@@ -70,7 +70,7 @@ panel.addEventListener('native:dismiss', () =&gt; hidePanel());`,
       <div class="dismiss-panel dismiss-panel-b" id="panel-b" hidden>
         <strong>Panel B</strong> — I'm on top of Panel A.
       </div>
-      <pre class="layout-code"><code>&lt;!-- Each panel has its own DismissController --&gt;
+      <pre class="code-block"><code>&lt;!-- Each panel has its own DismissController --&gt;
 const dismissA = new DismissController(panelA);
 const dismissB = new DismissController(panelB);
 
@@ -99,7 +99,7 @@ dismissB.enable();
           <n-button id="close-dialog" intent="accent">Close</n-button>
         </n-card></div>
       </n-dialog>
-      <pre class="layout-code"><code>&lt;n-button id="open"&gt;Open Dialog&lt;/n-button&gt;
+      <pre class="code-block"><code>&lt;n-button id="open"&gt;Open Dialog&lt;/n-button&gt;
 &lt;n-dialog id="dialog"&gt;
   &lt;n-card&gt;
     &lt;p&gt;Dialog content&lt;/p&gt;

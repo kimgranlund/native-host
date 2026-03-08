@@ -3,12 +3,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Nav Sidebar">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>Application Sidebar</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
 
       Vertical navigation sidebar using <code>native-app</code> with grouped nav items,
       collapsible sections, header with brand switcher, and user footer.
@@ -30,7 +30,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
             <n-sidebar-item>
               <span slot="icon" class="sidebar-demo-mark">N</span>
               <span>Native UI</span>
-              <aside><n-icon name="caret-up-down"></n-icon></aside>
+              <n-icon name="caret-up-down" slot="trailing"></n-icon>
             </n-sidebar-item>
             <n-sidebar-item>
               <span slot="icon"><n-icon name="magnifying-glass"></n-icon></span>
@@ -66,13 +66,13 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
             <n-sidebar-item>
               <span slot="icon"><n-avatar name="Kim Granlund" size="xs" intent="accent"></n-avatar></span>
               <span>Kim Granlund</span>
-              <aside><n-icon name="caret-up-down"></n-icon></aside>
+              <n-icon name="caret-up-down" slot="trailing"></n-icon>
             </n-sidebar-item>
           </n-sidebar-footer>
         </aside>
 
         <div class="sidebar-main-area">
-          <span class="demo-text-sm">Main content area</span>
+          <span class="text-sm">Main content area</span>
         </div>
       </native-app>
     </div>
@@ -124,7 +124,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         </aside>
 
         <div class="sidebar-main-area">
-          <span class="demo-text-sm">Main content area</span>
+          <span class="text-sm">Main content area</span>
         </div>
       </native-app>
     </div>

@@ -3,12 +3,12 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Kernel">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>Kernel — Interaction OS</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
 
       20 kernel modules: command bus, undo/redo, focus router, overlays, plan executor, patch protocol, accessibility, observability, workflow engine, policy system, component integration, data binding, workflow templates, schema catalog, and GenUI planner.
 
@@ -652,7 +652,7 @@ document.addEventListener('astro:page-load', () => {
 
       function createOverlayBox(type, title, message, x, y) {
         const box = document.createElement('n-card');
-        box.className = 'overlay-layout-box';
+        box.className = 'overlay-box';
         box.style.left = `${x}px`;
         box.style.top = `${y}px`;
 
@@ -1589,19 +1589,19 @@ document.addEventListener('astro:page-load', () => {
       font-size: 0.8125rem;
     }
 
-    .overlay-layout-box {
+    .overlay-box {
       position: fixed;
       box-shadow: 0 8px 32px oklch(0% 0 0 / 0.15);
       min-width: 14rem;
     }
 
-    .overlay-layout-box h4 {
+    .overlay-box h4 {
       margin: 0 0 0.5rem;
       font-size: 0.875rem;
       font-weight: 600;
     }
 
-    .overlay-layout-box p {
+    .overlay-box p {
       margin: 0 0 0.75rem;
       font-size: 0.8125rem;
       color: var(--n-ink-muted-neutral);

@@ -23,12 +23,12 @@ const detailIntersection = `{ isIntersecting, ratio }`;
 ---
 <SidebarLayout title="Intersectable">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>Intersectable</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
 
       IntersectionObserver wrapper for visibility-triggered behavior. Sets <code>[intersecting]</code> when the element enters the viewport and dispatches <code>native:intersect</code>.
 
@@ -70,7 +70,7 @@ const detailIntersection = `{ isIntersecting, ratio }`;
         </div>
       </n-controller>
       <div id="scroll-log" class="output"></div>
-      <pre class="layout-code"><code set:html={codeExamples.scrollIntoViewProvider} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.scrollIntoViewProvider} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Once Mode (Provider) ── -->
@@ -100,7 +100,7 @@ const detailIntersection = `{ isIntersecting, ratio }`;
         </div>
       </n-controller>
       <div id="once-log" class="output"></div>
-      <pre class="layout-code"><code>&lt;n-controller traits="intersectable" data-trait-intersectable-once="true"&gt;
+      <pre class="code-block"><code>&lt;n-controller traits="intersectable" data-trait-intersectable-once="true"&gt;
   &lt;div class="intersect-box"&gt;
     Once A
   &lt;/div&gt;
@@ -128,7 +128,7 @@ const detailIntersection = `{ isIntersecting, ratio }`;
         </div>
       </n-controller>
       <div id="threshold-log" class="output"></div>
-      <pre class="layout-code"><code>&lt;n-controller traits="intersectable" data-trait-intersectable-threshold="0.5"&gt;
+      <pre class="code-block"><code>&lt;n-controller traits="intersectable" data-trait-intersectable-threshold="0.5"&gt;
   &lt;div class="intersect-box"&gt;
     50% Threshold
   &lt;/div&gt;

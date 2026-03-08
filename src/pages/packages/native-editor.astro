@@ -3,12 +3,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Editor">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>Editor</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
       <span class="header-tag">&lt;native-editor&gt;</span> Markdown content editor with live preview and source modes.
       Built on CodeMirror 6, renders a toolbar with formatting commands and an Obsidian-style live preview.
           </div>
@@ -20,7 +20,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
     <h2>Default — Live Preview Mode</h2>
     <div class="editor-wrap"><native-editor id="demo-default"></native-editor></div>
-    <pre class="layout-code"><code>&lt;native-editor&gt;
+    <pre class="code-block"><code>&lt;native-editor&gt;
   &lt;script type="text/markdown"&gt;
 # Hello World
 
@@ -32,7 +32,7 @@ This is a **bold** and *italic* text.
 
     <h2>Source Mode</h2>
     <native-editor id="demo-source" mode="source"></native-editor>
-    <pre class="layout-code"><code>&lt;native-editor mode="source"&gt;
+    <pre class="code-block"><code>&lt;native-editor mode="source"&gt;
   &lt;script type="text/markdown"&gt;
 # Source Mode
 Raw markdown without decorations.
@@ -43,13 +43,13 @@ Raw markdown without decorations.
 
     <h2>Placeholder</h2>
     <native-editor id="demo-placeholder" placeholder="Start typing your markdown here..."></native-editor>
-    <pre class="layout-code"><code>&lt;native-editor placeholder="Start typing..."&gt;&lt;/native-editor&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    <pre class="code-block"><code>&lt;native-editor placeholder="Start typing..."&gt;&lt;/native-editor&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
 
     <!-- ── Read-only ── -->
 
     <h2>Read-only</h2>
     <native-editor id="demo-readonly" readonly></native-editor>
-    <pre class="layout-code"><code>&lt;native-editor readonly&gt;
+    <pre class="code-block"><code>&lt;native-editor readonly&gt;
   &lt;script type="text/markdown"&gt;
 # Read-only Document
 Content is not editable.
@@ -60,7 +60,7 @@ Content is not editable.
 
     <h2>Disabled</h2>
     <native-editor id="demo-disabled" disabled></native-editor>
-    <pre class="layout-code"><code>&lt;native-editor disabled&gt;...&lt;/native-editor&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    <pre class="code-block"><code>&lt;native-editor disabled&gt;...&lt;/native-editor&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
 
     <!-- ── Form Integration ── -->
 
@@ -75,7 +75,7 @@ Content is not editable.
       </n-stack>
     </n-stack>
     <div class="log" id="form-output"></div>
-    <pre class="layout-code"><code>&lt;form&gt;
+    <pre class="code-block"><code>&lt;form&gt;
   &lt;native-editor name="content"&gt;...&lt;/native-editor&gt;
   &lt;n-button type="submit"&gt;Submit&lt;/n-button&gt;
   &lt;n-button type="reset"&gt;Reset&lt;/n-button&gt;
@@ -94,7 +94,7 @@ Content is not editable.
     <h2>Change Events</h2>
     <div class="editor-compact"><native-editor id="demo-events"></native-editor></div>
     <div class="log event-log" id="event-log"></div>
-    <pre class="layout-code"><code>&lt;native-editor id="editor"&gt;...&lt;/native-editor&gt;
+    <pre class="code-block"><code>&lt;native-editor id="editor"&gt;...&lt;/native-editor&gt;
 
 &lt;script&gt;
   editor.addEventListener('change', (e) =&gt; &#123;
@@ -113,7 +113,7 @@ Content is not editable.
         <span class="gateway-status" id="gateway-status"></span>
       </n-stack>
     </div>
-    <pre class="layout-code"><code>&lt;native-editor id="editor" src="/api/content"&gt;&lt;/native-editor&gt;
+    <pre class="code-block"><code>&lt;native-editor id="editor" src="/api/content"&gt;&lt;/native-editor&gt;
 
 &lt;script&gt;
   editor.addEventListener('dirty-change', (e) =&gt; &#123;

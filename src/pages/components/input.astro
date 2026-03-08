@@ -1,0 +1,541 @@
+---
+import SidebarLayout from '../../layouts/SidebarLayout.astro';
+
+const codeExamples = {
+  events: `&lt;n-input id="event-input" placeholder="Type to see events..."&gt;&lt;/n-input&gt;
+
+&lt;script&gt;
+  const input = document.getElementById('event-input');
+  input.addEventListener('native:input', (e) =&gt; {
+    console.log('native:input', e.detail.value);
+  });
+  input.addEventListener('native:change', (e) =&gt; {
+    console.log('native:change', e.detail.value);
+  });
+&lt;/script&gt;`,
+  formatting: `&lt;n-input formatting="code" placeholder="Select text, press Cmd+E..."&gt;&lt;/n-input&gt;
+
+&lt;script&gt;
+  const input = document.querySelector('n-input[formatting]');
+  input.addEventListener('native:format', (e) =&gt; {
+    console.log('format:', e.detail.type, e.detail.value);
+  });
+&lt;/script&gt;`,
+};
+---
+<SidebarLayout title="Input">
+  <header>
+    <div slot="title">
+      <div slot="content">
+        <h1>Input</h1>
+      </div>
+    </div>
+    <div slot="description">
+      <span class="header-tag">&lt;n-input&gt;</span> Form-associated contenteditable custom element with token/variant/size cascade. No internal native elements.
+          </div>
+  </header>
+
+  <section>
+
+    <!-- ── Variants ── -->
+
+    <h2>Variants</h2>
+    <n-panel bordered size="sm">
+      <n-stack direction="row" wrap align="center">
+        <span class="label">outline</span>
+        <n-input variant="outline" placeholder="Outline input"></n-input>
+      </n-stack>
+      <n-stack direction="row" wrap align="center">
+        <span class="label">default</span>
+        <n-input variant="default" placeholder="Default input"></n-input>
+      </n-stack>
+      <n-stack direction="row" wrap align="center">
+        <span class="label">ghost</span>
+        <n-input variant="ghost" placeholder="Ghost input"></n-input>
+      </n-stack>
+      <pre class="code-block"><code>&lt;n-input variant="outline" placeholder="Outline input"&gt;&lt;/n-input&gt;
+&lt;n-input variant="default" placeholder="Default input"&gt;&lt;/n-input&gt;
+&lt;n-input variant="ghost" placeholder="Ghost input"&gt;&lt;/n-input&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Sizes ── -->
+
+    <h2>Sizes</h2>
+    <n-panel bordered>
+      <n-stack direction="row" wrap align="center">
+        <span class="label">xs</span>
+        <n-input size="xs" placeholder="Extra small"></n-input>
+      </n-stack>
+      <n-stack direction="row" wrap align="center">
+        <span class="label">sm</span>
+        <n-input size="sm" placeholder="Small"></n-input>
+      </n-stack>
+      <n-stack direction="row" wrap align="center">
+        <span class="label">md</span>
+        <n-input size="md" placeholder="Medium"></n-input>
+      </n-stack>
+      <n-stack direction="row" wrap align="center">
+        <span class="label">lg</span>
+        <n-input size="lg" placeholder="Large"></n-input>
+      </n-stack>
+      <n-stack direction="row" wrap align="center">
+        <span class="label">xl</span>
+        <n-input size="xl" placeholder="Extra large"></n-input>
+      </n-stack>
+      <pre class="code-block"><code>&lt;n-input size="sm" placeholder="Small"&gt;&lt;/n-input&gt;
+&lt;n-input size="md" placeholder="Medium"&gt;&lt;/n-input&gt;
+&lt;n-input size="lg" placeholder="Large"&gt;&lt;/n-input&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Intents ── -->
+
+    <h2>Intents</h2>
+    <n-panel bordered size="sm">
+      <n-stack direction="row" wrap align="center">
+        <n-input intent="neutral" placeholder="Neutral"></n-input>
+        <n-input intent="accent" placeholder="Accent"></n-input>
+        <n-input intent="info" placeholder="Info"></n-input>
+      </n-stack>
+      <n-stack direction="row" wrap align="center">
+        <n-input intent="success" placeholder="Success"></n-input>
+        <n-input intent="warning" placeholder="Warning"></n-input>
+        <n-input intent="danger" placeholder="Danger"></n-input>
+      </n-stack>
+    </n-panel>
+
+    <!-- ── Disabled & Readonly ── -->
+
+    <h2>Disabled &amp; Readonly</h2>
+    <n-panel bordered size="sm">
+      <n-stack direction="row" wrap align="center">
+        <span class="label">disabled</span>
+        <n-input disabled placeholder="Disabled"></n-input>
+      </n-stack>
+      <n-stack direction="row" wrap align="center">
+        <span class="label">readonly</span>
+        <n-input readonly value="Read-only value"></n-input>
+      </n-stack>
+    </n-panel>
+
+    <!-- ── With Icons (Slots) ── -->
+
+    <h2>With Icons</h2>
+    <n-panel bordered size="sm">
+      <h3>Leading icon</h3>
+      <n-stack direction="row" wrap align="center">
+        <n-input placeholder="Search...">
+          <n-icon name="magnifying-glass" slot="leading"></n-icon>
+        </n-input>
+        <n-input placeholder="Email address">
+          <n-icon name="envelope" slot="leading"></n-icon>
+        </n-input>
+      </n-stack>
+
+      <h3>Trailing icon</h3>
+      <n-stack direction="row" wrap align="center">
+        <n-input type="password" placeholder="Password">
+          <n-icon name="lock" slot="leading"></n-icon>
+          <n-icon name="eye" slot="trailing"></n-icon>
+        </n-input>
+      </n-stack>
+
+      <h3>Leading + Trailing</h3>
+      <n-stack direction="row" wrap align="center">
+        <n-input placeholder="Search users...">
+          <n-icon name="magnifying-glass" slot="leading"></n-icon>
+          <n-icon name="user" slot="trailing"></n-icon>
+        </n-input>
+      </n-stack>
+      <pre class="code-block"><code>&lt;n-input placeholder="Search..."&gt;
+  &lt;n-icon name="magnifying-glass" slot="leading"&gt;&lt;/n-icon&gt;
+&lt;/n-input&gt;
+
+&lt;n-input type="password" placeholder="Password"&gt;
+  &lt;n-icon name="lock" slot="leading"&gt;&lt;/n-icon&gt;
+  &lt;n-icon name="eye" slot="trailing"&gt;&lt;/n-icon&gt;
+&lt;/n-input&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Ghost Composability ── -->
+
+    <h2>Ghost — Composability</h2>
+    <n-panel bordered size="sm">
+      <h3>Ghost input standalone</h3>
+      <n-stack direction="row" wrap align="center">
+        <n-input variant="ghost" placeholder="Ghost input — no chrome"></n-input>
+      </n-stack>
+
+      <h3>Ghost input inside a container</h3>
+      <div class="search-container">
+        <span class="search-icon"><n-icon name="magnifying-glass"></n-icon></span>
+        <div class="search-input"><n-input variant="ghost" placeholder="Search inside container..."></n-input></div>
+      </div>
+    </n-panel>
+
+    <!-- ── Density ── -->
+
+    <h2>Density</h2>
+    <n-panel bordered>
+      <h3>xs</h3>
+      <n-stack direction="row" wrap align="center" size="xs" density="compact">
+        <span class="label">compact</span>
+        <n-input placeholder="Compact"></n-input>
+      </n-stack>
+      <n-stack direction="row" wrap align="center" size="xs" density="default">
+        <span class="label">default</span>
+        <n-input placeholder="Default"></n-input>
+      </n-stack>
+      <n-stack direction="row" wrap align="center" size="xs" density="loose">
+        <span class="label">loose</span>
+        <n-input placeholder="Loose"></n-input>
+      </n-stack>
+
+      <h3>sm</h3>
+      <n-stack direction="row" wrap align="center" size="sm" density="compact">
+        <span class="label">compact</span>
+        <n-input placeholder="Compact"></n-input>
+      </n-stack>
+      <n-stack direction="row" wrap align="center" size="sm" density="default">
+        <span class="label">default</span>
+        <n-input placeholder="Default"></n-input>
+      </n-stack>
+      <n-stack direction="row" wrap align="center" size="sm" density="loose">
+        <span class="label">loose</span>
+        <n-input placeholder="Loose"></n-input>
+      </n-stack>
+
+      <h3>md</h3>
+      <n-stack direction="row" wrap align="center" size="md" density="compact">
+        <span class="label">compact</span>
+        <n-input placeholder="Compact"></n-input>
+      </n-stack>
+      <n-stack direction="row" wrap align="center" size="md" density="default">
+        <span class="label">default</span>
+        <n-input placeholder="Default"></n-input>
+      </n-stack>
+      <n-stack direction="row" wrap align="center" size="md" density="loose">
+        <span class="label">loose</span>
+        <n-input placeholder="Loose"></n-input>
+      </n-stack>
+
+      <h3>lg</h3>
+      <n-stack direction="row" wrap align="center" size="lg" density="compact">
+        <span class="label">compact</span>
+        <n-input placeholder="Compact"></n-input>
+      </n-stack>
+      <n-stack direction="row" wrap align="center" size="lg" density="default">
+        <span class="label">default</span>
+        <n-input placeholder="Default"></n-input>
+      </n-stack>
+      <n-stack direction="row" wrap align="center" size="lg" density="loose">
+        <span class="label">loose</span>
+        <n-input placeholder="Loose"></n-input>
+      </n-stack>
+
+      <h3>xl</h3>
+      <n-stack direction="row" wrap align="center" size="xl" density="compact">
+        <span class="label">compact</span>
+        <n-input placeholder="Compact"></n-input>
+      </n-stack>
+      <n-stack direction="row" wrap align="center" size="xl" density="default">
+        <span class="label">default</span>
+        <n-input placeholder="Default"></n-input>
+      </n-stack>
+      <n-stack direction="row" wrap align="center" size="xl" density="loose">
+        <span class="label">loose</span>
+        <n-input placeholder="Loose"></n-input>
+      </n-stack>
+    </n-panel>
+
+    <!-- ── Inline ── -->
+
+    <h2>Inline</h2>
+    <n-panel bordered size="sm">
+      <p class="inline-text">
+        Enter your name: <span class="inline-input"><n-input inline placeholder="Name"></n-input></span> and submit.
+      </p>
+      <n-text size="xs" muted>
+        The <code>inline</code> attribute restores shrink-wrap sizing for inputs placed inline with text.
+      </n-text>
+    </n-panel>
+
+    <!-- ── Formatting ── -->
+
+    <h2>Formatting</h2>
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
+        The <code>formatting</code> attribute enables inline text formatting. Select text and press <n-kbd><n-icon name="command"></n-icon>E</n-kbd> to wrap in backticks. Select wrapped text to unwrap.
+      </n-text>
+      <n-input id="format-input" formatting="code" placeholder="Type text, select it, press Cmd+E..."></n-input>
+      <div class="log" id="format-log"></div>
+      <pre class="code-block"><code set:html={codeExamples.formatting} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Radius ── -->
+
+    <h2>Radius</h2>
+    <n-panel bordered size="md">
+      <n-stack direction="row" wrap align="center" radius="sharp">
+        <span class="label">sharp</span>
+        <n-input placeholder="Sharp radius"></n-input>
+      </n-stack>
+      <n-stack direction="row" wrap align="center" radius="default">
+        <span class="label">default</span>
+        <n-input placeholder="Default radius"></n-input>
+      </n-stack>
+      <n-stack direction="row" wrap align="center" radius="round">
+        <span class="label">round</span>
+        <n-input placeholder="Round radius"></n-input>
+      </n-stack>
+    </n-panel>
+
+    <!-- ── Events ── -->
+
+    <h2>Events</h2>
+    <n-panel bordered size="sm">
+      <n-input id="event-input" placeholder="Type to see events..."></n-input>
+      <div class="log" id="event-log"></div>
+      <pre class="code-block"><code set:html={codeExamples.events} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Form Association ── -->
+
+    <h2>Form Association</h2>
+    <n-panel bordered size="sm">
+      <form id="demo-form">
+        <div class="form-fields"><n-stack>
+          <n-input name="username" placeholder="Username">
+            <n-icon name="user" slot="leading"></n-icon>
+          </n-input>
+          <n-input name="email" placeholder="Email">
+            <n-icon name="envelope" slot="leading"></n-icon>
+          </n-input>
+          <n-input name="message" placeholder="Message">
+            <n-icon name="pencil-simple" slot="leading"></n-icon>
+          </n-input>
+        </n-stack></div>
+        <n-stack direction="row" wrap align="center">
+          <n-button variant="primary" type="submit"><span>Submit</span></n-button>
+          <n-button variant="secondary" type="reset"><span>Reset</span></n-button>
+        </n-stack>
+      </form>
+      <div class="log" id="form-log"></div>
+      <pre class="code-block"><code>&lt;form id="demo-form"&gt;
+  &lt;n-input name="username" placeholder="Username"&gt;
+    &lt;n-icon name="user" slot="leading"&gt;&lt;/n-icon&gt;
+  &lt;/n-input&gt;
+  &lt;n-input name="email" placeholder="Email"&gt;
+    &lt;n-icon name="envelope" slot="leading"&gt;&lt;/n-icon&gt;
+  &lt;/n-input&gt;
+  &lt;n-button variant="primary" type="submit"&gt;Submit&lt;/n-button&gt;
+  &lt;n-button variant="secondary" type="reset"&gt;Reset&lt;/n-button&gt;
+&lt;/form&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Validation (pattern) ── -->
+
+    <h2>Validation</h2>
+    <n-panel bordered size="sm">
+      <n-text size="xs" muted spacing="tight">
+        The <code>pattern</code> attribute accepts a regex. Reports <code>patternMismatch</code> via the Constraint Validation API.
+        Wrap in <code>n-field</code> to show the error slot on invalid input.
+      </n-text>
+      <form id="validation-form" novalidate>
+        <div class="form-fields"><n-stack gap="4">
+          <n-field>
+            <label slot="label">Email</label>
+            <n-input name="email" pattern="[^@]+@[^@]+\.[^@]+" required placeholder="you@example.com">
+              <n-icon name="envelope" slot="leading"></n-icon>
+            </n-input>
+            <span slot="error">Please enter a valid email</span>
+          </n-field>
+          <n-field>
+            <label slot="label">Phone</label>
+            <n-input name="phone" pattern="\+?[0-9\s\-]{7,}" placeholder="+1 555-1234">
+              <n-icon name="phone" slot="leading"></n-icon>
+            </n-input>
+            <span slot="error">Enter a valid phone number (7+ digits)</span>
+          </n-field>
+        </n-stack></div>
+        <n-stack direction="row" wrap align="center">
+          <n-button variant="primary" type="submit"><span>Submit</span></n-button>
+          <n-button variant="secondary" type="reset"><span>Reset</span></n-button>
+        </n-stack>
+      </form>
+      <div class="log" id="validation-log"></div>
+      <pre class="code-block"><code>&lt;n-field&gt;
+  &lt;label slot="label"&gt;Email&lt;/label&gt;
+  &lt;n-input pattern="[^@]+@[^@]+\.[^@]+" required placeholder="you@example.com"&gt;
+    &lt;n-icon name="envelope" slot="leading"&gt;&lt;/n-icon&gt;
+  &lt;/n-input&gt;
+  &lt;span slot="error"&gt;Please enter a valid email&lt;/span&gt;
+&lt;/n-field&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Cascading ── -->
+
+    <h2>Cascading</h2>
+    <n-panel bordered>
+      <h3>Parent size="md", child overrides</h3>
+      <n-stack direction="row" wrap align="center" size="md">
+        <n-input placeholder="Inherited md"></n-input>
+        <n-input size="xs" placeholder="Override xs"></n-input>
+        <n-input size="lg" placeholder="Override lg"></n-input>
+      </n-stack>
+
+      <h3>Section cascading all attributes</h3>
+      <section size="sm" density="compact" radius="round" intent="accent">
+        <n-stack direction="row" wrap align="center">
+          <n-input variant="outline" placeholder="All inherited"></n-input>
+          <n-input variant="default" placeholder="All inherited"></n-input>
+          <n-input variant="ghost" placeholder="All inherited"></n-input>
+        </n-stack>
+      </section>
+    </n-panel>
+
+    <!-- ── Variants x Intents ── -->
+
+    <h2>Variants x Intents</h2>
+    <n-panel bordered size="sm">
+      <h3>Outline</h3>
+      <n-stack direction="row" wrap align="center">
+        <n-input variant="outline" intent="neutral" placeholder="Neutral"></n-input>
+        <n-input variant="outline" intent="accent" placeholder="Accent"></n-input>
+        <n-input variant="outline" intent="info" placeholder="Info"></n-input>
+        <n-input variant="outline" intent="success" placeholder="Success"></n-input>
+        <n-input variant="outline" intent="warning" placeholder="Warning"></n-input>
+        <n-input variant="outline" intent="danger" placeholder="Danger"></n-input>
+      </n-stack>
+      <h3>Default</h3>
+      <n-stack direction="row" wrap align="center">
+        <n-input variant="default" intent="neutral" placeholder="Neutral"></n-input>
+        <n-input variant="default" intent="accent" placeholder="Accent"></n-input>
+        <n-input variant="default" intent="info" placeholder="Info"></n-input>
+        <n-input variant="default" intent="success" placeholder="Success"></n-input>
+        <n-input variant="default" intent="warning" placeholder="Warning"></n-input>
+        <n-input variant="default" intent="danger" placeholder="Danger"></n-input>
+      </n-stack>
+      <h3>Ghost</h3>
+      <n-stack direction="row" wrap align="center">
+        <n-input variant="ghost" intent="neutral" placeholder="Neutral"></n-input>
+        <n-input variant="ghost" intent="accent" placeholder="Accent"></n-input>
+        <n-input variant="ghost" intent="info" placeholder="Info"></n-input>
+        <n-input variant="ghost" intent="success" placeholder="Success"></n-input>
+        <n-input variant="ghost" intent="warning" placeholder="Warning"></n-input>
+        <n-input variant="ghost" intent="danger" placeholder="Danger"></n-input>
+      </n-stack>
+    </n-panel>
+
+    <!-- ── Debug States (force-*) ── -->
+
+    <h2>Debug States (<code>force-*</code>)</h2>
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="regular">
+        Attribute-driven pseudo-state overrides for DevTools debugging and visual testing.
+      </n-text>
+      <n-stack gap="4">
+        <div>
+          <n-text size="xs" muted spacing="tight">force-hover (empty)</n-text>
+          <n-input force-hover placeholder="Hovered input"></n-input>
+        </div>
+        <div>
+          <n-text size="xs" muted spacing="tight">force-focus (empty)</n-text>
+          <n-input force-focus placeholder="Focused input"></n-input>
+        </div>
+        <div>
+          <n-text size="xs" muted spacing="tight">force-hover (filled)</n-text>
+          <n-input force-hover value="Filled + hovered"></n-input>
+        </div>
+        <div>
+          <n-text size="xs" muted spacing="tight">force-focus (filled)</n-text>
+          <n-input force-focus value="Filled + focused"></n-input>
+        </div>
+      </n-stack>
+    </n-panel>
+  </section>
+
+  <script>
+import { logPrepend } from '../../scripts/event-log';
+// Event logging
+      const eventInput = document.getElementById('event-input');
+      const eventLog = document.getElementById('event-log');
+      let count = 0;
+
+      eventInput.addEventListener('native:input', (e) => {
+        count++;
+        logPrepend(eventLog, `#${count} native:input — value: "${e.detail.value}"`);
+      });
+
+      eventInput.addEventListener('native:change', (e) => {
+        count++;
+        logPrepend(eventLog, `#${count} native:change — value: "${e.detail.value}"`);
+      });
+
+      // Form logging
+      const form = document.getElementById('demo-form');
+      const formLog = document.getElementById('form-log');
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const data = new FormData(form);
+        logPrepend(formLog, `submit — ${[...data.entries()].map(([k, v]) => `${k}: "${v}"`).join(', ')}`);
+      });
+
+      form.addEventListener('reset', () => {
+        logPrepend(formLog, 'reset');
+      });
+
+      // Formatting event logging
+      const formatInput = document.getElementById('format-input');
+      const formatLog = document.getElementById('format-log');
+
+      formatInput?.addEventListener('native:format', ((e: CustomEvent) => {
+        count++;
+        logPrepend(formatLog!, `#${count} native:format — type: "${e.detail.type}", value: "${e.detail.value}"`);
+      }) as EventListener);
+
+      // Validation form logging
+      const validationForm = document.getElementById('validation-form');
+      const validationLog = document.getElementById('validation-log');
+
+      validationForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const data = new FormData(validationForm);
+        logPrepend(validationLog, `submit — ${[...data.entries()].map(([k, v]) => `${k}: "${v}"`).join(', ')}`);
+      });
+
+      validationForm.addEventListener('reset', () => {
+        logPrepend(validationLog, 'reset');
+      });
+  </script>
+
+  <style is:global>
+    .search-container {
+      background: var(--n-panel-neutral);
+      border: 1px solid var(--n-border-muted-neutral);
+      border-radius: 0.5rem;
+      padding: 0.25rem 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .search-icon {
+      color: var(--n-ink-muted-neutral);
+      display: flex;
+    }
+    .search-container .search-input {
+      flex: 1;
+    }
+    .inline-text {
+      margin: 0 0 0.5rem;
+      font-size: 0.875rem;
+    }
+    .inline-input {
+      display: inline-block;
+      width: 12rem;
+    }
+    .form-fields {
+      margin-bottom: 0.75rem;
+    }
+  </style>
+</SidebarLayout>

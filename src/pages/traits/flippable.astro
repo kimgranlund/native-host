@@ -54,12 +54,12 @@ const detailFlip = `{ flipped: boolean, axis: string }`;
 ---
 <SidebarLayout title="Flippable">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>Flippable</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
 
       3D card flip between front and back faces. Sets a <code>[flipped]</code> attribute on the element and dispatches <code>native:flip</code> with the current state. The child needs a front face and a back face marked with <code>[data-flip-back]</code>.
 
@@ -90,7 +90,7 @@ const detailFlip = `{ flipped: boolean, axis: string }`;
         </n-controller>
       </n-stack>
       <div id="basic-log" class="output"></div>
-      <pre class="layout-code"><code set:html={codeExamples.basicFlip} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.basicFlip} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Axis Options ── -->
@@ -115,7 +115,7 @@ const detailFlip = `{ flipped: boolean, axis: string }`;
         </n-controller>
       </n-stack>
       <div id="axis-log" class="output"></div>
-      <pre class="layout-code"><code set:html={codeExamples.axisOptions} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.axisOptions} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Programmatic Demo ── -->
@@ -137,7 +137,7 @@ const detailFlip = `{ flipped: boolean, axis: string }`;
         </n-stack>
       </n-stack>
       <div id="manual-log" class="output"></div>
-      <pre class="layout-code"><code set:html={codeExamples.programmatic} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.programmatic} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Options Playground ── -->
@@ -169,7 +169,7 @@ const detailFlip = `{ flipped: boolean, axis: string }`;
         </n-card>
       </n-stack>
       <div id="playground-log" class="output"></div>
-      <pre class="layout-code"><code set:html={codeExamples.optionsPlayground} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.optionsPlayground} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── API Reference ── -->

@@ -3,12 +3,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Account Profile Card">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>Profile Card</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
 
       Compact profile display card with avatar, stats, and action buttons.
 
@@ -67,7 +67,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
     <n-stack gap="4">
     <h2>Team Grid</h2>
-    <div class="layout-grid">
+    <div class="grid">
       <n-card>
         <n-stack gap="4" align="center">
           <div class="profile-header">

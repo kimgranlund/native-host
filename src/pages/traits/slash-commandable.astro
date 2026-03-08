@@ -22,12 +22,12 @@ const codeExamples = {
 ---
 <SidebarLayout title="SlashCommandable">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>SlashCommandable</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
 
       Detects <code>/</code> at the caret position in contenteditable inputs and shows a caret-anchored filtered command listbox. Supports keyboard navigation, Tab-to-select, descriptions, and tag insertion.
 
@@ -47,7 +47,7 @@ const codeExamples = {
         <n-textarea id="basic-textarea" rows="2" placeholder="Type / to see commands..."></n-textarea>
       </n-controller>
       <div id="basic-log" class="output"></div>
-      <pre class="layout-code"><code set:html={codeExamples.basic} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.basic} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Tab to Select ── -->

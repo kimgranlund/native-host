@@ -45,12 +45,12 @@ const handleClickSig = `handleClick(item, { shift, ctrl })`;
 ---
 <SidebarLayout title="Selectable">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>Selectable</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
 
       Multi-selection state management with click, shift+click range, ctrl/cmd+click toggle, and ctrl/cmd+A select all.
 
@@ -77,7 +77,7 @@ const handleClickSig = `handleClick(item, { shift, ctrl })`;
         </div>
       </n-controller>
       <div id="multi-log" class="output"></div>
-      <pre class="layout-code"><code set:html={codeExamples.multipleSelection} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.multipleSelection} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Single Selection ── -->
@@ -96,7 +96,7 @@ const handleClickSig = `handleClick(item, { shift, ctrl })`;
         </div>
       </n-controller>
       <div id="single-log" class="output"></div>
-      <pre class="layout-code"><code set:html={codeExamples.singleSelection} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.singleSelection} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── API Reference ── -->

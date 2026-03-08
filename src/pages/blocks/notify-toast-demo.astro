@@ -3,12 +3,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Toast Demo">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>Toast Notifications</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
 
       Trigger toast notifications with different intents, durations, and content lengths.
       Each button demonstrates a specific toast configuration via the Toastable trait.
@@ -23,7 +23,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <n-stack gap="4">
     <div>
       <h2>Intent Variants</h2>
-      <p class="demo-text-sm">
+      <p class="text-sm">
         One button per intent. Click to trigger a toast styled for that intent.
       </p>
     </div>
@@ -33,7 +33,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           <n-icon name="bell" slot="leading"></n-icon>
           <span>Default</span>
         </n-button>
-        <p class="demo-caption">Neutral notification</p>
+        <p class="caption">Neutral notification</p>
       </n-stack>
 
       <n-stack gap="2">
@@ -41,7 +41,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           <n-icon name="info" slot="leading"></n-icon>
           <span>Info</span>
         </n-button>
-        <p class="demo-caption">Informational message</p>
+        <p class="caption">Informational message</p>
       </n-stack>
 
       <n-stack gap="2">
@@ -49,7 +49,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           <n-icon name="check" slot="leading"></n-icon>
           <span>Success</span>
         </n-button>
-        <p class="demo-caption">Action completed</p>
+        <p class="caption">Action completed</p>
       </n-stack>
 
       <n-stack gap="2">
@@ -57,7 +57,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           <n-icon name="warning" slot="leading"></n-icon>
           <span>Warning</span>
         </n-button>
-        <p class="demo-caption">Caution needed</p>
+        <p class="caption">Caution needed</p>
       </n-stack>
 
       <n-stack gap="2">
@@ -65,7 +65,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           <n-icon name="warning-circle" slot="leading"></n-icon>
           <span>Danger</span>
         </n-button>
-        <p class="demo-caption">Error or failure</p>
+        <p class="caption">Error or failure</p>
       </n-stack>
     </n-grid>
     </n-stack>
@@ -75,7 +75,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <n-stack gap="4">
     <div>
       <h2>Special Cases</h2>
-      <p class="demo-text-sm">
+      <p class="text-sm">
         Long messages and non-dismissible toasts to test edge cases.
       </p>
     </div>
@@ -96,7 +96,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <n-stack gap="4">
     <div>
       <h2>Batch Operations</h2>
-      <p class="demo-text-sm">
+      <p class="text-sm">
         Spawn multiple toasts at once or dismiss them all.
       </p>
     </div>

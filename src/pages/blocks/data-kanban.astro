@@ -3,12 +3,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Kanban Board">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>Kanban Board</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
 
       Project task board with draggable cards across status columns.
       Uses the <code>draggable</code> trait in <code>slot</code> mode — drag a card to see the

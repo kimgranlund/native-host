@@ -19,12 +19,12 @@ const controllers = [
 ---
 <SidebarLayout title="Controllers">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>Controllers</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
       Controllers are the programmatic API for native-ui behaviors. While traits are declarative (attributes on elements), controllers provide fine-grained control — instantiation, configuration, method calls, and lifecycle management.
     </div>
   </header>
@@ -39,7 +39,7 @@ const controllers = [
             Every controller follows the same pattern: import the class, instantiate with an element and options,
             then call methods or listen for events.
           </n-text>
-          <div class="layout-code">
+          <div class="code-block">
             <n-button variant="ghost" size="xs" aria-label="Copy"><n-icon name="copy"></n-icon></n-button>
             <pre><code>import {'{'} DragController {'}'} from '@nonoun/native-ui';
 

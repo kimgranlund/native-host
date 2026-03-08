@@ -61,15 +61,15 @@ Contains a `@layer ui` block with universal reset (box-sizing, font smoothing, b
 
 Imported by `layout.css`. Base heading styles (`h1`-`h3`) and `.demo-*` classes:
 
-- `.demo-section` -- bordered card (same visual as `.layout-section`)
-- `.demo-row` -- flex row with wrap and gap
-- `.demo-label` -- small uppercase label, 5rem fixed width
-- `.demo-desc` / `.demo-caption` / `.demo-hint` -- muted text at various sizes
-- `.demo-col`, `.demo-col-sm`, `.demo-col-lg`, `.demo-col-xl` -- flex column stacks with varying gap
-- `.demo-actions` -- flex row for buttons
-- `.demo-wrap` -- flex wrap container, 1.5rem gap
-- `.demo-code` -- hidden by default, shown via `[visible]` attribute
-- `.demo-event-log` -- monospace event log area
+- `.section` -- bordered card (same visual as `.layout-section`)
+- `.row` -- flex row with wrap and gap
+- `.label` -- small uppercase label, 5rem fixed width
+- `.desc` / `.caption` / `.hint` -- muted text at various sizes
+- `.col`, `.col-sm`, `.col-lg`, `.col-xl` -- flex column stacks with varying gap
+- `.actions` -- flex row for buttons
+- `.wrap` -- flex wrap container, 1.5rem gap
+- `.code` -- hidden by default, shown via `[visible]` attribute
+- `.event-log` -- monospace event log area
 
 ## Layout Block Utilities (`layout-blocks.css`)
 
@@ -85,33 +85,33 @@ Shared across 65+ demo pages. Scoped to `n-app-panel` where applicable.
 |---|---|
 | `.layout-section` | Bordered card. `--n-body-neutral` bg, `--n-border-muted-neutral` border, `--n-radius`, 1.5rem padding. |
 | `.layout-row` | Flex row, wrap, center-aligned, 0.5rem gap. |
-| `.layout-label` | 0.625rem uppercase label, 5rem fixed width, muted ink. Row prefix. |
-| `.layout-code` | Hidden (`display: none`). Shown via `[visible]` attr. Monospace `<code>` block inside. |
-| `.layout-grid` | CSS grid: `repeat(auto-fill, minmax(320px, 1fr))`, 1.5rem gap. |
+| `.label` | 0.625rem uppercase label, 5rem fixed width, muted ink. Row prefix. |
+| `.code-block` | Hidden (`display: none`). Shown via `[visible]` attr. Monospace `<code>` block inside. |
+| `.grid` | CSS grid: `repeat(auto-fill, minmax(320px, 1fr))`, 1.5rem gap. |
 | `.layout-col` | Flex column, 0.5rem gap. |
-| `.layout-col-label` | Small uppercase label for grid columns. |
-| `.layout-box` | Panel bg, muted border, 0.375rem radius, centered text. |
-| `.layout-card` | Interactive card with transitions. Supports `[hovered]` / `[pressed]` attrs. |
-| `.layout-hint` | 0.75rem muted text. |
+| `.col-label` | Small uppercase label for grid columns. |
+| `.box` | Panel bg, muted border, 0.375rem radius, centered text. |
+| `.card` | Interactive card with transitions. Supports `[hovered]` / `[pressed]` attrs. |
+| `.hint` | 0.75rem muted text. |
 | `.log` | Monospace event log, panel bg, `max-height: 10rem`, scrollable. |
 | `.log-entry` | Log line with bottom border separator. |
-| `.copy-btn` | Floated copy button inside `.layout-code`. |
+| `.copy-btn` | Floated copy button inside `.code-block`. |
 
 **Typical page structure:**
 
 ```html
 <main>
   <h1>&lt;n-component&gt;</h1>
-  <p class="demo-desc">Description.</p>
+  <p class="desc">Description.</p>
 
   <h2>Section</h2>
   <div class="layout-section">
     <h3>Subsection</h3>
     <div class="layout-row">
-      <span class="layout-label">variant</span>
+      <span class="label">variant</span>
       <!-- demo elements -->
     </div>
-    <pre class="layout-code"><code>...</code></pre>
+    <pre class="code-block"><code>...</code></pre>
   </div>
 </main>
 ```

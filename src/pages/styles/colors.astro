@@ -32,12 +32,12 @@ const codeExamples = {
 ---
 <SidebarLayout title="Colors">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>Colors</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
 
       Interactive color environment explorer. Adjust global and per-family parameters to see live changes across all tokens.
 
@@ -45,7 +45,7 @@ const codeExamples = {
   </header>
   <section>
     <n-panel bordered>
-      <pre class="layout-code"><code set:html={codeExamples.example} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.example} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <native-design></native-design>

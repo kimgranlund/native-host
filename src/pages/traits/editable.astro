@@ -43,12 +43,12 @@ const detailValuePrev = `{ value, previousValue }`;
 ---
 <SidebarLayout title="Editable">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>Editable</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
 
       Inline editing pattern. Activate with click or double-click, commit with <strong>Enter</strong>, cancel with <strong>Escape</strong>. Blur also commits.
 
@@ -73,7 +73,7 @@ const detailValuePrev = `{ value, previousValue }`;
         </div>
       </n-controller>
       <div id="dbl-log" class="output"></div>
-      <pre class="layout-code"><code set:html={codeExamples.doubleClickToEditProvider} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.doubleClickToEditProvider} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Click to Edit (Provider) ── -->
@@ -91,7 +91,7 @@ const detailValuePrev = `{ value, previousValue }`;
         </div>
       </n-controller>
       <div id="click-log" class="output"></div>
-      <pre class="layout-code"><code>&lt;n-controller traits="editable"
+      <pre class="code-block"><code>&lt;n-controller traits="editable"
   data-trait-editable-trigger="click"
   for=".edit-item"&gt;
   &lt;div class="edit-list"&gt;
@@ -111,7 +111,7 @@ const detailValuePrev = `{ value, previousValue }`;
       </n-text>
       <div id="controller-item" class="edit-item">Editable paragraph — double-click me</div>
       <div id="ctrl-log" class="output"></div>
-      <pre class="layout-code"><code set:html={codeExamples.editcontrollerAttachToAnyElement} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.editcontrollerAttachToAnyElement} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── API Reference ── -->

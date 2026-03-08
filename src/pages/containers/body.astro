@@ -1,0 +1,254 @@
+---
+import SidebarLayout from '../../layouts/SidebarLayout.astro';
+---
+<SidebarLayout title="Body">
+  <header>
+    <div slot="title">
+      <div slot="content">
+        <h1>Body</h1>
+      </div>
+    </div>
+    <div slot="description">
+      <span class="header-tag">&lt;section&gt;</span> Generic scrollable content region. Semantic sub-container that fills remaining flex space inside n-panel, n-card, n-drawer, or any flex column parent. Scrollbar hidden by default.
+          </div>
+  </header>
+
+  <section>
+
+    <!-- ── Basic ── -->
+
+    <h2>Basic</h2>
+    <n-panel bordered>
+      <div class="body-card-wrap">
+      <n-card>
+        <header>
+          <span>Panel Title</span>
+        </header>
+        <section>
+          <n-text>Body content with default inline padding and flex column layout. The body fills remaining space between header and footer.</n-text>
+        </section>
+        <footer>
+          <n-button variant="primary" intent="accent"><span>OK</span></n-button>
+        </footer>
+      </n-card>
+      </div>
+    <pre class="code-block"><code>&lt;n-card&gt;
+  &lt;header&gt;
+    &lt;span slot="label"&gt;Panel Title&lt;/span&gt;
+  &lt;/header&gt;
+  &lt;section&gt;
+    &lt;p&gt;Body content here.&lt;/p&gt;
+  &lt;/section&gt;
+  &lt;footer&gt;
+    &lt;n-button variant="primary" intent="accent"&gt;OK&lt;/n-button&gt;
+  &lt;/footer&gt;
+&lt;/n-card&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Scrollable Content ── -->
+
+    <h2>Scrollable Content</h2>
+    <n-panel bordered>
+      <div class="body-card-wrap body-card-wrap--h16">
+      <n-card>
+        <header>
+          <span>Scrollable Card</span>
+        </header>
+        <section>
+          <n-text>When the parent has a fixed height, n-body scrolls independently while the header and footer stay pinned.</n-text>
+          <n-text>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</n-text>
+          <n-text>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</n-text>
+          <n-text>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</n-text>
+          <n-text>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</n-text>
+        </section>
+        <footer>
+          <n-button variant="primary" intent="accent"><span>Done</span></n-button>
+        </footer>
+      </n-card>
+      </div>
+    <pre class="code-block"><code>&lt;n-card style="height: 16rem;"&gt;
+  &lt;header&gt;&lt;span slot="label"&gt;Scrollable&lt;/span&gt;&lt;/header&gt;
+  &lt;section&gt;
+    &lt;p&gt;Long content that scrolls...&lt;/p&gt;
+  &lt;/section&gt;
+  &lt;footer&gt;
+    &lt;n-button variant="primary" intent="accent"&gt;Done&lt;/n-button&gt;
+  &lt;/footer&gt;
+&lt;/n-card&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Show Scrollbar ── -->
+
+    <h2>Visible Scrollbar</h2>
+    <n-panel bordered>
+      <div class="body-card-wrap body-card-wrap--h14">
+      <n-card>
+        <header><span>With Scrollbar</span></header>
+        <section show-scrollbar>
+          <n-text>The <code>show-scrollbar</code> attribute switches from <code>scrollbar-width: none</code> to <code>scrollbar-width: thin</code>.</n-text>
+          <n-text>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</n-text>
+          <n-text>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</n-text>
+          <n-text>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</n-text>
+        </section>
+      </n-card>
+      </div>
+    <pre class="code-block"><code>&lt;section show-scrollbar&gt;
+  &lt;p&gt;Scrollable content with a thin visible scrollbar.&lt;/p&gt;
+&lt;/section&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Padding Variants ── -->
+
+    <h2>Padding</h2>
+    <n-panel bordered>
+      <n-stack gap="4">
+        <div class="body-card-wrap body-card-wrap--md">
+        <n-card>
+          <header><span>padding="none"</span></header>
+          <section padding="none">
+            <n-text>No inline padding. Content reaches the edges.</n-text>
+          </section>
+        </n-card>
+        </div>
+        <div class="body-card-wrap body-card-wrap--md">
+        <n-card>
+          <header><span>Default (tight)</span></header>
+          <section>
+            <n-text>Default inline padding (<code>--n-space * 4</code>).</n-text>
+          </section>
+        </n-card>
+        </div>
+        <div class="body-card-wrap body-card-wrap--md">
+        <n-card>
+          <header><span>padding="regular"</span></header>
+          <section padding="regular">
+            <n-text>Regular padding adds both block and wider inline spacing.</n-text>
+          </section>
+        </n-card>
+        </div>
+        <div class="body-card-wrap body-card-wrap--md">
+        <n-card>
+          <header><span>padding="relaxed"</span></header>
+          <section padding="relaxed">
+            <n-text>Relaxed padding for spacious layouts.</n-text>
+          </section>
+        </n-card>
+        </div>
+      </n-stack>
+    <pre class="code-block"><code>&lt;section padding="none"&gt;...&lt;/section&gt;
+&lt;section&gt;...&lt;/section&gt;                     &lt;!-- default (tight) --&gt;
+&lt;section padding="regular"&gt;...&lt;/section&gt;
+&lt;section padding="relaxed"&gt;...&lt;/section&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── With Card ── -->
+
+    <h2>With Card</h2>
+    <n-panel bordered>
+      <div class="body-card-wrap">
+      <n-card>
+        <header>
+          <nav><n-badge intent="accent">3</n-badge></nav>
+          <span>Notifications</span>
+          <aside><n-button variant="ghost"><n-icon name="dots-three"></n-icon></n-button></aside>
+        </header>
+        <section>
+          <n-text>You have 3 unread notifications. Check your inbox for details.</n-text>
+          <n-text>The body provides a scrollable region between the header and any footer.</n-text>
+        </section>
+      </n-card>
+      </div>
+    <pre class="code-block"><code>&lt;n-card&gt;
+  &lt;header&gt;
+    &lt;n-badge slot="leading" intent="accent"&gt;3&lt;/n-badge&gt;
+    &lt;span slot="label"&gt;Notifications&lt;/span&gt;
+    &lt;n-button slot="trailing" variant="ghost"&gt;...&lt;/n-button&gt;
+  &lt;/header&gt;
+  &lt;section&gt;
+    &lt;p&gt;Card body content.&lt;/p&gt;
+  &lt;/section&gt;
+&lt;/n-card&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Divider Breathing Room ── -->
+
+    <h2>Divider Breathing Room</h2>
+    <n-text size="md" muted spacing="relaxed">
+      When an adjacent n-header or n-footer has the <code>dividers</code> attribute, n-body automatically adds block padding so content does not sit against the divider line.
+    </n-text>
+    <n-panel bordered>
+      <div class="body-card-wrap">
+      <n-card>
+        <header dividers>
+          <span>With Divider</span>
+        </header>
+        <section>
+          <n-text>The body gets automatic top padding because the header above has the <code>dividers</code> attribute.</n-text>
+        </section>
+        <footer dividers>
+          <n-button variant="primary" intent="accent"><span>Save</span></n-button>
+        </footer>
+      </n-card>
+      </div>
+    <pre class="code-block"><code>&lt;header dividers&gt;
+  &lt;span slot="label"&gt;With Divider&lt;/span&gt;
+&lt;/header&gt;
+&lt;section&gt;
+  &lt;p&gt;Auto block-padding next to dividers.&lt;/p&gt;
+&lt;/section&gt;
+&lt;footer dividers&gt;
+  &lt;n-button variant="primary" intent="accent"&gt;Save&lt;/n-button&gt;
+&lt;/footer&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── API ── -->
+
+    <h2>API</h2>
+    <n-panel bordered>
+      <table class="api-table">
+        <thead>
+          <tr>
+            <th>Attribute</th>
+            <th>Values</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>padding</code></td>
+            <td><code>none</code> | <code>tight</code> | <code>regular</code> | <code>relaxed</code></td>
+            <td>Controls inline and block padding. Default is inline-only (<code>--n-space * 4</code>).</td>
+          </tr>
+          <tr>
+            <td><code>show-scrollbar</code></td>
+            <td>boolean</td>
+            <td>Reveals a thin scrollbar. Default is hidden (<code>scrollbar-width: none</code>).</td>
+          </tr>
+        </tbody>
+      </table>
+    </n-panel>
+
+    <h3>Layout Behavior</h3>
+    <n-text size="md" muted spacing="relaxed">
+      n-body uses <code>flex: 1 1 0%</code> to fill remaining space in its parent flex column. It sets <code>overflow-y: auto</code> so content scrolls when the parent has a bounded height. Children are laid out in a flex column with gap spacing.
+    </n-text>
+  </section>
+</SidebarLayout>
+
+<style is:global>
+  .body-card-wrap {
+    max-width: 24rem;
+  }
+
+  .body-card-wrap--md {
+    max-width: 28rem;
+  }
+
+  .body-card-wrap--h16 {
+    height: 16rem;
+  }
+
+  .body-card-wrap--h14 {
+    height: 14rem;
+  }
+</style>

@@ -3,18 +3,18 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Data Table Page">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>Users</h1>
       </div>
-      <div data-slot="actions">
+      <div slot="actions">
         <n-button variant="primary" intent="accent" size="md">
           <n-icon name="plus" slot="leading"></n-icon>
           <span>New User</span>
         </n-button>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
 
       Manage your team members and their account permissions.
 
@@ -183,7 +183,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       </section>
 
       <footer justify="between">
-        <span class="demo-text-sm">Showing 1-10 of 87 users</span>
+        <span class="text-sm">Showing 1-10 of 87 users</span>
         <n-pagination total="9" value="1" size="sm"></n-pagination>
       </footer>
     </n-card>
@@ -200,7 +200,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       const statusFilter = document.getElementById('table-status-filter');
       const roleFilter = document.getElementById('table-role-filter');
       const pagination = document.querySelector('n-pagination');
-      const showingText = document.querySelector('.demo-text-sm');
+      const showingText = document.querySelector('.text-sm');
 
       // Sort
       table.addEventListener('native:table-sort', (e) => {

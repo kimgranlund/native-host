@@ -1,0 +1,38 @@
+/* ──────────────────────────────────────────────────────────────
+   Global Styles
+   Reset, body defaults, reduced-motion. Loaded by every page.
+   ────────────────────────────────────────────────────────────── */
+
+@layer ui {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  :where(body) {
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+
+    font-family: var(--n-font-family);
+    line-height: var(--n-text-line-height);
+    background: var(--n-doc-neutral);
+    color: var(--n-ink-neutral);
+    min-height: 100dvh;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :root {
+      --n-duration: 0s;
+    }
+  }
+}
+
+/* Shared logo — used by auth pages and sidebar */
+.auth-logo,
+.nav-logo {
+  display: flex;
+  flex-shrink: 0;
+  color: var(--n-ink-strong-neutral);
+}

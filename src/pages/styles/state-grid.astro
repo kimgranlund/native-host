@@ -20,12 +20,12 @@ const codeExamples = {
 ---
 <SidebarLayout title="State Grid">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>Component State Grid</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
 
       Each card shows the CSS color tokens a component uses per state. Hover or click a state pill to highlight every component that resolves to the same <code>background</code>, <code>color</code>, and <code>border-color</code> values.
 
@@ -64,7 +64,7 @@ const codeExamples = {
       </n-toolbar>
 
       <n-panel bordered>
-      <pre class="layout-code"><code>/* ── State Token Resolution ── */
+      <pre class="code-block"><code>/* ── State Token Resolution ── */
 /* Components read local tokens (--n-*) set by attribute selectors */
 
 /* Rest state */
@@ -81,7 +81,7 @@ border-color: var(--n-border-color-hover, var(--n-border-color));
 color: var(--n-ink-disabled);
 pointer-events: none;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
 
-      <pre class="layout-code"><code set:html={codeExamples.example} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.example} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
       </n-panel>
 
       <div class="state-grid" id="grid"></div>

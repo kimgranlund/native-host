@@ -56,12 +56,12 @@ const detailRange = `{ startIndex, endIndex, items }`;
 ---
 <SidebarLayout title="RangeSelectable">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>RangeSelectable</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
 
       Composable trait for selecting a range of items. Supports two modes: <strong>drag</strong> (click-drag-release) and <strong>click</strong> (click start, hover to preview, click to commit). Sets <code>[range-selected]</code>, <code>[range-start]</code>, and <code>[range-end]</code> attributes.
 
@@ -90,7 +90,7 @@ const detailRange = `{ startIndex, endIndex, items }`;
         <div id="drag-grid" class="grid-container"></div>
       </n-controller>
       <div id="drag-output" class="output">Click and drag to select a range</div>
-      <pre class="layout-code"><code set:html={codeExamples.dragModeCalendarGridProvider} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.dragModeCalendarGridProvider} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Click Mode: Calendar Grid ── -->
@@ -114,7 +114,7 @@ const detailRange = `{ startIndex, endIndex, items }`;
         <n-button id="clear-btn" size="sm">Clear Range</n-button>
       </n-stack></div>
       <div id="click-output" class="output">Click a start date, hover to preview, click to commit</div>
-      <pre class="layout-code"><code set:html={codeExamples.clickModeCalendarGrid} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.clickModeCalendarGrid} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Drag Mode: Vertical List (Provider) ── -->
@@ -136,7 +136,7 @@ const detailRange = `{ startIndex, endIndex, items }`;
         </div>
       </n-controller>
       <div id="list-output" class="output">Click and drag to select a range</div>
-      <pre class="layout-code"><code>&lt;n-controller traits="range-selectable"
+      <pre class="code-block"><code>&lt;n-controller traits="range-selectable"
   data-trait-range-selectable-selector=".list-item"&gt;
   &lt;div class="list-container"&gt;
     &lt;div class="list-item"&gt;Monday&lt;/div&gt;
@@ -162,7 +162,7 @@ const detailRange = `{ startIndex, endIndex, items }`;
         <div class="list-item">June</div>
       </div>
       <div id="ctrl-output" class="output">Click and drag to select a range</div>
-      <pre class="layout-code"><code set:html={codeExamples.rangeselectcontrollerAttachToAnyElement} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.rangeselectcontrollerAttachToAnyElement} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── API Reference ── -->

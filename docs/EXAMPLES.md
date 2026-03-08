@@ -25,7 +25,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         <n-widget>Hello</n-widget>
         <n-widget variant="accent">Accent</n-widget>
       </div>
-      <pre class="layout-code"><code>&lt;n-widget&gt;Hello&lt;/n-widget&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code>&lt;n-widget&gt;Hello&lt;/n-widget&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
   </main>
 
@@ -131,10 +131,10 @@ const codeExamples = {
 <h1>&lt;n-widget&gt;</h1>
     <div class="layout-section">
       <!-- Inline code -->
-      <pre class="layout-code"><code>&lt;n-widget&gt;Hello&lt;/n-widget&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code>&lt;n-widget&gt;Hello&lt;/n-widget&gt;</code><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
 
       <!-- Dynamic code via set:html -->
-      <pre class="layout-code"><code set:html={codeExamples.usage} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.usage} /><n-button class="copy-btn" size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </div>
   </main>
 </SidebarLayout>
@@ -400,7 +400,7 @@ Auto-derived titles: Components/Containers strip `ui-` + Title Case; Traits use
 PascalCase; Blocks/Other use Title Case. Override when that produces the wrong
 result.
 
-**The page** (`src/pages/components/ui-input-otp.astro`):
+**The page** (`src/pages/components/input-otp.astro`):
 
 ```astro
 ---
@@ -419,7 +419,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ```ts
 const titleOverrides: Record<string, string> = {
   // ...existing...
-  '/components/ui-input-otp': 'Input OTP',
+  '/components/input-otp': 'Input OTP',
 };
 ```
 

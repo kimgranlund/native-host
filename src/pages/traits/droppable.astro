@@ -35,12 +35,12 @@ const detailDrop = `{ type, files?, text?, dataTransfer? }`;
 ---
 <SidebarLayout title="Droppable">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>Droppable</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
 
       External file/data drop zone using the HTML5 drag-and-drop API. Sets <code>[drop-active]</code> when a valid item is dragged over and <code>[drop-invalid]</code> when the MIME type does not match <code>droppable-accept</code>.
 
@@ -65,7 +65,7 @@ const detailDrop = `{ type, files?, text?, dataTransfer? }`;
       </n-controller>
       <div id="files-list" class="file-list" class="drop-hidden"></div>
       <div id="files-log" class="output"></div>
-      <pre class="layout-code"><code set:html={codeExamples.fileDropZoneProvider} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.fileDropZoneProvider} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Image Only (Provider) ── -->
@@ -84,7 +84,7 @@ const detailDrop = `{ type, files?, text?, dataTransfer? }`;
       </n-controller>
       <div id="images-list" class="file-list" class="drop-hidden"></div>
       <div id="images-log" class="output"></div>
-      <pre class="layout-code"><code>&lt;n-controller traits="droppable" droppable-accept="image/*"&gt;
+      <pre class="code-block"><code>&lt;n-controller traits="droppable" droppable-accept="image/*"&gt;
   &lt;div class="drop-zone"&gt;
     Drop images here
   &lt;/div&gt;
@@ -107,7 +107,7 @@ const detailDrop = `{ type, files?, text?, dataTransfer? }`;
       </n-controller>
       <div id="text-content" class="dropped-text" class="drop-hidden"></div>
       <div id="text-log" class="output"></div>
-      <pre class="layout-code"><code set:html={codeExamples.textDropProvider} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.textDropProvider} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Single File (Provider) ── -->
@@ -126,7 +126,7 @@ const detailDrop = `{ type, files?, text?, dataTransfer? }`;
       </n-controller>
       <div id="single-list" class="file-list" class="drop-hidden"></div>
       <div id="single-log" class="output"></div>
-      <pre class="layout-code"><code>&lt;n-controller traits="droppable" droppable-multiple="false"&gt;
+      <pre class="code-block"><code>&lt;n-controller traits="droppable" droppable-multiple="false"&gt;
   &lt;div class="drop-zone"&gt;
     Drop a single file
   &lt;/div&gt;

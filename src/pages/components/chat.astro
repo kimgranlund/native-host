@@ -1,0 +1,673 @@
+---
+import SidebarLayout from '../../layouts/SidebarLayout.astro';
+---
+<SidebarLayout title="Chat">
+  <header>
+    <div slot="title">
+      <div slot="content">
+        <h1>Chat</h1>
+      </div>
+    </div>
+    <div slot="description">
+      <span class="header-tag">&lt;native-chat&gt;</span> Chat component system — message feed, avatars, markdown text, activity indicators, suggestion chips, GenUI cards, structured inputs, and composer.
+          </div>
+  </header>
+
+  <section>
+
+    <!-- ── Full Chat Shell ── -->
+
+    <h2>Full Chat Shell</h2>
+    <n-panel bordered>
+      <div class="grid">
+
+        <!-- Idle state -->
+        <n-stack>
+          <span class="col-label">Idle (empty input)</span>
+          <n-chat>
+            <n-panel>
+              <header dividers>
+                <nav><n-icon name="chat-dots"></n-icon></nav>
+                <span>Assistant</span>
+                <aside><n-button variant="ghost"><n-icon name="dots-three"></n-icon></n-button></aside>
+              </header>
+              <section>
+                <n-chat-content>
+                  <n-text size="sm" muted>Messages will appear here.</n-text>
+                </n-chat-content>
+              </section>
+              <footer dividers>
+                <n-chat-input>
+                  <n-textarea placeholder="Ask anything" autogrow rows="3"></n-textarea>
+                  <n-chat-input-actions>
+                    <n-button variant="ghost" inline><n-icon name="plus"></n-icon></n-button>
+                    <n-button variant="ghost" inline><n-icon name="microphone"></n-icon></n-button>
+                    <n-select value="haiku-4.5">
+                      <n-button variant="ghost" inline><n-icon name="dots-three-outline-fill"></n-icon></n-button>
+                      <n-listbox popover>
+                        <n-option-group>
+                          <n-option-group-header>Claude</n-option-group-header>
+                          <n-option value="opus-4.6">Opus 4.6</n-option>
+                          <n-option value="sonnet-4.6">Sonnet 4.6</n-option>
+                          <n-option value="haiku-4.5">Haiku 4.5</n-option>
+                        </n-option-group>
+                        <n-option-group>
+                          <n-option-group-header>ChatGPT</n-option-group-header>
+                          <n-option value="gpt-5.2">GPT-5.2</n-option>
+                          <n-option value="gpt-5.3-codex">GPT-5.3 Codex</n-option>
+                          <n-option value="gpt-5.2-codex">GPT-5.2 Codex</n-option>
+                        </n-option-group>
+                        <n-option-group>
+                          <n-option-group-header>Gemini</n-option-group-header>
+                          <n-option value="gemini-3.1-pro">Gemini 3.1 Pro</n-option>
+                          <n-option value="gemini-3-flash">Gemini 3 Flash</n-option>
+                        </n-option-group>
+                      </n-listbox>
+                    </n-select>
+                  </n-chat-input-actions>
+                </n-chat-input>
+              </footer>
+            </n-panel>
+          </n-chat>
+        </n-stack>
+
+        <!-- Typing state -->
+        <n-stack>
+          <span class="col-label">Typing (with send button)</span>
+          <n-chat>
+            <n-panel>
+              <header dividers>
+                <nav><n-icon name="chat-dots"></n-icon></nav>
+                <span>Assistant</span>
+                <aside><n-button variant="ghost"><n-icon name="dots-three"></n-icon></n-button></aside>
+              </header>
+              <section>
+                <n-chat-content>
+                  <n-text size="sm" muted>Messages will appear here.</n-text>
+                </n-chat-content>
+              </section>
+              <footer dividers>
+                <n-chat-input>
+                  <n-textarea placeholder="Ask anything" autogrow rows="3"></n-textarea>
+                  <n-chat-input-actions>
+                    <n-button variant="ghost" inline><n-icon name="plus"></n-icon></n-button>
+                    <n-button variant="ghost" inline><n-icon name="microphone"></n-icon></n-button>
+                    <n-select value="sonnet-4.6">
+                      <n-button variant="ghost" inline><n-icon name="dots-three-outline-fill"></n-icon></n-button>
+                      <n-listbox popover>
+                        <n-option-group>
+                          <n-option-group-header>Claude</n-option-group-header>
+                          <n-option value="opus-4.6">Opus 4.6</n-option>
+                          <n-option value="sonnet-4.6">Sonnet 4.6</n-option>
+                          <n-option value="haiku-4.5">Haiku 4.5</n-option>
+                        </n-option-group>
+                        <n-option-group>
+                          <n-option-group-header>ChatGPT</n-option-group-header>
+                          <n-option value="gpt-5.2">GPT-5.2</n-option>
+                          <n-option value="gpt-5.3-codex">GPT-5.3 Codex</n-option>
+                          <n-option value="gpt-5.2-codex">GPT-5.2 Codex</n-option>
+                        </n-option-group>
+                        <n-option-group>
+                          <n-option-group-header>Gemini</n-option-group-header>
+                          <n-option value="gemini-3.1-pro">Gemini 3.1 Pro</n-option>
+                          <n-option value="gemini-3-flash">Gemini 3 Flash</n-option>
+                        </n-option-group>
+                      </n-listbox>
+                    </n-select>
+                    <n-button variant="primary" intent="accent" radius="round" inline disabled><n-icon name="arrow-up"></n-icon></n-button>
+                  </n-chat-input-actions>
+                </n-chat-input>
+              </footer>
+            </n-panel>
+          </n-chat>
+        </n-stack>
+      </div>
+      <pre class="code-block"><code>&lt;n-chat&gt;
+  &lt;n-panel&gt;
+    &lt;header dividers&gt;
+      &lt;span slot="leading"&gt;&lt;n-icon name="chat-dots"&gt;&lt;/n-icon&gt;&lt;/span&gt;
+      &lt;span&gt;Assistant&lt;/span&gt;
+      &lt;span slot="trailing"&gt;...&lt;/span&gt;
+    &lt;/header&gt;
+    &lt;section&gt;
+      &lt;n-chat-content&gt;...&lt;/n-chat-content&gt;
+    &lt;/section&gt;
+    &lt;footer dividers&gt;
+      &lt;n-chat-input&gt;
+        &lt;n-textarea placeholder="Ask anything" autogrow rows="3"&gt;&lt;/n-textarea&gt;
+        &lt;n-chat-input-actions&gt;
+          &lt;n-button variant="ghost" inline&gt;&lt;n-icon name="plus"&gt;&lt;/n-icon&gt;&lt;/n-button&gt;
+        &lt;/n-chat-input-actions&gt;
+      &lt;/n-chat-input&gt;
+    &lt;/footer&gt;
+  &lt;/n-panel&gt;
+&lt;/n-chat&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Message Feed ── -->
+
+    <h2>Message Feed</h2>
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
+        <code>n-chat-feed</code> coordinates a scrollable thread.
+        <code>n-chat-messages</code> groups messages from the same sender.
+        <code>n-chat-message</code> renders individual bubbles with action toolbars.
+      </n-text>
+      <div class="grid">
+        <n-stack>
+          <span class="col-label">Conversation thread</span>
+          <n-chat-feed auto-scroll>
+            <n-chat-messages role="assistant" sender="Assistant">
+              <n-chat-avatar icon="chat-dots"></n-chat-avatar>
+              <n-chat-message role="assistant" message-id="msg-1" timestamp="1709395200000">
+                <n-chat-message-text id="demo-feed-msg1"></n-chat-message-text>
+              </n-chat-message>
+            </n-chat-messages>
+
+            <n-chat-messages role="user" sender="Kim">
+              <n-chat-avatar name="Kim Granlund"></n-chat-avatar>
+              <n-chat-message role="user" message-id="msg-2" timestamp="1709395260000">
+                <n-chat-message-text format="plain" id="demo-feed-msg2"></n-chat-message-text>
+              </n-chat-message>
+            </n-chat-messages>
+
+            <n-chat-messages role="assistant" sender="Assistant">
+              <n-chat-avatar icon="chat-dots"></n-chat-avatar>
+              <n-chat-message role="assistant" message-id="msg-3" timestamp="1709395320000">
+                <n-chat-message-text id="demo-feed-msg3"></n-chat-message-text>
+              </n-chat-message>
+            </n-chat-messages>
+          </n-chat-feed>
+        </n-stack>
+
+        <n-stack>
+          <span class="col-label">Multi-message group</span>
+          <n-chat-feed auto-scroll>
+            <n-chat-messages role="user" sender="Kim">
+              <n-chat-avatar name="Kim Granlund"></n-chat-avatar>
+              <n-chat-message role="user" message-id="msg-a1" timestamp="1709395200000">
+                <n-chat-message-text format="plain" id="demo-feed-msg-a1"></n-chat-message-text>
+              </n-chat-message>
+              <n-chat-message role="user" message-id="msg-a2" timestamp="1709395205000">
+                <n-chat-message-text format="plain" id="demo-feed-msg-a2"></n-chat-message-text>
+              </n-chat-message>
+            </n-chat-messages>
+
+            <n-chat-messages role="assistant" sender="Assistant">
+              <n-chat-avatar icon="chat-dots"></n-chat-avatar>
+              <n-chat-message role="assistant" message-id="msg-a3" timestamp="1709395260000">
+                <n-chat-message-text id="demo-feed-msg-a3"></n-chat-message-text>
+              </n-chat-message>
+              <n-chat-message role="assistant" message-id="msg-a4" timestamp="1709395265000">
+                <n-chat-message-text id="demo-feed-msg-a4"></n-chat-message-text>
+              </n-chat-message>
+            </n-chat-messages>
+          </n-chat-feed>
+        </n-stack>
+      </div>
+      <pre class="code-block"><code>&lt;n-chat-feed auto-scroll&gt;
+  &lt;n-chat-messages role="assistant" sender="Assistant"&gt;
+    &lt;n-chat-avatar icon="chat-dots"&gt;&lt;/n-chat-avatar&gt;
+    &lt;n-chat-message role="assistant" message-id="msg-1"&gt;
+      &lt;n-chat-message-text&gt;Hello!&lt;/n-chat-message-text&gt;
+    &lt;/n-chat-message&gt;
+  &lt;/n-chat-messages&gt;
+
+  &lt;n-chat-messages role="user" sender="Kim"&gt;
+    &lt;n-chat-avatar name="Kim Granlund"&gt;&lt;/n-chat-avatar&gt;
+    &lt;n-chat-message role="user" message-id="msg-2"&gt;
+      &lt;n-chat-message-text format="plain"&gt;How does this work?&lt;/n-chat-message-text&gt;
+    &lt;/n-chat-message&gt;
+  &lt;/n-chat-messages&gt;
+&lt;/n-chat-feed&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Avatar ── -->
+
+    <h2>Avatar</h2>
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
+        <code>n-chat-avatar</code> renders an image, icon, or initials based on attributes.
+        Fallback chain: <code>src</code> → <code>icon</code> → <code>name</code> initials → default user icon.
+      </n-text>
+      <n-stack direction="row" gap="4" wrap align="center">
+        <n-stack align="center">
+          <span class="col-label">Icon</span>
+          <n-chat-avatar icon="chat-dots"></n-chat-avatar>
+        </n-stack>
+        <n-stack align="center">
+          <span class="col-label">Initials (1 word)</span>
+          <n-chat-avatar name="Kim"></n-chat-avatar>
+        </n-stack>
+        <n-stack align="center">
+          <span class="col-label">Initials (2 words)</span>
+          <n-chat-avatar name="Kim Granlund"></n-chat-avatar>
+        </n-stack>
+        <n-stack align="center">
+          <span class="col-label">Default (no attrs)</span>
+          <n-chat-avatar></n-chat-avatar>
+        </n-stack>
+      </n-stack>
+      <pre class="code-block"><code>&lt;n-chat-avatar icon="chat-dots"&gt;&lt;/n-chat-avatar&gt;
+&lt;n-chat-avatar name="Kim Granlund"&gt;&lt;/n-chat-avatar&gt;
+&lt;n-chat-avatar src="/avatars/kim.jpg" name="Kim"&gt;&lt;/n-chat-avatar&gt;
+&lt;n-chat-avatar&gt;&lt;/n-chat-avatar&gt;  &lt;!-- default user icon --&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Message Text (Markdown) ── -->
+
+    <h2>Message Text</h2>
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
+        <code>n-chat-message-text</code> renders markdown to sanitized HTML. Supports headings, lists, code fences, inline formatting, links, and blockquotes.
+      </n-text>
+      <div class="grid">
+        <n-stack>
+          <span class="col-label">Markdown (default)</span>
+          <n-chat-message-text id="demo-md-full"></n-chat-message-text>
+        </n-stack>
+        <n-stack>
+          <span class="col-label">Plain text</span>
+          <n-chat-message-text format="plain" id="demo-md-plain"></n-chat-message-text>
+        </n-stack>
+      </div>
+      <pre class="code-block"><code>&lt;n-chat-message-text&gt;**Bold**, *italic*, `code`&lt;/n-chat-message-text&gt;
+&lt;n-chat-message-text format="plain"&gt;No formatting applied.&lt;/n-chat-message-text&gt;
+
+&lt;!-- Or set via property: --&gt;
+&lt;script&gt;
+  el.content = '## Heading\n\nParagraph with **bold**.';
+&lt;/script&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Activity Indicator ── -->
+
+    <h2>Activity Indicator</h2>
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
+        <code>n-chat-message-activity</code> shows streaming status with elapsed timer. Supports <code>typing</code>, <code>thinking</code>, and <code>tool-use</code> types. Add <code>expandable</code> for collapsible reasoning trace.
+      </n-text>
+      <n-stack gap="4">
+        <n-stack>
+          <span class="col-label">Typing (active)</span>
+          <n-chat-message-activity type="typing" active></n-chat-message-activity>
+        </n-stack>
+        <n-stack>
+          <span class="col-label">Thinking (active)</span>
+          <n-chat-message-activity type="thinking" active></n-chat-message-activity>
+        </n-stack>
+        <n-stack>
+          <span class="col-label">Tool use (active)</span>
+          <n-chat-message-activity type="tool-use" active></n-chat-message-activity>
+        </n-stack>
+        <n-stack>
+          <span class="col-label">Expandable reasoning trace (click to toggle)</span>
+          <n-chat-message-activity type="thinking" active expandable>
+            <pre style="font-size: 0.75rem; margin: 0; white-space: pre-wrap;">Step 1: Analyzing the query...
+Step 2: Searching knowledge base...
+Step 3: Formulating response...
+Step 4: Applying formatting rules...</pre>
+          </n-chat-message-activity>
+        </n-stack>
+        <n-stack>
+          <span class="col-label">Inactive (completed)</span>
+          <n-chat-message-activity type="thinking" label="Thought for 12s"></n-chat-message-activity>
+        </n-stack>
+      </n-stack>
+      <pre class="code-block"><code>&lt;n-chat-message-activity type="typing" active&gt;&lt;/n-chat-message-activity&gt;
+&lt;n-chat-message-activity type="thinking" active&gt;&lt;/n-chat-message-activity&gt;
+&lt;n-chat-message-activity type="tool-use" active&gt;&lt;/n-chat-message-activity&gt;
+
+&lt;!-- With expandable reasoning trace --&gt;
+&lt;n-chat-message-activity type="thinking" active expandable&gt;
+  &lt;pre&gt;Step 1: Analyzing...&lt;/pre&gt;
+&lt;/n-chat-message-activity&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Seed Chips ── -->
+
+    <h2>Seed Chips</h2>
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
+        <code>n-chat-message-seed</code> renders pre-seeded response options as clickable chips.
+        Fires <code>native:seed-select</code> with <code>&#123; value, label &#125;</code>.
+      </n-text>
+      <n-stack gap="4">
+        <n-stack>
+          <span class="col-label">Starter prompts</span>
+          <n-chat-message-seed id="demo-seeds"></n-chat-message-seed>
+        </n-stack>
+        <n-stack>
+          <span class="col-label">Disabled</span>
+          <n-chat-message-seed id="demo-seeds-disabled" disabled></n-chat-message-seed>
+        </n-stack>
+      </n-stack>
+      <pre class="code-block"><code>&lt;n-chat-message-seed&gt;&lt;/n-chat-message-seed&gt;
+&lt;script&gt;
+  el.options = [
+    &#123; value: 'explain', label: 'Explain this code' &#125;,
+    &#123; value: 'refactor', label: 'Suggest refactoring' &#125;,
+    &#123; value: 'test', label: 'Write tests' &#125;,
+  ];
+&lt;/script&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Structured Input ── -->
+
+    <h2>Structured Input</h2>
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
+        <code>n-chat-input-structured</code> renders a multi-choice card. Supports <code>single</code> and <code>multi</code> selection modes.
+        Fires <code>native:structured-submit</code> with <code>&#123; question, selections &#125;</code>.
+      </n-text>
+      <div class="grid">
+        <n-stack>
+          <span class="col-label">Single select</span>
+          <n-chat-input-structured
+            question="What language do you prefer?"
+            type="single"
+            id="demo-structured-single"
+          ></n-chat-input-structured>
+        </n-stack>
+        <n-stack>
+          <span class="col-label">Multi select</span>
+          <n-chat-input-structured
+            question="Which features interest you?"
+            type="multi"
+            id="demo-structured-multi"
+          ></n-chat-input-structured>
+        </n-stack>
+      </div>
+      <pre class="code-block"><code>&lt;n-chat-input-structured
+  question="What language do you prefer?"
+  type="single"&gt;
+&lt;/n-chat-input-structured&gt;
+&lt;script&gt;
+  el.options = [
+    &#123; value: 'ts', label: 'TypeScript' &#125;,
+    &#123; value: 'js', label: 'JavaScript' &#125;,
+    &#123; value: 'py', label: 'Python' &#125;,
+  ];
+&lt;/script&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── GenUI ── -->
+
+    <h2>GenUI (Schema → DOM)</h2>
+    <n-panel bordered>
+      <n-text size="xs" muted spacing="tight">
+        <code>n-chat-message-genui</code> renders UI from a schema tree. Validates against a forbidden tag list.
+        Supports <code>inline</code> and <code>lightbox</code> modes.
+      </n-text>
+      <div class="grid">
+        <n-stack>
+          <span class="col-label">Inline mode</span>
+          <n-chat-message-genui id="demo-genui-inline" mode="inline"></n-chat-message-genui>
+        </n-stack>
+        <n-stack>
+          <span class="col-label">Lightbox mode</span>
+          <n-chat-message-genui id="demo-genui-lightbox" mode="lightbox"></n-chat-message-genui>
+        </n-stack>
+      </div>
+      <pre class="code-block"><code>&lt;n-chat-message-genui mode="inline"&gt;&lt;/n-chat-message-genui&gt;
+&lt;script&gt;
+  el.schema = &#123;
+    tag: 'n-card',
+    children: [
+      &#123; tag: 'p', text: 'Generated UI card' &#125;,
+      &#123; tag: 'n-button', text: 'Action',
+        attributes: &#123; variant: 'primary', intent: 'accent' &#125; &#125;,
+    ]
+  &#125;;
+&lt;/script&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Input Surface Only ── -->
+
+    <h2>Input Surface Only</h2>
+    <n-panel bordered>
+      <div class="grid">
+        <n-stack>
+          <span class="col-label">Inside n-footer container</span>
+          <footer dividers>
+            <n-chat-input>
+              <n-textarea placeholder="Ask anything" autogrow rows="2"></n-textarea>
+              <n-chat-input-actions>
+                <n-button variant="ghost" inline><n-icon name="plus"></n-icon></n-button>
+                <n-button variant="ghost" inline><n-icon name="microphone"></n-icon></n-button>
+                <n-select value="gpt-5.2">
+                  <n-button variant="ghost" inline><n-icon name="dots-three-outline-fill"></n-icon></n-button>
+                  <n-listbox popover>
+                    <n-option-group>
+                      <n-option-group-header>Claude</n-option-group-header>
+                      <n-option value="opus-4.6">Opus 4.6</n-option>
+                      <n-option value="sonnet-4.6">Sonnet 4.6</n-option>
+                      <n-option value="haiku-4.5">Haiku 4.5</n-option>
+                    </n-option-group>
+                    <n-option-group>
+                      <n-option-group-header>ChatGPT</n-option-group-header>
+                      <n-option value="gpt-5.2">GPT-5.2</n-option>
+                      <n-option value="gpt-5.3-codex">GPT-5.3 Codex</n-option>
+                      <n-option value="gpt-5.2-codex">GPT-5.2 Codex</n-option>
+                    </n-option-group>
+                    <n-option-group>
+                      <n-option-group-header>Gemini</n-option-group-header>
+                      <n-option value="gemini-3.1-pro">Gemini 3.1 Pro</n-option>
+                      <n-option value="gemini-3-flash">Gemini 3 Flash</n-option>
+                    </n-option-group>
+                  </n-listbox>
+                </n-select>
+              </n-chat-input-actions>
+            </n-chat-input>
+          </footer>
+        </n-stack>
+
+        <n-stack>
+          <span class="col-label">Compact (single row)</span>
+          <footer dividers>
+            <n-chat-input compact>
+              <n-textarea placeholder="Type a message..." autogrow rows="1"></n-textarea>
+              <n-chat-input-actions>
+                <n-button variant="ghost" inline><n-icon name="plus"></n-icon></n-button>
+                <n-button variant="ghost" inline><n-icon name="microphone"></n-icon></n-button>
+                <n-button variant="primary" intent="accent" radius="round" inline disabled><n-icon name="arrow-up"></n-icon></n-button>
+              </n-chat-input-actions>
+            </n-chat-input>
+          </footer>
+        </n-stack>
+      </div>
+      <pre class="code-block"><code>&lt;!-- Wrap in a container for surface styling --&gt;
+&lt;footer dividers&gt;
+  &lt;n-chat-input&gt;
+    &lt;n-textarea placeholder="Ask anything" autogrow rows="2"&gt;&lt;/n-textarea&gt;
+    &lt;n-chat-input-actions&gt;
+      &lt;n-button variant="ghost" inline&gt;&lt;n-icon name="plus"&gt;&lt;/n-icon&gt;&lt;/n-button&gt;
+    &lt;/n-chat-input-actions&gt;
+  &lt;/n-chat-input&gt;
+&lt;/footer&gt;
+
+&lt;!-- Compact --&gt;
+&lt;footer dividers&gt;
+  &lt;n-chat-input compact&gt;
+    &lt;n-textarea placeholder="Type a message..." autogrow rows="1"&gt;&lt;/n-textarea&gt;
+    &lt;n-chat-input-actions&gt;...&lt;/n-chat-input-actions&gt;
+  &lt;/n-chat-input&gt;
+&lt;/footer&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+  </section>
+
+  <script>
+document.addEventListener('astro:page-load', () => {
+  const feedMsg1 = document.getElementById('demo-feed-msg1');
+  if (!feedMsg1) return;
+
+  // ── Feed Messages ──
+
+  feedMsg1.content = "Hello! I'm your AI assistant. How can I help you today?";
+
+  const feedMsg2 = document.getElementById('demo-feed-msg2');
+  if (feedMsg2) feedMsg2.content = 'Can you explain how web components work?';
+
+  const feedMsg3 = document.getElementById('demo-feed-msg3');
+  if (feedMsg3) feedMsg3.content = `Web components are a set of **browser APIs** that let you create reusable custom elements. The main specs are:
+
+1. **Custom Elements** — define new HTML tags with \`customElements.define()\`
+2. **Shadow DOM** — encapsulated DOM and styling
+3. **HTML Templates** — reusable markup fragments
+
+Here's a simple example:
+
+\`\`\`js
+class MyButton extends HTMLElement {
+  connectedCallback() {
+    this.textContent = 'Click me';
+  }
+}
+customElements.define('my-button', MyButton);
+\`\`\`
+
+They work in **all modern browsers** without a framework.`;
+
+  const feedMsgA1 = document.getElementById('demo-feed-msg-a1');
+  if (feedMsgA1) feedMsgA1.content = 'Hey, quick question';
+
+  const feedMsgA2 = document.getElementById('demo-feed-msg-a2');
+  if (feedMsgA2) feedMsgA2.content = "What's the difference between shadow DOM and light DOM?";
+
+  const feedMsgA3 = document.getElementById('demo-feed-msg-a3');
+  if (feedMsgA3) feedMsgA3.content = `**Light DOM** is the regular DOM tree — children you write in HTML. **Shadow DOM** is an encapsulated tree attached via \`attachShadow()\`.
+
+Key differences:
+
+- Shadow DOM styles don't leak out
+- External styles don't reach in (unless using CSS custom properties or \`::part()\`)
+- Shadow DOM creates a _flat tree_ for rendering`;
+
+  const feedMsgA4 = document.getElementById('demo-feed-msg-a4');
+  if (feedMsgA4) feedMsgA4.content = 'This library (`native-ui`) deliberately avoids Shadow DOM — all components use **light DOM** so CSS custom properties cascade naturally.';
+
+  // ── Message Text ──
+
+  const mdFull = document.getElementById('demo-md-full');
+  if (mdFull) {
+    mdFull.content = `## Web Components
+
+Here's what you need to know about **web components**:
+
+- **Custom Elements** — define new HTML tags
+- **Shadow DOM** — encapsulated styling
+- **HTML Templates** — declarative structure
+
+Inline \`code\` works too. And here's a fenced block:
+
+\`\`\`js
+class MyEl extends HTMLElement {
+  connectedCallback() {
+    this.textContent = 'Hello';
+  }
+}
+\`\`\`
+
+> Web components work in all modern browsers without a framework.
+
+Visit [MDN](https://developer.mozilla.org) for more.`;
+  }
+
+  const mdPlain = document.getElementById('demo-md-plain');
+  if (mdPlain) {
+    mdPlain.content = 'This is plain text. No **bold** or *italic* formatting is applied. Links like https://example.com stay as text.';
+  }
+
+  // ── Seed Chips ──
+
+  const seeds = document.getElementById('demo-seeds');
+  if (seeds) {
+    seeds.options = [
+      { value: 'explain', label: 'Explain this code' },
+      { value: 'refactor', label: 'Suggest refactoring' },
+      { value: 'test', label: 'Write tests' },
+      { value: 'docs', label: 'Generate docs' },
+    ];
+  }
+
+  const seedsDisabled = document.getElementById('demo-seeds-disabled');
+  if (seedsDisabled) {
+    seedsDisabled.options = [
+      { value: 'explain', label: 'Explain this code' },
+      { value: 'refactor', label: 'Suggest refactoring' },
+    ];
+  }
+
+  // ── Structured Input ──
+
+  const structSingle = document.getElementById('demo-structured-single');
+  if (structSingle) {
+    structSingle.options = [
+      { value: 'ts', label: 'TypeScript' },
+      { value: 'js', label: 'JavaScript' },
+      { value: 'py', label: 'Python' },
+      { value: 'rs', label: 'Rust' },
+    ];
+  }
+
+  const structMulti = document.getElementById('demo-structured-multi');
+  if (structMulti) {
+    structMulti.options = [
+      { value: 'signals', label: 'Reactive signals' },
+      { value: 'traits', label: 'Composable traits' },
+      { value: 'tokens', label: 'CSS token system' },
+      { value: 'a11y', label: 'Accessibility' },
+    ];
+  }
+
+  // ── GenUI ──
+
+  const genuiInline = document.getElementById('demo-genui-inline');
+  if (genuiInline) {
+    genuiInline.schema = {
+      tag: 'n-card',
+      children: [
+        { tag: 'n-header', children: [
+          { tag: 'span', text: 'Generated Card' },
+        ]},
+        { tag: 'n-body', children: [
+          { tag: 'p', text: 'This UI was rendered from a schema object.' },
+        ]},
+        { tag: 'n-footer', children: [
+          { tag: 'n-button', text: 'Confirm', attributes: { variant: 'primary', intent: 'accent' } },
+          { tag: 'n-button', text: 'Cancel', attributes: { variant: 'ghost' } },
+        ]},
+      ],
+    };
+  }
+
+  const genuiLightbox = document.getElementById('demo-genui-lightbox');
+  if (genuiLightbox) {
+    genuiLightbox.schema = {
+      tag: 'n-card',
+      children: [
+        { tag: 'n-header', children: [
+          { tag: 'span', text: 'Interactive Form' },
+        ]},
+        { tag: 'n-body', children: [
+          { tag: 'p', text: 'Click "Open" to view in a dialog overlay.' },
+          { tag: 'n-button', text: 'Submit', attributes: { variant: 'primary', intent: 'accent' } },
+        ]},
+      ],
+    };
+  }
+});
+  </script>
+
+  <style is:global>
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(30rem, 100%), 1fr));
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    /* ── Code Blocks ── */
+</style>
+
+</SidebarLayout>

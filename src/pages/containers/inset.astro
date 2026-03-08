@@ -1,0 +1,96 @@
+---
+import SidebarLayout from '../../layouts/SidebarLayout.astro';
+---
+<SidebarLayout title="Inset">
+  <header>
+    <div slot="title">
+      <div slot="content">
+        <h1>Inset</h1>
+      </div>
+    </div>
+    <div slot="description">
+      <span class="header-tag">&lt;n-inset&gt;</span> Content indentation container. Adds consistent inline-start padding without visual surface. CSS-only container.
+          </div>
+  </header>
+
+  <section>
+
+    <!-- ── Basic ── -->
+
+    <h2>Basic</h2>
+    <n-panel bordered>
+      <span class="label">Parent heading</span>
+      <n-inset>
+        <span>Indented child 1</span>
+        <span>Indented child 2</span>
+        <span>Indented child 3</span>
+      </n-inset>
+    <pre class="code-block"><code>&lt;span&gt;Parent heading&lt;/span&gt;
+&lt;n-inset&gt;
+  &lt;span&gt;Indented child 1&lt;/span&gt;
+  &lt;span&gt;Indented child 2&lt;/span&gt;
+  &lt;span&gt;Indented child 3&lt;/span&gt;
+&lt;/n-inset&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── With Checkboxes ── -->
+
+    <h2>Nested Checkboxes</h2>
+    <n-panel bordered>
+      <n-checkbox checked>Select all</n-checkbox>
+      <n-inset>
+        <n-checkbox checked>Option A</n-checkbox>
+        <n-checkbox checked>Option B</n-checkbox>
+        <n-checkbox>Option C</n-checkbox>
+      </n-inset>
+    <pre class="code-block"><code>&lt;n-checkbox checked&gt;Select all&lt;/n-checkbox&gt;
+&lt;n-inset&gt;
+  &lt;n-checkbox checked&gt;Option A&lt;/n-checkbox&gt;
+  &lt;n-checkbox checked&gt;Option B&lt;/n-checkbox&gt;
+  &lt;n-checkbox&gt;Option C&lt;/n-checkbox&gt;
+&lt;/n-inset&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+
+    <!-- ── Sizes ── -->
+
+    <h2>Sizes</h2>
+    <n-panel bordered>
+      <div size="sm">
+        <span class="label label-sm">sm parent</span>
+        <n-inset>
+          <span class="text-sm">sm indented content</span>
+        </n-inset>
+      </div>
+      <div size="lg" class="size-group">
+        <span class="label">lg parent</span>
+        <n-inset>
+          <span>lg indented content</span>
+        </n-inset>
+      </div>
+      <pre class="code-block"><code>&lt;div size="sm"&gt;
+  &lt;span&gt;sm parent&lt;/span&gt;
+  &lt;n-inset&gt;
+    &lt;span&gt;sm indented content&lt;/span&gt;
+  &lt;/n-inset&gt;
+&lt;/div&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-panel>
+  </section>
+
+  <style>
+    .label {
+      font-weight: 500;
+    }
+
+    .label-sm {
+      font-size: 0.8125rem;
+    }
+
+    .text-sm {
+      font-size: 0.8125rem;
+    }
+
+    .size-group {
+      margin-top: 1rem;
+    }
+  </style>
+</SidebarLayout>

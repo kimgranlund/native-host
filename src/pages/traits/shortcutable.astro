@@ -68,12 +68,12 @@ toggleBtn.addEventListener('click', () =&gt; {
 ---
 <SidebarLayout title="Shortcutable">
   <header>
-    <div data-slot="title">
-      <div data-slot="content">
+    <div slot="title">
+      <div slot="content">
         <h1>Shortcutable</h1>
       </div>
     </div>
-    <div data-slot="description">
+    <div slot="description">
 
       Keyboard shortcut controller with combo-string parsing, editable filtering, and conditional guards. Supports both global (document-level) and scoped (host-focused) listeners. Fires <code>native:shortcut</code> with <code set:html="{ id, combo }" /> on every match.
 
@@ -104,7 +104,7 @@ toggleBtn.addEventListener('click', () =&gt; {
         </n-stack>
       </n-stack>
       <div id="log-global" class="output">Press a shortcut to see it logged here.</div>
-      <pre class="layout-code"><code set:html={codeExamples.global} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.global} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Scoped Shortcuts ── -->
@@ -128,7 +128,7 @@ toggleBtn.addEventListener('click', () =&gt; {
         <n-text size="xs" muted>Click here to focus, then press a shortcut.</n-text>
       </div>
       <div id="log-scoped" class="output">Focus the zone above, then press a shortcut.</div>
-      <pre class="layout-code"><code set:html={codeExamples.scoped} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.scoped} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Allow Editable ── -->
@@ -146,7 +146,7 @@ toggleBtn.addEventListener('click', () =&gt; {
         <n-input id="editable-input" placeholder="Type here, then press ⌘Enter / Ctrl+Enter"></n-input>
       </div>
       <div id="log-editable" class="output">Focus the input above, then press ⌘Enter / Ctrl+Enter.</div>
-      <pre class="layout-code"><code set:html={codeExamples.editable} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.editable} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Conditional Guard ── -->
@@ -165,7 +165,7 @@ toggleBtn.addEventListener('click', () =&gt; {
       </n-stack>
       <n-text size="xs" muted>Toggle the button, then try pressing <n-kbd size="xs">⌘G</n-kbd> / <n-kbd size="xs">Ctrl+G</n-kbd>.</n-text>
       <div id="log-guard" class="output">Enable the shortcut via the toggle, then press ⌘G / Ctrl+G.</div>
-      <pre class="layout-code"><code set:html={codeExamples.guard} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.guard} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── Declarative (Provider) ── -->
@@ -195,7 +195,7 @@ toggleBtn.addEventListener('click', () =&gt; {
         </div>
       </n-controller>
       <div id="log-declarative" class="output">Press Ctrl+H or Ctrl+J anywhere on the page.</div>
-      <pre class="layout-code"><code set:html={codeExamples.declarative} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+      <pre class="code-block"><code set:html={codeExamples.declarative} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-panel>
 
     <!-- ── API Reference ── -->
