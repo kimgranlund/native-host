@@ -1,4 +1,4 @@
-# T0156: Upgrade to @nonoun/native-ai@1.0.13 — Schema Pane, Sub-Container Card Pattern, Component Map Fixes
+# T0156: Upgrade to @nonoun/native-ai@1.0.15 — Schema Pane, Sub-Container Card Pattern, Component Map Fixes
 
 **Component:** @nonoun/native-ai
 **Severity:** Medium
@@ -50,7 +50,7 @@ This means AI-generated A2UI streams can use the standard native-ui container pa
 </n-container>
 ```
 
-All ~53 Card instances across 18 presets now use the explicit Header/Body/Footer children pattern — heading in Header, content in Body, action buttons in Footer. Presets serve as canonical examples of the authoring convention.
+All 32 presets now use the Card > Header | Body | Footer root pattern — every preset root is a Card. Preset IDs use full words, consistent `{context}-{role}` naming, no abbreviations. Presets serve as canonical examples of the A2UI authoring convention.
 
 ### Fixed: Component map now uses proper native-ui elements
 
@@ -70,7 +70,7 @@ These are CSS-only custom elements with proper attribute APIs (density, size, in
 ## Package Update
 
 ```bash
-npm install @nonoun/native-ai@1.0.13
+npm install @nonoun/native-ai@1.0.15
 ```
 
 ## Impact
@@ -81,7 +81,7 @@ npm install @nonoun/native-ai@1.0.13
 
 ## Host Action Required
 
-1. Update `package.json`: `@nonoun/native-ai` → `1.0.12`
+1. Update `package.json`: `@nonoun/native-ai` → `1.0.15`
 2. If the host has an A2UI workbench demo page, verify the SCHEMA pane appears and works
 3. If the host renders A2UI streams, verify Card renders with `<n-header>/<n-body>/<n-footer>` sub-containers
 4. Verify Row/Column/Badge/Avatar render correctly with the new tags (they should — the CSS already targets `n-stack`, `n-badge`, `n-avatar`)

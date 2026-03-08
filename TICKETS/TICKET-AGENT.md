@@ -19,7 +19,7 @@ Each agent reads this file at session start, processes tickets addressed to it, 
 | **fixed** | T0153-native-ai-stale-imports.md | `native-ai` stale `NBadge`/`NCard` imports — fixed in `native-ai@1.0.9` (rebuilt from clean source). | host | native-ui |
 | **open** | T0154-noodle-controller-trait.md | New trait: NoodleController / noodleable — SVG noodle connections between DOM elements. Ships in native-ui@0.7.64. | native-ui | host |
 | **open** | T0155-bare-element-selector-migration.md | Bare HTML element selector migration — `<article>` → `<n-container>`, `<hr>` → `<n-divider>`, layout `<aside>` → `<n-aside>`. Ships in native-ui@0.7.66. | native-ui | host |
-| **open** | T0156-upgrade-native-ai-1.0.11.md | Upgrade to `@nonoun/native-ai@1.0.13` — SCHEMA pane, Card sub-container pattern (Header/Body/Footer), component map fixes | native-ui | host |
+| **open** | T0156-upgrade-native-ai-1.0.11.md | Upgrade to `@nonoun/native-ai@1.0.15` — SCHEMA pane, Card sub-container pattern (Header/Body/Footer), component map fixes | native-ui | host |
 | **fixed** | T0135-semantic-layout-parity-gaps.md | Semantic layout CSS parity gaps — padding/gap variables + [show-scrollbar] fix. Fixed in dashboard@0.4.6. | host | native-ui |
 | **fixed** | T0136-semantic-nav-breadcrumb-gaps.md | Semantic nav gaps — leading flex, min-width guard, slot trailing. Fixed in dashboard@0.4.6. | host | native-ui |
 | **fixed** | T0137-dashboard-css-hardcoded-values.md | Dashboard CSS hardcoded magic numbers → CSS variables. Fixed in dashboard@0.4.6. Dead CE CSS kept for compat. | host | native-ui |
