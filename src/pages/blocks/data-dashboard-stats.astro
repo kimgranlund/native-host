@@ -28,63 +28,63 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
     <!-- ── Stat Cards ── -->
     <div class="stats-grid">
-      <n-container>
+      <n-container class="stat-card">
         <n-header>
-          <span class="stat-label">Total Revenue</span>
-          <span class="stat-icon" slot="trailing"><n-icon name="currency-dollar"></n-icon></span>
+          <span slot="leading" class="label">Total Revenue</span>
+          <span slot="trailing" class="icon"><n-icon name="currency-dollar"></n-icon></span>
         </n-header>
-        <n-body><span class="stat-value">$45,231.89</span></n-body>
+        <n-body><span class="value">$45,231.89</span></n-body>
         <n-footer>
-          <n-badge intent="success">
-            <span class="trend-icon"><n-icon name="trend-up"></n-icon></span>
+          <n-badge slot="leading" intent="success">
+            <n-icon name="trend-up"></n-icon>
             +20.1%
           </n-badge>
-          <span class="stat-change-label">from last month</span>
+          <span slot="trailing" class="change-label">from last month</span>
         </n-footer>
       </n-container>
 
-      <n-container>
+      <n-container class="stat-card">
         <n-header>
-          <span class="stat-label">Active Users</span>
-          <span class="stat-icon" slot="trailing"><n-icon name="users"></n-icon></span>
+          <span slot="leading" class="label">Active Users</span>
+          <span slot="trailing" class="icon"><n-icon name="users"></n-icon></span>
         </n-header>
-        <n-body><span class="stat-value">2,350</span></n-body>
+        <n-body><span class="value">2,350</span></n-body>
         <n-footer>
-          <n-badge intent="success">
-            <span class="trend-icon"><n-icon name="trend-up"></n-icon></span>
+          <n-badge slot="leading" intent="success">
+            <n-icon name="trend-up"></n-icon>
             +180
           </n-badge>
-          <span class="stat-change-label">this week</span>
+          <span slot="trailing" class="change-label">this week</span>
         </n-footer>
       </n-container>
 
-      <n-container>
+      <n-container class="stat-card">
         <n-header>
-          <span class="stat-label">Orders</span>
-          <span class="stat-icon" slot="trailing"><n-icon name="shopping-bag"></n-icon></span>
+          <span slot="leading" class="label">Orders</span>
+          <span slot="trailing" class="icon"><n-icon name="shopping-bag"></n-icon></span>
         </n-header>
-        <n-body><span class="stat-value">12,234</span></n-body>
+        <n-body><span class="value">12,234</span></n-body>
         <n-footer>
-          <n-badge intent="success">
-            <span class="trend-icon"><n-icon name="trend-up"></n-icon></span>
+          <n-badge slot="leading" intent="success">
+            <n-icon name="trend-up"></n-icon>
             +19%
           </n-badge>
-          <span class="stat-change-label">from last month</span>
+          <span slot="trailing" class="change-label">from last month</span>
         </n-footer>
       </n-container>
 
-      <n-container>
+      <n-container class="stat-card">
         <n-header>
-          <span class="stat-label">Conversion Rate</span>
-          <span class="stat-icon" slot="trailing"><n-icon name="percent"></n-icon></span>
+          <span slot="leading" class="label">Conversion Rate</span>
+          <span slot="trailing" class="icon"><n-icon name="percent"></n-icon></span>
         </n-header>
-        <n-body><span class="stat-value">3.2%</span></n-body>
+        <n-body><span class="value">3.2%</span></n-body>
         <n-footer>
-          <n-badge intent="danger">
-            <span class="trend-icon"><n-icon name="trend-down"></n-icon></span>
+          <n-badge slot="leading" intent="danger">
+            <n-icon name="trend-down"></n-icon>
             -0.4%
           </n-badge>
-          <span class="stat-change-label">from last month</span>
+          <span slot="trailing" class="change-label">from last month</span>
         </n-footer>
       </n-container>
     </div>
@@ -377,20 +377,20 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       .stats-grid { grid-template-columns: 1fr; }
     }
 
-    .stats-grid n-header {
+    .stat-card n-header {
       --n-padding-block: 0;
       --n-padding-inline: 0;
       min-height: 0;
       font-weight: inherit;
     }
 
-    .stat-label {
+    .stat-card .label {
       font-size: 0.8125rem;
       font-weight: 500;
       color: var(--n-ink-muted-neutral);
     }
 
-    .stat-icon {
+    .stat-card .icon {
       width: 2rem;
       height: 2rem;
       display: flex;
@@ -401,28 +401,19 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       color: var(--n-ink-muted-neutral);
     }
 
-    .stat-value {
+    .stat-card .value {
       font-size: 1.5rem;
       font-weight: 700;
       line-height: 1;
       font-variant-numeric: tabular-nums;
     }
 
-    .stats-grid n-footer {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
+    .stat-card n-footer {
       font-size: 0.75rem;
     }
 
-    .stat-change-label {
+    .stat-card .change-label {
       color: var(--n-ink-muted-neutral);
-    }
-
-    .trend-icon {
-      display: inline-flex;
-      width: 0.75rem;
-      height: 0.75rem;
     }
 
     .table-scroll {
