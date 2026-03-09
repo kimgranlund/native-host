@@ -73,10 +73,10 @@ const detailRange = `{ startIndex, endIndex, items }`;
     <!-- ── Drag Mode: Calendar Grid (Provider) ── -->
 
     <h2>Drag Mode — Calendar Grid (Provider)</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         <code>&lt;n-controller&gt;</code> wraps a grid and applies the range-selectable trait. Click and drag across cells to select a range. Release to commit.
-      </n-text>
+      </span>
       <div class="day-headers">
         <div class="day-header">Su</div>
         <div class="day-header">Mo</div>
@@ -91,15 +91,15 @@ const detailRange = `{ startIndex, endIndex, items }`;
       </n-controller>
       <div id="drag-output" class="output">Click and drag to select a range</div>
       <pre class="code-block"><code set:html={codeExamples.dragModeCalendarGridProvider} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Click Mode: Calendar Grid ── -->
 
     <h2>Click Mode — Calendar Grid</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Click a start date, hover to preview range, click to commit. Uses <code>RangeSelectController</code> directly with <code>clearRange()</code> method.
-      </n-text>
+      </span>
       <div class="day-headers">
         <div class="day-header">Su</div>
         <div class="day-header">Mo</div>
@@ -115,15 +115,15 @@ const detailRange = `{ startIndex, endIndex, items }`;
       </n-stack></div>
       <div id="click-output" class="output">Click a start date, hover to preview, click to commit</div>
       <pre class="code-block"><code set:html={codeExamples.clickModeCalendarGrid} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Drag Mode: Vertical List (Provider) ── -->
 
     <h2>Drag Mode — Vertical List (Provider)</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         <code>&lt;n-controller&gt;</code> applies range-selectable to a vertical list. Click and drag to select a contiguous range of days.
-      </n-text>
+      </span>
       <n-controller traits="range-selectable" data-trait-range-selectable-selector=".list-item">
         <div id="list" class="list-container">
           <div class="list-item">Monday</div>
@@ -144,15 +144,15 @@ const detailRange = `{ startIndex, endIndex, items }`;
     &lt;!-- ... --&gt;
   &lt;/div&gt;
 &lt;/n-controller&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── RangeSelectController: Attach to Any Element ── -->
 
     <h2>RangeSelectController — Attach to Any Element</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Use <code>RangeSelectController</code> to add range selection to an existing element without subclassing. Same events, same modes — no trait mixin required.
-      </n-text>
+      </span>
       <div id="ctrl-list" class="list-container">
         <div class="list-item">January</div>
         <div class="list-item">February</div>
@@ -163,7 +163,7 @@ const detailRange = `{ startIndex, endIndex, items }`;
       </div>
       <div id="ctrl-output" class="output">Click and drag to select a range</div>
       <pre class="code-block"><code set:html={codeExamples.rangeselectcontrollerAttachToAnyElement} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── API Reference ── -->
 

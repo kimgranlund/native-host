@@ -66,8 +66,8 @@ import Logo from '../../components/Logo.astro';
           <p class="auth-heading">Welcome back</p>
           <p class="auth-subheading">Sign in to your account to continue</p>
           <div class="auth-card">
-            <n-card padding="relaxed">
-              <section>
+            <n-container padding="relaxed">
+              <n-body>
                 <n-stack gap="8">
                   <form>
                     <n-stack gap="6">
@@ -104,8 +104,8 @@ import Logo from '../../components/Logo.astro';
                     </n-button>
                   </div>
                 </n-stack>
-              </section>
-            </n-card>
+              </n-body>
+            </n-container>
           </div>
           <p class="auth-footer-text">
             Don't have an account? <a href="#">Sign up</a>

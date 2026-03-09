@@ -20,6 +20,8 @@ const pageBadges: Record<string, BadgeKind> = {
   '/traits/confettible': 'new',
   '/traits/magnetizable': 'new',
   '/traits/css-inspectable': 'new',
+  '/traits/noodleable': 'new',
+  '/controllers/store-controller': 'new',
 };
 
 // Directory → group mapping
@@ -87,6 +89,7 @@ const titleOverrides: Record<string, string> = {
   '/changelog': 'Changelog',
   '/gateways': 'Gateways',
   '/controllers': 'Controllers',
+  '/controllers/store-controller': 'StoreController',
   '/styles/reference': 'Reference',
   '/styles/state-grid': 'State Grid',
   '/styles/colors': 'Colors',

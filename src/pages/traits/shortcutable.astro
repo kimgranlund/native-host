@@ -85,77 +85,77 @@ toggleBtn.addEventListener('click', () =&gt; {
     <!-- ── Global Shortcuts ── -->
 
     <h2>Global Shortcuts</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         <code>global: true</code> listens on <code>document</code> in capture phase. These shortcuts fire from anywhere on the page — no focus required.
-      </n-text>
+      </span>
       <n-stack direction="row" gap="3" wrap>
         <n-stack direction="row" gap="1" align="center">
           <n-kbd>⌘K</n-kbd>
-          <n-text size="xs" muted>Search</n-text>
+          <span class="text-xs text-muted">Search</span>
         </n-stack>
         <n-stack direction="row" gap="1" align="center">
           <n-kbd>?</n-kbd>
-          <n-text size="xs" muted>Help</n-text>
+          <span class="text-xs text-muted">Help</span>
         </n-stack>
         <n-stack direction="row" gap="1" align="center">
           <n-kbd>Esc</n-kbd>
-          <n-text size="xs" muted>Dismiss</n-text>
+          <span class="text-xs text-muted">Dismiss</span>
         </n-stack>
       </n-stack>
       <div id="log-global" class="output">Press a shortcut to see it logged here.</div>
       <pre class="code-block"><code set:html={codeExamples.global} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Scoped Shortcuts ── -->
 
     <h2>Scoped Shortcuts</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Without <code>global: true</code>, the controller listens on the host element only. Shortcuts fire when the host (or a descendant) has focus. Click inside the zone, then press a shortcut.
-      </n-text>
+      </span>
       <div id="scoped-zone" class="scoped-zone" tabindex="0">
         <n-stack direction="row" gap="3" wrap>
           <n-stack direction="row" gap="1" align="center">
             <n-kbd>⌘S</n-kbd>
-            <n-text size="xs" muted>Save</n-text>
+            <span class="text-xs text-muted">Save</span>
           </n-stack>
           <n-stack direction="row" gap="1" align="center">
             <n-kbd>⌘Z</n-kbd>
-            <n-text size="xs" muted>Undo</n-text>
+            <span class="text-xs text-muted">Undo</span>
           </n-stack>
         </n-stack>
-        <n-text size="xs" muted>Click here to focus, then press a shortcut.</n-text>
+        <span class="text-xs text-muted">Click here to focus, then press a shortcut.</span>
       </div>
       <div id="log-scoped" class="output">Focus the zone above, then press a shortcut.</div>
       <pre class="code-block"><code set:html={codeExamples.scoped} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Allow Editable ── -->
 
     <h2>Allow Editable</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         By default, shortcuts are silenced inside inputs, textareas, and <code>contenteditable</code> elements. Set <code>allowEditable: true</code> to allow a binding to fire even when an editable element is focused.
-      </n-text>
+      </span>
       <n-stack direction="row" gap="1" align="center">
         <n-kbd>⌘↵</n-kbd>
-        <n-text size="xs" muted>Submit — fires inside the input below</n-text>
+        <span class="text-xs text-muted">Submit — fires inside the input below</span>
       </n-stack>
       <div id="editable-zone">
         <n-input id="editable-input" placeholder="Type here, then press ⌘Enter / Ctrl+Enter"></n-input>
       </div>
       <div id="log-editable" class="output">Focus the input above, then press ⌘Enter / Ctrl+Enter.</div>
       <pre class="code-block"><code set:html={codeExamples.editable} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Conditional Guard ── -->
 
     <h2>Conditional Guard</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         The <code>when()</code> guard is evaluated each time the shortcut would otherwise match. If it returns <code>false</code>, the binding is skipped. Use it to disable a shortcut contextually without re-registering it.
-      </n-text>
+      </span>
       <n-stack direction="row" gap="3" align="center">
         <n-button id="guard-toggle" intent="neutral">Enable shortcut</n-button>
         <n-stack direction="row" gap="1" align="center">
@@ -163,18 +163,18 @@ toggleBtn.addEventListener('click', () =&gt; {
           <span id="guard-status" class="guard-badge guard-badge--off">off</span>
         </n-stack>
       </n-stack>
-      <n-text size="xs" muted>Toggle the button, then try pressing <n-kbd size="xs">⌘G</n-kbd> / <n-kbd size="xs">Ctrl+G</n-kbd>.</n-text>
+      <span class="text-xs text-muted">Toggle the button, then try pressing <n-kbd size="xs">⌘G</n-kbd> / <n-kbd size="xs">Ctrl+G</n-kbd>.</span>
       <div id="log-guard" class="output">Enable the shortcut via the toggle, then press ⌘G / Ctrl+G.</div>
       <pre class="code-block"><code set:html={codeExamples.guard} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Declarative (Provider) ── -->
 
     <h2>Declarative (Provider)</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Use <code>&lt;n-controller traits="shortcutable"&gt;</code> with the <code>data-trait-shortcutable-shortcuts</code> JSON attribute and optional <code>data-trait-shortcutable-global</code>. Listen for <code>native:shortcut</code> on the host.
-      </n-text>
+      </span>
       <n-controller
         id="declarative-ctrl"
         traits="shortcutable"
@@ -185,18 +185,18 @@ toggleBtn.addEventListener('click', () =&gt; {
           <n-stack direction="row" gap="3" wrap>
             <n-stack direction="row" gap="1" align="center">
               <n-kbd>Ctrl+H</n-kbd>
-              <n-text size="xs" muted>Hello</n-text>
+              <span class="text-xs text-muted">Hello</span>
             </n-stack>
             <n-stack direction="row" gap="1" align="center">
               <n-kbd>Ctrl+J</n-kbd>
-              <n-text size="xs" muted>World</n-text>
+              <span class="text-xs text-muted">World</span>
             </n-stack>
           </n-stack>
         </div>
       </n-controller>
       <div id="log-declarative" class="output">Press Ctrl+H or Ctrl+J anywhere on the page.</div>
       <pre class="code-block"><code set:html={codeExamples.declarative} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── API Reference ── -->
 

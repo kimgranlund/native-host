@@ -20,8 +20,8 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <!-- ── Factory: createEditorView ── -->
 
     <h2>createEditorView()</h2>
-    <n-text size="sm" muted spacing="tight">One-line factory — creates a themed editor with all base extensions.</n-text>
-    <n-panel bordered>
+    <span class="text-sm text-muted">One-line factory — creates a themed editor with all base extensions.</span>
+    <n-container data-kind="panel" bordered>
       <div class="editor-container" id="factory-demo"></div>
     <pre class="code-block"><code>import &#123; createEditorView &#125; from '@nonoun/native-code';
 import &#123; javascript &#125; from '@codemirror/lang-javascript';
@@ -30,12 +30,12 @@ const view = createEditorView(document.getElementById('editor'), &#123;
   doc: 'console.log("hello");',
   extensions: [javascript()],
 &#125;);</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── JavaScript ── -->
 
     <h2>JavaScript</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <div class="editor-container" id="js-demo"></div>
     <pre class="code-block"><code>import &#123; javascript &#125; from '@codemirror/lang-javascript';
 
@@ -43,12 +43,12 @@ createEditorView(container, &#123;
   doc: source,
   extensions: [javascript()],
 &#125;);</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── HTML ── -->
 
     <h2>HTML</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <div class="editor-container" id="html-demo"></div>
     <pre class="code-block"><code>import &#123; html &#125; from '@codemirror/lang-html';
 
@@ -56,12 +56,12 @@ createEditorView(container, &#123;
   doc: source,
   extensions: [html()],
 &#125;);</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── CSS ── -->
 
     <h2>CSS</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <div class="editor-container" id="css-demo"></div>
     <pre class="code-block"><code>import &#123; css &#125; from '@codemirror/lang-css';
 
@@ -69,12 +69,12 @@ createEditorView(container, &#123;
   doc: source,
   extensions: [css()],
 &#125;);</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Markdown ── -->
 
     <h2>Markdown</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <div class="editor-container" id="md-demo"></div>
     <pre class="code-block"><code>import &#123; markdown &#125; from '@codemirror/lang-markdown';
 
@@ -82,26 +82,26 @@ createEditorView(container, &#123;
   doc: source,
   extensions: [markdown()],
 &#125;);</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Read-only ── -->
 
     <h2>Read-only</h2>
-    <n-text size="sm" muted spacing="tight">Selectable but not editable. Useful for documentation code blocks.</n-text>
-    <n-panel bordered>
+    <span class="text-sm text-muted">Selectable but not editable. Useful for documentation code blocks.</span>
+    <n-container data-kind="panel" bordered>
       <div class="editor-container editor-container-sm" id="readonly-demo"></div>
     <pre class="code-block"><code>createEditorView(container, &#123;
   doc: source,
   extensions: [javascript()],
   readonly: true,
 &#125;);</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Custom Extensions ── -->
 
     <h2>Custom Extensions</h2>
-    <n-text size="sm" muted spacing="tight">Pass additional extensions via the <code>extensions</code> option. This example adds a change listener.</n-text>
-    <n-panel bordered>
+    <span class="text-sm text-muted">Pass additional extensions via the <code>extensions</code> option. This example adds a change listener.</span>
+    <n-container data-kind="panel" bordered>
       <div class="editor-container editor-container-sm" id="custom-demo"></div>
       <div class="log" id="change-log" style="max-height: 80px;"></div>
     <pre class="code-block"><code>import &#123; EditorView &#125; from '@nonoun/native-code';
@@ -117,7 +117,7 @@ createEditorView(container, &#123;
     &#125;),
   ],
 &#125;);</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
   </section>
 
   <script>

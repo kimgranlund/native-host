@@ -46,40 +46,40 @@ el.addEventListener('native:press', () =&gt; copy.copy());`,
     <!-- ── Basic Copy (Injection) ── -->
 
     <h2>Basic Copy <span class="pattern-badge injection">Injection</span></h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         <code>traits="copyable pressable"</code> on a minimal NativeElement shell. Click triggers copy via <code>native:press</code>. The <code>[copied]</code> attribute provides visual feedback for 2 seconds.
-      </n-text>
+      </span>
       <copy-demo traits="copyable pressable" data-trait-copyable-value="npm install native-ui" class="copy-card">
         <span class="copy-label">npm install native-ui</span>
         <span class="copy-indicator"><n-icon name="copy"></n-icon> Copy</span>
       </copy-demo>
       <div id="basic-log" class="output"></div>
       <pre class="code-block"><code set:html={codeExamples.basicCopyInjection} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Copy with Getter ── -->
 
     <h2>Copy with Getter</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         The copyable adapter takes static <code>value</code> strings. For dynamic values (like timestamps), use <code>CopyController</code> directly with a getter function.
-      </n-text>
+      </span>
       <copy-demo id="getter-demo" traits="pressable" class="copy-card">
         <span class="copy-label">Copy current timestamp</span>
         <span class="copy-indicator"><n-icon name="copy"></n-icon> Copy</span>
       </copy-demo>
       <div id="getter-log" class="output"></div>
       <pre class="code-block"><code set:html={codeExamples.copyWithGetter} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Custom Duration (Injection) ── -->
 
     <h2>Custom Duration (500ms) <span class="pattern-badge injection">Injection</span></h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         <code>data-trait-copyable-feedback-duration="500"</code> for quick feedback instead of the default 2000ms.
-      </n-text>
+      </span>
       <copy-demo traits="copyable pressable" data-trait-copyable-value="Quick feedback copy" data-trait-copyable-feedback-duration="500" class="copy-card">
         <span class="copy-label">Quick feedback copy</span>
         <span class="copy-indicator"><n-icon name="copy"></n-icon> Copy</span>
@@ -91,15 +91,15 @@ el.addEventListener('native:press', () =&gt; copy.copy());`,
   &lt;span class="copy-label"&gt;Quick feedback copy&lt;/span&gt;
   &lt;span class="copy-indicator"&gt;Copy&lt;/span&gt;
 &lt;/copy-demo&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Provider Pattern ── -->
 
     <h2>Provider Pattern <span class="pattern-badge provider">Provider</span></h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         <code>&lt;n-controller&gt;</code> applies copyable to a plain <code>&lt;div&gt;</code>. No NativeElement subclass needed for the target. The controller manages <code>[copied]</code> feedback; a click listener triggers <code>copy()</code>.
-      </n-text>
+      </span>
       <n-controller id="provider-ctrl" traits="copyable" data-trait-copyable-value="npx create-native-ui@latest">
         <div id="provider-card" class="copy-card">
           <span class="copy-label">npx create-native-ui@latest</span>
@@ -114,7 +114,7 @@ el.addEventListener('native:press', () =&gt; copy.copy());`,
     &lt;span class="copy-indicator"&gt;Copy&lt;/span&gt;
   &lt;/div&gt;
 &lt;/n-controller&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── API Reference ── -->
 

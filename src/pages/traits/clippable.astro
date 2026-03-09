@@ -57,10 +57,10 @@ const detailSelectedCount = `{ selected, count }`;
     <!-- ── Copy & Paste ── -->
 
     <h2>Copy &amp; Paste</h2>
-    <n-panel bordered>
-      <div class="hint"><n-text size="xs" muted>
+    <n-container data-kind="panel" bordered>
+      <div class="hint"><span class="text-xs text-muted">
         Click to select items, then use keyboard shortcuts to copy. Focus the list first by clicking an item.
-      </n-text></div>
+      </span></div>
       <div class="shortcut-row">
         <span class="shortcut-hint">Ctrl/Cmd+C — Copy</span>
         <span class="shortcut-hint">Shift+Click — Range select</span>
@@ -77,15 +77,15 @@ const detailSelectedCount = `{ selected, count }`;
       </n-controller>
       <div id="copy-log" class="output"></div>
       <pre class="code-block"><code set:html={codeExamples.copyAmpPaste} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Cut & Paste ── -->
 
     <h2>Cut &amp; Paste</h2>
-    <n-panel bordered>
-      <div class="hint"><n-text size="xs" muted>
+    <n-container data-kind="panel" bordered>
+      <div class="hint"><span class="text-xs text-muted">
         <strong>Ctrl/Cmd+X</strong> marks items with <code>[clip-cut]</code> (dimmed). <strong>Ctrl/Cmd+V</strong> dispatches a paste event.
-      </n-text></div>
+      </span></div>
       <div class="shortcut-row">
         <span class="shortcut-hint">Ctrl/Cmd+X — Cut</span>
         <span class="shortcut-hint">Ctrl/Cmd+V — Paste</span>
@@ -101,7 +101,7 @@ const detailSelectedCount = `{ selected, count }`;
       </n-controller>
       <div id="cut-log" class="output"></div>
       <pre class="code-block"><code set:html={codeExamples.cutAmpPaste} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── API Reference ── -->
 

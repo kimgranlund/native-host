@@ -18,14 +18,14 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <!-- ── Right (default) ── -->
 
     <h2>Right (default)</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-button id="open-right"><span>Open Right Drawer</span></n-button>
       <n-drawer id="drawer-right">
-        <header>
+        <n-header>
           <span>Settings</span>
-          <aside><n-button variant="ghost" id="close-right"><n-icon name="x"></n-icon></n-button></aside>
-        </header>
-        <section>
+          <n-button variant="ghost" id="close-right"><n-icon name="x"></n-icon></n-button>
+        </n-header>
+        <n-body>
           <n-field>
             <label slot="label">Display name</label>
             <n-input placeholder="Kim Granlund"></n-input>
@@ -35,39 +35,39 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
             <n-input placeholder="kim@example.com"></n-input>
           </n-field>
           <n-switch>Dark mode</n-switch>
-        </section>
+        </n-body>
       </n-drawer>
       <pre class="code-block"><code>&lt;n-button id="open-right"&gt;
   &lt;span slot="label"&gt;Open Right Drawer&lt;/span&gt;
 &lt;/n-button&gt;
 
 &lt;n-drawer id="drawer-right"&gt;
-  &lt;header&gt;
+  &lt;n-header&gt;
     &lt;span slot="label"&gt;Settings&lt;/span&gt;
     &lt;n-button slot="trailing" variant="ghost" id="close-right"&gt;
       &lt;n-icon name="x"&gt;&lt;/n-icon&gt;
     &lt;/n-button&gt;
-  &lt;/header&gt;
-  &lt;section&gt;
+  &lt;/n-header&gt;
+  &lt;n-body&gt;
     &lt;n-field&gt;
       &lt;label slot="label"&gt;Display name&lt;/label&gt;
       &lt;n-input placeholder="Kim Granlund"&gt;&lt;/n-input&gt;
     &lt;/n-field&gt;
-  &lt;/section&gt;
+  &lt;/n-body&gt;
 &lt;/n-drawer&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Left ── -->
 
     <h2>Left</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-button id="open-left"><span>Open Left Drawer</span></n-button>
       <n-drawer id="drawer-left" side="left">
-        <header>
+        <n-header>
           <span>Documentation</span>
-          <aside><n-button variant="ghost" id="close-left"><n-icon name="x"></n-icon></n-button></aside>
-        </header>
-        <section>
+          <n-button variant="ghost" id="close-left"><n-icon name="x"></n-icon></n-button>
+        </n-header>
+        <n-body>
           <n-sidebar-nav>
             <n-option-group>
               <n-option-group-header><n-icon name="house"></n-icon> Getting Started</n-option-group-header>
@@ -89,81 +89,81 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
               <n-option value="examples">Examples</n-option>
             </n-option-group>
           </n-sidebar-nav>
-        </section>
+        </n-body>
       </n-drawer>
       <pre class="code-block"><code>&lt;n-drawer id="drawer-left" side="left"&gt;
-  &lt;header&gt;
+  &lt;n-header&gt;
     &lt;span slot="label"&gt;Documentation&lt;/span&gt;
     &lt;n-button slot="trailing" variant="ghost"&gt;
       &lt;n-icon name="x"&gt;&lt;/n-icon&gt;
     &lt;/n-button&gt;
-  &lt;/header&gt;
-  &lt;section&gt;...&lt;/section&gt;
+  &lt;/n-header&gt;
+  &lt;n-body&gt;...&lt;/n-body&gt;
 &lt;/n-drawer&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Bottom ── -->
 
     <h2>Bottom</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-button id="open-bottom"><span>Open Bottom Drawer</span></n-button>
       <n-drawer id="drawer-bottom" side="bottom">
-        <header>
+        <n-header>
           <span>Filters</span>
-          <aside><n-button variant="ghost" id="close-bottom"><n-icon name="x"></n-icon></n-button></aside>
-        </header>
-        <section>
+          <n-button variant="ghost" id="close-bottom"><n-icon name="x"></n-icon></n-button>
+        </n-header>
+        <n-body>
           <n-stack direction="row" gap="2" wrap>
             <n-checkbox>In Stock</n-checkbox>
             <n-checkbox>On Sale</n-checkbox>
             <n-checkbox>Free Shipping</n-checkbox>
           </n-stack>
-        </section>
+        </n-body>
       </n-drawer>
       <pre class="code-block"><code>&lt;n-drawer id="drawer-bottom" side="bottom"&gt;
-  &lt;header&gt;
+  &lt;n-header&gt;
     &lt;span slot="label"&gt;Filters&lt;/span&gt;
     &lt;n-button slot="trailing" variant="ghost"&gt;
       &lt;n-icon name="x"&gt;&lt;/n-icon&gt;
     &lt;/n-button&gt;
-  &lt;/header&gt;
-  &lt;section&gt;
+  &lt;/n-header&gt;
+  &lt;n-body&gt;
     &lt;n-stack direction="row" gap="2" wrap&gt;
       &lt;n-checkbox&gt;In Stock&lt;/n-checkbox&gt;
       &lt;n-checkbox&gt;On Sale&lt;/n-checkbox&gt;
     &lt;/n-stack&gt;
-  &lt;/section&gt;
+  &lt;/n-body&gt;
 &lt;/n-drawer&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Top ── -->
 
     <h2>Top</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-button id="open-top"><span>Open Top Drawer</span></n-button>
       <n-drawer id="drawer-top" side="top">
-        <header>
+        <n-header>
           <span>Announcement</span>
-          <aside><n-button variant="ghost" id="close-top"><n-icon name="x"></n-icon></n-button></aside>
-        </header>
-        <section>
-          <n-text size="sm">This drawer slides in from the top edge.</n-text>
-        </section>
+          <n-button variant="ghost" id="close-top"><n-icon name="x"></n-icon></n-button>
+        </n-header>
+        <n-body>
+          <span class="text-sm">This drawer slides in from the top edge.</span>
+        </n-body>
       </n-drawer>
-    </n-panel>
+    </n-container>
 
     <!-- ── With Footer ── -->
 
     <h2>With Footer</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">Header and footer stay fixed while the body scrolls independently.</n-text>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">Header and footer stay fixed while the body scrolls independently.</span>
       <n-button id="open-footer"><span>Open Drawer with Footer</span></n-button>
       <n-drawer id="drawer-footer">
-        <header>
+        <n-header>
           <span>Edit Profile</span>
-          <aside><n-button variant="ghost" id="close-footer"><n-icon name="x"></n-icon></n-button></aside>
-        </header>
-        <section>
+          <n-button variant="ghost" id="close-footer"><n-icon name="x"></n-icon></n-button>
+        </n-header>
+        <n-body>
           <n-field>
             <label slot="label">Display name</label>
             <n-input placeholder="Kim Granlund"></n-input>
@@ -177,71 +177,71 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
             <n-textarea placeholder="Tell us about yourself..." rows="4"></n-textarea>
           </n-field>
           <n-switch>Dark mode</n-switch>
-          <n-text size="sm" muted>Additional content to demonstrate scrolling within the body region while header and footer remain fixed.</n-text>
-          <n-text size="sm" muted>Scroll down to verify that the header and footer remain fixed while this body content scrolls independently.</n-text>
-        </section>
-        <footer justify="spread">
+          <span class="text-sm text-muted">Additional content to demonstrate scrolling within the body region while header and footer remain fixed.</span>
+          <span class="text-sm text-muted">Scroll down to verify that the header and footer remain fixed while this body content scrolls independently.</span>
+        </n-body>
+        <n-footer justify="spread">
           <n-button variant="ghost" id="cancel-footer"><span>Cancel</span></n-button>
           <n-button variant="primary" intent="accent"><span>Save Changes</span></n-button>
-        </footer>
+        </n-footer>
       </n-drawer>
       <pre class="code-block"><code>&lt;n-drawer id="drawer-footer"&gt;
-  &lt;header&gt;
+  &lt;n-header&gt;
     &lt;span slot="label"&gt;Edit Profile&lt;/span&gt;
     &lt;n-button slot="trailing" variant="ghost"&gt;
       &lt;n-icon name="x"&gt;&lt;/n-icon&gt;
     &lt;/n-button&gt;
-  &lt;/header&gt;
-  &lt;section&gt;
+  &lt;/n-header&gt;
+  &lt;n-body&gt;
     &lt;n-field&gt;
       &lt;label slot="label"&gt;Display name&lt;/label&gt;
       &lt;n-input placeholder="Kim Granlund"&gt;&lt;/n-input&gt;
     &lt;/n-field&gt;
-  &lt;/section&gt;
-  &lt;footer justify="spread"&gt;
+  &lt;/n-body&gt;
+  &lt;n-footer justify="spread"&gt;
     &lt;n-button variant="ghost"&gt;Cancel&lt;/n-button&gt;
     &lt;n-button variant="primary" intent="accent"&gt;Save Changes&lt;/n-button&gt;
-  &lt;/footer&gt;
+  &lt;/n-footer&gt;
 &lt;/n-drawer&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Close Prevention ── -->
 
     <h2>Close Prevention</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack direction="row" wrap align="center">
         <n-button id="open-no-escape"><span>No Close on Escape</span></n-button>
         <n-button id="open-no-backdrop"><span>No Close on Backdrop</span></n-button>
         <n-button id="open-persistent"><span>Persistent (both)</span></n-button>
       </n-stack>
       <n-drawer id="drawer-no-escape" no-close-on-escape>
-        <header>
+        <n-header>
           <span>No Escape Close</span>
-          <aside><n-button variant="ghost" id="close-no-escape"><n-icon name="x"></n-icon></n-button></aside>
-        </header>
-        <section>
-          <n-text size="sm">Pressing Escape won't close this drawer. Use the close button.</n-text>
-        </section>
+          <n-button variant="ghost" id="close-no-escape"><n-icon name="x"></n-icon></n-button>
+        </n-header>
+        <n-body>
+          <span class="text-sm">Pressing Escape won't close this drawer. Use the close button.</span>
+        </n-body>
       </n-drawer>
       <n-drawer id="drawer-no-backdrop" no-close-on-backdrop>
-        <header>
+        <n-header>
           <span>No Backdrop Close</span>
-          <aside><n-button variant="ghost" id="close-no-backdrop"><n-icon name="x"></n-icon></n-button></aside>
-        </header>
-        <section>
-          <n-text size="sm">Clicking the backdrop won't close this drawer. Use the close button or Escape.</n-text>
-        </section>
+          <n-button variant="ghost" id="close-no-backdrop"><n-icon name="x"></n-icon></n-button>
+        </n-header>
+        <n-body>
+          <span class="text-sm">Clicking the backdrop won't close this drawer. Use the close button or Escape.</span>
+        </n-body>
       </n-drawer>
       <n-drawer id="drawer-persistent" no-close-on-escape no-close-on-backdrop>
-        <header>
+        <n-header>
           <span>Persistent Drawer</span>
-          <aside><n-button variant="ghost" id="close-persistent"><n-icon name="x"></n-icon></n-button></aside>
-        </header>
-        <section>
-          <n-text size="sm">Neither Escape nor backdrop click will close this. Only the close button works.</n-text>
-        </section>
+          <n-button variant="ghost" id="close-persistent"><n-icon name="x"></n-icon></n-button>
+        </n-header>
+        <n-body>
+          <span class="text-sm">Neither Escape nor backdrop click will close this. Only the close button works.</span>
+        </n-body>
       </n-drawer>
-    </n-panel>
+    </n-container>
   </section>
 
   <script>

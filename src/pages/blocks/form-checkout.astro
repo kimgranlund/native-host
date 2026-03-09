@@ -22,12 +22,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         <!-- ── Left Column: Shipping + Payment ── -->
         <n-stack gap="6">
           <!-- ── Shipping Information ── -->
-          <n-card>
-            <header>
+          <n-container>
+            <n-header>
               <nav><n-icon name="package"></n-icon></nav>
               <span>Shipping Information</span>
-            </header>
-            <section>
+            </n-header>
+            <n-body>
               <n-stack gap="6">
                 <div class="grid-2">
                   <n-field required>
@@ -80,16 +80,16 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
                   </n-select>
                 </n-field>
               </n-stack>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
 
           <!-- ── Payment Method ── -->
-          <n-card>
-            <header>
+          <n-container>
+            <n-header>
               <nav><n-icon name="credit-card"></n-icon></nav>
               <span>Payment Method</span>
-            </header>
-            <section>
+            </n-header>
+            <n-body>
               <n-stack gap="6">
                 <n-field>
                   <label slot="label">Payment type</label>
@@ -125,18 +125,18 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
                 <n-checkbox name="save_card">Save card for future purchases</n-checkbox>
               </n-stack>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
         </n-stack>
 
         <!-- ── Right Column: Order Summary ── -->
         <div>
-          <n-card>
-            <header>
+          <n-container>
+            <n-header>
               <nav><n-icon name="receipt"></n-icon></nav>
               <span>Order Summary</span>
-            </header>
-            <section>
+            </n-header>
+            <n-body>
               <n-stack gap="4">
                 <div class="summary-line">
                   <div>
@@ -180,8 +180,8 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
                   <span class="item-price">$232.38</span>
                 </div>
               </n-stack>
-            </section>
-            <footer justify="center">
+            </n-body>
+            <n-footer justify="center">
               <n-stack gap="3" align="stretch">
                 <n-button variant="primary" intent="accent" type="submit" form="checkout-form">
                   <n-icon name="shopping-cart" slot="leading"></n-icon>
@@ -191,8 +191,8 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
                   Your payment information is encrypted and secure.
                 </p>
               </n-stack>
-            </footer>
-          </n-card>
+            </n-footer>
+          </n-container>
         </div>
       </div>
     </form>

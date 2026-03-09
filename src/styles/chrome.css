@@ -32,12 +32,28 @@
   min-height: 120px;
 }
 
-/* ── Aside Panel Wrappers ── */
-/* Bridge: <aside> wraps CEs for semantics, display:contents keeps them
-   as effective flex children of section.content until the package adds
-   native section.content > aside rules (T0138). */
-section.content > aside {
-  display: contents;
+/* ── Aside Panels (n-aside bridge) ── */
+/* native-ui foundation.css provides base n-aside styles (display, width,
+   transitions). native-dashboard targets <aside> not <n-aside>, so we
+   mirror the dashboard's context-specific overrides here. */
+section.content > n-aside {
+  --n-ground: var(--n-panel);
+  background: var(--n-ground);
+  border-radius: var(--n-radius);
+}
+section.content > n-aside[open] {
+  overflow-y: auto;
+}
+section.content > n-aside[open]:has(> n-chat) {
+  padding: 0;
+  overflow: visible;
+}
+/* Grippers only visible when their adjacent panel is open */
+section.content > n-gripper {
+  display: none;
+}
+section.content > n-gripper:has(+ n-aside[open]) {
+  display: block;
 }
 
 /* ── Collapsed Sidebar: Badge Dots ── */

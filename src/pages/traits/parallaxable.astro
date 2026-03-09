@@ -88,10 +88,10 @@ const detailMove = `{ tiltX, tiltY, percentX, percentY }`;
     <!-- ── Basic Tilt ── -->
 
     <h2>Basic Tilt</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Move your pointer over the card. Default: 15deg max tilt, 1000px perspective, 1.05x scale on hover.
-      </n-text>
+      </span>
       <n-controller traits="parallaxable">
         <div class="parallax-card holo-1" id="parallax-basic">
           <span class="card-label">Amethyst</span>
@@ -100,15 +100,15 @@ const detailMove = `{ tiltX, tiltY, percentX, percentY }`;
       </n-controller>
       <div id="provider-log" class="output"></div>
       <pre class="code-block"><code set:html={codeExamples.basicTilt} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── With Glare ── -->
 
     <h2>With Glare</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Adds a radial glare overlay that follows the pointer. <code>data-trait-parallaxable-glare="true"</code> enables it; <code>data-trait-parallaxable-glare-opacity</code> sets the max opacity.
-      </n-text>
+      </span>
       <n-controller traits="parallaxable" data-trait-parallaxable-glare="true" data-trait-parallaxable-glare-opacity="0.4">
         <div class="parallax-card holo-2" id="parallax-glare">
           <span class="card-label">Sapphire</span>
@@ -116,15 +116,15 @@ const detailMove = `{ tiltX, tiltY, percentX, percentY }`;
         </div>
       </n-controller>
       <pre class="code-block"><code set:html={codeExamples.withGlare} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Multiple Cards Grid ── -->
 
     <h2>Multiple Cards Grid</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Six holographic trading cards in a grid, each with independent parallax + glare.
-      </n-text>
+      </span>
       <div style="display: grid; grid-template-columns: repeat(3, auto); gap: 1rem;">
         <n-controller traits="parallaxable" data-trait-parallaxable-glare="true">
           <div class="parallax-card holo-1" id="grid-card-1">
@@ -164,15 +164,15 @@ const detailMove = `{ tiltX, tiltY, percentX, percentY }`;
         </n-controller>
       </div>
       <pre class="code-block"><code set:html={codeExamples.multipleCards} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── High Tilt (Exaggerated) ── -->
 
     <h2>High Tilt (Exaggerated)</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Cranked up: <code>max-tilt="25"</code>, <code>scale="1.1"</code>, glare with <code>opacity="0.5"</code>. Larger card for dramatic effect.
-      </n-text>
+      </span>
       <n-controller traits="parallaxable" data-trait-parallaxable-max-tilt="25" data-trait-parallaxable-scale="1.1" data-trait-parallaxable-glare="true" data-trait-parallaxable-glare-opacity="0.5">
         <div class="parallax-card holo-3" id="parallax-high" style="width: 18rem; height: 12rem;">
           <span class="card-label">Emerald</span>
@@ -180,61 +180,61 @@ const detailMove = `{ tiltX, tiltY, percentX, percentY }`;
         </div>
       </n-controller>
       <pre class="code-block"><code set:html={codeExamples.highTilt} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Controller (Programmatic) ── -->
 
     <h2>Controller (Programmatic)</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         <code>new ParallaxController(el, options)</code> attaches directly to any element. Adjust options in real time with the controls below.
-      </n-text>
+      </span>
       <n-stack direction="row" gap="6" wrap>
         <div class="parallax-card holo-5" id="ctrl-card" style="width: 16rem; height: 12rem;">
           <span class="card-label">Opal</span>
           <span class="card-sub">Programmatic</span>
         </div>
-        <n-card padding="relaxed" style="flex: 1; min-width: 16rem;">
+        <n-container padding="relaxed" style="flex: 1; min-width: 16rem;">
           <n-stack gap="3">
             <n-stack gap="1">
-              <n-text size="xs" muted>Max Tilt: <span id="ctrl-tilt-val">15</span>deg</n-text>
+              <span class="text-xs text-muted">Max Tilt: <span id="ctrl-tilt-val">15</span>deg</span>
               <n-range id="ctrl-tilt" min="1" max="45" step="1" value="15"></n-range>
             </n-stack>
             <n-stack gap="1">
-              <n-text size="xs" muted>Perspective: <span id="ctrl-persp-val">1000</span>px</n-text>
+              <span class="text-xs text-muted">Perspective: <span id="ctrl-persp-val">1000</span>px</span>
               <n-range id="ctrl-persp" min="200" max="2000" step="50" value="1000"></n-range>
             </n-stack>
             <n-stack gap="1">
-              <n-text size="xs" muted>Scale: <span id="ctrl-scale-val">1.05</span></n-text>
+              <span class="text-xs text-muted">Scale: <span id="ctrl-scale-val">1.05</span></span>
               <n-range id="ctrl-scale" min="1" max="1.3" step="0.01" value="1.05"></n-range>
             </n-stack>
             <n-stack gap="1">
-              <n-text size="xs" muted>Speed: <span id="ctrl-speed-val">300</span>ms</n-text>
+              <span class="text-xs text-muted">Speed: <span id="ctrl-speed-val">300</span>ms</span>
               <n-range id="ctrl-speed" min="50" max="800" step="25" value="300"></n-range>
             </n-stack>
             <n-stack direction="row" gap="2" align="center">
               <n-switch id="ctrl-glare"></n-switch>
-              <n-text size="xs" muted>Glare overlay</n-text>
+              <span class="text-xs text-muted">Glare overlay</span>
             </n-stack>
             <n-stack gap="1">
-              <n-text size="xs" muted>Glare opacity: <span id="ctrl-gopacity-val">0.35</span></n-text>
+              <span class="text-xs text-muted">Glare opacity: <span id="ctrl-gopacity-val">0.35</span></span>
               <n-range id="ctrl-gopacity" min="0" max="1" step="0.05" value="0.35"></n-range>
             </n-stack>
             <n-button id="ctrl-reset" size="sm" variant="ghost">Reset Tilt</n-button>
           </n-stack>
-        </n-card>
+        </n-container>
       </n-stack>
       <div id="ctrl-log" class="output"></div>
       <pre class="code-block"><code set:html={codeExamples.controller} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── CSS Custom Property Demo ── -->
 
     <h2>CSS Custom Property Demo</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         <code>--parallax-percent-x</code> and <code>--parallax-percent-y</code> are set on the host during pointer move. Use them to drive any CSS property, such as <code>box-shadow</code>.
-      </n-text>
+      </span>
       <n-stack direction="row" gap="4" wrap>
         <n-controller traits="parallaxable">
           <div class="shadow-card" id="shadow-a">
@@ -251,7 +251,7 @@ const detailMove = `{ tiltX, tiltY, percentX, percentY }`;
       </n-stack>
       <div id="shadow-log" class="output"></div>
       <pre class="code-block"><code set:html={codeExamples.cssCustomProperty} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── API Reference ── -->
 

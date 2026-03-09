@@ -21,10 +21,10 @@ const detailPointerType = `{ pointerType }`;
     <!-- ── Instant Hover ── -->
 
     <h2>Instant Hover</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Default 0ms delays. The <code>[hovered]</code> attribute toggles immediately on pointer enter/leave.
-      </n-text>
+      </span>
       <n-controller traits="hoverable">
         <div class="hover-card" id="instant-card">
           Hover over me <span class="hover-status">idle</span>
@@ -36,15 +36,15 @@ const detailPointerType = `{ pointerType }`;
     Hover over me
   &lt;/div&gt;
 &lt;/n-controller&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Hover Intent ── -->
 
     <h2>Hover Intent (500ms)</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         <code>data-trait-hoverable-delay="500"</code> prevents accidental hover triggers. Pointer must rest on the element for 500ms before activation.
-      </n-text>
+      </span>
       <n-controller traits="hoverable" data-trait-hoverable-delay="500">
         <div class="hover-card" id="intent-card">
           Hover and wait 500ms <span class="hover-status">idle</span>
@@ -56,15 +56,15 @@ const detailPointerType = `{ pointerType }`;
     Hover and wait 500ms
   &lt;/div&gt;
 &lt;/n-controller&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Sticky Hover ── -->
 
     <h2>Sticky Hover (300ms leave)</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         <code>data-trait-hoverable-leave-delay="300"</code> so the hover state persists briefly after the pointer leaves. Useful for menus or tooltips with a gap between trigger and content.
-      </n-text>
+      </span>
       <n-controller traits="hoverable" data-trait-hoverable-leave-delay="300">
         <div class="hover-card" id="sticky-card">
           Hover, then leave slowly <span class="hover-status">idle</span>
@@ -76,15 +76,15 @@ const detailPointerType = `{ pointerType }`;
     Hover, then leave slowly
   &lt;/div&gt;
 &lt;/n-controller&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Combined Delays ── -->
 
     <h2>Combined Delays</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Both <code>data-trait-hoverable-delay="400"</code> and <code>data-trait-hoverable-leave-delay="200"</code>. Requires intent to activate and lingers briefly on leave.
-      </n-text>
+      </span>
       <n-controller traits="hoverable" data-trait-hoverable-delay="400" data-trait-hoverable-leave-delay="200">
         <div class="hover-card" id="combined-card">
           400ms enter + 200ms leave <span class="hover-status">idle</span>
@@ -96,7 +96,7 @@ const detailPointerType = `{ pointerType }`;
     400ms enter + 200ms leave
   &lt;/div&gt;
 &lt;/n-controller&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── API Reference ── -->
 

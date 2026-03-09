@@ -71,64 +71,64 @@ const detailFlip = `{ flipped: boolean, axis: string }`;
     <!-- ── Basic Flip ── -->
 
     <h2>Basic Flip</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Click the card to flip between front and back faces. The hover card flips on pointer enter/leave.
-      </n-text>
+      </span>
       <n-stack direction="row" gap="4" style="flex-wrap: wrap;">
         <n-controller traits="flippable">
           <div class="flip-card" id="flip-click" tabindex="0">
-            <div class="flip-face flip-front"><n-stack align="center" gap="2"><span class="flip-label">Front</span><n-text size="xs" muted>Click to flip</n-text></n-stack></div>
-            <div class="flip-face flip-back" data-flip-back><n-stack align="center" gap="2"><span class="flip-label">Back</span><n-text size="xs" muted>Click to return</n-text></n-stack></div>
+            <div class="flip-face flip-front"><n-stack align="center" gap="2"><span class="flip-label">Front</span><span class="text-xs text-muted">Click to flip</span></n-stack></div>
+            <div class="flip-face flip-back" data-flip-back><n-stack align="center" gap="2"><span class="flip-label">Back</span><span class="text-xs text-muted">Click to return</span></n-stack></div>
           </div>
         </n-controller>
         <n-controller traits="flippable" data-trait-flippable-trigger="hover">
           <div class="flip-card" id="flip-hover" tabindex="0">
-            <div class="flip-face flip-front"><n-stack align="center" gap="2"><span class="flip-label">Hover</span><n-text size="xs" muted>Pointer enter/leave</n-text></n-stack></div>
-            <div class="flip-face flip-back" data-flip-back><n-stack align="center" gap="2"><span class="flip-label">Back</span><n-text size="xs" muted>Move pointer away</n-text></n-stack></div>
+            <div class="flip-face flip-front"><n-stack align="center" gap="2"><span class="flip-label">Hover</span><span class="text-xs text-muted">Pointer enter/leave</span></n-stack></div>
+            <div class="flip-face flip-back" data-flip-back><n-stack align="center" gap="2"><span class="flip-label">Back</span><span class="text-xs text-muted">Move pointer away</span></n-stack></div>
           </div>
         </n-controller>
       </n-stack>
       <div id="basic-log" class="output"></div>
       <pre class="code-block"><code set:html={codeExamples.basicFlip} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Axis Options ── -->
 
     <h2>Axis Options</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Y-axis rotates around the vertical axis (default). X-axis rotates around the horizontal axis. The back face needs <code>rotateX(180deg)</code> for X-axis cards.
-      </n-text>
+      </span>
       <n-stack direction="row" gap="4" style="flex-wrap: wrap;">
         <n-controller traits="flippable" data-trait-flippable-axis="y">
           <div class="flip-card" id="flip-y" tabindex="0">
-            <div class="flip-face flip-front"><n-stack align="center" gap="2"><span class="flip-label">Y-Axis</span><n-text size="xs" muted>rotateY(180deg)</n-text></n-stack></div>
+            <div class="flip-face flip-front"><n-stack align="center" gap="2"><span class="flip-label">Y-Axis</span><span class="text-xs text-muted">rotateY(180deg)</span></n-stack></div>
             <div class="flip-face flip-back" data-flip-back><n-stack align="center" gap="2"><span class="flip-label">Back</span></n-stack></div>
           </div>
         </n-controller>
         <n-controller traits="flippable" data-trait-flippable-axis="x">
           <div class="flip-card" id="flip-x" tabindex="0">
-            <div class="flip-face flip-front"><n-stack align="center" gap="2"><span class="flip-label">X-Axis</span><n-text size="xs" muted>rotateX(180deg)</n-text></n-stack></div>
+            <div class="flip-face flip-front"><n-stack align="center" gap="2"><span class="flip-label">X-Axis</span><span class="text-xs text-muted">rotateX(180deg)</span></n-stack></div>
             <div class="flip-face flip-back x-axis" data-flip-back><n-stack align="center" gap="2"><span class="flip-label">Back</span></n-stack></div>
           </div>
         </n-controller>
       </n-stack>
       <div id="axis-log" class="output"></div>
       <pre class="code-block"><code set:html={codeExamples.axisOptions} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Programmatic Demo ── -->
 
     <h2>Programmatic Control</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Use <code>FlipController</code> directly with <code>trigger: 'manual'</code>. Call <code>flip()</code>, <code>unflip()</code>, or <code>toggle()</code> to control the card programmatically.
-      </n-text>
+      </span>
       <n-stack direction="row" gap="4" align="start" style="flex-wrap: wrap;">
         <div id="flip-manual" class="flip-card" tabindex="0">
-          <div class="flip-face flip-front"><n-stack align="center" gap="2"><span class="flip-label">Manual</span><n-text size="xs" muted>Use the buttons below</n-text></n-stack></div>
-          <div class="flip-face flip-back" data-flip-back><n-stack align="center" gap="2"><span class="flip-label">Back</span><n-text size="xs" muted>Programmatic flip</n-text></n-stack></div>
+          <div class="flip-face flip-front"><n-stack align="center" gap="2"><span class="flip-label">Manual</span><span class="text-xs text-muted">Use the buttons below</span></n-stack></div>
+          <div class="flip-face flip-back" data-flip-back><n-stack align="center" gap="2"><span class="flip-label">Back</span><span class="text-xs text-muted">Programmatic flip</span></n-stack></div>
         </div>
         <n-stack gap="2">
           <n-button id="btn-flip" size="sm">flip()</n-button>
@@ -138,39 +138,39 @@ const detailFlip = `{ flipped: boolean, axis: string }`;
       </n-stack>
       <div id="manual-log" class="output"></div>
       <pre class="code-block"><code set:html={codeExamples.programmatic} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Options Playground ── -->
 
     <h2>Options Playground</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Adjust controller options in real time. The card is destroyed and recreated when axis or trigger changes.
-      </n-text>
+      </span>
       <n-stack direction="row" gap="4" align="start" style="flex-wrap: wrap;">
         <div id="flip-playground" class="flip-card" tabindex="0">
-          <div class="flip-face flip-front"><n-stack align="center" gap="2"><span class="flip-label">Playground</span><n-text size="xs" muted>Adjust options</n-text></n-stack></div>
+          <div class="flip-face flip-front"><n-stack align="center" gap="2"><span class="flip-label">Playground</span><span class="text-xs text-muted">Adjust options</span></n-stack></div>
           <div class="flip-face flip-back" data-flip-back><n-stack align="center" gap="2"><span class="flip-label">Back</span></n-stack></div>
         </div>
-        <n-card id="options-card" padding="relaxed" style="min-width: 260px; flex: 1;">
+        <n-container id="options-card" padding="relaxed" style="min-width: 260px; flex: 1;">
           <n-stack gap="3">
             <n-select id="opt-axis" label="Axis" size="sm" options='[{"label":"Y-axis","value":"y"},{"label":"X-axis","value":"x"}]' value="y"></n-select>
             <div>
-              <n-text size="xs" muted>Duration: <span id="opt-duration-value">600</span>ms</n-text>
+              <span class="text-xs text-muted">Duration: <span id="opt-duration-value">600</span>ms</span>
               <n-range id="opt-duration" min="100" max="2000" step="50" value="600" size="sm"></n-range>
             </div>
             <div>
-              <n-text size="xs" muted>Perspective: <span id="opt-perspective-value">1000</span>px</n-text>
+              <span class="text-xs text-muted">Perspective: <span id="opt-perspective-value">1000</span>px</span>
               <n-range id="opt-perspective" min="200" max="3000" step="50" value="1000" size="sm"></n-range>
             </div>
             <n-select id="opt-trigger" label="Trigger" size="sm" options='[{"label":"Click","value":"click"},{"label":"Hover","value":"hover"},{"label":"Manual","value":"manual"}]' value="click"></n-select>
             <n-switch id="opt-disabled" label="Disabled" size="sm"></n-switch>
           </n-stack>
-        </n-card>
+        </n-container>
       </n-stack>
       <div id="playground-log" class="output"></div>
       <pre class="code-block"><code set:html={codeExamples.optionsPlayground} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── API Reference ── -->
 

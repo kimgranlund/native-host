@@ -43,10 +43,10 @@ const detailPointerType = `{ pointerType }`;
     <!-- ── Basic Press (Provider) ── -->
 
     <h2>Basic Press (Provider)</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         <code>&lt;n-controller&gt;</code> wraps each element and applies the pressable trait. Click or press Enter/Space.
-      </n-text>
+      </span>
       <n-stack direction="row" gap="3" wrap>
         <n-controller traits="pressable">
           <div class="press-box" tabindex="0">Click or press Enter</div>
@@ -64,15 +64,15 @@ const detailPointerType = `{ pointerType }`;
     Click or press Enter
   &lt;/div&gt;
 &lt;/n-controller&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── On n-button (Built-in) ── -->
 
     <h2>On n-button (Built-in)</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         <code>n-button</code> already uses the Pressable trait internally. The <code>native:press</code> event and <code>[pressed]</code> attribute work out of the box.
-      </n-text>
+      </span>
       <n-stack direction="row" gap="3" wrap>
         <n-button id="btn-1">Button Press</n-button>
         <n-button id="btn-2" intent="accent">Accent Press</n-button>
@@ -80,21 +80,21 @@ const detailPointerType = `{ pointerType }`;
       </n-stack>
       <div id="btn-log" class="output"></div>
       <pre class="code-block"><code set:html={codeExamples.onUiButtonBuiltIn} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Pointer Types ── -->
 
     <h2>Pointer Types</h2>
-    <n-panel bordered>
-      <n-text size="sm" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-sm text-muted">
         The <code>native:press</code> event includes a <code>pointerType</code> in its detail — <code>"mouse"</code>, <code>"touch"</code>, <code>"pen"</code>, or <code>"keyboard"</code>.
-      </n-text>
+      </span>
       <n-controller traits="pressable">
         <div class="press-box" id="type-box" tabindex="0">Press me (check log)</div>
       </n-controller>
       <div id="type-log" class="output"></div>
       <pre class="code-block"><code set:html={codeExamples.pointerTypes} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── API Reference ── -->
 

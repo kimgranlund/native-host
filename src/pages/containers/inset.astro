@@ -18,7 +18,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <!-- ── Basic ── -->
 
     <h2>Basic</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <span class="label">Parent heading</span>
       <n-inset>
         <span>Indented child 1</span>
@@ -31,12 +31,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   &lt;span&gt;Indented child 2&lt;/span&gt;
   &lt;span&gt;Indented child 3&lt;/span&gt;
 &lt;/n-inset&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── With Checkboxes ── -->
 
     <h2>Nested Checkboxes</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-checkbox checked>Select all</n-checkbox>
       <n-inset>
         <n-checkbox checked>Option A</n-checkbox>
@@ -49,12 +49,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   &lt;n-checkbox checked&gt;Option B&lt;/n-checkbox&gt;
   &lt;n-checkbox&gt;Option C&lt;/n-checkbox&gt;
 &lt;/n-inset&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Sizes ── -->
 
     <h2>Sizes</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <div size="sm">
         <span class="label label-sm">sm parent</span>
         <n-inset>
@@ -73,7 +73,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     &lt;span&gt;sm indented content&lt;/span&gt;
   &lt;/n-inset&gt;
 &lt;/div&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
   </section>
 
   <style>

@@ -89,19 +89,19 @@ if (Astro.locals.user) return Astro.redirect('/blocks/data-dashboard-stats');
           </n-stack>
         </div>
         <div class="auth-heading">
-          <n-text size="lg" strong>Welcome back</n-text>
+          <span class="text-lg text-strong">Welcome back</span>
         </div>
         <div class="auth-subheading">
-          <n-text size="sm" muted>Sign in to your account to continue</n-text>
+          <span class="text-sm text-muted">Sign in to your account to continue</span>
         </div>
 
         <div class="auth-error" id="auth-error">
-          <n-text size="sm" intent="danger" id="auth-error-text"></n-text>
+          <span class="text-sm text-danger" id="auth-error-text"></span>
         </div>
 
         <div class="auth-card">
-          <n-card padding="relaxed">
-            <section>
+          <n-container padding="relaxed">
+            <n-body>
               <n-stack gap="8">
                 <form id="login-form">
                   <n-stack gap="6">
@@ -128,20 +128,20 @@ if (Astro.locals.user) return Astro.redirect('/blocks/data-dashboard-stats');
                   <span slot="label">Google</span>
                 </n-button>
               </n-stack>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
         </div>
         <div class="auth-footer">
-          <n-text size="sm" muted>
+          <span class="text-sm text-muted">
             Don't have an account? <a href="/auth/register">Sign up</a> | <a href="/blocks/data-dashboard-stats">Skip</a>
-          </n-text>
+          </span>
         </div>
       </div>
 
       <div class="auth-legal">
-        <n-text size="xs" muted>
+        <span class="text-xs text-muted">
           By continuing, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
-        </n-text>
+        </span>
       </div>
     </n-stack>
   </div>

@@ -35,10 +35,10 @@ function statusIntent(status: string) {
               <n-table-cell>
                 <header>
                   <h2>LLM Registry</h2>
-                  <aside><n-button id="create-llm-btn" variant="primary" intent="accent">
+                  <n-button id="create-llm-btn" variant="primary" intent="accent">
                     <n-icon name="plus" slot="leading"></n-icon>
                     <span>Add Model</span>
-                  </n-button></aside>
+                  </n-button>
                 </header>
               </n-table-cell>
             </n-table-row>
@@ -53,19 +53,19 @@ function statusIntent(status: string) {
             {llmEntries.map(e => (
               <n-table-row>
                 <n-table-cell>
-                  <n-text strong>{e.parsed.name as string || e.slug}</n-text>
+                  <span class="text-strong">{e.parsed.name as string || e.slug}</span>
                 </n-table-cell>
                 <n-table-cell>
-                  <n-text size="sm">{e.parsed.provider as string || '\u2014'}</n-text>
+                  <span class="text-sm">{e.parsed.provider as string || '\u2014'}</span>
                 </n-table-cell>
                 <n-table-cell>
-                  <n-text muted size="sm">{e.parsed.modelId as string || '\u2014'}</n-text>
+                  <span class="text-muted text-sm">{e.parsed.modelId as string || '\u2014'}</span>
                 </n-table-cell>
                 <n-table-cell>
                   <n-badge intent={statusIntent(e.status)}>{e.status}</n-badge>
                 </n-table-cell>
                 <n-table-cell>
-                  <n-text size="sm">v{e.version}</n-text>
+                  <span class="text-sm">v{e.version}</span>
                 </n-table-cell>
                 <n-table-cell>
                   <n-stack direction="row" gap="1">
@@ -101,11 +101,11 @@ function statusIntent(status: string) {
     <!-- Create / Edit dialog -->
     <n-dialog id="llm-dialog">
       <div class="admin-dialog-card">
-        <n-card>
-          <header>
+        <n-container>
+          <n-header>
             <span id="llm-dialog-title">Add Model</span>
-          </header>
-          <section>
+          </n-header>
+          <n-body>
             <n-stack gap="4">
               <n-field required>
                 <label slot="label">Name</label>
@@ -128,31 +128,31 @@ function statusIntent(status: string) {
                 <n-select id="llm-status" value="active" options='[{"value":"active","label":"Active"},{"value":"deprecated","label":"Deprecated"},{"value":"draft","label":"Draft"}]'></n-select>
               </n-field>
             </n-stack>
-          </section>
-          <footer>
+          </n-body>
+          <n-footer>
             <n-button id="llm-cancel">
               <span slot="label">Cancel</span>
             </n-button>
             <n-button id="llm-submit" variant="primary" intent="accent">
               <span slot="label">Save</span>
             </n-button>
-          </footer>
-        </n-card>
+          </n-footer>
+        </n-container>
       </div>
     </n-dialog>
 
     <!-- Delete confirmation dialog -->
     <n-dialog id="llm-delete-dialog">
       <div class="admin-dialog-card">
-        <n-card>
-          <header>
+        <n-container>
+          <n-header>
             <nav><n-icon name="warning" size="lg"></n-icon></nav>
             <span>Delete Model?</span>
-          </header>
-          <section>
-            <n-text>Are you sure you want to delete <n-text id="llm-delete-name" variant="strong"></n-text>? This action cannot be undone.</n-text>
-          </section>
-          <footer>
+          </n-header>
+          <n-body>
+            <span>Are you sure you want to delete <span class="text-strong" id="llm-delete-name"></span>? This action cannot be undone.</span>
+          </n-body>
+          <n-footer>
             <n-button id="llm-delete-cancel">
               <span slot="label">Cancel</span>
             </n-button>
@@ -160,8 +160,8 @@ function statusIntent(status: string) {
               <n-icon name="trash" slot="leading"></n-icon>
               <span>Delete</span>
             </n-button>
-          </footer>
-        </n-card>
+          </n-footer>
+        </n-container>
       </div>
     </n-dialog>
   </AdminLayout>

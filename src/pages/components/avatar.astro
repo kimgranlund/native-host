@@ -4,8 +4,8 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 const codeExamples = {
   group: `&lt;!-- Overlapping avatar group with outline ring --&gt;
 &lt;div class="avatar-group"&gt;
-  &lt;n-avatar name="Alice"&gt;&lt;/n-avatar&gt;
-  &lt;n-avatar name="Bob"&gt;&lt;/n-avatar&gt;
+  &lt;n-avatar name="Alice"&gt;A&lt;/n-avatar&gt;
+  &lt;n-avatar name="Bob"&gt;B&lt;/n-avatar&gt;
   &lt;n-avatar&gt;+3&lt;/n-avatar&gt;
 &lt;/div&gt;
 
@@ -33,101 +33,101 @@ const codeExamples = {
     <!-- ── Initials ── -->
 
     <h2>Initials</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack direction="row" wrap align="center">
-        <n-avatar name="Kim Granlund"></n-avatar>
-        <n-avatar name="Jane Doe"></n-avatar>
-        <n-avatar name="Alice"></n-avatar>
-        <n-avatar name="Bob Smith"></n-avatar>
+        <n-avatar name="Kim Granlund">KG</n-avatar>
+        <n-avatar name="Jane Doe">JD</n-avatar>
+        <n-avatar name="Alice">A</n-avatar>
+        <n-avatar name="Bob Smith">BS</n-avatar>
       </n-stack>
-      <pre class="code-block"><code>&lt;n-avatar name="Kim Granlund"&gt;&lt;/n-avatar&gt;
-&lt;n-avatar name="Jane Doe"&gt;&lt;/n-avatar&gt;
-&lt;n-avatar name="Alice"&gt;&lt;/n-avatar&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+      <pre class="code-block"><code>&lt;n-avatar name="Kim Granlund"&gt;KG&lt;/n-avatar&gt;
+&lt;n-avatar name="Jane Doe"&gt;JD&lt;/n-avatar&gt;
+&lt;n-avatar name="Alice"&gt;A&lt;/n-avatar&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
 
     <!-- ── Fallback (no name, no src) ── -->
 
     <h2>Fallback</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack direction="row" wrap align="center">
         <n-avatar></n-avatar>
       </n-stack>
       <pre class="code-block"><code>&lt;!-- No name or src: shows generic placeholder --&gt;
 &lt;n-avatar&gt;&lt;/n-avatar&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Image (broken src shows initials) ── -->
 
     <h2>Image (broken src falls back)</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack direction="row" wrap align="center">
-        <n-avatar src="/nonexistent-image.jpg" name="Fallback User"></n-avatar>
+        <n-avatar name="Fallback User"><img src="/nonexistent-image.jpg" alt="Fallback User"></n-avatar>
       </n-stack>
       <pre class="code-block"><code>&lt;!-- Broken src falls back to initials from name --&gt;
-&lt;n-avatar src="/photo.jpg" name="Fallback User"&gt;&lt;/n-avatar&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+&lt;n-avatar name="Fallback User"&gt;&lt;img src="/photo.jpg" alt="Fallback User"&gt;&lt;/n-avatar&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
 
     <!-- ── Sizes ── -->
 
     <h2>Sizes</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack direction="row" wrap align="center">
-        <n-avatar name="XS" size="xs"></n-avatar>
-        <n-avatar name="SM" size="sm"></n-avatar>
-        <n-avatar name="MD" size="md"></n-avatar>
-        <n-avatar name="LG" size="lg"></n-avatar>
-        <n-avatar name="XL" size="xl"></n-avatar>
+        <n-avatar name="XS" size="xs">X</n-avatar>
+        <n-avatar name="SM" size="sm">S</n-avatar>
+        <n-avatar name="MD" size="md">M</n-avatar>
+        <n-avatar name="LG" size="lg">L</n-avatar>
+        <n-avatar name="XL" size="xl">X</n-avatar>
       </n-stack>
-      <pre class="code-block"><code>&lt;n-avatar name="XS" size="xs"&gt;&lt;/n-avatar&gt;
-&lt;n-avatar name="SM" size="sm"&gt;&lt;/n-avatar&gt;
-&lt;n-avatar name="MD" size="md"&gt;&lt;/n-avatar&gt;
-&lt;n-avatar name="LG" size="lg"&gt;&lt;/n-avatar&gt;
-&lt;n-avatar name="XL" size="xl"&gt;&lt;/n-avatar&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+      <pre class="code-block"><code>&lt;n-avatar name="XS" size="xs"&gt;X&lt;/n-avatar&gt;
+&lt;n-avatar name="SM" size="sm"&gt;S&lt;/n-avatar&gt;
+&lt;n-avatar name="MD" size="md"&gt;M&lt;/n-avatar&gt;
+&lt;n-avatar name="LG" size="lg"&gt;L&lt;/n-avatar&gt;
+&lt;n-avatar name="XL" size="xl"&gt;X&lt;/n-avatar&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
 
     <!-- ── Intents ── -->
 
     <h2>Intents</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack direction="row" wrap align="center">
-        <n-avatar name="Default"></n-avatar>
-        <n-avatar name="Accent" intent="accent"></n-avatar>
-        <n-avatar name="Info" intent="info"></n-avatar>
-        <n-avatar name="Success" intent="success"></n-avatar>
-        <n-avatar name="Warning" intent="warning"></n-avatar>
-        <n-avatar name="Danger" intent="danger"></n-avatar>
+        <n-avatar name="Default">D</n-avatar>
+        <n-avatar name="Accent" intent="accent">A</n-avatar>
+        <n-avatar name="Info" intent="info">I</n-avatar>
+        <n-avatar name="Success" intent="success">S</n-avatar>
+        <n-avatar name="Warning" intent="warning">W</n-avatar>
+        <n-avatar name="Danger" intent="danger">D</n-avatar>
       </n-stack>
-      <pre class="code-block"><code>&lt;n-avatar name="Accent" intent="accent"&gt;&lt;/n-avatar&gt;
-&lt;n-avatar name="Success" intent="success"&gt;&lt;/n-avatar&gt;
-&lt;n-avatar name="Danger" intent="danger"&gt;&lt;/n-avatar&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+      <pre class="code-block"><code>&lt;n-avatar name="Accent" intent="accent"&gt;A&lt;/n-avatar&gt;
+&lt;n-avatar name="Success" intent="success"&gt;S&lt;/n-avatar&gt;
+&lt;n-avatar name="Danger" intent="danger"&gt;D&lt;/n-avatar&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
 
     <!-- ── Radius ── -->
 
     <h2>Radius</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack direction="row" wrap align="center">
-        <n-avatar name="Circle"></n-avatar>
-        <n-avatar name="Round" radius="round"></n-avatar>
-        <n-avatar name="Sharp" radius="sharp"></n-avatar>
+        <n-avatar name="Circle">C</n-avatar>
+        <n-avatar name="Round" radius="round">R</n-avatar>
+        <n-avatar name="Sharp" radius="sharp">S</n-avatar>
       </n-stack>
-      <pre class="code-block"><code>&lt;n-avatar name="Circle"&gt;&lt;/n-avatar&gt;
-&lt;n-avatar name="Round" radius="round"&gt;&lt;/n-avatar&gt;
-&lt;n-avatar name="Sharp" radius="sharp"&gt;&lt;/n-avatar&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+      <pre class="code-block"><code>&lt;n-avatar name="Circle"&gt;C&lt;/n-avatar&gt;
+&lt;n-avatar name="Round" radius="round"&gt;R&lt;/n-avatar&gt;
+&lt;n-avatar name="Sharp" radius="sharp"&gt;S&lt;/n-avatar&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
 
     <!-- ── Group composition ── -->
 
     <h2>Avatar Group</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <div class="avatar-group">
-        <n-avatar name="Alice Johnson"></n-avatar>
-        <n-avatar name="Bob Smith"></n-avatar>
-        <n-avatar name="Charlie Doe"></n-avatar>
+        <n-avatar name="Alice Johnson">AJ</n-avatar>
+        <n-avatar name="Bob Smith">BS</n-avatar>
+        <n-avatar name="Charlie Doe">CD</n-avatar>
         <n-avatar>+3</n-avatar>
       </div>
       <pre class="code-block"><code set:html={codeExamples.group} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
   </section>
 
   <style is:global>

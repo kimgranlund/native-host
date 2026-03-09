@@ -35,7 +35,7 @@ const codeExamples = {
     <!-- ── Single Mode (default) ── -->
 
     <h2>Single Mode (default)</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-accordion>
         <n-accordion-item open>
           <span slot="heading">What is this library?</span>
@@ -60,12 +60,12 @@ const codeExamples = {
     More content here.
   &lt;/n-accordion-item&gt;
 &lt;/n-accordion&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Multiple Mode ── -->
 
     <h2>Multiple Mode</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-accordion multiple>
         <n-accordion-item open>
           <span slot="heading">Section One</span>
@@ -90,12 +90,12 @@ const codeExamples = {
     Both sections can be open at once.
   &lt;/n-accordion-item&gt;
 &lt;/n-accordion&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Event Log ── -->
 
     <h2>Event Log</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-accordion id="event-accordion">
         <n-accordion-item>
           <span slot="heading">First Section</span>
@@ -112,12 +112,12 @@ const codeExamples = {
       </n-accordion>
       <div class="log" id="accordion-log"></div>
       <pre class="code-block"><code set:html={codeExamples.eventLog} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Disabled Items ── -->
 
     <h2>Disabled Items</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-accordion>
         <n-accordion-item>
           <span slot="heading">Enabled item</span>
@@ -142,12 +142,12 @@ const codeExamples = {
     Cannot be opened.
   &lt;/n-accordion-item&gt;
 &lt;/n-accordion&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Sizes ── -->
 
     <h2>Sizes</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack gap="4">
         <n-accordion size="sm">
           <n-accordion-item>
@@ -184,12 +184,12 @@ const codeExamples = {
     Generous size.
   &lt;/n-accordion-item&gt;
 &lt;/n-accordion&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Rich Content ── -->
 
     <h2>Rich Content</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-accordion>
         <n-accordion-item>
           <span slot="heading"><n-icon name="code"></n-icon> Code Example</span>
@@ -209,15 +209,15 @@ el.multiple = true;</code></pre>
     Rich content: images, code blocks, nested elements.
   &lt;/n-accordion-item&gt;
 &lt;/n-accordion&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Debug States (force-*) ── -->
 
     <h2>Debug States (<code>force-*</code>)</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="regular">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Attribute-driven pseudo-state overrides for DevTools debugging and visual testing.
-      </n-text>
+      </span>
       <n-accordion>
         <n-accordion-item force-hover open>
           <span slot="heading">Force hover</span>
@@ -228,7 +228,7 @@ el.multiple = true;</code></pre>
           <p>This item has <code>force-focus-visible</code> applied.</p>
         </n-accordion-item>
       </n-accordion>
-    </n-panel>
+    </n-container>
   </section>
 
   <script>

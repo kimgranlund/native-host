@@ -42,10 +42,10 @@ function formatDate(d: Date) {
               <n-table-cell>
                 <header>
                   <h2>Content Types</h2>
-                  <aside><n-button id="create-ct-btn" variant="primary" intent="accent">
+                  <n-button id="create-ct-btn" variant="primary" intent="accent">
                     <n-icon name="plus" slot="leading"></n-icon>
                     <span>Add Content Type</span>
-                  </n-button></aside>
+                  </n-button>
                 </header>
               </n-table-cell>
             </n-table-row>
@@ -60,22 +60,22 @@ function formatDate(d: Date) {
             {typeEntries.length === 0 && (
               <n-table-row>
                 <n-table-cell colspan="6">
-                  <n-text muted>No content types defined yet. Create one to get started.</n-text>
+                  <span class="text-muted">No content types defined yet. Create one to get started.</span>
                 </n-table-cell>
               </n-table-row>
             )}
             {typeEntries.map(t => (
               <n-table-row>
                 <n-table-cell>
-                  <n-text strong>{t.name}</n-text>
+                  <span class="text-strong">{t.name}</span>
                 </n-table-cell>
                 <n-table-cell>
                   <n-badge variant="muted">{t.slug}</n-badge>
                 </n-table-cell>
                 <n-table-cell>
-                  <n-text muted size="sm" title={t.schemaPreview}>
+                  <span class="text-muted text-sm" title t schemaPreview>
                     {t.schemaPreview.length > 30 ? t.schemaPreview.slice(0, 30) + '…' : t.schemaPreview}
-                  </n-text>
+                  </span>
                 </n-table-cell>
                 <n-table-cell>
                   <n-badge intent={t.versioned ? 'success' : 'neutral'}>
@@ -83,7 +83,7 @@ function formatDate(d: Date) {
                   </n-badge>
                 </n-table-cell>
                 <n-table-cell>
-                  <n-text size="sm">{t.objectCount}</n-text>
+                  <span class="text-sm">{t.objectCount}</span>
                 </n-table-cell>
                 <n-table-cell>
                   <n-stack direction="row" gap="1">
@@ -119,11 +119,11 @@ function formatDate(d: Date) {
     <!-- Create / Edit dialog -->
     <n-dialog id="ct-dialog">
       <div class="admin-dialog-card ct-dialog-wide">
-        <n-card>
-          <header>
+        <n-container>
+          <n-header>
             <span id="ct-dialog-title">Add Content Type</span>
-          </header>
-          <section>
+          </n-header>
+          <n-body>
             <n-stack gap="4">
               <n-stack direction="row" gap="4">
                 <n-field required style="flex: 1;">
@@ -145,35 +145,35 @@ function formatDate(d: Date) {
                 <textarea id="ct-schema" rows="12" class="ct-schema-editor" spellcheck="false"></textarea>
               </n-field>
             </n-stack>
-          </section>
-          <footer>
+          </n-body>
+          <n-footer>
             <n-button id="ct-cancel">
               <span slot="label">Cancel</span>
             </n-button>
             <n-button id="ct-submit" variant="primary" intent="accent">
               <span slot="label">Save</span>
             </n-button>
-          </footer>
-        </n-card>
+          </n-footer>
+        </n-container>
       </div>
     </n-dialog>
 
     <!-- Delete confirmation dialog -->
     <n-dialog id="ct-delete-dialog">
       <div class="admin-dialog-card">
-        <n-card>
-          <header>
+        <n-container>
+          <n-header>
             <nav><n-icon name="warning" size="lg"></n-icon></nav>
             <span>Delete Content Type?</span>
-          </header>
-          <section>
+          </n-header>
+          <n-body>
             <n-stack gap="2">
-              <n-text>Are you sure you want to delete <n-text id="ct-delete-name" variant="strong"></n-text>?</n-text>
-              <n-text id="ct-delete-warning" muted size="sm"></n-text>
-              <n-text size="sm" intent="danger">This action cannot be undone.</n-text>
+              <span>Are you sure you want to delete <span class="text-strong" id="ct-delete-name"></span>?</span>
+              <span class="text-muted text-sm" id="ct-delete-warning"></span>
+              <span class="text-sm text-danger">This action cannot be undone.</span>
             </n-stack>
-          </section>
-          <footer>
+          </n-body>
+          <n-footer>
             <n-button id="ct-delete-cancel">
               <span slot="label">Cancel</span>
             </n-button>
@@ -181,8 +181,8 @@ function formatDate(d: Date) {
               <n-icon name="trash" slot="leading"></n-icon>
               <span>Delete</span>
             </n-button>
-          </footer>
-        </n-card>
+          </n-footer>
+        </n-container>
       </div>
     </n-dialog>
   </AdminLayout>

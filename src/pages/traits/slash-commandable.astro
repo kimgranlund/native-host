@@ -39,54 +39,54 @@ const codeExamples = {
     <!-- ── Basic ── -->
 
     <h2>Basic</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Type <code>/</code> to open the command popover. Arrow keys navigate, Enter or click selects. The <code>/query</code> text is replaced with a styled tag.
-      </n-text>
+      </span>
       <n-controller traits="slash-commandable" data-trait-slash-commandable-commands='[{"value":"help","label":"Help","description":"Get assistance"},{"value":"settings","label":"Settings","description":"Open preferences"},{"value":"search","label":"Search","description":"Find content"},{"value":"code","label":"Code Block","description":"Insert code snippet"}]'>
         <n-textarea id="basic-textarea" rows="2" placeholder="Type / to see commands..."></n-textarea>
       </n-controller>
       <div id="basic-log" class="output"></div>
       <pre class="code-block"><code set:html={codeExamples.basic} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Tab to Select ── -->
 
     <h2>Tab to Select</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Type <code>/he</code> then press <strong>Tab</strong> to select the closest matching command. Requires a query of 2+ characters. Try <code>/se</code> for "Search" or "Settings".
-      </n-text>
+      </span>
       <n-controller traits="slash-commandable" data-trait-slash-commandable-commands='[{"value":"help","label":"Help","description":"Get assistance"},{"value":"heading","label":"Heading","description":"Insert heading"},{"value":"search","label":"Search","description":"Find content"},{"value":"settings","label":"Settings","description":"Open preferences"}]'>
         <n-textarea id="tab-textarea" rows="2" placeholder="Type /he then press Tab..."></n-textarea>
       </n-controller>
       <div id="tab-log" class="output"></div>
-    </n-panel>
+    </n-container>
 
     <!-- ── With n-input ── -->
 
     <h2>With n-input</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Works with single-line <code>&lt;n-input&gt;</code> as well. Type <code>/</code> to trigger.
-      </n-text>
+      </span>
       <n-controller traits="slash-commandable" data-trait-slash-commandable-commands='[{"value":"bold","label":"Bold","description":"Make text bold"},{"value":"italic","label":"Italic","description":"Make text italic"},{"value":"link","label":"Link","description":"Insert hyperlink"}]'>
         <n-input id="input-demo" placeholder="Type / for formatting commands..."></n-input>
       </n-controller>
       <div id="input-log" class="output"></div>
-    </n-panel>
+    </n-container>
 
     <!-- ── Keyboard Shortcut ── -->
 
     <h2>Keyboard Shortcut</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Press <n-kbd><n-icon name="command"></n-icon>/</n-kbd> to insert a <code>/</code> and open the command popover. Press again to dismiss.
-      </n-text>
+      </span>
       <n-controller traits="slash-commandable" data-trait-slash-commandable-commands='[{"value":"task","label":"Task","description":"Create a task"},{"value":"note","label":"Note","description":"Add a note"},{"value":"mention","label":"Mention","description":"Mention someone"}]'>
         <n-textarea id="shortcut-textarea" rows="2" placeholder="Press Cmd+/ to trigger..."></n-textarea>
       </n-controller>
-    </n-panel>
+    </n-container>
 
     <!-- ── API Reference ── -->
 
@@ -176,9 +176,9 @@ const codeExamples = {
       </n-table>
 
       <h3>Tag Insertion</h3>
-      <n-text size="xs" muted spacing="tight">
+      <span class="text-xs text-muted">
         When a command is selected, the <code>/query</code> text is replaced with a styled <code>&lt;span data-slash-command="value"&gt;</code> tag. The tag is <code>contentEditable="false"</code> and styled with <code>--n-surface</code> background. A non-breaking space is appended after the tag for continued typing.
-      </n-text>
+      </span>
   </section>
 
   <script>

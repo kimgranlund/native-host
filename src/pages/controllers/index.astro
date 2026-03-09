@@ -14,6 +14,8 @@ const controllers = [
   { name: 'CSSInspectController', description: 'Visual CSS inspector with depth control, tilt, and pick mode.', trait: '/traits/css-inspectable' },
   { name: 'FocusTrapController', description: 'Traps keyboard focus within a container — Tab and Shift+Tab cycle.', trait: '/traits/focus-trappable' },
   { name: 'ShortcutController', description: 'Keyboard shortcut bindings with global, scoped, and allow-editable modes.', trait: '/traits/shortcutable' },
+  { name: 'NoodleController', description: 'Draws curved SVG connections between DOM elements — drag-to-connect, click-to-delete.', trait: '/traits/noodleable' },
+  { name: 'StoreController', description: 'Reactive key-value store with remote fetch, lazy signals, and provider pattern.', trait: '/controllers/store-controller' },
   { name: 'LLMGatewayController', description: 'Routes LLM requests through server-side gateway proxies.', trait: '/gateways' },
 ];
 ---
@@ -32,13 +34,13 @@ const controllers = [
     <n-stack gap="6">
 
       <!-- Usage pattern -->
-      <n-section>
-        <n-text variant="heading" size="md" slot="heading">Pattern</n-text>
+      <n-container>
+        <span class="text-heading" slot="heading">Pattern</span>
         <n-stack gap="3">
-          <n-text>
+          <span>
             Every controller follows the same pattern: import the class, instantiate with an element and options,
             then call methods or listen for events.
-          </n-text>
+          </span>
           <div class="code-block">
             <n-button variant="ghost" size="xs" aria-label="Copy"><n-icon name="copy"></n-icon></n-button>
             <pre><code>import {'{'} DragController {'}'} from '@nonoun/native-ui';
@@ -48,18 +50,18 @@ drag.enable();
 drag.disable();
 drag.destroy();</code></pre>
           </div>
-          <n-text muted size="sm">
+          <span class="text-muted text-sm">
             All controllers accept an element as the first argument and an options object as the second.
             They expose <code>enable()</code>, <code>disable()</code>, and <code>destroy()</code> lifecycle methods.
-          </n-text>
+          </span>
         </n-stack>
-      </n-section>
+      </n-container>
 
       <!-- Controller list -->
-      <n-section>
-        <n-text variant="heading" size="md" slot="heading">Available Controllers</n-text>
-        <n-card>
-          <section>
+      <n-container>
+        <span class="text-heading" slot="heading">Available Controllers</span>
+        <n-container>
+          <n-body>
             <n-table cols="auto 1fr auto">
               <n-table-row header>
                 <n-table-cell>Controller</n-table-cell>
@@ -69,10 +71,10 @@ drag.destroy();</code></pre>
               {controllers.map(c => (
                 <n-table-row>
                   <n-table-cell>
-                    <n-text strong size="sm">{c.name}</n-text>
+                    <span class="text-strong text-sm">{c.name}</span>
                   </n-table-cell>
                   <n-table-cell>
-                    <n-text size="sm">{c.description}</n-text>
+                    <span class="text-sm">{c.description}</span>
                   </n-table-cell>
                   <n-table-cell>
                     <a href={c.trait}><n-badge size="xs">View</n-badge></a>
@@ -80,9 +82,9 @@ drag.destroy();</code></pre>
                 </n-table-row>
               ))}
             </n-table>
-          </section>
-        </n-card>
-      </n-section>
+          </n-body>
+        </n-container>
+      </n-container>
 
     </n-stack>
   </section>

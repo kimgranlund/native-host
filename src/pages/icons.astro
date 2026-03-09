@@ -18,95 +18,95 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
     <!-- ── Basic Icons ── -->
 
     <h2>Basic Icons</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack direction="row" wrap align="center" gap="3">
         <div class="icon-card-wrap">
-          <n-card inline padding="tight"><section>
+          <n-container inline padding="tight"><n-body>
             <n-stack align="center" gap="1">
               <n-icon name="house"></n-icon>
-              <n-text size="xs" muted><code>house</code></n-text>
+              <span class="text-xs text-muted"><code>house</code></span>
             </n-stack>
-          </section></n-card>
+          </n-body></n-container>
         </div>
         <div class="icon-card-wrap">
-          <n-card inline padding="tight"><section>
+          <n-container inline padding="tight"><n-body>
             <n-stack align="center" gap="1">
               <n-icon name="gear"></n-icon>
-              <n-text size="xs" muted><code>gear</code></n-text>
+              <span class="text-xs text-muted"><code>gear</code></span>
             </n-stack>
-          </section></n-card>
+          </n-body></n-container>
         </div>
         <div class="icon-card-wrap">
-          <n-card inline padding="tight"><section>
+          <n-container inline padding="tight"><n-body>
             <n-stack align="center" gap="1">
               <n-icon name="bell"></n-icon>
-              <n-text size="xs" muted><code>bell</code></n-text>
+              <span class="text-xs text-muted"><code>bell</code></span>
             </n-stack>
-          </section></n-card>
+          </n-body></n-container>
         </div>
         <div class="icon-card-wrap">
-          <n-card inline padding="tight"><section>
+          <n-container inline padding="tight"><n-body>
             <n-stack align="center" gap="1">
               <n-icon name="magnifying-glass"></n-icon>
-              <n-text size="xs" muted><code>magnifying-glass</code></n-text>
+              <span class="text-xs text-muted"><code>magnifying-glass</code></span>
             </n-stack>
-          </section></n-card>
+          </n-body></n-container>
         </div>
         <div class="icon-card-wrap">
-          <n-card inline padding="tight"><section>
+          <n-container inline padding="tight"><n-body>
             <n-stack align="center" gap="1">
               <n-icon name="heart"></n-icon>
-              <n-text size="xs" muted><code>heart</code></n-text>
+              <span class="text-xs text-muted"><code>heart</code></span>
             </n-stack>
-          </section></n-card>
+          </n-body></n-container>
         </div>
         <div class="icon-card-wrap">
-          <n-card inline padding="tight"><section>
+          <n-container inline padding="tight"><n-body>
             <n-stack align="center" gap="1">
               <n-icon name="star"></n-icon>
-              <n-text size="xs" muted><code>star</code></n-text>
+              <span class="text-xs text-muted"><code>star</code></span>
             </n-stack>
-          </section></n-card>
+          </n-body></n-container>
         </div>
         <div class="icon-card-wrap">
-          <n-card inline padding="tight"><section>
+          <n-container inline padding="tight"><n-body>
             <n-stack align="center" gap="1">
               <n-icon name="check"></n-icon>
-              <n-text size="xs" muted><code>check</code></n-text>
+              <span class="text-xs text-muted"><code>check</code></span>
             </n-stack>
-          </section></n-card>
+          </n-body></n-container>
         </div>
         <div class="icon-card-wrap">
-          <n-card inline padding="tight"><section>
+          <n-container inline padding="tight"><n-body>
             <n-stack align="center" gap="1">
               <n-icon name="x"></n-icon>
-              <n-text size="xs" muted><code>x</code></n-text>
+              <span class="text-xs text-muted"><code>x</code></span>
             </n-stack>
-          </section></n-card>
+          </n-body></n-container>
         </div>
         <div class="icon-card-wrap">
-          <n-card inline padding="tight"><section>
+          <n-container inline padding="tight"><n-body>
             <n-stack align="center" gap="1">
               <n-icon name="trash"></n-icon>
-              <n-text size="xs" muted><code>trash</code></n-text>
+              <span class="text-xs text-muted"><code>trash</code></span>
             </n-stack>
-          </section></n-card>
+          </n-body></n-container>
         </div>
         <div class="icon-card-wrap">
-          <n-card inline padding="tight"><section>
+          <n-container inline padding="tight"><n-body>
             <n-stack align="center" gap="1">
               <n-icon name="pencil-simple"></n-icon>
-              <n-text size="xs" muted><code>pencil-simple</code></n-text>
+              <span class="text-xs text-muted"><code>pencil-simple</code></span>
             </n-stack>
-          </section></n-card>
+          </n-body></n-container>
         </div>
       </n-stack>
-    </n-panel>
+    </n-container>
 
     <!-- ── Sizes ── -->
 
     <h2>Sizes</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <div class="grid">
         <n-stack>
           <span class="col-label">xs (0.75rem)</span>
@@ -129,42 +129,42 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
           <n-icon name="house" size="xl"></n-icon>
         </n-stack>
       </div>
-    </n-panel>
+    </n-container>
 
     <!-- ── Color Inheritance ── -->
 
     <h2>Color Inheritance</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack direction="row" wrap align="center" gap="3">
-        <n-text intent="accent"><n-icon name="heart"></n-icon> Accent</n-text>
-        <n-text intent="success"><n-icon name="check-circle"></n-icon> Success</n-text>
-        <n-text intent="warning"><n-icon name="warning"></n-icon> Warning</n-text>
-        <n-text intent="danger"><n-icon name="x-circle"></n-icon> Danger</n-text>
-        <n-text intent="info"><n-icon name="info"></n-icon> Info</n-text>
+        <span class="text-accent"><n-icon name="heart"></n-icon> Accent</span>
+        <span class="text-success"><n-icon name="check-circle"></n-icon> Success</span>
+        <span class="text-warning"><n-icon name="warning"></n-icon> Warning</span>
+        <span class="text-danger"><n-icon name="x-circle"></n-icon> Danger</span>
+        <span class="text-info"><n-icon name="info"></n-icon> Info</span>
       </n-stack>
-    </n-panel>
+    </n-container>
 
     <!-- ── Accessibility ── -->
 
     <h2>Accessibility</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <h3>Decorative (default — aria-hidden="true")</h3>
       <n-stack direction="row" wrap align="center" gap="3">
         <n-icon name="house"></n-icon>
-        <n-text size="xs" muted><code>&rarr; aria-hidden="true", no role</code></n-text>
+        <span class="text-xs text-muted"><code>&rarr; aria-hidden="true", no role</code></span>
       </n-stack>
 
       <h3>Meaningful (aria-label present)</h3>
       <n-stack direction="row" wrap align="center" gap="3">
         <n-icon name="check-circle" aria-label="Approved"></n-icon>
-        <n-text size="xs" muted><code>&rarr; role="img", aria-label="Approved"</code></n-text>
+        <span class="text-xs text-muted"><code>&rarr; role="img", aria-label="Approved"</code></span>
       </n-stack>
-    </n-panel>
+    </n-container>
 
     <!-- ── Inside Buttons ── -->
 
     <h2>Inside Buttons</h2>
-    <n-panel bordered intent="accent" size="sm">
+    <n-container data-kind="panel" bordered intent="accent" size="sm">
       <n-stack direction="row" wrap align="center" gap="3">
         <button variant="primary">
           <n-icon name="plus"></n-icon>
@@ -182,12 +182,12 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
           <n-icon name="x"></n-icon>
         </button>
       </n-stack>
-    </n-panel>
+    </n-container>
 
     <!-- ── Dynamic Name Change ── -->
 
     <h2>Dynamic Name Change</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <div class="grid">
         <n-stack>
           <n-icon id="dynamic-icon" name="house" size="xl"></n-icon>
@@ -203,96 +203,96 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
           </select>
         </n-stack>
       </div>
-    </n-panel>
+    </n-container>
 
     <!-- ── Late Registration ── -->
 
     <h2>Late Registration</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack gap="2">
-      <n-text size="xs" muted>
+      <span class="text-xs text-muted">
         The icon below has name="late-demo" but the icon hasn't been registered yet.
         Click the button to register it dynamically.
-      </n-text>
+      </span>
       <n-stack direction="row" wrap align="center" gap="3">
         <n-icon id="late-icon" name="late-demo" size="xl"></n-icon>
         <button id="register-btn" variant="secondary" size="sm">Register "late-demo" icon</button>
       </n-stack>
       <div class="log" id="late-log"></div>
       </n-stack>
-    </n-panel>
+    </n-container>
 
     <!-- ── Navigation Icons ── -->
 
     <h2>Navigation Icons</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack direction="row" wrap align="center" gap="3">
         <div class="icon-card-wrap">
-          <n-card inline padding="tight"><section>
+          <n-container inline padding="tight"><n-body>
             <n-stack align="center" gap="1">
               <n-icon name="caret-up"></n-icon>
-              <n-text size="xs" muted><code>caret-up</code></n-text>
+              <span class="text-xs text-muted"><code>caret-up</code></span>
             </n-stack>
-          </section></n-card>
+          </n-body></n-container>
         </div>
         <div class="icon-card-wrap">
-          <n-card inline padding="tight"><section>
+          <n-container inline padding="tight"><n-body>
             <n-stack align="center" gap="1">
               <n-icon name="caret-down"></n-icon>
-              <n-text size="xs" muted><code>caret-down</code></n-text>
+              <span class="text-xs text-muted"><code>caret-down</code></span>
             </n-stack>
-          </section></n-card>
+          </n-body></n-container>
         </div>
         <div class="icon-card-wrap">
-          <n-card inline padding="tight"><section>
+          <n-container inline padding="tight"><n-body>
             <n-stack align="center" gap="1">
               <n-icon name="caret-left"></n-icon>
-              <n-text size="xs" muted><code>caret-left</code></n-text>
+              <span class="text-xs text-muted"><code>caret-left</code></span>
             </n-stack>
-          </section></n-card>
+          </n-body></n-container>
         </div>
         <div class="icon-card-wrap">
-          <n-card inline padding="tight"><section>
+          <n-container inline padding="tight"><n-body>
             <n-stack align="center" gap="1">
               <n-icon name="caret-right"></n-icon>
-              <n-text size="xs" muted><code>caret-right</code></n-text>
+              <span class="text-xs text-muted"><code>caret-right</code></span>
             </n-stack>
-          </section></n-card>
+          </n-body></n-container>
         </div>
         <div class="icon-card-wrap">
-          <n-card inline padding="tight"><section>
+          <n-container inline padding="tight"><n-body>
             <n-stack align="center" gap="1">
               <n-icon name="arrow-up"></n-icon>
-              <n-text size="xs" muted><code>arrow-up</code></n-text>
+              <span class="text-xs text-muted"><code>arrow-up</code></span>
             </n-stack>
-          </section></n-card>
+          </n-body></n-container>
         </div>
         <div class="icon-card-wrap">
-          <n-card inline padding="tight"><section>
+          <n-container inline padding="tight"><n-body>
             <n-stack align="center" gap="1">
               <n-icon name="arrow-down"></n-icon>
-              <n-text size="xs" muted><code>arrow-down</code></n-text>
+              <span class="text-xs text-muted"><code>arrow-down</code></span>
             </n-stack>
-          </section></n-card>
+          </n-body></n-container>
         </div>
         <div class="icon-card-wrap">
-          <n-card inline padding="tight"><section>
+          <n-container inline padding="tight"><n-body>
             <n-stack align="center" gap="1">
               <n-icon name="arrow-left"></n-icon>
-              <n-text size="xs" muted><code>arrow-left</code></n-text>
+              <span class="text-xs text-muted"><code>arrow-left</code></span>
             </n-stack>
-          </section></n-card>
+          </n-body></n-container>
         </div>
         <div class="icon-card-wrap">
-          <n-card inline padding="tight"><section>
+          <n-container inline padding="tight"><n-body>
             <n-stack align="center" gap="1">
               <n-icon name="arrow-right"></n-icon>
-              <n-text size="xs" muted><code>arrow-right</code></n-text>
+              <span class="text-xs text-muted"><code>arrow-right</code></span>
             </n-stack>
-          </section></n-card>
+          </n-body></n-container>
         </div>
       </n-stack>
-    </n-panel>
+    </n-container>
   </section>
 
   <script>

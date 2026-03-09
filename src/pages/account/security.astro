@@ -16,27 +16,27 @@ const hasCredential = linkedAccounts.some(a => a.providerId === 'credential');
 <SidebarLayout title="Security - Settings">
   <AccountLayout current="/account/security">
     <n-stack gap="6">
-      <n-section>
+      <n-container>
         <span slot="heading">Connected Accounts</span>
         <span slot="description">Sign-in methods linked to your account.</span>
 
         <n-stack gap="2">
-          <n-card padding="tight">
-            <section>
+          <n-container padding="tight">
+            <n-body>
               <n-stack direction="row" align="center" gap="3" padding="3">
                 <n-icon name="google-logo" size="md"></n-icon>
                 <n-stack gap="0">
-                  <n-text size="sm" strong>Google</n-text>
-                  <n-text size="xs" muted>{hasGoogle ? 'Connected' : 'Not connected'}</n-text>
+                  <span class="text-sm text-strong">Google</span>
+                  <span class="text-xs text-muted">{hasGoogle ? 'Connected' : 'Not connected'}</span>
                 </n-stack>
               </n-stack>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
         </n-stack>
-      </n-section>
+      </n-container>
 
       {hasCredential && (
-        <n-section divider>
+        <n-container divider>
           <span slot="heading">Password</span>
           <span slot="description">Update your password.</span>
 
@@ -64,7 +64,7 @@ const hasCredential = linkedAccounts.some(a => a.providerId === 'credential');
               </n-stack>
             </n-stack>
           </form>
-        </n-section>
+        </n-container>
       )}
     </n-stack>
   </AccountLayout>

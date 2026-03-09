@@ -39,7 +39,7 @@ const codeExamples = {
     <!-- ── Basic ── -->
 
     <h2>Basic Command Palette</h2>
-    <n-panel bordered intent="neutral" variant="secondary">
+    <n-container data-kind="panel" bordered intent="neutral" variant="secondary">
       <div class="grid">
         <n-stack>
           <span class="col-label">Simple list</span>
@@ -62,12 +62,12 @@ const codeExamples = {
         </n-stack>
       </div>
       <pre class="code-block"><code set:html={codeExamples.basicCommandPalette} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Grouped ── -->
 
     <h2>Grouped Commands</h2>
-    <n-panel bordered intent="neutral" variant="secondary">
+    <n-container data-kind="panel" bordered intent="neutral" variant="secondary">
       <div class="grid">
         <n-stack>
           <span class="col-label">With groups and shortcuts</span>
@@ -145,12 +145,12 @@ const codeExamples = {
   &lt;/n-command-list&gt;
   &lt;n-command-empty&gt;No matching commands.&lt;/n-command-empty&gt;
 &lt;/n-command&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── With Disabled Items ── -->
 
     <h2>Disabled Items</h2>
-    <n-panel bordered intent="neutral" variant="secondary">
+    <n-container data-kind="panel" bordered intent="neutral" variant="secondary">
       <div class="grid">
         <n-stack>
           <span class="col-label">Some items disabled</span>
@@ -172,12 +172,12 @@ const codeExamples = {
       <pre class="code-block"><code>&lt;n-command-item value="paste" disabled&gt;
   &lt;n-icon name="clipboard-text"&gt;&lt;/n-icon&gt; Paste (clipboard empty)
 &lt;/n-command-item&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Sizes ── -->
 
     <h2>Sizes</h2>
-    <n-panel bordered variant="secondary">
+    <n-container data-kind="panel" bordered variant="secondary">
       <div class="grid">
         <n-stack>
           <span class="col-label">sm</span>
@@ -219,12 +219,12 @@ const codeExamples = {
           </n-command>
         </n-stack>
       </div>
-    </n-panel>
+    </n-container>
 
     <!-- ── Variants ── -->
 
     <h2>Variants</h2>
-    <n-panel bordered size="sm">
+    <n-container data-kind="panel" bordered size="sm">
       <div class="grid">
         <n-stack>
           <span class="col-label">secondary</span>
@@ -266,12 +266,12 @@ const codeExamples = {
           </n-command>
         </n-stack>
       </div>
-    </n-panel>
+    </n-container>
 
     <!-- ── Density ── -->
 
     <h2>Density</h2>
-    <n-panel bordered size="md" variant="secondary">
+    <n-container data-kind="panel" bordered size="md" variant="secondary">
       <div class="grid">
         <n-stack density="loose">
           <span class="col-label">loose</span>
@@ -313,12 +313,12 @@ const codeExamples = {
           </n-command>
         </n-stack>
       </div>
-    </n-panel>
+    </n-container>
 
     <!-- ── Radius ── -->
 
     <h2>Radius</h2>
-    <n-panel bordered size="sm" variant="secondary">
+    <n-container data-kind="panel" bordered size="sm" variant="secondary">
       <div class="grid">
         <n-stack radius="sharp">
           <span class="col-label">sharp</span>
@@ -360,14 +360,14 @@ const codeExamples = {
           </n-command>
         </n-stack>
       </div>
-    </n-panel>
+    </n-container>
 
     <!-- ── Cascading ── -->
 
     <h2>Cascading</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <h3>Section cascading all attributes</h3>
-      <section size="sm" density="compact" radius="round" intent="accent">
+      <n-body size="sm" density="compact" radius="round" intent="accent">
         <div class="grid">
           <n-stack>
             <span class="col-label">All inherited (secondary)</span>
@@ -396,13 +396,13 @@ const codeExamples = {
             </n-command>
           </n-stack>
         </div>
-      </section>
-    </n-panel>
+      </n-body>
+    </n-container>
 
     <!-- ── Keyboard Instructions ── -->
 
     <h2>Keyboard Navigation</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <div class="keyboard-table">
       <n-table variant="plain" size="sm" cols="auto 1fr">
         <n-table-head>
@@ -422,7 +422,7 @@ const codeExamples = {
         </n-table-body>
       </n-table>
       </div>
-    </n-panel>
+    </n-container>
   </section>
 
   <script>

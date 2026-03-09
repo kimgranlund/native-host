@@ -39,10 +39,10 @@ panel.addEventListener('native:dismiss', () =&gt; hidePanel());`,
     <!-- ── Click Outside to Dismiss ── -->
 
     <h2>Click Outside to Dismiss</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Uses <code>DismissController</code> directly on a plain element. Call <code>enable()</code> to join the dismiss stack, <code>disable()</code> to leave.
-      </n-text>
+      </span>
       <n-button id="open-btn">Open Panel</n-button>
       <div class="dismiss-panel" id="panel" hidden>
         This panel is dismissable. Click anywhere outside it or press <strong>Escape</strong> to close.
@@ -51,15 +51,15 @@ panel.addEventListener('native:dismiss', () =&gt; hidePanel());`,
       </div>
       <div id="log" class="output"></div>
       <pre class="code-block"><code set:html={codeExamples.clickOutsideToDismiss} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Nested Layers ── -->
 
     <h2>Nested Layers (Stack)</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Open both panels. Only the topmost one receives dismiss events. After the top panel is dismissed, the bottom panel becomes the new top.
-      </n-text>
+      </span>
       <n-stack direction="row">
         <n-button id="open-a">Open Panel A</n-button>
         <n-button id="open-b">Open Panel B</n-button>
@@ -83,35 +83,35 @@ panelB.removeAttribute('hidden');
 dismissB.enable();
 
 // Escape/click-outside dismisses B first, then A</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Built-in: n-dialog ── -->
 
     <h2>Built-in: n-dialog</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         <code>n-dialog</code> uses Dismissable internally. Escape and backdrop click close the dialog automatically.
-      </n-text>
+      </span>
       <n-button id="open-dialog">Open Dialog</n-button>
       <n-dialog id="demo-dialog">
-        <div class="dialog-card"><n-card>
-          <n-text>This dialog uses Dismissable internally. Press Escape or click the backdrop to close.</n-text>
+        <div class="dialog-card"><n-container>
+          <span>This dialog uses Dismissable internally. Press Escape or click the backdrop to close.</span>
           <n-button id="close-dialog" intent="accent">Close</n-button>
-        </n-card></div>
+        </n-container></div>
       </n-dialog>
       <pre class="code-block"><code>&lt;n-button id="open"&gt;Open Dialog&lt;/n-button&gt;
 &lt;n-dialog id="dialog"&gt;
-  &lt;n-card&gt;
+  &lt;n-container&gt;
     &lt;p&gt;Dialog content&lt;/p&gt;
     &lt;n-button id="close"&gt;Close&lt;/n-button&gt;
-  &lt;/n-card&gt;
+  &lt;/n-container&gt;
 &lt;/n-dialog&gt;
 
 &lt;script&gt;
   open.addEventListener('native:press', () =&gt; dialog.showModal());
   close.addEventListener('native:press', () =&gt; dialog.close());
 &lt;/script&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── API Reference ── -->
 

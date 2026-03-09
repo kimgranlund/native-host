@@ -90,92 +90,92 @@ ctrl.present();`,
     <!-- ── Basic ── -->
 
     <h2>Basic</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Click the button to present the card in a fullscreen overlay. Close with the X button, click outside, or press Escape.
-      </n-text>
+      </span>
       <n-button id="present-basic">Present Content</n-button>
-      <div class="present-card"><n-card id="present-content-1">
-        <header><h3>Presented Content</h3></header>
-        <section>
-          <n-text size="sm">This card is now displayed in a full-viewport dialog overlay. The content is wrapped in a modal <code>&lt;dialog&gt;</code> using <code>showModal()</code> for top-layer rendering.</n-text>
-          <n-text size="sm">Close by clicking the X button, clicking the backdrop, or pressing Escape.</n-text>
-        </section>
-      </n-card></div>
+      <div class="present-card"><n-container id="present-content-1">
+        <n-header><h3>Presented Content</h3></n-header>
+        <n-body>
+          <span class="text-sm">This card is now displayed in a full-viewport dialog overlay. The content is wrapped in a modal <code>&lt;dialog&gt;</code> using <code>showModal()</code> for top-layer rendering.</span>
+          <span class="text-sm">Close by clicking the X button, clicking the backdrop, or pressing Escape.</span>
+        </n-body>
+      </n-container></div>
       <pre class="code-block"><code set:html={codeExamples.basicPresent} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Custom Inset ── -->
 
     <h2>Custom Inset</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         The <code>inset</code> option controls the safety margin from viewport edges. Default is <code>2rem</code>. Try different values to see the effect.
-      </n-text>
+      </span>
       <n-stack direction="row" gap="3">
         <n-button id="present-inset-1rem">Inset: 1rem</n-button>
         <n-button id="present-inset-4rem">Inset: 4rem</n-button>
         <n-button id="present-inset-8rem">Inset: 8rem</n-button>
       </n-stack>
-      <div class="present-card"><n-card id="present-content-2">
-        <header><h3>Custom Inset</h3></header>
-        <section>
-          <n-text size="sm">This card is presented with a custom inset value. The inset controls how much space is reserved between the dialog wrapper and the viewport edges.</n-text>
-        </section>
-      </n-card></div>
+      <div class="present-card"><n-container id="present-content-2">
+        <n-header><h3>Custom Inset</h3></n-header>
+        <n-body>
+          <span class="text-sm">This card is presented with a custom inset value. The inset controls how much space is reserved between the dialog wrapper and the viewport edges.</span>
+        </n-body>
+      </n-container></div>
       <pre class="code-block"><code set:html={codeExamples.customInset} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Without Close Button ── -->
 
     <h2>Without Close Button</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Set <code>closeButton: false</code> to hide the X button. The overlay can still be dismissed via backdrop click or Escape, or programmatically with <code>dismiss()</code>.
-      </n-text>
+      </span>
       <n-button id="present-no-close">Present (no X button)</n-button>
-      <div class="present-card"><n-card id="present-content-3">
-        <header><h3>No Close Button</h3></header>
-        <section>
-          <n-text size="sm">There is no X button in this overlay. Click outside the card or press Escape to dismiss.</n-text>
-        </section>
-      </n-card></div>
+      <div class="present-card"><n-container id="present-content-3">
+        <n-header><h3>No Close Button</h3></n-header>
+        <n-body>
+          <span class="text-sm">There is no X button in this overlay. Click outside the card or press Escape to dismiss.</span>
+        </n-body>
+      </n-container></div>
       <pre class="code-block"><code set:html={codeExamples.noCloseButton} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Events ── -->
 
     <h2>Events</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         <code>native:present</code> fires after the dialog opens. <code>native:dismiss</code> fires after the dialog closes and the host is restored to its original DOM position.
-      </n-text>
+      </span>
       <n-button id="present-events">Present with Events</n-button>
-      <div class="present-card"><n-card id="present-content-4">
-        <header><h3>Event Demo</h3></header>
-        <section>
-          <n-text size="sm">Open and close this overlay to see events logged below.</n-text>
-        </section>
-      </n-card></div>
+      <div class="present-card"><n-container id="present-content-4">
+        <n-header><h3>Event Demo</h3></n-header>
+        <n-body>
+          <span class="text-sm">Open and close this overlay to see events logged below.</span>
+        </n-body>
+      </n-container></div>
       <div id="log" class="output"></div>
-    </n-panel>
+    </n-container>
 
     <!-- ── Real-World Usage ── -->
 
     <h2>Real-World Usage</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         The <code>&lt;native-a2ui&gt;</code> workbench uses PresentController to provide a full-viewport expand mode. Click the <n-icon name="arrows-out-simple" size="sm"></n-icon> button in any workbench toolbar to see it in action.
-      </n-text>
+      </span>
       <h3>Component Setup</h3>
-      <n-text size="xs" muted spacing="tight">
+      <span class="text-xs text-muted">
         The component creates a <code>PresentController</code> on itself during <code>setup()</code> and wires an expand button to call <code>present()</code>. The controller is destroyed in <code>teardown()</code>.
-      </n-text>
+      </span>
       <pre class="code-block"><code set:html={codeExamples.realWorldJs} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
       <h3>CSS Hook — <code>[presented]</code></h3>
-      <n-text size="xs" muted spacing="tight">
+      <span class="text-xs text-muted">
         When <code>present()</code> is called, PresentController sets <code>[presented]</code> on the host element. The component uses this to switch from a bounded card layout to full-viewport mode. On dismiss, the attribute is removed and CSS reverts.
-      </n-text>
+      </span>
       <pre class="code-block"><code set:html={codeExamples.realWorldCss} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
       <h3>Key Design Decisions</h3>
       <n-table variant="plain" size="sm" cols="auto 1fr">
@@ -194,10 +194,10 @@ ctrl.present();`,
           </n-table-row>
         </n-table-body>
       </n-table>
-      <n-text size="xs" muted spacing="tight">
+      <span class="text-xs text-muted">
         Try it: <a href="/a2ui/a2ui-workbench">A2UI Workbench</a> — click the expand icon in the toolbar header.
-      </n-text>
-    </n-panel>
+      </span>
+    </n-container>
 
     <!-- ── API Reference ── -->
 

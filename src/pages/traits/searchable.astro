@@ -84,10 +84,10 @@ const detailQueryMatchTotal = `{ query, matchCount, total }`;
     <!-- ── Basic Filter ── -->
 
     <h2>Basic Filter</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Type to filter items. Non-matching items are hidden via <code>[search-hidden]</code>.
-      </n-text>
+      </span>
       <div id="basic-wrap">
         <div class="search-input-wrap"><n-input id="basic-input" placeholder="Filter items..."></n-input></div>
         <div class="search-items">
@@ -102,15 +102,15 @@ const detailQueryMatchTotal = `{ query, matchCount, total }`;
       </div>
       <div id="basic-log" class="output"></div>
       <pre class="code-block"><code set:html={codeExamples.basicFilter} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Custom Text Field ── -->
 
     <h2>Custom Text Field</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Searches against a <code>data-search</code> attribute instead of <code>textContent</code>. Items display a label but filter on tags.
-      </n-text>
+      </span>
       <div id="field-wrap">
         <div class="search-input-wrap"><n-input id="field-input" placeholder="Search by tag (e.g. 'ui', 'layout')..."></n-input></div>
         <div class="search-items">
@@ -123,15 +123,15 @@ const detailQueryMatchTotal = `{ query, matchCount, total }`;
         </div>
       </div>
       <pre class="code-block"><code set:html={codeExamples.customTextField} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Highlight ── -->
 
     <h2>Highlight Matches</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Uses <code>SearchController.highlight()</code> to wrap matches in <code>&lt;mark&gt;</code> tags.
-      </n-text>
+      </span>
       <div id="highlight-wrap">
         <div class="search-input-wrap"><n-input id="highlight-input" placeholder="Type to highlight matches..."></n-input></div>
         <div class="search-items">
@@ -143,15 +143,15 @@ const detailQueryMatchTotal = `{ query, matchCount, total }`;
         </div>
       </div>
       <pre class="code-block"><code set:html={codeExamples.highlightMatches} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── SearchController Direct ── -->
 
     <h2>SearchController — Attach to Any Element</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Use <code>SearchController</code> directly on a plain element without the trait mixin.
-      </n-text>
+      </span>
       <div id="controller-wrap">
         <div class="search-input-wrap"><n-input id="ctrl-input" placeholder="Filter colors..."></n-input></div>
         <div id="controller-list" class="search-items">
@@ -166,7 +166,7 @@ const detailQueryMatchTotal = `{ query, matchCount, total }`;
       </div>
       <div id="ctrl-log" class="output"></div>
       <pre class="code-block"><code set:html={codeExamples.searchcontrollerAttachToAnyElement} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── API Reference ── -->
 

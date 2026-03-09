@@ -54,12 +54,16 @@ document.addEventListener('astro:page-load', async () => {
         updateComponents: {
           surfaceId: 'text-demo',
           components: [
-            { id: 'root', component: 'Column', children: ['h1', 'h2', 'h3', 'body', 'caption'] },
-            { id: 'h1', component: 'Text', text: 'Heading 1', variant: 'h1' },
-            { id: 'h2', component: 'Text', text: 'Heading 2', variant: 'h2' },
-            { id: 'h3', component: 'Text', text: 'Heading 3', variant: 'h3' },
-            { id: 'body', component: 'Text', text: 'Body text — the quick brown fox jumps over the lazy dog.' },
-            { id: 'caption', component: 'Text', text: 'Caption text — secondary information', variant: 'caption' },
+            { id: 'root', component: 'Card', children: ['card-header', 'card-body'] },
+            { id: 'card-header', component: 'Header', children: ['title'] },
+            { id: 'title', component: 'Text', text: 'Text Variants', variant: 'h3' },
+            { id: 'card-body', component: 'Body', child: 'content' },
+            { id: 'content', component: 'Column', children: ['text-h1', 'text-h2', 'text-h3', 'text-body', 'text-caption'] },
+            { id: 'text-h1', component: 'Text', text: 'Heading 1', variant: 'h1' },
+            { id: 'text-h2', component: 'Text', text: 'Heading 2', variant: 'h2' },
+            { id: 'text-h3', component: 'Text', text: 'Heading 3', variant: 'h3' },
+            { id: 'text-body', component: 'Text', text: 'Body text — the quick brown fox jumps over the lazy dog.' },
+            { id: 'text-caption', component: 'Text', text: 'Caption text — secondary information', variant: 'caption' },
           ],
         },
       }, target);
@@ -69,13 +73,15 @@ document.addEventListener('astro:page-load', async () => {
         updateComponents: {
           surfaceId: 'buttons-demo',
           components: [
-            { id: 'root', component: 'Column', children: ['label', 'row'] },
-            { id: 'label', component: 'Text', text: 'Buttons', variant: 'h3' },
-            { id: 'row', component: 'Row', children: ['primary', 'default', 'ghost', 'disabled'] },
-            { id: 'primary', component: 'Button', text: 'Primary', variant: 'primary', action: { event: { name: 'click' } } },
-            { id: 'default', component: 'Button', text: 'Default', action: { event: { name: 'click' } } },
-            { id: 'ghost', component: 'Button', text: 'Ghost', variant: 'borderless', action: { event: { name: 'click' } } },
-            { id: 'disabled', component: 'Button', text: 'Disabled', disabled: true },
+            { id: 'root', component: 'Card', children: ['card-header', 'card-body'] },
+            { id: 'card-header', component: 'Header', children: ['title'] },
+            { id: 'title', component: 'Text', text: 'Buttons', variant: 'h3' },
+            { id: 'card-body', component: 'Body', child: 'content' },
+            { id: 'content', component: 'Row', children: ['button-primary', 'button-default', 'button-ghost', 'button-disabled'] },
+            { id: 'button-primary', component: 'Button', text: 'Primary', variant: 'primary', action: { event: { name: 'click' } } },
+            { id: 'button-default', component: 'Button', text: 'Default', action: { event: { name: 'click' } } },
+            { id: 'button-ghost', component: 'Button', text: 'Ghost', variant: 'borderless', action: { event: { name: 'click' } } },
+            { id: 'button-disabled', component: 'Button', text: 'Disabled', disabled: true },
           ],
         },
       }, target);
@@ -85,14 +91,17 @@ document.addEventListener('astro:page-load', async () => {
         updateComponents: {
           surfaceId: 'form-demo',
           components: [
-            { id: 'root', component: 'Column', children: ['label', 'text-field', 'password', 'number', 'textarea', 'date', 'time'] },
-            { id: 'label', component: 'Text', text: 'Form Fields', variant: 'h3' },
-            { id: 'text-field', component: 'TextField', placeholder: 'Enter your name', label: 'Name' },
-            { id: 'password', component: 'TextField', placeholder: 'Password', label: 'Password', variant: 'obscured' },
-            { id: 'number', component: 'TextField', placeholder: '0', label: 'Quantity', variant: 'number' },
-            { id: 'textarea', component: 'TextArea', placeholder: 'Write a message...', label: 'Message' },
-            { id: 'date', component: 'DateTimeInput', label: 'Date', enableDate: true },
-            { id: 'time', component: 'DateTimeInput', label: 'Time', enableTime: true },
+            { id: 'root', component: 'Card', children: ['card-header', 'card-body'] },
+            { id: 'card-header', component: 'Header', children: ['title'] },
+            { id: 'title', component: 'Text', text: 'Form Fields', variant: 'h3' },
+            { id: 'card-body', component: 'Body', child: 'content' },
+            { id: 'content', component: 'Column', children: ['field-name', 'field-password', 'field-quantity', 'field-message', 'field-date', 'field-time'] },
+            { id: 'field-name', component: 'TextField', placeholder: 'Enter your name', label: 'Name' },
+            { id: 'field-password', component: 'TextField', placeholder: 'Password', label: 'Password', variant: 'obscured' },
+            { id: 'field-quantity', component: 'TextField', placeholder: '0', label: 'Quantity', variant: 'number' },
+            { id: 'field-message', component: 'TextArea', placeholder: 'Write a message...', label: 'Message' },
+            { id: 'field-date', component: 'DateTimeInput', label: 'Date', enableDate: true },
+            { id: 'field-time', component: 'DateTimeInput', label: 'Time', enableTime: true },
           ],
         },
       }, target);
@@ -102,13 +111,15 @@ document.addEventListener('astro:page-load', async () => {
         updateComponents: {
           surfaceId: 'toggles-demo',
           components: [
-            { id: 'root', component: 'Column', children: ['label', 'row'] },
-            { id: 'label', component: 'Text', text: 'Toggles', variant: 'h3' },
-            { id: 'row', component: 'Row', children: ['check1', 'check2', 'switch1', 'switch2'] },
-            { id: 'check1', component: 'CheckBox', label: 'Agree to terms' },
-            { id: 'check2', component: 'CheckBox', label: 'Subscribe', disabled: true },
-            { id: 'switch1', component: 'Switch', label: 'Notifications' },
-            { id: 'switch2', component: 'Switch', label: 'Dark mode' },
+            { id: 'root', component: 'Card', children: ['card-header', 'card-body'] },
+            { id: 'card-header', component: 'Header', children: ['title'] },
+            { id: 'title', component: 'Text', text: 'Toggles', variant: 'h3' },
+            { id: 'card-body', component: 'Body', child: 'content' },
+            { id: 'content', component: 'Row', children: ['checkbox-terms', 'checkbox-subscribe', 'switch-notifications', 'switch-dark-mode'] },
+            { id: 'checkbox-terms', component: 'CheckBox', label: 'Agree to terms' },
+            { id: 'checkbox-subscribe', component: 'CheckBox', label: 'Subscribe', disabled: true },
+            { id: 'switch-notifications', component: 'Switch', label: 'Notifications' },
+            { id: 'switch-dark-mode', component: 'Switch', label: 'Dark mode' },
           ],
         },
       }, target);
@@ -118,9 +129,11 @@ document.addEventListener('astro:page-load', async () => {
         updateComponents: {
           surfaceId: 'slider-demo',
           components: [
-            { id: 'root', component: 'Column', children: ['label', 'slider'] },
-            { id: 'label', component: 'Text', text: 'Slider', variant: 'h3' },
-            { id: 'slider', component: 'Slider', min: 0, max: 100, value: 50, label: 'Volume' },
+            { id: 'root', component: 'Card', children: ['card-header', 'card-body'] },
+            { id: 'card-header', component: 'Header', children: ['title'] },
+            { id: 'title', component: 'Text', text: 'Slider', variant: 'h3' },
+            { id: 'card-body', component: 'Body', child: 'slider-volume' },
+            { id: 'slider-volume', component: 'Slider', min: 0, max: 100, value: 50, label: 'Volume' },
           ],
         },
       }, target);
@@ -130,12 +143,14 @@ document.addEventListener('astro:page-load', async () => {
         updateComponents: {
           surfaceId: 'list-demo',
           components: [
-            { id: 'root', component: 'Column', children: ['label', 'list'] },
-            { id: 'label', component: 'Text', text: 'List', variant: 'h3' },
-            { id: 'list', component: 'List', children: ['opt1', 'opt2', 'opt3'] },
-            { id: 'opt1', component: 'ListItem', label: 'Apple', value: 'apple' },
-            { id: 'opt2', component: 'ListItem', label: 'Banana', value: 'banana' },
-            { id: 'opt3', component: 'ListItem', label: 'Cherry', value: 'cherry' },
+            { id: 'root', component: 'Card', children: ['card-header', 'card-body'] },
+            { id: 'card-header', component: 'Header', children: ['title'] },
+            { id: 'title', component: 'Text', text: 'List', variant: 'h3' },
+            { id: 'card-body', component: 'Body', child: 'list-fruit' },
+            { id: 'list-fruit', component: 'List', children: ['option-apple', 'option-banana', 'option-cherry'] },
+            { id: 'option-apple', component: 'ListItem', label: 'Apple', value: 'apple' },
+            { id: 'option-banana', component: 'ListItem', label: 'Banana', value: 'banana' },
+            { id: 'option-cherry', component: 'ListItem', label: 'Cherry', value: 'cherry' },
           ],
         },
       }, target);
@@ -145,14 +160,15 @@ document.addEventListener('astro:page-load', async () => {
         updateComponents: {
           surfaceId: 'card-demo',
           components: [
-            { id: 'root', component: 'Column', children: ['label', 'card'] },
-            { id: 'label', component: 'Text', text: 'Card', variant: 'h3' },
-            { id: 'card', component: 'Card', children: ['card-title', 'card-body', 'card-actions'] },
-            { id: 'card-title', component: 'Text', text: 'Card Title', variant: 'h3' },
-            { id: 'card-body', component: 'Text', text: 'This is a card rendered entirely through the A2UI protocol. The agent describes the UI declaratively and the adapter renders it using native-ui components.' },
-            { id: 'card-actions', component: 'Row', children: ['save-btn', 'cancel-btn'] },
-            { id: 'save-btn', component: 'Button', text: 'Save', variant: 'primary', action: { event: { name: 'save' } } },
-            { id: 'cancel-btn', component: 'Button', text: 'Cancel', variant: 'borderless', action: { event: { name: 'cancel' } } },
+            { id: 'root', component: 'Card', children: ['card-header', 'card-body', 'card-footer'] },
+            { id: 'card-header', component: 'Header', children: ['title'] },
+            { id: 'title', component: 'Text', text: 'Card', variant: 'h3' },
+            { id: 'card-body', component: 'Body', child: 'description' },
+            { id: 'description', component: 'Text', text: 'This is a card rendered entirely through the A2UI protocol. The agent describes the UI declaratively and the adapter renders it using native-ui components.' },
+            { id: 'card-footer', component: 'Footer', child: 'actions-row' },
+            { id: 'actions-row', component: 'Row', children: ['button-save', 'button-cancel'] },
+            { id: 'button-save', component: 'Button', text: 'Save', variant: 'primary', action: { event: { name: 'save' } } },
+            { id: 'button-cancel', component: 'Button', text: 'Cancel', variant: 'borderless', action: { event: { name: 'cancel' } } },
           ],
         },
       }, target);
@@ -162,13 +178,15 @@ document.addEventListener('astro:page-load', async () => {
         updateComponents: {
           surfaceId: 'badge-avatar-demo',
           components: [
-            { id: 'root', component: 'Column', children: ['label', 'row'] },
-            { id: 'label', component: 'Text', text: 'Badge & Avatar', variant: 'h3' },
-            { id: 'row', component: 'Row', children: ['badge1', 'badge2', 'badge3', 'avatar1'] },
-            { id: 'badge1', component: 'Badge', text: '3' },
-            { id: 'badge2', component: 'Badge', text: 'New', variant: 'solid' },
-            { id: 'badge3', component: 'Badge', text: '99+' },
-            { id: 'avatar1', component: 'Avatar', src: 'https://i.pravatar.cc/96?u=a2ui', alt: 'User avatar' },
+            { id: 'root', component: 'Card', children: ['card-header', 'card-body'] },
+            { id: 'card-header', component: 'Header', children: ['title'] },
+            { id: 'title', component: 'Text', text: 'Badge & Avatar', variant: 'h3' },
+            { id: 'card-body', component: 'Body', child: 'content' },
+            { id: 'content', component: 'Row', children: ['badge-count', 'badge-new', 'badge-overflow', 'avatar-user'] },
+            { id: 'badge-count', component: 'Badge', text: '3' },
+            { id: 'badge-new', component: 'Badge', text: 'New', variant: 'solid' },
+            { id: 'badge-overflow', component: 'Badge', text: '99+' },
+            { id: 'avatar-user', component: 'Avatar', src: 'https://i.pravatar.cc/96?u=a2ui', alt: 'User avatar' },
           ],
         },
       }, target);
@@ -178,10 +196,14 @@ document.addEventListener('astro:page-load', async () => {
         updateComponents: {
           surfaceId: 'divider-demo',
           components: [
-            { id: 'root', component: 'Column', children: ['above', 'div1', 'below'] },
-            { id: 'above', component: 'Text', text: 'Content above the divider' },
-            { id: 'div1', component: 'Divider' },
-            { id: 'below', component: 'Text', text: 'Content below the divider' },
+            { id: 'root', component: 'Card', children: ['card-header', 'card-body'] },
+            { id: 'card-header', component: 'Header', children: ['title'] },
+            { id: 'title', component: 'Text', text: 'Divider', variant: 'h3' },
+            { id: 'card-body', component: 'Body', child: 'content' },
+            { id: 'content', component: 'Column', children: ['text-above', 'divider-main', 'text-below'] },
+            { id: 'text-above', component: 'Text', text: 'Content above the divider' },
+            { id: 'divider-main', component: 'Divider' },
+            { id: 'text-below', component: 'Text', text: 'Content below the divider' },
           ],
         },
       }, target);
@@ -191,9 +213,11 @@ document.addEventListener('astro:page-load', async () => {
         updateComponents: {
           surfaceId: 'media-demo',
           components: [
-            { id: 'root', component: 'Column', children: ['label', 'img1'] },
-            { id: 'label', component: 'Text', text: 'Image', variant: 'h3' },
-            { id: 'img1', component: 'Image', url: 'https://picsum.photos/600/200', alt: 'Random landscape' },
+            { id: 'root', component: 'Card', children: ['card-header', 'card-body'] },
+            { id: 'card-header', component: 'Header', children: ['title'] },
+            { id: 'title', component: 'Text', text: 'Image', variant: 'h3' },
+            { id: 'card-body', component: 'Body', child: 'image-landscape' },
+            { id: 'image-landscape', component: 'Image', url: 'https://picsum.photos/600/200', alt: 'Random landscape' },
           ],
         },
       }, target);
@@ -203,13 +227,15 @@ document.addEventListener('astro:page-load', async () => {
         updateComponents: {
           surfaceId: 'icon-demo',
           components: [
-            { id: 'root', component: 'Column', children: ['label', 'row'] },
-            { id: 'label', component: 'Text', text: 'Icon', variant: 'h3' },
-            { id: 'row', component: 'Row', children: ['icon1', 'icon2', 'icon3', 'icon4'] },
-            { id: 'icon1', component: 'Icon', name: 'house' },
-            { id: 'icon2', component: 'Icon', name: 'gear' },
-            { id: 'icon3', component: 'Icon', name: 'bell' },
-            { id: 'icon4', component: 'Icon', name: 'magnifying-glass' },
+            { id: 'root', component: 'Card', children: ['card-header', 'card-body'] },
+            { id: 'card-header', component: 'Header', children: ['title'] },
+            { id: 'title', component: 'Text', text: 'Icon', variant: 'h3' },
+            { id: 'card-body', component: 'Body', child: 'content' },
+            { id: 'content', component: 'Row', children: ['icon-house', 'icon-gear', 'icon-bell', 'icon-search'] },
+            { id: 'icon-house', component: 'Icon', name: 'house' },
+            { id: 'icon-gear', component: 'Icon', name: 'gear' },
+            { id: 'icon-bell', component: 'Icon', name: 'bell' },
+            { id: 'icon-search', component: 'Icon', name: 'magnifying-glass' },
           ],
         },
       }, target);
@@ -219,12 +245,14 @@ document.addEventListener('astro:page-load', async () => {
         updateComponents: {
           surfaceId: 'select-demo',
           components: [
-            { id: 'root', component: 'Column', children: ['label', 'select1'] },
-            { id: 'label', component: 'Text', text: 'Select', variant: 'h3' },
-            { id: 'select1', component: 'Select', label: 'Pick an option', children: ['sel-opt1', 'sel-opt2', 'sel-opt3'] },
-            { id: 'sel-opt1', component: 'ListItem', label: 'Option A', value: 'a' },
-            { id: 'sel-opt2', component: 'ListItem', label: 'Option B', value: 'b' },
-            { id: 'sel-opt3', component: 'ListItem', label: 'Option C', value: 'c' },
+            { id: 'root', component: 'Card', children: ['card-header', 'card-body'] },
+            { id: 'card-header', component: 'Header', children: ['title'] },
+            { id: 'title', component: 'Text', text: 'Select', variant: 'h3' },
+            { id: 'card-body', component: 'Body', child: 'select-option' },
+            { id: 'select-option', component: 'Select', label: 'Pick an option', children: ['select-option-a', 'select-option-b', 'select-option-c'] },
+            { id: 'select-option-a', component: 'ListItem', label: 'Option A', value: 'a' },
+            { id: 'select-option-b', component: 'ListItem', label: 'Option B', value: 'b' },
+            { id: 'select-option-c', component: 'ListItem', label: 'Option C', value: 'c' },
           ],
         },
       }, target);
@@ -234,12 +262,14 @@ document.addEventListener('astro:page-load', async () => {
         updateComponents: {
           surfaceId: 'choice-picker-demo',
           components: [
-            { id: 'root', component: 'Column', children: ['label', 'picker1'] },
-            { id: 'label', component: 'Text', text: 'ChoicePicker', variant: 'h3' },
-            { id: 'picker1', component: 'ChoicePicker', label: 'Pick a size', children: ['cp-opt1', 'cp-opt2', 'cp-opt3'], variant: 'mutuallyExclusive' },
-            { id: 'cp-opt1', component: 'ListItem', label: 'Small', value: 'sm' },
-            { id: 'cp-opt2', component: 'ListItem', label: 'Medium', value: 'md' },
-            { id: 'cp-opt3', component: 'ListItem', label: 'Large', value: 'lg' },
+            { id: 'root', component: 'Card', children: ['card-header', 'card-body'] },
+            { id: 'card-header', component: 'Header', children: ['title'] },
+            { id: 'title', component: 'Text', text: 'ChoicePicker', variant: 'h3' },
+            { id: 'card-body', component: 'Body', child: 'picker-size' },
+            { id: 'picker-size', component: 'ChoicePicker', label: 'Pick a size', children: ['choice-small', 'choice-medium', 'choice-large'], variant: 'mutuallyExclusive' },
+            { id: 'choice-small', component: 'ListItem', label: 'Small', value: 'sm' },
+            { id: 'choice-medium', component: 'ListItem', label: 'Medium', value: 'md' },
+            { id: 'choice-large', component: 'ListItem', label: 'Large', value: 'lg' },
           ],
         },
       }, target);
@@ -249,29 +279,34 @@ document.addEventListener('astro:page-load', async () => {
         updateComponents: {
           surfaceId: 'modal-demo',
           components: [
-            { id: 'root', component: 'Column', children: ['label', 'open-btn', 'modal1'] },
-            { id: 'label', component: 'Text', text: 'Modal', variant: 'h3' },
-            { id: 'open-btn', component: 'Button', text: 'Open Modal', action: { event: { name: 'open-modal' } } },
-            { id: 'modal1', component: 'Modal', children: ['modal-card'] },
-            { id: 'modal-card', component: 'Card', children: ['modal-title', 'modal-body', 'modal-actions'] },
+            { id: 'root', component: 'Card', children: ['card-header', 'card-body'] },
+            { id: 'card-header', component: 'Header', children: ['title'] },
+            { id: 'title', component: 'Text', text: 'Modal', variant: 'h3' },
+            { id: 'card-body', component: 'Body', child: 'content' },
+            { id: 'content', component: 'Column', children: ['button-open-modal', 'modal-dialog'] },
+            { id: 'button-open-modal', component: 'Button', text: 'Open Modal', action: { event: { name: 'open-modal' } } },
+            { id: 'modal-dialog', component: 'Modal', children: ['modal-card'] },
+            { id: 'modal-card', component: 'Card', children: ['modal-header', 'modal-body', 'modal-footer'] },
+            { id: 'modal-header', component: 'Header', children: ['modal-title'] },
             { id: 'modal-title', component: 'Text', text: 'Dialog Title', variant: 'h3' },
-            { id: 'modal-body', component: 'Text', text: 'This is a modal dialog rendered through the A2UI protocol. Click the backdrop or press Escape to close.' },
-            { id: 'modal-actions', component: 'Row', children: ['close-btn'] },
-            { id: 'close-btn', component: 'Button', text: 'Close', variant: 'primary', action: { event: { name: 'close-modal' } } },
+            { id: 'modal-body', component: 'Body', child: 'modal-description' },
+            { id: 'modal-description', component: 'Text', text: 'This is a modal dialog rendered through the A2UI protocol. Click the backdrop or press Escape to close.' },
+            { id: 'modal-footer', component: 'Footer', child: 'button-close-modal' },
+            { id: 'button-close-modal', component: 'Button', text: 'Close', variant: 'primary', action: { event: { name: 'close-modal' } } },
           ],
         },
       }, target);
 
       // Wire modal open/close
       kernel.bus.on(
-        (cmd) => cmd.type === 'a2ui:modal-demo:open-btn:open-modal',
+        (cmd) => cmd.type === 'a2ui:modal-demo:button-open-modal:open-modal',
         () => {
           const dialog = target.querySelector('[data-a2ui="Modal"]');
           if (dialog) dialog.showModal();
         },
       );
       kernel.bus.on(
-        (cmd) => cmd.type === 'a2ui:modal-demo:close-btn:close-modal',
+        (cmd) => cmd.type === 'a2ui:modal-demo:button-close-modal:close-modal',
         () => {
           const dialog = target.querySelector('[data-a2ui="Modal"]');
           if (dialog) dialog.close();
@@ -283,15 +318,17 @@ document.addEventListener('astro:page-load', async () => {
         updateComponents: {
           surfaceId: 'tabs-demo',
           components: [
-            { id: 'root', component: 'Column', children: ['label', 'tabs1'] },
-            { id: 'label', component: 'Text', text: 'Tabs', variant: 'h3' },
-            { id: 'tabs1', component: 'Tabs', children: ['tab1', 'tab2', 'tab3'] },
-            { id: 'tab1', component: 'Column', label: 'Overview', value: 'overview', children: ['tab1-text'] },
-            { id: 'tab1-text', component: 'Text', text: 'This is the overview panel rendered through A2UI.' },
-            { id: 'tab2', component: 'Column', label: 'Features', value: 'features', children: ['tab2-text'] },
-            { id: 'tab2-text', component: 'Text', text: 'Features include roving focus, ARIA semantics, and keyboard navigation.' },
-            { id: 'tab3', component: 'Column', label: 'Pricing', value: 'pricing', children: ['tab3-text'] },
-            { id: 'tab3-text', component: 'Text', text: 'Pricing plans start at $0/month for open source projects.' },
+            { id: 'root', component: 'Card', children: ['card-header', 'card-body'] },
+            { id: 'card-header', component: 'Header', children: ['title'] },
+            { id: 'title', component: 'Text', text: 'Tabs', variant: 'h3' },
+            { id: 'card-body', component: 'Body', child: 'tabs-product' },
+            { id: 'tabs-product', component: 'Tabs', children: ['tab-overview', 'tab-features', 'tab-pricing'] },
+            { id: 'tab-overview', component: 'Column', label: 'Overview', value: 'overview', children: ['tab-overview-text'] },
+            { id: 'tab-overview-text', component: 'Text', text: 'This is the overview panel rendered through A2UI.' },
+            { id: 'tab-features', component: 'Column', label: 'Features', value: 'features', children: ['tab-features-text'] },
+            { id: 'tab-features-text', component: 'Text', text: 'Features include roving focus, ARIA semantics, and keyboard navigation.' },
+            { id: 'tab-pricing', component: 'Column', label: 'Pricing', value: 'pricing', children: ['tab-pricing-text'] },
+            { id: 'tab-pricing-text', component: 'Text', text: 'Pricing plans start at $0/month for open source projects.' },
           ],
         },
       }, target);
@@ -301,9 +338,11 @@ document.addEventListener('astro:page-load', async () => {
         updateComponents: {
           surfaceId: 'video-demo',
           components: [
-            { id: 'root', component: 'Column', children: ['label', 'video1'] },
-            { id: 'label', component: 'Text', text: 'Video', variant: 'h3' },
-            { id: 'video1', component: 'Video', url: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm' },
+            { id: 'root', component: 'Card', children: ['card-header', 'card-body'] },
+            { id: 'card-header', component: 'Header', children: ['title'] },
+            { id: 'title', component: 'Text', text: 'Video', variant: 'h3' },
+            { id: 'card-body', component: 'Body', child: 'video-flower' },
+            { id: 'video-flower', component: 'Video', url: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm' },
           ],
         },
       }, target);
@@ -313,9 +352,11 @@ document.addEventListener('astro:page-load', async () => {
         updateComponents: {
           surfaceId: 'audio-demo',
           components: [
-            { id: 'root', component: 'Column', children: ['label', 'audio1'] },
-            { id: 'label', component: 'Text', text: 'AudioPlayer', variant: 'h3' },
-            { id: 'audio1', component: 'AudioPlayer', url: 'https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3' },
+            { id: 'root', component: 'Card', children: ['card-header', 'card-body'] },
+            { id: 'card-header', component: 'Header', children: ['title'] },
+            { id: 'title', component: 'Text', text: 'AudioPlayer', variant: 'h3' },
+            { id: 'card-body', component: 'Body', child: 'audio-sample' },
+            { id: 'audio-sample', component: 'AudioPlayer', url: 'https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3' },
           ],
         },
       }, target);
@@ -332,13 +373,17 @@ document.addEventListener('astro:page-load', async () => {
         updateComponents: {
           surfaceId: 'binding-demo',
           components: [
-            { id: 'root', component: 'Column', children: ['label', 'greeting', 'input', 'counter-row'] },
-            { id: 'label', component: 'Text', text: 'Data Binding', variant: 'h3' },
-            { id: 'greeting', component: 'Text', text: { path: '/greeting' } },
-            { id: 'input', component: 'TextField', value: { path: '/name' }, placeholder: 'Type a name...', label: 'Name' },
-            { id: 'counter-row', component: 'Row', children: ['count-label', 'inc-btn'] },
-            { id: 'count-label', component: 'Text', text: { path: '/countLabel' } },
-            { id: 'inc-btn', component: 'Button', text: 'Increment', action: { event: { name: 'increment' } } },
+            { id: 'root', component: 'Card', children: ['card-header', 'card-body', 'card-footer'] },
+            { id: 'card-header', component: 'Header', children: ['title'] },
+            { id: 'title', component: 'Text', text: 'Data Binding', variant: 'h3' },
+            { id: 'card-body', component: 'Body', child: 'content' },
+            { id: 'content', component: 'Column', children: ['text-greeting', 'input-name'] },
+            { id: 'text-greeting', component: 'Text', text: { path: '/greeting' } },
+            { id: 'input-name', component: 'TextField', value: { path: '/name' }, placeholder: 'Type a name...', label: 'Name' },
+            { id: 'card-footer', component: 'Footer', child: 'counter-row' },
+            { id: 'counter-row', component: 'Row', children: ['text-count', 'button-increment'] },
+            { id: 'text-count', component: 'Text', text: { path: '/countLabel' } },
+            { id: 'button-increment', component: 'Button', text: 'Increment', action: { event: { name: 'increment' } } },
           ],
         },
       });
@@ -357,7 +402,7 @@ document.addEventListener('astro:page-load', async () => {
 
       // Listen for increment action
       kernel.bus.on(
-        (cmd) => cmd.type === 'a2ui:binding-demo:inc-btn:increment',
+        (cmd) => cmd.type === 'a2ui:binding-demo:button-increment:increment',
         () => {
           const model = adapter.getDataModel('binding-demo');
           const count = (Number(model?.count) || 0) + 1;

@@ -30,8 +30,8 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
             We sent a 6-digit code to <span class="auth-email-highlight">kim@example.com</span>. Enter it below to verify your identity.
           </p>
           <div class="auth-card">
-            <n-card padding="relaxed">
-              <section>
+            <n-container padding="relaxed">
+              <n-body>
                 <n-stack gap="8">
                   <form>
                     <n-stack gap="6">
@@ -47,8 +47,8 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
                     Didn't receive a code? <button class="auth-resend-link" type="button">Resend code</button>
                   </p>
                 </n-stack>
-              </section>
-            </n-card>
+              </n-body>
+            </n-container>
           </div>
           <a href="#" class="auth-back-link">
             <n-icon name="arrow-left" size="sm"></n-icon>

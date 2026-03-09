@@ -43,10 +43,10 @@ function roleIntent(role: string) {
               <n-table-cell>
                 <header>
                   <h2>Members</h2>
-                  <aside><n-button id="invite-btn" variant="primary" intent="accent">
+                  <n-button id="invite-btn" variant="primary" intent="accent">
                     <n-icon name="user-plus" slot="leading"></n-icon>
                     <span>Invite Member</span>
-                  </n-button></aside>
+                  </n-button>
                 </header>
               </n-table-cell>
             </n-table-row>
@@ -60,12 +60,12 @@ function roleIntent(role: string) {
               <n-table-row>
                 <n-table-cell>
                   <n-stack direction="row" gap="2" align="center">
-                    <n-avatar size="sm" name={m.userName} src={m.userImage || undefined}></n-avatar>
-                    <n-text>{m.userName}</n-text>
+                    <n-avatar size="sm" name={m.userName}>{m.userImage ? <img src={m.userImage} alt={m.userName} /> : m.userName?.split(' ').map(w => w[0]).join('').toUpperCase().slice(0,2)}</n-avatar>
+                    <span>{m.userName}</span>
                   </n-stack>
                 </n-table-cell>
                 <n-table-cell>
-                  <n-text muted size="sm">{m.userEmail}</n-text>
+                  <span class="text-muted text-sm">{m.userEmail}</span>
                 </n-table-cell>
                 <n-table-cell>
                   <n-badge intent={roleIntent(m.role)}>{m.role}</n-badge>
@@ -117,7 +117,7 @@ function roleIntent(role: string) {
                 {pendingInvitations.map(inv => (
                   <n-table-row>
                     <n-table-cell>
-                      <n-text size="sm">{inv.email}</n-text>
+                      <span class="text-sm">{inv.email}</span>
                     </n-table-cell>
                     <n-table-cell>
                       <n-badge intent={roleIntent(inv.role)}>{inv.role}</n-badge>
@@ -145,11 +145,11 @@ function roleIntent(role: string) {
     <!-- Invite dialog -->
     <n-dialog id="invite-dialog">
       <div class="admin-dialog-card">
-        <n-card>
-          <header>
+        <n-container>
+          <n-header>
             <span>Invite Member</span>
-          </header>
-          <section>
+          </n-header>
+          <n-body>
             <n-stack gap="4">
               <n-field required>
                 <label slot="label">Email address</label>
@@ -162,59 +162,59 @@ function roleIntent(role: string) {
                 <n-select id="invite-role" value="member" options='[{"value":"member","label":"Member"},{"value":"admin","label":"Admin"}]'></n-select>
               </n-field>
             </n-stack>
-          </section>
-          <footer>
+          </n-body>
+          <n-footer>
             <n-button id="invite-cancel">
               <span slot="label">Cancel</span>
             </n-button>
             <n-button id="invite-submit" variant="primary" intent="accent">
               <span slot="label">Send Invite</span>
             </n-button>
-          </footer>
-        </n-card>
+          </n-footer>
+        </n-container>
       </div>
     </n-dialog>
 
     <!-- Role change dialog -->
     <n-dialog id="role-dialog">
       <div class="admin-dialog-card">
-        <n-card>
-          <header>
+        <n-container>
+          <n-header>
             <span>Change Role</span>
-          </header>
-          <section>
+          </n-header>
+          <n-body>
             <n-stack gap="4">
-              <n-text muted size="sm">Update the role for <n-text id="role-name" variant="strong"></n-text></n-text>
+              <span class="text-muted text-sm">Update the role for <span class="text-strong" id="role-name"></span></span>
               <n-field>
                 <label slot="label">Role</label>
                 <n-select id="role-select" value="member" options='[{"value":"member","label":"Member"},{"value":"admin","label":"Admin"},{"value":"owner","label":"Owner"}]'></n-select>
               </n-field>
             </n-stack>
-          </section>
-          <footer>
+          </n-body>
+          <n-footer>
             <n-button id="role-cancel">
               <span slot="label">Cancel</span>
             </n-button>
             <n-button id="role-submit" variant="primary" intent="accent">
               <span slot="label">Save</span>
             </n-button>
-          </footer>
-        </n-card>
+          </n-footer>
+        </n-container>
       </div>
     </n-dialog>
 
     <!-- Remove confirmation dialog -->
     <n-dialog id="remove-dialog">
       <div class="admin-dialog-card">
-        <n-card>
-          <header>
+        <n-container>
+          <n-header>
             <nav><n-icon name="warning" size="lg"></n-icon></nav>
             <span>Remove Member?</span>
-          </header>
-          <section>
-            <n-text>Are you sure you want to remove <n-text id="remove-name" variant="strong"></n-text> from the organization? This action cannot be undone.</n-text>
-          </section>
-          <footer>
+          </n-header>
+          <n-body>
+            <span>Are you sure you want to remove <span class="text-strong" id="remove-name"></span> from the organization? This action cannot be undone.</span>
+          </n-body>
+          <n-footer>
             <n-button id="remove-cancel">
               <span slot="label">Cancel</span>
             </n-button>
@@ -222,8 +222,8 @@ function roleIntent(role: string) {
               <n-icon name="trash" slot="leading"></n-icon>
               <span>Remove</span>
             </n-button>
-          </footer>
-        </n-card>
+          </n-footer>
+        </n-container>
       </div>
     </n-dialog>
   </AdminLayout>

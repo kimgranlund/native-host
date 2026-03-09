@@ -68,30 +68,30 @@ const detailItem = `{ item }`;
     <!-- ── Drop Mode: Swap (Provider) ── -->
 
     <h2>Drop Mode — Swap (Provider)</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         <code>&lt;n-controller&gt;</code> wraps a plain <code>&lt;div&gt;</code> and applies the draggable trait. Drop onto a target to swap positions.
-      </n-text>
+      </span>
       <n-controller traits="draggable" data-trait-draggable-selector=".drag-item" data-trait-draggable-axis="vertical" data-trait-draggable-mode="drop">
         <div id="swap-list" class="drag-list">
-          <div class="drag-item"><span class="handle">&#x2807;</span><n-text inline>Design mockups</n-text></div>
-          <div class="drag-item"><span class="handle">&#x2807;</span><n-text inline>Write component API</n-text></div>
-          <div class="drag-item"><span class="handle">&#x2807;</span><n-text inline>Implement CSS</n-text></div>
-          <div class="drag-item"><span class="handle">&#x2807;</span><n-text inline>Add keyboard support</n-text></div>
-          <div class="drag-item"><span class="handle">&#x2807;</span><n-text inline>Write tests</n-text></div>
+          <div class="drag-item"><span class="handle">&#x2807;</span><span>Design mockups</span></div>
+          <div class="drag-item"><span class="handle">&#x2807;</span><span>Write component API</span></div>
+          <div class="drag-item"><span class="handle">&#x2807;</span><span>Implement CSS</span></div>
+          <div class="drag-item"><span class="handle">&#x2807;</span><span>Add keyboard support</span></div>
+          <div class="drag-item"><span class="handle">&#x2807;</span><span>Write tests</span></div>
         </div>
       </n-controller>
       <div id="swap-log" class="output"></div>
       <pre class="code-block"><code set:html={codeExamples.dropModeSwapProvider} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Drop Mode: Replace (Provider) ── -->
 
     <h2>Drop Mode — Replace (Provider)</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Drag a person onto a role to assign. Uses <code>data-trait-draggable-drop-zone-selector</code> to separate drag items from drop targets.
-      </n-text>
+      </span>
       <n-controller traits="draggable" data-trait-draggable-selector=".drag-person" data-trait-draggable-drop-zone-selector=".drag-role" data-trait-draggable-mode="drop">
         <div id="replace-list" class="drag-list">
           <div class="drag-role"><span class="role-name">Lead</span><span class="role-assignee" id="role-0">—</span></div>
@@ -115,32 +115,32 @@ const detailItem = `{ item }`;
     &lt;!-- ... --&gt;
   &lt;/div&gt;
 &lt;/n-controller&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Slot Mode: Vertical List (Provider) ── -->
 
     <h2>Slot Mode — Vertical List (Provider)</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Shows a gap indicator between items. Dropping inserts the item at that position.
-      </n-text>
+      </span>
       <n-controller traits="draggable" data-trait-draggable-selector=".drag-item" data-trait-draggable-axis="vertical" data-trait-draggable-mode="slot">
         <div id="slot-list" class="drag-list">
-          <div class="drag-item"><span class="handle">&#x2807;</span><n-text inline>Research</n-text></div>
-          <div class="drag-item"><span class="handle">&#x2807;</span><n-text inline>Prototype</n-text></div>
-          <div class="drag-item"><span class="handle">&#x2807;</span><n-text inline>Build</n-text></div>
-          <div class="drag-item"><span class="handle">&#x2807;</span><n-text inline>Test</n-text></div>
-          <div class="drag-item"><span class="handle">&#x2807;</span><n-text inline>Ship</n-text></div>
+          <div class="drag-item"><span class="handle">&#x2807;</span><span>Research</span></div>
+          <div class="drag-item"><span class="handle">&#x2807;</span><span>Prototype</span></div>
+          <div class="drag-item"><span class="handle">&#x2807;</span><span>Build</span></div>
+          <div class="drag-item"><span class="handle">&#x2807;</span><span>Test</span></div>
+          <div class="drag-item"><span class="handle">&#x2807;</span><span>Ship</span></div>
         </div>
       </n-controller>
       <div id="slot-log" class="output"></div>
       <pre class="code-block"><code set:html={codeExamples.slotModeVerticalListProvider} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Slot Mode: Horizontal Cards (Provider) ── -->
 
     <h2>Slot Mode — Horizontal Cards (Provider)</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-controller traits="draggable" data-trait-draggable-selector=".drag-card" data-trait-draggable-axis="horizontal" data-trait-draggable-mode="slot">
         <div id="card-row" class="drag-row">
           <div class="drag-card">A</div>
@@ -159,15 +159,15 @@ const detailItem = `{ item }`;
     &lt;!-- ... --&gt;
   &lt;/div&gt;
 &lt;/n-controller&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Preview Mode: Grid Reorder ── -->
 
     <h2>Preview Mode — Grid Reorder</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Live DOM reordering as you drag. The item moves to its new position in real time — no placeholder needed. Press Escape to cancel and restore the original order. Works with CSS Grid (2D hit-testing via <code>axis="both"</code>).
-      </n-text>
+      </span>
       <n-controller traits="draggable" data-trait-draggable-selector=".grid-cell" data-trait-draggable-axis="both" data-trait-draggable-mode="preview">
         <div id="preview-grid" class="drag-grid">
           <div class="grid-cell">1</div>
@@ -211,15 +211,15 @@ const detailItem = `{ item }`;
 &lt;!-- No native:drop handler needed for reordering —
      the item is already in its final position.
      Handle native:drop only to persist the new order. --&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Cross-Zone: Kanban Board ── -->
 
     <h2>Cross-Zone — Kanban Board (Slot Mode)</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         <code>data-trait-draggable-zone-selector</code> enables dragging items across zone containers. Each column is a zone — items can be dragged between columns. The <code>[drag-zone-active]</code> attribute highlights the target zone during drag.
-      </n-text>
+      </span>
       <n-controller traits="draggable" data-trait-draggable-selector=".kanban-card" data-trait-draggable-zone-selector=".kanban-column" data-trait-draggable-axis="vertical" data-trait-draggable-mode="slot">
         <div id="kanban-board" class="kanban-board">
           <div class="kanban-column">
@@ -260,21 +260,21 @@ const detailItem = `{ item }`;
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/n-controller&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Ghost Rendering ── -->
 
     <h2>Ghost Rendering</h2>
-    <n-panel bordered>
-      <n-text size="sm" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-sm text-muted">
         During a drag, a ghost clone of the dragged item follows the pointer. The ghost uses the browser's <strong>top layer</strong> via <code>[popover="manual"]</code> — it renders above all content without being clipped by <code>overflow</code> containers or stacking contexts.
-      </n-text>
-      <n-text size="sm" muted spacing="tight">
+      </span>
+      <span class="text-sm text-muted">
         The ghost is appended to the <strong>host element</strong> (not <code>document.body</code>) so it inherits CSS custom properties from the component tree. Colors, spacing, and radius tokens all resolve correctly based on the host's context.
-      </n-text>
-      <n-text size="sm" muted spacing="tight">
+      </span>
+      <span class="text-sm text-muted">
         Item queries automatically exclude <code>[popover]</code> elements, so the ghost is never hit-tested or reordered during drag operations. On drag end or cancel, the ghost is cleaned up via <code>hidePopover()</code> + <code>remove()</code>.
-      </n-text>
+      </span>
 
       <h3>Why Popover</h3>
       <n-table variant="plain" size="sm" cols="auto 1fr">
@@ -321,7 +321,7 @@ const detailItem = `{ item }`;
           </n-table-row>
         </n-table-body>
       </n-table>
-    </n-panel>
+    </n-container>
 
     <!-- ── API Reference ── -->
 
@@ -470,8 +470,8 @@ const detailItem = `{ item }`;
       swapList.addEventListener('native:drop', (e) => {
         const { item, target } = /** @type {CustomEvent} */ (e).detail;
         if (!target || target === item) return;
-        const itemLabel = item.querySelector('n-text')?.textContent;
-        const targetLabel = target.querySelector('n-text')?.textContent;
+        const itemLabel = item.querySelector('span')?.textContent;
+        const targetLabel = target.querySelector('span')?.textContent;
         const placeholder = document.createElement('div');
         item.before(placeholder);
         target.before(item);
@@ -479,7 +479,7 @@ const detailItem = `{ item }`;
         swapLog(`Swapped "${itemLabel}" ↔ "${targetLabel}"`);
       });
       swapList.addEventListener('native:drag-cancel', (e) => {
-        swapLog(`Cancelled: "${/** @type {CustomEvent} */ (e).detail.item.querySelector('n-text')?.textContent}"`);
+        swapLog(`Cancelled: "${/** @type {CustomEvent} */ (e).detail.item.querySelector('span')?.textContent}"`);
       });
 
       // ── Drop mode — replace ──
@@ -506,7 +506,7 @@ const detailItem = `{ item }`;
         } else {
           slotList?.appendChild(item);
         }
-        slotLog(`Inserted "${item.querySelector('n-text')?.textContent}" at position ${toIndex}`);
+        slotLog(`Inserted "${item.querySelector('span')?.textContent}" at position ${toIndex}`);
       });
 
       // ── Slot mode — horizontal cards ──
@@ -587,7 +587,7 @@ const detailItem = `{ item }`;
       font-size: 0.875rem;
     }
 
-    .drag-item > n-text {
+    .drag-item > span {
       flex: 1;
     }
 

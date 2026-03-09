@@ -96,7 +96,7 @@ main > header > [slot="actions"] {
 
 /* ── Content helpers ── */
 
-main > section > :where(n-panel[bordered]) {
+main > section > :where(n-container[bordered]) {
   margin-bottom: 1rem;
 }
 

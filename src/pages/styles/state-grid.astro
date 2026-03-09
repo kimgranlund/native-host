@@ -5,7 +5,7 @@ const codeExamples = {
   example: `/* ── Intent → Variant Resolution Flow ── */
 /* 1. [intent] sets the color family */
 :where([intent="accent"]) {
-  --n-panel: var(--n-panel-accent);
+  --n-container: var(--n-panel-accent);
   --n-surface: var(--n-surface-accent);
   --n-ink: var(--n-ink-accent);
 }
@@ -34,7 +34,7 @@ const codeExamples = {
   <section>
 
       <div class="legend-wrapper">
-        <n-panel bordered size="sm">
+        <n-container data-kind="panel" bordered size="sm">
           <div class="legend-row">
             <div class="legend-item"><span class="legend-swatch legend-swatch--accent"></span> accent-surface</div>
             <div class="legend-item"><span class="legend-swatch legend-swatch--white"></span> white</div>
@@ -43,7 +43,7 @@ const codeExamples = {
             <div class="legend-item"><span class="legend-swatch legend-swatch--button"></span> button</div>
             <div class="legend-item"><span class="legend-swatch legend-swatch--transparent"></span> transparent</div>
           </div>
-        </n-panel>
+        </n-container>
       </div>
 
       <!-- Toolbar: category filters + state search -->
@@ -63,7 +63,7 @@ const codeExamples = {
         </n-input>
       </n-toolbar>
 
-      <n-panel bordered>
+      <n-container data-kind="panel" bordered>
       <pre class="code-block"><code>/* ── State Token Resolution ── */
 /* Components read local tokens (--n-*) set by attribute selectors */
 
@@ -82,7 +82,7 @@ color: var(--n-ink-disabled);
 pointer-events: none;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
 
       <pre class="code-block"><code set:html={codeExamples.example} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-      </n-panel>
+      </n-container>
 
       <div class="state-grid" id="grid"></div>
   </section>
@@ -638,7 +638,7 @@ pointer-events: none;</code><n-button size="sm" variant="ghost" aria-label="Copy
   };
 
   for (const comp of components) {
-    const card = document.createElement('n-card');
+    const card = document.createElement('n-container');
     card.dataset.comp = comp.name;
     card.dataset.category = comp.category;
     card.classList.add('comp-card');
@@ -677,11 +677,11 @@ pointer-events: none;</code><n-button size="sm" variant="ghost" aria-label="Copy
     const badgeAttr = badgeIntent ? ` intent="${badgeIntent}"` : '';
 
     card.innerHTML = `
-      <header>
+      <n-header>
         <span class="comp-card-name">${comp.name}</span>
         <n-badge size="xs"${badgeAttr}>${categoryLabels[comp.category]}</n-badge>
-      </header>
-      <section class="comp-card-body">${bodyHTML}</section>
+      </n-header>
+      <n-body class="comp-card-body">${bodyHTML}</n-body>
     `;
 
     grid.appendChild(card);

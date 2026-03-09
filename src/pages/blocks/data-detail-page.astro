@@ -10,7 +10,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     </n-breadcrumb>
     <div slot="title">
       <div slot="leading">
-        <n-avatar name="Kim Granlund" size="xl" intent="accent"></n-avatar>
+        <n-avatar name="Kim Granlund" size="xl" intent="accent">KG</n-avatar>
       </div>
       <div slot="content">
         <n-stack gap="1">
@@ -44,12 +44,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         <n-tab-panel value="overview">
           <n-stack gap="4">
             <n-grid cols="2" gap="4">
-              <n-card>
-                <header>
+              <n-container>
+                <n-header>
                   <nav><n-icon name="user"></n-icon></nav>
                   <span>Personal Information</span>
-                </header>
-                <section>
+                </n-header>
+                <n-body>
                   <n-stack gap="3">
                     <div class="detail-item">
                       <span class="detail-label">Full Name</span>
@@ -68,15 +68,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
                       <span class="detail-value">San Francisco, CA</span>
                     </div>
                   </n-stack>
-                </section>
-              </n-card>
+                </n-body>
+              </n-container>
 
-              <n-card>
-                <header>
+              <n-container>
+                <n-header>
                   <nav><n-icon name="clipboard-text"></n-icon></nav>
                   <span>Work Information</span>
-                </header>
-                <section>
+                </n-header>
+                <n-body>
                   <n-stack gap="3">
                     <div class="detail-item">
                       <span class="detail-label">Department</span>
@@ -95,17 +95,17 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
                       <span class="detail-value">EMP-2023-0472</span>
                     </div>
                   </n-stack>
-                </section>
-              </n-card>
+                </n-body>
+              </n-container>
             </n-grid>
 
             <!-- ── Recent Projects ── -->
-            <n-card>
-              <header>
+            <n-container>
+              <n-header>
                 <nav><n-icon name="lightning"></n-icon></nav>
                 <span>Recent Projects</span>
-              </header>
-              <section>
+              </n-header>
+              <n-body>
                 <div class="table-scroll">
                   <n-table cols="2fr 1fr 100px 80px">
                     <n-table-head>
@@ -144,19 +144,19 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
                     </n-table-body>
                   </n-table>
                 </div>
-              </section>
-            </n-card>
+              </n-body>
+            </n-container>
           </n-stack>
         </n-tab-panel>
 
         <!-- ── Activity Panel ── -->
         <n-tab-panel value="activity">
-          <n-card>
-            <header>
+          <n-container>
+            <n-header>
               <nav><n-icon name="pulse"></n-icon></nav>
               <span>Recent Activity</span>
-            </header>
-            <section>
+            </n-header>
+            <n-body>
               <n-stack gap="2">
                 <div class="activity-item">
                   <span class="activity-dot"></span>
@@ -208,20 +208,20 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
                   </div>
                 </div>
               </n-stack>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
         </n-tab-panel>
 
         <!-- ── Settings Panel ── -->
         <n-tab-panel value="settings">
           <n-stack gap="4">
             <n-grid cols="2" gap="4">
-              <n-card>
-                <header>
+              <n-container>
+                <n-header>
                   <nav><n-icon name="bell"></n-icon></nav>
                   <span>Notifications</span>
-                </header>
-                <section>
+                </n-header>
+                <n-body>
                   <n-stack gap="2">
                     <div class="settings-row">
                       <div>
@@ -245,15 +245,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
                       <n-switch></n-switch>
                     </div>
                   </n-stack>
-                </section>
-              </n-card>
+                </n-body>
+              </n-container>
 
-              <n-card>
-                <header>
+              <n-container>
+                <n-header>
                   <nav><n-icon name="shield-check"></n-icon></nav>
                   <span>Security</span>
-                </header>
-                <section>
+                </n-header>
+                <n-body>
                   <n-stack gap="2">
                     <div class="settings-row">
                       <div>
@@ -283,16 +283,16 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
                       </n-button>
                     </div>
                   </n-stack>
-                </section>
-              </n-card>
+                </n-body>
+              </n-container>
             </n-grid>
 
-            <n-card>
-              <header>
+            <n-container>
+              <n-header>
                 <nav><n-icon name="warning"></n-icon></nav>
                 <span class="danger-label">Danger Zone</span>
-              </header>
-              <section>
+              </n-header>
+              <n-body>
                 <n-stack gap="0">
                   <div class="settings-row">
                     <div>
@@ -314,8 +314,8 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
                     </n-button>
                   </div>
                 </n-stack>
-              </section>
-            </n-card>
+              </n-body>
+            </n-container>
           </n-stack>
         </n-tab-panel>
         </n-tab-panels>

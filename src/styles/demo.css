@@ -73,6 +73,21 @@
   color: var(--n-ink-muted-neutral);
 }
 
+/* ── n-text replacement utilities ── */
+
+.text-muted { color: var(--n-ink-muted-neutral); }
+.text-strong { font-weight: 600; }
+.text-xs { font-size: 0.6875rem; }
+.text-lg { font-size: 1.125rem; }
+.text-xl { font-size: 1.25rem; }
+.text-truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.text-uppercase { text-transform: uppercase; letter-spacing: 0.05em; }
+.text-accent { color: var(--n-ink-accent); }
+.text-info { color: var(--n-ink-info); }
+.text-success { color: var(--n-ink-success); }
+.text-warning { color: var(--n-ink-warning); }
+.text-danger { color: var(--n-ink-danger); }
+
 /* ── Layout Utilities ── */
 
 .col {

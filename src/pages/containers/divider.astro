@@ -18,73 +18,73 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <!-- ── Basic ── -->
 
     <h2>Horizontal (default)</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <p>Content above the divider.</p>
       <n-divider></n-divider>
       <p>Content below the divider.</p>
     <pre class="code-block"><code>&lt;p&gt;Content above the divider.&lt;/p&gt;
 &lt;n-divider&gt;&lt;/n-divider&gt;
 &lt;p&gt;Content below the divider.&lt;/p&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── With Label ── -->
 
     <h2>With Label</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <p>Sign in with your account.</p>
       <n-divider>or</n-divider>
       <p>Continue as guest.</p>
-    </n-panel>
+    </n-container>
 
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-divider>or continue with</n-divider>
     <pre class="code-block"><code>&lt;n-divider&gt;or&lt;/n-divider&gt;
 
 &lt;n-divider&gt;or continue with&lt;/n-divider&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Vertical ── -->
 
     <h2>Vertical</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <div class="vertical-container"><n-stack direction="row" align="center" gap="4">
-        <n-text inline>Left</n-text>
+        <span>Left</span>
         <n-divider orientation="vertical"></n-divider>
-        <n-text inline>Right</n-text>
+        <span>Right</span>
       </n-stack></div>
-    </n-panel>
+    </n-container>
 
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <div class="vertical-container"><n-stack direction="row" align="center" gap="4">
-        <n-text inline>One</n-text>
+        <span>One</span>
         <n-divider orientation="vertical"></n-divider>
-        <n-text inline>Two</n-text>
+        <span>Two</span>
         <n-divider orientation="vertical"></n-divider>
-        <n-text inline>Three</n-text>
+        <span>Three</span>
       </n-stack></div>
       <pre class="code-block"><code>&lt;div style="display: flex; align-items: center; gap: 1rem; height: 4rem;"&gt;
   &lt;span&gt;Left&lt;/span&gt;
   &lt;n-divider orientation="vertical"&gt;&lt;/n-divider&gt;
   &lt;span&gt;Right&lt;/span&gt;
 &lt;/div&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Vertical With Label ── -->
 
     <h2>Vertical With Label</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <div class="vertical-container vertical-container--tall"><n-stack direction="row" align="center" gap="4">
-        <n-text inline>Left</n-text>
+        <span>Left</span>
         <n-divider orientation="vertical">or</n-divider>
-        <n-text inline>Right</n-text>
+        <span>Right</span>
       </n-stack></div>
       <pre class="code-block"><code>&lt;n-divider orientation="vertical"&gt;or&lt;/n-divider&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Sizes ── -->
 
     <h2>Sizes (inherit from parent)</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <h3>size="xs"</h3>
       <div size="xs">
         <n-divider>xs label</n-divider>
@@ -108,12 +108,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       <pre class="code-block"><code>&lt;div size="sm"&gt;
   &lt;n-divider&gt;sm label&lt;/n-divider&gt;
 &lt;/div&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Composition ── -->
 
     <h2>Composition (with buttons)</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <div class="divider-full-btn"><n-button variant="primary" intent="accent"><span>Sign In</span></n-button></div>
       <n-divider>or continue with</n-divider>
       <n-stack direction="row">
@@ -126,7 +126,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   &lt;n-button style="flex: 1;"&gt;Google&lt;/n-button&gt;
   &lt;n-button style="flex: 1;"&gt;GitHub&lt;/n-button&gt;
 &lt;/div&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
   </section>
 
   <style is:global>

@@ -1,0 +1,322 @@
+---
+import SidebarLayout from '../../layouts/SidebarLayout.astro';
+
+const codeExamples = {
+  direct: `import { StoreController, effect } from '@nonoun/native-ui';
+
+const store = new StoreController();
+
+// Set local values
+store.set('name', 'Alice');
+store.set('count', 42);
+
+// Reactively read
+const name = store.get&lt;string&gt;('name');
+effect(() =&gt; console.log(name.value));
+
+// Fetch remote data — populates signals from top-level JSON keys
+await store.load('/api/user');
+
+// Loading/error states
+effect(() =&gt; {
+  if (store.loading.value) showSpinner();
+  if (store.error.value) showError(store.error.value);
+});`,
+  provider: `&lt;!-- Seed from attributes + fetch from src --&gt;
+&lt;n-controller provides="userStore"
+  data-store-count="42"
+  data-store-name="Alice"
+  src="/api/user-data"&gt;
+
+  &lt;!-- Children request via context protocol --&gt;
+  &lt;my-widget&gt;&lt;/my-widget&gt;
+&lt;/n-controller&gt;`,
+  consumer: `import { ContextRequestEvent } from '@nonoun/native-ui';
+
+// Inside a child component's connectedCallback:
+this.dispatchEvent(new ContextRequestEvent('userStore', (store) =&gt; {
+  const count = store.get&lt;number&gt;('count');
+  effect(() =&gt; this.render(count.value));
+}));`,
+};
+---
+<SidebarLayout title="StoreController">
+  <header>
+    <div slot="title">
+      <div slot="content">
+        <h1>StoreController</h1>
+      </div>
+    </div>
+    <div slot="description">
+
+      Reactive key-value store with remote fetch. Bridges data fetching with the signal system — lazy signal creation per key, <code>load(url)</code> for JSON fetch with abort-safe request management, and global <code>loading</code>/<code>error</code> signals for UI feedback.
+
+    </div>
+  </header>
+
+  <section id="store-controller-page">
+
+    <!-- ── Direct (Imperative) ── -->
+
+    <h2>Direct (Imperative)</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Create a store, set values, fetch remote data, and reactively observe changes. The store lazily creates signals per key — no upfront schema needed.
+      </span>
+      <div id="direct-demo">
+        <n-stack gap="3">
+          <n-stack direction="row" gap="3" align="center">
+            <n-field>
+              <label>Key</label>
+              <n-input id="direct-key" placeholder="e.g. name"></n-input>
+            </n-field>
+            <n-field>
+              <label>Value</label>
+              <n-input id="direct-value" placeholder="e.g. Alice"></n-input>
+            </n-field>
+            <n-button id="direct-set-btn" size="sm">Set</n-button>
+          </n-stack>
+          <n-stack direction="row" gap="3" align="center">
+            <n-field>
+              <label>Load URL</label>
+              <n-input id="direct-url" placeholder="/api/..." value="https://jsonplaceholder.typicode.com/users/1"></n-input>
+            </n-field>
+            <n-button id="direct-load-btn" size="sm">Load</n-button>
+          </n-stack>
+          <n-stack direction="row" gap="2" align="center">
+            <span class="text-xs text-muted">Loading:</span>
+            <span class="text-xs" id="direct-loading">false</span>
+            <span class="text-xs text-muted" style="margin-left: 1rem;">Error:</span>
+            <span class="text-xs" id="direct-error">null</span>
+          </n-stack>
+          <div id="direct-log" class="output"></div>
+        </n-stack>
+      </div>
+      <pre class="code-block"><code set:html={codeExamples.direct} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Provider Pattern ── -->
+
+    <h2>Provider Pattern</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        The <code>&lt;n-controller provides="key"&gt;</code> attribute exposes a StoreController to descendants via the Context Protocol. Seed values with <code>data-store-*</code> attributes and optionally fetch from <code>src</code>.
+      </span>
+      <n-controller provides="demo-store" data-store-greeting="Hello" data-store-count="0" id="provider-demo">
+        <n-stack gap="3">
+          <n-stack direction="row" gap="2" align="center">
+            <span class="text-xs text-muted">greeting:</span>
+            <span class="text-xs" id="provider-greeting">—</span>
+            <span class="text-xs text-muted" style="margin-left: 1rem;">count:</span>
+            <span class="text-xs" id="provider-count">—</span>
+          </n-stack>
+          <n-stack direction="row" gap="2">
+            <n-button id="provider-inc-btn" size="sm">Increment count</n-button>
+            <n-button id="provider-greet-btn" size="sm" variant="ghost">Change greeting</n-button>
+          </n-stack>
+        </n-stack>
+      </n-controller>
+      <pre class="code-block"><code set:html={codeExamples.provider} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Consumer Pattern ── -->
+
+    <h2>Context Consumer</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Child elements request the store using <code>ContextRequestEvent</code>. The callback receives the <code>StoreController</code> instance, and signals reactively update the consumer.
+      </span>
+      <pre class="code-block"><code set:html={codeExamples.consumer} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── API Reference ── -->
+
+    <h2>API</h2>
+      <h3>Constructor</h3>
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Option</n-table-header><n-table-header>Type</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>parse</code></n-table-cell>
+            <n-table-cell><code>(res: Response) =&gt; Promise&lt;Record&gt;</code></n-table-cell>
+            <n-table-cell>Custom response parser. Default: <code>res.json()</code>.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+
+      <h3>Properties</h3>
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Property</n-table-header><n-table-header>Type</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>loading</code></n-table-cell>
+            <n-table-cell><code>Signal&lt;boolean&gt;</code></n-table-cell>
+            <n-table-cell>True while a <code>load()</code> fetch is in progress.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>error</code></n-table-cell>
+            <n-table-cell><code>Signal&lt;string | null&gt;</code></n-table-cell>
+            <n-table-cell>Error message from last failed load, or null.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+
+      <h3>Methods</h3>
+      <n-table variant="plain" size="sm" cols="auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Method</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>get&lt;T&gt;(key)</code></n-table-cell>
+            <n-table-cell>Get or lazily create a signal for the key.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>set(key, value)</code></n-table-cell>
+            <n-table-cell>Set a value, creating the signal if needed.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>setAll(data)</code></n-table-cell>
+            <n-table-cell>Bulk-set from a plain object.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>load(url)</code></n-table-cell>
+            <n-table-cell>Fetch JSON from URL, populate signals from top-level keys. Aborts previous in-flight request. Returns <code>true</code> on success.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>has(key)</code></n-table-cell>
+            <n-table-cell>Check if a key exists.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>keys()</code></n-table-cell>
+            <n-table-cell>Iterate all current keys.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>destroy()</code></n-table-cell>
+            <n-table-cell>Abort pending fetch, clean up.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+
+      <h3>Provider Attributes</h3>
+      <n-table variant="plain" size="sm" cols="auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>provides="key"</code></n-table-cell>
+            <n-table-cell>Exposes the store via context protocol under this key.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-store-*</code></n-table-cell>
+            <n-table-cell>Seed values — <code>data-store-count="42"</code> → <code>store.set('count', '42')</code>.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>src</code></n-table-cell>
+            <n-table-cell>URL to fetch — calls <code>store.load(src)</code> on connect and on attribute change.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+  </section>
+
+  <script>
+import { StoreController, ContextRequestEvent, effect } from '@nonoun/native-ui';
+import { logAppend as appendLog } from '../../scripts/event-log';
+
+document.addEventListener('astro:page-load', () => {
+  if (!document.getElementById('store-controller-page')) return;
+
+  // ── Direct (Imperative) Demo ──
+
+  const store = new StoreController();
+  const logEl = document.getElementById('direct-log');
+  const loadingEl = document.getElementById('direct-loading');
+  const errorEl = document.getElementById('direct-error');
+
+  effect(() => {
+    if (loadingEl) loadingEl.textContent = String(store.loading.value);
+  });
+  effect(() => {
+    if (errorEl) errorEl.textContent = store.error.value ?? 'null';
+  });
+
+  const setBtn = document.getElementById('direct-set-btn');
+  setBtn?.addEventListener('click', () => {
+    const key = /** @type {HTMLInputElement} */ (document.getElementById('direct-key'))?.value?.trim();
+    const val = /** @type {HTMLInputElement} */ (document.getElementById('direct-value'))?.value?.trim();
+    if (!key) return;
+    store.set(key, val);
+
+    // Watch the signal
+    const sig = store.get(key);
+    appendLog(logEl, `set "${key}" = "${sig.value}"`, 30);
+  });
+
+  const loadBtn = document.getElementById('direct-load-btn');
+  loadBtn?.addEventListener('click', async () => {
+    const url = /** @type {HTMLInputElement} */ (document.getElementById('direct-url'))?.value?.trim();
+    if (!url) return;
+    appendLog(logEl, `loading ${url}...`, 30);
+    const ok = await store.load(url);
+    if (ok) {
+      const keys = [...store.keys()];
+      appendLog(logEl, `loaded ${keys.length} keys: ${keys.slice(0, 8).join(', ')}${keys.length > 8 ? '...' : ''}`, 30);
+    } else {
+      appendLog(logEl, `load failed: ${store.error.value}`, 30);
+    }
+  });
+
+  // ── Provider Demo ──
+
+  const providerEl = document.getElementById('provider-demo');
+  if (providerEl) {
+    // Request the store via context protocol
+    let providerStore: StoreController | null = null;
+
+    providerEl.dispatchEvent(new ContextRequestEvent('demo-store', (s: StoreController) => {
+      providerStore = s;
+    }));
+
+    if (providerStore) {
+      const greetingEl = document.getElementById('provider-greeting');
+      const countEl = document.getElementById('provider-count');
+
+      const greeting = (providerStore as StoreController).get<string>('greeting');
+      const count = (providerStore as StoreController).get<string>('count');
+
+      effect(() => {
+        if (greetingEl) greetingEl.textContent = String(greeting.value);
+      });
+      effect(() => {
+        if (countEl) countEl.textContent = String(count.value);
+      });
+
+      const incBtn = document.getElementById('provider-inc-btn');
+      incBtn?.addEventListener('click', () => {
+        const current = Number(count.value) || 0;
+        (providerStore as StoreController).set('count', String(current + 1));
+      });
+
+      const greetBtn = document.getElementById('provider-greet-btn');
+      const greetings = ['Hello', 'Hola', 'Bonjour', 'Hej', 'Ciao', 'こんにちは'];
+      let gi = 0;
+      greetBtn?.addEventListener('click', () => {
+        gi = (gi + 1) % greetings.length;
+        (providerStore as StoreController).set('greeting', greetings[gi]);
+      });
+    }
+  }
+});
+  </script>
+  <style is:global>
+    .output {
+      font-family: monospace;
+      font-size: 0.75rem;
+      color: var(--n-ink-muted-neutral);
+      max-height: 8rem;
+      overflow-y: auto;
+      margin-top: 0.75rem;
+      padding: 0.5rem;
+      background: var(--n-panel-neutral);
+      border-radius: 0.25rem;
+    }
+</style>
+
+</SidebarLayout>

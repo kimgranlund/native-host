@@ -18,18 +18,18 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 <n-stack gap="6">
 
     <div class="wizard-wrapper">
-      <n-card>
-        <header>
+      <n-container>
+        <n-header>
           <div class="step-indicator-full"><n-segmented-control id="step-indicator" value="personal">
             <n-segment value="personal">1. Personal</n-segment>
             <n-segment value="address">2. Address</n-segment>
             <n-segment value="review">3. Review</n-segment>
           </n-segmented-control></div>
-        </header>
+        </n-header>
 
         <!-- ── Step 1: Personal Information ── -->
         <div class="step-panel" id="step-personal" active>
-          <section><n-stack gap="6">
+          <n-body><n-stack gap="6">
             <n-field required>
               <label slot="label">Full name</label>
               <n-input placeholder="Jane Doe" id="input-name" name="name">
@@ -52,9 +52,9 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
               </n-input>
             </n-field>
           </n-stack>
-          </section>
+          </n-body>
 
-          <footer>
+          <n-footer>
           <div class="step-actions">
             <div></div>
             <div class="right">
@@ -64,12 +64,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
               </n-button>
             </div>
           </div>
-          </footer>
+          </n-footer>
         </div>
 
         <!-- ── Step 2: Address ── -->
         <div class="step-panel" id="step-address">
-          <section><n-stack gap="6">
+          <n-body><n-stack gap="6">
             <n-field required>
               <label slot="label">Street address</label>
               <n-input placeholder="123 Main Street" id="input-address" name="address">
@@ -104,9 +104,9 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
               <n-input placeholder="94102" id="input-zip" name="zip"></n-input>
             </n-field>
           </n-stack>
-          </section>
+          </n-body>
 
-          <footer>
+          <n-footer>
           <div class="step-actions">
             <n-button variant="ghost" id="btn-prev-2">
               <n-icon name="arrow-left" slot="leading"></n-icon>
@@ -119,12 +119,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
               </n-button>
             </div>
           </div>
-          </footer>
+          </n-footer>
         </div>
 
         <!-- ── Step 3: Review ── -->
         <div class="step-panel" id="step-review">
-          <section>
+          <n-body>
           <n-stack gap="4">
           <div>
             <h2>Review your information</h2>
@@ -164,9 +164,9 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
             </div>
           </n-stack>
           </n-stack>
-          </section>
+          </n-body>
 
-          <footer>
+          <n-footer>
           <div class="step-actions">
             <n-button variant="ghost" id="btn-prev-3">
               <n-icon name="arrow-left" slot="leading"></n-icon>
@@ -179,9 +179,9 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
               </n-button>
             </div>
           </div>
-          </footer>
+          </n-footer>
         </div>
-      </n-card>
+      </n-container>
     </div>
     </n-stack>
   </section>

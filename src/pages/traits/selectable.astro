@@ -62,10 +62,10 @@ const handleClickSig = `handleClick(item, { shift, ctrl })`;
     <!-- ── Multiple Selection ── -->
 
     <h2>Multiple Selection</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Click to select, <strong>Shift+Click</strong> for range, <strong>Ctrl/Cmd+Click</strong> to toggle, <strong>Ctrl/Cmd+A</strong> to select all.
-      </n-text>
+      </span>
       <n-controller traits="selectable" selectable-selector=".select-item" selectable-mode="multiple">
         <div class="select-list">
           <div class="select-item">Design System</div>
@@ -78,15 +78,15 @@ const handleClickSig = `handleClick(item, { shift, ctrl })`;
       </n-controller>
       <div id="multi-log" class="output"></div>
       <pre class="code-block"><code set:html={codeExamples.multipleSelection} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Single Selection ── -->
 
     <h2>Single Selection</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Mode set to <code>'single'</code>. Only one item can be selected at a time.
-      </n-text>
+      </span>
       <n-controller traits="selectable" selectable-selector=".select-item" selectable-mode="single">
         <div class="select-list">
           <div class="select-item">Small</div>
@@ -97,7 +97,7 @@ const handleClickSig = `handleClick(item, { shift, ctrl })`;
       </n-controller>
       <div id="single-log" class="output"></div>
       <pre class="code-block"><code set:html={codeExamples.singleSelection} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── API Reference ── -->
 

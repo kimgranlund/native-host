@@ -39,7 +39,7 @@ const codeExamples = {
     <!-- ── Basic Toggle ── -->
 
     <h2>Basic Toggle</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-button id="toggle-btn">Toggle Content</n-button>
       <collapse-demo traits="collapsible" id="section1">
         <div class="collapse-content">
@@ -64,12 +64,12 @@ const codeExamples = {
   el.addEventListener('native:expand', () =&gt; console.log('Expanded'));
   el.addEventListener('native:collapse', () =&gt; console.log('Collapsed'));
 &lt;/script&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Initially Collapsed ── -->
 
     <h2>Initially Collapsed</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-button id="expand-btn">Expand</n-button>
       <collapse-demo traits="collapsible" id="section2" collapsed>
         <div class="collapse-content">
@@ -89,12 +89,12 @@ const codeExamples = {
   if (ctrl.collapsed) ctrl.expand();
   else ctrl.collapse();
 &lt;/script&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Custom Duration ── -->
 
     <h2>Custom Duration (500ms)</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-button id="slow-btn">Toggle Slow</n-button>
       <collapse-demo traits="collapsible" collapsible-duration="500" id="section3">
         <div class="collapse-content">
@@ -102,12 +102,12 @@ const codeExamples = {
         </div>
       </collapse-demo>
     <pre class="code-block"><code set:html={codeExamples.customDuration500ms} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── API Reference ── -->
 
     <h2>API</h2>
-    <n-panel>
+    <n-container data-kind="panel">
       <n-table variant="plain" size="sm" cols="auto 1fr">
         <n-table-head>
           <n-table-row>
@@ -146,7 +146,7 @@ const codeExamples = {
           </n-table-row>
         </n-table-body>
       </n-table>
-    </n-panel>
+    </n-container>
   </section>
 
   <script>

@@ -20,10 +20,10 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
     <!-- ── Command Bus ── -->
 
     <h2>Command Bus</h2>
-    <n-panel bordered size="sm">
-      <n-text size="sm" muted spacing="regular">
+    <n-container data-kind="panel" bordered size="sm">
+      <span class="text-sm text-muted">
         Dispatch commands through the bus. Handlers receive typed payloads. Middleware can intercept, log, or transform commands.
-      </n-text>
+      </span>
       <n-stack direction="row" wrap align="center">
         <n-button variant="primary" id="cmd-increment">
           <span slot="label">Increment Counter</span>
@@ -35,24 +35,24 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
           <span slot="label">Reset</span>
         </n-button>
       </n-stack>
-      <n-card size="sm">
-        <section>
+      <n-container size="sm">
+        <n-body>
           <div class="status-bar" id="counter-status">
-            <span><span class="label">Counter:</span> <n-text inline strong intent="accent" id="counter-value">0</n-text></span>
-            <span><span class="label">Commands:</span> <n-text inline strong intent="accent" id="cmd-count">0</n-text></span>
+            <span><span class="label">Counter:</span> <span class="text-strong text-accent" id="counter-value">0</span></span>
+            <span><span class="label">Commands:</span> <span class="text-strong text-accent" id="cmd-count">0</span></span>
           </div>
-        </section>
-      </n-card>
+        </n-body>
+      </n-container>
       <div class="log" id="cmd-log"></div>
-    </n-panel>
+    </n-container>
 
     <!-- ── Undo / Redo ── -->
 
     <h2>Undo / Redo</h2>
-    <n-panel bordered size="sm">
-      <n-text size="sm" muted spacing="regular">
+    <n-container data-kind="panel" bordered size="sm">
+      <span class="text-sm text-muted">
         Commands with undo metadata are tracked. Use Ctrl/Cmd+Z and Ctrl/Cmd+Shift+Z or the buttons below.
-      </n-text>
+      </span>
       <n-stack direction="row" wrap align="center">
         <n-button id="btn-undo" disabled>
           <span slot="label">Undo</span>
@@ -61,34 +61,34 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
           <span slot="label">Redo</span>
         </n-button>
       </n-stack>
-      <n-card size="sm">
-        <section>
+      <n-container size="sm">
+        <n-body>
           <div class="status-bar">
-            <span><span class="label">Undo stack:</span> <n-text inline strong intent="accent" id="undo-count">0</n-text></span>
-            <span><span class="label">Redo stack:</span> <n-text inline strong intent="accent" id="redo-count">0</n-text></span>
+            <span><span class="label">Undo stack:</span> <span class="text-strong text-accent" id="undo-count">0</span></span>
+            <span><span class="label">Redo stack:</span> <span class="text-strong text-accent" id="redo-count">0</span></span>
           </div>
-        </section>
-      </n-card>
-    </n-panel>
+        </n-body>
+      </n-container>
+    </n-container>
 
     <!-- ── Focus Router ── -->
 
     <h2>Focus Router (Keyboard Shortcuts)</h2>
-    <n-panel bordered>
-      <n-text size="sm" muted spacing="regular">
+    <n-container data-kind="panel" bordered>
+      <span class="text-sm text-muted">
         Global keyboard shortcuts registered through the focus router. Try pressing the keys below (click outside any input first).
-      </n-text>
+      </span>
       <div class="shortcut-list" id="shortcut-list"></div>
       <div class="log" id="shortcut-log"></div>
-    </n-panel>
+    </n-container>
 
     <!-- ── Overlay Manager ── -->
 
     <h2>Overlay Manager</h2>
-    <n-panel bordered size="sm">
-      <n-text size="sm" muted spacing="regular">
+    <n-container data-kind="panel" bordered size="sm">
+      <span class="text-sm text-muted">
         Centralized overlay stack with z-index arbitration. Escape closes the top overlay. Click outside to dismiss.
-      </n-text>
+      </span>
       <n-stack direction="row" wrap align="center">
         <n-button variant="primary" id="overlay-open-popover">
           <span slot="label">Open Popover</span>
@@ -100,23 +100,23 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
           <span slot="label">Close All</span>
         </n-button>
       </n-stack>
-      <n-card size="sm">
-        <section>
+      <n-container size="sm">
+        <n-body>
           <div class="status-bar">
-            <span><span class="label">Stack depth:</span> <n-text inline strong intent="accent" id="overlay-depth">0</n-text></span>
-            <span><span class="label">Top:</span> <n-text inline strong intent="accent" id="overlay-top">none</n-text></span>
+            <span><span class="label">Stack depth:</span> <span class="text-strong text-accent" id="overlay-depth">0</span></span>
+            <span><span class="label">Top:</span> <span class="text-strong text-accent" id="overlay-top">none</span></span>
           </div>
-        </section>
-      </n-card>
-    </n-panel>
+        </n-body>
+      </n-container>
+    </n-container>
 
     <!-- ── Plan Executor ── -->
 
     <h2>Plan Executor (GenUI)</h2>
-    <n-panel bordered>
-      <n-text size="sm" muted spacing="regular">
+    <n-container data-kind="panel" bordered>
+      <span class="text-sm text-muted">
         Validate and render a declarative UI schema. Events wire to the command bus. Edit the JSON and click "Execute Plan".
-      </n-text>
+      </span>
       <textarea class="plan-input" id="plan-input"></textarea>
       <n-stack direction="row" wrap align="center" class="kernel-row-gap">
         <n-button variant="primary" id="plan-execute" size="sm">
@@ -132,15 +132,15 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
       <h3>Rendered Output</h3>
       <div class="plan-output" id="plan-output"></div>
       <div class="log" id="plan-log"></div>
-    </n-panel>
+    </n-container>
 
     <!-- ── Patch Protocol ── -->
 
     <h2>Patch Protocol</h2>
-    <n-panel bordered>
-      <n-text size="sm" muted spacing="regular">
+    <n-container data-kind="panel" bordered>
+      <span class="text-sm text-muted">
         Apply incremental patches to a rendered plan. Execute a plan above first, then try patching it.
-      </n-text>
+      </span>
       <n-stack direction="row" wrap align="center">
         <n-button variant="primary" id="patch-text" size="sm">
           <span slot="label">Patch Text</span>
@@ -156,15 +156,15 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         </n-button>
       </n-stack>
       <div class="log" id="patch-log"></div>
-    </n-panel>
+    </n-container>
 
     <!-- ── Accessibility Validation ── -->
 
     <h2>Accessibility Validation</h2>
-    <n-panel bordered>
-      <n-text size="sm" muted spacing="regular">
+    <n-container data-kind="panel" bordered>
+      <span class="text-sm text-muted">
         Validate a plan against accessibility rules before rendering. Try plans with and without proper labeling.
-      </n-text>
+      </span>
       <n-stack direction="row" wrap align="center">
         <n-button variant="primary" id="a11y-check-plan" size="sm">
           <span slot="label">Validate Current Plan</span>
@@ -177,15 +177,15 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         </n-button>
       </n-stack>
       <div class="log" id="a11y-log"></div>
-    </n-panel>
+    </n-container>
 
     <!-- ── Observability ── -->
 
     <h2>Observability</h2>
-    <n-panel bordered>
-      <n-text size="sm" muted spacing="regular">
+    <n-container data-kind="panel" bordered>
+      <span class="text-sm text-muted">
         All kernel activity is logged. View the event log and performance metrics.
-      </n-text>
+      </span>
       <n-stack direction="row" wrap align="center">
         <n-button variant="primary" id="obs-show-log" size="sm">
           <span slot="label">Show Event Log</span>
@@ -197,24 +197,24 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
           <span slot="label">Clear Log</span>
         </n-button>
       </n-stack>
-      <n-card size="sm">
-        <section>
+      <n-container size="sm">
+        <n-body>
           <div class="status-bar">
-            <span><span class="label">Log entries:</span> <n-text inline strong intent="accent" id="obs-count">0</n-text></span>
-            <span><span class="label">Perf samples:</span> <n-text inline strong intent="accent" id="obs-perf-count">0</n-text></span>
+            <span><span class="label">Log entries:</span> <span class="text-strong text-accent" id="obs-count">0</span></span>
+            <span><span class="label">Perf samples:</span> <span class="text-strong text-accent" id="obs-perf-count">0</span></span>
           </div>
-        </section>
-      </n-card>
+        </n-body>
+      </n-container>
       <div class="log" id="obs-log"></div>
-    </n-panel>
+    </n-container>
 
     <!-- ── Workflow Engine ── -->
 
     <h2>Workflow Engine (Statechart)</h2>
-    <n-panel bordered>
-      <n-text size="sm" muted spacing="regular">
+    <n-container data-kind="panel" bordered>
+      <span class="text-sm text-muted">
         A traffic light statechart: green → yellow → red → green. Guards, context, and transition history included.
-      </n-text>
+      </span>
       <n-stack direction="row" wrap align="center">
         <n-button variant="primary" id="wf-start" size="sm">
           <span slot="label">Start</span>
@@ -229,25 +229,25 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
           <span slot="label">Snapshot</span>
         </n-button>
       </n-stack>
-      <n-card size="sm">
-        <section>
+      <n-container size="sm">
+        <n-body>
           <div class="status-bar">
-            <span><span class="label">State:</span> <n-text inline strong intent="accent" id="wf-state">-</n-text></span>
-            <span><span class="label">Running:</span> <n-text inline strong intent="accent" id="wf-running">false</n-text></span>
-            <span><span class="label">Cycles:</span> <n-text inline strong intent="accent" id="wf-cycles">0</n-text></span>
+            <span><span class="label">State:</span> <span class="text-strong text-accent" id="wf-state">-</span></span>
+            <span><span class="label">Running:</span> <span class="text-strong text-accent" id="wf-running">false</span></span>
+            <span><span class="label">Cycles:</span> <span class="text-strong text-accent" id="wf-cycles">0</span></span>
           </div>
-        </section>
-      </n-card>
+        </n-body>
+      </n-container>
       <div class="log" id="wf-log"></div>
-    </n-panel>
+    </n-container>
 
     <!-- ── Policy & Capability ── -->
 
     <h2>Policy &amp; Capability</h2>
-    <n-panel bordered>
-      <n-text size="sm" muted spacing="regular">
+    <n-container data-kind="panel" bordered>
+      <span class="text-sm text-muted">
         Grant/revoke capabilities and add deny rules. The policy engine middleware blocks unauthorized commands on the bus.
-      </n-text>
+      </span>
       <n-stack direction="row" wrap align="center">
         <n-button variant="primary" id="pol-grant" size="sm">
           <span slot="label">Grant "admin"</span>
@@ -270,24 +270,24 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
           <span slot="label">Dispatch (needs admin)</span>
         </n-button>
       </n-stack>
-      <n-card size="sm">
-        <section>
+      <n-container size="sm">
+        <n-body>
           <div class="status-bar">
-            <span><span class="label">Denied:</span> <n-text inline strong intent="accent" id="pol-denied">0</n-text></span>
-            <span><span class="label">Last decision:</span> <n-text inline strong intent="accent" id="pol-last">-</n-text></span>
+            <span><span class="label">Denied:</span> <span class="text-strong text-accent" id="pol-denied">0</span></span>
+            <span><span class="label">Last decision:</span> <span class="text-strong text-accent" id="pol-last">-</span></span>
           </div>
-        </section>
-      </n-card>
+        </n-body>
+      </n-container>
       <div class="log" id="pol-log"></div>
-    </n-panel>
+    </n-container>
 
     <!-- ── Component Integration ── -->
 
     <h2>Component Integration</h2>
-    <n-panel bordered>
-      <n-text size="sm" muted spacing="regular">
+    <n-container data-kind="panel" bordered>
+      <span class="text-sm text-muted">
         The component manifest describes all 49 native-ui components. Use the event bridge to auto-route component events to the command bus.
-      </n-text>
+      </span>
       <n-stack direction="row" wrap align="center">
         <n-button variant="primary" id="ci-show-manifest" size="sm">
           <span slot="label">Show Manifest</span>
@@ -299,24 +299,24 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
           <span slot="label">Install Event Bridge</span>
         </n-button>
       </n-stack>
-      <n-card size="sm">
-        <section>
+      <n-container size="sm">
+        <n-body>
           <div class="status-bar">
-            <span><span class="label">Components:</span> <n-text inline strong intent="accent" id="ci-count">-</n-text></span>
-            <span><span class="label">Bridge:</span> <n-text inline strong intent="accent" id="ci-bridge-status">not installed</n-text></span>
+            <span><span class="label">Components:</span> <span class="text-strong text-accent" id="ci-count">-</span></span>
+            <span><span class="label">Bridge:</span> <span class="text-strong text-accent" id="ci-bridge-status">not installed</span></span>
           </div>
-        </section>
-      </n-card>
+        </n-body>
+      </n-container>
       <div class="log" id="ci-log"></div>
-    </n-panel>
+    </n-container>
 
     <!-- ── Workflow Templates ── -->
 
     <h2>Workflow Templates</h2>
-    <n-panel bordered>
-      <n-text size="sm" muted spacing="regular">
+    <n-container data-kind="panel" bordered>
+      <span class="text-sm text-muted">
         Pre-built workflow definitions for common patterns. Select a template and run it through the workflow engine.
-      </n-text>
+      </span>
       <n-stack direction="row" wrap align="center">
         <n-button variant="primary" id="wft-form-wizard" size="sm">
           <span slot="label">Form Wizard</span>
@@ -339,25 +339,25 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
           <span slot="label">Stop</span>
         </n-button>
       </n-stack>
-      <n-card size="sm">
-        <section>
+      <n-container size="sm">
+        <n-body>
           <div class="status-bar">
-            <span><span class="label">Template:</span> <n-text inline strong intent="accent" id="wft-name">-</n-text></span>
-            <span><span class="label">State:</span> <n-text inline strong intent="accent" id="wft-state">-</n-text></span>
-            <span><span class="label">Events:</span> <n-text inline strong intent="accent" id="wft-events">-</n-text></span>
+            <span><span class="label">Template:</span> <span class="text-strong text-accent" id="wft-name">-</span></span>
+            <span><span class="label">State:</span> <span class="text-strong text-accent" id="wft-state">-</span></span>
+            <span><span class="label">Events:</span> <span class="text-strong text-accent" id="wft-events">-</span></span>
           </div>
-        </section>
-      </n-card>
+        </n-body>
+      </n-container>
       <div class="log" id="wft-log"></div>
-    </n-panel>
+    </n-container>
 
     <!-- ── Schema Catalog ── -->
 
     <h2>Schema Catalog</h2>
-    <n-panel bordered>
-      <n-text size="sm" muted spacing="regular">
+    <n-container data-kind="panel" bordered>
+      <span class="text-sm text-muted">
         Introspect the component schema catalog. Each schema describes attributes, properties, slots, events, and ARIA requirements.
-      </n-text>
+      </span>
       <n-stack direction="row" wrap align="center">
         <n-button variant="primary" id="sc-list-all" size="sm">
           <span slot="label">List All Schemas</span>
@@ -373,15 +373,15 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         </n-button>
       </n-stack>
       <div class="log" id="sc-log" style="max-height: 20rem;"></div>
-    </n-panel>
+    </n-container>
 
     <!-- ── GenUI Planner ── -->
 
     <h2>GenUI Planner</h2>
-    <n-panel bordered>
-      <n-text size="sm" muted spacing="regular">
+    <n-container data-kind="panel" bordered>
+      <span class="text-sm text-muted">
         Generate validated UI plans from structured intents. The planner auto-adds ARIA attributes, validates accessibility, and produces frozen plans ready for the executor.
-      </n-text>
+      </span>
       <h3>Quick Builders</h3>
       <n-stack direction="row" wrap align="center">
         <n-button variant="primary" id="gp-login-form" size="sm">
@@ -419,21 +419,21 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
           <span slot="label">Execute Generated Plan</span>
         </n-button>
       </n-stack>
-      <n-card size="sm">
-        <section>
+      <n-container size="sm">
+        <n-body>
           <div class="status-bar">
-            <span><span class="label">Valid:</span> <n-text inline strong intent="accent" id="gp-valid">-</n-text></span>
-            <span><span class="label">A11y:</span> <n-text inline strong intent="accent" id="gp-a11y">-</n-text></span>
-            <span><span class="label">Warnings:</span> <n-text inline strong intent="accent" id="gp-warnings">-</n-text></span>
+            <span><span class="label">Valid:</span> <span class="text-strong text-accent" id="gp-valid">-</span></span>
+            <span><span class="label">A11y:</span> <span class="text-strong text-accent" id="gp-a11y">-</span></span>
+            <span><span class="label">Warnings:</span> <span class="text-strong text-accent" id="gp-warnings">-</span></span>
           </div>
-        </section>
-      </n-card>
+        </n-body>
+      </n-container>
       <h3>Generated Plan JSON</h3>
       <div class="log" id="gp-plan-json" style="max-height: 16rem;"></div>
       <h3>Rendered Output</h3>
       <div class="plan-output" id="gp-output"></div>
       <div class="log" id="gp-log"></div>
-    </n-panel>
+    </n-container>
   </section>
 
   <script>
@@ -651,7 +651,7 @@ document.addEventListener('astro:page-load', () => {
       });
 
       function createOverlayBox(type, title, message, x, y) {
-        const box = document.createElement('n-card');
+        const box = document.createElement('n-container');
         box.className = 'overlay-box';
         box.style.left = `${x}px`;
         box.style.top = `${y}px`;

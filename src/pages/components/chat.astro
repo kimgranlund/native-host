@@ -18,25 +18,25 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <!-- ── Full Chat Shell ── -->
 
     <h2>Full Chat Shell</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <div class="grid">
 
         <!-- Idle state -->
         <n-stack>
           <span class="col-label">Idle (empty input)</span>
           <n-chat>
-            <n-panel>
-              <header dividers>
+            <n-container data-kind="panel">
+              <n-header dividers>
                 <nav><n-icon name="chat-dots"></n-icon></nav>
                 <span>Assistant</span>
-                <aside><n-button variant="ghost"><n-icon name="dots-three"></n-icon></n-button></aside>
-              </header>
-              <section>
+                <n-button variant="ghost"><n-icon name="dots-three"></n-icon></n-button>
+              </n-header>
+              <n-body>
                 <n-chat-content>
-                  <n-text size="sm" muted>Messages will appear here.</n-text>
+                  <span class="text-sm text-muted">Messages will appear here.</span>
                 </n-chat-content>
-              </section>
-              <footer dividers>
+              </n-body>
+              <n-footer dividers>
                 <n-chat-input>
                   <n-textarea placeholder="Ask anything" autogrow rows="3"></n-textarea>
                   <n-chat-input-actions>
@@ -66,8 +66,8 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
                     </n-select>
                   </n-chat-input-actions>
                 </n-chat-input>
-              </footer>
-            </n-panel>
+              </n-footer>
+            </n-container>
           </n-chat>
         </n-stack>
 
@@ -75,18 +75,18 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         <n-stack>
           <span class="col-label">Typing (with send button)</span>
           <n-chat>
-            <n-panel>
-              <header dividers>
+            <n-container data-kind="panel">
+              <n-header dividers>
                 <nav><n-icon name="chat-dots"></n-icon></nav>
                 <span>Assistant</span>
-                <aside><n-button variant="ghost"><n-icon name="dots-three"></n-icon></n-button></aside>
-              </header>
-              <section>
+                <n-button variant="ghost"><n-icon name="dots-three"></n-icon></n-button>
+              </n-header>
+              <n-body>
                 <n-chat-content>
-                  <n-text size="sm" muted>Messages will appear here.</n-text>
+                  <span class="text-sm text-muted">Messages will appear here.</span>
                 </n-chat-content>
-              </section>
-              <footer dividers>
+              </n-body>
+              <n-footer dividers>
                 <n-chat-input>
                   <n-textarea placeholder="Ask anything" autogrow rows="3"></n-textarea>
                   <n-chat-input-actions>
@@ -117,42 +117,42 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
                     <n-button variant="primary" intent="accent" radius="round" inline disabled><n-icon name="arrow-up"></n-icon></n-button>
                   </n-chat-input-actions>
                 </n-chat-input>
-              </footer>
-            </n-panel>
+              </n-footer>
+            </n-container>
           </n-chat>
         </n-stack>
       </div>
       <pre class="code-block"><code>&lt;n-chat&gt;
-  &lt;n-panel&gt;
-    &lt;header dividers&gt;
+  &lt;n-container data-kind=&quot;panel&quot;&gt;
+    &lt;n-header dividers&gt;
       &lt;span slot="leading"&gt;&lt;n-icon name="chat-dots"&gt;&lt;/n-icon&gt;&lt;/span&gt;
       &lt;span&gt;Assistant&lt;/span&gt;
       &lt;span slot="trailing"&gt;...&lt;/span&gt;
-    &lt;/header&gt;
-    &lt;section&gt;
+    &lt;/n-header&gt;
+    &lt;n-body&gt;
       &lt;n-chat-content&gt;...&lt;/n-chat-content&gt;
-    &lt;/section&gt;
-    &lt;footer dividers&gt;
+    &lt;/n-body&gt;
+    &lt;n-footer dividers&gt;
       &lt;n-chat-input&gt;
         &lt;n-textarea placeholder="Ask anything" autogrow rows="3"&gt;&lt;/n-textarea&gt;
         &lt;n-chat-input-actions&gt;
           &lt;n-button variant="ghost" inline&gt;&lt;n-icon name="plus"&gt;&lt;/n-icon&gt;&lt;/n-button&gt;
         &lt;/n-chat-input-actions&gt;
       &lt;/n-chat-input&gt;
-    &lt;/footer&gt;
-  &lt;/n-panel&gt;
+    &lt;/n-footer&gt;
+  &lt;/n-container&gt;
 &lt;/n-chat&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Message Feed ── -->
 
     <h2>Message Feed</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         <code>n-chat-feed</code> coordinates a scrollable thread.
         <code>n-chat-messages</code> groups messages from the same sender.
         <code>n-chat-message</code> renders individual bubbles with action toolbars.
-      </n-text>
+      </span>
       <div class="grid">
         <n-stack>
           <span class="col-label">Conversation thread</span>
@@ -220,16 +220,16 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     &lt;/n-chat-message&gt;
   &lt;/n-chat-messages&gt;
 &lt;/n-chat-feed&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Avatar ── -->
 
     <h2>Avatar</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         <code>n-chat-avatar</code> renders an image, icon, or initials based on attributes.
         Fallback chain: <code>src</code> → <code>icon</code> → <code>name</code> initials → default user icon.
-      </n-text>
+      </span>
       <n-stack direction="row" gap="4" wrap align="center">
         <n-stack align="center">
           <span class="col-label">Icon</span>
@@ -252,15 +252,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 &lt;n-chat-avatar name="Kim Granlund"&gt;&lt;/n-chat-avatar&gt;
 &lt;n-chat-avatar src="/avatars/kim.jpg" name="Kim"&gt;&lt;/n-chat-avatar&gt;
 &lt;n-chat-avatar&gt;&lt;/n-chat-avatar&gt;  &lt;!-- default user icon --&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Message Text (Markdown) ── -->
 
     <h2>Message Text</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         <code>n-chat-message-text</code> renders markdown to sanitized HTML. Supports headings, lists, code fences, inline formatting, links, and blockquotes.
-      </n-text>
+      </span>
       <div class="grid">
         <n-stack>
           <span class="col-label">Markdown (default)</span>
@@ -278,15 +278,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 &lt;script&gt;
   el.content = '## Heading\n\nParagraph with **bold**.';
 &lt;/script&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Activity Indicator ── -->
 
     <h2>Activity Indicator</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         <code>n-chat-message-activity</code> shows streaming status with elapsed timer. Supports <code>typing</code>, <code>thinking</code>, and <code>tool-use</code> types. Add <code>expandable</code> for collapsible reasoning trace.
-      </n-text>
+      </span>
       <n-stack gap="4">
         <n-stack>
           <span class="col-label">Typing (active)</span>
@@ -322,16 +322,16 @@ Step 4: Applying formatting rules...</pre>
 &lt;n-chat-message-activity type="thinking" active expandable&gt;
   &lt;pre&gt;Step 1: Analyzing...&lt;/pre&gt;
 &lt;/n-chat-message-activity&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Seed Chips ── -->
 
     <h2>Seed Chips</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         <code>n-chat-message-seed</code> renders pre-seeded response options as clickable chips.
         Fires <code>native:seed-select</code> with <code>&#123; value, label &#125;</code>.
-      </n-text>
+      </span>
       <n-stack gap="4">
         <n-stack>
           <span class="col-label">Starter prompts</span>
@@ -350,16 +350,16 @@ Step 4: Applying formatting rules...</pre>
     &#123; value: 'test', label: 'Write tests' &#125;,
   ];
 &lt;/script&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Structured Input ── -->
 
     <h2>Structured Input</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         <code>n-chat-input-structured</code> renders a multi-choice card. Supports <code>single</code> and <code>multi</code> selection modes.
         Fires <code>native:structured-submit</code> with <code>&#123; question, selections &#125;</code>.
-      </n-text>
+      </span>
       <div class="grid">
         <n-stack>
           <span class="col-label">Single select</span>
@@ -389,16 +389,16 @@ Step 4: Applying formatting rules...</pre>
     &#123; value: 'py', label: 'Python' &#125;,
   ];
 &lt;/script&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── GenUI ── -->
 
     <h2>GenUI (Schema → DOM)</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         <code>n-chat-message-genui</code> renders UI from a schema tree. Validates against a forbidden tag list.
         Supports <code>inline</code> and <code>lightbox</code> modes.
-      </n-text>
+      </span>
       <div class="grid">
         <n-stack>
           <span class="col-label">Inline mode</span>
@@ -420,16 +420,16 @@ Step 4: Applying formatting rules...</pre>
     ]
   &#125;;
 &lt;/script&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Input Surface Only ── -->
 
     <h2>Input Surface Only</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <div class="grid">
         <n-stack>
           <span class="col-label">Inside n-footer container</span>
-          <footer dividers>
+          <n-footer dividers>
             <n-chat-input>
               <n-textarea placeholder="Ask anything" autogrow rows="2"></n-textarea>
               <n-chat-input-actions>
@@ -459,12 +459,12 @@ Step 4: Applying formatting rules...</pre>
                 </n-select>
               </n-chat-input-actions>
             </n-chat-input>
-          </footer>
+          </n-footer>
         </n-stack>
 
         <n-stack>
           <span class="col-label">Compact (single row)</span>
-          <footer dividers>
+          <n-footer dividers>
             <n-chat-input compact>
               <n-textarea placeholder="Type a message..." autogrow rows="1"></n-textarea>
               <n-chat-input-actions>
@@ -473,27 +473,27 @@ Step 4: Applying formatting rules...</pre>
                 <n-button variant="primary" intent="accent" radius="round" inline disabled><n-icon name="arrow-up"></n-icon></n-button>
               </n-chat-input-actions>
             </n-chat-input>
-          </footer>
+          </n-footer>
         </n-stack>
       </div>
       <pre class="code-block"><code>&lt;!-- Wrap in a container for surface styling --&gt;
-&lt;footer dividers&gt;
+&lt;n-footer dividers&gt;
   &lt;n-chat-input&gt;
     &lt;n-textarea placeholder="Ask anything" autogrow rows="2"&gt;&lt;/n-textarea&gt;
     &lt;n-chat-input-actions&gt;
       &lt;n-button variant="ghost" inline&gt;&lt;n-icon name="plus"&gt;&lt;/n-icon&gt;&lt;/n-button&gt;
     &lt;/n-chat-input-actions&gt;
   &lt;/n-chat-input&gt;
-&lt;/footer&gt;
+&lt;/n-footer&gt;
 
 &lt;!-- Compact --&gt;
-&lt;footer dividers&gt;
+&lt;n-footer dividers&gt;
   &lt;n-chat-input compact&gt;
     &lt;n-textarea placeholder="Type a message..." autogrow rows="1"&gt;&lt;/n-textarea&gt;
     &lt;n-chat-input-actions&gt;...&lt;/n-chat-input-actions&gt;
   &lt;/n-chat-input&gt;
-&lt;/footer&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+&lt;/n-footer&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
   </section>
 
   <script>

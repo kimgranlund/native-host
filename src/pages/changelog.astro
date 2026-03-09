@@ -17,6 +17,67 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
 
   <section>
 
+    <!-- ── 0.7.12 ── -->
+
+    <div class="changelog-version">
+      <h2>0.7.12 <span class="changelog-date">— March 2026</span></h2>
+
+      <div class="changelog-section">
+        <h3><n-badge size="xs" intent="danger">New</n-badge> New Pages</h3>
+
+        <div class="changelog-cards">
+          <n-container>
+            <n-header><a href="/traits/noodleable"><code>Noodleable</code></a> — SVG noodle connections between DOM elements</n-header>
+            <n-body>
+              <ul>
+                <li>5 interactive demos: static connections, flow builder with MagnetController, curve styles (bezier/step/straight), disabled state, and event log</li>
+                <li>Full API reference: port declaration, adapter attributes, programmatic methods, events</li>
+              </ul>
+            </n-body>
+          </n-container>
+
+          <n-container>
+            <n-header><a href="/controllers/store-controller"><code>StoreController</code></a> — Reactive key-value store with remote fetch</n-header>
+            <n-body>
+              <ul>
+                <li>Two consumption patterns: direct (imperative) and provider (<code>&lt;n-controller provides&gt;</code>)</li>
+                <li>Lazy signal creation per key, <code>load(url)</code> for JSON fetch, loading/error signals</li>
+              </ul>
+            </n-body>
+          </n-container>
+        </div>
+      </div>
+
+      <div class="changelog-section">
+        <h3><n-badge size="xs" intent="accent">Updated</n-badge> Updates</h3>
+
+        <div class="changelog-cards">
+          <n-container>
+            <n-header><a href="/a2ui/a2ui">A2UI Protocol</a> — 10 new preset demos wired</n-header>
+            <n-body>
+              <ul>
+                <li>Vitals, Medication List, Referral Form, ICD-10 Lookup, Patient Intake, Prior Auth, Care Plan, Step Wizard, Confirm Dialog, Settings Panel</li>
+                <li>All 20+ preset buttons now functional with Card root + Header/Body/Footer pattern</li>
+              </ul>
+            </n-body>
+          </n-container>
+
+          <n-container>
+            <n-header>Noodleable demo — Flow node colors fixed</n-header>
+            <n-body>
+              <ul>
+                <li>Switched from raw semantic tokens to <code>intent</code> attributes with button-level resolved tokens</li>
+              </ul>
+            </n-body>
+          </n-container>
+
+          <n-container>
+            <n-header>Ecosystem upgrade — <code>native-ui@0.7.66</code></n-header>
+          </n-container>
+        </div>
+      </div>
+    </div>
+
     <!-- ── 0.7.11 ── -->
 
     <div class="changelog-version">
@@ -26,9 +87,9 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         <h3><n-badge size="xs" intent="danger">New</n-badge> New Features</h3>
 
         <div class="changelog-cards">
-          <n-card>
-            <header>Admin pages — Org management interfaces</header>
-            <section>
+          <n-container>
+            <n-header>Admin pages — Org management interfaces</n-header>
+            <n-body>
               <ul>
                 <li><a href="/admin/members">Members</a> — invite, change roles, remove org members</li>
                 <li><a href="/admin/groups">Groups</a> — create groups with tier-based access</li>
@@ -36,12 +97,12 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
                 <li><a href="/admin/registry/llm">LLM Registry</a> and <a href="/admin/registry/connectors">Connectors</a> — content object CRUD</li>
                 <li>Admin nav in org dropdown menu (owner/admin only)</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
 
-          <n-card>
-            <header>6 new fun traits — Physics and visual effects</header>
-            <section>
+          <n-container>
+            <n-header>6 new fun traits — Physics and visual effects</n-header>
+            <n-body>
               <ul>
                 <li><a href="/traits/tossable">Tossable</a> — physics-based throw with momentum and bounce</li>
                 <li><a href="/traits/flippable">Flippable</a> — 3D card flip between front/back faces</li>
@@ -50,19 +111,19 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
                 <li><a href="/traits/magnetizable">Magnetizable</a> — snap-to-guide alignment</li>
                 <li><a href="/traits/css-inspectable">CSSInspectable</a> — 3D layer inspector (Alt+click)</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
 
-          <n-card>
-            <header>Four-layer data model — Identity, Permissions, Content Schemas, Registries</header>
-            <section>
+          <n-container>
+            <n-header>Four-layer data model — Identity, Permissions, Content Schemas, Registries</n-header>
+            <n-body>
               <ul>
                 <li>10 new database tables: organization, member, invitation, group, permission, grant, contentType, contentObject, and more</li>
                 <li>better-auth organization plugin with tier-based access (owner/admin/user/preview)</li>
                 <li>Permission resolution with baseline tiers + explicit grant overrides</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
         </div>
       </div>
 
@@ -70,15 +131,15 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         <h3>Breaking Changes</h3>
 
         <div class="changelog-cards">
-          <n-card>
-            <header>Trait option attributes — <code>data-trait-*</code> namespace</header>
-            <section>
+          <n-container>
+            <n-header>Trait option attributes — <code>data-trait-*</code> namespace</n-header>
+            <n-body>
               <ul>
                 <li>All trait options renamed: <code>draggable-axis</code> → <code>data-trait-draggable-axis</code></li>
                 <li>Prevents collisions between trait options and component API attributes</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
         </div>
       </div>
 
@@ -86,14 +147,14 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         <h3><n-badge size="xs" intent="accent">Updated</n-badge> Updates</h3>
 
         <div class="changelog-cards">
-          <n-card>
-            <header>Ecosystem upgrade — <code>native-ui@0.7.45</code>, <code>native-app@0.3.19</code></header>
-            <section>
+          <n-container>
+            <n-header>Ecosystem upgrade — <code>native-ui@0.7.45</code>, <code>native-app@0.3.19</code></n-header>
+            <n-body>
               <ul>
                 <li><code>n-app-panel</code> body scroll delegation — header/footer stay fixed</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
         </div>
       </div>
     </div>
@@ -107,25 +168,25 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         <h3><n-badge size="xs" intent="danger">New</n-badge> New Features</h3>
 
         <div class="changelog-cards">
-          <n-card>
-            <header><a href="/a2ui/a2ui">A2UI Session Layer</a> — Multi-agent sessions and protocol adapters</header>
-            <section>
+          <n-container>
+            <n-header><a href="/a2ui/a2ui">A2UI Session Layer</a> — Multi-agent sessions and protocol adapters</n-header>
+            <n-body>
               <ul>
                 <li>Session manager, surface registry with single-owner write gating</li>
                 <li>Protocol adapters: Direct, A2A (Google), AG-UI</li>
                 <li>4 new demo pages including tic-tac-toe multi-agent game</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
 
-          <n-card>
-            <header><code>.n-chat-starter</code> — Starter surface preset for chat seed + structured input</header>
-            <section>
+          <n-container>
+            <n-header><code>.n-chat-starter</code> — Starter surface preset for chat seed + structured input</n-header>
+            <n-body>
               <ul>
                 <li><code>[compact]</code> variant for sidebars and small cards</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
         </div>
       </div>
 
@@ -133,27 +194,27 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         <h3><n-badge size="xs" intent="accent">Updated</n-badge> Updates</h3>
 
         <div class="changelog-cards">
-          <n-card>
-            <header>Ecosystem upgrade — <code>native-ui@0.7.39</code>, <code>native-app@0.3.17</code>, <code>native-chat@0.5.24</code>, <code>native-a2ui@0.2.3</code></header>
-          </n-card>
+          <n-container>
+            <n-header>Ecosystem upgrade — <code>native-ui@0.7.39</code>, <code>native-app@0.3.17</code>, <code>native-chat@0.5.24</code>, <code>native-a2ui@0.2.3</code></n-header>
+          </n-container>
 
-          <n-card>
-            <header>Codebase audit — ~460 rule violations fixed across 54 files</header>
-            <section>
+          <n-container>
+            <n-header>Codebase audit — ~460 rule violations fixed across 54 files</n-header>
+            <n-body>
               <ul>
                 <li>12 Hard Rules enforced: scoped selectors, <code>:where()</code> overrides, attribute API only</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
 
-          <n-card>
-            <header><code>n-app-panel</code> — Semantic <code>&lt;header&gt;</code> / <code>&lt;main&gt;</code> / <code>&lt;footer&gt;</code> sub-containers</header>
-            <section>
+          <n-container>
+            <n-header><code>n-app-panel</code> — Semantic <code>&lt;n-header&gt;</code> / <code>&lt;main&gt;</code> / <code>&lt;n-footer&gt;</code> sub-containers</n-header>
+            <n-body>
               <ul>
                 <li>Pinned header/footer with scrollable main, CSS custom properties for padding and max-width</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
         </div>
       </div>
 
@@ -161,28 +222,28 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         <h3>Breaking Changes</h3>
 
         <div class="changelog-cards">
-          <n-card>
-            <header><a href="/containers/stack"><code>&lt;n-stack&gt;</code></a> — Flex-basis and gap defaults changed</header>
-            <section>
+          <n-container>
+            <n-header><a href="/containers/stack"><code>&lt;n-stack&gt;</code></a> — Flex-basis and gap defaults changed</n-header>
+            <n-body>
               <ul>
                 <li><code>flex-basis</code>: <code>100%</code> → <code>0%</code> — stacks share space proportionally</li>
                 <li>Default gap widened from <code>space × 2</code> to <code>space × 4</code></li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
 
-          <n-card>
-            <header><a href="/containers/header"><code>&lt;n-header&gt;</code></a> — Default block padding doubled</header>
-            <section>
+          <n-container>
+            <n-header><a href="/containers/header"><code>&lt;n-header&gt;</code></a> — Default block padding doubled</n-header>
+            <n-body>
               <ul>
                 <li>Use <code>padding="tight"</code> to restore compact headers</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
 
-          <n-card>
-            <header><a href="/components/select"><code>&lt;n-select&gt;</code></a> — Dropdown aligns flush with trigger edge</header>
-          </n-card>
+          <n-container>
+            <n-header><a href="/components/select"><code>&lt;n-select&gt;</code></a> — Dropdown aligns flush with trigger edge</n-header>
+          </n-container>
         </div>
       </div>
 
@@ -190,14 +251,14 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         <h3>Fixes</h3>
 
         <div class="changelog-cards">
-          <n-card>
-            <header><a href="/traits/draggable"><code>DragController</code></a> — Grid support for slot and drop modes</header>
-            <section>
+          <n-container>
+            <n-header><a href="/traits/draggable"><code>DragController</code></a> — Grid support for slot and drop modes</n-header>
+            <n-body>
               <ul>
                 <li>Proper 2D coordinate detection for <code>axis: 'both'</code> layouts</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
         </div>
       </div>
     </div>
@@ -211,9 +272,9 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         <h3><n-badge size="xs" intent="danger">New</n-badge> New Components</h3>
 
         <div class="changelog-cards">
-          <n-card>
-            <header><a href="/components/chart"><code>&lt;n-chart&gt;</code></a> — SVG charting component</header>
-            <section>
+          <n-container>
+            <n-header><a href="/components/chart"><code>&lt;n-chart&gt;</code></a> — SVG charting component</n-header>
+            <n-body>
               <ul>
                 <li>Line, bar, scatter, and sparkline chart types across three usage tiers</li>
                 <li>Reactive data store with auto-detected scales, crosshair + tooltip interactions</li>
@@ -221,8 +282,8 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
                 <li>Reference lines, average lines, stacked/grouped/horizontal modes</li>
                 <li>Comprehensive docs page with 20 interactive demos</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
         </div>
       </div>
 
@@ -230,32 +291,32 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         <h3><n-badge size="xs" intent="accent">Updated</n-badge> Updates</h3>
 
         <div class="changelog-cards">
-          <n-card>
-            <header>Ecosystem upgrade — <code>native-ui@0.7.22</code>, <code>native-app@0.3.12</code>, <code>native-chat@0.5.12</code>, <code>native-tokens@0.5.10</code></header>
-            <section>
+          <n-container>
+            <n-header>Ecosystem upgrade — <code>native-ui@0.7.22</code>, <code>native-app@0.3.12</code>, <code>native-chat@0.5.12</code>, <code>native-tokens@0.5.10</code></n-header>
+            <n-body>
               <ul>
                 <li>Coordinated release across all <code>@nonoun/*</code> packages</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
 
-          <n-card>
-            <header><code>n-gripper</code> — Now auto-registered</header>
-            <section>
+          <n-container>
+            <n-header><code>n-gripper</code> — Now auto-registered</n-header>
+            <n-body>
               <ul>
                 <li>Included in <code>@nonoun/native-ui/register</code> since 0.7.17 — manual registration removed from <code>setup.ts</code></li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
 
-          <n-card>
-            <header>Collapsed sidebar — Selected highlight removed</header>
-            <section>
+          <n-container>
+            <n-header>Collapsed sidebar — Selected highlight removed</n-header>
+            <n-body>
               <ul>
                 <li>Dark circle/pill highlight on the active section icon in collapsed mode removed — icon color change is sufficient</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
         </div>
       </div>
     </div>
@@ -269,38 +330,38 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         <h3><n-badge size="xs" intent="danger">New</n-badge> New Features</h3>
 
         <div class="changelog-cards">
-          <n-card>
-            <header>Authentication — Email/password + Google OAuth</header>
-            <section>
+          <n-container>
+            <n-header>Authentication — Email/password + Google OAuth</n-header>
+            <n-body>
               <ul>
                 <li>Powered by <code>better-auth</code> with Drizzle adapter on Turso</li>
                 <li>Functional <a href="/auth/login">login</a> and <a href="/auth/register">register</a> pages</li>
                 <li><a href="/account/settings">Account settings</a> — profile, password, and account deletion</li>
                 <li>Optional auth — anonymous browsing fully supported</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
 
-          <n-card>
-            <header>User-scoped preferences — DB-synced settings</header>
-            <section>
+          <n-container>
+            <n-header>User-scoped preferences — DB-synced settings</n-header>
+            <n-body>
               <ul>
                 <li>Theme, sidebar state, and nav group preferences follow the user across devices</li>
                 <li>Cookie-based fallback for anonymous users</li>
                 <li>Preferences auto-migrate from cookies on first login</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
 
-          <n-card>
-            <header>Resizable panels — Main content, inspector, and chat</header>
-            <section>
+          <n-container>
+            <n-header>Resizable panels — Main content, inspector, and chat</n-header>
+            <n-body>
               <ul>
                 <li>Drag handles between panels for custom layout widths</li>
                 <li>Panel sizes persist across page navigations</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
         </div>
       </div>
 
@@ -308,28 +369,28 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         <h3><n-badge size="xs" intent="accent">Updated</n-badge> Updates</h3>
 
         <div class="changelog-cards">
-          <n-card>
-            <header>Ecosystem upgrade — <code>native-ui@0.7.8</code>, <code>native-app@0.3.5</code>, <code>native-chat@0.5.2</code>, <code>native-a2ui@0.1.5</code></header>
-          </n-card>
+          <n-container>
+            <n-header>Ecosystem upgrade — <code>native-ui@0.7.8</code>, <code>native-app@0.3.5</code>, <code>native-chat@0.5.2</code>, <code>native-a2ui@0.1.5</code></n-header>
+          </n-container>
 
-          <n-card>
-            <header>Sidebar footer — Auth-aware user menu</header>
-            <section>
+          <n-container>
+            <n-header>Sidebar footer — Auth-aware user menu</n-header>
+            <n-body>
               <ul>
                 <li>Shows user avatar and name when authenticated</li>
                 <li>Account settings and sign-out in dropdown</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
 
-          <n-card>
-            <header>Rule #9 — No CSS classes on <code>n-*</code> elements</header>
-            <section>
+          <n-container>
+            <n-header>Rule #9 — No CSS classes on <code>n-*</code> elements</n-header>
+            <n-body>
               <ul>
                 <li>Use <code>id</code>, <code>aria-label</code>, or contextual selectors instead</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
         </div>
       </div>
 
@@ -337,13 +398,13 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         <h3>Fixes</h3>
 
         <div class="changelog-cards">
-          <n-card>
-            <header>Theme and code toggles — Broken after client-side navigation</header>
-          </n-card>
+          <n-container>
+            <n-header>Theme and code toggles — Broken after client-side navigation</n-header>
+          </n-container>
 
-          <n-card>
-            <header>Invisible buttons — Added <code>better-auth/client</code> to Vite <code>optimizeDeps</code></header>
-          </n-card>
+          <n-container>
+            <n-header>Invisible buttons — Added <code>better-auth/client</code> to Vite <code>optimizeDeps</code></n-header>
+          </n-container>
         </div>
       </div>
     </div>
@@ -357,16 +418,16 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         <h3><n-badge size="xs" intent="danger">New</n-badge> New Components</h3>
 
         <div class="changelog-cards">
-          <n-card>
-            <header><a href="/components/pagination-dots"><code>&lt;n-pagination-dots&gt;</code></a> — Dot indicator with sliding pill</header>
-            <section>
+          <n-container>
+            <n-header><a href="/components/pagination-dots"><code>&lt;n-pagination-dots&gt;</code></a> — Dot indicator with sliding pill</n-header>
+            <n-body>
               <ul>
                 <li>Horizontal/vertical dot navigation for slideshows, onboarding, and wizards</li>
                 <li>Windowed mode for large counts, optional prev/next paddles</li>
                 <li>Now included in <code>@nonoun/native-ui/register</code></li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
         </div>
       </div>
 
@@ -374,16 +435,16 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         <h3><n-badge size="xs" intent="danger">New</n-badge> New Pages</h3>
 
         <div class="changelog-cards">
-          <n-card>
-            <header><a href="/a2ui/a2ui-workbench">A2UI Workbench</a> — JSONL editor with sandboxed preview and protocol inspector</header>
-            <section>
+          <n-container>
+            <n-header><a href="/a2ui/a2ui-workbench">A2UI Workbench</a> — JSONL editor with sandboxed preview and protocol inspector</n-header>
+            <n-body>
               <ul>
                 <li>Uses <code>&lt;native-a2ui&gt;</code> element — edit A2UI envelopes, step through with playback controls</li>
                 <li>20 preset menus in 3 groups matching the <a href="/a2ui/a2ui">Protocol page</a>: General, Interactive, Clinical</li>
                 <li>Two layout modes: 2/1 (editor + preview top, inspector bottom) and 1+1+1 (three columns)</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
         </div>
       </div>
 
@@ -391,37 +452,37 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         <h3><n-badge size="xs" intent="accent">Updated</n-badge> Updates</h3>
 
         <div class="changelog-cards">
-          <n-card>
-            <header><a href="/traits/presentable"><code>Presentable</code></a> — Real-World Usage section</header>
-            <section>
+          <n-container>
+            <n-header><a href="/traits/presentable"><code>Presentable</code></a> — Real-World Usage section</n-header>
+            <n-body>
               <ul>
                 <li>A2UI workbench PresentController integration example with JS setup, CSS hook, and design decisions</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
 
-          <n-card>
-            <header>Collapsed sidebar — Selected state and badge indicators</header>
-            <section>
+          <n-container>
+            <n-header>Collapsed sidebar — Selected state and badge indicators</n-header>
+            <n-body>
               <ul>
                 <li>Active group gets a neutral background highlight on the icon row</li>
                 <li>Groups with badged pages show a dot indicator on the icon well</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
 
-          <n-card>
-            <header><code>&lt;native-codemirror&gt;</code> — Flex growth for editor element</header>
-            <section>
+          <n-container>
+            <n-header><code>&lt;native-codemirror&gt;</code> — Flex growth for editor element</n-header>
+            <n-body>
               <ul>
                 <li>Editors now fill their flex/grid parent automatically via <code>flex: 1</code></li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
 
-          <n-card>
-            <header><a href="/reference">Reference</a> and <a href="/state-grid">State Grid</a> pages updated</header>
-          </n-card>
+          <n-container>
+            <n-header><a href="/reference">Reference</a> and <a href="/state-grid">State Grid</a> pages updated</n-header>
+          </n-container>
         </div>
       </div>
 
@@ -429,23 +490,23 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         <h3>Fixes</h3>
 
         <div class="changelog-cards">
-          <n-card>
-            <header>CodeMirror pages — Blank after client-side navigation</header>
-            <section>
+          <n-container>
+            <n-header>CodeMirror pages — Blank after client-side navigation</n-header>
+            <n-body>
               <ul>
                 <li>Added <code>astro:page-load</code> wrappers to editor, playground, and A2UI pages</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
 
-          <n-card>
-            <header>A2UI pages — Custom element registration race condition</header>
-            <section>
+          <n-container>
+            <n-header>A2UI pages — Custom element registration race condition</n-header>
+            <n-body>
               <ul>
                 <li>Fixed element definitions not available after View Transition navigations</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
         </div>
       </div>
     </div>
@@ -459,15 +520,15 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         <h3><n-badge size="xs" intent="danger">New</n-badge> New Pages</h3>
 
         <div class="changelog-cards">
-          <n-card>
-            <header><a href="/traits/shortcutable"><code>Shortcutable</code></a> — Trait page for ShortcutController</header>
-            <section>
+          <n-container>
+            <n-header><a href="/traits/shortcutable"><code>Shortcutable</code></a> — Trait page for ShortcutController</n-header>
+            <n-body>
               <ul>
                 <li>Global and scoped keyboard shortcuts</li>
                 <li>Allow-editable, conditional guards, declarative adapter</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
         </div>
       </div>
 
@@ -475,24 +536,24 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         <h3><n-badge size="xs" intent="accent">Updated</n-badge> Updates</h3>
 
         <div class="changelog-cards">
-          <n-card>
-            <header><a href="/components/table"><code>&lt;n-table&gt;</code></a> — New <code>cols</code> attribute for column definitions</header>
-            <section>
+          <n-container>
+            <n-header><a href="/components/table"><code>&lt;n-table&gt;</code></a> — New <code>cols</code> attribute for column definitions</n-header>
+            <n-body>
               <ul>
                 <li>Direct pass-through to <code>grid-template-columns</code></li>
                 <li>Replaced 75 CSS class workarounds and ~57 inline styles across ~30 pages</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
 
-          <n-card>
-            <header><code>NController</code> — CE upgrade fix for View Transitions</header>
-            <section>
+          <n-container>
+            <n-header><code>NController</code> — CE upgrade fix for View Transitions</n-header>
+            <n-body>
               <ul>
                 <li>Guard changed from <code>isConnected</code> to <code>#alive</code> — prevents double-initialization after <code>adoptNode</code> + <code>replaceWith</code></li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
         </div>
       </div>
     </div>
@@ -506,59 +567,59 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         <h3><n-badge size="xs" intent="danger">New</n-badge> New Pages</h3>
 
         <div class="changelog-cards">
-          <n-card>
-            <header><a href="/containers/text"><code>&lt;n-text&gt;</code></a> — Dedicated container page</header>
-            <section>
+          <n-container>
+            <n-header><a href="/containers/text"><code>&lt;span&gt;</code></a> — Dedicated container page</n-header>
+            <n-body>
               <ul>
                 <li>Size, muted, spacing, truncate, and uppercase demos</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
 
-          <n-card>
-            <header><a href="/containers/body"><code>&lt;n-body&gt;</code></a> — Sub-container page</header>
-            <section>
+          <n-container>
+            <n-header><a href="/containers/body"><code>&lt;n-body&gt;</code></a> — Sub-container page</n-header>
+            <n-body>
               <ul>
                 <li>Scrollable content, padding variants, and divider integration</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
 
-          <n-card>
-            <header><a href="/containers/footer"><code>&lt;n-footer&gt;</code></a> — Sub-container page</header>
-            <section>
+          <n-container>
+            <n-header><a href="/containers/footer"><code>&lt;n-footer&gt;</code></a> — Sub-container page</n-header>
+            <n-body>
               <ul>
                 <li>Justify, dividers, sticky, and dialog demos</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
 
-          <n-card>
-            <header><a href="/traits/dialogable"><code>Dialogable</code></a> — Trait page for DialogController</header>
-            <section>
+          <n-container>
+            <n-header><a href="/traits/dialogable"><code>Dialogable</code></a> — Trait page for DialogController</n-header>
+            <n-body>
               <ul>
                 <li>Modal, form, and persistent dialog demos</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
 
-          <n-card>
-            <header><a href="/traits/list-navigable"><code>ListNavigable</code></a> — Trait page for keyboard list navigation</header>
-            <section>
+          <n-container>
+            <n-header><a href="/traits/list-navigable"><code>ListNavigable</code></a> — Trait page for keyboard list navigation</n-header>
+            <n-body>
               <ul>
                 <li>Orientation and selection demos</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
 
-          <n-card>
-            <header><a href="/traits/presentable"><code>Presentable</code></a> — Trait page for full-viewport overlay</header>
-            <section>
+          <n-container>
+            <n-header><a href="/traits/presentable"><code>Presentable</code></a> — Trait page for full-viewport overlay</n-header>
+            <n-body>
               <ul>
                 <li>Custom inset, close button, and event demos</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
         </div>
       </div>
 
@@ -566,24 +627,24 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         <h3><n-badge size="xs" intent="accent">Updated</n-badge> Updates</h3>
 
         <div class="changelog-cards">
-          <n-card>
-            <header>No-CSS rule — Strict enforcement across ~30 pages</header>
-            <section>
+          <n-container>
+            <n-header>No-CSS rule — Strict enforcement across ~30 pages</n-header>
+            <n-body>
               <ul>
                 <li>All inline <code>style=""</code> attributes removed from <code>n-*</code> elements</li>
                 <li>Components now use only their attribute API</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
 
-          <n-card>
-            <header><a href="/containers/header"><code>&lt;n-header&gt;</code></a> — Page renamed from "Header / Body / Footer"</header>
-            <section>
+          <n-container>
+            <n-header><a href="/containers/header"><code>&lt;n-header&gt;</code></a> — Page renamed from "Header / Body / Footer"</n-header>
+            <n-body>
               <ul>
                 <li>Body and footer now have dedicated pages</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
         </div>
       </div>
     </div>
@@ -597,25 +658,25 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         <h3><n-badge size="xs" intent="danger">New</n-badge> New Features</h3>
 
         <div class="changelog-cards">
-          <n-card>
-            <header><a href="/components/input"><code>&lt;n-input&gt;</code></a> — Inline code formatting</header>
-            <section>
+          <n-container>
+            <n-header><a href="/components/input"><code>&lt;n-input&gt;</code></a> — Inline code formatting</n-header>
+            <n-body>
               <ul>
                 <li><code>formatting="code"</code> attribute</li>
                 <li><code>Cmd/Ctrl+E</code> keyboard shortcut</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
 
-          <n-card>
-            <header><a href="/traits/slash-commandable"><code>SlashCommandController</code></a> — Tab-to-select and descriptions</header>
-            <section>
+          <n-container>
+            <n-header><a href="/traits/slash-commandable"><code>SlashCommandController</code></a> — Tab-to-select and descriptions</n-header>
+            <n-body>
               <ul>
                 <li>Pressing Tab with 2+ char query selects the closest match</li>
                 <li>Command options now render visible description spans</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
         </div>
       </div>
     </div>
@@ -629,34 +690,34 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         <h3><n-badge size="xs" intent="danger">New</n-badge> New Features</h3>
 
         <div class="changelog-cards">
-          <n-card>
-            <header><a href="/components/pagination-dots"><code>&lt;n-pagination-dots&gt;</code></a> — Standalone dot indicator</header>
-            <section>
+          <n-container>
+            <n-header><a href="/components/pagination-dots"><code>&lt;n-pagination-dots&gt;</code></a> — Standalone dot indicator</n-header>
+            <n-body>
               <ul>
                 <li>Sliding pill, windowing, and optional paddles</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
 
-          <n-card>
-            <header><code>&lt;n-text&gt;</code> — CSS-only utility element for styled text blocks</header>
-            <section>
+          <n-container>
+            <n-header><code>&lt;span&gt;</code> — CSS-only utility element for styled text blocks</n-header>
+            <n-body>
               <ul>
                 <li>Muted, strong, sizes, truncate, spacing attributes</li>
                 <li>Adopted across 73 pages</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
 
-          <n-card>
-            <header><a href="/containers/panel"><code>&lt;n-panel&gt;</code></a> — Scrollable and fade attributes</header>
-            <section>
+          <n-container>
+            <n-header><a href="/containers/panel"><code>&lt;n-container data-kind=&quot;panel&quot;&gt;</code></a> — Scrollable and fade attributes</n-header>
+            <n-body>
               <ul>
                 <li><code>[scrollable]</code> — opt-in overflow scrolling (replaces implicit overflow)</li>
                 <li><code>[fade]</code> — fades top/bottom edges when content overflows</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
         </div>
       </div>
 
@@ -664,50 +725,50 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         <h3><n-badge size="xs" intent="accent">Updated</n-badge> Updates</h3>
 
         <div class="changelog-cards">
-          <n-card>
-            <header><a href="/containers/toolbar"><code>&lt;n-toolbar&gt;</code></a> — Overflow management</header>
-            <section>
+          <n-container>
+            <n-header><a href="/containers/toolbar"><code>&lt;n-toolbar&gt;</code></a> — Overflow management</n-header>
+            <n-body>
               <ul>
                 <li>Overflow priority, pin, and diagnostics event</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
 
-          <n-card>
-            <header><a href="/containers/header"><code>&lt;n-header&gt;</code></a> — Label truncation</header>
-            <section>
+          <n-container>
+            <n-header><a href="/containers/header"><code>&lt;n-header&gt;</code></a> — Label truncation</n-header>
+            <n-body>
               <ul>
                 <li><code>[truncate]</code> attribute for text overflow ellipsis</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
 
-          <n-card>
-            <header><a href="/components/textarea"><code>&lt;n-textarea&gt;</code></a> — Inline formatting</header>
-            <section>
+          <n-container>
+            <n-header><a href="/components/textarea"><code>&lt;n-textarea&gt;</code></a> — Inline formatting</n-header>
+            <n-body>
               <ul>
                 <li><code>formatting="code bold italic"</code> attribute</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
 
-          <n-card>
-            <header><a href="/traits/resizable"><code>ResizeController</code></a> — Corner resize handles</header>
-            <section>
+          <n-container>
+            <n-header><a href="/traits/resizable"><code>ResizeController</code></a> — Corner resize handles</n-header>
+            <n-body>
               <ul>
                 <li>Diagonal resizing support</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
 
-          <n-card>
-            <header>Sidebar badges — Nav item indicators</header>
-            <section>
+          <n-container>
+            <n-header>Sidebar badges — Nav item indicators</n-header>
+            <n-body>
               <ul>
                 <li>Colored badges for new and updated pages</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
         </div>
       </div>
 
@@ -715,14 +776,14 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         <h3>Breaking Changes</h3>
 
         <div class="changelog-cards">
-          <n-card>
-            <header><a href="/containers/panel"><code>&lt;n-panel&gt;</code></a> — Overflow is now opt-in</header>
-            <section>
+          <n-container>
+            <n-header><a href="/containers/panel"><code>&lt;n-container data-kind=&quot;panel&quot;&gt;</code></a> — Overflow is now opt-in</n-header>
+            <n-body>
               <ul>
                 <li>Panels that relied on implicit <code>overflow: auto</code> must add <code>[scrollable]</code></li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
         </div>
       </div>
     </div>
@@ -736,9 +797,9 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         <h3>Updates</h3>
 
         <div class="changelog-cards">
-          <n-card>
-            <header><code>@nonoun/native-ui@0.6.6</code> — Internal CSS source file renames</header>
-          </n-card>
+          <n-container>
+            <n-header><code>@nonoun/native-ui@0.6.6</code> — Internal CSS source file renames</n-header>
+          </n-container>
         </div>
       </div>
     </div>
@@ -752,14 +813,14 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         <h3>Updates</h3>
 
         <div class="changelog-cards">
-          <n-card>
-            <header><a href="/blocks/data-kanban"><code>DragController</code></a> — Zone-based kanban</header>
-            <section>
+          <n-container>
+            <n-header><a href="/blocks/data-kanban"><code>DragController</code></a> — Zone-based kanban</n-header>
+            <n-body>
               <ul>
                 <li>Cross-zone dragging support</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
         </div>
       </div>
 
@@ -767,14 +828,14 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         <h3>Fixes</h3>
 
         <div class="changelog-cards">
-          <n-card>
-            <header><code>DragController</code> — View Transitions fix</header>
-            <section>
+          <n-container>
+            <n-header><code>DragController</code> — View Transitions fix</n-header>
+            <n-body>
               <ul>
                 <li>Fixed <code>native:drop</code> not firing in Astro View Transitions context</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
         </div>
       </div>
     </div>
@@ -788,18 +849,18 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         <h3><n-badge size="xs" intent="danger">New</n-badge> New Features</h3>
 
         <div class="changelog-cards">
-          <n-card>
-            <header><a href="/blocks/notify-toast-demo"><code>&lt;n-toast&gt;</code></a> — Toast notification component</header>
-            <section>
+          <n-container>
+            <n-header><a href="/blocks/notify-toast-demo"><code>&lt;n-toast&gt;</code></a> — Toast notification component</n-header>
+            <n-body>
               <ul>
                 <li>Per-controller containers</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
 
-          <n-card>
-            <header><a href="/components/pagination-dots"><code>&lt;n-pagination-dots&gt;</code></a> — Standalone dot indicator</header>
-          </n-card>
+          <n-container>
+            <n-header><a href="/components/pagination-dots"><code>&lt;n-pagination-dots&gt;</code></a> — Standalone dot indicator</n-header>
+          </n-container>
         </div>
       </div>
     </div>
@@ -813,13 +874,13 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         <h3><n-badge size="xs" intent="danger">New</n-badge> New Features</h3>
 
         <div class="changelog-cards">
-          <n-card>
-            <header><a href="/containers/header"><code>&lt;n-header&gt;</code></a>, <code>&lt;n-body&gt;</code>, <code>&lt;n-footer&gt;</code> — Unified panel sub-containers</header>
-          </n-card>
+          <n-container>
+            <n-header><a href="/containers/header"><code>&lt;n-header&gt;</code></a>, <code>&lt;n-body&gt;</code>, <code>&lt;n-footer&gt;</code> — Unified panel sub-containers</n-header>
+          </n-container>
 
-          <n-card>
-            <header><code>native-chat</code> — Extracted chat interface to standalone package</header>
-          </n-card>
+          <n-container>
+            <n-header><code>native-chat</code> — Extracted chat interface to standalone package</n-header>
+          </n-container>
         </div>
       </div>
 
@@ -827,14 +888,14 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         <h3>Breaking Changes</h3>
 
         <div class="changelog-cards">
-          <n-card>
-            <header>Aside refactor — Component-specific panel wrappers</header>
-            <section>
+          <n-container>
+            <n-header>Aside refactor — Component-specific panel wrappers</n-header>
+            <n-body>
               <ul>
                 <li><code>&lt;native-tokens-panel&gt;</code> and <code>&lt;native-chat-panel&gt;</code> replace generic aside panels</li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
         </div>
       </div>
     </div>
@@ -848,17 +909,17 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
         <h3>Breaking Changes</h3>
 
         <div class="changelog-cards">
-          <n-card>
-            <header>Namespace migration — Full rename across all packages</header>
-            <section>
+          <n-container>
+            <n-header>Namespace migration — Full rename across all packages</n-header>
+            <n-body>
               <ul>
                 <li>HTML <code>ui-*</code> → <code>n-*</code>, CSS <code>--ui-*</code> → <code>--n-*</code></li>
                 <li>Events <code>ui-*</code> → <code>native:*</code>, JS classes <code>UI*</code> → <code>N*</code></li>
                 <li>Package renames: <code>nui-*</code> → <code>native-*</code></li>
                 <li>Root element: <code>&lt;n-sidebar&gt;</code> → <code>&lt;native-app&gt;</code></li>
               </ul>
-            </section>
-          </n-card>
+            </n-body>
+          </n-container>
         </div>
       </div>
     </div>

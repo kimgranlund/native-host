@@ -6,20 +6,20 @@ if (!Astro.locals.user) return Astro.redirect('/auth/login');
 ---
 <SidebarLayout title="Danger Zone - Settings">
   <AccountLayout current="/account/danger">
-    <n-section>
+    <n-container>
       <span slot="heading">Danger Zone</span>
 
       <p class="settings-status" id="danger-status"></p>
 
-      <n-card intent="danger">
-        <section>
+      <n-container intent="danger">
+        <n-body>
           <n-stack direction="row" align="center" gap="4" wrap padding="4">
             <div class="danger-zone-text">
               <n-stack gap="1">
-                <n-text size="sm" strong>Delete account</n-text>
-                <n-text size="xs" muted>
+                <span class="text-sm text-strong">Delete account</span>
+                <span class="text-xs text-muted">
                   Permanently remove your account and all associated data. This action cannot be undone.
-                </n-text>
+                </span>
               </n-stack>
             </div>
             <n-button variant="primary" intent="danger" id="delete-account-btn">
@@ -27,30 +27,30 @@ if (!Astro.locals.user) return Astro.redirect('/auth/login');
               <span slot="label">Delete Account</span>
             </n-button>
           </n-stack>
-        </section>
-      </n-card>
-    </n-section>
+        </n-body>
+      </n-container>
+    </n-container>
   </AccountLayout>
 
   <n-dialog id="delete-confirm-dialog">
     <div class="delete-confirm-wrap">
-      <n-card padding="relaxed">
-        <header>
+      <n-container padding="relaxed">
+        <n-header>
           <nav><n-icon name="warning"></n-icon></nav>
           Delete Account
-        </header>
-        <section>
+        </n-header>
+        <n-body>
           <p>Are you sure you want to delete your account? This action is permanent and cannot be undone.</p>
-        </section>
-        <footer>
+        </n-body>
+        <n-footer>
           <n-button id="delete-cancel">
             <span slot="label">Cancel</span>
           </n-button>
           <n-button variant="primary" intent="danger" id="delete-confirm">
             <span slot="label">Delete Account</span>
           </n-button>
-        </footer>
-      </n-card>
+        </n-footer>
+      </n-container>
     </div>
   </n-dialog>
 </SidebarLayout>

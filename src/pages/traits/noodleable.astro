@@ -1,0 +1,1011 @@
+---
+import SidebarLayout from '../../layouts/SidebarLayout.astro';
+
+const codeExamples = {
+  interactive: `import { NoodleController, MagnetController } from '@nonoun/native-ui';
+
+const arena = document.getElementById('flow-arena');
+
+// Make nodes draggable
+new MagnetController(arena, {
+  selector: '.flow-node',
+  snapToEdges: true,
+  threshold: 15,
+  guides: true,
+});
+
+// Editable noodle connections
+const noodle = new NoodleController(arena, {
+  editable: true,
+  showPorts: true,
+  animated: true,
+  strokeWidth: 2.5,
+});
+
+// Update noodles when nodes move
+arena.addEventListener('native:magnet-snap', () =&gt; noodle.update());
+arena.addEventListener('native:magnet-drop', () =&gt; noodle.update());`,
+  curveStyles: `// Bezier (smooth curves — default)
+new NoodleController(arena1, { style: 'bezier', tension: 0.5 });
+
+// Step (right-angle connectors)
+new NoodleController(arena2, { style: 'step' });
+
+// Straight (direct lines)
+new NoodleController(arena3, { style: 'straight' });`,
+  staticConnections: `&lt;n-controller traits="noodleable"
+  data-trait-noodleable-style="bezier"&gt;
+  &lt;div class="noodle-arena" id="static-arena"&gt;
+    &lt;div class="flow-node" intent="accent" id="node-a"
+         data-noodle-port="right"
+         style="left: 2rem; top: 5rem;"&gt;Input A&lt;/div&gt;
+    &lt;div class="flow-node" intent="info" id="node-b"
+         data-noodle-port="left right"
+         style="left: 16rem; top: 5rem;"&gt;Process&lt;/div&gt;
+    &lt;div class="flow-node" intent="success" id="node-c"
+         data-noodle-port="left"
+         style="left: 30rem; top: 5rem;"&gt;Output&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/n-controller&gt;`,
+  disabled: `// Disabled — connections visible but not interactive
+const noodle = new NoodleController(arena, {
+  disabled: true,
+  connections: [
+    { id: 'c1', from: 'node-a', to: 'node-b',
+      fromPort: 'right', toPort: 'left' },
+    { id: 'c2', from: 'node-b', to: 'node-c',
+      fromPort: 'right', toPort: 'left' },
+  ],
+});
+
+// Toggle at runtime
+noodle.disabled = false;`,
+  programmatic: `import { NoodleController } from '@nonoun/native-ui';
+
+const noodle = new NoodleController(arena, {
+  editable: true,
+  animated: true,
+  connections: [
+    { id: 'c1', from: 'node-a', to: 'node-b',
+      fromPort: 'right', toPort: 'left' },
+  ],
+});
+
+// Programmatic API
+noodle.connect('node-b', 'node-c', 'right', 'left');
+noodle.disconnect('c1');
+noodle.getConnections();
+noodle.clear();
+noodle.update();   // force re-render
+noodle.destroy();  // cleanup`,
+};
+
+const detailConnect = `{ id, from, to, fromPort, toPort }`;
+const detailDisconnect = `{ id, from, to, fromPort, toPort }`;
+const detailDrag = `{ from, fromPort, x, y }`;
+const eventLogCode = `document.addEventListener('native:noodle-connect', (e) =&gt; {
+  const { id, from, to, fromPort, toPort } = e.detail;
+  log(\`connect: \${from}:\${fromPort} → \${to}:\${toPort} (\${id})\`);
+});
+
+document.addEventListener('native:noodle-disconnect', (e) =&gt; {
+  const { id, from, to } = e.detail;
+  log(\`disconnect: \${from} → \${to} (\${id})\`);
+});`;
+---
+<SidebarLayout title="Noodleable">
+  <header>
+    <div slot="title">
+      <div slot="content">
+        <h1>Noodleable</h1>
+      </div>
+    </div>
+    <div slot="description">
+
+      Draws curved SVG connections ("noodles") between DOM elements. Use for logic flow builders, schema relationship editors, and node graphs. Supports drag-to-connect, click-to-delete, three curve styles, and flowing animations. Dispatches <code>native:noodle-connect</code> and <code>native:noodle-disconnect</code> events.
+
+    </div>
+  </header>
+
+  <section id="noodleable-page">
+
+    <!-- ── Interactive Flow Builder ── -->
+
+    <h2>Interactive Flow Builder</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Drag from a port dot to another port to create a connection. Click a noodle to delete it. Nodes are draggable via MagnetController. Hover a port and click <code>+</code> to add a node. Drag empty space to pan the canvas. The JSON pane on the right is live and editable.
+      </span>
+      <div class="flow-split">
+        <div class="flow-split-canvas" id="flow-canvas-pane">
+          <div class="canvas-viewport" id="flow-viewport">
+            <div class="canvas-transform" id="flow-transform">
+              <div class="noodle-arena noodle-arena--tall" id="flow-arena">
+                <div class="flow-node" intent="accent" id="f-sensor" data-noodle-port="right" style="left: 1.5rem; top: 2rem;">Sensor</div>
+                <div class="flow-node" intent="accent" id="f-api" data-noodle-port="right" style="left: 1.5rem; top: 10rem;">API</div>
+                <div class="flow-node" intent="accent" id="f-timer" data-noodle-port="right" style="left: 1.5rem; top: 18rem;">Timer</div>
+                <div class="flow-node" intent="info" id="f-filter" data-noodle-port="left right" style="left: 14rem; top: 3.5rem;">Filter</div>
+                <div class="flow-node" intent="info" id="f-transform" data-noodle-port="left right" style="left: 14rem; top: 11.5rem;">Transform</div>
+                <div class="flow-node" intent="info" id="f-merge" data-noodle-port="left right" style="left: 26rem; top: 7.5rem;">Merge</div>
+                <div class="flow-node" intent="success" id="f-display" data-noodle-port="left" style="left: 38rem; top: 3.5rem;">Display</div>
+                <div class="flow-node" intent="success" id="f-database" data-noodle-port="left" style="left: 38rem; top: 11.5rem;">Database</div>
+                <div class="flow-node" intent="success" id="f-alert" data-noodle-port="left" style="left: 38rem; top: 19rem;">Alert</div>
+              </div>
+            </div>
+          </div>
+          <div class="flow-canvas-controls">
+            <n-switch id="flow-guides-toggle" checked>Alignment Guides</n-switch>
+            <n-button id="flow-fullscreen-btn" size="sm" variant="ghost" aria-label="Fullscreen"><n-icon name="arrows-out"></n-icon></n-button>
+          </div>
+          <div class="flow-split-handle" id="flow-split-handle"></div>
+        </div>
+        <div class="flow-split-editor" id="flow-editor-pane">
+          <div id="flow-json-editor"></div>
+        </div>
+      </div>
+      <pre class="code-block"><code set:html={codeExamples.interactive} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Curve Styles ── -->
+
+    <h2>Curve Styles</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Three connection styles side by side: <code>bezier</code> (smooth curves), <code>step</code> (right-angle connectors), and <code>straight</code> (direct lines).
+      </span>
+      <div class="stack" direction="row" gap="4" style="display: flex; gap: 1rem;">
+        <div style="flex: 1;">
+          <span class="text-xs text-strong">Bezier</span>
+          <div class="noodle-arena noodle-arena--short" id="style-bezier">
+            <div class="flow-node" intent="accent" id="bz-a" data-noodle-port="right" style="left: 1rem; top: 2rem;">A</div>
+            <div class="flow-node" intent="info" id="bz-b" data-noodle-port="left right" style="left: 8rem; top: 6rem;">B</div>
+            <div class="flow-node" intent="success" id="bz-c" data-noodle-port="left" style="left: 15rem; top: 2rem;">C</div>
+          </div>
+        </div>
+        <div style="flex: 1;">
+          <span class="text-xs text-strong">Step</span>
+          <div class="noodle-arena noodle-arena--short" id="style-step">
+            <div class="flow-node" intent="accent" id="st-a" data-noodle-port="right" style="left: 1rem; top: 2rem;">A</div>
+            <div class="flow-node" intent="info" id="st-b" data-noodle-port="left right" style="left: 8rem; top: 6rem;">B</div>
+            <div class="flow-node" intent="success" id="st-c" data-noodle-port="left" style="left: 15rem; top: 2rem;">C</div>
+          </div>
+        </div>
+        <div style="flex: 1;">
+          <span class="text-xs text-strong">Straight</span>
+          <div class="noodle-arena noodle-arena--short" id="style-straight">
+            <div class="flow-node" intent="accent" id="ln-a" data-noodle-port="right" style="left: 1rem; top: 2rem;">A</div>
+            <div class="flow-node" intent="info" id="ln-b" data-noodle-port="left right" style="left: 8rem; top: 6rem;">B</div>
+            <div class="flow-node" intent="success" id="ln-c" data-noodle-port="left" style="left: 15rem; top: 2rem;">C</div>
+          </div>
+        </div>
+      </div>
+      <pre class="code-block"><code set:html={codeExamples.curveStyles} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Static Connections ── -->
+
+    <h2>Static Connections</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Pre-wired bezier connections between three nodes. Not editable — demonstrates the simplest setup with declarative connections via the programmatic API.
+      </span>
+      <div class="noodle-arena" id="static-arena">
+        <div class="flow-node" intent="accent" id="s-input-a" data-noodle-port="right" style="left: 2rem; top: 5rem;">Input A</div>
+        <div class="flow-node" intent="accent" id="s-input-b" data-noodle-port="right" style="left: 2rem; top: 12rem;">Input B</div>
+        <div class="flow-node" intent="info" id="s-process" data-noodle-port="left right" style="left: 16rem; top: 8rem;">Process</div>
+        <div class="flow-node" intent="success" id="s-output" data-noodle-port="left" style="left: 30rem; top: 8rem;">Output</div>
+      </div>
+      <pre class="code-block"><code set:html={codeExamples.staticConnections} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Disabled ── -->
+
+    <h2>Disabled</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Connections render normally but cannot be created, deleted, or dragged. Useful for read-only views of a flow graph.
+      </span>
+      <div class="noodle-arena noodle-arena--short" id="disabled-arena">
+        <div class="flow-node" intent="accent" disabled id="d-input" data-noodle-port="right" style="left: 2rem; top: 3rem;">Input</div>
+        <div class="flow-node" intent="info" disabled id="d-process" data-noodle-port="left right" style="left: 14rem; top: 3rem;">Process</div>
+        <div class="flow-node" intent="success" disabled id="d-output" data-noodle-port="left" style="left: 26rem; top: 3rem;">Output</div>
+      </div>
+      <pre class="code-block"><code set:html={codeExamples.disabled} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Event Log ── -->
+
+    <h2>Event Log</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Listens on <code>document</code> for all <code>native:noodle-connect</code>, <code>native:noodle-disconnect</code>, and <code>native:noodle-drag</code> events from the interactive flow builder above.
+      </span>
+      <div id="noodle-event-log" class="output"></div>
+      <pre class="code-block"><code set:html={eventLogCode} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── API Reference ── -->
+
+    <h2>API</h2>
+      <h3>Port Declaration</h3>
+      <n-table variant="plain" size="sm" cols="auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>data-noodle-port</code></n-table-cell>
+            <n-table-cell>Space-separated list of port positions: <code>top</code>, <code>right</code>, <code>bottom</code>, <code>left</code>. Determines where connection points appear on the element.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+
+      <h3>Adapter Attributes</h3>
+      <n-table variant="plain" size="sm" cols="auto auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Type</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>data-trait-noodleable-editable</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>false</code></n-table-cell>
+            <n-table-cell>Enable drag-to-connect and click-to-delete.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-noodleable-style</code></n-table-cell>
+            <n-table-cell><code>string</code></n-table-cell>
+            <n-table-cell><code>bezier</code></n-table-cell>
+            <n-table-cell>Curve style: <code>bezier</code>, <code>step</code>, or <code>straight</code>.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-noodleable-animated</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>false</code></n-table-cell>
+            <n-table-cell>Enable flowing dash animation on connections.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-noodleable-color</code></n-table-cell>
+            <n-table-cell><code>string</code></n-table-cell>
+            <n-table-cell><code>var(--n-color-accent-500)</code></n-table-cell>
+            <n-table-cell>Noodle stroke color. Accepts any CSS color value.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-noodleable-stroke-width</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell><code>2</code></n-table-cell>
+            <n-table-cell>Noodle stroke width in pixels.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-noodleable-tension</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell><code>0.5</code></n-table-cell>
+            <n-table-cell>Bezier control point distance (0–1).</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-noodleable-show-ports</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>true</code> when editable</n-table-cell>
+            <n-table-cell>Show port indicator dots on connectable elements.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-noodleable-port-size</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell><code>10</code></n-table-cell>
+            <n-table-cell>Port dot size in pixels.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-noodleable-disabled</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>false</code></n-table-cell>
+            <n-table-cell>Disables the controller.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+
+      <h3>Programmatic API</h3>
+      <n-table variant="plain" size="sm" cols="auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Method</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>connect(from, to, fromPort, toPort)</code></n-table-cell>
+            <n-table-cell>Create a connection between two elements by ID.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>disconnect(id)</code></n-table-cell>
+            <n-table-cell>Remove a connection by its ID.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>getConnections()</code></n-table-cell>
+            <n-table-cell>Returns the current array of connection objects.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>setConnections(connections)</code></n-table-cell>
+            <n-table-cell>Replace all connections with a new array.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>update()</code></n-table-cell>
+            <n-table-cell>Force re-render after external DOM changes (e.g. node repositioned).</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>clear()</code></n-table-cell>
+            <n-table-cell>Remove all connections.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>destroy()</code></n-table-cell>
+            <n-table-cell>Teardown the controller and remove the SVG overlay.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+
+      <h3>Events</h3>
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Event</n-table-header><n-table-header>Detail</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>native:noodle-connect</code></n-table-cell>
+            <n-table-cell><code set:html={detailConnect} /></n-table-cell>
+            <n-table-cell>Fired when a new connection is created (drag-to-connect or programmatic).</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>native:noodle-disconnect</code></n-table-cell>
+            <n-table-cell><code set:html={detailDisconnect} /></n-table-cell>
+            <n-table-cell>Fired when a connection is removed (click-to-delete or programmatic).</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>native:noodle-drag</code></n-table-cell>
+            <n-table-cell><code set:html={detailDrag} /></n-table-cell>
+            <n-table-cell>Fired continuously while dragging a new connection from a port.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+
+      <h3>Programmatic Constructor</h3>
+      <pre class="code-block"><code set:html={codeExamples.programmatic} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+  </section>
+
+  <script>
+import { NoodleController, MagnetController, PresentController } from '@nonoun/native-ui';
+import { createEditorView, EditorView } from '@nonoun/native-code';
+import { json } from '@codemirror/lang-json';
+import { logAppend as appendLog } from '../../scripts/event-log';
+
+document.addEventListener('astro:page-load', () => {
+  if (!document.getElementById('noodleable-page')) return;
+
+  // ── Interactive Flow Builder ──
+
+  const flowArena = /** @type {HTMLElement} */ (document.getElementById('flow-arena'));
+  const flowViewport = document.getElementById('flow-viewport');
+  const flowTransform = document.getElementById('flow-transform');
+  const editorContainer = document.getElementById('flow-json-editor');
+
+  /** @type {MagnetController|null} */
+  let magnet = null;
+  /** @type {NoodleController|null} */
+  let noodle = null;
+  /** @type {EditorView|null} */
+  let editorView = null;
+  let nodeCounter = 0;
+  let suppressEditorSync = false;
+  let suppressCanvasSync = false;
+  /** @type {number|null} */
+  let editorSyncTimer = null;
+  const intents = ['accent', 'info', 'success', 'warning', 'danger'];
+
+  if (flowArena && flowViewport && flowTransform) {
+    magnet = new MagnetController(flowArena, {
+      selector: '.flow-node',
+      snapToEdges: true,
+      threshold: 15,
+      guides: true,
+    });
+
+    noodle = new NoodleController(flowArena, {
+      editable: true,
+      showPorts: true,
+      animated: true,
+      strokeWidth: 2.5,
+      connections: [
+        { id: 'init-1', from: 'f-sensor', to: 'f-filter', fromPort: 'right', toPort: 'left' },
+        { id: 'init-2', from: 'f-transform', to: 'f-merge', fromPort: 'right', toPort: 'left' },
+      ],
+    });
+
+    // ── Guides Toggle ──
+
+    const guidesToggle = document.getElementById('flow-guides-toggle');
+    guidesToggle?.addEventListener('native:change', () => {
+      if (magnet) magnet.guides = /** @type {HTMLInputElement} */ (guidesToggle).checked;
+    });
+
+    // ── Present Mode ──
+
+    const flowSplit = /** @type {HTMLElement} */ (flowArena.closest('.flow-split'));
+    const fullscreenBtn = document.getElementById('flow-fullscreen-btn');
+    let presentCtrl = flowSplit ? new PresentController(flowSplit) : null;
+
+    fullscreenBtn?.addEventListener('native:press', () => {
+      presentCtrl?.present();
+    });
+
+    flowSplit?.addEventListener('native:present', () => {
+      const icon = fullscreenBtn?.querySelector('n-icon');
+      if (icon) icon.setAttribute('name', 'arrows-in');
+      noodle?.update();
+    });
+    flowSplit?.addEventListener('native:dismiss', () => {
+      const icon = fullscreenBtn?.querySelector('n-icon');
+      if (icon) icon.setAttribute('name', 'arrows-out');
+      noodle?.update();
+    });
+
+    flowArena.addEventListener('native:magnet-snap', () => {
+      noodle?.update();
+      syncCanvasToEditor();
+    });
+    flowArena.addEventListener('native:magnet-drop', () => {
+      noodle?.update();
+      syncCanvasToEditor();
+    });
+    flowArena.addEventListener('native:noodle-connect', () => syncCanvasToEditor());
+    flowArena.addEventListener('native:noodle-disconnect', () => syncCanvasToEditor());
+
+    // ── Pan ──
+
+    let isPanning = false;
+    let panStartX = 0;
+    let panStartY = 0;
+    let panX = 0;
+    let panY = 0;
+    let panBaseX = 0;
+    let panBaseY = 0;
+
+    flowViewport.addEventListener('pointerdown', (e) => {
+      // Pan on empty space click or middle mouse
+      const target = /** @type {HTMLElement} */ (e.target);
+      const isEmptySpace = target === flowArena || target === flowViewport || target === flowTransform;
+      if (isEmptySpace || e.button === 1) {
+        isPanning = true;
+        panStartX = e.clientX;
+        panStartY = e.clientY;
+        panBaseX = panX;
+        panBaseY = panY;
+        flowViewport.setPointerCapture(e.pointerId);
+        flowViewport.style.cursor = 'grabbing';
+        e.preventDefault();
+      }
+    });
+
+    flowViewport.addEventListener('pointermove', (e) => {
+      if (!isPanning) return;
+      panX = panBaseX + (e.clientX - panStartX);
+      panY = panBaseY + (e.clientY - panStartY);
+      flowTransform.style.transform = `translate(${panX}px, ${panY}px)`;
+      noodle?.update();
+    });
+
+    flowViewport.addEventListener('pointerup', () => {
+      if (!isPanning) return;
+      isPanning = false;
+      flowViewport.style.cursor = '';
+    });
+
+    // ── Add Node on Port Hover ──
+
+    /** @type {HTMLElement|null} */
+    let addBtn = null;
+    /** @type {HTMLElement|null} */
+    let hoveredNode = null;
+    /** @type {string|null} */
+    let hoveredPort = null;
+
+    function showAddButton(/** @type {HTMLElement} */ node, /** @type {string} */ port) {
+      if (!addBtn) {
+        addBtn = document.createElement('button');
+        addBtn.className = 'flow-add-btn';
+        addBtn.textContent = '+';
+        addBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (hoveredNode && hoveredPort) {
+            addNodeFromPort(hoveredNode, hoveredPort);
+          }
+          hideAddButton();
+        });
+      }
+      const rect = node.getBoundingClientRect();
+      const arenaRect = flowArena.getBoundingClientRect();
+      let btnX = 0;
+      let btnY = 0;
+      if (port === 'right') {
+        btnX = node.offsetLeft + node.offsetWidth + 8;
+        btnY = node.offsetTop + node.offsetHeight / 2 - 10;
+      } else if (port === 'left') {
+        btnX = node.offsetLeft - 28;
+        btnY = node.offsetTop + node.offsetHeight / 2 - 10;
+      } else if (port === 'bottom') {
+        btnX = node.offsetLeft + node.offsetWidth / 2 - 10;
+        btnY = node.offsetTop + node.offsetHeight + 8;
+      } else {
+        btnX = node.offsetLeft + node.offsetWidth / 2 - 10;
+        btnY = node.offsetTop - 28;
+      }
+      addBtn.style.left = btnX + 'px';
+      addBtn.style.top = btnY + 'px';
+      flowArena.appendChild(addBtn);
+      hoveredNode = node;
+      hoveredPort = port;
+    }
+
+    function hideAddButton() {
+      if (addBtn && addBtn.parentNode) {
+        addBtn.parentNode.removeChild(addBtn);
+      }
+      hoveredNode = null;
+      hoveredPort = null;
+    }
+
+    flowArena.addEventListener('pointerenter', (e) => {
+      const target = /** @type {HTMLElement} */ (e.target);
+      if (!target.classList?.contains('flow-node')) return;
+      const ports = (target.getAttribute('data-noodle-port') || '').split(' ');
+      // Show + button on the last port direction
+      const port = ports[ports.length - 1];
+      if (port) showAddButton(target, port);
+    }, true);
+
+    flowArena.addEventListener('pointerleave', (e) => {
+      const target = /** @type {HTMLElement} */ (e.target);
+      if (!target.classList?.contains('flow-node')) return;
+      // Delay to allow clicking the + button
+      setTimeout(() => {
+        if (addBtn && !addBtn.matches(':hover')) hideAddButton();
+      }, 150);
+    }, true);
+
+    function addNodeFromPort(/** @type {HTMLElement} */ sourceNode, /** @type {string} */ sourcePort) {
+      nodeCounter++;
+      const id = `f-new-${nodeCounter}`;
+      const intent = intents[nodeCounter % intents.length];
+      const label = `Node ${nodeCounter}`;
+
+      let x = sourceNode.offsetLeft;
+      let y = sourceNode.offsetTop;
+      if (sourcePort === 'right') { x += sourceNode.offsetWidth + 80; }
+      else if (sourcePort === 'left') { x -= 180; }
+      else if (sourcePort === 'bottom') { y += sourceNode.offsetHeight + 60; }
+      else { y -= 60; }
+
+      const node = document.createElement('div');
+      node.className = 'flow-node';
+      node.setAttribute('intent', intent);
+      node.id = id;
+      node.setAttribute('data-noodle-port', 'left right');
+      node.style.cssText = `left: ${Math.max(0, x)}px; top: ${Math.max(0, y)}px;`;
+      node.textContent = label;
+      flowArena.appendChild(node);
+
+      // Refresh magnet to pick up new node
+      if (magnet) {
+        magnet.detach();
+        magnet.attach();
+      }
+
+      // Connect to source
+      const fromPort = sourcePort;
+      const toPort = sourcePort === 'right' ? 'left' : sourcePort === 'left' ? 'right' : sourcePort === 'bottom' ? 'top' : 'bottom';
+      noodle?.connect(sourceNode.id, id, fromPort, toPort);
+      noodle?.update();
+      syncCanvasToEditor();
+    }
+
+    // ── JSON Editor ──
+
+    function serializeGraph() {
+      const nodes = /** @type {any[]} */ ([]);
+      flowArena.querySelectorAll('.flow-node').forEach((/** @type {HTMLElement} */ el) => {
+        nodes.push({
+          id: el.id,
+          label: el.textContent?.trim() || '',
+          intent: el.getAttribute('intent') || 'neutral',
+          ports: el.getAttribute('data-noodle-port') || '',
+          x: Math.round(el.offsetLeft),
+          y: Math.round(el.offsetTop),
+        });
+      });
+      const connections = noodle?.getConnections() || [];
+      return { nodes, connections };
+    }
+
+    function syncCanvasToEditor() {
+      if (suppressCanvasSync || !editorView) return;
+      suppressEditorSync = true;
+      const text = JSON.stringify(serializeGraph(), null, 2);
+      editorView.dispatch({
+        changes: { from: 0, to: editorView.state.doc.length, insert: text },
+      });
+      suppressEditorSync = false;
+    }
+
+    function syncEditorToCanvas() {
+      if (suppressEditorSync || !editorView || !noodle) return;
+      try {
+        const data = JSON.parse(editorView.state.doc.toString());
+        if (!data.nodes || !data.connections) return;
+
+        suppressCanvasSync = true;
+
+        // Diff nodes
+        const existingIds = new Set(
+          Array.from(flowArena.querySelectorAll('.flow-node')).map(el => el.id)
+        );
+        const newIds = new Set(data.nodes.map((/** @type {any} */ n) => n.id));
+
+        // Remove nodes no longer in JSON
+        existingIds.forEach(id => {
+          if (!newIds.has(id)) {
+            const el = document.getElementById(id);
+            if (el) el.remove();
+          }
+        });
+
+        // Add or update nodes
+        for (const n of data.nodes) {
+          let el = /** @type {HTMLElement|null} */ (document.getElementById(n.id));
+          if (!el) {
+            el = document.createElement('div');
+            el.className = 'flow-node';
+            el.id = n.id;
+            flowArena.appendChild(el);
+          }
+          el.textContent = n.label || n.id;
+          el.setAttribute('intent', n.intent || 'neutral');
+          el.setAttribute('data-noodle-port', n.ports || 'left right');
+          el.style.left = n.x + 'px';
+          el.style.top = n.y + 'px';
+        }
+
+        // Refresh magnet
+        if (magnet) {
+          magnet.detach();
+          magnet.attach();
+        }
+
+        // Update connections
+        noodle.setConnections(data.connections);
+        noodle.update();
+
+        suppressCanvasSync = false;
+      } catch {
+        suppressCanvasSync = false;
+        // Invalid JSON — ignore until user fixes it
+      }
+    }
+
+    if (editorContainer) {
+      const initial = JSON.stringify(serializeGraph(), null, 2);
+      editorView = createEditorView(editorContainer, {
+        doc: initial,
+        extensions: [
+          json(),
+          EditorView.updateListener.of((update) => {
+            if (!update.docChanged || suppressEditorSync) return;
+            if (editorSyncTimer) clearTimeout(editorSyncTimer);
+            editorSyncTimer = window.setTimeout(syncEditorToCanvas, 300);
+          }),
+        ],
+      });
+    }
+
+    // ── Split Handle Resize ──
+
+    const splitHandle = document.getElementById('flow-split-handle');
+    const canvasPane = document.getElementById('flow-canvas-pane');
+    if (splitHandle && canvasPane) {
+      let isResizing = false;
+      let startX = 0;
+      let startWidth = 0;
+
+      splitHandle.addEventListener('pointerdown', (e) => {
+        isResizing = true;
+        startX = e.clientX;
+        startWidth = canvasPane.offsetWidth;
+        splitHandle.setPointerCapture(e.pointerId);
+        document.body.style.userSelect = 'none';
+        e.preventDefault();
+      });
+
+      splitHandle.addEventListener('pointermove', (e) => {
+        if (!isResizing) return;
+        const newWidth = Math.max(300, Math.min(startWidth + (e.clientX - startX), window.innerWidth - 200));
+        canvasPane.style.width = newWidth + 'px';
+        canvasPane.style.flex = 'none';
+        noodle?.update();
+      });
+
+      splitHandle.addEventListener('pointerup', () => {
+        isResizing = false;
+        document.body.style.userSelect = '';
+      });
+    }
+  }
+
+  // ── Curve Styles ──
+
+  const bezierArena = document.getElementById('style-bezier');
+  if (bezierArena) {
+    new NoodleController(bezierArena, {
+      style: 'bezier',
+      tension: 0.5,
+      connections: [
+        { id: 'bz1', from: 'bz-a', to: 'bz-b', fromPort: 'right', toPort: 'left' },
+        { id: 'bz2', from: 'bz-b', to: 'bz-c', fromPort: 'right', toPort: 'left' },
+      ],
+    });
+  }
+
+  const stepArena = document.getElementById('style-step');
+  if (stepArena) {
+    new NoodleController(stepArena, {
+      style: 'step',
+      connections: [
+        { id: 'st1', from: 'st-a', to: 'st-b', fromPort: 'right', toPort: 'left' },
+        { id: 'st2', from: 'st-b', to: 'st-c', fromPort: 'right', toPort: 'left' },
+      ],
+    });
+  }
+
+  const straightArena = document.getElementById('style-straight');
+  if (straightArena) {
+    new NoodleController(straightArena, {
+      style: 'straight',
+      connections: [
+        { id: 'ln1', from: 'ln-a', to: 'ln-b', fromPort: 'right', toPort: 'left' },
+        { id: 'ln2', from: 'ln-b', to: 'ln-c', fromPort: 'right', toPort: 'left' },
+      ],
+    });
+  }
+
+  // ── Static Connections ──
+
+  const staticArena = document.getElementById('static-arena');
+  if (staticArena) {
+    new NoodleController(staticArena, {
+      connections: [
+        { id: 'sc1', from: 's-input-a', to: 's-process', fromPort: 'right', toPort: 'left' },
+        { id: 'sc2', from: 's-input-b', to: 's-process', fromPort: 'right', toPort: 'left' },
+        { id: 'sc3', from: 's-process', to: 's-output', fromPort: 'right', toPort: 'left' },
+      ],
+    });
+  }
+
+  // ── Disabled ──
+
+  const disabledArena = document.getElementById('disabled-arena');
+  if (disabledArena) {
+    new NoodleController(disabledArena, {
+      disabled: true,
+      connections: [
+        { id: 'd1', from: 'd-input', to: 'd-process', fromPort: 'right', toPort: 'left' },
+        { id: 'd2', from: 'd-process', to: 'd-output', fromPort: 'right', toPort: 'left' },
+      ],
+    });
+  }
+
+  // ── Event Log ──
+
+  const logEl = document.getElementById('noodle-event-log');
+
+  document.addEventListener('native:noodle-connect', (e) => {
+    /** @type {CustomEvent} */ const ce = /** @type {any} */ (e);
+    const { id, from, to, fromPort, toPort } = ce.detail;
+    appendLog(logEl, `connect: ${from}:${fromPort} → ${to}:${toPort} (${id})`, 50);
+  });
+
+  document.addEventListener('native:noodle-disconnect', (e) => {
+    /** @type {CustomEvent} */ const ce = /** @type {any} */ (e);
+    const { id, from, to } = ce.detail;
+    appendLog(logEl, `disconnect: ${from} → ${to} (${id})`, 50);
+  });
+
+  document.addEventListener('native:noodle-drag', (e) => {
+    /** @type {CustomEvent} */ const ce = /** @type {any} */ (e);
+    const { from, fromPort, x, y } = ce.detail;
+    appendLog(logEl, `drag: ${from}:${fromPort} → (${Math.round(x)}, ${Math.round(y)})`, 50);
+  });
+});
+  </script>
+  <style is:global>
+    @import '@nonoun/native-code/css';
+
+    /* ── Noodle Arena ── */
+
+    .noodle-arena {
+      position: relative;
+      min-height: 340px;
+      border: 2px dashed var(--n-border-muted-neutral);
+      border-radius: var(--n-radius);
+      overflow: visible;
+    }
+
+    .noodle-arena--tall {
+      min-height: 460px;
+    }
+
+    .noodle-arena--short {
+      min-height: 200px;
+    }
+
+    /* ── Flow Nodes ── */
+
+    .flow-node {
+      position: absolute;
+      min-width: 7rem;
+      padding: 0.625rem 0.875rem;
+      border-radius: var(--n-radius);
+      font-size: 0.75rem;
+      font-weight: 600;
+      user-select: none;
+      touch-action: none;
+      cursor: grab;
+      text-align: center;
+    }
+
+    .flow-node:active {
+      cursor: grabbing;
+    }
+
+    .flow-node[intent] {
+      background: var(--n-button);
+      border: 1px solid var(--n-border-muted);
+      color: var(--n-ink);
+    }
+
+    .flow-node[disabled] {
+      opacity: 0.4;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    /* ── Add Node Button ── */
+
+    .flow-add-btn {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 1px solid var(--n-border-accent);
+      background: var(--n-button-accent);
+      color: var(--n-ink-accent);
+      font-size: 0.75rem;
+      font-weight: 700;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+      padding: 0;
+      transition: transform 100ms ease;
+    }
+
+    .flow-add-btn:hover {
+      transform: scale(1.2);
+    }
+
+    /* ── Split Layout ── */
+
+    .flow-split {
+      display: flex;
+      gap: 0;
+      min-height: 480px;
+      max-height: 75dvh;
+      background-color: var(--n-panel);
+      border: 2px dashed var(--n-border-muted-neutral);
+      border-radius: var(--n-radius);
+      overflow: hidden;
+    }
+
+    .flow-split-canvas {
+      position: relative;
+      flex: 1;
+      min-width: 300px;
+      display: flex;
+    }
+
+    .flow-split-handle {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 5px;
+      height: 100%;
+      cursor: ew-resize;
+      background: var(--n-border-muted-neutral);
+      opacity: 0.3;
+      transition: opacity 150ms ease;
+      z-index: 5;
+    }
+
+    .flow-canvas-controls {
+      position: absolute;
+      left: 1.5rem;
+      bottom: 1.5rem;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .flow-split-handle:hover {
+      opacity: 0.8;
+      background: var(--n-border-accent);
+    }
+
+    .flow-split-editor {
+      flex: 1;
+      min-width: 200px;
+      overflow: hidden;
+      border-left: 1px solid var(--n-border-muted-neutral);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .flow-split-editor > div {
+      flex: 1;
+      min-height: 0;
+    }
+
+    .flow-split-editor .cm-editor {
+      height: 100%;
+    }
+
+    .flow-split-editor .cm-scroller {
+      overflow: auto;
+    }
+
+    /* ── Canvas Viewport (pan) ── */
+
+    .canvas-viewport {
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+      cursor: grab;
+    }
+
+    .canvas-viewport:active {
+      cursor: grabbing;
+    }
+
+    .canvas-transform {
+      transform-origin: 0 0;
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .flow-split[presented] {
+      max-height: none;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 0;
+    }
+
+    /* Inside split, arena loses its own border */
+    .flow-split .noodle-arena {
+      border: none;
+      min-height: 100%;
+    }
+
+    /* ── Output Log ── */
+
+    .output {
+      font-family: monospace;
+      font-size: 0.75rem;
+      color: var(--n-ink-muted-neutral);
+      max-height: 8rem;
+      overflow-y: auto;
+      margin-top: 0.75rem;
+      padding: 0.5rem;
+      background: var(--n-panel-neutral);
+      border-radius: 0.25rem;
+    }
+</style>
+
+</SidebarLayout>

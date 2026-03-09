@@ -53,8 +53,8 @@ const permissionsJson = JSON.stringify(allPermissions.map(p => ({ value: p.id, l
                 <n-table-row>
                   <n-table-cell>
                     <n-stack gap="0">
-                      <n-text size="sm" strong>{p.resource}:{p.action}</n-text>
-                      {p.description && <n-text size="xs" muted>{p.description}</n-text>}
+                      <span class="text-sm text-strong">{p.resource}:{p.action}</span>
+                      {p.description && <span class="text-xs text-muted">{p.description}</span>}
                     </n-stack>
                   </n-table-cell>
                   {tiers.map(t => {
@@ -87,10 +87,10 @@ const permissionsJson = JSON.stringify(allPermissions.map(p => ({ value: p.id, l
                 <n-table-cell>
                   <header>
                     <h2>Grant Overrides</h2>
-                    <aside><n-button id="add-grant-btn" variant="primary" intent="accent">
+                    <n-button id="add-grant-btn" variant="primary" intent="accent">
                       <n-icon name="plus" slot="leading"></n-icon>
                       <span>Add Grant</span>
-                    </n-button></aside>
+                    </n-button>
                   </header>
                 </n-table-cell>
               </n-table-row>
@@ -104,7 +104,7 @@ const permissionsJson = JSON.stringify(allPermissions.map(p => ({ value: p.id, l
               {grants.length === 0 ? (
                 <n-table-row>
                   <n-table-cell>
-                    <n-text muted size="sm">No grant overrides configured</n-text>
+                    <span class="text-muted text-sm">No grant overrides configured</span>
                   </n-table-cell>
                   <n-table-cell></n-table-cell>
                   <n-table-cell></n-table-cell>
@@ -117,17 +117,17 @@ const permissionsJson = JSON.stringify(allPermissions.map(p => ({ value: p.id, l
                     <n-table-cell>
                       <n-stack direction="row" gap="2" align="center">
                         <n-icon name={g.subjectType === 'user' ? 'user' : 'users-three'} size="sm"></n-icon>
-                        <n-text size="sm">{g.subjectType}:{g.subjectId}</n-text>
+                        <span class="text-sm">{g.subjectType}:{g.subjectId}</span>
                       </n-stack>
                     </n-table-cell>
                     <n-table-cell>
-                      <n-text size="sm">{g.permissionId}</n-text>
+                      <span class="text-sm">{g.permissionId}</span>
                     </n-table-cell>
                     <n-table-cell>
                       <n-badge intent={effectIntent(g.effect)}>{g.effect}</n-badge>
                     </n-table-cell>
                     <n-table-cell>
-                      <n-text muted size="sm">{g.resourceId || '*'}</n-text>
+                      <span class="text-muted text-sm">{g.resourceId || '*'}</span>
                     </n-table-cell>
                     <n-table-cell>
                       <n-button
@@ -149,11 +149,11 @@ const permissionsJson = JSON.stringify(allPermissions.map(p => ({ value: p.id, l
     <!-- Add Grant dialog -->
     <n-dialog id="grant-dialog">
       <div class="admin-dialog-card">
-        <n-card>
-          <header>
+        <n-container>
+          <n-header>
             <span>Add Grant Override</span>
-          </header>
-          <section>
+          </n-header>
+          <n-body>
             <n-stack gap="4">
               <n-field required>
                 <label slot="label">Subject Type</label>
@@ -180,31 +180,31 @@ const permissionsJson = JSON.stringify(allPermissions.map(p => ({ value: p.id, l
                 </n-input>
               </n-field>
             </n-stack>
-          </section>
-          <footer>
+          </n-body>
+          <n-footer>
             <n-button id="grant-cancel">
               <span slot="label">Cancel</span>
             </n-button>
             <n-button id="grant-submit" variant="primary" intent="accent">
               <span slot="label">Add Grant</span>
             </n-button>
-          </footer>
-        </n-card>
+          </n-footer>
+        </n-container>
       </div>
     </n-dialog>
 
     <!-- Delete grant confirmation dialog -->
     <n-dialog id="delete-grant-dialog">
       <div class="admin-dialog-card">
-        <n-card>
-          <header>
+        <n-container>
+          <n-header>
             <nav><n-icon name="warning" size="lg"></n-icon></nav>
             <span>Delete Grant?</span>
-          </header>
-          <section>
-            <n-text>Are you sure you want to delete this grant override? This action cannot be undone.</n-text>
-          </section>
-          <footer>
+          </n-header>
+          <n-body>
+            <span>Are you sure you want to delete this grant override? This action cannot be undone.</span>
+          </n-body>
+          <n-footer>
             <n-button id="delete-grant-cancel">
               <span slot="label">Cancel</span>
             </n-button>
@@ -212,8 +212,8 @@ const permissionsJson = JSON.stringify(allPermissions.map(p => ({ value: p.id, l
               <n-icon name="trash" slot="leading"></n-icon>
               <span>Delete</span>
             </n-button>
-          </footer>
-        </n-card>
+          </n-footer>
+        </n-container>
       </div>
     </n-dialog>
   </AdminLayout>

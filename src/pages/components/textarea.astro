@@ -46,23 +46,23 @@ const codeExamples = {
     <!-- ── Basic ── -->
 
     <h2>Basic</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-textarea placeholder="Tell us about yourself..."></n-textarea>
         <pre class="code-block"><code>&lt;n-textarea placeholder="Tell us about yourself..."&gt;&lt;/n-textarea&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── With Value ── -->
 
     <h2>With Value</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-textarea rows="4">This is a textarea with some initial content. It supports multi-line text editing with all the same styling as n-input.</n-textarea>
         <pre class="code-block"><code>&lt;n-textarea rows="4"&gt;Initial content here.&lt;/n-textarea&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Variants ── -->
 
     <h2>Variants</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack direction="row" wrap align="center">
         <div>
           <div class="label">secondary (default)</div>
@@ -80,12 +80,12 @@ const codeExamples = {
       <pre class="code-block"><code>&lt;n-textarea placeholder="Secondary (default)"&gt;&lt;/n-textarea&gt;
 &lt;n-textarea variant="outline" placeholder="Outline"&gt;&lt;/n-textarea&gt;
 &lt;n-textarea variant="ghost" placeholder="Ghost"&gt;&lt;/n-textarea&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Sizes ── -->
 
     <h2>Sizes</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack direction="row" wrap align="center">
         <div size="sm">
           <div class="label">sm</div>
@@ -107,12 +107,12 @@ const codeExamples = {
 &lt;div size="lg"&gt;
   &lt;n-textarea placeholder="Large"&gt;&lt;/n-textarea&gt;
 &lt;/div&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Density ── -->
 
     <h2>Density</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack direction="row" wrap align="center">
         <div density="compact">
           <div class="label">compact</div>
@@ -134,12 +134,12 @@ const codeExamples = {
 &lt;div density="loose"&gt;
   &lt;n-textarea placeholder="Loose"&gt;&lt;/n-textarea&gt;
 &lt;/div&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Rows ── -->
 
     <h2>Rows</h2>
-    <n-panel bordered size="sm">
+    <n-container data-kind="panel" bordered size="sm">
       <n-stack direction="row" wrap align="center">
         <div>
           <div class="label">rows="1"</div>
@@ -166,23 +166,23 @@ const codeExamples = {
 &lt;n-textarea rows="3" placeholder="Three rows (default)"&gt;&lt;/n-textarea&gt;
 &lt;n-textarea rows="5" placeholder="Five rows"&gt;&lt;/n-textarea&gt;
 &lt;n-textarea rows="8" placeholder="Eight rows"&gt;&lt;/n-textarea&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Autogrow ── -->
 
     <h2>Autogrow</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-textarea placeholder="Type here — grows as you type..." autogrow></n-textarea>
         <pre class="code-block"><code>&lt;n-textarea placeholder="Type here..." autogrow&gt;&lt;/n-textarea&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Formatting ── -->
 
     <h2>Formatting</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         The <code>formatting</code> attribute enables inline text formatting. Select text and use keyboard shortcuts to wrap/unwrap with markers.
-      </n-text>
+      </span>
 
       <h3>Code only</h3>
       <n-textarea id="format-code-textarea" formatting="code" rows="2" placeholder="Select text, press Cmd+E to wrap in backticks..."></n-textarea>
@@ -192,9 +192,9 @@ const codeExamples = {
 
       <div class="log" id="format-log"></div>
       <pre class="code-block"><code set:html={codeExamples.formatting} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
-    <n-panel bordered size="sm">
+    <n-container data-kind="panel" bordered size="sm">
       <h3>Keyboard Shortcuts</h3>
       <n-table variant="plain" size="sm" cols="auto auto auto">
         <n-table-head>
@@ -222,33 +222,33 @@ const codeExamples = {
           </n-table-row>
         </n-table-body>
       </n-table>
-      <div class="hint"><n-text size="xs" muted>
+      <div class="hint"><span class="text-xs text-muted">
         Programmatic API: <code>textarea.applyFormat('code')</code> — wraps the current selection. Also works with <code>'bold'</code> and <code>'italic'</code>.
-      </n-text></div>
-    </n-panel>
+      </span></div>
+    </n-container>
 
     <!-- ── Maxlength ── -->
 
     <h2>Maxlength</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-field>
         <label slot="label">Bio</label>
         <n-textarea placeholder="Max 100 characters..." maxlength="100"></n-textarea>
         <span slot="description">100 character limit</span>
         <span slot="error">Exceeds maximum length</span>
       </n-field>
-      <div class="hint"><n-text size="xs" muted>Reports <code>tooLong</code> via the Constraint Validation API when the limit is exceeded. The value is not truncated.</n-text></div>
+      <div class="hint"><span class="text-xs text-muted">Reports <code>tooLong</code> via the Constraint Validation API when the limit is exceeded. The value is not truncated.</span></div>
         <pre class="code-block"><code>&lt;n-field&gt;
   &lt;label slot="label"&gt;Bio&lt;/label&gt;
   &lt;n-textarea placeholder="Max 100 characters..." maxlength="100"&gt;&lt;/n-textarea&gt;
   &lt;span slot="error"&gt;Exceeds maximum length&lt;/span&gt;
 &lt;/n-field&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Intents ── -->
 
     <h2>Intents</h2>
-    <n-panel bordered size="sm">
+    <n-container data-kind="panel" bordered size="sm">
       <n-stack direction="row" wrap align="center">
         <div intent="neutral">
           <div class="label">neutral</div>
@@ -284,12 +284,12 @@ const codeExamples = {
 &lt;div intent="danger"&gt;
   &lt;n-textarea placeholder="Danger"&gt;&lt;/n-textarea&gt;
 &lt;/div&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Disabled & Readonly ── -->
 
     <h2>Disabled &amp; Readonly</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack direction="row" wrap align="center">
         <div>
           <div class="label">disabled</div>
@@ -302,12 +302,12 @@ const codeExamples = {
       </n-stack>
       <pre class="code-block"><code>&lt;n-textarea disabled&gt;Cannot be edited.&lt;/n-textarea&gt;
 &lt;n-textarea readonly&gt;Read-only but selectable.&lt;/n-textarea&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Radius ── -->
 
     <h2>Radius</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack direction="row" wrap align="center">
         <div radius="sharp">
           <div class="label">sharp</div>
@@ -329,21 +329,21 @@ const codeExamples = {
 &lt;div radius="round"&gt;
   &lt;n-textarea placeholder="Round"&gt;&lt;/n-textarea&gt;
 &lt;/div&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Events ── -->
 
     <h2>Events</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-textarea id="event-textarea" placeholder="Type to see events..."></n-textarea>
       <div class="log" id="event-log"></div>
     <pre class="code-block"><code set:html={codeExamples.events} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Form Association ── -->
 
     <h2>Form Association</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <form id="demo-form">
         <div class="form-fields"><n-stack gap="3">
           <n-textarea name="bio" placeholder="Write your bio..."></n-textarea>
@@ -361,12 +361,12 @@ const codeExamples = {
     &lt;span slot="label"&gt;Submit&lt;/span&gt;
   &lt;/n-button&gt;
 &lt;/form&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── With n-field ── -->
 
     <h2>With n-field</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack gap="4">
         <n-field>
           <label slot="label">Bio</label>
@@ -391,15 +391,15 @@ const codeExamples = {
   &lt;n-textarea placeholder="Required..." rows="4"&gt;&lt;/n-textarea&gt;
   &lt;span slot="description"&gt;We appreciate your feedback.&lt;/span&gt;
 &lt;/n-field&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Debug States (force-*) ── -->
 
     <h2>Debug States (<code>force-*</code>)</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="regular">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Attribute-driven pseudo-state overrides for DevTools debugging and visual testing.
-      </n-text>
+      </span>
       <n-stack direction="row" wrap align="center">
         <div>
           <div class="label">force-hover</div>
@@ -410,7 +410,7 @@ const codeExamples = {
           <n-textarea force-focus placeholder="Force focus"></n-textarea>
         </div>
       </n-stack>
-    </n-panel>
+    </n-container>
   </section>
 
   <script>

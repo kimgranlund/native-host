@@ -21,13 +21,13 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       <!-- ── Profile Section ── -->
 
       <n-stack gap="6">
-        <n-section>
+        <n-container>
           <span slot="heading">Profile</span>
           <span slot="description">Your public profile information. This is visible to other users.</span>
 
           <n-stack gap="6">
             <div class="avatar-row">
-              <n-avatar name="Kim Granlund" size="lg" intent="accent"></n-avatar>
+              <n-avatar name="Kim Granlund" size="lg" intent="accent">KG</n-avatar>
               <div class="avatar-info">
                 <span class="avatar-name">Kim Granlund</span>
                 <span class="avatar-hint">JPG, PNG or GIF. 1MB max.</span>
@@ -61,11 +61,11 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
               </n-button>
             </div>
           </n-stack>
-        </n-section>
+        </n-container>
 
         <!-- ── Notifications Section ── -->
 
-        <n-section divider>
+        <n-container divider>
           <span slot="heading">Notifications</span>
           <span slot="description">Choose how and when you want to be notified.</span>
 
@@ -98,11 +98,11 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
               </n-button>
             </div>
           </n-stack>
-        </n-section>
+        </n-container>
 
         <!-- ── Security Section ── -->
 
-        <n-section divider>
+        <n-container divider>
           <span slot="heading">Security</span>
           <span slot="description">Update your password. We recommend using a strong, unique password.</span>
 
@@ -134,11 +134,11 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
               </div>
             </n-stack>
           </form>
-        </n-section>
+        </n-container>
 
         <!-- ── Danger Zone ── -->
 
-        <n-section divider>
+        <n-container divider>
           <span slot="heading">Danger Zone</span>
 
           <div class="danger-zone">
@@ -155,7 +155,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
               </n-button>
             </div>
           </div>
-        </n-section>
+        </n-container>
 
       </n-stack>
     </div>

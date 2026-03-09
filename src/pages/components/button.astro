@@ -31,7 +31,7 @@ const codeExamples = {
     <!-- ── Custom Element vs Native ── -->
 
     <h2>Custom Element vs Native Button</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <h3>n-button (Custom Element)</h3>
       <n-stack direction="row" wrap align="center">
         <n-button variant="primary" size="sm"><span>Primary</span></n-button>
@@ -51,12 +51,12 @@ const codeExamples = {
         <button variant="default" size="sm"><span>Default</span></button>
         <button variant="selected" size="sm"><span>Selected</span></button>
       </n-stack>
-    </n-panel>
+    </n-container>
 
     <!-- ── Sizes ── -->
 
     <h2>Sizes</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack direction="row" wrap align="center">
         <span class="label">xs</span>
         <n-button size="xs" variant="primary"><span>Button</span></n-button>
@@ -94,12 +94,12 @@ const codeExamples = {
 &lt;n-button size="lg" variant="primary"&gt;
   &lt;span slot="label"&gt;Large&lt;/span&gt;
 &lt;/n-button&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Intents ── -->
 
     <h2>Intents</h2>
-    <n-panel bordered size="sm">
+    <n-container data-kind="panel" bordered size="sm">
       <n-stack direction="row" wrap align="center">
         <n-button variant="primary" intent="neutral"><span>Neutral</span></n-button>
         <n-button variant="primary" intent="accent"><span>Accent</span></n-button>
@@ -115,12 +115,12 @@ const codeExamples = {
 &lt;n-button variant="primary" intent="danger"&gt;
   &lt;span slot="label"&gt;Danger&lt;/span&gt;
 &lt;/n-button&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Disabled ── -->
 
     <h2>Disabled</h2>
-    <n-panel bordered size="sm">
+    <n-container data-kind="panel" bordered size="sm">
       <n-stack direction="row" wrap align="center">
         <n-button variant="primary" disabled><span>Primary</span></n-button>
         <n-button variant="secondary" disabled><span>Secondary</span></n-button>
@@ -132,23 +132,23 @@ const codeExamples = {
       <pre class="code-block"><code>&lt;n-button variant="primary" disabled&gt;
   &lt;span slot="label"&gt;Disabled&lt;/span&gt;
 &lt;/n-button&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Press Events ── -->
 
     <h2>Press Events</h2>
-    <n-panel bordered size="sm">
+    <n-container data-kind="panel" bordered size="sm">
       <n-stack direction="row" wrap align="center">
         <n-button variant="primary" id="press-btn"><span>Click or press Enter/Space</span></n-button>
       </n-stack>
       <div class="log" id="press-log"></div>
       <pre class="code-block"><code set:html={codeExamples.pressEvents} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Form Association ── -->
 
     <h2>Form Association</h2>
-    <n-panel bordered size="sm">
+    <n-container data-kind="panel" bordered size="sm">
       <form id="demo-form">
         <input type="text" name="demo" value="hello" class="demo-input" />
         <n-stack direction="row" wrap align="center">
@@ -166,12 +166,12 @@ const codeExamples = {
     &lt;span slot="label"&gt;Reset&lt;/span&gt;
   &lt;/n-button&gt;
 &lt;/form&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Variants ── -->
 
     <h2>Variants</h2>
-    <n-panel bordered size="sm">
+    <n-container data-kind="panel" bordered size="sm">
       <n-stack direction="row" wrap align="center">
         <span class="label">primary</span>
         <n-button variant="primary"><span>Button</span></n-button>
@@ -202,12 +202,12 @@ const codeExamples = {
 &lt;n-button variant="ghost"&gt;&lt;span slot="label"&gt;Ghost&lt;/span&gt;&lt;/n-button&gt;
 &lt;n-button variant="default"&gt;&lt;span slot="label"&gt;Default&lt;/span&gt;&lt;/n-button&gt;
 &lt;n-button variant="selected"&gt;&lt;span slot="label"&gt;Selected&lt;/span&gt;&lt;/n-button&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Density ── -->
 
     <h2>Density</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <h3>xs</h3>
       <n-stack direction="row" wrap align="center" size="xs" density="compact">
         <span class="label">compact</span>
@@ -307,12 +307,12 @@ const codeExamples = {
         <n-button variant="secondary"><span>Button</span></n-button>
         <n-button variant="outline"><span>Button</span></n-button>
       </n-stack>
-    </n-panel>
+    </n-container>
 
     <!-- ── Radius ── -->
 
     <h2>Radius</h2>
-    <n-panel bordered size="md">
+    <n-container data-kind="panel" bordered size="md">
       <n-stack direction="row" wrap align="center" radius="sharp">
         <span class="label">sharp</span>
         <n-button variant="primary"><span>Button</span></n-button>
@@ -331,12 +331,12 @@ const codeExamples = {
         <n-button variant="secondary"><span>Button</span></n-button>
         <n-button variant="outline"><span>Button</span></n-button>
       </n-stack>
-    </n-panel>
+    </n-container>
 
     <!-- ── Cascading ── -->
 
     <h2>Cascading</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <h3>Parent size="md", child overrides</h3>
       <n-stack direction="row" wrap align="center" size="md" intent="accent">
         <n-button variant="primary"><span>Inherited md</span></n-button>
@@ -352,20 +352,20 @@ const codeExamples = {
       </n-stack>
 
       <h3>Section cascading all attributes</h3>
-      <section size="sm" density="compact" radius="round" intent="accent">
+      <n-body size="sm" density="compact" radius="round" intent="accent">
         <n-stack direction="row" wrap align="center">
           <n-button variant="primary"><span>All inherited</span></n-button>
           <n-button variant="secondary"><span>All inherited</span></n-button>
           <n-button variant="outline"><span>All inherited</span></n-button>
           <n-button variant="ghost"><span>All inherited</span></n-button>
         </n-stack>
-      </section>
-    </n-panel>
+      </n-body>
+    </n-container>
 
     <!-- ── Variants x Intents ── -->
 
     <h2>Variants x Intents</h2>
-    <n-panel bordered size="sm">
+    <n-container data-kind="panel" bordered size="sm">
       <h3>Primary</h3>
       <n-stack direction="row" wrap align="center">
         <n-button variant="primary" intent="neutral"><span>Neutral</span></n-button>
@@ -420,13 +420,13 @@ const codeExamples = {
         <n-button variant="selected" intent="warning"><span>Warning</span></n-button>
         <n-button variant="selected" intent="danger"><span>Danger</span></n-button>
       </n-stack>
-    </n-panel>
+    </n-container>
 
     <!-- ── Justify: spread ── -->
 
     <h2>Justify: spread</h2>
     <div class="demo-narrow">
-    <n-panel bordered size="md">
+    <n-container data-kind="panel" bordered size="md">
       <n-stack gap="2">
         <n-button justify="spread">
           <n-icon name="heart" slot="leading"></n-icon>
@@ -439,21 +439,21 @@ const codeExamples = {
           <n-icon name="arrow-right" slot="trailing"></n-icon>
         </n-button>
       </n-stack>
-      <n-text size="xs" muted spacing="regular">
+      <span class="text-xs text-muted">
         <code>justify="spread"</code> switches to <code>auto 1fr auto</code> columns so the label fills available space and trailing icon pushes to the far edge. Used as dropdown triggers in <code>&lt;n-select&gt;</code>.
-      </n-text>
+      </span>
       <pre class="code-block"><code>&lt;n-button justify="spread"&gt;
   &lt;n-icon name="heart" slot="leading"&gt;&lt;/n-icon&gt;
   &lt;span slot="label"&gt;Favorites&lt;/span&gt;
   &lt;n-icon name="arrow-right" slot="trailing"&gt;&lt;/n-icon&gt;
 &lt;/n-button&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
     </div>
 
     <!-- ── Icon Only ── -->
 
     <h2>Icon Only</h2>
-    <n-panel bordered size="md">
+    <n-container data-kind="panel" bordered size="md">
       <n-stack direction="row" wrap align="center">
         <n-button variant="primary" aria-label="Add"><n-icon name="plus"></n-icon></n-button>
         <n-button variant="secondary" aria-label="Close"><n-icon name="x"></n-icon></n-button>
@@ -463,12 +463,12 @@ const codeExamples = {
       <pre class="code-block"><code>&lt;n-button variant="primary" aria-label="Add"&gt;
   &lt;n-icon name="plus"&gt;&lt;/n-icon&gt;
 &lt;/n-button&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Slots ── -->
 
     <h2>Slot Variations</h2>
-    <n-panel bordered size="md">
+    <n-container data-kind="panel" bordered size="md">
       <h3>Full (leading + label + trailing)</h3>
       <n-stack direction="row" wrap align="center">
         <n-button variant="primary">
@@ -509,15 +509,15 @@ const codeExamples = {
   &lt;span slot="label"&gt;Add Item&lt;/span&gt;
   &lt;n-icon name="arrow-right" slot="trailing"&gt;&lt;/n-icon&gt;
 &lt;/n-button&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Debug States (force-*) ── -->
 
     <h2>Debug States (<code>force-*</code>)</h2>
-    <n-panel bordered size="md">
-      <n-text size="xs" muted spacing="regular">
+    <n-container data-kind="panel" bordered size="md">
+      <span class="text-xs text-muted">
         Attribute-driven pseudo-state overrides for DevTools debugging, Storybook-style state demos, and visual testing.
-      </n-text>
+      </span>
       <h3>force-hover</h3>
       <n-stack direction="row" wrap align="center">
         <n-button variant="primary" force-hover><span>Primary</span></n-button>
@@ -539,7 +539,7 @@ const codeExamples = {
         <n-button variant="outline" force-focus-visible><span>Outline</span></n-button>
         <n-button variant="ghost" force-focus-visible><span>Ghost</span></n-button>
       </n-stack>
-    </n-panel>
+    </n-container>
   </section>
 
   <script>

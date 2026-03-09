@@ -20,10 +20,10 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <!-- ── Vertical Toolbar (Provider) ── -->
 
     <h2>Vertical (Arrow Up/Down)</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         <code>&lt;n-controller&gt;</code> applies roving focus with vertical orientation. Tab into the toolbar, then use Up/Down arrows. The "Italic" item is disabled and skipped.
-      </n-text>
+      </span>
       <n-controller traits="roving-focusable" roving-focusable-selector=":scope > .toolbar > .tool-btn:not([disabled])" roving-focusable-orientation="vertical">
         <div>
           <div class="toolbar">
@@ -46,15 +46,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/n-controller&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Horizontal Tab Bar (Provider) ── -->
 
     <h2>Horizontal (Arrow Left/Right)</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Horizontal orientation with wrap-around. Use Left/Right arrows to navigate. Focus wraps from last to first.
-      </n-text>
+      </span>
       <n-controller traits="roving-focusable" roving-focusable-selector=".tab-item" roving-focusable-orientation="horizontal">
         <div>
           <div class="tabbar" id="tabbar">
@@ -76,22 +76,22 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/n-controller&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Built-in: n-listbox ── -->
 
     <h2>Built-in: n-listbox</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         <code>n-listbox</code> uses RovingFocusable internally. Arrow keys navigate between options.
-      </n-text>
+      </span>
       <div class="demo-listbox-wrap"><n-listbox>
         <n-option value="react">React</n-option>
         <n-option value="vue">Vue</n-option>
         <n-option value="svelte">Svelte</n-option>
         <n-option value="lit">Lit</n-option>
       </n-listbox></div>
-    </n-panel>
+    </n-container>
 
     <!-- ── API Reference ── -->
 

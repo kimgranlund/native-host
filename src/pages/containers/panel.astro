@@ -9,7 +9,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       </div>
     </div>
     <div slot="description">
-      <span class="header-tag">&lt;n-panel&gt;</span> Section surface for sidebars, toolbars, and content areas. Less bounded than card. CSS-only container.
+      <span class="header-tag">&lt;n-container data-kind=&quot;panel&quot;&gt;</span> Section surface for sidebars, toolbars, and content areas. Less bounded than card. CSS-only container.
           </div>
   </header>
 
@@ -18,46 +18,46 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <!-- ── Basic ── -->
 
     <h2>Basic</h2>
-    <n-panel bordered>
-      <n-panel>
-        <n-text>A basic panel with default padding and panel-elevation background.</n-text>
-      </n-panel>
-    <pre class="code-block"><code>&lt;n-panel&gt;
+    <n-container data-kind="panel" bordered>
+      <n-container data-kind="panel">
+        <span>A basic panel with default padding and panel-elevation background.</span>
+      </n-container>
+    <pre class="code-block"><code>&lt;n-container data-kind=&quot;panel&quot;&gt;
   &lt;p&gt;A basic panel with default padding and panel-elevation background.&lt;/p&gt;
-&lt;/n-panel&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+&lt;/n-container&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
 
     <!-- ── Bordered ── -->
 
     <h2>Bordered</h2>
-    <n-panel bordered>
-      <n-panel bordered>
-        <n-text>A panel with a visible border.</n-text>
-      </n-panel>
-    <pre class="code-block"><code>&lt;n-panel bordered&gt;
+    <n-container data-kind="panel" bordered>
+      <n-container data-kind="panel" bordered>
+        <span>A panel with a visible border.</span>
+      </n-container>
+    <pre class="code-block"><code>&lt;n-container data-kind=&quot;panel&quot; bordered&gt;
   &lt;p&gt;A panel with a visible border.&lt;/p&gt;
-&lt;/n-panel&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+&lt;/n-container&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
 
     <!-- ── Sidebar Layout ── -->
 
     <h2>Sidebar Layout</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack direction="row" gap="3" class="sidebar-demo">
         <div class="sidebar-panel-wrapper">
-          <n-panel bordered>
+          <n-container data-kind="panel" bordered>
             <n-stack gap="1" align="stretch">
               <n-button variant="ghost" justify="spread"><n-icon name="house" slot="leading"></n-icon><span>Dashboard</span></n-button>
               <n-button variant="ghost" justify="spread"><n-icon name="folder" slot="leading"></n-icon><span>Projects</span></n-button>
               <n-button variant="ghost" justify="spread"><n-icon name="gear" slot="leading"></n-icon><span>Settings</span></n-button>
             </n-stack>
-          </n-panel>
+          </n-container>
         </div>
         <div class="content-area">
-          <n-text size="sm" muted>Main content area. The panel serves as a sidebar surface.</n-text>
+          <span class="text-sm text-muted">Main content area. The panel serves as a sidebar surface.</span>
         </div>
       </n-stack>
-      <pre class="code-block"><code>&lt;n-panel bordered&gt;
+      <pre class="code-block"><code>&lt;n-container data-kind=&quot;panel&quot; bordered&gt;
   &lt;n-stack gap="1"&gt;
     &lt;n-button variant="ghost" justify="spread"&gt;
       &lt;n-icon name="house" slot="leading"&gt;&lt;/n-icon&gt;
@@ -65,41 +65,41 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     &lt;/n-button&gt;
     &lt;n-button variant="ghost" justify="spread"&gt;...&lt;/n-button&gt;
   &lt;/n-stack&gt;
-&lt;/n-panel&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+&lt;/n-container&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
 
     <!-- ── Sizes ── -->
 
     <h2>Sizes</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack gap="4">
-        <n-panel bordered size="sm">
-          <n-text size="sm">Small panel — compact padding</n-text>
-        </n-panel>
-        <n-panel bordered size="lg">
-          <n-text>Large panel — spacious padding</n-text>
-        </n-panel>
+        <n-container data-kind="panel" bordered size="sm">
+          <span class="text-sm">Small panel — compact padding</span>
+        </n-container>
+        <n-container data-kind="panel" bordered size="lg">
+          <span>Large panel — spacious padding</span>
+        </n-container>
       </n-stack>
-    <pre class="code-block"><code>&lt;n-panel bordered size="sm"&gt;
+    <pre class="code-block"><code>&lt;n-container data-kind=&quot;panel&quot; bordered size="sm"&gt;
   &lt;p&gt;Small panel&lt;/p&gt;
-&lt;/n-panel&gt;
+&lt;/n-container&gt;
 
-&lt;n-panel bordered size="lg"&gt;
+&lt;n-container data-kind=&quot;panel&quot; bordered size="lg"&gt;
   &lt;p&gt;Large panel&lt;/p&gt;
-&lt;/n-panel&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+&lt;/n-container&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
 
     <!-- ── No Padding ── -->
 
     <h2>No Padding</h2>
-    <n-panel bordered>
-      <n-panel bordered padded="false">
-        <n-text>This panel has <code>padded="false"</code> — no internal padding. Content touches the edges.</n-text>
-      </n-panel>
-    <pre class="code-block"><code>&lt;n-panel bordered padded="false"&gt;
+    <n-container data-kind="panel" bordered>
+      <n-container data-kind="panel" bordered padded="false">
+        <span>This panel has <code>padded="false"</code> — no internal padding. Content touches the edges.</span>
+      </n-container>
+    <pre class="code-block"><code>&lt;n-container data-kind=&quot;panel&quot; bordered padded="false"&gt;
   &lt;p&gt;No internal padding. Content touches the edges.&lt;/p&gt;
-&lt;/n-panel&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+&lt;/n-container&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
   </section>
 
   <style is:global>

@@ -29,57 +29,57 @@ const codeExamples = {
     <!-- ── Basic ── -->
 
     <h2>Basic</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-pagination total="10" value="1"></n-pagination>
         <pre class="code-block"><code>&lt;n-pagination total="10" value="1"&gt;&lt;/n-pagination&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Middle page ── -->
 
     <h2>Middle Page</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-pagination total="20" value="10"></n-pagination>
         <pre class="code-block"><code>&lt;n-pagination total="20" value="10"&gt;&lt;/n-pagination&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Few pages ── -->
 
     <h2>Few Pages</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-pagination total="3" value="2"></n-pagination>
         <pre class="code-block"><code>&lt;n-pagination total="3" value="2"&gt;&lt;/n-pagination&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Many pages ── -->
 
     <h2>Many Pages</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-pagination total="100" value="50" siblings="2"></n-pagination>
         <pre class="code-block"><code>&lt;n-pagination total="100" value="50" siblings="2"&gt;&lt;/n-pagination&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Boundaries ── -->
 
     <h2>Boundaries</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack gap="4">
         <div>
-          <div class="variant-label"><n-text size="xs" muted>boundaries="2" (show 2 pages at each edge)</n-text></div>
+          <div class="variant-label"><span class="text-xs text-muted">boundaries="2" (show 2 pages at each edge)</span></div>
           <n-pagination total="50" value="25" boundaries="2"></n-pagination>
         </div>
         <div>
-          <div class="variant-label"><n-text size="xs" muted>boundaries="0" (no boundary pages)</n-text></div>
+          <div class="variant-label"><span class="text-xs text-muted">boundaries="0" (no boundary pages)</span></div>
           <n-pagination total="50" value="25" boundaries="0"></n-pagination>
         </div>
       </n-stack>
     <pre class="code-block"><code>&lt;n-pagination total="50" value="25" boundaries="2"&gt;&lt;/n-pagination&gt;
 &lt;n-pagination total="50" value="25" boundaries="0"&gt;&lt;/n-pagination&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Sizes ── -->
 
     <h2>Sizes</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack gap="4">
         <n-pagination total="10" value="3" size="sm"></n-pagination>
         <n-pagination total="10" value="3"></n-pagination>
@@ -88,26 +88,26 @@ const codeExamples = {
     <pre class="code-block"><code>&lt;n-pagination total="10" value="3" size="sm"&gt;&lt;/n-pagination&gt;
 &lt;n-pagination total="10" value="3"&gt;&lt;/n-pagination&gt;
 &lt;n-pagination total="10" value="3" size="lg"&gt;&lt;/n-pagination&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Live ── -->
 
     <h2>Live (click to navigate)</h2>
-    <n-panel bordered>
-      <n-text size="sm" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-sm text-muted">
         Current page: <strong id="page-display">5</strong>
-      </n-text>
+      </span>
       <n-pagination id="live-pagination" total="15" value="5"></n-pagination>
     <pre class="code-block"><code set:html={codeExamples.liveClickToNavigate} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Disabled ── -->
 
     <h2>Disabled</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-pagination total="10" value="5" disabled></n-pagination>
         <pre class="code-block"><code>&lt;n-pagination total="10" value="5" disabled&gt;&lt;/n-pagination&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
   </section>
 
   <script>

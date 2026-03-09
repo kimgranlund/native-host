@@ -32,50 +32,50 @@ const codeDeclarative = `<n-chat-input
     <n-stack gap="6">
 
       <!-- Overview -->
-      <n-section>
-        <n-text variant="heading" size="md" slot="heading">Overview</n-text>
+      <n-container>
+        <span class="text-heading" slot="heading">Overview</span>
         <n-stack gap="3">
-          <n-text>
+          <span>
             The gateway pattern decouples client-side AI components from provider-specific APIs.
             Instead of embedding API keys in the browser, components send requests to a gateway URL
             on your server, which proxies the request to the appropriate LLM provider.
-          </n-text>
-          <n-text>
+          </span>
+          <span>
             Gateways support multiple providers (Anthropic, OpenAI, etc.) and can be switched at runtime
             using the <code>gateway-urls</code> attribute — a JSON map of gateway names to URLs.
-          </n-text>
+          </span>
         </n-stack>
-      </n-section>
+      </n-container>
 
       <!-- Programmatic -->
-      <n-section>
-        <n-text variant="heading" size="md" slot="heading">Programmatic Usage</n-text>
+      <n-container>
+        <span class="text-heading" slot="heading">Programmatic Usage</span>
         <n-stack gap="3">
-          <n-text>Use <code>LLMGatewayController</code> to programmatically configure a gateway on any element.</n-text>
+          <span>Use <code>LLMGatewayController</code> to programmatically configure a gateway on any element.</span>
           <div class="code-block">
             <n-button variant="ghost" size="xs" aria-label="Copy"><n-icon name="copy"></n-icon></n-button>
             <pre><code set:html={codeGateway} /></pre>
           </div>
         </n-stack>
-      </n-section>
+      </n-container>
 
       <!-- Declarative -->
-      <n-section>
-        <n-text variant="heading" size="md" slot="heading">Declarative (Chat Components)</n-text>
+      <n-container>
+        <span class="text-heading" slot="heading">Declarative (Chat Components)</span>
         <n-stack gap="3">
-          <n-text>Chat components accept gateway configuration directly as attributes.</n-text>
+          <span>Chat components accept gateway configuration directly as attributes.</span>
           <div class="code-block">
             <n-button variant="ghost" size="xs" aria-label="Copy"><n-icon name="copy"></n-icon></n-button>
             <pre><code set:html={codeDeclarative} /></pre>
           </div>
         </n-stack>
-      </n-section>
+      </n-container>
 
       <!-- Attributes -->
-      <n-section>
-        <n-text variant="heading" size="md" slot="heading">Attributes</n-text>
-        <n-card>
-          <section>
+      <n-container>
+        <span class="text-heading" slot="heading">Attributes</span>
+        <n-container>
+          <n-body>
             <n-table cols="auto 1fr auto">
               <n-table-row header>
                 <n-table-cell>Attribute</n-table-cell>
@@ -108,9 +108,9 @@ const codeDeclarative = `<n-chat-input
                 <n-table-cell>—</n-table-cell>
               </n-table-row>
             </n-table>
-          </section>
-        </n-card>
-      </n-section>
+          </n-body>
+        </n-container>
+      </n-container>
 
     </n-stack>
   </section>

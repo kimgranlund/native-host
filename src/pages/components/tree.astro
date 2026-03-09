@@ -34,7 +34,7 @@ tree.querySelectorAll('n-tree-item').forEach((item) =&gt; {
     <!-- ── Basic ── -->
 
     <h2>File Browser</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-tree>
         <n-tree-item expanded>
           <span>src</span>
@@ -84,12 +84,12 @@ tree.querySelectorAll('n-tree-item').forEach((item) =&gt; {
     &lt;/n-tree-item&gt;
   &lt;/n-tree-item&gt;
 &lt;/n-tree&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Navigation ── -->
 
     <h2>Navigation</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-tree>
         <n-tree-item expanded>
           <span>Getting Started</span>
@@ -133,12 +133,12 @@ tree.querySelectorAll('n-tree-item').forEach((item) =&gt; {
     &lt;/n-tree-item&gt;
   &lt;/n-tree-item&gt;
 &lt;/n-tree&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Event Log ── -->
 
     <h2>Event Log</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-tree id="event-tree">
         <n-tree-item expanded>
           <span>Documents</span>
@@ -158,12 +158,12 @@ tree.querySelectorAll('n-tree-item').forEach((item) =&gt; {
       </n-tree>
       <div class="log" id="tree-log"></div>
     <pre class="code-block"><code set:html={codeExamples.eventLog} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Disabled ── -->
 
     <h2>Disabled</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-tree disabled>
         <n-tree-item expanded>
           <span>Project</span>
@@ -183,15 +183,15 @@ tree.querySelectorAll('n-tree-item').forEach((item) =&gt; {
     &lt;/n-tree-item&gt;
   &lt;/n-tree-item&gt;
 &lt;/n-tree&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Debug States (force-*) ── -->
 
     <h2>Debug States (<code>force-*</code>)</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="regular">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Attribute-driven pseudo-state overrides for DevTools debugging and visual testing. Applied to individual <code>n-tree-item</code> elements.
-      </n-text>
+      </span>
       <n-tree>
         <n-tree-item force-hover>
           <span>Force hover</span>
@@ -203,7 +203,7 @@ tree.querySelectorAll('n-tree-item').forEach((item) =&gt; {
           <span>Normal</span>
         </n-tree-item>
       </n-tree>
-    </n-panel>
+    </n-container>
   </section>
 
   <script>

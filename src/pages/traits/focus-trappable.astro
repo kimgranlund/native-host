@@ -37,15 +37,15 @@ function hide() {
     <!-- ── Focus Trap ── -->
 
     <h2>Focus Trap</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Uses <code>FocusTrapController</code> directly on a plain element. Tab cycles between the inputs and buttons.
-      </n-text>
+      </span>
       <n-button id="open-trap">Open Trapped Region</n-button>
       <div class="trap-region" id="trap" hidden>
-        <n-text size="sm" muted spacing="tight">
+        <span class="text-sm text-muted">
           Focus is trapped here. Tab cycles between the inputs and buttons. Click "Close" to release.
-        </n-text>
+        </span>
         <div class="trap-form">
           <label>
             Name
@@ -62,15 +62,15 @@ function hide() {
         </div>
       </div>
       <pre class="code-block"><code set:html={codeExamples.focusTrap} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Without Autofocus ── -->
 
     <h2>Without Autofocus</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         When no <code>[autofocus]</code> element exists, focus goes to the first focusable child.
-      </n-text>
+      </span>
       <n-button id="open-trap2">Open Trap (no autofocus)</n-button>
       <div class="trap-region" id="trap2" hidden>
         <div class="trap-actions">
@@ -79,26 +79,26 @@ function hide() {
           <n-button id="close-btn2">Close</n-button>
         </div>
       </div>
-    </n-panel>
+    </n-container>
 
     <!-- ── Built-in: n-dialog ── -->
 
     <h2>Built-in: n-dialog</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         <code>n-dialog</code> uses FocusTrappable internally. When a modal dialog opens, focus is automatically trapped within it.
-      </n-text>
+      </span>
       <n-button id="open-dialog">Open Dialog</n-button>
       <n-dialog id="demo-dialog">
-        <div class="dialog-card"><n-card>
+        <div class="dialog-card"><n-container>
           <p style="margin: 0 0 1rem;">Focus is trapped inside this dialog. Tab only cycles between these buttons.</p>
           <div class="trap-actions">
             <n-button intent="accent">Action</n-button>
             <n-button id="close-dialog">Close</n-button>
           </div>
-        </n-card></div>
+        </n-container></div>
       </n-dialog>
-    </n-panel>
+    </n-container>
 
     <!-- ── API Reference ── -->
 

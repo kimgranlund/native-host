@@ -18,7 +18,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <!-- ── Placements ── -->
 
     <h2>Placements</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack direction="row" wrap align="center">
         <n-button>
           <span slot="label">Top (default)</span>
@@ -49,12 +49,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   &lt;span slot="label"&gt;Bottom&lt;/span&gt;
   &lt;n-tooltip placement="bottom"&gt;Tooltip below&lt;/n-tooltip&gt;
 &lt;/n-button&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── On Different Elements ── -->
 
     <h2>On Different Elements</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack direction="row" wrap align="center">
         <n-button variant="primary" intent="accent">
           <span slot="label">Primary Button</span>
@@ -80,12 +80,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   Hover text
   &lt;n-tooltip&gt;This is a plain text tooltip&lt;/n-tooltip&gt;
 &lt;/span&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Custom Delay ── -->
 
     <h2>Custom Delay</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack direction="row" wrap align="center">
         <n-button>
           <span slot="label">Instant (0ms)</span>
@@ -111,12 +111,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   &lt;span slot="label"&gt;Slow (1500ms)&lt;/span&gt;
   &lt;n-tooltip delay="1500"&gt;1.5 second delay&lt;/n-tooltip&gt;
 &lt;/n-button&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Sizes ── -->
 
     <h2>Sizes</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack direction="row" wrap align="center">
         <n-button size="xs">
           <span slot="label">XS</span>
@@ -147,12 +147,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   &lt;span slot="label"&gt;LG&lt;/span&gt;
   &lt;n-tooltip&gt;Large context&lt;/n-tooltip&gt;
 &lt;/n-button&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Long Content ── -->
 
     <h2>Long Content</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack direction="row" wrap align="center">
         <n-button>
           <span slot="label">Hover for details</span>
@@ -164,7 +164,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   &lt;n-tooltip placement="bottom"&gt;This is a much longer tooltip
 that wraps to multiple lines.&lt;/n-tooltip&gt;
 &lt;/n-button&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
   </section>
 
 </SidebarLayout>

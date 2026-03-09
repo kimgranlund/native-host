@@ -18,7 +18,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <!-- ── Sizes ── -->
 
     <h2>Sizes</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack direction="row" wrap align="center">
         <span class="label">xs</span>
         <n-badge size="xs">3</n-badge>
@@ -52,12 +52,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       <pre class="code-block"><code>&lt;n-badge size="sm"&gt;3&lt;/n-badge&gt;
 &lt;n-badge size="md"&gt;42&lt;/n-badge&gt;
 &lt;n-badge size="lg"&gt;New&lt;/n-badge&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Intents ── -->
 
     <h2>Intents</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack direction="row" wrap align="center">
         <n-badge>Default</n-badge>
         <n-badge intent="accent">Accent</n-badge>
@@ -70,12 +70,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 &lt;n-badge intent="accent"&gt;Accent&lt;/n-badge&gt;
 &lt;n-badge intent="success"&gt;Success&lt;/n-badge&gt;
 &lt;n-badge intent="danger"&gt;Danger&lt;/n-badge&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Variants ── -->
 
     <h2>Variants</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack direction="row" wrap align="center">
         <span class="label">solid</span>
         <n-badge intent="accent">Accent</n-badge>
@@ -113,12 +113,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 &lt;n-badge variant="outline" intent="accent"&gt;Outline&lt;/n-badge&gt;
 &lt;n-badge variant="ghost" intent="accent"&gt;Ghost&lt;/n-badge&gt;
 &lt;n-badge variant="default"&gt;Default&lt;/n-badge&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Sizes × Intents ── -->
 
     <h2>Sizes × Intents</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack direction="row" wrap align="center">
         <span class="label">xs</span>
         <n-badge size="xs">7</n-badge>
@@ -164,12 +164,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         <n-badge size="xl" intent="warning">!</n-badge>
         <n-badge size="xl" intent="danger">5</n-badge>
       </n-stack>
-    </n-panel>
+    </n-container>
 
     <!-- ── Radius ── -->
 
     <h2>Radius</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack direction="row" wrap align="center">
         <span class="label">sharp</span>
         <n-badge radius="sharp" intent="accent">3</n-badge>
@@ -182,12 +182,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         <n-badge intent="info">New</n-badge>
         <n-badge intent="danger">5</n-badge>
       </n-stack>
-    </n-panel>
+    </n-container>
 
     <!-- ── Floating ── -->
 
     <h2>Floating (on icons)</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack direction="row" wrap align="center">
         <div class="icon-badge-wrapper">
           <n-button variant="ghost"><n-icon name="bell"></n-icon></n-button>
@@ -217,32 +217,32 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   &lt;/n-button&gt;
   &lt;n-badge intent="success" floating dot&gt;&lt;/n-badge&gt;
 &lt;/div&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Floating on Avatar ── -->
 
     <h2>Floating (on avatar)</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack direction="row" wrap align="center">
         <div class="icon-badge-wrapper">
-          <n-avatar name="Kim Granlund"></n-avatar>
+          <n-avatar name="Kim Granlund">KG</n-avatar>
           <n-badge intent="success" floating dot></n-badge>
         </div>
         <div class="icon-badge-wrapper">
-          <n-avatar name="Jane Doe"></n-avatar>
+          <n-avatar name="Jane Doe">JD</n-avatar>
           <n-badge intent="danger" floating>3</n-badge>
         </div>
         <div class="icon-badge-wrapper">
-          <n-avatar name="Alex Smith"></n-avatar>
+          <n-avatar name="Alex Smith">AS</n-avatar>
           <n-badge intent="warning" floating>!</n-badge>
         </div>
       </n-stack>
-    </n-panel>
+    </n-container>
 
     <!-- ── Dot ── -->
 
     <h2>Dot indicator</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack direction="row" wrap align="center">
         <n-badge dot></n-badge>
         <n-badge intent="accent" dot></n-badge>
@@ -254,12 +254,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       <pre class="code-block"><code>&lt;n-badge dot&gt;&lt;/n-badge&gt;
 &lt;n-badge intent="success" dot&gt;&lt;/n-badge&gt;
 &lt;n-badge intent="danger" dot&gt;&lt;/n-badge&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Max ── -->
 
     <h2>Max (truncation)</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack direction="row" wrap align="center">
         <n-badge max="99">150</n-badge>
         <n-badge max="9" intent="danger">12</n-badge>
@@ -269,24 +269,24 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       <pre class="code-block"><code>&lt;!-- Clamps display to max value --&gt;
 &lt;n-badge max="99"&gt;150&lt;/n-badge&gt;   &lt;!-- shows "99+" --&gt;
 &lt;n-badge max="9" intent="danger"&gt;12&lt;/n-badge&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Inline with text ── -->
 
     <h2>Inline with text</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <p style="font-size: 0.875rem; line-height: 1.5;">
         Messages <n-badge intent="accent">3</n-badge> &nbsp;
         Notifications <n-badge intent="danger">12</n-badge> &nbsp;
         Updates <n-badge intent="info">New</n-badge> &nbsp;
         Status <n-badge intent="success">OK</n-badge>
       </p>
-    </n-panel>
+    </n-container>
 
     <!-- ── Inline with buttons ── -->
 
     <h2>Inline with buttons</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack direction="row" wrap align="center">
         <n-button size="sm">Inbox <n-badge intent="accent" size="xs">3</n-badge></n-button>
         <n-button size="md">Alerts <n-badge intent="danger" size="xs">7</n-badge></n-button>
@@ -295,7 +295,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       <pre class="code-block"><code>&lt;n-button&gt;
   Inbox &lt;n-badge intent="accent" size="xs"&gt;3&lt;/n-badge&gt;
 &lt;/n-button&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
   </section>
 
   <style is:global>

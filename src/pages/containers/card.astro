@@ -9,7 +9,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       </div>
     </div>
     <div slot="description">
-      <span class="header-tag">&lt;n-card&gt;</span> Bounded content surface with optional header, body, and footer.
+      <span class="header-tag">&lt;n-container&gt;</span> Bounded content surface with optional header, body, and footer.
           </div>
   </header>
 
@@ -18,204 +18,204 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <!-- ── Simple ── -->
 
     <h2>Simple</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <div class="demo-card">
-        <n-card>
-          <section><p>A simple card with just body content. No header or footer.</p></section>
-        </n-card>
+        <n-container>
+          <n-body><p>A simple card with just body content. No header or footer.</p></n-body>
+        </n-container>
       </div>
-    <pre class="code-block"><code>&lt;n-card&gt;
-  &lt;section&gt;&lt;p&gt;A simple card with just body content.&lt;/p&gt;&lt;/section&gt;
-&lt;/n-card&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    <pre class="code-block"><code>&lt;n-container&gt;
+  &lt;n-body&gt;&lt;p&gt;A simple card with just body content.&lt;/p&gt;&lt;/n-body&gt;
+&lt;/n-container&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
 
     <!-- ── Structured ── -->
 
     <h2>Structured (header + body + footer)</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <div class="demo-card">
-        <n-card>
-          <header>
+        <n-container>
+          <n-header>
             <span>Card Title</span>
-            <aside><n-button variant="ghost"><n-icon name="dots-three"></n-icon></n-button></aside>
-          </header>
-          <section>
-            <n-text>Card body content goes here. This demonstrates the structured layout with header, body, and footer sections.</n-text>
-          </section>
-        <footer>
+            <n-button variant="ghost"><n-icon name="dots-three"></n-icon></n-button>
+          </n-header>
+          <n-body>
+            <span>Card body content goes here. This demonstrates the structured layout with header, body, and footer sections.</span>
+          </n-body>
+        <n-footer>
           <n-button variant="ghost"><span>Cancel</span></n-button>
           <n-button variant="primary" intent="accent"><span>Save</span></n-button>
-        </footer>
-        </n-card>
+        </n-footer>
+        </n-container>
       </div>
-    <pre class="code-block"><code>&lt;n-card&gt;
-  &lt;header&gt;
+    <pre class="code-block"><code>&lt;n-container&gt;
+  &lt;n-header&gt;
     &lt;span slot="label"&gt;Card Title&lt;/span&gt;
     &lt;n-button slot="trailing" variant="ghost"&gt;...&lt;/n-button&gt;
-  &lt;/header&gt;
-  &lt;section&gt;
+  &lt;/n-header&gt;
+  &lt;n-body&gt;
     &lt;p&gt;Card body content goes here.&lt;/p&gt;
-  &lt;/section&gt;
-  &lt;footer&gt;
+  &lt;/n-body&gt;
+  &lt;n-footer&gt;
     &lt;n-button variant="ghost"&gt;Cancel&lt;/n-button&gt;
     &lt;n-button variant="primary" intent="accent"&gt;Save&lt;/n-button&gt;
-  &lt;/footer&gt;
-&lt;/n-card&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+  &lt;/n-footer&gt;
+&lt;/n-container&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
 
     <!-- ── Media ── -->
 
     <h2>With Media</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack direction="row" wrap align="center">
         <div class="demo-card-sm">
-          <n-card>
+          <n-container>
             <div slot="media" class="demo-media demo-media-accent"></div>
-            <section>
+            <n-body>
               <h3 class="demo-card-title">Product Name</h3>
-              <n-text size="sm" muted>A short description of the product.</n-text>
-            </section>
-            <footer>
+              <span class="text-sm text-muted">A short description of the product.</span>
+            </n-body>
+            <n-footer>
               <n-button variant="primary" intent="accent" size="sm"><span>Buy Now</span></n-button>
-            </footer>
-          </n-card>
+            </n-footer>
+          </n-container>
         </div>
         <div class="demo-card-sm">
-          <n-card>
+          <n-container>
             <div slot="media" class="demo-media demo-media-success"></div>
-            <section>
+            <n-body>
               <h3 class="demo-card-title">Another Product</h3>
-              <n-text size="sm" muted>Another description text.</n-text>
-            </section>
-          <footer>
+              <span class="text-sm text-muted">Another description text.</span>
+            </n-body>
+          <n-footer>
             <n-button variant="primary" intent="accent" size="sm"><span>Buy Now</span></n-button>
-            </footer>
-          </n-card>
+            </n-footer>
+          </n-container>
         </div>
       </n-stack>
-      <pre class="code-block"><code>&lt;n-card&gt;
+      <pre class="code-block"><code>&lt;n-container&gt;
   &lt;div slot="media" class="media-placeholder"&gt;&lt;/div&gt;
-  &lt;section&gt;
+  &lt;n-body&gt;
     &lt;h3&gt;Product Name&lt;/h3&gt;
     &lt;p&gt;A short description.&lt;/p&gt;
-  &lt;/section&gt;
-  &lt;footer&gt;
+  &lt;/n-body&gt;
+  &lt;n-footer&gt;
     &lt;n-button variant="primary" intent="accent" size="sm"&gt;Buy Now&lt;/n-button&gt;
-  &lt;/footer&gt;
-&lt;/n-card&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+  &lt;/n-footer&gt;
+&lt;/n-container&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
 
     <!-- ── Header with Slots ── -->
 
     <h2>Header with Leading & Trailing</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <div class="demo-card-md">
-        <n-card>
-          <header>
+        <n-container>
+          <n-header>
             <nav><n-badge intent="accent">New</n-badge></nav>
           <span>Card with Actions</span>
-          <aside><n-button variant="ghost"><n-icon name="dots-three"></n-icon></n-button></aside>
-        </header>
-        <section>
-          <n-text>The header uses a 3-column grid: leading / label / trailing. The card adds contextual divider borders automatically.</n-text>
-        </section>
-        <footer justify="spread">
+          <n-button variant="ghost"><n-icon name="dots-three"></n-icon></n-button>
+        </n-header>
+        <n-body>
+          <span>The header uses a 3-column grid: leading / label / trailing. The card adds contextual divider borders automatically.</span>
+        </n-body>
+        <n-footer justify="spread">
           <n-button variant="ghost"><span>Cancel</span></n-button>
           <n-button variant="primary" intent="accent"><span>Save</span></n-button>
-        </footer>
-        </n-card>
+        </n-footer>
+        </n-container>
       </div>
-    <pre class="code-block"><code>&lt;n-card&gt;
-  &lt;header&gt;
+    <pre class="code-block"><code>&lt;n-container&gt;
+  &lt;n-header&gt;
     &lt;n-badge slot="leading" intent="accent"&gt;New&lt;/n-badge&gt;
     &lt;span slot="label"&gt;Card with Actions&lt;/span&gt;
     &lt;n-button slot="trailing" variant="ghost"&gt;...&lt;/n-button&gt;
-  &lt;/header&gt;
-  &lt;section&gt;...&lt;/section&gt;
-  &lt;footer justify="spread"&gt;
+  &lt;/n-header&gt;
+  &lt;n-body&gt;...&lt;/n-body&gt;
+  &lt;n-footer justify="spread"&gt;
     &lt;n-button variant="ghost"&gt;Cancel&lt;/n-button&gt;
     &lt;n-button variant="primary" intent="accent"&gt;Save&lt;/n-button&gt;
-  &lt;/footer&gt;
-&lt;/n-card&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+  &lt;/n-footer&gt;
+&lt;/n-container&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
 
     <!-- ── Interactive ── -->
 
     <h2>Interactive</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack direction="row" wrap align="center">
         <div class="demo-card-xs">
-          <n-card interactive>
-            <section><n-text>Click this card. It has hover and focus states.</n-text></section>
-          </n-card>
+          <n-container interactive>
+            <n-body><span>Click this card. It has hover and focus states.</span></n-body>
+          </n-container>
         </div>
         <div class="demo-card-xs">
-          <n-card interactive>
-            <section><n-text>Another interactive card. Tab to focus.</n-text></section>
-          </n-card>
+          <n-container interactive>
+            <n-body><span>Another interactive card. Tab to focus.</span></n-body>
+          </n-container>
         </div>
       </n-stack>
-      <pre class="code-block"><code>&lt;n-card interactive&gt;
-  &lt;section&gt;&lt;p&gt;Click this card. It has hover and focus states.&lt;/p&gt;&lt;/section&gt;
-&lt;/n-card&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+      <pre class="code-block"><code>&lt;n-container interactive&gt;
+  &lt;n-body&gt;&lt;p&gt;Click this card. It has hover and focus states.&lt;/p&gt;&lt;/n-body&gt;
+&lt;/n-container&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
 
     <!-- ── Sizes ── -->
 
     <h2>Sizes (inherit from parent)</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <h3>size="sm"</h3>
       <div class="demo-card-narrow">
-        <n-card size="sm">
-          <header><span>Small Card</span></header>
-          <section><n-text>Compact padding.</n-text></section>
-        </n-card>
+        <n-container size="sm">
+          <n-header><span>Small Card</span></n-header>
+          <n-body><span>Compact padding.</span></n-body>
+        </n-container>
       </div>
       <h3>size="lg"</h3>
       <div class="demo-card-narrow">
-        <n-card size="lg">
-          <header><span>Large Card</span></header>
-          <section><n-text>Spacious padding.</n-text></section>
-        </n-card>
+        <n-container size="lg">
+          <n-header><span>Large Card</span></n-header>
+          <n-body><span>Spacious padding.</span></n-body>
+        </n-container>
       </div>
-    <pre class="code-block"><code>&lt;n-card size="sm"&gt;
-  &lt;header&gt;&lt;span slot="label"&gt;Small Card&lt;/span&gt;&lt;/header&gt;
-  &lt;section&gt;&lt;p&gt;Compact padding.&lt;/p&gt;&lt;/section&gt;
-&lt;/n-card&gt;
+    <pre class="code-block"><code>&lt;n-container size="sm"&gt;
+  &lt;n-header&gt;&lt;span slot="label"&gt;Small Card&lt;/span&gt;&lt;/n-header&gt;
+  &lt;n-body&gt;&lt;p&gt;Compact padding.&lt;/p&gt;&lt;/n-body&gt;
+&lt;/n-container&gt;
 
-&lt;n-card size="lg"&gt;
-  &lt;header&gt;&lt;span slot="label"&gt;Large Card&lt;/span&gt;&lt;/header&gt;
-  &lt;section&gt;&lt;p&gt;Spacious padding.&lt;/p&gt;&lt;/section&gt;
-&lt;/n-card&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+&lt;n-container size="lg"&gt;
+  &lt;n-header&gt;&lt;span slot="label"&gt;Large Card&lt;/span&gt;&lt;/n-header&gt;
+  &lt;n-body&gt;&lt;p&gt;Spacious padding.&lt;/p&gt;&lt;/n-body&gt;
+&lt;/n-container&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
 
     <!-- ── Grid Composition ── -->
 
     <h2>Grid Composition</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-grid cols="3" gap="4">
-        <n-card>
-          <header><span>Revenue</span></header>
-          <section><span class="stat-value">$45,231</span></section>
-        </n-card>
-        <n-card>
-          <header><span>Users</span></header>
-          <section><span class="stat-value">2,350</span></section>
-        </n-card>
-        <n-card>
-          <header><span>Conversion</span></header>
-          <section><span class="stat-value">3.2%</span></section>
-        </n-card>
+        <n-container>
+          <n-header><span>Revenue</span></n-header>
+          <n-body><span class="stat-value">$45,231</span></n-body>
+        </n-container>
+        <n-container>
+          <n-header><span>Users</span></n-header>
+          <n-body><span class="stat-value">2,350</span></n-body>
+        </n-container>
+        <n-container>
+          <n-header><span>Conversion</span></n-header>
+          <n-body><span class="stat-value">3.2%</span></n-body>
+        </n-container>
       </n-grid>
     <pre class="code-block"><code>&lt;n-grid cols="3" gap="4"&gt;
-  &lt;n-card&gt;
-    &lt;header&gt;&lt;span slot="label"&gt;Revenue&lt;/span&gt;&lt;/header&gt;
-    &lt;section&gt;&lt;p&gt;$45,231&lt;/p&gt;&lt;/section&gt;
-  &lt;/n-card&gt;
-  &lt;n-card&gt;...&lt;/n-card&gt;
-  &lt;n-card&gt;...&lt;/n-card&gt;
+  &lt;n-container&gt;
+    &lt;n-header&gt;&lt;span slot="label"&gt;Revenue&lt;/span&gt;&lt;/n-header&gt;
+    &lt;n-body&gt;&lt;p&gt;$45,231&lt;/p&gt;&lt;/n-body&gt;
+  &lt;/n-container&gt;
+  &lt;n-container&gt;...&lt;/n-container&gt;
+  &lt;n-container&gt;...&lt;/n-container&gt;
 &lt;/n-grid&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
   </section>
 
   <style is:global>

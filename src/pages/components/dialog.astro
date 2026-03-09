@@ -18,33 +18,33 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <!-- ── Basic Dialog ── -->
 
     <h2>Basic Dialog</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-button id="open-basic">Open Dialog</n-button>
       <n-dialog id="basic-dialog">
-        <div class="dialog-card"><n-card>
-          <header><span>Confirm Action</span></header>
-          <section>
-            <n-text size="md" muted>Are you sure you want to continue? This action cannot be undone.</n-text>
-          </section>
-          <footer>
+        <div class="dialog-card"><n-container>
+          <n-header><span>Confirm Action</span></n-header>
+          <n-body>
+            <span class="text-muted">Are you sure you want to continue? This action cannot be undone.</span>
+          </n-body>
+          <n-footer>
             <n-button id="basic-cancel">Cancel</n-button>
             <n-button id="basic-confirm" intent="accent">Confirm</n-button>
-          </footer>
-        </n-card></div>
+          </n-footer>
+        </n-container></div>
       </n-dialog>
       <pre class="code-block"><code>&lt;n-button id="open-btn"&gt;Open Dialog&lt;/n-button&gt;
 
 &lt;n-dialog id="my-dialog"&gt;
-  &lt;n-card&gt;
-    &lt;header&gt;&lt;span slot="label"&gt;Confirm Action&lt;/span&gt;&lt;/header&gt;
-    &lt;section&gt;
+  &lt;n-container&gt;
+    &lt;n-header&gt;&lt;span slot="label"&gt;Confirm Action&lt;/span&gt;&lt;/n-header&gt;
+    &lt;n-body&gt;
       &lt;p&gt;Are you sure you want to continue?&lt;/p&gt;
-    &lt;/section&gt;
-    &lt;footer&gt;
+    &lt;/n-body&gt;
+    &lt;n-footer&gt;
       &lt;n-button id="cancel-btn"&gt;Cancel&lt;/n-button&gt;
       &lt;n-button id="confirm-btn" intent="accent"&gt;Confirm&lt;/n-button&gt;
-    &lt;/footer&gt;
-  &lt;/n-card&gt;
+    &lt;/n-footer&gt;
+  &lt;/n-container&gt;
 &lt;/n-dialog&gt;
 
 &lt;script&gt;
@@ -56,18 +56,18 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   document.getElementById('confirm-btn')
     .addEventListener('native:press', () =&gt; dialog.close());
 &lt;/script&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Form Dialog ── -->
 
     <h2>Form Dialog</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-button id="open-form">Edit Profile</n-button>
       <n-dialog id="form-dialog">
-        <div class="dialog-card"><n-card>
-          <header><span>Edit Profile</span></header>
-          <section>
-            <n-text size="md" muted spacing="tight">Update your display name and email address.</n-text>
+        <div class="dialog-card"><n-container>
+          <n-header><span>Edit Profile</span></n-header>
+          <n-body>
+            <span class="text-muted">Update your display name and email address.</span>
             <n-stack gap="3">
               <n-field>
                 <label slot="label">Name</label>
@@ -78,17 +78,17 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
                 <n-input type="email" placeholder="you@example.com"></n-input>
               </n-field>
             </n-stack>
-          </section>
-          <footer>
+          </n-body>
+          <n-footer>
             <n-button id="form-cancel">Cancel</n-button>
             <n-button id="form-save" intent="accent">Save Changes</n-button>
-          </footer>
-        </n-card></div>
+          </n-footer>
+        </n-container></div>
       </n-dialog>
       <pre class="code-block"><code>&lt;n-dialog id="form-dialog"&gt;
-  &lt;n-card&gt;
-    &lt;header&gt;&lt;span slot="label"&gt;Edit Profile&lt;/span&gt;&lt;/header&gt;
-    &lt;section&gt;
+  &lt;n-container&gt;
+    &lt;n-header&gt;&lt;span slot="label"&gt;Edit Profile&lt;/span&gt;&lt;/n-header&gt;
+    &lt;n-body&gt;
       &lt;n-stack gap="3"&gt;
         &lt;n-field&gt;
           &lt;label slot="label"&gt;Name&lt;/label&gt;
@@ -99,100 +99,100 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           &lt;n-input type="email" placeholder="you@example.com"&gt;&lt;/n-input&gt;
         &lt;/n-field&gt;
       &lt;/n-stack&gt;
-    &lt;/section&gt;
-    &lt;footer&gt;
+    &lt;/n-body&gt;
+    &lt;n-footer&gt;
       &lt;n-button&gt;Cancel&lt;/n-button&gt;
       &lt;n-button intent="accent"&gt;Save Changes&lt;/n-button&gt;
-    &lt;/footer&gt;
-  &lt;/n-card&gt;
+    &lt;/n-footer&gt;
+  &lt;/n-container&gt;
 &lt;/n-dialog&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── No Close on Backdrop ── -->
 
     <h2>No Close on Backdrop</h2>
-    <n-panel bordered>
-      <n-text size="sm" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-sm text-muted">
         This dialog has <code>no-close-on-backdrop</code> — clicking outside doesn't close it. You must use the button.
-      </n-text>
+      </span>
       <n-button id="open-persistent">Open Persistent Dialog</n-button>
       <n-dialog id="persistent-dialog" no-close-on-backdrop>
-        <div class="dialog-card"><n-card>
-          <header><span>Important Notice</span></header>
-          <section>
-            <n-text size="md" muted>This dialog can only be closed by clicking the button below. Clicking the backdrop or pressing Escape won't dismiss it.</n-text>
-          </section>
-          <footer>
+        <div class="dialog-card"><n-container>
+          <n-header><span>Important Notice</span></n-header>
+          <n-body>
+            <span class="text-muted">This dialog can only be closed by clicking the button below. Clicking the backdrop or pressing Escape won't dismiss it.</span>
+          </n-body>
+          <n-footer>
             <n-button id="persistent-close" intent="accent">Got it</n-button>
-          </footer>
-        </n-card></div>
+          </n-footer>
+        </n-container></div>
       </n-dialog>
       <pre class="code-block"><code>&lt;n-dialog no-close-on-backdrop&gt;
-  &lt;n-card&gt;
-    &lt;header&gt;&lt;span slot="label"&gt;Important Notice&lt;/span&gt;&lt;/header&gt;
-    &lt;section&gt;&lt;p&gt;Clicking outside won't close this dialog.&lt;/p&gt;&lt;/section&gt;
-    &lt;footer&gt;
+  &lt;n-container&gt;
+    &lt;n-header&gt;&lt;span slot="label"&gt;Important Notice&lt;/span&gt;&lt;/n-header&gt;
+    &lt;n-body&gt;&lt;p&gt;Clicking outside won't close this dialog.&lt;/p&gt;&lt;/n-body&gt;
+    &lt;n-footer&gt;
       &lt;n-button intent="accent"&gt;Got it&lt;/n-button&gt;
-    &lt;/footer&gt;
-  &lt;/n-card&gt;
+    &lt;/n-footer&gt;
+  &lt;/n-container&gt;
 &lt;/n-dialog&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── No Close on Escape ── -->
 
     <h2>No Close on Escape</h2>
-    <n-panel bordered>
-      <n-text size="sm" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-sm text-muted">
         This dialog has <code>no-close-on-escape</code> — pressing Escape doesn't close it. Backdrop click still works.
-      </n-text>
+      </span>
       <n-button id="open-no-esc">Open (no Escape close)</n-button>
       <n-dialog id="no-esc-dialog" no-close-on-escape>
-        <div class="dialog-card"><n-card>
-          <header><span>Escape Disabled</span></header>
-          <section>
-            <n-text size="md" muted>Press Escape — nothing happens. Click the backdrop or the button to close.</n-text>
-          </section>
-          <footer>
+        <div class="dialog-card"><n-container>
+          <n-header><span>Escape Disabled</span></n-header>
+          <n-body>
+            <span class="text-muted">Press Escape — nothing happens. Click the backdrop or the button to close.</span>
+          </n-body>
+          <n-footer>
             <n-button id="no-esc-close">Close</n-button>
-          </footer>
-        </n-card></div>
+          </n-footer>
+        </n-container></div>
       </n-dialog>
-    </n-panel>
+    </n-container>
 
     <!-- ── Danger Dialog ── -->
 
     <h2>Danger Variant</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-button id="open-danger" intent="danger">Delete Account</n-button>
       <n-dialog id="danger-dialog">
-        <div class="dialog-card"><n-card>
-          <header><span style="color: var(--n-ink-strong-danger);">Delete Account</span></header>
-          <section>
-            <n-text size="md" muted>This will permanently delete your account and all associated data. This action cannot be reversed.</n-text>
-          </section>
-          <footer>
+        <div class="dialog-card"><n-container>
+          <n-header><span style="color: var(--n-ink-strong-danger);">Delete Account</span></n-header>
+          <n-body>
+            <span class="text-muted">This will permanently delete your account and all associated data. This action cannot be reversed.</span>
+          </n-body>
+          <n-footer>
             <n-button id="danger-cancel">Cancel</n-button>
             <n-button id="danger-confirm" intent="danger">Delete Forever</n-button>
-          </footer>
-        </n-card></div>
+          </n-footer>
+        </n-container></div>
       </n-dialog>
       <pre class="code-block"><code>&lt;n-button intent="danger"&gt;Delete Account&lt;/n-button&gt;
 
 &lt;n-dialog id="danger-dialog"&gt;
-  &lt;n-card&gt;
-    &lt;header&gt;
+  &lt;n-container&gt;
+    &lt;n-header&gt;
       &lt;span slot="label" style="color: var(--n-ink-strong-danger);"&gt;Delete Account&lt;/span&gt;
-    &lt;/header&gt;
-    &lt;section&gt;
+    &lt;/n-header&gt;
+    &lt;n-body&gt;
       &lt;p&gt;This will permanently delete your account.&lt;/p&gt;
-    &lt;/section&gt;
-    &lt;footer&gt;
+    &lt;/n-body&gt;
+    &lt;n-footer&gt;
       &lt;n-button&gt;Cancel&lt;/n-button&gt;
       &lt;n-button intent="danger"&gt;Delete Forever&lt;/n-button&gt;
-    &lt;/footer&gt;
-  &lt;/n-card&gt;
+    &lt;/n-footer&gt;
+  &lt;/n-container&gt;
 &lt;/n-dialog&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
   </section>
 
   <script>

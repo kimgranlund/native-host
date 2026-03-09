@@ -32,7 +32,7 @@ const codeExamples = {
     <!-- ── Basic ── -->
 
     <h2>Basic (swipe to navigate)</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-slideshow>
         <n-slide><div class="slide-content slide-1">1</div></n-slide>
         <n-slide><div class="slide-content slide-2">2</div></n-slide>
@@ -43,12 +43,12 @@ const codeExamples = {
   &lt;n-slide&gt;&lt;div&gt;Slide 2&lt;/div&gt;&lt;/n-slide&gt;
   &lt;n-slide&gt;&lt;div&gt;Slide 3&lt;/div&gt;&lt;/n-slide&gt;
 &lt;/n-slideshow&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Controls + Indicators ── -->
 
     <h2>Controls + Indicators</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-slideshow controls indicators>
         <n-slide><div class="slide-content slide-1">Slide 1</div></n-slide>
         <n-slide><div class="slide-content slide-2">Slide 2</div></n-slide>
@@ -60,12 +60,12 @@ const codeExamples = {
   &lt;n-slide&gt;&lt;div&gt;Slide 2&lt;/div&gt;&lt;/n-slide&gt;
   &lt;n-slide&gt;&lt;div&gt;Slide 3&lt;/div&gt;&lt;/n-slide&gt;
 &lt;/n-slideshow&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Autoplay + Loop ── -->
 
     <h2>Autoplay + Loop</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-slideshow controls indicators autoplay interval="3000" loop>
         <n-slide><div class="slide-content slide-1">A</div></n-slide>
         <n-slide><div class="slide-content slide-2">B</div></n-slide>
@@ -76,12 +76,12 @@ const codeExamples = {
   &lt;n-slide&gt;&lt;div&gt;B&lt;/div&gt;&lt;/n-slide&gt;
   &lt;n-slide&gt;&lt;div&gt;C&lt;/div&gt;&lt;/n-slide&gt;
 &lt;/n-slideshow&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Vertical ── -->
 
     <h2>Vertical</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <div class="vertical-demo"><n-slideshow direction="vertical" controls indicators>
         <n-slide><div class="slide-content slide-1">Top</div></n-slide>
         <n-slide><div class="slide-content slide-2">Middle</div></n-slide>
@@ -92,12 +92,12 @@ const codeExamples = {
   &lt;n-slide&gt;&lt;div&gt;Middle&lt;/div&gt;&lt;/n-slide&gt;
   &lt;n-slide&gt;&lt;div&gt;Bottom&lt;/div&gt;&lt;/n-slide&gt;
 &lt;/n-slideshow&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Peek ── -->
 
     <h2>Peek (adjacent slides visible)</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-slideshow controls indicators peek>
         <n-slide><div class="slide-content slide-1">1</div></n-slide>
         <n-slide><div class="slide-content slide-2">2</div></n-slide>
@@ -110,12 +110,12 @@ const codeExamples = {
   &lt;n-slide&gt;&lt;div&gt;2&lt;/div&gt;&lt;/n-slide&gt;
   &lt;n-slide&gt;&lt;div&gt;3&lt;/div&gt;&lt;/n-slide&gt;
 &lt;/n-slideshow&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Per-view 3 with gap ── -->
 
     <h2>Per-view 3 + Gap</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-slideshow controls indicators per-view="3" gap>
         <n-slide><div class="slide-content slide-short slide-1">1</div></n-slide>
         <n-slide><div class="slide-content slide-short slide-2">2</div></n-slide>
@@ -130,12 +130,12 @@ const codeExamples = {
   &lt;n-slide&gt;&lt;div&gt;3&lt;/div&gt;&lt;/n-slide&gt;
   &lt;n-slide&gt;&lt;div&gt;4&lt;/div&gt;&lt;/n-slide&gt;
 &lt;/n-slideshow&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Per-view 2 + Peek + Gap ── -->
 
     <h2>Per-view 2 + Peek + Gap</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-slideshow controls indicators per-view="2" peek gap>
         <n-slide><div class="slide-content slide-short slide-1">1</div></n-slide>
         <n-slide><div class="slide-content slide-short slide-2">2</div></n-slide>
@@ -147,12 +147,12 @@ const codeExamples = {
   &lt;n-slide&gt;&lt;div&gt;2&lt;/div&gt;&lt;/n-slide&gt;
   &lt;n-slide&gt;&lt;div&gt;3&lt;/div&gt;&lt;/n-slide&gt;
 &lt;/n-slideshow&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Intent colors ── -->
 
     <h2>Intent (accent)</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-slideshow controls indicators intent="accent">
         <n-slide><div class="slide-content slide-1">Accent 1</div></n-slide>
         <n-slide><div class="slide-content slide-2">Accent 2</div></n-slide>
@@ -162,12 +162,12 @@ const codeExamples = {
   &lt;n-slide&gt;&lt;div&gt;Slide 1&lt;/div&gt;&lt;/n-slide&gt;
   &lt;n-slide&gt;&lt;div&gt;Slide 2&lt;/div&gt;&lt;/n-slide&gt;
 &lt;/n-slideshow&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Event log ── -->
 
     <h2>Event log</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-slideshow controls indicators id="event-demo">
         <n-slide><div class="slide-content slide-1">A</div></n-slide>
         <n-slide><div class="slide-content slide-2">B</div></n-slide>
@@ -175,15 +175,15 @@ const codeExamples = {
       </n-slideshow>
       <pre id="event-log" style="margin-top: 0.75rem; font-size: 0.75rem; font-family: ui-monospace, monospace; color: var(--n-ink-muted-neutral); min-height: 2rem;"></pre>
     <pre class="code-block"><code set:html={codeExamples.eventLog} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Debug States (force-*) ── -->
 
     <h2>Debug States (<code>force-*</code>)</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="regular">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Attribute-driven pseudo-state overrides for DevTools debugging and visual testing. Applied to the host element, targets internal controls and indicators.
-      </n-text>
+      </span>
       <n-stack direction="row" gap="6" wrap>
         <div>
           <div class="col-label slideshow-debug-label">force-hover</div>
@@ -200,7 +200,7 @@ const codeExamples = {
           </n-slideshow></div>
         </div>
       </n-stack>
-    </n-panel>
+    </n-container>
   </section>
 
   <script>

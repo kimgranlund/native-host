@@ -35,15 +35,15 @@ el.addEventListener('native:inspect', (e) =&gt; {
     <!-- ── Provider Demo ── -->
 
     <h2>Provider (n-controller)</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Wrap elements with <code>&lt;n-controller traits="css-inspectable"&gt;</code> to make them inspectable. Hold <kbd>Alt</kbd> and hover to preview outlines, then click to explode in 3D.
-      </n-text>
+      </span>
 
       <div class="component-grid">
         <!-- Card layout -->
         <div class="component-cell">
-          <n-text size="xs" muted>Card Layout</n-text>
+          <span class="text-xs text-muted">Card Layout</span>
           <n-controller traits="css-inspectable">
             <div class="card inspect-target provider-target" id="provider-card">
               <div class="card-header">Card Title</div>
@@ -61,11 +61,11 @@ el.addEventListener('native:inspect', (e) =&gt; {
 
         <!-- Nested boxes -->
         <div class="component-cell">
-          <n-text size="xs" muted>Nested Structure</n-text>
+          <span class="text-xs text-muted">Nested Structure</span>
           <n-controller traits="css-inspectable" data-trait-css-inspectable-depth="80">
             <div class="inspect-target provider-target" id="provider-nested">
               <div class="nested-box">
-                <n-text size="xs">Outer layer</n-text>
+                <span class="text-xs">Outer layer</span>
                 <div class="nested-inner">
                   <span>Inner layer</span>
                 </div>
@@ -76,7 +76,7 @@ el.addEventListener('native:inspect', (e) =&gt; {
 
         <!-- Form elements -->
         <div class="component-cell">
-          <n-text size="xs" muted>Form Elements</n-text>
+          <span class="text-xs text-muted">Form Elements</span>
           <n-controller traits="css-inspectable" data-trait-css-inspectable-depth="50" data-trait-css-inspectable-scale="0.9">
             <div class="inspect-target provider-target" id="provider-form">
               <n-stack gap="2">
@@ -104,15 +104,15 @@ el.addEventListener('native:inspect', (e) =&gt; {
   data-trait-css-inspectable-scale="0.9"&gt;
   ...
 &lt;/n-controller&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Controller Demo ── -->
 
     <h2>Controller (programmatic)</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         <code>new CSSInspectController(el, options)</code> — adjust options live with the controls below. Hold <kbd>Alt</kbd> and click the card to inspect, <kbd>Escape</kbd> to close.
-      </n-text>
+      </span>
 
       <div class="controller-stage">
         <div class="card inspect-target" id="controller-target">
@@ -130,48 +130,48 @@ el.addEventListener('native:inspect', (e) =&gt; {
       </div>
 
       <!-- Options -->
-      <n-card>
-        <header><span>Options</span></header>
-        <section>
+      <n-container>
+        <n-header><span>Options</span></n-header>
+        <n-body>
           <n-stack gap="3">
             <n-stack direction="row" align="center" gap="3">
-              <n-text size="sm" class="opt-label">Depth: <strong id="depth-val">16</strong>px</n-text>
+              <span class="text-sm opt-label">Depth: <strong id="depth-val">16</strong>px</span>
               <n-range id="opt-depth" min="10" max="150" step="2" value="16"></n-range>
             </n-stack>
             <n-stack direction="row" align="center" gap="3">
-              <n-text size="sm" class="opt-label">Scale: <strong id="scale-val">0.85</strong></n-text>
+              <span class="text-sm opt-label">Scale: <strong id="scale-val">0.85</strong></span>
               <n-range id="opt-scale" min="0.5" max="1.2" step="0.05" value="0.85"></n-range>
             </n-stack>
             <n-stack direction="row" align="center" gap="3">
-              <n-text size="sm" class="opt-label">Perspective: <strong id="perspective-val">1200</strong>px</n-text>
+              <span class="text-sm opt-label">Perspective: <strong id="perspective-val">1200</strong>px</span>
               <n-range id="opt-perspective" min="400" max="3000" step="100" value="1200"></n-range>
             </n-stack>
             <n-stack direction="row" align="center" gap="3">
-              <n-text size="sm" class="opt-label">Max Tilt: <strong id="max-tilt-val">60</strong>&deg;</n-text>
+              <span class="text-sm opt-label">Max Tilt: <strong id="max-tilt-val">60</strong>&deg;</span>
               <n-range id="opt-max-tilt" min="1" max="90" step="1" value="60"></n-range>
             </n-stack>
             <n-stack direction="row" align="center" gap="3">
-              <n-text size="sm" class="opt-label">Tilt Radius: <strong id="tilt-radius-val">384</strong>px</n-text>
+              <span class="text-sm opt-label">Tilt Radius: <strong id="tilt-radius-val">384</strong>px</span>
               <n-range id="opt-tilt-radius" min="100" max="1000" step="16" value="384"></n-range>
             </n-stack>
             <n-stack direction="row" align="center" gap="3">
               <n-switch id="opt-labels" checked>Show layer labels</n-switch>
             </n-stack>
           </n-stack>
-        </section>
-      </n-card>
+        </n-body>
+      </n-container>
 
       <div id="controller-log" class="output"></div>
       <pre class="code-block"><code set:html={codeController} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Pick Mode ── -->
 
     <h2>Pick Mode</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         <code>data-trait-css-inspectable-pick</code> — Hold <kbd>Alt</kbd> and hover to highlight any descendant, then <kbd>Alt</kbd>+click to inspect it in 3D. Useful for large containers where you want to inspect individual children rather than the entire host.
-      </n-text>
+      </span>
 
       <n-controller traits="css-inspectable" data-trait-css-inspectable-pick>
         <div class="inspect-target pick-stage" id="pick-target">
@@ -209,7 +209,7 @@ el.addEventListener('native:inspect', (e) =&gt; {
     &lt;form&gt;...&lt;/form&gt;
   &lt;/div&gt;
 &lt;/n-controller&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── API Reference ── -->
 

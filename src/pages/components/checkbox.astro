@@ -29,7 +29,7 @@ const codeExamples = {
     <!-- ── Basic ── -->
 
     <h2>Basic</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack>
         <n-checkbox>Accept terms and conditions</n-checkbox>
         <n-checkbox checked>Email notifications</n-checkbox>
@@ -38,12 +38,12 @@ const codeExamples = {
       <pre class="code-block"><code>&lt;n-checkbox&gt;Accept terms and conditions&lt;/n-checkbox&gt;
 &lt;n-checkbox checked&gt;Email notifications&lt;/n-checkbox&gt;
 &lt;n-checkbox indeterminate&gt;Select all&lt;/n-checkbox&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Sizes ── -->
 
     <h2>Sizes</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack direction="row" wrap align="center">
         <span class="label">xs</span>
         <n-checkbox size="xs" checked>Extra small</n-checkbox>
@@ -69,12 +69,12 @@ const codeExamples = {
 &lt;n-checkbox size="md" checked&gt;Medium&lt;/n-checkbox&gt;
 &lt;n-checkbox size="lg" checked&gt;Large&lt;/n-checkbox&gt;
 &lt;n-checkbox size="xl" checked&gt;Extra large&lt;/n-checkbox&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Density ── -->
 
     <h2>Density</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <h3>compact</h3>
       <n-stack density="compact">
         <n-checkbox size="sm" checked>Small compact</n-checkbox>
@@ -99,12 +99,12 @@ const codeExamples = {
 &lt;div density="loose"&gt;
   &lt;n-checkbox checked&gt;Loose&lt;/n-checkbox&gt;
 &lt;/div&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Radius ── -->
 
     <h2>Radius</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack direction="row" wrap align="center">
         <span class="label">default</span>
         <n-checkbox checked>Checked</n-checkbox>
@@ -119,12 +119,12 @@ const codeExamples = {
       </n-stack>
       <pre class="code-block"><code>&lt;n-checkbox checked&gt;Default radius&lt;/n-checkbox&gt;
 &lt;n-checkbox radius="sharp" checked&gt;Sharp radius&lt;/n-checkbox&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Intents ── -->
 
     <h2>Intents</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack>
         <n-checkbox intent="neutral" checked>Neutral</n-checkbox>
         <n-checkbox intent="accent" checked>Accent</n-checkbox>
@@ -137,12 +137,12 @@ const codeExamples = {
 &lt;n-checkbox intent="success" checked&gt;Success&lt;/n-checkbox&gt;
 &lt;n-checkbox intent="warning" checked&gt;Warning&lt;/n-checkbox&gt;
 &lt;n-checkbox intent="danger" checked&gt;Danger&lt;/n-checkbox&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Disabled ── -->
 
     <h2>Disabled</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack>
         <n-checkbox disabled>Unchecked disabled</n-checkbox>
         <n-checkbox disabled checked>Checked disabled</n-checkbox>
@@ -151,12 +151,12 @@ const codeExamples = {
       <pre class="code-block"><code>&lt;n-checkbox disabled&gt;Unchecked disabled&lt;/n-checkbox&gt;
 &lt;n-checkbox disabled checked&gt;Checked disabled&lt;/n-checkbox&gt;
 &lt;n-checkbox disabled indeterminate&gt;Indeterminate disabled&lt;/n-checkbox&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── States ── -->
 
     <h2>States</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack>
         <n-checkbox>Unchecked</n-checkbox>
         <n-checkbox checked>Checked</n-checkbox>
@@ -165,23 +165,23 @@ const codeExamples = {
       <pre class="code-block"><code>&lt;n-checkbox&gt;Unchecked&lt;/n-checkbox&gt;
 &lt;n-checkbox checked&gt;Checked&lt;/n-checkbox&gt;
 &lt;n-checkbox indeterminate&gt;Indeterminate&lt;/n-checkbox&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Events ── -->
 
     <h2>Change Events</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack>
         <n-checkbox id="event-cb" intent="accent">Toggle me</n-checkbox>
       </n-stack>
       <div class="log" id="event-log"></div>
       <pre class="code-block"><code set:html={codeExamples.changeEvents} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Form Association ── -->
 
     <h2>Form Association</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <form id="demo-form">
         <div class="form-fields"><n-stack>
           <n-checkbox name="agree" value="yes" required>I agree to terms</n-checkbox>
@@ -201,12 +201,12 @@ const codeExamples = {
     &lt;span slot="label"&gt;Submit&lt;/span&gt;
   &lt;/n-button&gt;
 &lt;/form&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Cascading ── -->
 
     <h2>Cascading</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <h3>Parent size="sm", intent="accent"</h3>
       <n-stack size="sm" intent="accent">
         <n-checkbox checked>Inherited sm accent</n-checkbox>
@@ -218,22 +218,22 @@ const codeExamples = {
   &lt;n-checkbox checked size="lg"&gt;Override lg&lt;/n-checkbox&gt;
   &lt;n-checkbox checked intent="danger"&gt;Override danger&lt;/n-checkbox&gt;
 &lt;/div&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Debug States (force-*) ── -->
 
     <h2>Debug States (<code>force-*</code>)</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="regular">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Attribute-driven pseudo-state overrides for DevTools debugging and visual testing.
-      </n-text>
+      </span>
       <n-stack direction="row" wrap align="center">
         <n-checkbox force-hover>Force hover</n-checkbox>
         <n-checkbox force-hover checked>Force hover (checked)</n-checkbox>
         <n-checkbox force-focus-visible>Force focus-visible</n-checkbox>
         <n-checkbox force-focus-visible checked>Force focus-visible (checked)</n-checkbox>
       </n-stack>
-    </n-panel>
+    </n-container>
   </section>
 
   <script>

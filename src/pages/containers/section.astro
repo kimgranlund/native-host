@@ -9,7 +9,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       </div>
     </div>
     <div slot="description">
-      <span class="header-tag">&lt;n-section&gt;</span> Semantic content section with heading, description, and optional collapse. Minimal custom element.
+      <span class="header-tag">&lt;n-container&gt;</span> Semantic content section with heading, description, and optional collapse. Minimal custom element.
           </div>
   </header>
 
@@ -18,91 +18,91 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <!-- ── Basic ── -->
 
     <h2>Basic</h2>
-    <n-panel bordered>
-      <n-section>
+    <n-container data-kind="panel" bordered>
+      <n-container>
         <span slot="heading">Account Settings</span>
         <span slot="description">Manage your account preferences and personal information.</span>
         <n-input placeholder="Display Name" value="Kim Granlund"></n-input>
         <n-input placeholder="Email" value="kim@example.com"></n-input>
-      </n-section>
-    <pre class="code-block"><code>&lt;n-section&gt;
+      </n-container>
+    <pre class="code-block"><code>&lt;n-container&gt;
   &lt;span slot="heading"&gt;Account Settings&lt;/span&gt;
   &lt;span slot="description"&gt;Manage your account preferences.&lt;/span&gt;
   &lt;n-input placeholder="Display Name" value="Kim Granlund"&gt;&lt;/n-input&gt;
   &lt;n-input placeholder="Email" value="kim@example.com"&gt;&lt;/n-input&gt;
-&lt;/n-section&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+&lt;/n-container&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
 
     <!-- ── With Divider ── -->
 
     <h2>With Divider</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack gap="0">
-        <n-section>
+        <n-container>
           <span slot="heading">Profile</span>
           <n-input placeholder="Display Name" value="Kim Granlund"></n-input>
           <n-input placeholder="Bio"></n-input>
-        </n-section>
-        <n-section divider>
+        </n-container>
+        <n-container divider>
           <span slot="heading">Notifications</span>
           <n-switch checked>Email notifications</n-switch>
           <n-switch>Push notifications</n-switch>
-        </n-section>
-        <n-section divider>
+        </n-container>
+        <n-container divider>
           <span slot="heading">Security</span>
           <n-input placeholder="Current password" type="password"></n-input>
           <n-input placeholder="New password" type="password"></n-input>
-        </n-section>
+        </n-container>
       </n-stack>
     <pre class="code-block"><code>&lt;n-stack gap="0"&gt;
-  &lt;n-section&gt;
+  &lt;n-container&gt;
     &lt;span slot="heading"&gt;Profile&lt;/span&gt;
     &lt;n-input placeholder="Display Name"&gt;&lt;/n-input&gt;
-  &lt;/n-section&gt;
-  &lt;n-section divider&gt;
+  &lt;/n-container&gt;
+  &lt;n-container divider&gt;
     &lt;span slot="heading"&gt;Notifications&lt;/span&gt;
     &lt;n-switch checked&gt;Email notifications&lt;/n-switch&gt;
-  &lt;/n-section&gt;
-  &lt;n-section divider&gt;
+  &lt;/n-container&gt;
+  &lt;n-container divider&gt;
     &lt;span slot="heading"&gt;Security&lt;/span&gt;
     &lt;n-input placeholder="Current password"&gt;&lt;/n-input&gt;
-  &lt;/n-section&gt;
+  &lt;/n-container&gt;
 &lt;/n-stack&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Collapsible ── -->
 
     <h2>Collapsible</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack gap="0">
-        <n-section collapsible>
+        <n-container collapsible>
           <span slot="heading">Advanced Settings</span>
           <n-switch>Enable developer mode</n-switch>
           <n-switch>Show debug info</n-switch>
           <n-switch>Verbose logging</n-switch>
-        </n-section>
-        <n-section collapsible collapsed divider>
+        </n-container>
+        <n-container collapsible collapsed divider>
           <span slot="heading">Experimental Features</span>
           <n-switch>AI suggestions</n-switch>
           <n-switch>New editor</n-switch>
-        </n-section>
+        </n-container>
       </n-stack>
-    <pre class="code-block"><code>&lt;n-section collapsible&gt;
+    <pre class="code-block"><code>&lt;n-container collapsible&gt;
   &lt;span slot="heading"&gt;Advanced Settings&lt;/span&gt;
   &lt;n-switch&gt;Enable developer mode&lt;/n-switch&gt;
-&lt;/n-section&gt;
+&lt;/n-container&gt;
 
-&lt;n-section collapsible collapsed&gt;
+&lt;n-container collapsible collapsed&gt;
   &lt;span slot="heading"&gt;Experimental Features&lt;/span&gt;
   &lt;n-switch&gt;AI suggestions&lt;/n-switch&gt;
-&lt;/n-section&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+&lt;/n-container&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
 
     <!-- ── Nested with Inset ── -->
 
     <h2>Nested with Inset</h2>
-    <n-panel bordered>
-      <n-section>
+    <n-container data-kind="panel" bordered>
+      <n-container>
         <span slot="heading">Privacy</span>
         <span slot="description">Control how your data is used.</span>
         <n-inset>
@@ -110,16 +110,16 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           <n-checkbox>Share usage data with partners</n-checkbox>
           <n-checkbox checked>Send crash reports</n-checkbox>
         </n-inset>
-      </n-section>
-    <pre class="code-block"><code>&lt;n-section&gt;
+      </n-container>
+    <pre class="code-block"><code>&lt;n-container&gt;
   &lt;span slot="heading"&gt;Privacy&lt;/span&gt;
   &lt;span slot="description"&gt;Control how your data is used.&lt;/span&gt;
   &lt;n-inset&gt;
     &lt;n-checkbox&gt;Allow analytics tracking&lt;/n-checkbox&gt;
     &lt;n-checkbox checked&gt;Send crash reports&lt;/n-checkbox&gt;
   &lt;/n-inset&gt;
-&lt;/n-section&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+&lt;/n-container&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
   </section>
 
 </SidebarLayout>

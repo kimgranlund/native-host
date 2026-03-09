@@ -56,29 +56,29 @@ const codeExamples = {
     <!-- ── Basic ── -->
 
     <h2>Basic</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Click the button to open a modal dialog. Close it with the button inside, by pressing <n-kbd>Escape</n-kbd>, or by clicking the backdrop.
-      </n-text>
+      </span>
       <n-button id="basic-open-btn">Open Dialog</n-button>
       <n-controller traits="dialogable" id="basic-dialog">
         <div class="dialog-body">
           <h3>Basic Dialog</h3>
-          <n-text size="sm" muted>This dialog was created by the <code>dialogable</code> trait. The controller wraps the content in a native <code>&lt;dialog&gt;</code> element.</n-text>
+          <span class="text-sm text-muted">This dialog was created by the <code>dialogable</code> trait. The controller wraps the content in a native <code>&lt;dialog&gt;</code> element.</span>
           <n-button id="basic-close-btn">Close</n-button>
         </div>
       </n-controller>
       <div id="basic-log" class="output"></div>
       <pre class="code-block"><code set:html={codeExamples.basic} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── With Form ── -->
 
     <h2>With Form</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         A dialog containing a form with Cancel and Submit actions. Cancel closes the dialog; Submit logs the value and closes.
-      </n-text>
+      </span>
       <n-button id="form-open-btn">Open Form Dialog</n-button>
       <n-controller traits="dialogable" id="form-dialog">
         <div class="dialog-body">
@@ -92,43 +92,43 @@ const codeExamples = {
       </n-controller>
       <div id="form-log" class="output"></div>
       <pre class="code-block"><code set:html={codeExamples.form} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── No Close on Escape / Backdrop ── -->
 
     <h2>Persistent Dialog</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         A dialog that ignores Escape and backdrop clicks. Only the explicit Close button dismisses it. Uses <code>no-close-on-escape</code> and <code>no-close-on-backdrop</code> attributes.
-      </n-text>
+      </span>
       <n-button id="persistent-open-btn">Open Persistent Dialog</n-button>
       <n-controller traits="dialogable" id="persistent-dialog" no-close-on-escape no-close-on-backdrop>
         <div class="dialog-body">
           <h3>Persistent Dialog</h3>
-          <n-text size="sm" muted>This dialog cannot be dismissed with Escape or by clicking the backdrop. You must use the button below.</n-text>
+          <span class="text-sm text-muted">This dialog cannot be dismissed with Escape or by clicking the backdrop. You must use the button below.</span>
           <n-button id="persistent-close-btn">Close</n-button>
         </div>
       </n-controller>
       <div id="persistent-log" class="output"></div>
-    </n-panel>
+    </n-container>
 
     <!-- ── Events ── -->
 
     <h2>Events</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Open and close the dialog to see <code>close</code> events logged below.
-      </n-text>
+      </span>
       <n-button id="events-open-btn">Open Dialog</n-button>
       <n-controller traits="dialogable" id="events-dialog">
         <div class="dialog-body">
           <h3>Event Demo</h3>
-          <n-text size="sm" muted>Close this dialog to see the event log update.</n-text>
+          <span class="text-sm text-muted">Close this dialog to see the event log update.</span>
           <n-button id="events-close-btn">Close</n-button>
         </div>
       </n-controller>
       <div id="events-log" class="output"></div>
-    </n-panel>
+    </n-container>
 
     <!-- ── API Reference ── -->
 

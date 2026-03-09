@@ -38,10 +38,10 @@ toaster.toast({ message: 'Sticky!', intent: 'warning', duration: 0 });`,
     <!-- ── Intent Variants ── -->
 
     <h2>Intent Variants</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Uses <code>ToastController</code> directly on a host element. Each intent maps to a different surface color.
-      </n-text>
+      </span>
       <div id="toastable-intent-row" class="button-row">
         <n-button id="info-btn" intent="info">Info Toast</n-button>
         <n-button id="success-btn" intent="success">Success Toast</n-button>
@@ -49,31 +49,31 @@ toaster.toast({ message: 'Sticky!', intent: 'warning', duration: 0 });`,
         <n-button id="danger-btn" intent="danger">Danger Toast</n-button>
       </div>
       <pre class="code-block"><code set:html={codeExamples.intentVariants} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Custom Duration ── -->
 
     <h2>Custom Duration</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <div class="button-row">
         <n-button id="fast-btn">Fast (1s)</n-button>
         <n-button id="slow-btn">Slow (10s)</n-button>
         <n-button id="sticky-btn">Sticky (manual dismiss)</n-button>
       </div>
       <pre class="code-block"><code set:html={codeExamples.customDuration} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Dismiss All ── -->
 
     <h2>Batch Operations</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <div class="button-row">
         <n-button id="batch-btn">Spawn 5 Toasts</n-button>
         <n-button id="clear-btn">Dismiss All</n-button>
       </div>
       <pre class="code-block"><code>// Dismiss all active toasts
 toaster.dismissAllToasts();</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── API Reference ── -->
 

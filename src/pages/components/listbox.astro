@@ -32,7 +32,7 @@ const codeExamples = {
     <!-- ── Basic ── -->
 
     <h2>Basic Listbox</h2>
-    <n-panel bordered intent="neutral">
+    <n-container data-kind="panel" bordered intent="neutral">
       <div class="grid">
         <n-stack>
           <span class="col-label">Default (single select)</span>
@@ -72,12 +72,12 @@ const codeExamples = {
   &lt;n-option value="cherry"&gt;Cherry&lt;/n-option&gt;
   &lt;n-option value="date" disabled&gt;Date&lt;/n-option&gt;
 &lt;/n-listbox&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Grouped Options ── -->
 
     <h2>Grouped Options</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <div class="grid">
         <n-stack>
           <span class="col-label">With icons</span>
@@ -131,12 +131,12 @@ const codeExamples = {
     &lt;n-option value="structure"&gt;Project Structure&lt;/n-option&gt;
   &lt;/n-option-group&gt;
 &lt;/n-listbox&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Sizes ── -->
 
     <h2>Sizes</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <div class="grid">
         <n-stack>
           <span class="col-label">xs</span>
@@ -174,12 +174,12 @@ const codeExamples = {
       <pre class="code-block"><code>&lt;n-listbox size="sm"&gt;...&lt;/n-listbox&gt;
 &lt;n-listbox size="md"&gt;...&lt;/n-listbox&gt;
 &lt;n-listbox size="lg"&gt;...&lt;/n-listbox&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Intents ── -->
 
     <h2>Intents</h2>
-    <n-panel bordered size="sm">
+    <n-container data-kind="panel" bordered size="sm">
       <div class="grid">
         <n-stack>
           <span class="col-label">Neutral</span>
@@ -206,12 +206,12 @@ const codeExamples = {
           </n-listbox>
         </n-stack>
       </div>
-    </n-panel>
+    </n-container>
 
     <!-- ── Variants ── -->
 
     <h2>Variants</h2>
-    <n-panel bordered size="sm">
+    <n-container data-kind="panel" bordered size="sm">
       <div class="grid">
         <n-stack>
           <span class="col-label">primary</span>
@@ -254,12 +254,12 @@ const codeExamples = {
           </n-listbox>
         </n-stack>
       </div>
-    </n-panel>
+    </n-container>
 
     <!-- ── Density ── -->
 
     <h2>Density</h2>
-    <n-panel bordered size="md">
+    <n-container data-kind="panel" bordered size="md">
       <div class="grid">
         <n-stack density="loose">
           <span class="col-label">loose</span>
@@ -286,12 +286,12 @@ const codeExamples = {
           </n-listbox>
         </n-stack>
       </div>
-    </n-panel>
+    </n-container>
 
     <!-- ── Radius ── -->
 
     <h2>Radius</h2>
-    <n-panel bordered size="sm">
+    <n-container data-kind="panel" bordered size="sm">
       <div class="grid">
         <n-stack radius="sharp">
           <span class="col-label">sharp</span>
@@ -318,12 +318,12 @@ const codeExamples = {
           </n-listbox>
         </n-stack>
       </div>
-    </n-panel>
+    </n-container>
 
     <!-- ── Cascading ── -->
 
     <h2>Cascading</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <h3>Parent size="md", child overrides</h3>
       <div class="grid" size="md" intent="accent">
         <n-stack>
@@ -350,7 +350,7 @@ const codeExamples = {
       </div>
 
       <h3>Section cascading all attributes</h3>
-      <section size="sm" density="compact" radius="round" intent="accent">
+      <n-body size="sm" density="compact" radius="round" intent="accent">
         <div class="grid">
           <n-stack>
             <span class="col-label">All inherited</span>
@@ -369,13 +369,13 @@ const codeExamples = {
             </n-listbox>
           </n-stack>
         </div>
-      </section>
-    </n-panel>
+      </n-body>
+    </n-container>
 
     <!-- ── Events ── -->
 
     <h2>Events</h2>
-    <n-panel bordered size="sm">
+    <n-container data-kind="panel" bordered size="sm">
       <div class="demo-listbox">
         <n-listbox id="event-listbox" variant="secondary">
         <n-option value="red">Red</n-option>
@@ -386,15 +386,15 @@ const codeExamples = {
       </div>
       <div class="log" id="event-log"></div>
       <pre class="code-block"><code set:html={codeExamples.events} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Debug States (force-*) ── -->
 
     <h2>Debug States (<code>force-*</code>)</h2>
-    <n-panel bordered size="sm">
-      <n-text size="xs" muted spacing="regular">
+    <n-container data-kind="panel" bordered size="sm">
+      <span class="text-xs text-muted">
         Attribute-driven pseudo-state overrides for DevTools debugging and visual testing. Applied to individual <code>n-option</code> elements.
-      </n-text>
+      </span>
       <div class="demo-listbox">
         <n-listbox variant="secondary">
           <n-option value="hover" force-hover>Force hover</n-option>
@@ -403,7 +403,7 @@ const codeExamples = {
           <n-option value="normal">Normal</n-option>
         </n-listbox>
       </div>
-    </n-panel>
+    </n-container>
   </section>
 
   <script>

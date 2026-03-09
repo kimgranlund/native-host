@@ -35,10 +35,10 @@ function tierIntent(tier: string) {
               <n-table-cell>
                 <header>
                   <h2>Groups</h2>
-                  <aside><n-button id="create-group-btn" variant="primary" intent="accent">
+                  <n-button id="create-group-btn" variant="primary" intent="accent">
                     <n-icon name="plus" slot="leading"></n-icon>
                     <span>Create Group</span>
-                  </n-button></aside>
+                  </n-button>
                 </header>
               </n-table-cell>
             </n-table-row>
@@ -52,16 +52,16 @@ function tierIntent(tier: string) {
             {groups.map(g => (
               <n-table-row>
                 <n-table-cell>
-                  <n-text strong>{g.name}</n-text>
+                  <span class="text-strong">{g.name}</span>
                 </n-table-cell>
                 <n-table-cell>
-                  <n-text muted size="sm">{g.description || '\u2014'}</n-text>
+                  <span class="text-muted text-sm">{g.description || '\u2014'}</span>
                 </n-table-cell>
                 <n-table-cell>
                   <n-badge intent={tierIntent(g.defaultTier)}>{g.defaultTier}</n-badge>
                 </n-table-cell>
                 <n-table-cell>
-                  <n-text size="sm">{g.memberCount}</n-text>
+                  <span class="text-sm">{g.memberCount}</span>
                 </n-table-cell>
                 <n-table-cell>
                   <n-stack direction="row" gap="1">
@@ -95,11 +95,11 @@ function tierIntent(tier: string) {
     <!-- Create / Edit group dialog -->
     <n-dialog id="group-dialog">
       <div class="admin-dialog-card">
-        <n-card>
-          <header>
+        <n-container>
+          <n-header>
             <span id="group-dialog-title">Create Group</span>
-          </header>
-          <section>
+          </n-header>
+          <n-body>
             <n-stack gap="4">
               <n-field required>
                 <label slot="label">Name</label>
@@ -114,31 +114,31 @@ function tierIntent(tier: string) {
                 <n-select id="group-tier" value="user" options='[{"value":"owner","label":"Owner"},{"value":"admin","label":"Admin"},{"value":"user","label":"User"},{"value":"preview","label":"Preview"}]'></n-select>
               </n-field>
             </n-stack>
-          </section>
-          <footer>
+          </n-body>
+          <n-footer>
             <n-button id="group-cancel">
               <span slot="label">Cancel</span>
             </n-button>
             <n-button id="group-submit" variant="primary" intent="accent">
               <span slot="label">Save</span>
             </n-button>
-          </footer>
-        </n-card>
+          </n-footer>
+        </n-container>
       </div>
     </n-dialog>
 
     <!-- Delete confirmation dialog -->
     <n-dialog id="delete-dialog">
       <div class="admin-dialog-card">
-        <n-card>
-          <header>
+        <n-container>
+          <n-header>
             <nav><n-icon name="warning" size="lg"></n-icon></nav>
             <span>Delete Group?</span>
-          </header>
-          <section>
-            <n-text>Are you sure you want to delete <n-text id="delete-group-name" variant="strong"></n-text>? All memberships in this group will be removed. This action cannot be undone.</n-text>
-          </section>
-          <footer>
+          </n-header>
+          <n-body>
+            <span>Are you sure you want to delete <span class="text-strong" id="delete-group-name"></span>? All memberships in this group will be removed. This action cannot be undone.</span>
+          </n-body>
+          <n-footer>
             <n-button id="delete-cancel">
               <span slot="label">Cancel</span>
             </n-button>
@@ -146,8 +146,8 @@ function tierIntent(tier: string) {
               <n-icon name="trash" slot="leading"></n-icon>
               <span>Delete</span>
             </n-button>
-          </footer>
-        </n-card>
+          </n-footer>
+        </n-container>
       </div>
     </n-dialog>
   </AdminLayout>

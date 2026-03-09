@@ -93,10 +93,10 @@ document.addEventListener('native:magnet-drop', (e) =&gt; {
     <!-- ── Sibling Snap ── -->
 
     <h2>Sibling Snap</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Drag any box near another to see snap guides appear. Edges and centers align within the 20px threshold. All five boxes snap to each other and to the container edges.
-      </n-text>
+      </span>
       <n-controller traits="magnetizable" data-trait-magnetizable-threshold="20" data-trait-magnetizable-snap-to-edges="true" data-trait-magnetizable-snap-to-siblings="true">
         <div class="magnet-arena" id="sibling-arena">
           <div class="magnet-box accent" style="left: 2rem; top: 2rem;">A</div>
@@ -107,15 +107,15 @@ document.addEventListener('native:magnet-drop', (e) =&gt; {
         </div>
       </n-controller>
       <pre class="code-block"><code set:html={codeExamples.siblingSnap} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Grid Snap ── -->
 
     <h2>Grid Snap (50px)</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Elements snap to a 50px grid. Sibling snapping is disabled so only the grid governs alignment. Strength is set to 0.6 for a softer snap feel.
-      </n-text>
+      </span>
       <n-controller traits="magnetizable" data-trait-magnetizable-grid-size="50" data-trait-magnetizable-threshold="25" data-trait-magnetizable-strength="0.6" data-trait-magnetizable-snap-to-siblings="false">
         <div class="magnet-arena grid-bg" id="grid-arena">
           <div class="magnet-box accent" style="left: 0; top: 0;">1</div>
@@ -125,15 +125,15 @@ document.addEventListener('native:magnet-drop', (e) =&gt; {
         </div>
       </n-controller>
       <pre class="code-block"><code set:html={codeExamples.gridSnap} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Edge Snap Only ── -->
 
     <h2>Edge Snap Only</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Sibling snapping is disabled. Boxes only snap to the container edges with a 30px threshold. Useful for constraining layout to boundaries.
-      </n-text>
+      </span>
       <n-controller traits="magnetizable" data-trait-magnetizable-snap-to-siblings="false" data-trait-magnetizable-snap-to-edges="true" data-trait-magnetizable-threshold="30">
         <div class="magnet-arena" id="edge-arena">
           <div class="magnet-box neutral" style="left: 4rem; top: 4rem;">X</div>
@@ -141,63 +141,63 @@ document.addEventListener('native:magnet-drop', (e) =&gt; {
         </div>
       </n-controller>
       <pre class="code-block"><code set:html={codeExamples.edgeOnly} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Options Playground ── -->
 
     <h2>Options Playground</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Uses <code>MagnetController</code> programmatically. Adjust options in real time and see the effect on snap behavior.
-      </n-text>
+      </span>
       <div class="magnet-arena" id="playground-arena">
         <div class="magnet-box accent" style="left: 2rem; top: 2rem;">P1</div>
         <div class="magnet-box info" style="left: 10rem; top: 2rem;">P2</div>
         <div class="magnet-box success" style="left: 2rem; top: 10rem;">P3</div>
         <div class="magnet-box warning" style="left: 10rem; top: 10rem;">P4</div>
       </div>
-      <n-card padding="relaxed">
+      <n-container padding="relaxed">
         <n-stack gap="3">
           <n-stack direction="row" gap="4" align="center">
-            <n-text size="xs" muted style="min-width: 7rem;">Threshold</n-text>
+            <span class="text-xs text-muted" style="min-width: 7rem;">Threshold</span>
             <n-range id="opt-threshold" min="5" max="60" step="1" value="20"></n-range>
-            <n-text size="xs" muted id="opt-threshold-val">20</n-text>
+            <span class="text-xs text-muted" id="opt-threshold-val">20</span>
           </n-stack>
           <n-stack direction="row" gap="4" align="center">
-            <n-text size="xs" muted style="min-width: 7rem;">Grid size</n-text>
+            <span class="text-xs text-muted" style="min-width: 7rem;">Grid size</span>
             <n-range id="opt-grid-size" min="0" max="100" step="5" value="0"></n-range>
-            <n-text size="xs" muted id="opt-grid-size-val">0</n-text>
+            <span class="text-xs text-muted" id="opt-grid-size-val">0</span>
           </n-stack>
           <n-stack direction="row" gap="4" align="center">
-            <n-text size="xs" muted style="min-width: 7rem;">Strength</n-text>
+            <span class="text-xs text-muted" style="min-width: 7rem;">Strength</span>
             <n-range id="opt-strength" min="0.05" max="1" step="0.05" value="1"></n-range>
-            <n-text size="xs" muted id="opt-strength-val">1</n-text>
+            <span class="text-xs text-muted" id="opt-strength-val">1</span>
           </n-stack>
           <n-stack direction="row" gap="4" align="center">
-            <n-text size="xs" muted style="min-width: 7rem;">Show guides</n-text>
+            <span class="text-xs text-muted" style="min-width: 7rem;">Show guides</span>
             <n-switch id="opt-guides" checked></n-switch>
           </n-stack>
           <n-stack direction="row" gap="4" align="center">
-            <n-text size="xs" muted style="min-width: 7rem;">Snap to edges</n-text>
+            <span class="text-xs text-muted" style="min-width: 7rem;">Snap to edges</span>
             <n-switch id="opt-snap-edges" checked></n-switch>
           </n-stack>
           <n-stack direction="row" gap="4" align="center">
-            <n-text size="xs" muted style="min-width: 7rem;">Snap to siblings</n-text>
+            <span class="text-xs text-muted" style="min-width: 7rem;">Snap to siblings</span>
             <n-switch id="opt-snap-siblings" checked></n-switch>
           </n-stack>
           <n-button id="opt-reset" size="sm" variant="ghost">Reset Positions</n-button>
         </n-stack>
-      </n-card>
+      </n-container>
       <pre class="code-block"><code set:html={codeExamples.playground} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Alignment Tool ── -->
 
     <h2>Alignment Tool</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         A practical layout-building example. Drag mixed-size boxes to arrange a page structure. Boxes snap to each other and container edges with a 15px threshold and 0.5 strength for a smooth feel.
-      </n-text>
+      </span>
       <n-controller traits="magnetizable" data-trait-magnetizable-threshold="15" data-trait-magnetizable-strength="0.5" data-trait-magnetizable-snap-to-edges="true" data-trait-magnetizable-snap-to-siblings="true">
         <div class="magnet-arena magnet-arena--tall" id="alignment-arena">
           <div class="magnet-box box accent" style="left: 2rem; top: 2rem;">Header</div>
@@ -208,18 +208,18 @@ document.addEventListener('native:magnet-drop', (e) =&gt; {
         </div>
       </n-controller>
       <pre class="code-block"><code set:html={codeExamples.alignmentTool} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Global Event Log ── -->
 
     <h2>Global Event Log</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Listens on <code>document</code> for all <code>native:magnet-snap</code> and <code>native:magnet-drop</code> events from any arena on this page.
-      </n-text>
+      </span>
       <div id="magnet-global-log" class="output"></div>
       <pre class="code-block"><code set:html={eventLogCode} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── API Reference ── -->
 

@@ -17,10 +17,10 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <!-- ── Receive A2UI Messages ── -->
 
     <h2>Receive A2UI Messages</h2>
-    <n-panel bordered>
-      <n-text size="sm" muted spacing="regular">
+    <n-container data-kind="panel" bordered>
+      <span class="text-sm text-muted">
         Send A2UI server messages to the adapter. Pick a preset or write raw JSON. The adapter converts the flat component list to a UINode tree and renders via PlanExecutor.
-      </n-text>
+      </span>
       <h3>General</h3>
       <n-grid cols="3">
         <n-button size="sm" id="preset-hello">
@@ -110,15 +110,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         <span><span class="label">Supported Types:</span> <span class="value" id="type-count">0</span></span>
       </div>
       <div class="log" id="event-log"></div>
-    </n-panel>
+    </n-container>
 
     <!-- ── Emit (Plan → A2UI) ── -->
 
     <h2>Emit (Plan to A2UI)</h2>
-    <n-panel bordered>
-      <n-text size="sm" muted spacing="regular">
+    <n-container data-kind="panel" bordered>
+      <span class="text-sm text-muted">
         Convert Planner-generated UI plans to A2UI updateComponents format. This is the outbound path — our plans serialized as A2UI wire messages.
-      </n-text>
+      </span>
       <n-grid cols="3">
         <n-button size="sm" id="emit-form">
           <span slot="label">Emit Form</span>
@@ -131,7 +131,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
         </n-button>
       </n-grid>
       <div class="log" id="emit-output" style="max-height: 16rem; white-space: pre-wrap; word-break: break-all;">Click an emit button to convert a Planner result to A2UI format...</div>
-    </n-panel>
+    </n-container>
   </section>
 
   <script>
@@ -271,10 +271,13 @@ document.addEventListener('astro:page-load', async () => {
           updateComponents: {
             surfaceId: 'demo',
             components: [
-              { id: 'root', component: 'Column', children: ['heading', 'text', 'btn'] },
+              { id: 'root', component: 'Card', children: ['card-header', 'card-body'] },
+              { id: 'card-header', component: 'Header', children: ['heading'] },
               { id: 'heading', component: 'Text', text: 'Hello, A2UI!', variant: 'h2' },
+              { id: 'card-body', component: 'Body', child: 'card-content' },
+              { id: 'card-content', component: 'Column', children: ['text', 'button'] },
               { id: 'text', component: 'Text', text: 'This UI was generated from a flat A2UI component list.' },
-              { id: 'btn', component: 'Button', text: 'Click Me', variant: 'primary', action: { event: { name: 'hello_click' } } },
+              { id: 'button', component: 'Button', text: 'Click Me', variant: 'primary', action: { event: { name: 'hello_click' } } },
             ],
           },
         },
@@ -283,14 +286,18 @@ document.addEventListener('astro:page-load', async () => {
           updateComponents: {
             surfaceId: 'demo',
             components: [
-              { id: 'root', component: 'Column', children: ['title', 'name-field', 'email-field', 'message-field', 'actions'] },
+              { id: 'root', component: 'Card', children: ['card-header', 'card-body', 'card-footer'] },
+              { id: 'card-header', component: 'Header', children: ['title'] },
               { id: 'title', component: 'Text', text: 'Contact Us', variant: 'h2' },
+              { id: 'card-body', component: 'Body', child: 'card-content' },
+              { id: 'card-content', component: 'Column', children: ['name-field', 'email-field', 'message-field'] },
               { id: 'name-field', component: 'TextField', label: 'Full Name', placeholder: 'John Doe' },
               { id: 'email-field', component: 'TextField', label: 'Email Address', placeholder: 'john@example.com', variant: 'shortText' },
               { id: 'message-field', component: 'TextArea', label: 'Message', placeholder: 'How can we help?' },
-              { id: 'actions', component: 'Row', children: ['submit-btn', 'cancel-btn'] },
-              { id: 'submit-btn', component: 'Button', text: 'Send Message', variant: 'primary', action: { event: { name: 'submit_form', context: {} } } },
-              { id: 'cancel-btn', component: 'Button', text: 'Cancel', action: { event: { name: 'cancel_form' } } },
+              { id: 'card-footer', component: 'Footer', children: ['card-actions'] },
+              { id: 'card-actions', component: 'Row', children: ['button-submit', 'button-cancel'] },
+              { id: 'button-submit', component: 'Button', text: 'Send Message', variant: 'primary', action: { event: { name: 'submit_form', context: {} } } },
+              { id: 'button-cancel', component: 'Button', text: 'Cancel', action: { event: { name: 'cancel_form' } } },
             ],
           },
         },
@@ -299,14 +306,17 @@ document.addEventListener('astro:page-load', async () => {
           updateComponents: {
             surfaceId: 'demo',
             components: [
-              { id: 'root', component: 'Card', child: 'card-content' },
-              { id: 'card-content', component: 'Column', children: ['product-name', 'product-desc', 'product-price', 'product-actions'] },
-              { id: 'product-name', component: 'Text', text: 'Premium Widget', variant: 'h3' },
-              { id: 'product-desc', component: 'Text', text: 'A high-quality widget built with native web components. Supports all modern browsers.' },
+              { id: 'root', component: 'Card', children: ['card-header', 'card-body', 'card-footer'] },
+              { id: 'card-header', component: 'Header', children: ['product-name'] },
+              { id: 'product-name', component: 'Text', text: 'Premium Widget', variant: 'h2' },
+              { id: 'card-body', component: 'Body', child: 'card-content' },
+              { id: 'card-content', component: 'Column', children: ['product-description', 'product-price'] },
+              { id: 'product-description', component: 'Text', text: 'A high-quality widget built with native web components. Supports all modern browsers.' },
               { id: 'product-price', component: 'Text', text: '$49.99', variant: 'h4' },
-              { id: 'product-actions', component: 'Row', children: ['buy-btn', 'wishlist-btn'] },
-              { id: 'buy-btn', component: 'Button', text: 'Add to Cart', variant: 'primary', action: { event: { name: 'add_to_cart' } } },
-              { id: 'wishlist-btn', component: 'Button', text: 'Wishlist', action: { event: { name: 'add_to_wishlist' } } },
+              { id: 'card-footer', component: 'Footer', children: ['product-actions'] },
+              { id: 'product-actions', component: 'Row', children: ['button-buy', 'button-wishlist'] },
+              { id: 'button-buy', component: 'Button', text: 'Add to Cart', variant: 'primary', action: { event: { name: 'add_to_cart' } } },
+              { id: 'button-wishlist', component: 'Button', text: 'Wishlist', action: { event: { name: 'add_to_wishlist' } } },
             ],
           },
         },
@@ -315,8 +325,11 @@ document.addEventListener('astro:page-load', async () => {
           updateComponents: {
             surfaceId: 'demo',
             components: [
-              { id: 'root', component: 'Column', children: ['title', 'task-list'] },
+              { id: 'root', component: 'Card', children: ['card-header', 'card-body'] },
+              { id: 'card-header', component: 'Header', children: ['title'] },
               { id: 'title', component: 'Text', text: 'Today\'s Tasks', variant: 'h2' },
+              { id: 'card-body', component: 'Body', child: 'card-content' },
+              { id: 'card-content', component: 'Column', children: ['task-list'] },
               { id: 'task-list', component: 'List', children: ['task-1', 'task-2', 'task-3', 'task-4'] },
               { id: 'task-1', component: 'ListItem', text: 'Review pull requests', value: 'review-pr' },
               { id: 'task-2', component: 'ListItem', text: 'Update documentation', value: 'update-docs' },
@@ -330,8 +343,11 @@ document.addEventListener('astro:page-load', async () => {
           updateComponents: {
             surfaceId: 'demo',
             components: [
-              { id: 'root', component: 'Column', children: ['title', 'nav-row', 'overview-section', 'specs-section', 'reviews-section'] },
+              { id: 'root', component: 'Card', children: ['card-header', 'card-body'] },
+              { id: 'card-header', component: 'Header', children: ['title'] },
               { id: 'title', component: 'Text', text: 'Product Details', variant: 'h2' },
+              { id: 'card-body', component: 'Body', child: 'card-content' },
+              { id: 'card-content', component: 'Column', children: ['nav-row', 'overview-section', 'specs-section', 'reviews-section'] },
               { id: 'nav-row', component: 'Row', children: ['nav-overview', 'nav-specs', 'nav-reviews'] },
               { id: 'nav-overview', component: 'Button', text: 'Overview', variant: 'primary', action: { event: { name: 'tab_overview' } } },
               { id: 'nav-specs', component: 'Button', text: 'Specs', action: { event: { name: 'tab_specs' } } },
@@ -355,11 +371,14 @@ document.addEventListener('astro:page-load', async () => {
           updateComponents: {
             surfaceId: 'demo',
             components: [
-              { id: 'root', component: 'Column', children: ['greeting', 'counter-row'] },
+              { id: 'root', component: 'Card', children: ['card-header', 'card-body'] },
+              { id: 'card-header', component: 'Header', children: ['greeting'] },
               { id: 'greeting', component: 'Text', text: { path: '/greeting' }, variant: 'h2' },
-              { id: 'counter-row', component: 'Row', children: ['counter-label', 'inc-btn'] },
+              { id: 'card-body', component: 'Body', child: 'card-content' },
+              { id: 'card-content', component: 'Column', children: ['counter-row'] },
+              { id: 'counter-row', component: 'Row', children: ['counter-label', 'button-increment'] },
               { id: 'counter-label', component: 'Text', text: { path: '/counter' } },
-              { id: 'inc-btn', component: 'Button', text: 'Increment', variant: 'primary', action: { event: { name: 'increment' } } },
+              { id: 'button-increment', component: 'Button', text: 'Increment', variant: 'primary', action: { event: { name: 'increment' } } },
             ],
           },
         },
@@ -370,16 +389,21 @@ document.addEventListener('astro:page-load', async () => {
           updateComponents: {
             surfaceId: 'demo',
             components: [
-              { id: 'root', component: 'Column', children: ['title', 'form-row', 'divider', 'preview-card'] },
+              { id: 'root', component: 'Card', children: ['card-header', 'card-body'] },
+              { id: 'card-header', component: 'Header', children: ['title'] },
               { id: 'title', component: 'Text', text: 'Live Preview — Data Binding', variant: 'h2' },
+              { id: 'card-body', component: 'Body', child: 'card-content' },
+              { id: 'card-content', component: 'Column', children: ['form-row', 'divider', 'preview-card'] },
               { id: 'form-row', component: 'Column', children: ['name-field', 'role-field', 'bio-field'] },
               { id: 'name-field', component: 'TextField', label: 'Name', placeholder: 'Type your name...' },
               { id: 'role-field', component: 'TextField', label: 'Role', placeholder: 'e.g. Engineer' },
               { id: 'bio-field', component: 'TextArea', label: 'Bio', placeholder: 'Tell us about yourself...' },
               { id: 'divider', component: 'Divider' },
-              { id: 'preview-card', component: 'Card', child: 'preview-col' },
-              { id: 'preview-col', component: 'Column', children: ['preview-heading', 'preview-name', 'preview-role', 'preview-bio'] },
+              { id: 'preview-card', component: 'Card', children: ['preview-header', 'preview-body'] },
+              { id: 'preview-header', component: 'Header', children: ['preview-heading'] },
               { id: 'preview-heading', component: 'Text', text: 'Preview', variant: 'h3' },
+              { id: 'preview-body', component: 'Body', child: 'preview-column' },
+              { id: 'preview-column', component: 'Column', children: ['preview-name', 'preview-role', 'preview-bio'] },
               { id: 'preview-name', component: 'Text', text: { path: '/name' }, variant: 'h4' },
               { id: 'preview-role', component: 'Badge', text: { path: '/role' } },
               { id: 'preview-bio', component: 'Text', text: { path: '/bio' } },
@@ -393,10 +417,11 @@ document.addEventListener('astro:page-load', async () => {
           updateComponents: {
             surfaceId: 'demo',
             components: [
-              { id: 'root', component: 'Column', children: ['header', 'patient-row', 'divider-1', 'cbc-card', 'metabolic-card', 'lipid-card', 'divider-2', 'actions'] },
-
-              // Header
+              { id: 'root', component: 'Card', children: ['card-header', 'card-body', 'card-footer'] },
+              { id: 'card-header', component: 'Header', children: ['header'] },
               { id: 'header', component: 'Text', text: 'Lab Results — Comprehensive Panel', variant: 'h2' },
+              { id: 'card-body', component: 'Body', child: 'card-content' },
+              { id: 'card-content', component: 'Column', children: ['patient-row', 'divider-1', 'cbc-card', 'metabolic-card', 'lipid-card'] },
               { id: 'patient-row', component: 'Row', children: ['patient-name', 'patient-dob', 'specimen-date', 'status-badge'] },
               { id: 'patient-name', component: 'Text', text: 'Patient: Jane Doe' },
               { id: 'patient-dob', component: 'Text', text: 'DOB: 1985-03-15' },
@@ -405,86 +430,331 @@ document.addEventListener('astro:page-load', async () => {
               { id: 'divider-1', component: 'Divider' },
 
               // CBC Panel
-              { id: 'cbc-card', component: 'Card', child: 'cbc-col' },
-              { id: 'cbc-col', component: 'Column', children: ['cbc-title', 'cbc-wbc', 'cbc-rbc', 'cbc-hgb', 'cbc-hct', 'cbc-plt'] },
+              { id: 'cbc-card', component: 'Card', children: ['cbc-header', 'cbc-body'] },
+              { id: 'cbc-header', component: 'Header', children: ['cbc-title'] },
               { id: 'cbc-title', component: 'Text', text: 'Complete Blood Count (CBC)', variant: 'h3' },
-              { id: 'cbc-wbc', component: 'Row', children: ['cbc-wbc-label', 'cbc-wbc-val', 'cbc-wbc-ref'] },
+              { id: 'cbc-body', component: 'Body', child: 'cbc-column' },
+              { id: 'cbc-column', component: 'Column', children: ['cbc-wbc', 'cbc-rbc', 'cbc-hgb', 'cbc-hct', 'cbc-plt'] },
+              { id: 'cbc-wbc', component: 'Row', children: ['cbc-wbc-label', 'cbc-wbc-value', 'cbc-wbc-reference'] },
               { id: 'cbc-wbc-label', component: 'Text', text: 'WBC' },
-              { id: 'cbc-wbc-val', component: 'Badge', text: '7.2 × 10³/µL' },
-              { id: 'cbc-wbc-ref', component: 'Text', text: '(4.5–11.0)', variant: 'caption' },
-              { id: 'cbc-rbc', component: 'Row', children: ['cbc-rbc-label', 'cbc-rbc-val', 'cbc-rbc-ref'] },
+              { id: 'cbc-wbc-value', component: 'Badge', text: '7.2 × 10³/µL' },
+              { id: 'cbc-wbc-reference', component: 'Text', text: '(4.5–11.0)', variant: 'caption' },
+              { id: 'cbc-rbc', component: 'Row', children: ['cbc-rbc-label', 'cbc-rbc-value', 'cbc-rbc-reference'] },
               { id: 'cbc-rbc-label', component: 'Text', text: 'RBC' },
-              { id: 'cbc-rbc-val', component: 'Badge', text: '4.8 × 10⁶/µL' },
-              { id: 'cbc-rbc-ref', component: 'Text', text: '(4.2–5.4)', variant: 'caption' },
-              { id: 'cbc-hgb', component: 'Row', children: ['cbc-hgb-label', 'cbc-hgb-val', 'cbc-hgb-ref'] },
+              { id: 'cbc-rbc-value', component: 'Badge', text: '4.8 × 10⁶/µL' },
+              { id: 'cbc-rbc-reference', component: 'Text', text: '(4.2–5.4)', variant: 'caption' },
+              { id: 'cbc-hgb', component: 'Row', children: ['cbc-hgb-label', 'cbc-hgb-value', 'cbc-hgb-reference'] },
               { id: 'cbc-hgb-label', component: 'Text', text: 'Hemoglobin' },
-              { id: 'cbc-hgb-val', component: 'Badge', text: '14.1 g/dL' },
-              { id: 'cbc-hgb-ref', component: 'Text', text: '(12.0–16.0)', variant: 'caption' },
-              { id: 'cbc-hct', component: 'Row', children: ['cbc-hct-label', 'cbc-hct-val', 'cbc-hct-ref'] },
+              { id: 'cbc-hgb-value', component: 'Badge', text: '14.1 g/dL' },
+              { id: 'cbc-hgb-reference', component: 'Text', text: '(12.0–16.0)', variant: 'caption' },
+              { id: 'cbc-hct', component: 'Row', children: ['cbc-hct-label', 'cbc-hct-value', 'cbc-hct-reference'] },
               { id: 'cbc-hct-label', component: 'Text', text: 'Hematocrit' },
-              { id: 'cbc-hct-val', component: 'Badge', text: '42.3%' },
-              { id: 'cbc-hct-ref', component: 'Text', text: '(36.0–46.0)', variant: 'caption' },
-              { id: 'cbc-plt', component: 'Row', children: ['cbc-plt-label', 'cbc-plt-val', 'cbc-plt-ref'] },
+              { id: 'cbc-hct-value', component: 'Badge', text: '42.3%' },
+              { id: 'cbc-hct-reference', component: 'Text', text: '(36.0–46.0)', variant: 'caption' },
+              { id: 'cbc-plt', component: 'Row', children: ['cbc-plt-label', 'cbc-plt-value', 'cbc-plt-reference'] },
               { id: 'cbc-plt-label', component: 'Text', text: 'Platelets' },
-              { id: 'cbc-plt-val', component: 'Badge', text: '245 × 10³/µL' },
-              { id: 'cbc-plt-ref', component: 'Text', text: '(150–400)', variant: 'caption' },
+              { id: 'cbc-plt-value', component: 'Badge', text: '245 × 10³/µL' },
+              { id: 'cbc-plt-reference', component: 'Text', text: '(150–400)', variant: 'caption' },
 
               // Metabolic Panel
-              { id: 'metabolic-card', component: 'Card', child: 'metabolic-col' },
-              { id: 'metabolic-col', component: 'Column', children: ['metabolic-title', 'met-glucose', 'met-bun', 'met-creat', 'met-egfr', 'met-na', 'met-k'] },
+              { id: 'metabolic-card', component: 'Card', children: ['metabolic-header', 'metabolic-body'] },
+              { id: 'metabolic-header', component: 'Header', children: ['metabolic-title'] },
               { id: 'metabolic-title', component: 'Text', text: 'Basic Metabolic Panel (BMP)', variant: 'h3' },
-              { id: 'met-glucose', component: 'Row', children: ['met-glucose-label', 'met-glucose-val', 'met-glucose-ref'] },
-              { id: 'met-glucose-label', component: 'Text', text: 'Glucose (fasting)' },
-              { id: 'met-glucose-val', component: 'Badge', text: '105 mg/dL ↑' },
-              { id: 'met-glucose-ref', component: 'Text', text: '(70–99) — elevated', variant: 'caption' },
-              { id: 'met-bun', component: 'Row', children: ['met-bun-label', 'met-bun-val', 'met-bun-ref'] },
-              { id: 'met-bun-label', component: 'Text', text: 'BUN' },
-              { id: 'met-bun-val', component: 'Badge', text: '16 mg/dL' },
-              { id: 'met-bun-ref', component: 'Text', text: '(7–20)', variant: 'caption' },
-              { id: 'met-creat', component: 'Row', children: ['met-creat-label', 'met-creat-val', 'met-creat-ref'] },
-              { id: 'met-creat-label', component: 'Text', text: 'Creatinine' },
-              { id: 'met-creat-val', component: 'Badge', text: '0.9 mg/dL' },
-              { id: 'met-creat-ref', component: 'Text', text: '(0.6–1.2)', variant: 'caption' },
-              { id: 'met-egfr', component: 'Row', children: ['met-egfr-label', 'met-egfr-val', 'met-egfr-ref'] },
-              { id: 'met-egfr-label', component: 'Text', text: 'eGFR' },
-              { id: 'met-egfr-val', component: 'Badge', text: '> 90 mL/min' },
-              { id: 'met-egfr-ref', component: 'Text', text: '(≥ 60 normal)', variant: 'caption' },
-              { id: 'met-na', component: 'Row', children: ['met-na-label', 'met-na-val', 'met-na-ref'] },
-              { id: 'met-na-label', component: 'Text', text: 'Sodium' },
-              { id: 'met-na-val', component: 'Badge', text: '140 mEq/L' },
-              { id: 'met-na-ref', component: 'Text', text: '(136–145)', variant: 'caption' },
-              { id: 'met-k', component: 'Row', children: ['met-k-label', 'met-k-val', 'met-k-ref'] },
-              { id: 'met-k-label', component: 'Text', text: 'Potassium' },
-              { id: 'met-k-val', component: 'Badge', text: '4.2 mEq/L' },
-              { id: 'met-k-ref', component: 'Text', text: '(3.5–5.0)', variant: 'caption' },
+              { id: 'metabolic-body', component: 'Body', child: 'metabolic-column' },
+              { id: 'metabolic-column', component: 'Column', children: ['metabolic-glucose', 'metabolic-bun', 'metabolic-creat', 'metabolic-egfr', 'metabolic-na', 'metabolic-k'] },
+              { id: 'metabolic-glucose', component: 'Row', children: ['metabolic-glucose-label', 'metabolic-glucose-value', 'metabolic-glucose-reference'] },
+              { id: 'metabolic-glucose-label', component: 'Text', text: 'Glucose (fasting)' },
+              { id: 'metabolic-glucose-value', component: 'Badge', text: '105 mg/dL ↑' },
+              { id: 'metabolic-glucose-reference', component: 'Text', text: '(70–99) — elevated', variant: 'caption' },
+              { id: 'metabolic-bun', component: 'Row', children: ['metabolic-bun-label', 'metabolic-bun-value', 'metabolic-bun-reference'] },
+              { id: 'metabolic-bun-label', component: 'Text', text: 'BUN' },
+              { id: 'metabolic-bun-value', component: 'Badge', text: '16 mg/dL' },
+              { id: 'metabolic-bun-reference', component: 'Text', text: '(7–20)', variant: 'caption' },
+              { id: 'metabolic-creat', component: 'Row', children: ['metabolic-creat-label', 'metabolic-creat-value', 'metabolic-creat-reference'] },
+              { id: 'metabolic-creat-label', component: 'Text', text: 'Creatinine' },
+              { id: 'metabolic-creat-value', component: 'Badge', text: '0.9 mg/dL' },
+              { id: 'metabolic-creat-reference', component: 'Text', text: '(0.6–1.2)', variant: 'caption' },
+              { id: 'metabolic-egfr', component: 'Row', children: ['metabolic-egfr-label', 'metabolic-egfr-value', 'metabolic-egfr-reference'] },
+              { id: 'metabolic-egfr-label', component: 'Text', text: 'eGFR' },
+              { id: 'metabolic-egfr-value', component: 'Badge', text: '> 90 mL/min' },
+              { id: 'metabolic-egfr-reference', component: 'Text', text: '(≥ 60 normal)', variant: 'caption' },
+              { id: 'metabolic-na', component: 'Row', children: ['metabolic-na-label', 'metabolic-na-value', 'metabolic-na-reference'] },
+              { id: 'metabolic-na-label', component: 'Text', text: 'Sodium' },
+              { id: 'metabolic-na-value', component: 'Badge', text: '140 mEq/L' },
+              { id: 'metabolic-na-reference', component: 'Text', text: '(136–145)', variant: 'caption' },
+              { id: 'metabolic-k', component: 'Row', children: ['metabolic-k-label', 'metabolic-k-value', 'metabolic-k-reference'] },
+              { id: 'metabolic-k-label', component: 'Text', text: 'Potassium' },
+              { id: 'metabolic-k-value', component: 'Badge', text: '4.2 mEq/L' },
+              { id: 'metabolic-k-reference', component: 'Text', text: '(3.5–5.0)', variant: 'caption' },
 
               // Lipid Panel
-              { id: 'lipid-card', component: 'Card', child: 'lipid-col' },
-              { id: 'lipid-col', component: 'Column', children: ['lipid-title', 'lip-tc', 'lip-ldl', 'lip-hdl', 'lip-trig', 'lipid-note'] },
+              { id: 'lipid-card', component: 'Card', children: ['lipid-header', 'lipid-body'] },
+              { id: 'lipid-header', component: 'Header', children: ['lipid-title'] },
               { id: 'lipid-title', component: 'Text', text: 'Lipid Panel', variant: 'h3' },
-              { id: 'lip-tc', component: 'Row', children: ['lip-tc-label', 'lip-tc-val', 'lip-tc-ref'] },
-              { id: 'lip-tc-label', component: 'Text', text: 'Total Cholesterol' },
-              { id: 'lip-tc-val', component: 'Badge', text: '218 mg/dL ↑' },
-              { id: 'lip-tc-ref', component: 'Text', text: '(< 200 desirable) — borderline', variant: 'caption' },
-              { id: 'lip-ldl', component: 'Row', children: ['lip-ldl-label', 'lip-ldl-val', 'lip-ldl-ref'] },
-              { id: 'lip-ldl-label', component: 'Text', text: 'LDL' },
-              { id: 'lip-ldl-val', component: 'Badge', text: '138 mg/dL ↑' },
-              { id: 'lip-ldl-ref', component: 'Text', text: '(< 100 optimal) — above optimal', variant: 'caption' },
-              { id: 'lip-hdl', component: 'Row', children: ['lip-hdl-label', 'lip-hdl-val', 'lip-hdl-ref'] },
-              { id: 'lip-hdl-label', component: 'Text', text: 'HDL' },
-              { id: 'lip-hdl-val', component: 'Badge', text: '58 mg/dL' },
-              { id: 'lip-hdl-ref', component: 'Text', text: '(≥ 40 normal)', variant: 'caption' },
-              { id: 'lip-trig', component: 'Row', children: ['lip-trig-label', 'lip-trig-val', 'lip-trig-ref'] },
-              { id: 'lip-trig-label', component: 'Text', text: 'Triglycerides' },
-              { id: 'lip-trig-val', component: 'Badge', text: '110 mg/dL' },
-              { id: 'lip-trig-ref', component: 'Text', text: '(< 150 normal)', variant: 'caption' },
+              { id: 'lipid-body', component: 'Body', child: 'lipid-column' },
+              { id: 'lipid-column', component: 'Column', children: ['lipid-tc', 'lipid-ldl', 'lipid-hdl', 'lipid-trig', 'lipid-note'] },
+              { id: 'lipid-tc', component: 'Row', children: ['lipid-tc-label', 'lipid-tc-value', 'lipid-tc-reference'] },
+              { id: 'lipid-tc-label', component: 'Text', text: 'Total Cholesterol' },
+              { id: 'lipid-tc-value', component: 'Badge', text: '218 mg/dL ↑' },
+              { id: 'lipid-tc-reference', component: 'Text', text: '(< 200 desirable) — borderline', variant: 'caption' },
+              { id: 'lipid-ldl', component: 'Row', children: ['lipid-ldl-label', 'lipid-ldl-value', 'lipid-ldl-reference'] },
+              { id: 'lipid-ldl-label', component: 'Text', text: 'LDL' },
+              { id: 'lipid-ldl-value', component: 'Badge', text: '138 mg/dL ↑' },
+              { id: 'lipid-ldl-reference', component: 'Text', text: '(< 100 optimal) — above optimal', variant: 'caption' },
+              { id: 'lipid-hdl', component: 'Row', children: ['lipid-hdl-label', 'lipid-hdl-value', 'lipid-hdl-reference'] },
+              { id: 'lipid-hdl-label', component: 'Text', text: 'HDL' },
+              { id: 'lipid-hdl-value', component: 'Badge', text: '58 mg/dL' },
+              { id: 'lipid-hdl-reference', component: 'Text', text: '(≥ 40 normal)', variant: 'caption' },
+              { id: 'lipid-trig', component: 'Row', children: ['lipid-trig-label', 'lipid-trig-value', 'lipid-trig-reference'] },
+              { id: 'lipid-trig-label', component: 'Text', text: 'Triglycerides' },
+              { id: 'lipid-trig-value', component: 'Badge', text: '110 mg/dL' },
+              { id: 'lipid-trig-reference', component: 'Text', text: '(< 150 normal)', variant: 'caption' },
               { id: 'lipid-note', component: 'Text', text: 'Historical: TC was 235 (2025-08), 228 (2025-11). Trending down with dietary changes.', variant: 'caption' },
 
-              { id: 'divider-2', component: 'Divider' },
-              { id: 'actions', component: 'Row', children: ['download-btn', 'share-btn', 'history-btn'] },
-              { id: 'download-btn', component: 'Button', text: 'Download PDF', variant: 'primary', action: { event: { name: 'download_results' } } },
-              { id: 'share-btn', component: 'Button', text: 'Share with Provider', action: { event: { name: 'share_results' } } },
-              { id: 'history-btn', component: 'Button', text: 'View History', action: { event: { name: 'view_history' } } },
+              { id: 'card-footer', component: 'Footer', children: ['card-actions'] },
+              { id: 'card-actions', component: 'Row', children: ['button-download', 'button-share', 'button-history'] },
+              { id: 'button-download', component: 'Button', text: 'Download PDF', variant: 'primary', action: { event: { name: 'download_results' } } },
+              { id: 'button-share', component: 'Button', text: 'Share with Provider', action: { event: { name: 'share_results' } } },
+              { id: 'button-history', component: 'Button', text: 'View History', action: { event: { name: 'view_history' } } },
+            ],
+          },
+        },
+
+        // ── Clinical / Diagnostic (package presets) ──
+
+        'preset-vitals': {
+          updateComponents: {
+            surfaceId: 'demo',
+            components: [
+              { id: 'root', component: 'Card', children: ['card-header', 'card-body'] },
+              { id: 'card-header', component: 'Header', children: ['title', 'status'] },
+              { id: 'title', component: 'Text', text: 'Vitals Monitor', variant: 'h2' },
+              { id: 'status', component: 'Badge', text: 'Live' },
+              { id: 'card-body', component: 'Body', child: 'card-content' },
+              { id: 'card-content', component: 'Column', children: ['hr-row', 'bp-row', 'temp-row', 'spo2-row', 'rr-row'] },
+              { id: 'hr-row', component: 'Row', children: ['hr-label', 'hr-value'] },
+              { id: 'hr-label', component: 'Text', text: 'Heart Rate' },
+              { id: 'hr-value', component: 'Badge', text: '72 bpm' },
+              { id: 'bp-row', component: 'Row', children: ['bp-label', 'bp-value'] },
+              { id: 'bp-label', component: 'Text', text: 'Blood Pressure' },
+              { id: 'bp-value', component: 'Badge', text: '120/80 mmHg' },
+              { id: 'temp-row', component: 'Row', children: ['temp-label', 'temp-value'] },
+              { id: 'temp-label', component: 'Text', text: 'Temperature' },
+              { id: 'temp-value', component: 'Badge', text: '98.6 °F' },
+              { id: 'spo2-row', component: 'Row', children: ['spo2-label', 'spo2-value'] },
+              { id: 'spo2-label', component: 'Text', text: 'SpO₂' },
+              { id: 'spo2-value', component: 'Badge', text: '98%' },
+              { id: 'rr-row', component: 'Row', children: ['rr-label', 'rr-value'] },
+              { id: 'rr-label', component: 'Text', text: 'Respiratory Rate' },
+              { id: 'rr-value', component: 'Badge', text: '16 /min' },
+            ],
+          },
+        },
+
+        'preset-med-reconciliation': {
+          updateComponents: {
+            surfaceId: 'demo',
+            components: [
+              { id: 'root', component: 'Card', children: ['card-header', 'card-body', 'card-footer'] },
+              { id: 'card-header', component: 'Header', children: ['title'] },
+              { id: 'title', component: 'Text', text: 'Medication Reconciliation', variant: 'h2' },
+              { id: 'card-body', component: 'Body', child: 'card-content' },
+              { id: 'card-content', component: 'Column', children: ['med-list'] },
+              { id: 'med-list', component: 'List', children: ['med-metformin', 'med-lisinopril', 'med-atorvastatin', 'med-aspirin'] },
+              { id: 'med-metformin', component: 'ListItem', text: 'Metformin 500mg — 2x daily with meals', value: 'metformin' },
+              { id: 'med-lisinopril', component: 'ListItem', text: 'Lisinopril 10mg — 1x daily', value: 'lisinopril' },
+              { id: 'med-atorvastatin', component: 'ListItem', text: 'Atorvastatin 20mg — 1x at bedtime', value: 'atorvastatin' },
+              { id: 'med-aspirin', component: 'ListItem', text: 'Aspirin 81mg — 1x daily', value: 'aspirin' },
+              { id: 'card-footer', component: 'Footer', children: ['card-actions'] },
+              { id: 'card-actions', component: 'Row', children: ['button-reconcile', 'button-add-med'] },
+              { id: 'button-reconcile', component: 'Button', text: 'Reconcile', variant: 'primary', action: { event: { name: 'reconcile_meds' } } },
+              { id: 'button-add-med', component: 'Button', text: 'Add Medication', action: { event: { name: 'add_medication' } } },
+            ],
+          },
+        },
+
+        'preset-referral': {
+          updateComponents: {
+            surfaceId: 'demo',
+            components: [
+              { id: 'root', component: 'Card', children: ['card-header', 'card-body', 'card-footer'] },
+              { id: 'card-header', component: 'Header', children: ['title'] },
+              { id: 'title', component: 'Text', text: 'Referral Form', variant: 'h2' },
+              { id: 'card-body', component: 'Body', child: 'card-content' },
+              { id: 'card-content', component: 'Column', children: ['specialty-field', 'urgency-field', 'reason-field', 'notes-field'] },
+              { id: 'specialty-field', component: 'TextField', label: 'Specialty', placeholder: 'e.g. Cardiology' },
+              { id: 'urgency-field', component: 'TextField', label: 'Urgency', placeholder: 'Routine / Urgent / Emergent' },
+              { id: 'reason-field', component: 'TextField', label: 'Reason for Referral', placeholder: 'Clinical indication' },
+              { id: 'notes-field', component: 'TextArea', label: 'Additional Notes', placeholder: 'Relevant history, medications...' },
+              { id: 'card-footer', component: 'Footer', children: ['card-actions'] },
+              { id: 'card-actions', component: 'Row', children: ['button-submit-referral', 'button-cancel-referral'] },
+              { id: 'button-submit-referral', component: 'Button', text: 'Submit Referral', variant: 'primary', action: { event: { name: 'submit_referral' } } },
+              { id: 'button-cancel-referral', component: 'Button', text: 'Cancel', action: { event: { name: 'cancel_referral' } } },
+            ],
+          },
+        },
+
+        'preset-icd-lookup': {
+          updateComponents: {
+            surfaceId: 'demo',
+            components: [
+              { id: 'root', component: 'Card', children: ['card-header', 'card-body'] },
+              { id: 'card-header', component: 'Header', children: ['title'] },
+              { id: 'title', component: 'Text', text: 'ICD-10 Code Lookup', variant: 'h2' },
+              { id: 'card-body', component: 'Body', child: 'card-content' },
+              { id: 'card-content', component: 'Column', children: ['search-field', 'result-list'] },
+              { id: 'search-field', component: 'TextField', label: 'Search', placeholder: 'Search by code or description...' },
+              { id: 'result-list', component: 'List', children: ['icd-e11', 'icd-i10', 'icd-j06', 'icd-m54'] },
+              { id: 'icd-e11', component: 'ListItem', text: 'E11.9 — Type 2 diabetes mellitus without complications', value: 'E11.9' },
+              { id: 'icd-i10', component: 'ListItem', text: 'I10 — Essential (primary) hypertension', value: 'I10' },
+              { id: 'icd-j06', component: 'ListItem', text: 'J06.9 — Acute upper respiratory infection, unspecified', value: 'J06.9' },
+              { id: 'icd-m54', component: 'ListItem', text: 'M54.5 — Low back pain', value: 'M54.5' },
+            ],
+          },
+        },
+
+        'preset-patient-intake': {
+          updateComponents: {
+            surfaceId: 'demo',
+            components: [
+              { id: 'root', component: 'Card', children: ['card-header', 'card-body', 'card-footer'] },
+              { id: 'card-header', component: 'Header', children: ['title'] },
+              { id: 'title', component: 'Text', text: 'Patient Intake', variant: 'h2' },
+              { id: 'card-body', component: 'Body', child: 'card-content' },
+              { id: 'card-content', component: 'Column', children: ['name-field', 'dob-field', 'gender-field', 'phone-field', 'insurance-field', 'chief-complaint'] },
+              { id: 'name-field', component: 'TextField', label: 'Full Name', placeholder: 'Last, First MI' },
+              { id: 'dob-field', component: 'TextField', label: 'Date of Birth', placeholder: 'YYYY-MM-DD' },
+              { id: 'gender-field', component: 'TextField', label: 'Gender', placeholder: 'M / F / Other' },
+              { id: 'phone-field', component: 'TextField', label: 'Phone', placeholder: '(555) 000-0000' },
+              { id: 'insurance-field', component: 'TextField', label: 'Insurance ID', placeholder: 'Policy number' },
+              { id: 'chief-complaint', component: 'TextArea', label: 'Chief Complaint', placeholder: 'Reason for visit...' },
+              { id: 'card-footer', component: 'Footer', children: ['card-actions'] },
+              { id: 'card-actions', component: 'Row', children: ['button-submit-intake'] },
+              { id: 'button-submit-intake', component: 'Button', text: 'Submit Intake', variant: 'primary', action: { event: { name: 'submit_intake' } } },
+            ],
+          },
+        },
+
+        'preset-prior-auth': {
+          updateComponents: {
+            surfaceId: 'demo',
+            components: [
+              { id: 'root', component: 'Card', children: ['card-header', 'card-body', 'card-footer'] },
+              { id: 'card-header', component: 'Header', children: ['title', 'status'] },
+              { id: 'title', component: 'Text', text: 'Prior Authorization', variant: 'h2' },
+              { id: 'status', component: 'Badge', text: 'Pending Review' },
+              { id: 'card-body', component: 'Body', child: 'card-content' },
+              { id: 'card-content', component: 'Column', children: ['auth-procedure', 'auth-diagnosis', 'auth-provider', 'auth-timeline'] },
+              { id: 'auth-procedure', component: 'Row', children: ['auth-procedure-label', 'auth-procedure-value'] },
+              { id: 'auth-procedure-label', component: 'Text', text: 'Procedure' },
+              { id: 'auth-procedure-value', component: 'Text', text: 'MRI Lumbar Spine (72148)' },
+              { id: 'auth-diagnosis', component: 'Row', children: ['auth-diagnosis-label', 'auth-diagnosis-value'] },
+              { id: 'auth-diagnosis-label', component: 'Text', text: 'Diagnosis' },
+              { id: 'auth-diagnosis-value', component: 'Text', text: 'M54.5 — Low back pain' },
+              { id: 'auth-provider', component: 'Row', children: ['auth-provider-label', 'auth-provider-value'] },
+              { id: 'auth-provider-label', component: 'Text', text: 'Requesting Provider' },
+              { id: 'auth-provider-value', component: 'Text', text: 'Dr. Smith, Orthopedics' },
+              { id: 'auth-timeline', component: 'Row', children: ['auth-timeline-label', 'auth-timeline-value'] },
+              { id: 'auth-timeline-label', component: 'Text', text: 'Submitted' },
+              { id: 'auth-timeline-value', component: 'Text', text: '2026-03-06' },
+              { id: 'card-footer', component: 'Footer', children: ['card-actions'] },
+              { id: 'card-actions', component: 'Row', children: ['button-check-status', 'button-cancel-auth'] },
+              { id: 'button-check-status', component: 'Button', text: 'Check Status', variant: 'primary', action: { event: { name: 'check_auth_status' } } },
+              { id: 'button-cancel-auth', component: 'Button', text: 'Cancel Request', action: { event: { name: 'cancel_auth' } } },
+            ],
+          },
+        },
+
+        'preset-care-plan': {
+          updateComponents: {
+            surfaceId: 'demo',
+            components: [
+              { id: 'root', component: 'Card', children: ['card-header', 'card-body', 'card-footer'] },
+              { id: 'card-header', component: 'Header', children: ['title'] },
+              { id: 'title', component: 'Text', text: 'Care Plan — Diabetes Management', variant: 'h2' },
+              { id: 'card-body', component: 'Body', child: 'card-content' },
+              { id: 'card-content', component: 'Column', children: ['goal-list', 'divider', 'next-steps'] },
+              { id: 'goal-list', component: 'List', children: ['goal-a1c', 'goal-bp', 'goal-exercise', 'goal-diet'] },
+              { id: 'goal-a1c', component: 'ListItem', text: 'A1C < 7.0% (current: 7.2%)', value: 'a1c' },
+              { id: 'goal-bp', component: 'ListItem', text: 'BP < 130/80 (current: 128/78)', value: 'bp' },
+              { id: 'goal-exercise', component: 'ListItem', text: '150 min/week moderate exercise', value: 'exercise' },
+              { id: 'goal-diet', component: 'ListItem', text: 'Carbohydrate counting — 45-60g/meal', value: 'diet' },
+              { id: 'divider', component: 'Divider' },
+              { id: 'next-steps', component: 'Text', text: 'Follow-up in 3 months. Recheck A1C, lipid panel, and microalbumin.', variant: 'caption' },
+              { id: 'card-footer', component: 'Footer', children: ['card-actions'] },
+              { id: 'card-actions', component: 'Row', children: ['button-update-plan', 'button-print-plan'] },
+              { id: 'button-update-plan', component: 'Button', text: 'Update Plan', variant: 'primary', action: { event: { name: 'update_care_plan' } } },
+              { id: 'button-print-plan', component: 'Button', text: 'Print', action: { event: { name: 'print_care_plan' } } },
+            ],
+          },
+        },
+
+        // ── Interactive (package presets) ──
+
+        'preset-wizard': {
+          updateComponents: {
+            surfaceId: 'demo',
+            components: [
+              { id: 'root', component: 'Card', children: ['card-header', 'card-body', 'card-footer'] },
+              { id: 'card-header', component: 'Header', children: ['title', 'step-badge'] },
+              { id: 'title', component: 'Text', text: 'New Patient Registration', variant: 'h2' },
+              { id: 'step-badge', component: 'Badge', text: 'Step 1 of 3' },
+              { id: 'card-body', component: 'Body', child: 'card-content' },
+              { id: 'card-content', component: 'Column', children: ['step-title', 'first-name', 'last-name', 'email-field'] },
+              { id: 'step-title', component: 'Text', text: 'Personal Information', variant: 'h3' },
+              { id: 'first-name', component: 'TextField', label: 'First Name', placeholder: 'Enter first name' },
+              { id: 'last-name', component: 'TextField', label: 'Last Name', placeholder: 'Enter last name' },
+              { id: 'email-field', component: 'TextField', label: 'Email', placeholder: 'name@example.com' },
+              { id: 'card-footer', component: 'Footer', children: ['card-actions'] },
+              { id: 'card-actions', component: 'Row', children: ['button-next'] },
+              { id: 'button-next', component: 'Button', text: 'Next Step', variant: 'primary', action: { event: { name: 'wizard_next' } } },
+            ],
+          },
+        },
+
+        'preset-confirm-delete': {
+          updateComponents: {
+            surfaceId: 'demo',
+            components: [
+              { id: 'root', component: 'Card', children: ['card-header', 'card-body', 'card-footer'] },
+              { id: 'card-header', component: 'Header', children: ['title'] },
+              { id: 'title', component: 'Text', text: 'Confirm Deletion', variant: 'h2' },
+              { id: 'card-body', component: 'Body', child: 'card-content' },
+              { id: 'card-content', component: 'Column', children: ['warning-text', 'item-name'] },
+              { id: 'warning-text', component: 'Text', text: 'This action cannot be undone. The following item will be permanently deleted:' },
+              { id: 'item-name', component: 'Text', text: 'Patient Record #12345 — Jane Doe', variant: 'h4' },
+              { id: 'card-footer', component: 'Footer', children: ['card-actions'] },
+              { id: 'card-actions', component: 'Row', children: ['button-delete', 'button-keep'] },
+              { id: 'button-delete', component: 'Button', text: 'Delete Permanently', variant: 'primary', action: { event: { name: 'confirm_delete' } } },
+              { id: 'button-keep', component: 'Button', text: 'Cancel', action: { event: { name: 'cancel_delete' } } },
+            ],
+          },
+        },
+
+        'preset-toggle-settings': {
+          updateComponents: {
+            surfaceId: 'demo',
+            components: [
+              { id: 'root', component: 'Card', children: ['card-header', 'card-body', 'card-footer'] },
+              { id: 'card-header', component: 'Header', children: ['title'] },
+              { id: 'title', component: 'Text', text: 'Settings', variant: 'h2' },
+              { id: 'card-body', component: 'Body', child: 'card-content' },
+              { id: 'card-content', component: 'Column', children: ['notifications-row', 'dark-mode-row', 'auto-save-row', 'telemetry-row'] },
+              { id: 'notifications-row', component: 'Row', children: ['notifications-label', 'notifications-toggle'] },
+              { id: 'notifications-label', component: 'Text', text: 'Push Notifications' },
+              { id: 'notifications-toggle', component: 'Switch', checked: true },
+              { id: 'dark-mode-row', component: 'Row', children: ['dark-mode-label', 'dark-mode-toggle'] },
+              { id: 'dark-mode-label', component: 'Text', text: 'Dark Mode' },
+              { id: 'dark-mode-toggle', component: 'Switch' },
+              { id: 'auto-save-row', component: 'Row', children: ['auto-save-label', 'auto-save-toggle'] },
+              { id: 'auto-save-label', component: 'Text', text: 'Auto-Save Drafts' },
+              { id: 'auto-save-toggle', component: 'Switch', checked: true },
+              { id: 'telemetry-row', component: 'Row', children: ['telemetry-label', 'telemetry-toggle'] },
+              { id: 'telemetry-label', component: 'Text', text: 'Usage Telemetry' },
+              { id: 'telemetry-toggle', component: 'Switch' },
+              { id: 'card-footer', component: 'Footer', children: ['card-actions'] },
+              { id: 'card-actions', component: 'Row', children: ['button-save-settings'] },
+              { id: 'button-save-settings', component: 'Button', text: 'Save Settings', variant: 'primary', action: { event: { name: 'save_settings' } } },
             ],
           },
         },
@@ -519,7 +789,7 @@ document.addEventListener('astro:page-load', async () => {
 
             // Wire increment action
             let count = 0;
-            kernel.bus.on('a2ui:demo:inc-btn:increment', () => {
+            kernel.bus.on('a2ui:demo:button-increment:increment', () => {
               count++;
               adapter.receive({
                 updateDataModel: {
@@ -576,9 +846,12 @@ document.addEventListener('astro:page-load', async () => {
           updateComponents: {
             surfaceId: 'demo',
             components: [
-              { id: 'root', component: 'Column', children: ['heading', 'status'] },
+              { id: 'root', component: 'Card', children: ['card-header', 'card-body'] },
+              { id: 'card-header', component: 'Header', children: ['heading', 'status'] },
               { id: 'heading', component: 'Text', text: 'Streaming Demo', variant: 'h2' },
               { id: 'status', component: 'Badge', text: 'Loading...' },
+              { id: 'card-body', component: 'Body', child: 'card-content' },
+              { id: 'card-content', component: 'Column', children: [] },
             ],
           },
         };
@@ -593,18 +866,22 @@ document.addEventListener('astro:page-load', async () => {
             updateComponents: {
               surfaceId: 'demo',
               components: [
-                { id: 'root', component: 'Column', children: ['heading', 'status', 'divider', 'card-1', 'card-2'] },
+                { id: 'root', component: 'Card', children: ['card-header', 'card-body'] },
+                { id: 'card-header', component: 'Header', children: ['heading', 'status'] },
                 { id: 'heading', component: 'Text', text: 'Streaming Demo', variant: 'h2' },
                 { id: 'status', component: 'Badge', text: 'Partially loaded' },
-                { id: 'divider', component: 'Divider' },
-                { id: 'card-1', component: 'Card', child: 'card-1-col' },
-                { id: 'card-1-col', component: 'Column', children: ['c1-title', 'c1-text'] },
-                { id: 'c1-title', component: 'Text', text: 'First Result', variant: 'h3' },
-                { id: 'c1-text', component: 'Text', text: 'This card arrived in the second batch of components.' },
-                { id: 'card-2', component: 'Card', child: 'card-2-col' },
-                { id: 'card-2-col', component: 'Column', children: ['c2-title', 'c2-text'] },
-                { id: 'c2-title', component: 'Text', text: 'Second Result', variant: 'h3' },
-                { id: 'c2-text', component: 'Text', text: 'Streamed alongside the first result.' },
+                { id: 'card-body', component: 'Body', child: 'card-content' },
+                { id: 'card-content', component: 'Column', children: ['card-first', 'card-second'] },
+                { id: 'card-first', component: 'Card', children: ['card-first-header', 'card-first-body'] },
+                { id: 'card-first-header', component: 'Header', children: ['card-first-title'] },
+                { id: 'card-first-title', component: 'Text', text: 'First Result', variant: 'h3' },
+                { id: 'card-first-body', component: 'Body', child: 'card-first-content' },
+                { id: 'card-first-content', component: 'Text', text: 'This card arrived in the second batch of components.' },
+                { id: 'card-second', component: 'Card', children: ['card-second-header', 'card-second-body'] },
+                { id: 'card-second-header', component: 'Header', children: ['card-second-title'] },
+                { id: 'card-second-title', component: 'Text', text: 'Second Result', variant: 'h3' },
+                { id: 'card-second-body', component: 'Body', child: 'card-second-content' },
+                { id: 'card-second-content', component: 'Text', text: 'Streamed alongside the first result.' },
               ],
             },
           };
@@ -618,25 +895,30 @@ document.addEventListener('astro:page-load', async () => {
             updateComponents: {
               surfaceId: 'demo',
               components: [
-                { id: 'root', component: 'Column', children: ['heading', 'status', 'divider', 'card-1', 'card-2', 'card-3', 'divider-2', 'actions'] },
+                { id: 'root', component: 'Card', children: ['card-header', 'card-body', 'card-footer'] },
+                { id: 'card-header', component: 'Header', children: ['heading', 'status'] },
                 { id: 'heading', component: 'Text', text: 'Streaming Demo', variant: 'h2' },
                 { id: 'status', component: 'Badge', text: 'Complete' },
-                { id: 'divider', component: 'Divider' },
-                { id: 'card-1', component: 'Card', child: 'card-1-col' },
-                { id: 'card-1-col', component: 'Column', children: ['c1-title', 'c1-text'] },
-                { id: 'c1-title', component: 'Text', text: 'First Result', variant: 'h3' },
-                { id: 'c1-text', component: 'Text', text: 'This card arrived in the second batch of components.' },
-                { id: 'card-2', component: 'Card', child: 'card-2-col' },
-                { id: 'card-2-col', component: 'Column', children: ['c2-title', 'c2-text'] },
-                { id: 'c2-title', component: 'Text', text: 'Second Result', variant: 'h3' },
-                { id: 'c2-text', component: 'Text', text: 'Streamed alongside the first result.' },
-                { id: 'card-3', component: 'Card', child: 'card-3-col' },
-                { id: 'card-3-col', component: 'Column', children: ['c3-title', 'c3-text'] },
-                { id: 'c3-title', component: 'Text', text: 'Third Result', variant: 'h3' },
-                { id: 'c3-text', component: 'Text', text: 'Final card — stream complete.' },
-                { id: 'divider-2', component: 'Divider' },
-                { id: 'actions', component: 'Row', children: ['refresh-btn'] },
-                { id: 'refresh-btn', component: 'Button', text: 'Refresh Results', variant: 'primary', action: { event: { name: 'refresh' } } },
+                { id: 'card-body', component: 'Body', child: 'card-content' },
+                { id: 'card-content', component: 'Column', children: ['card-first', 'card-second', 'card-third'] },
+                { id: 'card-first', component: 'Card', children: ['card-first-header', 'card-first-body'] },
+                { id: 'card-first-header', component: 'Header', children: ['card-first-title'] },
+                { id: 'card-first-title', component: 'Text', text: 'First Result', variant: 'h3' },
+                { id: 'card-first-body', component: 'Body', child: 'card-first-content' },
+                { id: 'card-first-content', component: 'Text', text: 'This card arrived in the second batch of components.' },
+                { id: 'card-second', component: 'Card', children: ['card-second-header', 'card-second-body'] },
+                { id: 'card-second-header', component: 'Header', children: ['card-second-title'] },
+                { id: 'card-second-title', component: 'Text', text: 'Second Result', variant: 'h3' },
+                { id: 'card-second-body', component: 'Body', child: 'card-second-content' },
+                { id: 'card-second-content', component: 'Text', text: 'Streamed alongside the first result.' },
+                { id: 'card-third', component: 'Card', children: ['card-third-header', 'card-third-body'] },
+                { id: 'card-third-header', component: 'Header', children: ['card-third-title'] },
+                { id: 'card-third-title', component: 'Text', text: 'Third Result', variant: 'h3' },
+                { id: 'card-third-body', component: 'Body', child: 'card-third-content' },
+                { id: 'card-third-content', component: 'Text', text: 'Final card — stream complete.' },
+                { id: 'card-footer', component: 'Footer', children: ['card-actions'] },
+                { id: 'card-actions', component: 'Row', children: ['button-refresh'] },
+                { id: 'button-refresh', component: 'Button', text: 'Refresh Results', variant: 'primary', action: { event: { name: 'refresh' } } },
               ],
             },
           };
@@ -665,11 +947,16 @@ document.addEventListener('astro:page-load', async () => {
           updateComponents: {
             surfaceId: 'surface-a',
             components: [
-              { id: 'root', component: 'Column', children: ['title', 'badge', 'note-input', 'save-btn'] },
+              { id: 'root', component: 'Card', children: ['card-header', 'card-body', 'card-footer'] },
+              { id: 'card-header', component: 'Header', children: ['title', 'badge'] },
               { id: 'title', component: 'Text', text: 'Notes', variant: 'h3' },
               { id: 'badge', component: 'Badge', text: 'Surface A' },
+              { id: 'card-body', component: 'Body', child: 'card-content' },
+              { id: 'card-content', component: 'Column', children: ['note-input'] },
               { id: 'note-input', component: 'TextArea', placeholder: 'Write a note...' },
-              { id: 'save-btn', component: 'Button', text: 'Save Note', variant: 'primary', action: { event: { name: 'save_note' } } },
+              { id: 'card-footer', component: 'Footer', children: ['card-actions'] },
+              { id: 'card-actions', component: 'Row', children: ['button-save'] },
+              { id: 'button-save', component: 'Button', text: 'Save Note', variant: 'primary', action: { event: { name: 'save_note' } } },
             ],
           },
         };
@@ -679,14 +966,19 @@ document.addEventListener('astro:page-load', async () => {
           updateComponents: {
             surfaceId: 'surface-b',
             components: [
-              { id: 'root', component: 'Column', children: ['title', 'badge', 'task-list', 'add-btn'] },
+              { id: 'root', component: 'Card', children: ['card-header', 'card-body', 'card-footer'] },
+              { id: 'card-header', component: 'Header', children: ['title', 'badge'] },
               { id: 'title', component: 'Text', text: 'Tasks', variant: 'h3' },
               { id: 'badge', component: 'Badge', text: 'Surface B' },
-              { id: 'task-list', component: 'List', children: ['t1', 't2', 't3'] },
-              { id: 't1', component: 'ListItem', text: 'Review pull requests', value: 'pr' },
-              { id: 't2', component: 'ListItem', text: 'Write documentation', value: 'docs' },
-              { id: 't3', component: 'ListItem', text: 'Deploy to staging', value: 'deploy' },
-              { id: 'add-btn', component: 'Button', text: 'Add Task', action: { event: { name: 'add_task' } } },
+              { id: 'card-body', component: 'Body', child: 'card-content' },
+              { id: 'card-content', component: 'Column', children: ['task-list'] },
+              { id: 'task-list', component: 'List', children: ['task-review', 'task-documentation', 'task-deploy'] },
+              { id: 'task-review', component: 'ListItem', text: 'Review pull requests', value: 'pr' },
+              { id: 'task-documentation', component: 'ListItem', text: 'Write documentation', value: 'docs' },
+              { id: 'task-deploy', component: 'ListItem', text: 'Deploy to staging', value: 'deploy' },
+              { id: 'card-footer', component: 'Footer', children: ['card-actions'] },
+              { id: 'card-actions', component: 'Row', children: ['button-add'] },
+              { id: 'button-add', component: 'Button', text: 'Add Task', action: { event: { name: 'add_task' } } },
             ],
           },
         };

@@ -71,10 +71,10 @@ host.addEventListener('native:change', (e) =&gt; {
     <!-- ── Basic (Vertical) ── -->
 
     <h2>Basic (Vertical)</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Arrow Up/Down to navigate, Enter/Click to select. The controller listens for <code>native:select</code> from child items and dispatches <code>native:change</code> with the selected value.
-      </n-text>
+      </span>
       <n-controller id="basic-list" traits="list-navigable" list-navigable-item-selector="n-option" list-navigable-orientation="vertical">
         <div>
           <div class="nav-list" role="listbox">
@@ -88,15 +88,15 @@ host.addEventListener('native:change', (e) =&gt; {
       </n-controller>
       <div id="basic-value" class="value-display">Selected: <span>none</span></div>
       <pre class="code-block"><code set:html={codeExamples.basic} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Horizontal ── -->
 
     <h2>Horizontal</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Orientation set to <code>'horizontal'</code>. Use Left/Right arrows to navigate between filter options.
-      </n-text>
+      </span>
       <n-controller id="horizontal-list" traits="list-navigable" list-navigable-item-selector="n-option" list-navigable-orientation="horizontal">
         <div>
           <div class="filter-bar" role="listbox">
@@ -108,15 +108,15 @@ host.addEventListener('native:change', (e) =&gt; {
       </n-controller>
       <div id="horizontal-value" class="value-display">Selected: <span>none</span></div>
       <pre class="code-block"><code set:html={codeExamples.horizontal} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Events ── -->
 
     <h2>Events</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Click an item or use keyboard navigation + Enter. Both <code>native:select</code> (from child) and <code>native:change</code> (from controller) are logged.
-      </n-text>
+      </span>
       <n-controller id="event-list" traits="list-navigable" list-navigable-item-selector="n-option">
         <div>
           <div class="nav-list" role="listbox">
@@ -128,7 +128,7 @@ host.addEventListener('native:change', (e) =&gt; {
       </n-controller>
       <div id="event-log" class="output"></div>
       <pre class="code-block"><code set:html={codeExamples.events} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── API Reference ── -->
 

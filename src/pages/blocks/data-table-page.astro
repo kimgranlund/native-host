@@ -24,13 +24,13 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 <n-stack gap="6">
 
     <!-- ── Table Card ── -->
-    <n-card>
-      <header>
+    <n-container>
+      <n-header>
         <nav><n-icon name="users"></n-icon></nav>
         <span>All Users</span>
-      </header>
+      </n-header>
 
-      <section>
+      <n-body>
         <!-- ── Toolbar ── -->
         <n-stack direction="row" gap="3" align="center" wrap>
           <div class="table-search-input"><n-input id="table-search" size="sm" placeholder="Search users...">
@@ -180,13 +180,13 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
             </n-table-body>
           </n-table>
         </div>
-      </section>
+      </n-body>
 
-      <footer justify="between">
+      <n-footer justify="between">
         <span class="text-sm">Showing 1-10 of 87 users</span>
         <n-pagination total="9" value="1" size="sm"></n-pagination>
-      </footer>
-    </n-card>
+      </n-footer>
+    </n-container>
     </n-stack>
   </section>
   <script>

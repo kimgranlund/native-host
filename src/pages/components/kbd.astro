@@ -18,7 +18,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <!-- ── Sizes ── -->
 
     <h2>Sizes</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack direction="row" wrap align="center">
         <span class="label">xs</span>
         <n-kbd size="xs"><n-icon name="command"></n-icon></n-kbd>
@@ -57,12 +57,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       <pre class="code-block"><code>&lt;n-kbd size="sm"&gt;&lt;n-icon name="command"&gt;&lt;/n-icon&gt;K&lt;/n-kbd&gt;
 &lt;n-kbd size="md"&gt;Shift&lt;/n-kbd&gt;
 &lt;n-kbd size="lg"&gt;K&lt;/n-kbd&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Standalone (default = md) ── -->
 
     <h2>Standalone</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack direction="row" wrap align="center">
         <n-kbd><n-icon name="command"></n-icon></n-kbd>
         <n-kbd>K</n-kbd>
@@ -79,12 +79,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 &lt;n-kbd&gt;Shift&lt;/n-kbd&gt;
 &lt;n-kbd&gt;&lt;n-icon name="key-return"&gt;&lt;/n-icon&gt;&lt;/n-kbd&gt;
 &lt;n-kbd&gt;Esc&lt;/n-kbd&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Combinations ── -->
 
     <h2>Combinations</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack direction="row" wrap align="center">
         <span><n-kbd><n-icon name="command"></n-icon></n-kbd> + <n-kbd>C</n-kbd> — Copy</span>
       </n-stack>
@@ -96,12 +96,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       </n-stack>
       <pre class="code-block"><code>&lt;n-kbd&gt;&lt;n-icon name="command"&gt;&lt;/n-icon&gt;&lt;/n-kbd&gt; + &lt;n-kbd&gt;C&lt;/n-kbd&gt; — Copy
 &lt;n-kbd&gt;&lt;n-icon name="command"&gt;&lt;/n-icon&gt;&lt;/n-kbd&gt; + &lt;n-kbd&gt;V&lt;/n-kbd&gt; — Paste</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Inside buttons ── -->
 
     <h2>Inside buttons</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-stack direction="row" wrap align="center">
         <n-button size="sm">Search <n-kbd size="xs"><n-icon name="command"></n-icon>K</n-kbd></n-button>
         <n-button size="md">Save <n-kbd size="sm"><n-icon name="command"></n-icon>S</n-kbd></n-button>
@@ -117,12 +117,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 &lt;n-button size="md" intent="accent"&gt;
   Copy &lt;n-kbd size="sm"&gt;&lt;n-icon name="command"&gt;&lt;/n-icon&gt;C&lt;/n-kbd&gt;
 &lt;/n-button&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Inline with text ── -->
 
     <h2>Inline with text</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <p style="font-size: 0.875rem; line-height: 1.5;">
         Press <n-kbd><n-icon name="command"></n-icon>K</n-kbd> to open search, <n-kbd>Esc</n-kbd> to close.
       </p>
@@ -130,7 +130,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   Press &lt;n-kbd&gt;&lt;n-icon name="command"&gt;&lt;/n-icon&gt;K&lt;/n-kbd&gt; to open search,
   &lt;n-kbd&gt;Esc&lt;/n-kbd&gt; to close.
 &lt;/p&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
   </section>
 
 </SidebarLayout>

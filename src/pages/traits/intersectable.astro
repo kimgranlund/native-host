@@ -40,10 +40,10 @@ const detailIntersection = `{ isIntersecting, ratio }`;
     <!-- ── Scroll Into View (Provider) ── -->
 
     <h2>Scroll Into View (Provider)</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         <code>&lt;n-controller traits="intersectable"&gt;</code> wraps each box. Scroll down to see them appear with a CSS fade-in animation.
-      </n-text>
+      </span>
       <div class="scroll-spacer">&#8595; Scroll down to reveal boxes &#8595;</div>
       <n-controller traits="intersectable">
         <div class="intersect-box">
@@ -71,15 +71,15 @@ const detailIntersection = `{ isIntersecting, ratio }`;
       </n-controller>
       <div id="scroll-log" class="output"></div>
       <pre class="code-block"><code set:html={codeExamples.scrollIntoViewProvider} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Once Mode (Provider) ── -->
 
     <h2>Once Mode (Provider)</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         <code>data-trait-intersectable-once="true"</code>. The element fades in and stays visible permanently. The observer disconnects after the first intersection.
-      </n-text>
+      </span>
       <div class="scroll-spacer">&#8595; Scroll down — these only animate once &#8595;</div>
       <n-controller traits="intersectable" data-trait-intersectable-once="true">
         <div class="intersect-box" id="once-a">
@@ -105,15 +105,15 @@ const detailIntersection = `{ isIntersecting, ratio }`;
     Once A
   &lt;/div&gt;
 &lt;/n-controller&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Threshold (Provider) ── -->
 
     <h2>Threshold (50%)</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         <code>data-trait-intersectable-threshold="0.5"</code>. Only triggers when at least 50% of the element is visible.
-      </n-text>
+      </span>
       <div class="scroll-spacer">&#8595; Scroll down — requires 50% visibility &#8595;</div>
       <n-controller traits="intersectable" data-trait-intersectable-threshold="0.5">
         <div class="intersect-box">
@@ -133,7 +133,7 @@ const detailIntersection = `{ isIntersecting, ratio }`;
     50% Threshold
   &lt;/div&gt;
 &lt;/n-controller&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── API Reference ── -->
 

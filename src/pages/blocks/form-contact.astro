@@ -18,11 +18,11 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
 <n-stack gap="6">
 
     <div class="form-wrapper">
-      <n-card>
-        <header>
+      <n-container>
+        <n-header>
           <span>Send us a message</span>
-        </header>
-        <section padding="relaxed">
+        </n-header>
+        <n-body padding="relaxed">
           <form id="contact-form">
             <n-stack gap="8">
               <n-field required>
@@ -63,15 +63,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
               </n-field>
             </n-stack>
           </form>
-        </section>
-        <footer>
+        </n-body>
+        <n-footer>
           <n-button variant="ghost"><span>Cancel</span></n-button>
           <n-button variant="primary" intent="accent" type="submit" form="contact-form">
             <n-icon name="envelope" slot="leading"></n-icon>
             <span>Send Message</span>
           </n-button>
-        </footer>
-      </n-card>
+        </n-footer>
+      </n-container>
     </div>
     </n-stack>
   </section>

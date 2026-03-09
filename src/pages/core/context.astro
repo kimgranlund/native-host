@@ -24,81 +24,81 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
             <n-grid cols="2" gap="3">
 
               <!-- Team presence — session context -->
-              <n-card>
-                <header>
+              <n-container>
+                <n-header>
                   <nav><n-icon name="users" size="sm"></n-icon></nav>
                   <span>Team</span>
-                </header>
-                <section>
+                </n-header>
+                <n-body>
                   <team-presence></team-presence>
-                </section>
-              </n-card>
+                </n-body>
+              </n-container>
 
               <!-- Notification inbox — notification context -->
-              <n-card>
-                <header>
+              <n-container>
+                <n-header>
                   <nav><n-icon name="bell" size="sm"></n-icon></nav>
                   <span>Inbox</span>
-                  <aside><notif-panel-actions></notif-panel-actions></aside>
-                </header>
-                <section>
+                  <notif-panel-actions></notif-panel-actions>
+                </n-header>
+                <n-body>
                   <notif-panel></notif-panel>
-                </section>
-              </n-card>
+                </n-body>
+              </n-container>
 
               <!-- Activity feed — notification context -->
-              <n-card>
-                <header>
+              <n-container>
+                <n-header>
                   <nav><n-icon name="pulse" size="sm"></n-icon></nav>
                   <span>Activity Feed</span>
-                  <aside><n-badge size="xs" intent="success">live</n-badge></aside>
-                </header>
-                <section>
+                  <n-badge size="xs" intent="success">live</n-badge>
+                </n-header>
+                <n-body>
                   <activity-feed></activity-feed>
-                </section>
-              </n-card>
+                </n-body>
+              </n-container>
 
               <!-- Preferences — session context (bidirectional) -->
-              <n-card>
-                <header>
+              <n-container>
+                <n-header>
                   <nav><n-icon name="gear" size="sm"></n-icon></nav>
                   <span>Preferences</span>
-                </header>
-                <section>
+                </n-header>
+                <n-body>
                   <notif-prefs></notif-prefs>
-                </section>
-              </n-card>
+                </n-body>
+              </n-container>
 
               <!-- Stats — notification context -->
               <div class="ctx-full-span">
-              <n-card>
-                <header>
+              <n-container>
+                <n-header>
                   <nav><n-icon name="chart-bar" size="sm"></n-icon></nav>
                   <span>Session Stats</span>
-                </header>
-                <section>
+                </n-header>
+                <n-body>
                   <session-stats></session-stats>
-                </section>
-              </n-card>
+                </n-body>
+              </n-container>
               </div>
 
               <!-- Context event log -->
               <div class="ctx-full-span">
-              <n-card>
-                <header>
+              <n-container>
+                <n-header>
                   <nav><n-icon name="terminal" size="sm"></n-icon></nav>
                   <span>Context Event Log</span>
-                  <aside><n-badge size="xs">live</n-badge></aside>
-                </header>
-                <section>
+                  <n-badge size="xs">live</n-badge>
+                </n-header>
+                <n-body>
                   <n-stack gap="2">
-                    <n-text size="xs" muted>
+                    <span class="text-xs text-muted">
                       Every context subscription and signal update is logged — proof that reactive state flows from providers to arbitrarily nested consumers.
-                    </n-text>
+                    </span>
                     <ctx-log></ctx-log>
                   </n-stack>
-                </section>
-              </n-card>
+                </n-body>
+              </n-container>
               </div>
 
             </n-grid>
@@ -240,7 +240,7 @@ import { NativeElement, define, signal, computed, ContextProvider, ContextConsum
           this.innerHTML = `
             <n-toolbar>
               <div class="avatar-wrap">
-                <n-avatar name="You" size="sm" intent="accent"></n-avatar>
+                <n-avatar name="You" size="sm" intent="accent">Y</n-avatar>
                 <n-badge intent="success" floating dot></n-badge>
               </div>
               <div class="toolbar-info">
@@ -298,7 +298,7 @@ import { NativeElement, define, signal, computed, ContextProvider, ContextConsum
                 return `
                   <n-stack direction="row" align="center" gap="2">
                     <div class="avatar-wrap">
-                      <n-avatar name="${name}" size="sm" intent="${m.intent}"></n-avatar>
+                      <n-avatar name="${name}" size="sm" intent="${m.intent}">${name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0,2)}</n-avatar>
                       <n-badge intent="${m.online ? 'success' : 'neutral'}" floating dot></n-badge>
                     </div>
                     <div>
@@ -355,7 +355,7 @@ import { NativeElement, define, signal, computed, ContextProvider, ContextConsum
                   <div class="ctx-empty-state">
                     <n-stack align="center" gap="2">
                       <n-icon name="bell" size="28"></n-icon>
-                      <n-text size="xs" muted>All clear — no notifications</n-text>
+                      <span class="text-xs text-muted">All clear — no notifications</span>
                     </n-stack>
                   </div>`;
                 return;
@@ -420,7 +420,7 @@ import { NativeElement, define, signal, computed, ContextProvider, ContextConsum
           this.addEffect(() => {
             const list = activities.value;
             if (list.length === 0) {
-              this.innerHTML = '<div class="ctx-empty-state"><n-stack align="center" gap="2"><n-text size="xs" muted>No activity yet</n-text></n-stack></div>';
+              this.innerHTML = '<div class="ctx-empty-state"><n-stack align="center" gap="2"><span class="text-xs text-muted">No activity yet</span></n-stack></div>';
               return;
             }
             this.innerHTML = list.map(a => `
@@ -516,9 +516,9 @@ import { NativeElement, define, signal, computed, ContextProvider, ContextConsum
                     </n-stack>
                   </n-grid>
                   <div class="ctx-stats-summary"><n-stack direction="row" gap="6" justify="center">
-                    <n-text size="xs" muted><strong class="ctx-stat-strong">${s.total}</strong> total</n-text>
-                    <n-text size="xs" muted><strong class="ctx-stat-strong">${s.dismissed}</strong> dismissed</n-text>
-                    <n-text size="xs" muted><strong class="ctx-stat-strong">${ctx.count.value}</strong> pending</n-text>
+                    <span class="text-xs text-muted"><strong class="ctx-stat-strong">${s.total}</strong> total</span>
+                    <span class="text-xs text-muted"><strong class="ctx-stat-strong">${s.dismissed}</strong> dismissed</span>
+                    <span class="text-xs text-muted"><strong class="ctx-stat-strong">${ctx.count.value}</strong> pending</span>
                   </n-stack></div>
                 </n-stack>`;
             });

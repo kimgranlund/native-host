@@ -22,10 +22,10 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <n-stack gap="4">
     <h2>Standard</h2>
     <div class="profile-card-wrapper">
-      <n-card>
+      <n-container>
         <n-stack gap="4" align="center">
           <div class="profile-header">
-            <n-avatar name="Kim Granlund" size="xl" intent="accent"></n-avatar>
+            <n-avatar name="Kim Granlund" size="xl" intent="accent">KG</n-avatar>
             <div>
               <p class="profile-name">Kim Granlund</p>
               <p class="profile-role">Product Designer</p>
@@ -59,7 +59,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
             </n-button>
           </div>
         </n-stack>
-      </n-card>
+      </n-container>
     </div>
     </n-stack>
 
@@ -68,10 +68,10 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <n-stack gap="4">
     <h2>Team Grid</h2>
     <div class="grid">
-      <n-card>
+      <n-container>
         <n-stack gap="4" align="center">
           <div class="profile-header">
-            <n-avatar name="Alex Morgan" size="lg" intent="info"></n-avatar>
+            <n-avatar name="Alex Morgan" size="lg" intent="info">AM</n-avatar>
             <div>
               <p class="profile-name">Alex Morgan</p>
               <p class="profile-role">Engineering Lead</p>
@@ -100,12 +100,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
             </n-button>
           </div>
         </n-stack>
-      </n-card>
+      </n-container>
 
-      <n-card>
+      <n-container>
         <n-stack gap="4" align="center">
           <div class="profile-header">
-            <n-avatar name="Sara Chen" size="lg" intent="success"></n-avatar>
+            <n-avatar name="Sara Chen" size="lg" intent="success">SC</n-avatar>
             <div>
               <p class="profile-name">Sara Chen</p>
               <p class="profile-role">UX Researcher</p>
@@ -134,12 +134,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
             </n-button>
           </div>
         </n-stack>
-      </n-card>
+      </n-container>
 
-      <n-card>
+      <n-container>
         <n-stack gap="4" align="center">
           <div class="profile-header">
-            <n-avatar name="James Rivera" size="lg" intent="warning"></n-avatar>
+            <n-avatar name="James Rivera" size="lg" intent="warning">JR</n-avatar>
             <div>
               <p class="profile-name">James Rivera</p>
               <p class="profile-role">Frontend Developer</p>
@@ -168,7 +168,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
             </n-button>
           </div>
         </n-stack>
-      </n-card>
+      </n-container>
     </div>
     </n-stack>
 
@@ -178,9 +178,9 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <h2>Compact Horizontal</h2>
     <div class="profile-compact-wrapper">
       <n-stack gap="2">
-        <n-card>
+        <n-container>
           <div class="profile-horizontal">
-            <n-avatar name="Kim Granlund" intent="accent"></n-avatar>
+            <n-avatar name="Kim Granlund" intent="accent">KG</n-avatar>
             <div class="profile-horizontal-info">
               <p class="profile-horizontal-name">Kim Granlund</p>
               <p class="profile-horizontal-role">Product Designer</p>
@@ -191,10 +191,10 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
               </n-button>
             </div>
           </div>
-        </n-card>
-        <n-card>
+        </n-container>
+        <n-container>
           <div class="profile-horizontal">
-            <n-avatar name="Alex Morgan" intent="info"></n-avatar>
+            <n-avatar name="Alex Morgan" intent="info">AM</n-avatar>
             <div class="profile-horizontal-info">
               <p class="profile-horizontal-name">Alex Morgan</p>
               <p class="profile-horizontal-role">Engineering Lead</p>
@@ -205,10 +205,10 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
               </n-button>
             </div>
           </div>
-        </n-card>
-        <n-card>
+        </n-container>
+        <n-container>
           <div class="profile-horizontal">
-            <n-avatar name="Sara Chen" intent="success"></n-avatar>
+            <n-avatar name="Sara Chen" intent="success">SC</n-avatar>
             <div class="profile-horizontal-info">
               <p class="profile-horizontal-name">Sara Chen</p>
               <p class="profile-horizontal-role">UX Researcher</p>
@@ -219,7 +219,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
               </n-button>
             </div>
           </div>
-        </n-card>
+        </n-container>
       </n-stack>
     </div>
     </n-stack>

@@ -72,7 +72,7 @@ host.addEventListener('native:virtual-change', (e) =&gt; {
     <!-- ── 10,000 Items ── -->
 
     <h2>10,000 Items</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <div class="stats">
         <span>Total: <strong>10,000</strong></span>
         <span>Rendered: <strong id="rendered-count">0</strong></span>
@@ -84,12 +84,12 @@ host.addEventListener('native:virtual-change', (e) =&gt; {
         </div>
       </div>
       <pre class="code-block"><code set:html={codeExamples.tenThousandItems} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Dynamic Count ── -->
 
     <h2>Dynamic Count</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <div class="dynamic-actions"><n-stack direction="row">
         <n-button id="add-btn" size="sm">Add 1,000</n-button>
         <n-button id="reset-btn" size="sm">Reset to 100</n-button>
@@ -101,15 +101,15 @@ host.addEventListener('native:virtual-change', (e) =&gt; {
       </div>
       <div id="dynamic-output" class="output">100 items</div>
       <pre class="code-block"><code set:html={codeExamples.dynamicCount} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── VirtualScrollController: Attach to Any Element ── -->
 
     <h2>VirtualScrollController — Attach to Any Element</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Use <code>VirtualScrollController</code> to add virtual scrolling to an existing element without subclassing. Same events, same API — no trait mixin required.
-      </n-text>
+      </span>
       <div class="stats">
         <span>Total: <strong>5,000</strong></span>
         <span>Rendered: <strong id="ctrl-rendered">0</strong></span>
@@ -121,7 +121,7 @@ host.addEventListener('native:virtual-change', (e) =&gt; {
         </div>
       </div>
       <pre class="code-block"><code set:html={codeExamples.virtualscrollcontrollerAttachToAnyElement} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── API Reference ── -->
 

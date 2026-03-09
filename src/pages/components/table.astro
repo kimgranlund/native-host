@@ -18,7 +18,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <!-- ── Basic Table ── -->
 
     <h2>Basic Table</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-table cols="1fr 1fr 1fr">
         <n-table-head>
           <n-table-row>
@@ -61,12 +61,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     &lt;/n-table-row&gt;
   &lt;/n-table-body&gt;
 &lt;/n-table&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Sortable Columns ── -->
 
     <h2>Sortable Columns</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-table id="sortable-table" cols="2fr 1fr 80px">
         <n-table-head>
           <n-table-row>
@@ -88,12 +88,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   &lt;/n-table-head&gt;
   &lt;n-table-body&gt;...&lt;/n-table-body&gt;
 &lt;/n-table&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Selectable Rows ── -->
 
     <h2>Selectable Rows</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <n-table selectable cols="1fr 1fr 100px">
         <n-table-head>
           <n-table-row>
@@ -142,12 +142,12 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     &lt;/n-table-row&gt;
   &lt;/n-table-body&gt;
 &lt;/n-table&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Sizes ── -->
 
     <h2>Sizes</h2>
-    <n-panel bordered>
+    <n-container data-kind="panel" bordered>
       <h3>sm</h3>
       <n-table size="sm" cols="1fr 1fr 1fr">
         <n-table-head>
@@ -219,15 +219,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <pre class="code-block"><code>&lt;n-table size="sm" style="grid-template-columns: 1fr 1fr 1fr;"&gt;...&lt;/n-table&gt;
 &lt;n-table style="grid-template-columns: 1fr 1fr 1fr;"&gt;...&lt;/n-table&gt;
 &lt;n-table size="lg" style="grid-template-columns: 1fr 1fr 1fr;"&gt;...&lt;/n-table&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Plain Variant ── -->
 
     <h2>Plain Variant</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="regular">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Editorial / documentation tables that sit inline with prose. No outer border, no radius, no header fill, no row hover.
-      </n-text>
+      </span>
       <n-table variant="plain" size="sm" cols="auto 1fr 1fr">
         <n-table-head>
           <n-table-row>
@@ -269,15 +269,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   &lt;/n-table-head&gt;
   &lt;n-table-body&gt;...&lt;/n-table-body&gt;
 &lt;/n-table&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Colspan Rows ── -->
 
     <h2>Colspan Rows</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="regular">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Full-width category headers that opt out of subgrid. Hidden automatically when the table is sorted.
-      </n-text>
+      </span>
       <n-table id="colspan-table" cols="2fr 1fr 80px">
         <n-table-head>
           <n-table-row>
@@ -327,15 +327,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     &lt;/n-table-row&gt;
   &lt;/n-table-body&gt;
 &lt;/n-table&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Sticky Header ── -->
 
     <h2>Sticky Header</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="regular">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Header row stays fixed when scrolling vertically. Requires constrained height on the table.
-      </n-text>
+      </span>
       <div class="sticky-demo"><n-table sticky-header cols="1fr 1fr 100px">
         <n-table-head>
           <n-table-row>
@@ -357,15 +357,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   &lt;/n-table-head&gt;
   &lt;n-table-body&gt;...&lt;/n-table-body&gt;
 &lt;/n-table&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Sticky Column ── -->
 
     <h2>Sticky Column</h2>
-    <div class="sticky-col-panel"><n-panel bordered>
-      <n-text size="xs" muted spacing="regular">
+    <div class="sticky-col-panel"><n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         First column stays fixed when scrolling horizontally. Requires constrained width.
-      </n-text>
+      </span>
       <n-table sticky-column cols="120px 150px 150px 150px 150px">
         <n-table-head>
           <n-table-row>
@@ -411,16 +411,16 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   &lt;/n-table-head&gt;
   &lt;n-table-body&gt;...&lt;/n-table-body&gt;
 &lt;/n-table&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel></div>
+    </n-container></div>
 
     <!-- ── Sticky Colspan Rows ── -->
 
     <h2>Sticky Colspan Rows</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="regular">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Section headers stick below the table header as you scroll, like iOS section headers.
         Each section header pushes the previous one up.
-      </n-text>
+      </span>
       <div class="sticky-colspan-demo"><n-table sticky-header cols="2fr 1fr 80px">
         <n-table-head>
           <n-table-row>
@@ -440,15 +440,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     &lt;n-table-row&gt;...&lt;/n-table-row&gt;
   &lt;/n-table-body&gt;
 &lt;/n-table&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Reorderable Rows ── -->
 
     <h2>Reorderable Rows</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="regular">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Drag rows to reorder. DOM is auto-reordered unless the <code>native:table-reorder</code> event is cancelled.
-      </n-text>
+      </span>
       <n-table reorderable cols="1fr 1fr 100px">
         <n-table-head>
           <n-table-row>
@@ -495,15 +495,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     &lt;/n-table-row&gt;
   &lt;/n-table-body&gt;
 &lt;/n-table&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Resizable Columns ── -->
 
     <h2>Resizable Columns</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="regular">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Drag the right edge of any header cell to resize columns.
-      </n-text>
+      </span>
       <n-table resizable cols="2fr 1fr 1fr">
         <n-table-head>
           <n-table-row>
@@ -541,15 +541,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   &lt;/n-table-head&gt;
   &lt;n-table-body&gt;...&lt;/n-table-body&gt;
 &lt;/n-table&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Sortable + Resizable ── -->
 
     <h2>Sortable + Resizable</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="regular">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Click header text to sort, drag header edge to resize. Both coexist without conflict.
-      </n-text>
+      </span>
       <n-table resizable id="sort-resize-table" cols="2fr 1fr 80px">
         <n-table-head>
           <n-table-row>
@@ -571,15 +571,15 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
   &lt;/n-table-head&gt;
   &lt;n-table-body&gt;...&lt;/n-table-body&gt;
 &lt;/n-table&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Debug States (force-*) ── -->
 
     <h2>Debug States (<code>force-*</code>)</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="regular">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Attribute-driven pseudo-state overrides for DevTools debugging and visual testing. Applied to individual rows and headers.
-      </n-text>
+      </span>
       <n-table cols="1fr 1fr 1fr">
         <n-table-head>
           <n-table-row>
@@ -611,7 +611,7 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
           </n-table-row>
         </n-table-body>
       </n-table>
-    </n-panel>
+    </n-container>
   </section>
 
   <script>

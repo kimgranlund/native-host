@@ -60,10 +60,10 @@ const detailValuePrev = `{ value, previousValue }`;
     <!-- ── Double-Click to Edit (Provider) ── -->
 
     <h2>Double-Click to Edit <span class="pattern-badge provider">Provider</span></h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         <code>&lt;n-controller&gt;</code> with <code>for=".edit-item"</code> applies an <code>EditController</code> to each matching item. Double-click to start editing. Press <strong>Enter</strong> to commit or <strong>Escape</strong> to cancel.
-      </n-text>
+      </span>
       <n-controller traits="editable" data-trait-editable-trigger="dblclick" for=".edit-item">
         <div id="dbl-list" class="edit-list">
           <div class="edit-item">Project Roadmap</div>
@@ -74,15 +74,15 @@ const detailValuePrev = `{ value, previousValue }`;
       </n-controller>
       <div id="dbl-log" class="output"></div>
       <pre class="code-block"><code set:html={codeExamples.doubleClickToEditProvider} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── Click to Edit (Provider) ── -->
 
     <h2>Click to Edit <span class="pattern-badge provider">Provider</span></h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Trigger set to <code>'click'</code>. Single click activates editing mode. The <code>for</code> selector applies the trait to each matching descendant individually.
-      </n-text>
+      </span>
       <n-controller traits="editable" data-trait-editable-trigger="click" for=".edit-item">
         <div id="click-list" class="edit-list">
           <div class="edit-item">Task Alpha</div>
@@ -100,19 +100,19 @@ const detailValuePrev = `{ value, previousValue }`;
     &lt;div class="edit-item"&gt;Task Charlie&lt;/div&gt;
   &lt;/div&gt;
 &lt;/n-controller&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── EditController Direct ── -->
 
     <h2>EditController — Attach to Any Element</h2>
-    <n-panel bordered>
-      <n-text size="xs" muted spacing="tight">
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
         Use <code>EditController</code> directly on any element without the trait adapter or <code>&lt;n-controller&gt;</code>. Double-click to edit.
-      </n-text>
+      </span>
       <div id="controller-item" class="edit-item">Editable paragraph — double-click me</div>
       <div id="ctrl-log" class="output"></div>
       <pre class="code-block"><code set:html={codeExamples.editcontrollerAttachToAnyElement} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
-    </n-panel>
+    </n-container>
 
     <!-- ── API Reference ── -->
 
