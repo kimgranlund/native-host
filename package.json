@@ -22,10 +22,10 @@
     "@libsql/client": "^0.17.0",
     "@nonoun/native-ai": "^1.0.15",
     "@nonoun/native-code": "^1.0.7",
-    "@nonoun/native-dashboard": "^0.4.13",
+    "@nonoun/native-dashboard": "^0.4.16",
     "@nonoun/native-data-viz": "^0.2.3",
     "@nonoun/native-design": "^0.6.6",
-    "@nonoun/native-ui": "^0.7.80",
+    "@nonoun/native-ui": "^0.7.81",
     "astro": "^5.17.1",
     "better-auth": "^1.5.3",
     "drizzle-orm": "^0.45.1"
