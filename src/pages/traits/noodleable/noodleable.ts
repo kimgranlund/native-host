@@ -29,9 +29,9 @@ document.addEventListener('astro:page-load', () => {
   if (flowArena && flowViewport && flowTransform) {
     magnet = new MagnetController(flowArena, {
       selector: '.flow-node',
-      snapToEdges: true,
+      snapToEdges: false,
       threshold: 15,
-      guides: true,
+      guides: false,
     });
 
     noodle = new NoodleController(flowArena, {
