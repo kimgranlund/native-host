@@ -161,7 +161,7 @@ const groupIcons: Record<string, string> = {
                     aria-current={currentPath === e.path ? 'page' : undefined}
                   >
                     {e.title}
-                    {e.badge && <n-badge size="xs" intent={badgeIntents[e.badge]}>{badgeLabels[e.badge]}</n-badge>}
+                    {e.badge && <n-badge slot="trailing" size="xs" intent={badgeIntents[e.badge]}>{badgeLabels[e.badge]}</n-badge>}
                   </n-sidebar-nav-item>
                 ))}
               </n-sidebar-group>
@@ -200,7 +200,7 @@ const groupIcons: Record<string, string> = {
                     aria-current={currentPath === e.path ? 'page' : undefined}
                   >
                     {e.title}
-                    {e.badge && <n-badge size="xs" intent={badgeIntents[e.badge]}>{badgeLabels[e.badge]}</n-badge>}
+                    {e.badge && <n-badge slot="trailing" size="xs" intent={badgeIntents[e.badge]}>{badgeLabels[e.badge]}</n-badge>}
                   </n-sidebar-nav-item>
                 ))}
               </n-sidebar-group>
