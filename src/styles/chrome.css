@@ -32,22 +32,10 @@
   min-height: 120px;
 }
 
-/* ── Aside Panels (n-aside bridge) ── */
-/* native-ui foundation.css provides base n-aside styles (display, width,
-   transitions). native-dashboard targets <aside> not <n-aside>, so we
-   mirror the dashboard's context-specific overrides here. */
-section.content > n-aside {
-  --n-ground: var(--n-panel);
-  background: var(--n-ground);
-  border-radius: var(--n-radius);
-}
-section.content > n-aside[open] {
-  overflow-y: auto;
-}
-section.content > n-aside[open]:has(> n-chat) {
-  padding: 0;
-  overflow: visible;
-}
+/* ── Aside Panels (n-aside) ── */
+/* Dashboard CSS owns n-aside base styles (ground, background, border-radius,
+   overflow, transitions). Host only adds gripper visibility. */
+
 /* Grippers only visible when their adjacent panel is open */
 section.content > n-gripper {
   display: none;
