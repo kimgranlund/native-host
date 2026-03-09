@@ -268,3 +268,18 @@
   color: var(--n-surface-ink-accent);
   transform: scale(0.97);
 }
+
+/* ── API Reference ── */
+
+.api-reference h3 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--n-ink-muted-neutral);
+  margin: 1.5rem 0 0.5rem;
+}
+
+.api-reference h3:first-child {
+  margin-top: 0;
+}

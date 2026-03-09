@@ -1,0 +1,54 @@
+.trap-region {
+  display: block;
+  padding: 1.5rem;
+  background: var(--n-panel-neutral);
+  border: 2px solid var(--n-focus-ring);
+  border-radius: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.trap-region[hidden] {
+  display: none;
+}
+
+.trap-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.trap-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.trap-form input {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--n-border-muted-neutral);
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  background: var(--n-body-neutral);
+  color: var(--n-ink-neutral);
+  font-family: inherit;
+}
+
+.trap-form input:focus-visible {
+  outline: 2px solid var(--n-focus-ring);
+  outline-offset: 1px;
+}
+
+.trap-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.dialog-card {
+  width: 20rem;
+  padding: 1.5rem;
+}
+
+/* ── Code Blocks ── */

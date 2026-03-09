@@ -1,0 +1,160 @@
+---
+import SidebarLayout from '../../../layouts/SidebarLayout.astro';
+---
+<SidebarLayout title="RovingFocusable">
+  <header>
+    <div slot="title">
+      <div slot="content">
+        <h1>RovingFocusable</h1>
+      </div>
+    </div>
+    <div slot="description">
+
+      Composable trait for keyboard navigation within a group. Only one item has <code>tabindex="0"</code> at a time — arrow keys move focus between items, Home/End jump to first/last. Skips disabled items.
+
+    </div>
+  </header>
+
+  <section>
+
+    <!-- ── Vertical Toolbar (Provider) ── -->
+
+    <h2>Vertical (Arrow Up/Down)</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        <code>&lt;n-controller&gt;</code> applies roving focus with vertical orientation. Tab into the toolbar, then use Up/Down arrows. The "Italic" item is disabled and skipped.
+      </span>
+      <n-controller traits="roving-focusable" roving-focusable-selector=":scope > .toolbar > .tool-btn:not([disabled])" roving-focusable-orientation="vertical">
+        <div>
+          <div class="toolbar">
+            <div class="tool-btn" role="button">Bold</div>
+            <div class="tool-btn" role="button" disabled>Italic (disabled)</div>
+            <div class="tool-btn" role="button">Underline</div>
+            <div class="tool-btn" role="button">Strikethrough</div>
+            <div class="tool-btn" role="button">Code</div>
+          </div>
+        </div>
+      </n-controller>
+      <pre class="code-block"><code>&lt;n-controller traits="roving-focusable"
+  roving-focusable-selector=".tool-btn:not([disabled])"
+  roving-focusable-orientation="vertical"&gt;
+  &lt;div&gt;
+    &lt;div class="toolbar"&gt;
+      &lt;div class="tool-btn" role="button"&gt;Bold&lt;/div&gt;
+      &lt;div class="tool-btn" role="button" disabled&gt;Italic&lt;/div&gt;
+      &lt;div class="tool-btn" role="button"&gt;Underline&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/n-controller&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Horizontal Tab Bar (Provider) ── -->
+
+    <h2>Horizontal (Arrow Left/Right)</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Horizontal orientation with wrap-around. Use Left/Right arrows to navigate. Focus wraps from last to first.
+      </span>
+      <n-controller traits="roving-focusable" roving-focusable-selector=".tab-item" roving-focusable-orientation="horizontal">
+        <div>
+          <div class="tabbar" id="tabbar">
+            <div class="tab-item active" role="tab">Overview</div>
+            <div class="tab-item" role="tab">Features</div>
+            <div class="tab-item" role="tab">API</div>
+            <div class="tab-item" role="tab">Examples</div>
+          </div>
+        </div>
+      </n-controller>
+      <pre class="code-block"><code>&lt;n-controller traits="roving-focusable"
+  roving-focusable-selector=".tab-item"
+  roving-focusable-orientation="horizontal"&gt;
+  &lt;div&gt;
+    &lt;div class="tabbar"&gt;
+      &lt;div class="tab-item" role="tab"&gt;Overview&lt;/div&gt;
+      &lt;div class="tab-item" role="tab"&gt;Features&lt;/div&gt;
+      &lt;div class="tab-item" role="tab"&gt;API&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/n-controller&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Built-in: n-listbox ── -->
+
+    <h2>Built-in: n-listbox</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        <code>n-listbox</code> uses RovingFocusable internally. Arrow keys navigate between options.
+      </span>
+      <div class="demo-listbox-wrap"><n-listbox>
+        <n-option value="react">React</n-option>
+        <n-option value="vue">Vue</n-option>
+        <n-option value="svelte">Svelte</n-option>
+        <n-option value="lit">Lit</n-option>
+      </n-listbox></div>
+    </n-container>
+
+    <!-- ── API Reference ── -->
+
+    <h2>API</h2>
+      <h3>Provider Usage</h3>
+      <n-table variant="plain" size="sm" cols="auto auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Type</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>roving-focusable-selector</code></n-table-cell>
+            <n-table-cell><code>string</code></n-table-cell>
+            <n-table-cell>—</n-table-cell>
+            <n-table-cell>CSS selector for focusable items. Exclude disabled items with <code>:not([disabled])</code>.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>roving-focusable-orientation</code></n-table-cell>
+            <n-table-cell><code>'vertical' | 'horizontal' | 'both'</code></n-table-cell>
+            <n-table-cell><code>'both'</code></n-table-cell>
+            <n-table-cell>Which arrow keys to respond to. <code>'vertical'</code> = Up/Down, <code>'horizontal'</code> = Left/Right.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>roving-focusable-wrap</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>true</code></n-table-cell>
+            <n-table-cell>Whether focus wraps from last to first (and vice versa).</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>roving-focusable-disabled</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>false</code></n-table-cell>
+            <n-table-cell>Disables roving focus when <code>"true"</code>.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>Keyboard</h3>
+      <n-table variant="plain" size="sm" cols="auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Key</n-table-header><n-table-header>Action</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>Arrow Up/Down</code></n-table-cell>
+            <n-table-cell>Move focus in vertical mode.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>Arrow Left/Right</code></n-table-cell>
+            <n-table-cell>Move focus in horizontal mode.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>Home</code></n-table-cell>
+            <n-table-cell>Move focus to first item.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>End</code></n-table-cell>
+            <n-table-cell>Move focus to last item.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+  </section>
+
+  <script>
+    import './roving-focusable.ts';
+  </script>
+  <style is:global>
+    @import './roving-focusable.css';
+  </style>
+
+</SidebarLayout>

@@ -1,0 +1,458 @@
+---
+import SidebarLayout from '../../../layouts/SidebarLayout.astro';
+
+const codeExamples = {
+  dropModeSwapProvider: `&lt;n-controller traits="draggable"
+  data-trait-draggable-selector=".drag-item"
+  data-trait-draggable-axis="vertical"
+  data-trait-draggable-mode="drop"&gt;
+  &lt;div class="drag-list"&gt;
+    &lt;div class="drag-item"&gt;Design mockups&lt;/div&gt;
+    &lt;div class="drag-item"&gt;Write component API&lt;/div&gt;
+    &lt;!-- ... --&gt;
+  &lt;/div&gt;
+&lt;/n-controller&gt;
+
+&lt;script&gt;
+  list.addEventListener('native:drop', (e) =&gt; {
+    const { item, target } = e.detail;
+    if (!target || target === item) return;
+    const placeholder = document.createElement('div');
+    item.before(placeholder);
+    target.before(item);
+    placeholder.replaceWith(target);
+  });
+&lt;/script&gt;`,
+  slotModeVerticalListProvider: `&lt;n-controller traits="draggable"
+  data-trait-draggable-selector=".drag-item"
+  data-trait-draggable-axis="vertical"
+  data-trait-draggable-mode="slot"&gt;
+  &lt;div class="drag-list"&gt;
+    &lt;div class="drag-item"&gt;Research&lt;/div&gt;
+    &lt;!-- ... --&gt;
+  &lt;/div&gt;
+&lt;/n-controller&gt;
+
+&lt;script&gt;
+  list.addEventListener('native:drop', (e) =&gt; {
+    const { item, insertBefore } = e.detail;
+    if (insertBefore) insertBefore.before(item);
+    else list.appendChild(item);
+  });
+&lt;/script&gt;`,
+};
+const detailItemIndex = `{ item, index }`;
+const detailItemXY = `{ item, x, y }`;
+const detailItemTargetIndex = `{ item, target, index }`;
+const detailItemIndexInsertBefore = `{ item, index, insertBefore }`;
+const detailItemTargetFromTo = `{ item, target, fromIndex, toIndex }`;
+const detailItemFromToInsertBefore = `{ item, fromIndex, toIndex, insertBefore }`;
+const detailItem = `{ item }`;
+---
+<SidebarLayout title="Draggable">
+  <header>
+    <div slot="title">
+      <div slot="content">
+        <h1>Draggable</h1>
+      </div>
+    </div>
+    <div slot="description">
+
+      Composable trait for drag-and-drop. Supports three modes: <strong>drop</strong> (outlines the target element), <strong>slot</strong> (shows a gap indicator between items for insertion), and <strong>preview</strong> (live DOM reordering as you drag). Ghost renders in the top layer via popover. Press Escape to cancel.
+
+    </div>
+  </header>
+
+  <section>
+
+    <!-- ── Drop Mode: Swap (Provider) ── -->
+
+    <h2>Drop Mode — Swap (Provider)</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        <code>&lt;n-controller&gt;</code> wraps a plain <code>&lt;div&gt;</code> and applies the draggable trait. Drop onto a target to swap positions.
+      </span>
+      <n-controller traits="draggable" data-trait-draggable-selector=".drag-item" data-trait-draggable-axis="vertical" data-trait-draggable-mode="drop">
+        <div id="swap-list" class="drag-list">
+          <div class="drag-item"><span class="handle">&#x2807;</span><span>Design mockups</span></div>
+          <div class="drag-item"><span class="handle">&#x2807;</span><span>Write component API</span></div>
+          <div class="drag-item"><span class="handle">&#x2807;</span><span>Implement CSS</span></div>
+          <div class="drag-item"><span class="handle">&#x2807;</span><span>Add keyboard support</span></div>
+          <div class="drag-item"><span class="handle">&#x2807;</span><span>Write tests</span></div>
+        </div>
+      </n-controller>
+      <div id="swap-log" class="output"></div>
+      <pre class="code-block"><code set:html={codeExamples.dropModeSwapProvider} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Drop Mode: Replace (Provider) ── -->
+
+    <h2>Drop Mode — Replace (Provider)</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Drag a person onto a role to assign. Uses <code>data-trait-draggable-drop-zone-selector</code> to separate drag items from drop targets.
+      </span>
+      <n-controller traits="draggable" data-trait-draggable-selector=".drag-person" data-trait-draggable-drop-zone-selector=".drag-role" data-trait-draggable-mode="drop">
+        <div id="replace-list" class="drag-list">
+          <div class="drag-role"><span class="role-name">Lead</span><span class="role-assignee" id="role-0">—</span></div>
+          <div class="drag-role"><span class="role-name">Design</span><span class="role-assignee" id="role-1">—</span></div>
+          <div class="drag-role"><span class="role-name">Engineering</span><span class="role-assignee" id="role-2">—</span></div>
+          <div class="person-row"><n-stack direction="row">
+            <div class="drag-person">Alice</div>
+            <div class="drag-person">Bob</div>
+            <div class="drag-person">Carol</div>
+          </n-stack></div>
+        </div>
+      </n-controller>
+      <div id="replace-log" class="output"></div>
+      <pre class="code-block"><code>&lt;n-controller traits="draggable"
+  data-trait-draggable-selector=".drag-person"
+  data-trait-draggable-drop-zone-selector=".drag-role"
+  data-trait-draggable-mode="drop"&gt;
+  &lt;div class="drag-list"&gt;
+    &lt;div class="drag-role"&gt;Lead — &lt;span&gt;—&lt;/span&gt;&lt;/div&gt;
+    &lt;div class="drag-person"&gt;Alice&lt;/div&gt;
+    &lt;!-- ... --&gt;
+  &lt;/div&gt;
+&lt;/n-controller&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Slot Mode: Vertical List (Provider) ── -->
+
+    <h2>Slot Mode — Vertical List (Provider)</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Shows a gap indicator between items. Dropping inserts the item at that position.
+      </span>
+      <n-controller traits="draggable" data-trait-draggable-selector=".drag-item" data-trait-draggable-axis="vertical" data-trait-draggable-mode="slot">
+        <div id="slot-list" class="drag-list">
+          <div class="drag-item"><span class="handle">&#x2807;</span><span>Research</span></div>
+          <div class="drag-item"><span class="handle">&#x2807;</span><span>Prototype</span></div>
+          <div class="drag-item"><span class="handle">&#x2807;</span><span>Build</span></div>
+          <div class="drag-item"><span class="handle">&#x2807;</span><span>Test</span></div>
+          <div class="drag-item"><span class="handle">&#x2807;</span><span>Ship</span></div>
+        </div>
+      </n-controller>
+      <div id="slot-log" class="output"></div>
+      <pre class="code-block"><code set:html={codeExamples.slotModeVerticalListProvider} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Slot Mode: Horizontal Cards (Provider) ── -->
+
+    <h2>Slot Mode — Horizontal Cards (Provider)</h2>
+    <n-container data-kind="panel" bordered>
+      <n-controller traits="draggable" data-trait-draggable-selector=".drag-card" data-trait-draggable-axis="horizontal" data-trait-draggable-mode="slot">
+        <div id="card-row" class="drag-row">
+          <div class="drag-card">A</div>
+          <div class="drag-card">B</div>
+          <div class="drag-card">C</div>
+          <div class="drag-card">D</div>
+        </div>
+      </n-controller>
+      <pre class="code-block"><code>&lt;n-controller traits="draggable"
+  data-trait-draggable-selector=".drag-card"
+  data-trait-draggable-axis="horizontal"
+  data-trait-draggable-mode="slot"&gt;
+  &lt;div class="drag-row"&gt;
+    &lt;div class="drag-card"&gt;A&lt;/div&gt;
+    &lt;div class="drag-card"&gt;B&lt;/div&gt;
+    &lt;!-- ... --&gt;
+  &lt;/div&gt;
+&lt;/n-controller&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Preview Mode: Grid Reorder ── -->
+
+    <h2>Preview Mode — Grid Reorder</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Live DOM reordering as you drag. The item moves to its new position in real time — no placeholder needed. Press Escape to cancel and restore the original order. Works with CSS Grid (2D hit-testing via <code>axis="both"</code>).
+      </span>
+      <n-controller traits="draggable" data-trait-draggable-selector=".grid-cell" data-trait-draggable-axis="both" data-trait-draggable-mode="preview">
+        <div id="preview-grid" class="drag-grid">
+          <div class="grid-cell">1</div>
+          <div class="grid-cell">2</div>
+          <div class="grid-cell">3</div>
+          <div class="grid-cell">4</div>
+          <div class="grid-cell">5</div>
+          <div class="grid-cell">6</div>
+          <div class="grid-cell">7</div>
+          <div class="grid-cell">8</div>
+          <div class="grid-cell">9</div>
+          <div class="grid-cell">10</div>
+          <div class="grid-cell">11</div>
+          <div class="grid-cell">12</div>
+          <div class="grid-cell">13</div>
+          <div class="grid-cell">14</div>
+          <div class="grid-cell">15</div>
+          <div class="grid-cell">16</div>
+          <div class="grid-cell">17</div>
+          <div class="grid-cell">18</div>
+          <div class="grid-cell">19</div>
+          <div class="grid-cell">20</div>
+          <div class="grid-cell">21</div>
+          <div class="grid-cell">22</div>
+          <div class="grid-cell">23</div>
+          <div class="grid-cell">24</div>
+        </div>
+      </n-controller>
+      <div id="preview-log" class="output"></div>
+      <pre class="code-block"><code>&lt;n-controller traits="draggable"
+  data-trait-draggable-selector=".grid-cell"
+  data-trait-draggable-axis="both"
+  data-trait-draggable-mode="preview"&gt;
+  &lt;div class="drag-grid"&gt;
+    &lt;div class="grid-cell"&gt;1&lt;/div&gt;
+    &lt;div class="grid-cell"&gt;2&lt;/div&gt;
+    &lt;!-- ... 24 cells in a 4×6 grid --&gt;
+  &lt;/div&gt;
+&lt;/n-controller&gt;
+
+&lt;!-- No native:drop handler needed for reordering —
+     the item is already in its final position.
+     Handle native:drop only to persist the new order. --&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Cross-Zone: Kanban Board ── -->
+
+    <h2>Cross-Zone — Kanban Board (Slot Mode)</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        <code>data-trait-draggable-zone-selector</code> enables dragging items across zone containers. Each column is a zone — items can be dragged between columns. The <code>[drag-zone-active]</code> attribute highlights the target zone during drag.
+      </span>
+      <n-controller traits="draggable" data-trait-draggable-selector=".kanban-card" data-trait-draggable-zone-selector=".kanban-column" data-trait-draggable-axis="vertical" data-trait-draggable-mode="slot">
+        <div id="kanban-board" class="kanban-board">
+          <div class="kanban-column">
+            <div class="kanban-column-title">To Do</div>
+            <div class="kanban-card">Design mockups</div>
+            <div class="kanban-card">Write component API</div>
+            <div class="kanban-card">Set up CI pipeline</div>
+          </div>
+          <div class="kanban-column">
+            <div class="kanban-column-title">In Progress</div>
+            <div class="kanban-card">Implement CSS</div>
+            <div class="kanban-card">Add keyboard support</div>
+          </div>
+          <div class="kanban-column">
+            <div class="kanban-column-title">Done</div>
+            <div class="kanban-card">Project setup</div>
+          </div>
+        </div>
+      </n-controller>
+      <div id="kanban-log" class="output"></div>
+      <pre class="code-block"><code>&lt;n-controller traits="draggable"
+  data-trait-draggable-selector=".kanban-card"
+  data-trait-draggable-zone-selector=".kanban-column"
+  data-trait-draggable-axis="vertical"
+  data-trait-draggable-mode="slot"&gt;
+  &lt;div class="kanban-board"&gt;
+    &lt;div class="kanban-column"&gt;
+      &lt;div class="kanban-column-title"&gt;To Do&lt;/div&gt;
+      &lt;div class="kanban-card"&gt;Design mockups&lt;/div&gt;
+      &lt;div class="kanban-card"&gt;Write component API&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="kanban-column"&gt;
+      &lt;div class="kanban-column-title"&gt;In Progress&lt;/div&gt;
+      &lt;div class="kanban-card"&gt;Implement CSS&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="kanban-column"&gt;
+      &lt;div class="kanban-column-title"&gt;Done&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/n-controller&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Ghost Rendering ── -->
+
+    <h2>Ghost Rendering</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-sm text-muted">
+        During a drag, a ghost clone of the dragged item follows the pointer. The ghost uses the browser's <strong>top layer</strong> via <code>[popover="manual"]</code> — it renders above all content without being clipped by <code>overflow</code> containers or stacking contexts.
+      </span>
+      <span class="text-sm text-muted">
+        The ghost is appended to the <strong>host element</strong> (not <code>document.body</code>) so it inherits CSS custom properties from the component tree. Colors, spacing, and radius tokens all resolve correctly based on the host's context.
+      </span>
+      <span class="text-sm text-muted">
+        Item queries automatically exclude <code>[popover]</code> elements, so the ghost is never hit-tested or reordered during drag operations. On drag end or cancel, the ghost is cleaned up via <code>hidePopover()</code> + <code>remove()</code>.
+      </span>
+
+      <h3>Why Popover</h3>
+      <n-table variant="plain" size="sm" cols="auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Approach</n-table-header><n-table-header>Problem</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>z-index</code></n-table-cell>
+            <n-table-cell>Clipped by <code>overflow: hidden/clip</code> on parent containers</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>document.body.appendChild()</code></n-table-cell>
+            <n-table-cell>Ghost loses CSS custom property inheritance — colors, spacing, radius all break</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>[popover="manual"]</code></n-table-cell>
+            <n-table-cell>Top-layer rendering (no clipping), stays in host tree (CSS vars inherit), excluded from layout</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+
+      <h3>Visual Feedback Attributes</h3>
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Set On</n-table-header><n-table-header>Purpose</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>[dragging]</code></n-table-cell>
+            <n-table-cell>Original item</n-table-cell>
+            <n-table-cell>Fades the source element (<code>opacity: 0.3</code>)</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>[drag-over]</code></n-table-cell>
+            <n-table-cell>Hovered target (drop mode)</n-table-cell>
+            <n-table-cell>Highlights the drop target</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>[drag-slot-before]</code></n-table-cell>
+            <n-table-cell>Item after insertion gap (slot mode)</n-table-cell>
+            <n-table-cell>Marks gap position</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>[drag-slot-after]</code></n-table-cell>
+            <n-table-cell>Item before insertion gap (slot mode)</n-table-cell>
+            <n-table-cell>Marks gap position</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+    </n-container>
+
+    <!-- ── API Reference ── -->
+
+    <h2>API</h2>
+      <h3>Provider Usage</h3>
+      <n-table variant="plain" size="sm" cols="auto auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Type</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>data-trait-draggable-selector</code></n-table-cell>
+            <n-table-cell><code>string</code></n-table-cell>
+            <n-table-cell>—</n-table-cell>
+            <n-table-cell>CSS selector for draggable items within the host. Required.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-draggable-drop-zone-selector</code></n-table-cell>
+            <n-table-cell><code>string</code></n-table-cell>
+            <n-table-cell><code>''</code></n-table-cell>
+            <n-table-cell>CSS selector for drop zones. Defaults to <code>selector</code> items if empty.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-draggable-zone-selector</code></n-table-cell>
+            <n-table-cell><code>string</code></n-table-cell>
+            <n-table-cell><code>''</code></n-table-cell>
+            <n-table-cell>CSS selector for zone containers (e.g., kanban columns). When set, items can be dragged between zones.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-draggable-axis</code></n-table-cell>
+            <n-table-cell><code>'vertical' | 'horizontal' | 'both'</code></n-table-cell>
+            <n-table-cell><code>'both'</code></n-table-cell>
+            <n-table-cell>Constrains hit-testing to one axis. Ghost always moves freely.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-draggable-mode</code></n-table-cell>
+            <n-table-cell><code>'drop' | 'slot' | 'preview'</code></n-table-cell>
+            <n-table-cell><code>'drop'</code></n-table-cell>
+            <n-table-cell><strong>drop</strong>: outlines hovered target. <strong>slot</strong>: shows gap indicator between items. <strong>preview</strong>: live DOM reordering as you drag.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-draggable-disabled</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>false</code></n-table-cell>
+            <n-table-cell>Disables all drag behavior when true.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>Events</h3>
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Event</n-table-header><n-table-header>Detail</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>native:drag-start</code></n-table-cell>
+            <n-table-cell><code set:html={detailItemIndex} /></n-table-cell>
+            <n-table-cell>Fired on first pointer move after pointerdown.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>native:drag-move</code></n-table-cell>
+            <n-table-cell><code set:html={detailItemXY} /></n-table-cell>
+            <n-table-cell>Fired on every pointer move during drag.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>native:drag-over</code></n-table-cell>
+            <n-table-cell>
+              <strong>drop:</strong> <code set:html={detailItemTargetIndex} /><br>
+              <strong>slot:</strong> <code set:html={detailItemIndexInsertBefore} />
+            </n-table-cell>
+            <n-table-cell>Fired when the pointer enters a drop zone or the slot position changes.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>native:drop</code></n-table-cell>
+            <n-table-cell>
+              <strong>drop:</strong> <code set:html={detailItemTargetFromTo} /><br>
+              <strong>slot:</strong> <code set:html={detailItemFromToInsertBefore} />
+            </n-table-cell>
+            <n-table-cell>Fired on pointer up. Consumer handles the actual DOM reordering.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>native:drag-cancel</code></n-table-cell>
+            <n-table-cell><code set:html={detailItem} /></n-table-cell>
+            <n-table-cell>Fired when Escape is pressed or pointer is cancelled.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>Attributes (set during drag)</h3>
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Set on</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>[dragging]</code></n-table-cell>
+            <n-table-cell>Dragged item</n-table-cell>
+            <n-table-cell>Present while the item is being dragged. Use for opacity/visibility.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>[drag-over]</code></n-table-cell>
+            <n-table-cell>Drop zone (drop mode)</n-table-cell>
+            <n-table-cell>Present on the zone the pointer is currently over.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>[drag-slot-before]</code></n-table-cell>
+            <n-table-cell>Item (slot mode)</n-table-cell>
+            <n-table-cell>The item immediately after the insertion gap.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>[drag-slot-after]</code></n-table-cell>
+            <n-table-cell>Item (slot mode)</n-table-cell>
+            <n-table-cell>The item immediately before the insertion gap.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>[drag-zone-active]</code></n-table-cell>
+            <n-table-cell>Zone container</n-table-cell>
+            <n-table-cell>Present on the zone the ghost is currently over (cross-zone mode only).</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>CSS</h3>
+      <n-table variant="plain" size="sm" cols="auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Selector</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>.drag-placeholder</code></n-table-cell>
+            <n-table-cell>Gap indicator element inserted by slot mode. Style height/width, background, and margin to match your layout.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+  </section>
+
+  <script>
+    import './draggable.ts';
+  </script>
+  <style is:global>
+    @import './draggable.css';
+  </style>
+
+</SidebarLayout>

@@ -313,4 +313,4 @@ Triple-layer strategy for flash-free SSR with auth sync:
 - `docs/PACKAGES.md` -- Package versions, namespaces, and import patterns
 - `docs/RULES.md` -- CSS and component authoring rules
 - `docs/DATABASE.md` -- Turso database, Drizzle ORM, schema, migrations
-- `TICKETS/TICKET-AGENT.md` -- Cross-project ticket index
+- `../../dev-ops/TICKETS/TICKET-AGENT.md` -- Cross-project ticket index

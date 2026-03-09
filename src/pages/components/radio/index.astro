@@ -1,0 +1,304 @@
+---
+import SidebarLayout from '../../../layouts/SidebarLayout.astro';
+import ApiReference from '../../../components/ApiReference.astro';
+import { radioApi } from '../../../data/api/radio';
+
+const codeExamples = {
+  changeEvents: `&lt;n-radio-group id="my-radios"&gt;
+  &lt;n-radio value="red"&gt;Red&lt;/n-radio&gt;
+  &lt;n-radio value="green"&gt;Green&lt;/n-radio&gt;
+  &lt;n-radio value="blue"&gt;Blue&lt;/n-radio&gt;
+&lt;/n-radio-group&gt;
+
+&lt;script&gt;
+  document.getElementById('my-radios')
+    .addEventListener('native:change', (e) =&gt; {
+      console.log(e.detail.value, e.detail.label);
+    });
+&lt;/script&gt;`,
+};
+---
+<SidebarLayout title="Radio">
+  <header>
+    <div slot="title">
+      <div slot="content">
+        <h1>Radio Group / Radio</h1>
+      </div>
+    </div>
+    <div slot="description">
+      <span class="header-tag">&lt;n-radio-group&gt; / &lt;n-radio&gt;</span> Exclusive single-select radio group with roving focus, form association, and arrow-key navigation.
+          </div>
+  </header>
+
+  <section>
+
+    <!-- ── Basic ── -->
+
+    <h2>Basic (Vertical)</h2>
+    <n-container data-kind="panel" bordered>
+      <n-radio-group value="banana">
+        <n-radio value="apple">Apple</n-radio>
+        <n-radio value="banana">Banana</n-radio>
+        <n-radio value="cherry">Cherry</n-radio>
+        <n-radio value="date">Date</n-radio>
+      </n-radio-group>
+    <pre class="code-block"><code>&lt;n-radio-group value="banana"&gt;
+  &lt;n-radio value="apple"&gt;Apple&lt;/n-radio&gt;
+  &lt;n-radio value="banana"&gt;Banana&lt;/n-radio&gt;
+  &lt;n-radio value="cherry"&gt;Cherry&lt;/n-radio&gt;
+&lt;/n-radio-group&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Horizontal ── -->
+
+    <h2>Horizontal</h2>
+    <n-container data-kind="panel" bordered>
+      <n-radio-group orientation="horizontal" value="monthly">
+        <n-radio value="daily">Daily</n-radio>
+        <n-radio value="weekly">Weekly</n-radio>
+        <n-radio value="monthly">Monthly</n-radio>
+        <n-radio value="yearly">Yearly</n-radio>
+      </n-radio-group>
+    <pre class="code-block"><code>&lt;n-radio-group orientation="horizontal" value="monthly"&gt;
+  &lt;n-radio value="daily"&gt;Daily&lt;/n-radio&gt;
+  &lt;n-radio value="weekly"&gt;Weekly&lt;/n-radio&gt;
+  &lt;n-radio value="monthly"&gt;Monthly&lt;/n-radio&gt;
+&lt;/n-radio-group&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Sizes ── -->
+
+    <h2>Sizes</h2>
+    <n-container data-kind="panel" bordered>
+      <n-stack direction="row" wrap align="center">
+        <n-radio-group size="xs" value="a">
+          <n-radio value="a">Extra small A</n-radio>
+          <n-radio value="b">Extra small B</n-radio>
+        </n-radio-group>
+        <n-radio-group size="sm" value="a">
+          <n-radio value="a">Small A</n-radio>
+          <n-radio value="b">Small B</n-radio>
+        </n-radio-group>
+        <n-radio-group size="md" value="a">
+          <n-radio value="a">Medium A</n-radio>
+          <n-radio value="b">Medium B</n-radio>
+        </n-radio-group>
+        <n-radio-group size="lg" value="a">
+          <n-radio value="a">Large A</n-radio>
+          <n-radio value="b">Large B</n-radio>
+        </n-radio-group>
+      </n-stack>
+      <pre class="code-block"><code>&lt;n-radio-group size="sm" value="a"&gt;
+  &lt;n-radio value="a"&gt;Small A&lt;/n-radio&gt;
+  &lt;n-radio value="b"&gt;Small B&lt;/n-radio&gt;
+&lt;/n-radio-group&gt;
+
+&lt;n-radio-group size="lg" value="a"&gt;
+  &lt;n-radio value="a"&gt;Large A&lt;/n-radio&gt;
+  &lt;n-radio value="b"&gt;Large B&lt;/n-radio&gt;
+&lt;/n-radio-group&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Density ── -->
+
+    <h2>Density</h2>
+    <n-container data-kind="panel" bordered>
+      <h3>compact</h3>
+      <n-stack direction="row" wrap align="center" density="compact">
+        <n-radio-group size="sm" value="a">
+          <n-radio value="a">Small A</n-radio>
+          <n-radio value="b">Small B</n-radio>
+        </n-radio-group>
+        <n-radio-group value="a">
+          <n-radio value="a">Medium A</n-radio>
+          <n-radio value="b">Medium B</n-radio>
+        </n-radio-group>
+      </n-stack>
+      <h3>default</h3>
+      <n-stack direction="row" wrap align="center">
+        <n-radio-group size="sm" value="a">
+          <n-radio value="a">Small A</n-radio>
+          <n-radio value="b">Small B</n-radio>
+        </n-radio-group>
+        <n-radio-group value="a">
+          <n-radio value="a">Medium A</n-radio>
+          <n-radio value="b">Medium B</n-radio>
+        </n-radio-group>
+      </n-stack>
+      <h3>loose</h3>
+      <n-stack direction="row" wrap align="center" density="loose">
+        <n-radio-group size="sm" value="a">
+          <n-radio value="a">Small A</n-radio>
+          <n-radio value="b">Small B</n-radio>
+        </n-radio-group>
+        <n-radio-group value="a">
+          <n-radio value="a">Medium A</n-radio>
+          <n-radio value="b">Medium B</n-radio>
+        </n-radio-group>
+      </n-stack>
+      <pre class="code-block"><code>&lt;div density="compact"&gt;
+  &lt;n-radio-group value="a"&gt;...&lt;/n-radio-group&gt;
+&lt;/div&gt;
+
+&lt;div density="loose"&gt;
+  &lt;n-radio-group value="a"&gt;...&lt;/n-radio-group&gt;
+&lt;/div&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Radius ── -->
+
+    <h2>Radius</h2>
+    <n-container data-kind="panel" bordered>
+      <n-stack direction="row" wrap align="center">
+        <n-radio-group value="a">
+          <n-radio value="a">Default A</n-radio>
+          <n-radio value="b">Default B</n-radio>
+        </n-radio-group>
+        <n-radio-group radius="rounded" value="a">
+          <n-radio value="a">Rounded A</n-radio>
+          <n-radio value="b">Rounded B</n-radio>
+        </n-radio-group>
+        <n-radio-group radius="sharp" value="a">
+          <n-radio value="a">Sharp A</n-radio>
+          <n-radio value="b">Sharp B</n-radio>
+        </n-radio-group>
+      </n-stack>
+      <pre class="code-block"><code>&lt;n-radio-group radius="rounded" value="a"&gt;
+  &lt;n-radio value="a"&gt;Rounded A&lt;/n-radio&gt;
+  &lt;n-radio value="b"&gt;Rounded B&lt;/n-radio&gt;
+&lt;/n-radio-group&gt;
+
+&lt;n-radio-group radius="sharp" value="a"&gt;
+  &lt;n-radio value="a"&gt;Sharp A&lt;/n-radio&gt;
+  &lt;n-radio value="b"&gt;Sharp B&lt;/n-radio&gt;
+&lt;/n-radio-group&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Intents ── -->
+
+    <h2>Intents</h2>
+    <n-container data-kind="panel" bordered>
+      <n-stack direction="row" wrap align="center">
+        <n-radio-group intent="neutral" value="a">
+          <n-radio value="a">Neutral A</n-radio>
+          <n-radio value="b">Neutral B</n-radio>
+        </n-radio-group>
+        <n-radio-group intent="accent" value="a">
+          <n-radio value="a">Accent A</n-radio>
+          <n-radio value="b">Accent B</n-radio>
+        </n-radio-group>
+        <n-radio-group intent="success" value="a">
+          <n-radio value="a">Success A</n-radio>
+          <n-radio value="b">Success B</n-radio>
+        </n-radio-group>
+        <n-radio-group intent="danger" value="a">
+          <n-radio value="a">Danger A</n-radio>
+          <n-radio value="b">Danger B</n-radio>
+        </n-radio-group>
+      </n-stack>
+      <pre class="code-block"><code>&lt;n-radio-group intent="accent" value="a"&gt;
+  &lt;n-radio value="a"&gt;Accent A&lt;/n-radio&gt;
+  &lt;n-radio value="b"&gt;Accent B&lt;/n-radio&gt;
+&lt;/n-radio-group&gt;
+
+&lt;n-radio-group intent="danger" value="a"&gt;
+  &lt;n-radio value="a"&gt;Danger A&lt;/n-radio&gt;
+  &lt;n-radio value="b"&gt;Danger B&lt;/n-radio&gt;
+&lt;/n-radio-group&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Disabled ── -->
+
+    <h2>Disabled</h2>
+    <n-container data-kind="panel" bordered>
+      <n-stack direction="row" wrap align="center">
+        <n-radio-group disabled value="b">
+          <n-radio value="a">Option A</n-radio>
+          <n-radio value="b">Option B (selected)</n-radio>
+          <n-radio value="c">Option C</n-radio>
+        </n-radio-group>
+
+        <n-radio-group value="a">
+          <n-radio value="a">Enabled</n-radio>
+          <n-radio value="b" disabled>Disabled option</n-radio>
+          <n-radio value="c">Enabled</n-radio>
+        </n-radio-group>
+      </n-stack>
+      <pre class="code-block"><code>&lt;!-- Entire group disabled --&gt;
+&lt;n-radio-group disabled value="b"&gt;
+  &lt;n-radio value="a"&gt;Option A&lt;/n-radio&gt;
+  &lt;n-radio value="b"&gt;Option B&lt;/n-radio&gt;
+&lt;/n-radio-group&gt;
+
+&lt;!-- Single option disabled --&gt;
+&lt;n-radio-group value="a"&gt;
+  &lt;n-radio value="a"&gt;Enabled&lt;/n-radio&gt;
+  &lt;n-radio value="b" disabled&gt;Disabled&lt;/n-radio&gt;
+&lt;/n-radio-group&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Events ── -->
+
+    <h2>Change Events</h2>
+    <n-container data-kind="panel" bordered>
+      <n-radio-group id="event-rg">
+        <n-radio value="red">Red</n-radio>
+        <n-radio value="green">Green</n-radio>
+        <n-radio value="blue">Blue</n-radio>
+      </n-radio-group>
+      <div class="log" id="event-log"></div>
+    <pre class="code-block"><code set:html={codeExamples.changeEvents} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Form Association ── -->
+
+    <h2>Form Association</h2>
+    <n-container data-kind="panel" bordered>
+      <form id="demo-form">
+        <div class="form-fields"><n-radio-group name="plan" value="pro">
+          <n-radio value="free">Free</n-radio>
+          <n-radio value="pro">Pro</n-radio>
+          <n-radio value="enterprise">Enterprise</n-radio>
+        </n-radio-group></div>
+        <n-stack direction="row">
+          <n-button variant="primary" type="submit"><span>Submit</span></n-button>
+          <n-button variant="secondary" type="reset"><span>Reset</span></n-button>
+        </n-stack>
+      </form>
+      <div class="log" id="form-log"></div>
+    <pre class="code-block"><code>&lt;form&gt;
+  &lt;n-radio-group name="plan" value="pro"&gt;
+    &lt;n-radio value="free"&gt;Free&lt;/n-radio&gt;
+    &lt;n-radio value="pro"&gt;Pro&lt;/n-radio&gt;
+    &lt;n-radio value="enterprise"&gt;Enterprise&lt;/n-radio&gt;
+  &lt;/n-radio-group&gt;
+  &lt;button type="submit"&gt;Submit&lt;/button&gt;
+&lt;/form&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Debug States (force-*) ── -->
+
+    <h2>Debug States (<code>force-*</code>)</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Attribute-driven pseudo-state overrides for DevTools debugging and visual testing.
+      </span>
+      <n-stack direction="row" wrap align="center">
+        <n-radio force-hover checked>Force hover (checked)</n-radio>
+        <n-radio force-hover>Force hover</n-radio>
+        <n-radio force-focus-visible checked>Force focus-visible (checked)</n-radio>
+        <n-radio force-focus-visible>Force focus-visible</n-radio>
+      </n-stack>
+    </n-container>
+
+    <h2>API Reference</h2>
+    <ApiReference data={radioApi} />
+  </section>
+
+  <script>
+    import './radio.ts';
+  </script>
+  <style is:global>
+    .form-fields { margin-bottom: 1rem; }
+  </style>
+</SidebarLayout>

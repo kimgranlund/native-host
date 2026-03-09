@@ -26,12 +26,12 @@ These are non-negotiable. Violating any of them will break the build or the UI.
 
 6. **Use `:where()` for low-specificity overrides** -- follow the library's CSS pattern.
 
-7. **Do NOT write JS/CSS workarounds for component bugs** -- file a ticket in `/TICKETS/` instead and let native-ui fix it.
+7. **Do NOT write JS/CSS workarounds for component bugs** -- file a ticket in `../../dev-ops/TICKETS/` instead and let native-ui fix it.
 
 8. **Never style `n-*`/`native-*` elements with raw CSS** -- use the component's attribute API (`size`, `variant`, `intent`, `muted`, `spacing`, `bordered`, `cols`, `align`, etc.) exclusively. Never apply `style=""`, `padding`, `margin`, `color`, `width`, `max-width`, `flex`, `font-size`, `gap`, `height`, `outline`, `box-shadow`, or any other raw CSS property directly on a native-ui element — whether by tag name (`n-button { ... }`), class (`n-button.foo { ... }`), or inline style (`style="..."`). If you need a layout constraint (e.g. `max-width`, `flex: 1`, `margin-bottom`), wrap the component in a plain `<div>` with a class, or use a layout container like `<n-stack>`.
    - **Acceptable:** Targeting standard HTML descendants inside a component scope (e.g. `n-table code { ... }`). Setting CSS custom properties (`--n-border-color`) — that's the intended customization mechanism.
    - **Infrastructure exception:** Shared layout files (`layout-blocks.css`) may use `n-app-panel` as a scoping ancestor to style standard HTML descendants (`h1`, `h2`, `main`). This does not style the component itself.
-   - **Known API gaps:** Some violations are blocked on missing component APIs — see `T0071` in `/TICKETS/`.
+   - **Known API gaps:** Some violations are blocked on missing component APIs — see `T0071` in `../../dev-ops/TICKETS/`.
 
 9. **Never add CSS classes to `n-*`/`native-*` component elements** -- classes on custom elements are opaque handles that prevent consumers from using standard CSS selectors. Instead:
    - **Use the element's `id` attribute** if a unique selector is needed (`#nav-search-btn`).
@@ -127,13 +127,13 @@ import { NativeElement, define, FocusTrapController } from '@nonoun/native-ui';
 
 ## Tickets
 
-Cross-project tickets for `@nonoun/native-ui` bugs live in `/TICKETS/`.
+Cross-project tickets for `@nonoun/native-ui` bugs live in `../../dev-ops/TICKETS/`.
 
 - **Index:** `TICKET-AGENT.md` (read this at session start)
 - **Resolution log:** `TICKET-LOG.md`
 - **Individual tickets:** `T{number}-{slug}.md`
 
-To file a new ticket: create `T{next}-{slug}.md` and add a row to `TICKET-AGENT.md`.
+To file a new ticket: create `T{next}-{slug}.md` in `../../dev-ops/TICKETS/` and add a row to `TICKET-AGENT.md`.
 
 ## Key Files
 

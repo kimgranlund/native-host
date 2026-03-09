@@ -1,0 +1,128 @@
+---
+import SidebarLayout from '../../../layouts/SidebarLayout.astro';
+import ApiReference from '../../../components/ApiReference.astro';
+import { videoApi } from '../../../data/api/video';
+---
+<SidebarLayout title="Video">
+  <header>
+    <div slot="title">
+      <div slot="content">
+        <h1>Video</h1>
+      </div>
+    </div>
+    <div slot="description">
+      <span class="header-tag">&lt;n-video&gt;</span> CSS-only video container with token-aware border-radius, responsive sizing, and a <code>--n-control</code> background placeholder.
+    </div>
+  </header>
+
+  <section>
+
+    <!-- ── Basic ── -->
+
+    <h2>Basic</h2>
+    <n-container data-kind="panel" bordered>
+      <div class="row" style="flex-direction: column; max-width: 28rem;">
+        <n-video>
+          <video controls width="100%">
+            <source src="#" type="video/mp4">
+            Your browser does not support the video element.
+          </video>
+        </n-video>
+      </div>
+    <pre class="code-block"><code>&lt;n-video&gt;
+  &lt;video controls&gt;
+    &lt;source src="clip.mp4" type="video/mp4"&gt;
+  &lt;/video&gt;
+&lt;/n-video&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Border Radius ── -->
+
+    <h2>Border Radius</h2>
+    <n-container data-kind="panel" bordered>
+      <div class="row" style="flex-direction: column; gap: 1rem; max-width: 28rem;">
+        <div>
+          <span class="label">radius="sharp"</span>
+          <n-video radius="sharp">
+            <video controls width="100%">
+              <source src="#" type="video/mp4">
+            </video>
+          </n-video>
+        </div>
+        <div>
+          <span class="label">radius="round"</span>
+          <n-video radius="round">
+            <video controls width="100%">
+              <source src="#" type="video/mp4">
+            </video>
+          </n-video>
+        </div>
+        <div>
+          <span class="label">radius="pill"</span>
+          <n-video radius="pill">
+            <video controls width="100%">
+              <source src="#" type="video/mp4">
+            </video>
+          </n-video>
+        </div>
+      </div>
+    <pre class="code-block"><code>&lt;n-video radius="sharp"&gt;
+  &lt;video controls&gt;...&lt;/video&gt;
+&lt;/n-video&gt;
+
+&lt;n-video radius="round"&gt;
+  &lt;video controls&gt;...&lt;/video&gt;
+&lt;/n-video&gt;
+
+&lt;n-video radius="pill"&gt;
+  &lt;video controls&gt;...&lt;/video&gt;
+&lt;/n-video&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Placeholder Background ── -->
+
+    <h2>Placeholder Background</h2>
+    <n-container data-kind="panel" bordered>
+      <div class="row" style="max-width: 28rem;">
+        <n-video style="aspect-ratio: 16/9;">
+          <!-- No video source — shows the --n-control background -->
+        </n-video>
+      </div>
+      <p class="hint">With no video loaded, the <code>--n-control</code> background is visible as a placeholder.</p>
+    <pre class="code-block"><code>&lt;n-video style="aspect-ratio: 16/9;"&gt;
+  &lt;!-- Placeholder: shows --n-control background --&gt;
+&lt;/n-video&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Inside a Container ── -->
+
+    <h2>Inside a Container</h2>
+    <n-container data-kind="panel" bordered>
+      <n-container style="max-width: 24rem;">
+        <n-video>
+          <video controls width="100%">
+            <source src="#" type="video/mp4">
+          </video>
+        </n-video>
+        <n-body>
+          <h3 style="margin: 0 0 0.25rem; text-transform: none; letter-spacing: 0; color: inherit;">Tutorial Video</h3>
+          <span class="text-sm text-muted">A short walkthrough of the setup process.</span>
+        </n-body>
+      </n-container>
+    <pre class="code-block"><code>&lt;n-container&gt;
+  &lt;n-video&gt;
+    &lt;video controls&gt;
+      &lt;source src="tutorial.mp4" type="video/mp4"&gt;
+    &lt;/video&gt;
+  &lt;/n-video&gt;
+  &lt;n-body&gt;
+    &lt;h3&gt;Tutorial Video&lt;/h3&gt;
+    &lt;span class="text-sm text-muted"&gt;Description.&lt;/span&gt;
+  &lt;/n-body&gt;
+&lt;/n-container&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <h2>API Reference</h2>
+    <ApiReference data={videoApi} />
+  </section>
+</SidebarLayout>

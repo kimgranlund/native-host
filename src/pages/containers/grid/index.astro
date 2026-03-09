@@ -1,0 +1,168 @@
+---
+import SidebarLayout from '../../../layouts/SidebarLayout.astro';
+import ApiReference from '../../../components/ApiReference.astro';
+import { gridApi } from '../../../data/api/grid';
+---
+<SidebarLayout title="Grid">
+  <header>
+    <div slot="title">
+      <div slot="content">
+        <h1>Grid</h1>
+      </div>
+    </div>
+    <div slot="description">
+      <span class="header-tag">&lt;n-grid&gt;</span> CSS grid layout container. Responsive auto-fill or fixed columns. CSS-only container.
+          </div>
+  </header>
+
+  <section>
+
+    <!-- ── Auto-fill (default) ── -->
+
+    <h2>Auto-fill (default, min 16rem)</h2>
+    <n-container data-kind="panel" bordered>
+      <n-grid>
+        <div class="box"><n-container><n-body>Card 1</n-body></n-container></div>
+        <div class="box"><n-container><n-body>Card 2</n-body></n-container></div>
+        <div class="box"><n-container><n-body>Card 3</n-body></n-container></div>
+        <div class="box"><n-container><n-body>Card 4</n-body></n-container></div>
+        <div class="box"><n-container><n-body>Card 5</n-body></n-container></div>
+        <div class="box"><n-container><n-body>Card 6</n-body></n-container></div>
+      </n-grid>
+    <pre class="code-block"><code>&lt;n-grid&gt;
+  &lt;div&gt;Card 1&lt;/div&gt;
+  &lt;div&gt;Card 2&lt;/div&gt;
+  &lt;div&gt;Card 3&lt;/div&gt;
+  &lt;div&gt;Card 4&lt;/div&gt;
+&lt;/n-grid&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Fixed Columns ── -->
+
+    <h2>Fixed Columns</h2>
+    <n-container data-kind="panel" bordered>
+      <h3>cols="2"</h3>
+      <n-grid cols="2">
+        <div class="box"><n-container><n-body>Col 1</n-body></n-container></div>
+        <div class="box"><n-container><n-body>Col 2</n-body></n-container></div>
+        <div class="box"><n-container><n-body>Col 3</n-body></n-container></div>
+        <div class="box"><n-container><n-body>Col 4</n-body></n-container></div>
+      </n-grid>
+      <h3>cols="3"</h3>
+      <n-grid cols="3">
+        <div class="box"><n-container><n-body>Col 1</n-body></n-container></div>
+        <div class="box"><n-container><n-body>Col 2</n-body></n-container></div>
+        <div class="box"><n-container><n-body>Col 3</n-body></n-container></div>
+      </n-grid>
+      <h3>cols="4"</h3>
+      <n-grid cols="4">
+        <div class="box"><n-container><n-body>1</n-body></n-container></div>
+        <div class="box"><n-container><n-body>2</n-body></n-container></div>
+        <div class="box"><n-container><n-body>3</n-body></n-container></div>
+        <div class="box"><n-container><n-body>4</n-body></n-container></div>
+      </n-grid>
+    <pre class="code-block"><code>&lt;n-grid cols="2"&gt;
+  &lt;div&gt;Col 1&lt;/div&gt;
+  &lt;div&gt;Col 2&lt;/div&gt;
+&lt;/n-grid&gt;
+
+&lt;n-grid cols="3"&gt;...&lt;/n-grid&gt;
+&lt;n-grid cols="4"&gt;...&lt;/n-grid&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Min Column Width ── -->
+
+    <h2>Min Column Width</h2>
+    <n-container data-kind="panel" bordered>
+      <h3>min="10rem" (more columns)</h3>
+      <n-grid min="10rem">
+        <div class="box"><n-container><n-body>A</n-body></n-container></div>
+        <div class="box"><n-container><n-body>B</n-body></n-container></div>
+        <div class="box"><n-container><n-body>C</n-body></n-container></div>
+        <div class="box"><n-container><n-body>D</n-body></n-container></div>
+        <div class="box"><n-container><n-body>E</n-body></n-container></div>
+        <div class="box"><n-container><n-body>F</n-body></n-container></div>
+      </n-grid>
+      <h3>min="24rem" (fewer columns)</h3>
+      <n-grid min="24rem">
+        <div class="box"><n-container><n-body>A</n-body></n-container></div>
+        <div class="box"><n-container><n-body>B</n-body></n-container></div>
+        <div class="box"><n-container><n-body>C</n-body></n-container></div>
+        <div class="box"><n-container><n-body>D</n-body></n-container></div>
+      </n-grid>
+    <pre class="code-block"><code>&lt;n-grid min="10rem"&gt;
+  &lt;div&gt;A&lt;/div&gt;
+  &lt;div&gt;B&lt;/div&gt;
+  ...
+&lt;/n-grid&gt;
+
+&lt;n-grid min="24rem"&gt;...&lt;/n-grid&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Gap ── -->
+
+    <h2>Gap Sizes</h2>
+    <n-container data-kind="panel" bordered>
+      <h3>gap="1"</h3>
+      <n-grid cols="3" gap="1">
+        <div class="box"><n-container><n-body>A</n-body></n-container></div>
+        <div class="box"><n-container><n-body>B</n-body></n-container></div>
+        <div class="box"><n-container><n-body>C</n-body></n-container></div>
+      </n-grid>
+      <h3>gap="4"</h3>
+      <n-grid cols="3" gap="4">
+        <div class="box"><n-container><n-body>A</n-body></n-container></div>
+        <div class="box"><n-container><n-body>B</n-body></n-container></div>
+        <div class="box"><n-container><n-body>C</n-body></n-container></div>
+      </n-grid>
+      <h3>gap="8"</h3>
+      <n-grid cols="3" gap="8">
+        <div class="box"><n-container><n-body>A</n-body></n-container></div>
+        <div class="box"><n-container><n-body>B</n-body></n-container></div>
+        <div class="box"><n-container><n-body>C</n-body></n-container></div>
+      </n-grid>
+    <pre class="code-block"><code>&lt;n-grid cols="3" gap="1"&gt;...&lt;/n-grid&gt;
+&lt;n-grid cols="3" gap="4"&gt;...&lt;/n-grid&gt;
+&lt;n-grid cols="3" gap="8"&gt;...&lt;/n-grid&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Composition ── -->
+
+    <h2>Composition (stat cards)</h2>
+    <n-container data-kind="panel" bordered>
+      <n-grid cols="4" gap="4">
+        <div class="stat-card">
+          <div class="stat-label">Revenue</div>
+          <div class="stat-value">$45,231</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Users</div>
+          <div class="stat-value">2,350</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Orders</div>
+          <div class="stat-value">1,274</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Conversion</div>
+          <div class="stat-value">3.2%</div>
+        </div>
+      </n-grid>
+    <pre class="code-block"><code>&lt;n-grid cols="4" gap="4"&gt;
+  &lt;div class="stat-card"&gt;
+    &lt;div class="stat-label"&gt;Revenue&lt;/div&gt;
+    &lt;div class="stat-value"&gt;$45,231&lt;/div&gt;
+  &lt;/div&gt;
+  ...
+&lt;/n-grid&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <h2>API Reference</h2>
+    <ApiReference data={gridApi} />
+  </section>
+
+  <style is:global>
+    @import './grid.css';
+  </style>
+
+</SidebarLayout>

@@ -1,0 +1,421 @@
+---
+import SidebarLayout from '../../../layouts/SidebarLayout.astro';
+import ApiReference from '../../../components/ApiReference.astro';
+import { listboxApi } from '../../../data/api/listbox';
+
+const codeExamples = {
+  events: `&lt;n-listbox id="my-listbox"&gt;
+  &lt;n-option value="red"&gt;Red&lt;/n-option&gt;
+  &lt;n-option value="green"&gt;Green&lt;/n-option&gt;
+  &lt;n-option value="blue"&gt;Blue&lt;/n-option&gt;
+&lt;/n-listbox&gt;
+
+&lt;script&gt;
+  myListbox.addEventListener('native:change', (e) =&gt; {
+    console.log(e.detail.value);
+  });
+&lt;/script&gt;`,
+};
+---
+<SidebarLayout title="Listbox">
+  <header>
+    <div slot="title">
+      <div slot="content">
+        <h1>Listbox / Option</h1>
+      </div>
+    </div>
+    <div slot="description">
+      <span class="header-tag">&lt;n-listbox&gt; / &lt;n-option&gt;</span> Listbox with roving focus, keyboard navigation, and selection management.
+          </div>
+  </header>
+
+  <section>
+
+    <!-- ── Basic ── -->
+
+    <h2>Basic Listbox</h2>
+    <n-container data-kind="panel" bordered intent="neutral">
+      <div class="grid">
+        <n-stack>
+          <span class="col-label">Default (single select)</span>
+          <n-listbox id="basic-listbox" variant="secondary">
+            <n-option value="apple">Apple</n-option>
+            <n-option value="banana">Banana</n-option>
+            <n-option value="cherry">Cherry</n-option>
+            <n-option value="date">Date</n-option>
+            <n-option value="elderberry">Elderberry</n-option>
+          </n-listbox>
+          <div>Selected: <span class="value-display" id="basic-value">none</span></div>
+        </n-stack>
+
+        <n-stack>
+          <span class="col-label">With disabled option</span>
+          <n-listbox variant="secondary">
+            <n-option value="a">Available</n-option>
+            <n-option value="b" disabled>Disabled</n-option>
+            <n-option value="c">Available</n-option>
+            <n-option value="d" disabled>Disabled</n-option>
+            <n-option value="e">Available</n-option>
+          </n-listbox>
+        </n-stack>
+
+        <n-stack>
+          <span class="col-label">Pre-selected</span>
+          <n-listbox id="preselected-listbox" variant="secondary">
+            <n-option value="small">Small</n-option>
+            <n-option value="medium">Medium</n-option>
+            <n-option value="large">Large</n-option>
+          </n-listbox>
+        </n-stack>
+      </div>
+      <pre class="code-block"><code>&lt;n-listbox&gt;
+  &lt;n-option value="apple"&gt;Apple&lt;/n-option&gt;
+  &lt;n-option value="banana"&gt;Banana&lt;/n-option&gt;
+  &lt;n-option value="cherry"&gt;Cherry&lt;/n-option&gt;
+  &lt;n-option value="date" disabled&gt;Date&lt;/n-option&gt;
+&lt;/n-listbox&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Grouped Options ── -->
+
+    <h2>Grouped Options</h2>
+    <n-container data-kind="panel" bordered>
+      <div class="grid">
+        <n-stack>
+          <span class="col-label">With icons</span>
+          <n-listbox variant="ghost" size="sm">
+            <n-option-group>
+              <n-option-group-header><n-icon name="house"></n-icon> Getting Started</n-option-group-header>
+              <n-option value="install">Installation</n-option>
+              <n-option value="structure">Project Structure</n-option>
+            </n-option-group>
+            <n-option-group>
+              <n-option-group-header><n-icon name="rocket-launch"></n-icon> Build Your Application</n-option-group-header>
+              <n-option value="routing">Routing</n-option>
+              <n-option value="data">Data Fetching</n-option>
+              <n-option value="caching">Caching</n-option>
+              <n-option value="styling">Styling</n-option>
+              <n-option value="optimizing">Optimizing</n-option>
+            </n-option-group>
+            <n-option-group>
+              <n-option-group-header><n-icon name="book-open"></n-icon> Reference</n-option-group-header>
+              <n-option value="api">API Reference</n-option>
+              <n-option value="config">Configuration</n-option>
+              <n-option value="examples">Examples</n-option>
+            </n-option-group>
+          </n-listbox>
+        </n-stack>
+
+        <n-stack>
+          <span class="col-label">Without icons</span>
+          <n-listbox variant="ghost" size="sm">
+            <n-option-group>
+              <n-option-group-header>Fruits</n-option-group-header>
+              <n-option value="apple">Apple</n-option>
+              <n-option value="banana">Banana</n-option>
+              <n-option value="cherry">Cherry</n-option>
+            </n-option-group>
+            <n-option-group>
+              <n-option-group-header>Vegetables</n-option-group-header>
+              <n-option value="carrot">Carrot</n-option>
+              <n-option value="broccoli">Broccoli</n-option>
+              <n-option value="spinach">Spinach</n-option>
+            </n-option-group>
+          </n-listbox>
+        </n-stack>
+      </div>
+      <pre class="code-block"><code>&lt;n-listbox variant="ghost" size="sm"&gt;
+  &lt;n-option-group&gt;
+    &lt;n-option-group-header&gt;
+      &lt;n-icon name="house"&gt;&lt;/n-icon&gt; Getting Started
+    &lt;/n-option-group-header&gt;
+    &lt;n-option value="install"&gt;Installation&lt;/n-option&gt;
+    &lt;n-option value="structure"&gt;Project Structure&lt;/n-option&gt;
+  &lt;/n-option-group&gt;
+&lt;/n-listbox&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Sizes ── -->
+
+    <h2>Sizes</h2>
+    <n-container data-kind="panel" bordered>
+      <div class="grid">
+        <n-stack>
+          <span class="col-label">xs</span>
+          <n-listbox size="xs" variant="secondary">
+            <n-option value="1">Option One</n-option>
+            <n-option value="2">Option Two</n-option>
+            <n-option value="3">Option Three</n-option>
+          </n-listbox>
+        </n-stack>
+        <n-stack>
+          <span class="col-label">sm</span>
+          <n-listbox size="sm" variant="secondary">
+            <n-option value="1">Option One</n-option>
+            <n-option value="2">Option Two</n-option>
+            <n-option value="3">Option Three</n-option>
+          </n-listbox>
+        </n-stack>
+        <n-stack>
+          <span class="col-label">md</span>
+          <n-listbox size="md" variant="secondary">
+            <n-option value="1">Option One</n-option>
+            <n-option value="2">Option Two</n-option>
+            <n-option value="3">Option Three</n-option>
+          </n-listbox>
+        </n-stack>
+        <n-stack>
+          <span class="col-label">lg</span>
+          <n-listbox size="lg" variant="secondary">
+            <n-option value="1">Option One</n-option>
+            <n-option value="2">Option Two</n-option>
+            <n-option value="3">Option Three</n-option>
+          </n-listbox>
+        </n-stack>
+      </div>
+      <pre class="code-block"><code>&lt;n-listbox size="sm"&gt;...&lt;/n-listbox&gt;
+&lt;n-listbox size="md"&gt;...&lt;/n-listbox&gt;
+&lt;n-listbox size="lg"&gt;...&lt;/n-listbox&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Intents ── -->
+
+    <h2>Intents</h2>
+    <n-container data-kind="panel" bordered size="sm">
+      <div class="grid">
+        <n-stack>
+          <span class="col-label">Neutral</span>
+          <n-listbox intent="neutral" variant="secondary">
+            <n-option value="a">Option A</n-option>
+            <n-option value="b">Option B</n-option>
+            <n-option value="c">Option C</n-option>
+          </n-listbox>
+        </n-stack>
+        <n-stack>
+          <span class="col-label">Accent</span>
+          <n-listbox intent="accent" variant="secondary">
+            <n-option value="a">Option A</n-option>
+            <n-option value="b">Option B</n-option>
+            <n-option value="c">Option C</n-option>
+          </n-listbox>
+        </n-stack>
+        <n-stack>
+          <span class="col-label">Danger</span>
+          <n-listbox intent="danger" variant="secondary">
+            <n-option value="a">Option A</n-option>
+            <n-option value="b">Option B</n-option>
+            <n-option value="c">Option C</n-option>
+          </n-listbox>
+        </n-stack>
+      </div>
+    </n-container>
+
+    <!-- ── Variants ── -->
+
+    <h2>Variants</h2>
+    <n-container data-kind="panel" bordered size="sm">
+      <div class="grid">
+        <n-stack>
+          <span class="col-label">primary</span>
+          <n-listbox variant="primary">
+            <n-option value="a">Option A</n-option>
+            <n-option value="b">Option B</n-option>
+            <n-option value="c">Option C</n-option>
+          </n-listbox>
+        </n-stack>
+        <n-stack>
+          <span class="col-label">secondary</span>
+          <n-listbox variant="secondary">
+            <n-option value="a">Option A</n-option>
+            <n-option value="b">Option B</n-option>
+            <n-option value="c">Option C</n-option>
+          </n-listbox>
+        </n-stack>
+        <n-stack>
+          <span class="col-label">outline</span>
+          <n-listbox variant="outline">
+            <n-option value="a">Option A</n-option>
+            <n-option value="b">Option B</n-option>
+            <n-option value="c">Option C</n-option>
+          </n-listbox>
+        </n-stack>
+        <n-stack>
+          <span class="col-label">ghost</span>
+          <n-listbox variant="ghost">
+            <n-option value="a">Option A</n-option>
+            <n-option value="b">Option B</n-option>
+            <n-option value="c">Option C</n-option>
+          </n-listbox>
+        </n-stack>
+        <n-stack>
+          <span class="col-label">default</span>
+          <n-listbox variant="default">
+            <n-option value="a">Option A</n-option>
+            <n-option value="b">Option B</n-option>
+            <n-option value="c">Option C</n-option>
+          </n-listbox>
+        </n-stack>
+      </div>
+    </n-container>
+
+    <!-- ── Density ── -->
+
+    <h2>Density</h2>
+    <n-container data-kind="panel" bordered size="md">
+      <div class="grid">
+        <n-stack density="loose">
+          <span class="col-label">loose</span>
+          <n-listbox variant="secondary">
+            <n-option value="a">Option A</n-option>
+            <n-option value="b">Option B</n-option>
+            <n-option value="c">Option C</n-option>
+          </n-listbox>
+        </n-stack>
+        <n-stack density="default">
+          <span class="col-label">default</span>
+          <n-listbox variant="secondary">
+            <n-option value="a">Option A</n-option>
+            <n-option value="b">Option B</n-option>
+            <n-option value="c">Option C</n-option>
+          </n-listbox>
+        </n-stack>
+        <n-stack density="compact">
+          <span class="col-label">compact</span>
+          <n-listbox variant="secondary">
+            <n-option value="a">Option A</n-option>
+            <n-option value="b">Option B</n-option>
+            <n-option value="c">Option C</n-option>
+          </n-listbox>
+        </n-stack>
+      </div>
+    </n-container>
+
+    <!-- ── Radius ── -->
+
+    <h2>Radius</h2>
+    <n-container data-kind="panel" bordered size="sm">
+      <div class="grid">
+        <n-stack radius="sharp">
+          <span class="col-label">sharp</span>
+          <n-listbox variant="secondary">
+            <n-option value="a">Option A</n-option>
+            <n-option value="b">Option B</n-option>
+            <n-option value="c">Option C</n-option>
+          </n-listbox>
+        </n-stack>
+        <n-stack radius="default">
+          <span class="col-label">default</span>
+          <n-listbox variant="secondary">
+            <n-option value="a">Option A</n-option>
+            <n-option value="b">Option B</n-option>
+            <n-option value="c">Option C</n-option>
+          </n-listbox>
+        </n-stack>
+        <n-stack radius="round">
+          <span class="col-label">round</span>
+          <n-listbox variant="secondary">
+            <n-option value="a">Option A</n-option>
+            <n-option value="b">Option B</n-option>
+            <n-option value="c">Option C</n-option>
+          </n-listbox>
+        </n-stack>
+      </div>
+    </n-container>
+
+    <!-- ── Cascading ── -->
+
+    <h2>Cascading</h2>
+    <n-container data-kind="panel" bordered>
+      <h3>Parent size="md", child overrides</h3>
+      <div class="grid" size="md" intent="accent">
+        <n-stack>
+          <span class="col-label">Inherited md</span>
+          <n-listbox variant="secondary">
+            <n-option value="a">Option A</n-option>
+            <n-option value="b">Option B</n-option>
+          </n-listbox>
+        </n-stack>
+        <n-stack>
+          <span class="col-label">Override xs</span>
+          <n-listbox size="xs" variant="secondary">
+            <n-option value="a">Option A</n-option>
+            <n-option value="b">Option B</n-option>
+          </n-listbox>
+        </n-stack>
+        <n-stack>
+          <span class="col-label">Override lg</span>
+          <n-listbox size="lg" variant="secondary">
+            <n-option value="a">Option A</n-option>
+            <n-option value="b">Option B</n-option>
+          </n-listbox>
+        </n-stack>
+      </div>
+
+      <h3>Section cascading all attributes</h3>
+      <n-body size="sm" density="compact" radius="round" intent="accent">
+        <div class="grid">
+          <n-stack>
+            <span class="col-label">All inherited</span>
+            <n-listbox variant="secondary">
+              <n-option value="a">Option A</n-option>
+              <n-option value="b">Option B</n-option>
+              <n-option value="c">Option C</n-option>
+            </n-listbox>
+          </n-stack>
+          <n-stack>
+            <span class="col-label">All inherited (outline)</span>
+            <n-listbox variant="outline">
+              <n-option value="a">Option A</n-option>
+              <n-option value="b">Option B</n-option>
+              <n-option value="c">Option C</n-option>
+            </n-listbox>
+          </n-stack>
+        </div>
+      </n-body>
+    </n-container>
+
+    <!-- ── Events ── -->
+
+    <h2>Events</h2>
+    <n-container data-kind="panel" bordered size="sm">
+      <div class="demo-listbox">
+        <n-listbox id="event-listbox" variant="secondary">
+        <n-option value="red">Red</n-option>
+        <n-option value="green">Green</n-option>
+        <n-option value="blue">Blue</n-option>
+        <n-option value="yellow">Yellow</n-option>
+        </n-listbox>
+      </div>
+      <div class="log" id="event-log"></div>
+      <pre class="code-block"><code set:html={codeExamples.events} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Debug States (force-*) ── -->
+
+    <h2>Debug States (<code>force-*</code>)</h2>
+    <n-container data-kind="panel" bordered size="sm">
+      <span class="text-xs text-muted">
+        Attribute-driven pseudo-state overrides for DevTools debugging and visual testing. Applied to individual <code>n-option</code> elements.
+      </span>
+      <div class="demo-listbox">
+        <n-listbox variant="secondary">
+          <n-option value="hover" force-hover>Force hover</n-option>
+          <n-option value="active" force-active>Force active</n-option>
+          <n-option value="focus" force-focus-visible>Force focus-visible</n-option>
+          <n-option value="normal">Normal</n-option>
+        </n-listbox>
+      </div>
+    </n-container>
+
+    <h2>API Reference</h2>
+    <ApiReference data={listboxApi} />
+  </section>
+
+  <script>
+    import './listbox.ts';
+  </script>
+  <style is:global>
+    @import './listbox.css';
+  </style>
+
+</SidebarLayout>

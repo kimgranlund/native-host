@@ -1,0 +1,191 @@
+---
+import SidebarLayout from '../../../layouts/SidebarLayout.astro';
+
+const detailQueryCommands = `{ query, commands }`;
+const detailCommand = `{ command }`;
+
+const codeExamples = {
+  basic: `&lt;n-controller traits="slash-commandable"
+  data-trait-slash-commandable-commands='[
+    {"value":"help","label":"Help","description":"Get assistance"},
+    {"value":"settings","label":"Settings","description":"Open preferences"}
+  ]'&gt;
+  &lt;n-textarea placeholder="Type / to see commands..."&gt;&lt;/n-textarea&gt;
+&lt;/n-controller&gt;
+
+&lt;script&gt;
+  textarea.addEventListener('native:slash-select', (e) =&gt; {
+    console.log('Selected:', e.detail.command.label);
+  });
+&lt;/script&gt;`,
+};
+---
+<SidebarLayout title="SlashCommandable">
+  <header>
+    <div slot="title">
+      <div slot="content">
+        <h1>SlashCommandable</h1>
+      </div>
+    </div>
+    <div slot="description">
+
+      Detects <code>/</code> at the caret position in contenteditable inputs and shows a caret-anchored filtered command listbox. Supports keyboard navigation, Tab-to-select, descriptions, and tag insertion.
+
+    </div>
+  </header>
+
+  <section id="slash-commandable-page">
+
+    <!-- ── Basic ── -->
+
+    <h2>Basic</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Type <code>/</code> to open the command popover. Arrow keys navigate, Enter or click selects. The <code>/query</code> text is replaced with a styled tag.
+      </span>
+      <n-controller traits="slash-commandable" data-trait-slash-commandable-commands='[{"value":"help","label":"Help","description":"Get assistance"},{"value":"settings","label":"Settings","description":"Open preferences"},{"value":"search","label":"Search","description":"Find content"},{"value":"code","label":"Code Block","description":"Insert code snippet"}]'>
+        <n-textarea id="basic-textarea" rows="2" placeholder="Type / to see commands..."></n-textarea>
+      </n-controller>
+      <div id="basic-log" class="output"></div>
+      <pre class="code-block"><code set:html={codeExamples.basic} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Tab to Select ── -->
+
+    <h2>Tab to Select</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Type <code>/he</code> then press <strong>Tab</strong> to select the closest matching command. Requires a query of 2+ characters. Try <code>/se</code> for "Search" or "Settings".
+      </span>
+      <n-controller traits="slash-commandable" data-trait-slash-commandable-commands='[{"value":"help","label":"Help","description":"Get assistance"},{"value":"heading","label":"Heading","description":"Insert heading"},{"value":"search","label":"Search","description":"Find content"},{"value":"settings","label":"Settings","description":"Open preferences"}]'>
+        <n-textarea id="tab-textarea" rows="2" placeholder="Type /he then press Tab..."></n-textarea>
+      </n-controller>
+      <div id="tab-log" class="output"></div>
+    </n-container>
+
+    <!-- ── With n-input ── -->
+
+    <h2>With n-input</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Works with single-line <code>&lt;n-input&gt;</code> as well. Type <code>/</code> to trigger.
+      </span>
+      <n-controller traits="slash-commandable" data-trait-slash-commandable-commands='[{"value":"bold","label":"Bold","description":"Make text bold"},{"value":"italic","label":"Italic","description":"Make text italic"},{"value":"link","label":"Link","description":"Insert hyperlink"}]'>
+        <n-input id="input-demo" placeholder="Type / for formatting commands..."></n-input>
+      </n-controller>
+      <div id="input-log" class="output"></div>
+    </n-container>
+
+    <!-- ── Keyboard Shortcut ── -->
+
+    <h2>Keyboard Shortcut</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Press <n-kbd><n-icon name="command"></n-icon>/</n-kbd> to insert a <code>/</code> and open the command popover. Press again to dismiss.
+      </span>
+      <n-controller traits="slash-commandable" data-trait-slash-commandable-commands='[{"value":"task","label":"Task","description":"Create a task"},{"value":"note","label":"Note","description":"Add a note"},{"value":"mention","label":"Mention","description":"Mention someone"}]'>
+        <n-textarea id="shortcut-textarea" rows="2" placeholder="Press Cmd+/ to trigger..."></n-textarea>
+      </n-controller>
+    </n-container>
+
+    <!-- ── API Reference ── -->
+
+    <h2>API</h2>
+      <h3>Provider Usage</h3>
+      <n-table variant="plain" size="sm" cols="auto auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Type</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>data-trait-slash-commandable-commands</code></n-table-cell>
+            <n-table-cell><code>JSON string</code></n-table-cell>
+            <n-table-cell><code>[]</code></n-table-cell>
+            <n-table-cell>JSON array of <code>SlashCommand</code> objects. Automatically finds the first <code>&lt;n-input&gt;</code>, <code>&lt;n-textarea&gt;</code>, <code>&lt;input&gt;</code>, or <code>&lt;textarea&gt;</code> child as the input.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+
+      <h3>SlashCommand Interface</h3>
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Property</n-table-header><n-table-header>Type</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>value</code></n-table-cell>
+            <n-table-cell><code>string</code></n-table-cell>
+            <n-table-cell>Command identifier. Used in event detail and tag <code>data-slash-command</code> attribute.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>label</code></n-table-cell>
+            <n-table-cell><code>string</code></n-table-cell>
+            <n-table-cell>Display label shown in the listbox option.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>description</code></n-table-cell>
+            <n-table-cell><code>string?</code></n-table-cell>
+            <n-table-cell>Description text shown alongside the label in the listbox.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>icon</code></n-table-cell>
+            <n-table-cell><code>string?</code></n-table-cell>
+            <n-table-cell>Reserved for future icon support.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+
+      <h3>Events</h3>
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Event</n-table-header><n-table-header>Detail</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>native:slash-query</code></n-table-cell>
+            <n-table-cell><code set:html={detailQueryCommands} /></n-table-cell>
+            <n-table-cell>Fired on each keystroke after <code>/</code>. <code>query</code> is the text after the slash; <code>commands</code> is the filtered result.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>native:slash-select</code></n-table-cell>
+            <n-table-cell><code set:html={detailCommand} /></n-table-cell>
+            <n-table-cell>Fired when a command is selected via Enter, Tab, or click. The <code>/query</code> text is replaced with a styled tag.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+
+      <h3>Keyboard</h3>
+      <n-table variant="plain" size="sm" cols="auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Key</n-table-header><n-table-header>Behavior</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><n-kbd>ArrowDown</n-kbd> / <n-kbd>ArrowUp</n-kbd></n-table-cell>
+            <n-table-cell>Navigate listbox options.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><n-kbd>Enter</n-kbd></n-table-cell>
+            <n-table-cell>Select the active option.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><n-kbd>Tab</n-kbd></n-table-cell>
+            <n-table-cell>Select closest match when query has 2+ characters.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><n-kbd>Escape</n-kbd></n-table-cell>
+            <n-table-cell>Dismiss the popover.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><n-kbd><n-icon name="command"></n-icon>/</n-kbd></n-table-cell>
+            <n-table-cell>Toggle — insert <code>/</code> and open popover, or dismiss if open.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+
+      <h3>Tag Insertion</h3>
+      <span class="text-xs text-muted">
+        When a command is selected, the <code>/query</code> text is replaced with a styled <code>&lt;span data-slash-command="value"&gt;</code> tag. The tag is <code>contentEditable="false"</code> and styled with <code>--n-surface</code> background. A non-breaking space is appended after the tag for continued typing.
+      </span>
+  </section>
+
+  <script>
+    import './slash-commandable.ts';
+  </script>
+
+  <style is:global>
+    @import './slash-commandable.css';
+  </style>
+</SidebarLayout>

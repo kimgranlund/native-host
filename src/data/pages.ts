@@ -130,10 +130,12 @@ function buildSitemap(): PageEntry[] {
     const slug = parts[parts.length - 1];
     const dir = parts.length > 1 ? parts[0] : null;
 
-    // Directory index files: /gateways/index → path "/gateways", slug uses dir name
+    // Directory index files:
+    //   /gateways/index → path "/gateways", slug "gateways"
+    //   /components/button/index → path "/components/button", slug "button"
     const isIndex = slug === 'index';
-    const path = isIndex ? `/${dir}` : relative;
-    const effectiveSlug = isIndex ? dir! : slug;
+    const path = isIndex ? relative.replace(/\/index$/, '') : relative;
+    const effectiveSlug = isIndex ? parts[parts.length - 2] : slug;
 
     // Determine group
     const group = groupOverrides[path] ?? (dir ? (dirGroup[dir] || 'Other') : 'Other');

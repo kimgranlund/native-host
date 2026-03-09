@@ -1,0 +1,231 @@
+---
+import SidebarLayout from '../../../layouts/SidebarLayout.astro';
+
+const codeExamples = {
+  doubleClickToEditProvider: `&lt;n-controller traits="editable"
+  data-trait-editable-trigger="dblclick"
+  for=".edit-item"&gt;
+  &lt;div class="edit-list"&gt;
+    &lt;div class="edit-item"&gt;Project Roadmap&lt;/div&gt;
+    &lt;div class="edit-item"&gt;Sprint Planning&lt;/div&gt;
+    &lt;div class="edit-item"&gt;Design Review&lt;/div&gt;
+    &lt;div class="edit-item"&gt;Release Notes&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/n-controller&gt;
+
+// Events bubble up from each item
+list.addEventListener('native:edit-commit', (e) =&gt; {
+  const { value, previousValue } = e.detail;
+});`,
+  editcontrollerAttachToAnyElement: `import { EditController } from '@nonoun/native-ui';
+
+const item = document.querySelector('#my-item');
+const editor = new EditController(item, {
+  trigger: 'dblclick',
+});
+
+item.addEventListener('native:edit-start', (e) =&gt; {
+  log(\`Editing: "\${e.detail.value}"\`);
+});
+item.addEventListener('native:edit-commit', (e) =&gt; {
+  log(\`Committed: "\${e.detail.value}"\`);
+});
+item.addEventListener('native:edit-cancel', (e) =&gt; {
+  log(\`Cancelled: "\${e.detail.value}"\`);
+});
+
+// Properties: editor.isEditing, editor.originalValue, editor.currentValue
+// Methods: editor.startEdit(), editor.commitEdit(), editor.cancelEdit()
+// Later: editor.destroy();`,
+};
+const detailValue = `{ value }`;
+const detailValuePrev = `{ value, previousValue }`;
+---
+<SidebarLayout title="Editable">
+  <header>
+    <div slot="title">
+      <div slot="content">
+        <h1>Editable</h1>
+      </div>
+    </div>
+    <div slot="description">
+
+      Inline editing pattern. Activate with click or double-click, commit with <strong>Enter</strong>, cancel with <strong>Escape</strong>. Blur also commits.
+
+    </div>
+  </header>
+
+  <section>
+
+    <!-- ── Double-Click to Edit (Provider) ── -->
+
+    <h2>Double-Click to Edit <span class="pattern-badge provider">Provider</span></h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        <code>&lt;n-controller&gt;</code> with <code>for=".edit-item"</code> applies an <code>EditController</code> to each matching item. Double-click to start editing. Press <strong>Enter</strong> to commit or <strong>Escape</strong> to cancel.
+      </span>
+      <n-controller traits="editable" data-trait-editable-trigger="dblclick" for=".edit-item">
+        <div id="dbl-list" class="edit-list">
+          <div class="edit-item">Project Roadmap</div>
+          <div class="edit-item">Sprint Planning</div>
+          <div class="edit-item">Design Review</div>
+          <div class="edit-item">Release Notes</div>
+        </div>
+      </n-controller>
+      <div id="dbl-log" class="output"></div>
+      <pre class="code-block"><code set:html={codeExamples.doubleClickToEditProvider} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Click to Edit (Provider) ── -->
+
+    <h2>Click to Edit <span class="pattern-badge provider">Provider</span></h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Trigger set to <code>'click'</code>. Single click activates editing mode. The <code>for</code> selector applies the trait to each matching descendant individually.
+      </span>
+      <n-controller traits="editable" data-trait-editable-trigger="click" for=".edit-item">
+        <div id="click-list" class="edit-list">
+          <div class="edit-item">Task Alpha</div>
+          <div class="edit-item">Task Bravo</div>
+          <div class="edit-item">Task Charlie</div>
+        </div>
+      </n-controller>
+      <div id="click-log" class="output"></div>
+      <pre class="code-block"><code>&lt;n-controller traits="editable"
+  data-trait-editable-trigger="click"
+  for=".edit-item"&gt;
+  &lt;div class="edit-list"&gt;
+    &lt;div class="edit-item"&gt;Task Alpha&lt;/div&gt;
+    &lt;div class="edit-item"&gt;Task Bravo&lt;/div&gt;
+    &lt;div class="edit-item"&gt;Task Charlie&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/n-controller&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── EditController Direct ── -->
+
+    <h2>EditController — Attach to Any Element</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Use <code>EditController</code> directly on any element without the trait adapter or <code>&lt;n-controller&gt;</code>. Double-click to edit.
+      </span>
+      <div id="controller-item" class="edit-item">Editable paragraph — double-click me</div>
+      <div id="ctrl-log" class="output"></div>
+      <pre class="code-block"><code set:html={codeExamples.editcontrollerAttachToAnyElement} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── API Reference ── -->
+
+    <h2>API</h2>
+      <h3>Adapter Options (<code>editable-*</code>)</h3>
+      <n-table variant="plain" size="sm" cols="auto auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Type</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>data-trait-editable-trigger</code></n-table-cell>
+            <n-table-cell><code>'click' | 'dblclick'</code></n-table-cell>
+            <n-table-cell><code>'dblclick'</code></n-table-cell>
+            <n-table-cell>Which event activates editing mode.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-editable-disabled</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>false</code></n-table-cell>
+            <n-table-cell>Disables editing when true.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>Controller Methods</h3>
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Method</n-table-header><n-table-header>Returns</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>startEdit()</code></n-table-cell>
+            <n-table-cell>—</n-table-cell>
+            <n-table-cell>Programmatically enter editing mode. Sets <code>contenteditable</code> and <code>[editing]</code>.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>commitEdit()</code></n-table-cell>
+            <n-table-cell><code>string</code></n-table-cell>
+            <n-table-cell>Commit the current value. Removes editing state and dispatches <code>native:edit-commit</code>.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>cancelEdit()</code></n-table-cell>
+            <n-table-cell>—</n-table-cell>
+            <n-table-cell>Restore the original value. Removes editing state and dispatches <code>native:edit-cancel</code>.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>destroy()</code></n-table-cell>
+            <n-table-cell>—</n-table-cell>
+            <n-table-cell>Cancel any active edit, detach all listeners, and clean up.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>Controller Properties</h3>
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Property</n-table-header><n-table-header>Type</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>isEditing</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell>Whether the element is currently in editing mode.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>originalValue</code></n-table-cell>
+            <n-table-cell><code>string</code></n-table-cell>
+            <n-table-cell>The text content captured when editing started.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>currentValue</code></n-table-cell>
+            <n-table-cell><code>string</code></n-table-cell>
+            <n-table-cell>The current text content of the host element.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>Events</h3>
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Event</n-table-header><n-table-header>Detail</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>native:edit-start</code></n-table-cell>
+            <n-table-cell><code set:html={detailValue} /></n-table-cell>
+            <n-table-cell>Fired when editing begins. <code>value</code> is the original text.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>native:edit-commit</code></n-table-cell>
+            <n-table-cell><code set:html={detailValuePrev} /></n-table-cell>
+            <n-table-cell>Fired when Enter is pressed or the element blurs. <code>value</code> is the new text.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>native:edit-cancel</code></n-table-cell>
+            <n-table-cell><code set:html={detailValue} /></n-table-cell>
+            <n-table-cell>Fired when Escape is pressed. Text is restored to <code>value</code> (original).</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>CSS Attributes</h3>
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Set on</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>[editing]</code></n-table-cell>
+            <n-table-cell>Host element</n-table-cell>
+            <n-table-cell>Present while the element is in editing mode. Use for focus/highlight styling.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>[contenteditable="plaintext-only"]</code></n-table-cell>
+            <n-table-cell>Host element</n-table-cell>
+            <n-table-cell>Set automatically when editing starts. Restricts input to plain text.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+  </section>
+
+  <script>
+    import './editable.ts';
+  </script>
+  <style is:global>
+    @import './editable.css';
+  </style>
+
+</SidebarLayout>

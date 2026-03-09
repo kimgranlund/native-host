@@ -1,0 +1,10 @@
+.demo-card { max-width: 24rem; }
+.demo-card-sm { max-width: 18rem; }
+.demo-card-md { max-width: 28rem; }
+.demo-card-xs { max-width: 16rem; }
+.demo-card-narrow { max-width: 20rem; }
+.demo-media { height: 10rem; }
+.demo-media-accent { background: linear-gradient(135deg, var(--n-surface-accent), var(--n-surface-info)); }
+.demo-media-success { background: linear-gradient(135deg, var(--n-surface-success), var(--n-surface-warning)); }
+.demo-card-title { margin: 0 0 0.25rem; text-transform: none; letter-spacing: 0; color: inherit; }
+.stat-value { font-size: 1.5rem; font-weight: 700; }

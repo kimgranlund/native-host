@@ -1,0 +1,170 @@
+---
+import SidebarLayout from '../../../layouts/SidebarLayout.astro';
+const detailWidthHeight = `{ width, height }`;
+---
+<SidebarLayout title="Resizable">
+  <header>
+    <div slot="title">
+      <div slot="content">
+        <h1>Resizable</h1>
+      </div>
+    </div>
+    <div slot="description">
+
+      Composable trait for drag-to-resize functionality. Configure axis constraints, min/max sizes, and handle selectors. Dispatches <code>native:resize-start</code>, <code>native:resize-move</code>, and <code>native:resize-end</code> events. Press Escape to cancel.
+
+    </div>
+  </header>
+
+  <section>
+
+    <!-- ── Horizontal Resize ── -->
+
+    <h2>Horizontal Resize</h2>
+    <n-container data-kind="panel" bordered>
+      <n-controller traits="resizable" data-trait-resizable-handle-selector=".resize-handle-right" data-trait-resizable-axis="horizontal" data-trait-resizable-min="150" data-trait-resizable-max="500">
+        <div id="h-panel" class="resize-panel resize-panel--w300">
+          Drag the right edge to resize horizontally.
+          <div class="resize-handle resize-handle-right"></div>
+        </div>
+      </n-controller>
+      <div id="h-output" class="output">Width: 300px</div>
+      <pre class="code-block"><code>&lt;n-controller traits="resizable"
+  data-trait-resizable-handle-selector=".resize-handle-right"
+  data-trait-resizable-axis="horizontal"
+  data-trait-resizable-min="150"
+  data-trait-resizable-max="500"&gt;
+  &lt;div class="resize-panel" style="width: 300px;"&gt;
+    Drag the right edge to resize horizontally.
+    &lt;div class="resize-handle resize-handle-right"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/n-controller&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Vertical Resize ── -->
+
+    <h2>Vertical Resize</h2>
+    <n-container data-kind="panel" bordered>
+      <n-controller traits="resizable" data-trait-resizable-handle-selector=".resize-handle-bottom" data-trait-resizable-axis="vertical" data-trait-resizable-min="60" data-trait-resizable-max="400">
+        <div id="v-panel" class="resize-panel resize-panel--h120">
+          Drag the bottom edge to resize vertically.
+          <div class="resize-handle resize-handle-bottom"></div>
+        </div>
+      </n-controller>
+      <div id="v-output" class="output">Height: 120px</div>
+      <pre class="code-block"><code>&lt;n-controller traits="resizable"
+  data-trait-resizable-handle-selector=".resize-handle-bottom"
+  data-trait-resizable-axis="vertical"
+  data-trait-resizable-min="60"
+  data-trait-resizable-max="400"&gt;
+  &lt;div class="resize-panel" style="height: 120px;"&gt;
+    Drag the bottom edge to resize vertically.
+    &lt;div class="resize-handle resize-handle-bottom"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/n-controller&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Both Axes ── -->
+
+    <h2>Both Axes (with min/max)</h2>
+    <n-container data-kind="panel" bordered>
+      <n-controller traits="resizable" data-trait-resizable-handle-selector=".resize-handle-corner" data-trait-resizable-axis="both" data-trait-resizable-min="150" data-trait-resizable-max="500">
+        <div id="both-panel" class="resize-panel resize-panel--w300 resize-panel--h120">
+          Drag the corner to resize in both directions. Clamped to 150-500px.
+          <div class="resize-handle resize-handle-corner"></div>
+        </div>
+      </n-controller>
+      <div id="both-output" class="output">300 x 120</div>
+      <pre class="code-block"><code>&lt;n-controller traits="resizable"
+  data-trait-resizable-handle-selector=".resize-handle-corner"
+  data-trait-resizable-axis="both"
+  data-trait-resizable-min="150"
+  data-trait-resizable-max="500"&gt;
+  &lt;div class="resize-panel" style="width: 300px; height: 120px;"&gt;
+    Drag the corner to resize in both directions.
+    &lt;div class="resize-handle resize-handle-corner"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/n-controller&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── API Reference ── -->
+
+    <h2>API</h2>
+      <h3>Provider Usage</h3>
+      <n-table variant="plain" size="sm" cols="auto auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Type</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>data-trait-resizable-handle-selector</code></n-table-cell>
+            <n-table-cell><code>string</code></n-table-cell>
+            <n-table-cell><code>''</code></n-table-cell>
+            <n-table-cell>CSS selector for the resize handle element(s) within the host.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-resizable-axis</code></n-table-cell>
+            <n-table-cell><code>'horizontal' | 'vertical' | 'both'</code></n-table-cell>
+            <n-table-cell><code>'horizontal'</code></n-table-cell>
+            <n-table-cell>Constrains resize to one axis or both.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-resizable-min</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell>—</n-table-cell>
+            <n-table-cell>Minimum size in pixels.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-resizable-max</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell>—</n-table-cell>
+            <n-table-cell>Maximum size in pixels.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-resizable-disabled</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>false</code></n-table-cell>
+            <n-table-cell>Disables all resize behavior when true.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>Events</h3>
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Event</n-table-header><n-table-header>Detail</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>native:resize-start</code></n-table-cell>
+            <n-table-cell><code set:html={detailWidthHeight} /></n-table-cell>
+            <n-table-cell>Fired on first pointer move after handle pointerdown.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>native:resize-move</code></n-table-cell>
+            <n-table-cell><code set:html={detailWidthHeight} /></n-table-cell>
+            <n-table-cell>Fired on every pointer move during resize.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>native:resize-end</code></n-table-cell>
+            <n-table-cell><code set:html={detailWidthHeight} /></n-table-cell>
+            <n-table-cell>Fired on pointer up.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>Attributes (set during resize)</h3>
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Set on</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>[resizing]</code></n-table-cell>
+            <n-table-cell>Host element</n-table-cell>
+            <n-table-cell>Present while the element is being resized. Use for <code>user-select: none</code>.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+  </section>
+
+  <script>
+    import './resizable.ts';
+  </script>
+  <style is:global>
+    @import './resizable.css';
+  </style>
+
+</SidebarLayout>

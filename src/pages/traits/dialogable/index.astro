@@ -1,0 +1,240 @@
+---
+import SidebarLayout from '../../../layouts/SidebarLayout.astro';
+
+const codeExamples = {
+  basic: `&lt;n-controller traits="dialogable" id="my-dialog"&gt;
+  &lt;div class="dialog-body"&gt;
+    &lt;h3&gt;Dialog Title&lt;/h3&gt;
+    &lt;p&gt;Dialog content goes here.&lt;/p&gt;
+    &lt;n-button id="close-btn"&gt;Close&lt;/n-button&gt;
+  &lt;/div&gt;
+&lt;/n-controller&gt;
+
+&lt;script&gt;
+  const el = document.getElementById('my-dialog');
+  const ctrl = el.getTraitController('dialogable');
+
+  // Open the dialog
+  ctrl.showModal();
+
+  // Close from inside
+  document.getElementById('close-btn')
+    .addEventListener('native:press', () =&gt; ctrl.close());
+
+  // Listen for close
+  el.addEventListener('close', () =&gt; console.log('Closed'));
+&lt;/script&gt;`,
+
+  form: `&lt;n-controller traits="dialogable" id="form-dialog"&gt;
+  &lt;div class="dialog-body"&gt;
+    &lt;h3&gt;Submit Feedback&lt;/h3&gt;
+    &lt;n-textarea placeholder="Your feedback..."&gt;&lt;/n-textarea&gt;
+    &lt;div class="dialog-actions"&gt;
+      &lt;n-button variant="ghost" id="cancel-btn"&gt;Cancel&lt;/n-button&gt;
+      &lt;n-button id="submit-btn"&gt;Submit&lt;/n-button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/n-controller&gt;`,
+};
+---
+<SidebarLayout title="Dialogable">
+  <header>
+    <div slot="title">
+      <div slot="content">
+        <h1>Dialogable</h1>
+      </div>
+    </div>
+    <div slot="description">
+
+      Wraps child content in a native <code>&lt;dialog&gt;</code> element with modal, backdrop-click-to-close, and Escape-to-close behavior. Manages focus automatically — focuses <code>[autofocus]</code> or the first focusable descendant on open.
+
+    </div>
+  </header>
+
+  <section>
+
+    <!-- ── Basic ── -->
+
+    <h2>Basic</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Click the button to open a modal dialog. Close it with the button inside, by pressing <n-kbd>Escape</n-kbd>, or by clicking the backdrop.
+      </span>
+      <n-button id="basic-open-btn">Open Dialog</n-button>
+      <n-controller traits="dialogable" id="basic-dialog">
+        <div class="dialog-body">
+          <h3>Basic Dialog</h3>
+          <span class="text-sm text-muted">This dialog was created by the <code>dialogable</code> trait. The controller wraps the content in a native <code>&lt;dialog&gt;</code> element.</span>
+          <n-button id="basic-close-btn">Close</n-button>
+        </div>
+      </n-controller>
+      <div id="basic-log" class="output"></div>
+      <pre class="code-block"><code set:html={codeExamples.basic} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── With Form ── -->
+
+    <h2>With Form</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        A dialog containing a form with Cancel and Submit actions. Cancel closes the dialog; Submit logs the value and closes.
+      </span>
+      <n-button id="form-open-btn">Open Form Dialog</n-button>
+      <n-controller traits="dialogable" id="form-dialog">
+        <div class="dialog-body">
+          <h3>Submit Feedback</h3>
+          <n-textarea id="form-textarea" rows="3" placeholder="Your feedback..."></n-textarea>
+          <div class="dialog-actions">
+            <n-button id="form-cancel-btn" variant="ghost">Cancel</n-button>
+            <n-button id="form-submit-btn">Submit</n-button>
+          </div>
+        </div>
+      </n-controller>
+      <div id="form-log" class="output"></div>
+      <pre class="code-block"><code set:html={codeExamples.form} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── No Close on Escape / Backdrop ── -->
+
+    <h2>Persistent Dialog</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        A dialog that ignores Escape and backdrop clicks. Only the explicit Close button dismisses it. Uses <code>no-close-on-escape</code> and <code>no-close-on-backdrop</code> attributes.
+      </span>
+      <n-button id="persistent-open-btn">Open Persistent Dialog</n-button>
+      <n-controller traits="dialogable" id="persistent-dialog" no-close-on-escape no-close-on-backdrop>
+        <div class="dialog-body">
+          <h3>Persistent Dialog</h3>
+          <span class="text-sm text-muted">This dialog cannot be dismissed with Escape or by clicking the backdrop. You must use the button below.</span>
+          <n-button id="persistent-close-btn">Close</n-button>
+        </div>
+      </n-controller>
+      <div id="persistent-log" class="output"></div>
+    </n-container>
+
+    <!-- ── Events ── -->
+
+    <h2>Events</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Open and close the dialog to see <code>close</code> events logged below.
+      </span>
+      <n-button id="events-open-btn">Open Dialog</n-button>
+      <n-controller traits="dialogable" id="events-dialog">
+        <div class="dialog-body">
+          <h3>Event Demo</h3>
+          <span class="text-sm text-muted">Close this dialog to see the event log update.</span>
+          <n-button id="events-close-btn">Close</n-button>
+        </div>
+      </n-controller>
+      <div id="events-log" class="output"></div>
+    </n-container>
+
+    <!-- ── API Reference ── -->
+
+    <h2>API</h2>
+      <h3>Provider Usage</h3>
+      <n-table variant="plain" size="sm" cols="auto auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Type</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>traits="dialogable"</code></n-table-cell>
+            <n-table-cell><code>string</code></n-table-cell>
+            <n-table-cell>--</n-table-cell>
+            <n-table-cell>Applies the dialogable trait. Wraps child content in a native <code>&lt;dialog&gt;</code> element.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>no-close-on-escape</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>false</code></n-table-cell>
+            <n-table-cell>Prevents closing the dialog when Escape is pressed.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>no-close-on-backdrop</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>false</code></n-table-cell>
+            <n-table-cell>Prevents closing the dialog when the backdrop is clicked.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+
+      <h3>Properties</h3>
+      <n-table variant="plain" size="sm" cols="auto auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Property</n-table-header><n-table-header>Type</n-table-header><n-table-header>Readonly</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>open</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell>yes</n-table-cell>
+            <n-table-cell>Whether the dialog is currently open.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+
+      <h3>Methods</h3>
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Method</n-table-header><n-table-header>Returns</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>showModal()</code></n-table-cell>
+            <n-table-cell><code>void</code></n-table-cell>
+            <n-table-cell>Opens the dialog as a modal. Auto-focuses <code>[autofocus]</code> or the first focusable descendant.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>close()</code></n-table-cell>
+            <n-table-cell><code>void</code></n-table-cell>
+            <n-table-cell>Closes the dialog and dispatches a <code>close</code> event on the host.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>destroy()</code></n-table-cell>
+            <n-table-cell><code>void</code></n-table-cell>
+            <n-table-cell>Removes all event listeners and cleans up. Called automatically by the adapter on teardown.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+
+      <h3>Events</h3>
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Event</n-table-header><n-table-header>Detail</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>close</code></n-table-cell>
+            <n-table-cell>--</n-table-cell>
+            <n-table-cell>Dispatched on the host element when the dialog is closed (via <code>close()</code>, Escape, or backdrop click).</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+
+      <h3>Keyboard</h3>
+      <n-table variant="plain" size="sm" cols="auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Key</n-table-header><n-table-header>Behavior</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><n-kbd>Escape</n-kbd></n-table-cell>
+            <n-table-cell>Closes the dialog (unless <code>no-close-on-escape</code> is set).</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+
+      <h3>Constructor Options (Imperative)</h3>
+      <n-table variant="plain" size="sm" cols="auto auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Option</n-table-header><n-table-header>Type</n-table-header><n-table-header>Required</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>contentTarget</code></n-table-cell>
+            <n-table-cell><code>(dialog: HTMLDialogElement) =&gt; HTMLElement</code></n-table-cell>
+            <n-table-cell>no</n-table-cell>
+            <n-table-cell>Factory that returns a wrapper element inside the dialog. Children are moved into this wrapper instead of directly into the dialog.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+  </section>
+
+  <script>
+    import './dialogable.ts';
+  </script>
+
+  <style is:global>
+    @import './dialogable.css';
+  </style>
+</SidebarLayout>

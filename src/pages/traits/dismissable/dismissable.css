@@ -1,0 +1,37 @@
+.dismiss-panel {
+  display: block;
+  padding: 1rem;
+  background: var(--n-surface-accent);
+  color: var(--n-surface-ink-accent);
+  border-radius: 0.5rem;
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+}
+
+.dismiss-panel[hidden] {
+  display: none;
+}
+
+.output {
+  font-family: monospace;
+  font-size: 0.75rem;
+  color: var(--n-ink-muted-neutral);
+  max-height: 6rem;
+  overflow-y: auto;
+  margin-top: 0.75rem;
+  padding: 0.5rem;
+  background: var(--n-panel-neutral);
+  border-radius: 0.25rem;
+}
+
+.dialog-card {
+  width: 20rem;
+  padding: 1.5rem;
+}
+
+.dismiss-panel-b {
+  background: var(--n-surface-info);
+  color: var(--n-surface-ink-info);
+}
+
+/* ── Code Blocks ── */

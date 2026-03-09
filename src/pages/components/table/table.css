@@ -1,0 +1,7 @@
+main h3:first-child {
+  margin-top: 0;
+}
+
+.sticky-demo n-table { max-height: 200px; }
+.sticky-col-panel { max-width: 400px; }
+.sticky-colspan-demo n-table { max-height: 280px; }

@@ -1,0 +1,247 @@
+---
+import SidebarLayout from '../../../layouts/SidebarLayout.astro';
+import ApiReference from '../../../components/ApiReference.astro';
+import { switchApi } from '../../../data/api/switch';
+
+const codeExamples = {
+  changeEvents: `&lt;n-switch id="my-switch"&gt;Toggle me&lt;/n-switch&gt;
+
+&lt;script&gt;
+  document.getElementById('my-switch')
+    .addEventListener('native:change', (e) =&gt; {
+      console.log('checked:', e.detail.checked);
+    });
+&lt;/script&gt;`,
+};
+---
+<SidebarLayout title="Switch">
+  <header>
+    <div slot="title">
+      <div slot="content">
+        <h1>Switch</h1>
+      </div>
+    </div>
+    <div slot="description">
+      <span class="header-tag">&lt;n-switch&gt;</span> Toggle switch with Pressable trait, form association, and sliding thumb animation.
+          </div>
+  </header>
+
+  <section>
+
+    <!-- ── Basic ── -->
+
+    <h2>Basic</h2>
+    <n-container data-kind="panel" bordered>
+      <n-stack>
+        <n-switch>Airplane mode</n-switch>
+        <n-switch checked>Dark mode</n-switch>
+        <n-switch>Notifications</n-switch>
+      </n-stack>
+      <pre class="code-block"><code>&lt;n-switch&gt;Airplane mode&lt;/n-switch&gt;
+&lt;n-switch checked&gt;Dark mode&lt;/n-switch&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Sizes ── -->
+
+    <h2>Sizes</h2>
+    <n-container data-kind="panel" bordered>
+      <n-stack direction="row" wrap align="center">
+        <span class="label">xs</span>
+        <n-switch size="xs" checked>Extra small</n-switch>
+      </n-stack>
+      <n-stack direction="row" wrap align="center">
+        <span class="label">sm</span>
+        <n-switch size="sm" checked>Small</n-switch>
+      </n-stack>
+      <n-stack direction="row" wrap align="center">
+        <span class="label">md</span>
+        <n-switch size="md" checked>Medium</n-switch>
+      </n-stack>
+      <n-stack direction="row" wrap align="center">
+        <span class="label">lg</span>
+        <n-switch size="lg" checked>Large</n-switch>
+      </n-stack>
+      <n-stack direction="row" wrap align="center">
+        <span class="label">xl</span>
+        <n-switch size="xl" checked>Extra large</n-switch>
+      </n-stack>
+      <pre class="code-block"><code>&lt;n-switch size="xs"&gt;Extra small&lt;/n-switch&gt;
+&lt;n-switch size="sm"&gt;Small&lt;/n-switch&gt;
+&lt;n-switch size="md"&gt;Medium&lt;/n-switch&gt;
+&lt;n-switch size="lg"&gt;Large&lt;/n-switch&gt;
+&lt;n-switch size="xl"&gt;Extra large&lt;/n-switch&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Density ── -->
+
+    <h2>Density</h2>
+    <n-container data-kind="panel" bordered>
+      <h3>compact</h3>
+      <n-stack density="compact">
+        <n-switch size="sm" checked>Small compact</n-switch>
+        <n-switch checked>Medium compact</n-switch>
+        <n-switch size="lg" checked>Large compact</n-switch>
+      </n-stack>
+      <h3>default</h3>
+      <n-stack>
+        <n-switch size="sm" checked>Small default</n-switch>
+        <n-switch checked>Medium default</n-switch>
+        <n-switch size="lg" checked>Large default</n-switch>
+      </n-stack>
+      <h3>loose</h3>
+      <n-stack density="loose">
+        <n-switch size="sm" checked>Small loose</n-switch>
+        <n-switch checked>Medium loose</n-switch>
+        <n-switch size="lg" checked>Large loose</n-switch>
+      </n-stack>
+      <pre class="code-block"><code>&lt;div density="compact"&gt;
+  &lt;n-switch checked&gt;Compact&lt;/n-switch&gt;
+&lt;/div&gt;
+&lt;n-switch checked&gt;Default&lt;/n-switch&gt;
+&lt;div density="loose"&gt;
+  &lt;n-switch checked&gt;Loose&lt;/n-switch&gt;
+&lt;/div&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Intents ── -->
+
+    <h2>Intents</h2>
+    <n-container data-kind="panel" bordered>
+      <n-stack>
+        <n-switch intent="neutral" checked>Neutral</n-switch>
+        <n-switch intent="accent" checked>Accent</n-switch>
+        <n-switch intent="info" checked>Info</n-switch>
+        <n-switch intent="success" checked>Success</n-switch>
+        <n-switch intent="warning" checked>Warning</n-switch>
+        <n-switch intent="danger" checked>Danger</n-switch>
+      </n-stack>
+      <pre class="code-block"><code>&lt;n-switch intent="accent" checked&gt;Accent&lt;/n-switch&gt;
+&lt;n-switch intent="success" checked&gt;Success&lt;/n-switch&gt;
+&lt;n-switch intent="danger" checked&gt;Danger&lt;/n-switch&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Disabled ── -->
+
+    <h2>Disabled</h2>
+    <n-container data-kind="panel" bordered>
+      <n-stack>
+        <n-switch disabled>Off disabled</n-switch>
+        <n-switch disabled checked>On disabled</n-switch>
+      </n-stack>
+      <pre class="code-block"><code>&lt;n-switch disabled&gt;Off disabled&lt;/n-switch&gt;
+&lt;n-switch disabled checked&gt;On disabled&lt;/n-switch&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Events ── -->
+
+    <h2>Change Events</h2>
+    <n-container data-kind="panel" bordered>
+      <n-stack>
+        <n-switch id="event-sw">Toggle me</n-switch>
+      </n-stack>
+      <div class="log" id="event-log"></div>
+    <pre class="code-block"><code set:html={codeExamples.changeEvents} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Form Association ── -->
+
+    <h2>Form Association</h2>
+    <n-container data-kind="panel" bordered>
+      <form id="demo-form">
+        <div class="form-fields"><n-stack>
+          <n-switch name="notifications" value="yes" checked>Enable notifications</n-switch>
+          <n-switch name="analytics" value="yes">Send analytics</n-switch>
+          <n-switch name="beta" value="yes">Beta features</n-switch>
+        </n-stack></div>
+        <n-stack direction="row" wrap align="center">
+          <n-button variant="primary" type="submit"><span>Submit</span></n-button>
+          <n-button variant="secondary" type="reset"><span>Reset</span></n-button>
+        </n-stack>
+      </form>
+      <div class="log" id="form-log"></div>
+    <pre class="code-block"><code>&lt;form&gt;
+  &lt;n-switch name="notifications" value="yes" checked&gt;Enable notifications&lt;/n-switch&gt;
+  &lt;n-switch name="analytics" value="yes"&gt;Send analytics&lt;/n-switch&gt;
+  &lt;n-button variant="primary" type="submit"&gt;
+    &lt;span slot="label"&gt;Submit&lt;/span&gt;
+  &lt;/n-button&gt;
+&lt;/form&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Validation ── -->
+
+    <h2>Validation</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Switches support <code>required</code> — reports <code>valueMissing</code> when required and not checked.
+      </span>
+      <form id="terms-form" novalidate>
+        <div class="form-fields-sm"><n-stack gap="4">
+          <n-field>
+            <n-switch name="terms" required>Accept terms and conditions</n-switch>
+            <span slot="error">You must accept the terms</span>
+          </n-field>
+          <n-field>
+            <n-switch name="privacy" required>Acknowledge privacy policy</n-switch>
+            <span slot="error">Privacy acknowledgement is required</span>
+          </n-field>
+          <n-field>
+            <n-switch name="newsletter">Subscribe to newsletter</n-switch>
+          </n-field>
+        </n-stack></div>
+        <n-stack direction="row" wrap align="center">
+          <n-button variant="primary" type="submit"><span>Submit</span></n-button>
+          <n-button variant="secondary" type="reset"><span>Reset</span></n-button>
+        </n-stack>
+      </form>
+      <div class="log" id="terms-log"></div>
+      <pre class="code-block"><code>&lt;n-field&gt;
+  &lt;n-switch required&gt;Accept terms and conditions&lt;/n-switch&gt;
+  &lt;span slot="error"&gt;You must accept the terms&lt;/span&gt;
+&lt;/n-field&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Cascading ── -->
+
+    <h2>Cascading</h2>
+    <n-container data-kind="panel" bordered>
+      <h3>Parent size="sm", intent="success"</h3>
+      <n-stack size="sm" intent="success">
+        <n-switch checked>Inherited sm success</n-switch>
+        <n-switch checked size="lg">Override lg</n-switch>
+        <n-switch checked intent="danger">Override danger</n-switch>
+      </n-stack>
+      <pre class="code-block"><code>&lt;div size="sm" intent="success"&gt;
+  &lt;n-switch checked&gt;Inherited sm success&lt;/n-switch&gt;
+  &lt;n-switch checked size="lg"&gt;Override lg&lt;/n-switch&gt;
+  &lt;n-switch checked intent="danger"&gt;Override danger&lt;/n-switch&gt;
+&lt;/div&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Debug States (force-*) ── -->
+
+    <h2>Debug States (<code>force-*</code>)</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Attribute-driven pseudo-state overrides for DevTools debugging and visual testing.
+      </span>
+      <n-stack direction="row" wrap align="center">
+        <n-switch force-hover>Force hover</n-switch>
+        <n-switch force-hover checked>Force hover (checked)</n-switch>
+        <n-switch force-focus-visible>Force focus-visible</n-switch>
+        <n-switch force-focus-visible checked>Force focus-visible (checked)</n-switch>
+      </n-stack>
+    </n-container>
+
+    <h2>API Reference</h2>
+    <ApiReference data={switchApi} />
+  </section>
+
+  <script>
+    import './switch.ts';
+  </script>
+  <style is:global>
+    .form-fields { margin-bottom: 1rem; }
+    .form-fields-sm { margin-bottom: 0.75rem; }
+  </style>
+</SidebarLayout>

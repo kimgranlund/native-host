@@ -1,0 +1,129 @@
+/* ── Parallax Card ── */
+
+.parallax-card {
+  width: 14rem;
+  height: 10rem;
+  border-radius: 0.75rem;
+  user-select: none;
+  transform-style: preserve-3d;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  cursor: default;
+}
+
+.parallax-card .card-label {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+
+.parallax-card .card-sub {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.8);
+}
+
+/* ── Holographic gradients ── */
+
+.holo-1 {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  box-shadow: 0 4px 20px rgba(102,126,234,0.3);
+}
+.holo-1[parallax-active] {
+  box-shadow: 0 8px 30px rgba(102,126,234,0.5);
+}
+
+.holo-2 {
+  background: linear-gradient(135deg, #f093fb, #f5576c);
+  box-shadow: 0 4px 20px rgba(240,147,251,0.3);
+}
+.holo-2[parallax-active] {
+  box-shadow: 0 8px 30px rgba(240,147,251,0.5);
+}
+
+.holo-3 {
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  box-shadow: 0 4px 20px rgba(79,172,254,0.3);
+}
+.holo-3[parallax-active] {
+  box-shadow: 0 8px 30px rgba(79,172,254,0.5);
+}
+
+.holo-4 {
+  background: linear-gradient(135deg, #43e97b, #38f9d7);
+  box-shadow: 0 4px 20px rgba(67,233,123,0.3);
+}
+.holo-4[parallax-active] {
+  box-shadow: 0 8px 30px rgba(67,233,123,0.5);
+}
+
+.holo-5 {
+  background: linear-gradient(135deg, #fa709a, #fee140);
+  box-shadow: 0 4px 20px rgba(250,112,154,0.3);
+}
+.holo-5[parallax-active] {
+  box-shadow: 0 8px 30px rgba(250,112,154,0.5);
+}
+
+.holo-6 {
+  background: linear-gradient(135deg, #a18cd1, #fbc2eb);
+  box-shadow: 0 4px 20px rgba(161,140,209,0.3);
+}
+.holo-6[parallax-active] {
+  box-shadow: 0 8px 30px rgba(161,140,209,0.5);
+}
+
+/* ── Shadow card (CSS custom property demo) ── */
+
+.shadow-card {
+  width: 14rem;
+  height: 10rem;
+  border-radius: 0.75rem;
+  background: var(--n-panel-neutral);
+  border: 1px solid var(--n-border-muted-neutral);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  user-select: none;
+  transform-style: preserve-3d;
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+  box-shadow:
+    calc(var(--parallax-percent-x, 0) * 20px)
+    calc(var(--parallax-percent-y, 0) * 20px)
+    30px rgba(0,0,0,0.15);
+  transition: box-shadow 50ms ease;
+}
+
+.shadow-card .card-label {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--n-ink-neutral);
+}
+
+.shadow-card .card-sub {
+  font-size: 0.75rem;
+  color: var(--n-ink-muted-neutral);
+}
+
+/* ── Output log ── */
+
+.output {
+  font-family: monospace;
+  font-size: 0.75rem;
+  color: var(--n-ink-muted-neutral);
+  max-height: 6rem;
+  overflow-y: auto;
+  margin-top: 0.75rem;
+  padding: 0.5rem;
+  background: var(--n-panel-neutral);
+  border-radius: 0.25rem;
+}

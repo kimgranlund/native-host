@@ -1,0 +1,11 @@
+.demo-nav { max-width: 220px; }
+
+.value-display {
+  font-family: ui-monospace, monospace;
+  font-size: 0.75rem;
+  color: var(--n-ink-accent);
+  background: var(--n-panel-accent);
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  display: inline-block;
+}

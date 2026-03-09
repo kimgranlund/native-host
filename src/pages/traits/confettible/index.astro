@@ -1,0 +1,361 @@
+---
+import SidebarLayout from '../../../layouts/SidebarLayout.astro';
+
+const codeExamples = {
+  clickToCelebrate: `&lt;n-controller traits="confettible"&gt;
+  &lt;n-button intent="accent"&gt;Celebrate!&lt;/n-button&gt;
+&lt;/n-controller&gt;
+
+&lt;n-controller traits="confettible"
+  data-trait-confettible-count="60"
+  data-trait-confettible-spread="180"&gt;
+  &lt;n-button intent="success"&gt;Big Burst&lt;/n-button&gt;
+&lt;/n-controller&gt;`,
+  formSuccess: `import { ConfettiController } from '@nonoun/native-ui';
+
+const ctrl = new ConfettiController(button, { trigger: 'manual' });
+
+button.addEventListener('native:press', async () =&gt; {
+  button.disabled = true;
+  button.textContent = 'Submitting...';
+  await delay(800);
+  button.textContent = 'Success!';
+  ctrl.fire();
+  await delay(1500);
+  button.disabled = false;
+  button.textContent = 'Submit';
+});`,
+  customColors: `&lt;n-controller traits="confettible" data-trait-confettible-count="40"&gt;
+  &lt;n-button intent="danger"&gt;Red Party&lt;/n-button&gt;
+&lt;/n-controller&gt;`,
+  shapes: `&lt;n-controller traits="confettible"
+  data-trait-confettible-shapes="square"&gt;
+  &lt;n-button variant="secondary"&gt;Square&lt;/n-button&gt;
+&lt;/n-controller&gt;`,
+  presets: `import { ConfettiController } from '@nonoun/native-ui';
+
+const subtle = new ConfettiController(btn, {
+  trigger: 'manual',
+  count: 10, velocity: 6, spread: 45, duration: 1200,
+});
+subtle.fire();`,
+  globalEvent: `document.addEventListener('native:confetti', (e) =&gt; {
+  const { count, origin } = e.detail;
+  console.log(\`Confetti! count=\${count} x=\${origin.x} y=\${origin.y}\`);
+});`,
+};
+
+const detailCountOrigin = `{ count, origin: { x, y } }`;
+---
+<SidebarLayout title="Confettible">
+  <header>
+    <div slot="title">
+      <div slot="content">
+        <h1>Confettible</h1>
+      </div>
+    </div>
+    <div slot="description">
+
+      Triggers a confetti particle burst on the host element. Press the element to dispatch a <code>native:confetti</code> event with a particle animation. Combine with <code>pressable</code> for press-to-celebrate interactions.
+
+    </div>
+  </header>
+
+  <section>
+
+    <!-- ── Click to Celebrate ── -->
+
+    <h2>Click to Celebrate</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Press a button to trigger confetti. The second button overrides <code>count</code> and <code>spread</code> for a bigger burst.
+      </span>
+      <n-stack direction="row" gap="3">
+        <n-controller traits="confettible">
+          <n-button intent="accent">Celebrate!</n-button>
+        </n-controller>
+        <n-controller traits="confettible" data-trait-confettible-count="60" data-trait-confettible-spread="180">
+          <n-button intent="success">Big Burst</n-button>
+        </n-controller>
+      </n-stack>
+      <pre class="code-block"><code set:html={codeExamples.clickToCelebrate} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Form Success ── -->
+
+    <h2>Form Success</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Programmatic <code>fire()</code> after a fake form submission. The button disables, shows progress text, then fires confetti on success.
+      </span>
+      <n-container id="confetti-form-card">
+        <n-header>Contact Form</n-header>
+        <n-body>
+          <n-stack gap="3">
+            <n-field label="Name">
+              <n-input placeholder="Jane Doe"></n-input>
+            </n-field>
+            <n-field label="Email">
+              <n-input placeholder="jane@example.com"></n-input>
+            </n-field>
+            <n-button id="confetti-form-submit" intent="accent" primary>Submit</n-button>
+          </n-stack>
+        </n-body>
+      </n-container>
+      <pre class="code-block"><code set:html={codeExamples.formSuccess} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Custom Colors ── -->
+
+    <h2>Custom Colors</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Each button uses a different intent. The <code>count</code> is set to 40 for a denser burst.
+      </span>
+      <n-stack direction="row" gap="3">
+        <n-controller traits="confettible" data-trait-confettible-count="40">
+          <n-button intent="danger">Red Party</n-button>
+        </n-controller>
+        <n-controller traits="confettible" data-trait-confettible-count="40">
+          <n-button intent="info">Blue Vibes</n-button>
+        </n-controller>
+        <n-controller traits="confettible" data-trait-confettible-count="40">
+          <n-button intent="success">Green Rush</n-button>
+        </n-controller>
+      </n-stack>
+      <pre class="code-block"><code set:html={codeExamples.customColors} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Shapes ── -->
+
+    <h2>Shapes</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Control the particle shape with <code>data-trait-confettible-shapes</code>. Options: <code>square</code>, <code>circle</code>, or <code>mixed</code> (default).
+      </span>
+      <n-stack direction="row" gap="3">
+        <n-controller traits="confettible" data-trait-confettible-shapes="square">
+          <n-button variant="secondary">Square</n-button>
+        </n-controller>
+        <n-controller traits="confettible" data-trait-confettible-shapes="circle">
+          <n-button variant="secondary">Circle</n-button>
+        </n-controller>
+        <n-controller traits="confettible" data-trait-confettible-shapes="mixed">
+          <n-button variant="secondary">Mixed</n-button>
+        </n-controller>
+      </n-stack>
+      <pre class="code-block"><code set:html={codeExamples.shapes} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Options Playground ── -->
+
+    <h2>Options Playground</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Adjust the confetti parameters and fire from either button. The "Target" button fires confetti from its own position.
+      </span>
+      <n-container id="confetti-playground-card">
+        <n-body>
+          <n-stack gap="3">
+            <n-field label="Count">
+              <n-range id="opt-count" min="5" max="100" step="5" value="30"></n-range>
+            </n-field>
+            <n-field label="Spread">
+              <n-range id="opt-spread" min="10" max="360" step="10" value="90"></n-range>
+            </n-field>
+            <n-field label="Velocity">
+              <n-range id="opt-velocity" min="2" max="30" step="1" value="12"></n-range>
+            </n-field>
+            <n-field label="Gravity">
+              <n-range id="opt-gravity" min="0" max="2" step="0.1" value="0.5"></n-range>
+            </n-field>
+            <n-field label="Duration">
+              <n-range id="opt-duration" min="500" max="5000" step="250" value="2000"></n-range>
+            </n-field>
+            <n-stack direction="row" gap="3">
+              <n-button id="opt-fire" intent="accent" primary>Fire</n-button>
+              <n-button id="opt-target" variant="secondary">Target (fire from here)</n-button>
+            </n-stack>
+          </n-stack>
+        </n-body>
+      </n-container>
+    </n-container>
+
+    <!-- ── Programmatic Presets ── -->
+
+    <h2>Programmatic Presets</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Each button creates a <code>ConfettiController</code> with different parameters and calls <code>fire()</code> manually.
+      </span>
+      <n-stack direction="row" gap="3">
+        <n-button id="preset-subtle" variant="secondary">Subtle</n-button>
+        <n-button id="preset-party" intent="accent" primary>Party</n-button>
+        <n-button id="preset-explosion" intent="danger" primary>Explosion</n-button>
+      </n-stack>
+      <pre class="code-block"><code set:html={codeExamples.presets} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Global Event Log ── -->
+
+    <h2>Global Event Log</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Listens on <code>document</code> for all <code>native:confetti</code> events. Shows the particle count and origin coordinates.
+      </span>
+      <div id="confetti-global-log" class="output"></div>
+      <pre class="code-block"><code set:html={codeExamples.globalEvent} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── API Reference ── -->
+
+    <h2>API</h2>
+      <h3>Adapter Attributes</h3>
+      <n-table variant="plain" size="sm" cols="auto auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Type</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>data-trait-confettible-count</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell><code>30</code></n-table-cell>
+            <n-table-cell>Particle count</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-confettible-spread</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell><code>90</code></n-table-cell>
+            <n-table-cell>Spread angle in degrees</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-confettible-velocity</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell><code>12</code></n-table-cell>
+            <n-table-cell>Initial velocity</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-confettible-gravity</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell><code>0.5</code></n-table-cell>
+            <n-table-cell>Gravity acceleration</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-confettible-duration</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell><code>2000</code></n-table-cell>
+            <n-table-cell>Animation duration in ms</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-confettible-shapes</code></n-table-cell>
+            <n-table-cell><code>string</code></n-table-cell>
+            <n-table-cell><code>'mixed'</code></n-table-cell>
+            <n-table-cell>Particle shape: <code>square</code>, <code>circle</code>, <code>mixed</code></n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-confettible-disabled</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>false</code></n-table-cell>
+            <n-table-cell>Disable confetti</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>Controller Options</h3>
+      <n-table variant="plain" size="sm" cols="auto auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Option</n-table-header><n-table-header>Type</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>count</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell><code>30</code></n-table-cell>
+            <n-table-cell>Number of particles</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>spread</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell><code>90</code></n-table-cell>
+            <n-table-cell>Spread angle in degrees</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>velocity</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell><code>12</code></n-table-cell>
+            <n-table-cell>Initial velocity in px/frame</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>gravity</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell><code>0.5</code></n-table-cell>
+            <n-table-cell>Gravity acceleration in px/frame<sup>2</sup></n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>duration</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell><code>2000</code></n-table-cell>
+            <n-table-cell>Duration before cleanup in ms</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>shapes</code></n-table-cell>
+            <n-table-cell><code>string</code></n-table-cell>
+            <n-table-cell><code>'mixed'</code></n-table-cell>
+            <n-table-cell>Particle shape: <code>square</code>, <code>circle</code>, <code>mixed</code></n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>trigger</code></n-table-cell>
+            <n-table-cell><code>string</code></n-table-cell>
+            <n-table-cell><code>'click'</code></n-table-cell>
+            <n-table-cell>Trigger mode: <code>click</code> or <code>manual</code></n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>colors</code></n-table-cell>
+            <n-table-cell><code>string[]</code></n-table-cell>
+            <n-table-cell>rainbow</n-table-cell>
+            <n-table-cell>Array of CSS color strings for particles</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>Events</h3>
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Event</n-table-header><n-table-header>Detail</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>native:confetti</code></n-table-cell>
+            <n-table-cell><code set:html={detailCountOrigin} /></n-table-cell>
+            <n-table-cell>Fired when the confetti burst is triggered. Includes particle count and origin coordinates.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>Methods</h3>
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Method</n-table-header><n-table-header>Returns</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>fire()</code></n-table-cell>
+            <n-table-cell><code>void</code></n-table-cell>
+            <n-table-cell>Programmatically trigger a confetti burst from the host element.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>destroy()</code></n-table-cell>
+            <n-table-cell><code>void</code></n-table-cell>
+            <n-table-cell>Detach listeners and remove all active particle containers.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>CSS</h3>
+      <n-table variant="plain" size="sm" cols="auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Selector</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>[confetti-active]</code></n-table-cell>
+            <n-table-cell>Present on the element briefly during the confetti burst animation. Use for glow or scale effects.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+  </section>
+
+  <script>
+    import './confettible.ts';
+  </script>
+  <style is:global>
+    @import './confettible.css';
+  </style>
+
+</SidebarLayout>

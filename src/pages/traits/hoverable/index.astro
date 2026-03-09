@@ -1,0 +1,163 @@
+---
+import SidebarLayout from '../../../layouts/SidebarLayout.astro';
+const detailPointerType = `{ pointerType }`;
+---
+<SidebarLayout title="Hoverable">
+  <header>
+    <div slot="title">
+      <div slot="content">
+        <h1>Hoverable</h1>
+      </div>
+    </div>
+    <div slot="description">
+
+      Pointer hover state with configurable enter/leave delays. Sets <code>[hovered]</code> attribute and dispatches <code>native:hover-enter</code> / <code>native:hover-leave</code> events.
+
+    </div>
+  </header>
+
+  <section>
+
+    <!-- ── Instant Hover ── -->
+
+    <h2>Instant Hover</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Default 0ms delays. The <code>[hovered]</code> attribute toggles immediately on pointer enter/leave.
+      </span>
+      <n-controller traits="hoverable">
+        <div class="hover-card" id="instant-card">
+          Hover over me <span class="hover-status">idle</span>
+        </div>
+      </n-controller>
+      <div id="instant-log" class="output"></div>
+      <pre class="code-block"><code>&lt;n-controller traits="hoverable"&gt;
+  &lt;div class="hover-card"&gt;
+    Hover over me
+  &lt;/div&gt;
+&lt;/n-controller&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Hover Intent ── -->
+
+    <h2>Hover Intent (500ms)</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        <code>data-trait-hoverable-delay="500"</code> prevents accidental hover triggers. Pointer must rest on the element for 500ms before activation.
+      </span>
+      <n-controller traits="hoverable" data-trait-hoverable-delay="500">
+        <div class="hover-card" id="intent-card">
+          Hover and wait 500ms <span class="hover-status">idle</span>
+        </div>
+      </n-controller>
+      <div id="intent-log" class="output"></div>
+      <pre class="code-block"><code>&lt;n-controller traits="hoverable" data-trait-hoverable-delay="500"&gt;
+  &lt;div class="hover-card"&gt;
+    Hover and wait 500ms
+  &lt;/div&gt;
+&lt;/n-controller&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Sticky Hover ── -->
+
+    <h2>Sticky Hover (300ms leave)</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        <code>data-trait-hoverable-leave-delay="300"</code> so the hover state persists briefly after the pointer leaves. Useful for menus or tooltips with a gap between trigger and content.
+      </span>
+      <n-controller traits="hoverable" data-trait-hoverable-leave-delay="300">
+        <div class="hover-card" id="sticky-card">
+          Hover, then leave slowly <span class="hover-status">idle</span>
+        </div>
+      </n-controller>
+      <div id="sticky-log" class="output"></div>
+      <pre class="code-block"><code>&lt;n-controller traits="hoverable" data-trait-hoverable-leave-delay="300"&gt;
+  &lt;div class="hover-card"&gt;
+    Hover, then leave slowly
+  &lt;/div&gt;
+&lt;/n-controller&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Combined Delays ── -->
+
+    <h2>Combined Delays</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Both <code>data-trait-hoverable-delay="400"</code> and <code>data-trait-hoverable-leave-delay="200"</code>. Requires intent to activate and lingers briefly on leave.
+      </span>
+      <n-controller traits="hoverable" data-trait-hoverable-delay="400" data-trait-hoverable-leave-delay="200">
+        <div class="hover-card" id="combined-card">
+          400ms enter + 200ms leave <span class="hover-status">idle</span>
+        </div>
+      </n-controller>
+      <div id="combined-log" class="output"></div>
+      <pre class="code-block"><code>&lt;n-controller traits="hoverable" data-trait-hoverable-delay="400" data-trait-hoverable-leave-delay="200"&gt;
+  &lt;div class="hover-card"&gt;
+    400ms enter + 200ms leave
+  &lt;/div&gt;
+&lt;/n-controller&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── API Reference ── -->
+
+    <h2>API</h2>
+      <h3>Properties</h3>
+      <n-table variant="plain" size="sm" cols="auto auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Property</n-table-header><n-table-header>Type</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>hoverDelay</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell><code>0</code></n-table-cell>
+            <n-table-cell>Milliseconds to wait after pointer enter before setting <code>[hovered]</code>. Prevents accidental hover triggers.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>hoverLeaveDelay</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell><code>0</code></n-table-cell>
+            <n-table-cell>Milliseconds to wait after pointer leave before removing <code>[hovered]</code>. Useful for menus with gaps.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>hoverDisabled</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>false</code></n-table-cell>
+            <n-table-cell>Disables hover behavior when true. Pointer events are ignored.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>Events</h3>
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Event</n-table-header><n-table-header>Detail</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>native:hover-enter</code></n-table-cell>
+            <n-table-cell><code set:html={detailPointerType} /></n-table-cell>
+            <n-table-cell>Fired when hover activates (after delay, if configured). <code>pointerType</code> is <code>'mouse'</code>, <code>'pen'</code>, etc.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>native:hover-leave</code></n-table-cell>
+            <n-table-cell><code set:html={detailPointerType} /></n-table-cell>
+            <n-table-cell>Fired when hover deactivates (after leave delay, if configured).</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>CSS</h3>
+      <n-table variant="plain" size="sm" cols="auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Selector</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>[hovered]</code></n-table-cell>
+            <n-table-cell>Present on the element while hover is active. Use for styling hover states with delay support.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+  </section>
+
+  <script>
+    import './hoverable.ts';
+  </script>
+  <style is:global>
+    @import './hoverable.css';
+  </style>
+
+</SidebarLayout>

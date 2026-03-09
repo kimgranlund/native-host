@@ -1,0 +1,241 @@
+---
+import SidebarLayout from '../../../layouts/SidebarLayout.astro';
+
+const codeExamples = {
+  dragModeCalendarGridProvider: `&lt;n-controller traits="range-selectable"
+  data-trait-range-selectable-selector=".cell"
+  data-trait-range-selectable-mode="drag"&gt;
+  &lt;div class="grid-container"&gt;
+    &lt;div class="cell"&gt;1&lt;/div&gt;
+    &lt;div class="cell"&gt;2&lt;/div&gt;
+    &lt;!-- ... 28 cells --&gt;
+  &lt;/div&gt;
+&lt;/n-controller&gt;
+
+&lt;script&gt;
+  grid.addEventListener('native:range-select', (e) =&gt; {
+    const { startIndex, endIndex } = e.detail;
+    log.textContent = \`Selected days \${startIndex + 1}–\${endIndex + 1}\`;
+  });
+&lt;/script&gt;`,
+  clickModeCalendarGrid: `import { RangeSelectController } from '@nonoun/native-ui';
+
+const grid = document.getElementById('click-grid');
+const ctrl = new RangeSelectController(grid, {
+  selector: '.cell',
+  mode: 'click',
+});
+
+grid.addEventListener('native:range-change', (e) =&gt; {
+  const { startIndex, endIndex } = e.detail;
+  log.textContent = \`Preview: days \${startIndex + 1}–\${endIndex + 1}\`;
+});
+
+grid.addEventListener('native:range-select', (e) =&gt; {
+  const { startIndex, endIndex } = e.detail;
+  log.textContent = \`Committed: days \${startIndex + 1}–\${endIndex + 1}\`;
+});
+
+clearBtn.addEventListener('native:press', () =&gt; {
+  ctrl.clearRange();
+});`,
+  rangeselectcontrollerAttachToAnyElement: `import { RangeSelectController } from '@nonoun/native-ui';
+
+const list = document.getElementById('ctrl-list');
+const ctrl = new RangeSelectController(list, {
+  selector: '.list-item',
+  mode: 'drag',
+});
+
+list.addEventListener('native:range-select', (e) =&gt; {
+  const { startIndex, endIndex, items } = e.detail;
+  log.textContent = \`Selected \${items.length} items (\${startIndex}–\${endIndex})\`;
+});`,
+};
+const detailRange = `{ startIndex, endIndex, items }`;
+---
+<SidebarLayout title="RangeSelectable">
+  <header>
+    <div slot="title">
+      <div slot="content">
+        <h1>RangeSelectable</h1>
+      </div>
+    </div>
+    <div slot="description">
+
+      Composable trait for selecting a range of items. Supports two modes: <strong>drag</strong> (click-drag-release) and <strong>click</strong> (click start, hover to preview, click to commit). Sets <code>[range-selected]</code>, <code>[range-start]</code>, and <code>[range-end]</code> attributes.
+
+    </div>
+  </header>
+
+  <section>
+
+    <!-- ── Drag Mode: Calendar Grid (Provider) ── -->
+
+    <h2>Drag Mode — Calendar Grid (Provider)</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        <code>&lt;n-controller&gt;</code> wraps a grid and applies the range-selectable trait. Click and drag across cells to select a range. Release to commit.
+      </span>
+      <div class="day-headers">
+        <div class="day-header">Su</div>
+        <div class="day-header">Mo</div>
+        <div class="day-header">Tu</div>
+        <div class="day-header">We</div>
+        <div class="day-header">Th</div>
+        <div class="day-header">Fr</div>
+        <div class="day-header">Sa</div>
+      </div>
+      <n-controller traits="range-selectable" data-trait-range-selectable-selector=".cell" data-trait-range-selectable-mode="drag">
+        <div id="drag-grid" class="grid-container"></div>
+      </n-controller>
+      <div id="drag-output" class="output">Click and drag to select a range</div>
+      <pre class="code-block"><code set:html={codeExamples.dragModeCalendarGridProvider} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Click Mode: Calendar Grid ── -->
+
+    <h2>Click Mode — Calendar Grid</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Click a start date, hover to preview range, click to commit. Uses <code>RangeSelectController</code> directly with <code>clearRange()</code> method.
+      </span>
+      <div class="day-headers">
+        <div class="day-header">Su</div>
+        <div class="day-header">Mo</div>
+        <div class="day-header">Tu</div>
+        <div class="day-header">We</div>
+        <div class="day-header">Th</div>
+        <div class="day-header">Fr</div>
+        <div class="day-header">Sa</div>
+      </div>
+      <div id="click-grid" class="grid-container"></div>
+      <div class="range-actions"><n-stack direction="row">
+        <n-button id="clear-btn" size="sm">Clear Range</n-button>
+      </n-stack></div>
+      <div id="click-output" class="output">Click a start date, hover to preview, click to commit</div>
+      <pre class="code-block"><code set:html={codeExamples.clickModeCalendarGrid} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Drag Mode: Vertical List (Provider) ── -->
+
+    <h2>Drag Mode — Vertical List (Provider)</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        <code>&lt;n-controller&gt;</code> applies range-selectable to a vertical list. Click and drag to select a contiguous range of days.
+      </span>
+      <n-controller traits="range-selectable" data-trait-range-selectable-selector=".list-item">
+        <div id="list" class="list-container">
+          <div class="list-item">Monday</div>
+          <div class="list-item">Tuesday</div>
+          <div class="list-item">Wednesday</div>
+          <div class="list-item">Thursday</div>
+          <div class="list-item">Friday</div>
+          <div class="list-item">Saturday</div>
+          <div class="list-item">Sunday</div>
+        </div>
+      </n-controller>
+      <div id="list-output" class="output">Click and drag to select a range</div>
+      <pre class="code-block"><code>&lt;n-controller traits="range-selectable"
+  data-trait-range-selectable-selector=".list-item"&gt;
+  &lt;div class="list-container"&gt;
+    &lt;div class="list-item"&gt;Monday&lt;/div&gt;
+    &lt;div class="list-item"&gt;Tuesday&lt;/div&gt;
+    &lt;!-- ... --&gt;
+  &lt;/div&gt;
+&lt;/n-controller&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── RangeSelectController: Attach to Any Element ── -->
+
+    <h2>RangeSelectController — Attach to Any Element</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Use <code>RangeSelectController</code> to add range selection to an existing element without subclassing. Same events, same modes — no trait mixin required.
+      </span>
+      <div id="ctrl-list" class="list-container">
+        <div class="list-item">January</div>
+        <div class="list-item">February</div>
+        <div class="list-item">March</div>
+        <div class="list-item">April</div>
+        <div class="list-item">May</div>
+        <div class="list-item">June</div>
+      </div>
+      <div id="ctrl-output" class="output">Click and drag to select a range</div>
+      <pre class="code-block"><code set:html={codeExamples.rangeselectcontrollerAttachToAnyElement} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── API Reference ── -->
+
+    <h2>API</h2>
+      <h3>Provider Usage</h3>
+      <n-table variant="plain" size="sm" cols="auto auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Type</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>data-trait-range-selectable-selector</code></n-table-cell>
+            <n-table-cell><code>string</code></n-table-cell>
+            <n-table-cell>—</n-table-cell>
+            <n-table-cell>CSS selector for selectable items within the host. Required.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-range-selectable-mode</code></n-table-cell>
+            <n-table-cell><code>'drag' | 'click'</code></n-table-cell>
+            <n-table-cell><code>'drag'</code></n-table-cell>
+            <n-table-cell><strong>drag</strong>: click-drag-release. <strong>click</strong>: click start, hover to preview, click to commit.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-range-selectable-disabled</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>false</code></n-table-cell>
+            <n-table-cell>Disables range selection when true.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>Events</h3>
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Event</n-table-header><n-table-header>Detail</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>native:range-change</code></n-table-cell>
+            <n-table-cell><code set:html={detailRange} /></n-table-cell>
+            <n-table-cell>During drag/hover, fires as range changes. Use for live preview.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>native:range-select</code></n-table-cell>
+            <n-table-cell><code set:html={detailRange} /></n-table-cell>
+            <n-table-cell>Fired on release/commit. Use for final selection.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>CSS Attributes</h3>
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Set on</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>[range-selected]</code></n-table-cell>
+            <n-table-cell>Items within range</n-table-cell>
+            <n-table-cell>Present on items within the selected range. Use for highlight styling.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>[range-start]</code></n-table-cell>
+            <n-table-cell>First item</n-table-cell>
+            <n-table-cell>Present on the first item in the range. Use for start-cap border-radius.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>[range-end]</code></n-table-cell>
+            <n-table-cell>Last item</n-table-cell>
+            <n-table-cell>Present on the last item in the range. Use for end-cap border-radius.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+  </section>
+
+  <script>
+    import './range-selectable.ts';
+  </script>
+  <style is:global>
+    @import './range-selectable.css';
+  </style>
+
+</SidebarLayout>

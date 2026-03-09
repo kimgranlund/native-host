@@ -1,0 +1,6 @@
+.dialog-card {
+  width: min(28rem, calc(100vw - 2rem));
+  box-shadow:
+    0 8px 30px oklch(0% 0 0 / 0.12),
+    0 2px 8px oklch(0% 0 0 / 0.06);
+}

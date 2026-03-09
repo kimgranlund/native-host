@@ -1,0 +1,209 @@
+---
+import SidebarLayout from '../../../layouts/SidebarLayout.astro';
+
+const virtualChangeDetail = `{ start, end, totalCount }`;
+const codeExamples = {
+  tenThousandItems: `import { VirtualScrollController } from '@nonoun/native-ui';
+
+const host = document.getElementById('host1');
+const viewport = document.getElementById('viewport1');
+const content = document.getElementById('content1');
+
+const vctrl = new VirtualScrollController(host, {
+  itemHeight: 40,
+  overscan: 5,
+});
+vctrl.enable(viewport, content, 10000);
+
+host.addEventListener('native:virtual-change', (e) =&gt; {
+  renderRows(e.detail.start, e.detail.end);
+});
+
+// Initial render
+renderRows(vctrl.start, vctrl.end);`,
+  dynamicCount: `const vctrl2 = new VirtualScrollController(host2, {
+  itemHeight: 40,
+  overscan: 5,
+});
+vctrl2.enable(viewport2, content2, 100);
+
+addBtn.addEventListener('native:press', () =&gt; {
+  dynamicCount += 1000;
+  vctrl2.updateCount(dynamicCount);
+});
+
+resetBtn.addEventListener('native:press', () =&gt; {
+  dynamicCount = 100;
+  vctrl2.updateCount(dynamicCount);
+});`,
+  virtualscrollcontrollerAttachToAnyElement: `import { VirtualScrollController } from '@nonoun/native-ui';
+
+const host = document.getElementById('ctrl-host');
+const viewport = document.getElementById('ctrl-viewport');
+const content = document.getElementById('ctrl-content');
+
+const vctrl = new VirtualScrollController(host, {
+  itemHeight: 40,
+  overscan: 5,
+});
+vctrl.enable(viewport, content, 5000);
+
+host.addEventListener('native:virtual-change', (e) =&gt; {
+  renderRows(e.detail.start, e.detail.end);
+});`,
+};
+---
+<SidebarLayout title="Virtualizable">
+  <header>
+    <div slot="title">
+      <div slot="content">
+        <h1>Virtualizable</h1>
+      </div>
+    </div>
+    <div slot="description">
+
+      Composable trait for windowed rendering of large lists. Only renders visible items plus an overscan buffer. Dispatches <code>native:virtual-change</code> with the visible range so you can render only what's needed. All demos use <code>VirtualScrollController</code> directly since <code>enable(scrollEl, container, totalCount)</code> must be called to start virtualization. <code>n-controller</code> can create the controller declaratively, but <code>enable()</code> must still be called to begin.
+
+    </div>
+  </header>
+
+  <section>
+
+    <!-- ── 10,000 Items ── -->
+
+    <h2>10,000 Items</h2>
+    <n-container data-kind="panel" bordered>
+      <div class="stats">
+        <span>Total: <strong>10,000</strong></span>
+        <span>Rendered: <strong id="rendered-count">0</strong></span>
+        <span>Range: <strong id="range-display">0–0</strong></span>
+      </div>
+      <div id="host1">
+        <div class="scroll-viewport" id="viewport1">
+          <div class="scroll-content" id="content1"></div>
+        </div>
+      </div>
+      <pre class="code-block"><code set:html={codeExamples.tenThousandItems} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Dynamic Count ── -->
+
+    <h2>Dynamic Count</h2>
+    <n-container data-kind="panel" bordered>
+      <div class="dynamic-actions"><n-stack direction="row">
+        <n-button id="add-btn" size="sm">Add 1,000</n-button>
+        <n-button id="reset-btn" size="sm">Reset to 100</n-button>
+      </n-stack></div>
+      <div id="host2">
+        <div class="scroll-viewport" id="viewport2">
+          <div class="scroll-content" id="content2"></div>
+        </div>
+      </div>
+      <div id="dynamic-output" class="output">100 items</div>
+      <pre class="code-block"><code set:html={codeExamples.dynamicCount} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── VirtualScrollController: Attach to Any Element ── -->
+
+    <h2>VirtualScrollController — Attach to Any Element</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Use <code>VirtualScrollController</code> to add virtual scrolling to an existing element without subclassing. Same events, same API — no trait mixin required.
+      </span>
+      <div class="stats">
+        <span>Total: <strong>5,000</strong></span>
+        <span>Rendered: <strong id="ctrl-rendered">0</strong></span>
+        <span>Range: <strong id="ctrl-range">0–0</strong></span>
+      </div>
+      <div id="ctrl-host">
+        <div class="scroll-viewport" id="ctrl-viewport">
+          <div class="scroll-content" id="ctrl-content"></div>
+        </div>
+      </div>
+      <pre class="code-block"><code set:html={codeExamples.virtualscrollcontrollerAttachToAnyElement} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── API Reference ── -->
+
+    <h2>API</h2>
+      <h3>Constructor Options</h3>
+      <n-table variant="plain" size="sm" cols="auto auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Option</n-table-header><n-table-header>Type</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>itemHeight</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell><code>40</code></n-table-cell>
+            <n-table-cell>Fixed height (in pixels) of each virtual row. Used to calculate total scroll height and visible range.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>overscan</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell><code>5</code></n-table-cell>
+            <n-table-cell>Number of extra rows to render above and below the visible viewport for smoother scrolling.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>Methods</h3>
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Method</n-table-header><n-table-header>Returns</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>enable(scrollEl, container, totalCount)</code></n-table-cell>
+            <n-table-cell><code>void</code></n-table-cell>
+            <n-table-cell>Starts virtualization. <code>scrollEl</code> is the scrollable viewport, <code>container</code> is the content wrapper, <code>totalCount</code> is the total number of items. Creates top/bottom spacer elements and attaches the scroll listener.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>disable()</code></n-table-cell>
+            <n-table-cell><code>void</code></n-table-cell>
+            <n-table-cell>Stops virtualization and removes the scroll listener. Spacers remain in the DOM.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>updateCount(count)</code></n-table-cell>
+            <n-table-cell><code>void</code></n-table-cell>
+            <n-table-cell>Updates the total item count and recalculates the visible range. Use when items are added or removed.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>destroy()</code></n-table-cell>
+            <n-table-cell><code>void</code></n-table-cell>
+            <n-table-cell>Fully tears down the controller: removes scroll listener and spacer elements.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>Events</h3>
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Event</n-table-header><n-table-header>Detail</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>native:virtual-change</code></n-table-cell>
+            <n-table-cell><code set:html={virtualChangeDetail} /></n-table-cell>
+            <n-table-cell>Dispatched on the host element when the visible range changes. <code>start</code> is the first visible index, <code>end</code> is one past the last visible index. Render rows for indices <code>[start, end)</code>.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>Properties</h3>
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Property</n-table-header><n-table-header>Type</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>start</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell>Current start index of the visible range (inclusive). Read-only.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>end</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell>Current end index of the visible range (exclusive). Read-only.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+  </section>
+
+  <script>
+    import './virtualizable.ts';
+  </script>
+  <style is:global>
+    @import './virtualizable.css';
+  </style>
+
+</SidebarLayout>

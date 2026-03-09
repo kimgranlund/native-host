@@ -1,0 +1,186 @@
+---
+import SidebarLayout from '../../../layouts/SidebarLayout.astro';
+import ApiReference from '../../../components/ApiReference.astro';
+import { pictureApi } from '../../../data/api/picture';
+---
+<SidebarLayout title="Picture">
+  <header>
+    <div slot="title">
+      <div slot="content">
+        <h1>Picture</h1>
+      </div>
+    </div>
+    <div slot="description">
+      <span class="header-tag">&lt;n-picture&gt;</span> CSS-only image container with token-aware border-radius, responsive sizing, object-fit control, and aspect ratio presets.
+    </div>
+  </header>
+
+  <section>
+
+    <!-- ── Basic ── -->
+
+    <h2>Basic</h2>
+    <n-container data-kind="panel" bordered>
+      <div class="row">
+        <n-picture style="max-width: 20rem;">
+          <img src="https://picsum.photos/seed/native-1/400/300" alt="Sample image" />
+        </n-picture>
+      </div>
+    <pre class="code-block"><code>&lt;n-picture&gt;
+  &lt;img src="photo.jpg" alt="Sample image" /&gt;
+&lt;/n-picture&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Object Fit ── -->
+
+    <h2>Object Fit</h2>
+    <n-container data-kind="panel" bordered>
+      <div class="row">
+        <div>
+          <span class="label">fit="cover" (default)</span>
+          <n-picture style="width: 12rem; height: 8rem;">
+            <img src="https://picsum.photos/seed/native-2/400/300" alt="Cover fit" />
+          </n-picture>
+        </div>
+        <div>
+          <span class="label">fit="contain"</span>
+          <n-picture fit="contain" style="width: 12rem; height: 8rem; background: var(--n-control);">
+            <img src="https://picsum.photos/seed/native-2/400/300" alt="Contain fit" />
+          </n-picture>
+        </div>
+        <div>
+          <span class="label">fit="fill"</span>
+          <n-picture fit="fill" style="width: 12rem; height: 8rem;">
+            <img src="https://picsum.photos/seed/native-2/400/300" alt="Fill fit" />
+          </n-picture>
+        </div>
+        <div>
+          <span class="label">fit="none"</span>
+          <n-picture fit="none" style="width: 12rem; height: 8rem;">
+            <img src="https://picsum.photos/seed/native-2/400/300" alt="None fit" />
+          </n-picture>
+        </div>
+      </div>
+    <pre class="code-block"><code>&lt;n-picture fit="cover"&gt;...&lt;/n-picture&gt;
+&lt;n-picture fit="contain"&gt;...&lt;/n-picture&gt;
+&lt;n-picture fit="fill"&gt;...&lt;/n-picture&gt;
+&lt;n-picture fit="none"&gt;...&lt;/n-picture&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Aspect Ratio ── -->
+
+    <h2>Aspect Ratio</h2>
+    <n-container data-kind="panel" bordered>
+      <div class="row">
+        <div>
+          <span class="label">aspect="square" (1:1)</span>
+          <n-picture aspect="square" style="width: 10rem;">
+            <img src="https://picsum.photos/seed/native-3/400/300" alt="Square aspect" />
+          </n-picture>
+        </div>
+        <div>
+          <span class="label">aspect="video" (16:9)</span>
+          <n-picture aspect="video" style="width: 16rem;">
+            <img src="https://picsum.photos/seed/native-3/400/300" alt="Video aspect" />
+          </n-picture>
+        </div>
+        <div>
+          <span class="label">aspect="photo" (4:3)</span>
+          <n-picture aspect="photo" style="width: 12rem;">
+            <img src="https://picsum.photos/seed/native-3/400/300" alt="Photo aspect" />
+          </n-picture>
+        </div>
+      </div>
+    <pre class="code-block"><code>&lt;n-picture aspect="square"&gt;...&lt;/n-picture&gt;
+&lt;n-picture aspect="video"&gt;...&lt;/n-picture&gt;
+&lt;n-picture aspect="photo"&gt;...&lt;/n-picture&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Border Radius ── -->
+
+    <h2>Border Radius</h2>
+    <n-container data-kind="panel" bordered>
+      <div class="row">
+        <div>
+          <span class="label">radius="sharp"</span>
+          <n-picture radius="sharp" style="width: 10rem;">
+            <img src="https://picsum.photos/seed/native-4/400/300" alt="Sharp radius" />
+          </n-picture>
+        </div>
+        <div>
+          <span class="label">radius="round"</span>
+          <n-picture radius="round" style="width: 10rem;">
+            <img src="https://picsum.photos/seed/native-4/400/300" alt="Round radius" />
+          </n-picture>
+        </div>
+        <div>
+          <span class="label">radius="pill"</span>
+          <n-picture radius="pill" aspect="square" style="width: 10rem;">
+            <img src="https://picsum.photos/seed/native-4/400/300" alt="Pill radius" />
+          </n-picture>
+        </div>
+      </div>
+    <pre class="code-block"><code>&lt;n-picture radius="sharp"&gt;...&lt;/n-picture&gt;
+&lt;n-picture radius="round"&gt;...&lt;/n-picture&gt;
+&lt;n-picture radius="pill" aspect="square"&gt;...&lt;/n-picture&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Inline Mode ── -->
+
+    <h2>Inline Mode</h2>
+    <n-container data-kind="panel" bordered>
+      <p>
+        Text before
+        <n-picture inline style="width: 4rem; vertical-align: middle;">
+          <img src="https://picsum.photos/seed/native-5/100/100" alt="Inline image" />
+        </n-picture>
+        text after the inline image.
+      </p>
+    <pre class="code-block"><code>&lt;p&gt;
+  Text before
+  &lt;n-picture inline style="width: 4rem;"&gt;
+    &lt;img src="photo.jpg" alt="Inline" /&gt;
+  &lt;/n-picture&gt;
+  text after.
+&lt;/p&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Inside a Container ── -->
+
+    <h2>Inside a Container</h2>
+    <n-container data-kind="panel" bordered>
+      <div class="row">
+        <n-container style="max-width: 18rem;">
+          <n-picture>
+            <img src="https://picsum.photos/seed/native-6/400/250" alt="Card image" />
+          </n-picture>
+          <n-body>
+            <h3 style="margin: 0 0 0.25rem; text-transform: none; letter-spacing: 0; color: inherit;">Mountain View</h3>
+            <span class="text-sm text-muted">A scenic landscape photograph.</span>
+          </n-body>
+        </n-container>
+        <n-container style="max-width: 18rem;">
+          <n-picture aspect="video">
+            <img src="https://picsum.photos/seed/native-7/400/250" alt="Card image" />
+          </n-picture>
+          <n-body>
+            <h3 style="margin: 0 0 0.25rem; text-transform: none; letter-spacing: 0; color: inherit;">Ocean Sunset</h3>
+            <span class="text-sm text-muted">A 16:9 video aspect ratio image.</span>
+          </n-body>
+        </n-container>
+      </div>
+    <pre class="code-block"><code>&lt;n-container&gt;
+  &lt;n-picture aspect="video"&gt;
+    &lt;img src="photo.jpg" alt="Card image" /&gt;
+  &lt;/n-picture&gt;
+  &lt;n-body&gt;
+    &lt;h3&gt;Ocean Sunset&lt;/h3&gt;
+    &lt;span class="text-sm text-muted"&gt;Description.&lt;/span&gt;
+  &lt;/n-body&gt;
+&lt;/n-container&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <h2>API Reference</h2>
+    <ApiReference data={pictureApi} />
+  </section>
+</SidebarLayout>

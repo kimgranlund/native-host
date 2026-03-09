@@ -1,0 +1,27 @@
+.search-container {
+  background: var(--n-panel-neutral);
+  border: 1px solid var(--n-border-muted-neutral);
+  border-radius: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.search-icon {
+  color: var(--n-ink-muted-neutral);
+  display: flex;
+}
+.search-container .search-input {
+  flex: 1;
+}
+.inline-text {
+  margin: 0 0 0.5rem;
+  font-size: 0.875rem;
+}
+.inline-input {
+  display: inline-block;
+  width: 12rem;
+}
+.form-fields {
+  margin-bottom: 0.75rem;
+}

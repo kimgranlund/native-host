@@ -1,0 +1,170 @@
+---
+import SidebarLayout from '../../../layouts/SidebarLayout.astro';
+
+const codeExamples = {
+  requiredField: `import { ValidateController } from '@nonoun/native-ui';
+
+const field = document.getElementById('field');
+const validator = new ValidateController(field);
+validator.rules = [
+  ValidateController.required('Name is required'),
+];
+
+field.addEventListener('native:invalid', (e) =&gt; {
+  errorEl.textContent = e.detail.message;
+});
+field.addEventListener('native:valid', () =&gt; {
+  errorEl.textContent = '';
+});
+
+// Validate on button press
+button.addEventListener('native:press', () =&gt; {
+  validator.validate();
+});`,
+  validateOnBlur: `const emailInput = field.querySelector('n-input');
+emailInput.addEventListener('focusout', () =&gt; {
+  validator.validate();
+});`,
+};
+const detailMessage = `{ message }`;
+---
+<SidebarLayout title="Validatable">
+  <header>
+    <div slot="title">
+      <div slot="content">
+        <h1>Validatable</h1>
+      </div>
+    </div>
+    <div slot="description">
+
+      Composable trait for declarative form validation. Attach rules to any element, call <code>validate()</code>, and react to <code>native:valid</code> / <code>native:invalid</code> events. Sets <code>[invalid]</code> and <code>aria-invalid</code> attributes automatically.
+
+    </div>
+  </header>
+
+  <section>
+
+    <!-- ── Required Field ── -->
+
+    <h2>Required Field</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Uses <code>ValidateController</code> directly on a wrapper div with a <code>n-input</code> inside.
+      </span>
+      <div class="field-wrapper" id="required-field">
+        <label>Name</label>
+        <n-input placeholder="Enter your name"></n-input>
+        <div class="error-msg"></div>
+      </div>
+      <n-button id="validate-required">Validate</n-button>
+      <div id="required-output" class="output"></div>
+      <pre class="code-block"><code set:html={codeExamples.requiredField} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Multiple Rules ── -->
+
+    <h2>Multiple Rules (min length + pattern)</h2>
+    <n-container data-kind="panel" bordered>
+      <div class="field-wrapper" id="password-field">
+        <label>Password</label>
+        <n-input type="password" placeholder="Enter a password"></n-input>
+        <div class="error-msg"></div>
+      </div>
+      <n-button id="validate-password">Validate</n-button>
+      <div id="password-output" class="output"></div>
+      <pre class="code-block"><code>validator.rules = [
+  ValidateController.required('Password is required'),
+  ValidateController.minLength(8, 'Must be at least 8 characters'),
+  ValidateController.pattern(/[A-Z]/, 'Must contain an uppercase letter'),
+  ValidateController.pattern(/[0-9]/, 'Must contain a number'),
+];</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Validate on Blur ── -->
+
+    <h2>Validate on Blur</h2>
+    <n-container data-kind="panel" bordered>
+      <div class="field-wrapper" id="email-field">
+        <label>Email</label>
+        <n-input type="email" placeholder="you@example.com"></n-input>
+        <div class="error-msg"></div>
+      </div>
+      <span class="text-xs text-muted">
+        Focus the input, type something, then tab away. Validation runs on blur.
+      </span>
+      <pre class="code-block"><code set:html={codeExamples.validateOnBlur} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── API Reference ── -->
+
+    <h2>API</h2>
+      <h3>Methods</h3>
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Method</n-table-header><n-table-header>Returns</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>validate(value?)</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell>Runs all rules against the value (or auto-detects from child input). Sets <code>[invalid]</code> and dispatches events.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>clearValidation()</code></n-table-cell>
+            <n-table-cell>—</n-table-cell>
+            <n-table-cell>Removes <code>[invalid]</code> and clears error message.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>Static Rule Helpers</h3>
+      <n-table variant="plain" size="sm" cols="auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Helper</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>ValidateController.required(msg)</code></n-table-cell>
+            <n-table-cell>Fails if value is empty or whitespace-only.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>ValidateController.minLength(n, msg)</code></n-table-cell>
+            <n-table-cell>Fails if value length is less than <code>n</code>.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>ValidateController.pattern(regex, msg)</code></n-table-cell>
+            <n-table-cell>Fails if value does not match the regex.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>Events</h3>
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Event</n-table-header><n-table-header>Detail</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>native:invalid</code></n-table-cell>
+            <n-table-cell><code set:html={detailMessage} /></n-table-cell>
+            <n-table-cell>Fired when validation fails. <code>message</code> is the first failing rule's message.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>native:valid</code></n-table-cell>
+            <n-table-cell>—</n-table-cell>
+            <n-table-cell>Fired when validation passes after a previous failure.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>CSS</h3>
+      <n-table variant="plain" size="sm" cols="auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Selector</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>[invalid]</code></n-table-cell>
+            <n-table-cell>Set on the host element when validation fails. Use to style error state on child inputs.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+  </section>
+
+  <script>
+    import './validatable.ts';
+  </script>
+  <style is:global>
+    @import './validatable.css';
+  </style>
+
+</SidebarLayout>

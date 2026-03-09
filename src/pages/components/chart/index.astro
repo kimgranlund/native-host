@@ -1,0 +1,457 @@
+---
+import SidebarLayout from '../../../layouts/SidebarLayout.astro';
+
+const codeExamples = {
+  basicLine: `&lt;n-chart type="line" aspect="21:9" animate y-label="Revenue ($K)"&gt;&lt;/n-chart&gt;
+
+&lt;script&gt;
+  chart.data = {
+    series: [{
+      name: 'Revenue',
+      data: [
+        { x: 'Jan', y: 42 }, { x: 'Feb', y: 58 },
+        { x: 'Mar', y: 65 }, { x: 'Apr', y: 51 },
+      ]
+    }]
+  };
+&lt;/script&gt;`,
+  sparkline: `&lt;n-chart type="sparkline"&gt;&lt;/n-chart&gt;
+
+&lt;script&gt;
+  chart.data = {
+    series: [{ name: 'Trend', data: [
+      { x: 0, y: 12 }, { x: 1, y: 15 }, { x: 2, y: 13 },
+      { x: 3, y: 18 }, { x: 4, y: 22 }, { x: 5, y: 20 },
+    ]}]
+  };
+&lt;/script&gt;`,
+  events: `chart.addEventListener('native:chart-hover', (e) =&gt; {
+  console.log(e.detail.series, e.detail.point);
+});
+
+chart.addEventListener('native:chart-select', (e) =&gt; {
+  console.log('Selected:', e.detail);
+});
+
+chart.addEventListener('native:chart-legend-toggle', (e) =&gt; {
+  console.log(e.detail.series, e.detail.visible);
+});`,
+  referenceLines: `chart.referenceLines = [
+  { axis: 'y', value: 80, label: 'Target', color: 'var(--n-color-success-500)', style: 'dashed' },
+  { axis: 'y', value: 50, label: 'Baseline', color: 'var(--n-color-warning-500)', style: 'dotted' },
+  { axis: 'x', value: 'Jul', label: 'Launch', color: 'var(--n-color-info-500)', style: 'solid' },
+];`,
+  customColors: `chart.data = {
+  series: [
+    { name: 'Alpha', color: 'oklch(0.65 0.2 260)', data: [&hellip;] },
+    { name: 'Beta',  color: 'oklch(0.7 0.18 340)', data: [&hellip;] },
+    { name: 'Gamma', color: 'oklch(0.75 0.15 140)', data: [&hellip;] },
+  ]
+};`,
+  refAvgCombined: `&lt;n-chart type="line" aspect="21:9" average animate&gt;&lt;/n-chart&gt;
+
+chart.referenceLines = [
+  { axis: 'y', value: 100, label: 'Goal', color: 'var(--n-color-success-500)', style: 'dashed' },
+];`,
+};
+---
+<SidebarLayout title="Chart">
+  <header>
+    <div slot="title">
+      <div slot="content">
+        <h1>Chart</h1>
+      </div>
+    </div>
+    <div slot="description">
+      <span class="header-tag">&lt;n-chart&gt;</span> SVG charting component with reactive store, auto-detected scales, crosshair + tooltip interactions, and OKLCH color palette.
+      Types: <code>line</code>, <code>bar</code>, <code>scatter</code>, <code>sparkline</code>.
+      Three usage tiers: widget (sparklines), card (compact panels), and dashboard (full axes + legend + tooltips).
+          </div>
+  </header>
+
+  <section>
+
+    <!-- ── Widget Tier — KPI Cards ── -->
+
+    <h2>Widget Tier — KPI Cards</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Inline sparklines inside KPI cards. <code>type="sparkline"</code> renders with zero margins and no axes.
+      </span>
+      <div class="kpi-grid">
+        <n-container inline>
+          <n-body>
+            <n-stack gap="1">
+              <span class="text-xs text-muted">Signups</span>
+              <n-stack direction="row" align="center" gap="1">
+                <span class="text-lg"><strong>30</strong></span>
+                <span class="text-xs text-success"><strong>+15%</strong></span>
+              </n-stack>
+              <n-chart type="sparkline" id="spark-1"></n-chart>
+            </n-stack>
+          </n-body>
+        </n-container>
+        <n-container inline>
+          <n-body>
+            <n-stack gap="1">
+              <span class="text-xs text-muted">Churn</span>
+              <n-stack direction="row" align="center" gap="1">
+                <span class="text-lg"><strong>33</strong></span>
+                <span class="text-xs text-danger"><strong>-34%</strong></span>
+              </n-stack>
+              <n-chart type="sparkline" id="spark-2"></n-chart>
+            </n-stack>
+          </n-body>
+        </n-container>
+        <n-container inline>
+          <n-body>
+            <n-stack gap="1">
+              <span class="text-xs text-muted">Revenue</span>
+              <n-stack direction="row" align="center" gap="1">
+                <span class="text-lg"><strong>$25K</strong></span>
+                <span class="text-xs text-success"><strong>+400%</strong></span>
+              </n-stack>
+              <n-chart type="sparkline" id="spark-3"></n-chart>
+            </n-stack>
+          </n-body>
+        </n-container>
+        <n-container inline>
+          <n-body>
+            <n-stack gap="1">
+              <span class="text-xs text-muted">NPS</span>
+              <n-stack direction="row" align="center" gap="1">
+                <span class="text-lg"><strong>112</strong></span>
+                <span class="text-xs text-success"><strong>+12%</strong></span>
+              </n-stack>
+              <n-chart type="sparkline" id="spark-4"></n-chart>
+            </n-stack>
+          </n-body>
+        </n-container>
+      </div>
+    <pre class="code-block"><code set:html={codeExamples.sparkline} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Card Tier — Compact Charts ── -->
+
+    <h2>Card Tier — Compact Charts</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Charts embedded in small panels or sidebar cards. Aspect ratio constrained, legend hidden to save space.
+      </span>
+      <div class="chart-grid-2">
+        <n-container data-kind="panel" bordered>
+          <h3>Line</h3>
+          <n-chart id="card-line" type="line" legend="none" aspect="4:3" animate></n-chart>
+        </n-container>
+        <n-container data-kind="panel" bordered>
+          <h3>Bar</h3>
+          <n-chart id="card-bar" type="bar" legend="none" aspect="4:3" animate></n-chart>
+        </n-container>
+        <n-container data-kind="panel" bordered>
+          <h3>Area</h3>
+          <n-chart id="card-area" type="line" area smooth legend="none" aspect="4:3" animate></n-chart>
+        </n-container>
+        <n-container data-kind="panel" bordered>
+          <h3>Scatter</h3>
+          <n-chart id="card-scatter" type="scatter" legend="none" aspect="4:3" animate></n-chart>
+        </n-container>
+      </div>
+    <pre class="code-block"><code>&lt;n-chart type="line" legend="none" aspect="4:3" animate&gt;&lt;/n-chart&gt;
+&lt;n-chart type="bar" legend="none" aspect="4:3" animate&gt;&lt;/n-chart&gt;
+&lt;n-chart type="line" area smooth legend="none" aspect="4:3" animate&gt;&lt;/n-chart&gt;
+&lt;n-chart type="scatter" legend="none" aspect="4:3" animate&gt;&lt;/n-chart&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Dashboard — Line Chart ── -->
+
+    <h2>Dashboard — Line Chart</h2>
+    <n-container data-kind="panel" bordered>
+      <n-chart id="chart-line" type="line" animate y-label="Revenue ($K)" aspect="21:9"></n-chart>
+    <pre class="code-block"><code set:html={codeExamples.basicLine} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Smooth + Area ── -->
+
+    <h2>Smooth Line + Area</h2>
+    <n-container data-kind="panel" bordered>
+      <n-chart type="line" aspect="21:9" smooth area animate id="chart-smooth-area"></n-chart>
+    <pre class="code-block"><code>&lt;n-chart type="line" aspect="21:9" smooth area animate&gt;&lt;/n-chart&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Bar Chart Modes ── -->
+
+    <h2>Bar Chart Modes</h2>
+    <n-container data-kind="panel" bordered>
+      <div class="chart-grid-2">
+        <div>
+          <div class="label">Grouped</div>
+          <n-chart type="bar" aspect="4:3" animate id="chart-bar-grouped"></n-chart>
+        </div>
+        <div>
+          <div class="label">Stacked</div>
+          <n-chart type="bar" aspect="4:3" stacked animate id="chart-bar-stacked"></n-chart>
+        </div>
+      </div>
+    <pre class="code-block"><code>&lt;n-chart type="bar" aspect="4:3" animate&gt;&lt;/n-chart&gt;
+&lt;n-chart type="bar" aspect="4:3" stacked animate&gt;&lt;/n-chart&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Horizontal Bar ── -->
+
+    <h2>Horizontal Bar Chart</h2>
+    <n-container data-kind="panel" bordered>
+      <n-chart type="bar" horizontal animate aspect="21:9" legend="none" id="chart-bar-horizontal"></n-chart>
+    <pre class="code-block"><code>&lt;n-chart type="bar" horizontal animate aspect="21:9" legend="none"&gt;&lt;/n-chart&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Scatter / Bubble ── -->
+
+    <h2>Scatter / Bubble</h2>
+    <n-container data-kind="panel" bordered>
+      <n-chart type="scatter" aspect="16:9" animate x-label="Metric X" y-label="Metric Y" id="chart-scatter"></n-chart>
+    <pre class="code-block"><code>&lt;n-chart type="scatter" aspect="16:9" animate x-label="Metric X" y-label="Metric Y"&gt;&lt;/n-chart&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Stacked Area ── -->
+
+    <h2>Stacked Area (Multi-Series)</h2>
+    <n-container data-kind="panel" bordered>
+      <n-chart type="line" aspect="21:9" area stacked animate legend="top" id="chart-stacked-area"></n-chart>
+    <pre class="code-block"><code>&lt;n-chart type="line" aspect="21:9" area stacked animate legend="top"&gt;&lt;/n-chart&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Reference Lines ── -->
+
+    <h2>Reference Lines</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Manual reference lines via the <code>referenceLines</code> property. Horizontal (y-axis), vertical (x-axis), with label and style options.
+      </span>
+      <n-chart type="line" aspect="21:9" animate id="chart-reference"></n-chart>
+    <pre class="code-block"><code set:html={codeExamples.referenceLines} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Average Lines ── -->
+
+    <h2>Average Lines</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        <code>average</code> attribute auto-computes per-series average and renders dashed lines in series color.
+      </span>
+      <n-chart type="line" aspect="21:9" average animate id="chart-average"></n-chart>
+    <pre class="code-block"><code>&lt;n-chart type="line" aspect="21:9" average animate&gt;&lt;/n-chart&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Reference + Average Combined ── -->
+
+    <h2>Reference + Average Combined</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Manual reference lines combined with auto-computed averages.
+      </span>
+      <n-chart type="line" aspect="21:9" average animate id="chart-ref-avg"></n-chart>
+    <pre class="code-block"><code set:html={codeExamples.refAvgCombined} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Grid Modes ── -->
+
+    <h2>Grid Modes</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        <code>grid</code> attribute: <code>horizontal</code> (default), <code>vertical</code>, <code>both</code>, <code>none</code>.
+      </span>
+      <div class="chart-grid-4">
+        <div>
+          <div class="label">horizontal</div>
+          <n-chart type="line" aspect="4:3" grid="horizontal" legend="none" animate id="chart-grid-h"></n-chart>
+        </div>
+        <div>
+          <div class="label">vertical</div>
+          <n-chart type="line" aspect="4:3" grid="vertical" legend="none" animate id="chart-grid-v"></n-chart>
+        </div>
+        <div>
+          <div class="label">both</div>
+          <n-chart type="line" aspect="4:3" grid="both" legend="none" animate id="chart-grid-b"></n-chart>
+        </div>
+        <div>
+          <div class="label">none</div>
+          <n-chart type="line" aspect="4:3" grid="none" legend="none" animate id="chart-grid-n"></n-chart>
+        </div>
+      </div>
+    <pre class="code-block"><code>&lt;n-chart grid="horizontal"&gt;&lt;/n-chart&gt;
+&lt;n-chart grid="vertical"&gt;&lt;/n-chart&gt;
+&lt;n-chart grid="both"&gt;&lt;/n-chart&gt;
+&lt;n-chart grid="none"&gt;&lt;/n-chart&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Legend Positions ── -->
+
+    <h2>Legend Positions</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        <code>legend</code> attribute: <code>top</code>, <code>bottom</code> (default), <code>none</code>.
+      </span>
+      <div class="chart-grid-3">
+        <div>
+          <div class="label">top</div>
+          <n-chart type="line" aspect="4:3" legend="top" animate id="chart-legend-top"></n-chart>
+        </div>
+        <div>
+          <div class="label">bottom</div>
+          <n-chart type="line" aspect="4:3" legend="bottom" animate id="chart-legend-bottom"></n-chart>
+        </div>
+        <div>
+          <div class="label">none</div>
+          <n-chart type="line" aspect="4:3" legend="none" animate id="chart-legend-none"></n-chart>
+        </div>
+      </div>
+    <pre class="code-block"><code>&lt;n-chart legend="top"&gt;&lt;/n-chart&gt;
+&lt;n-chart legend="bottom"&gt;&lt;/n-chart&gt;
+&lt;n-chart legend="none"&gt;&lt;/n-chart&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Aspect Ratios ── -->
+
+    <h2>Aspect Ratios</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        <code>aspect</code> attribute constrains height from width: <code>16:9</code>, <code>4:3</code>, <code>1:1</code>, <code>21:9</code>.
+      </span>
+      <div class="chart-grid-2">
+        <div>
+          <div class="label">16:9</div>
+          <n-chart type="line" aspect="16:9" legend="none" animate id="chart-aspect-16"></n-chart>
+        </div>
+        <div>
+          <div class="label">1:1</div>
+          <n-chart type="bar" aspect="1:1" legend="none" animate id="chart-aspect-1"></n-chart>
+        </div>
+      </div>
+    <pre class="code-block"><code>&lt;n-chart aspect="16:9"&gt;&lt;/n-chart&gt;
+&lt;n-chart aspect="4:3"&gt;&lt;/n-chart&gt;
+&lt;n-chart aspect="1:1"&gt;&lt;/n-chart&gt;
+&lt;n-chart aspect="21:9"&gt;&lt;/n-chart&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Custom Series Colors ── -->
+
+    <h2>Custom Series Colors</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Per-series <code>color</code> override with raw OKLCH values.
+      </span>
+      <n-chart id="chart-custom-colors" type="line" smooth animate aspect="21:9"></n-chart>
+    <pre class="code-block"><code set:html={codeExamples.customColors} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Multi-Series — Full Palette ── -->
+
+    <h2>Multi-Series — Full Palette</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        6 series auto-assigned from the OKLCH color palette (accent, success, warning, danger, info, neutral).
+      </span>
+      <n-chart id="chart-full-palette" type="line" animate legend="top" aspect="16:9"></n-chart>
+    </n-container>
+
+    <!-- ── Palettes ── -->
+
+    <h2>Palettes</h2>
+    <n-container data-kind="panel" bordered>
+      <n-stack gap="3">
+        <n-stack direction="row" align="center" gap="2">
+          <span class="text-sm text-muted">Palette:</span>
+          <n-select size="sm" id="palette-select">
+            <option value="default">Default (tokens)</option>
+            <option value="vivid">Vivid</option>
+            <option value="pastel">Pastel</option>
+            <option value="earth">Earth</option>
+            <option value="ocean">Ocean</option>
+            <option value="sunset">Sunset</option>
+            <option value="forest">Forest</option>
+            <option value="neon">Neon</option>
+            <option value="mono">Mono (single-hue)</option>
+            <option value="accessible">Accessible (colorblind-safe)</option>
+          </n-select>
+        </n-stack>
+        <n-chart type="line" aspect="16:9" smooth animate id="chart-palette"></n-chart>
+      </n-stack>
+    <pre class="code-block"><code>&lt;n-chart type="line" palette="vivid" smooth animate&gt;&lt;/n-chart&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Sparklines in Table ── -->
+
+    <h2>Sparklines in Table</h2>
+    <n-container data-kind="panel" bordered>
+      <table class="sparkline-table">
+        <thead>
+          <tr><th>Metric</th><th>Trend</th><th>Current</th><th>Change</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Signups</td>
+            <td><n-chart type="sparkline" id="table-spark-1"></n-chart></td>
+            <td class="val">30</td>
+            <td><span class="text-xs text-success"><strong>+150%</strong></span></td>
+          </tr>
+          <tr>
+            <td>Churn Rate</td>
+            <td><n-chart type="sparkline" id="table-spark-2"></n-chart></td>
+            <td class="val">33</td>
+            <td><span class="text-xs text-danger"><strong>-34%</strong></span></td>
+          </tr>
+          <tr>
+            <td>Revenue</td>
+            <td><n-chart type="sparkline" id="table-spark-3"></n-chart></td>
+            <td class="val">$25K</td>
+            <td><span class="text-xs text-success"><strong>+400%</strong></span></td>
+          </tr>
+          <tr>
+            <td>NPS Score</td>
+            <td><n-chart type="sparkline" id="table-spark-4"></n-chart></td>
+            <td class="val">112</td>
+            <td><span class="text-xs text-success"><strong>+12%</strong></span></td>
+          </tr>
+        </tbody>
+      </table>
+    </n-container>
+
+    <!-- ── Animate ── -->
+
+    <h2>Animate</h2>
+    <n-container data-kind="panel" bordered>
+      <n-chart type="bar" aspect="16:9" animate id="chart-animate"></n-chart>
+    <pre class="code-block"><code>&lt;n-chart type="bar" aspect="16:9" animate&gt;&lt;/n-chart&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Disabled ── -->
+
+    <h2>Disabled</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        <code>disabled</code> attribute greys out the chart and disables pointer interactions.
+      </span>
+      <n-chart type="line" aspect="21:9" disabled animate id="chart-disabled"></n-chart>
+    <pre class="code-block"><code>&lt;n-chart type="line" aspect="21:9" disabled animate&gt;&lt;/n-chart&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Events ── -->
+
+    <h2>Events</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Hover, click, or toggle legend items on the chart below.
+      </span>
+      <n-chart type="line" aspect="16:9" animate id="chart-events"></n-chart>
+      <div class="log" id="chart-event-log"></div>
+    <pre class="code-block"><code set:html={codeExamples.events} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+  </section>
+
+  <script>
+    import './chart.ts';
+  </script>
+  <style is:global>
+    @import './chart.css';
+  </style>
+</SidebarLayout>

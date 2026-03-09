@@ -1,0 +1,202 @@
+---
+import SidebarLayout from '../../../layouts/SidebarLayout.astro';
+import ApiReference from '../../../components/ApiReference.astro';
+import { progressApi } from '../../../data/api/progress';
+---
+<SidebarLayout title="Progress">
+  <header>
+    <div slot="title">
+      <div slot="content">
+        <h1>Progress</h1>
+      </div>
+    </div>
+    <div slot="description">
+      <span class="header-tag">&lt;n-progress&gt;</span> CSS-only progress bar. Set progress via <code>--n-progress</code> custom property (0–1).
+    </div>
+  </header>
+
+  <section>
+
+    <!-- ── Basic ── -->
+
+    <h2>Basic</h2>
+    <n-container data-kind="panel" bordered>
+      <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 28rem;">
+        <div>
+          <span class="label">0%</span>
+          <n-progress style="--n-progress: 0;"></n-progress>
+        </div>
+        <div>
+          <span class="label">25%</span>
+          <n-progress style="--n-progress: 0.25;"></n-progress>
+        </div>
+        <div>
+          <span class="label">50%</span>
+          <n-progress style="--n-progress: 0.5;"></n-progress>
+        </div>
+        <div>
+          <span class="label">75%</span>
+          <n-progress style="--n-progress: 0.75;"></n-progress>
+        </div>
+        <div>
+          <span class="label">100%</span>
+          <n-progress style="--n-progress: 1;"></n-progress>
+        </div>
+      </div>
+    <pre class="code-block"><code>&lt;n-progress style="--n-progress: 0;"&gt;&lt;/n-progress&gt;
+&lt;n-progress style="--n-progress: 0.25;"&gt;&lt;/n-progress&gt;
+&lt;n-progress style="--n-progress: 0.5;"&gt;&lt;/n-progress&gt;
+&lt;n-progress style="--n-progress: 0.75;"&gt;&lt;/n-progress&gt;
+&lt;n-progress style="--n-progress: 1;"&gt;&lt;/n-progress&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Sizes ── -->
+
+    <h2>Sizes</h2>
+    <n-container data-kind="panel" bordered>
+      <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 28rem;">
+        <div>
+          <span class="label">size="xs"</span>
+          <n-progress size="xs" style="--n-progress: 0.6;"></n-progress>
+        </div>
+        <div>
+          <span class="label">size="sm"</span>
+          <n-progress size="sm" style="--n-progress: 0.6;"></n-progress>
+        </div>
+        <div>
+          <span class="label">(default)</span>
+          <n-progress style="--n-progress: 0.6;"></n-progress>
+        </div>
+        <div>
+          <span class="label">size="lg"</span>
+          <n-progress size="lg" style="--n-progress: 0.6;"></n-progress>
+        </div>
+      </div>
+    <pre class="code-block"><code>&lt;n-progress size="xs" style="--n-progress: 0.6;"&gt;&lt;/n-progress&gt;
+&lt;n-progress size="sm" style="--n-progress: 0.6;"&gt;&lt;/n-progress&gt;
+&lt;n-progress style="--n-progress: 0.6;"&gt;&lt;/n-progress&gt;
+&lt;n-progress size="lg" style="--n-progress: 0.6;"&gt;&lt;/n-progress&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Intents ── -->
+
+    <h2>Intents</h2>
+    <n-container data-kind="panel" bordered>
+      <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 28rem;">
+        <div>
+          <span class="label">(default / neutral)</span>
+          <n-progress style="--n-progress: 0.7;"></n-progress>
+        </div>
+        <div>
+          <span class="label">intent="accent"</span>
+          <n-progress intent="accent" style="--n-progress: 0.7;"></n-progress>
+        </div>
+        <div>
+          <span class="label">intent="success"</span>
+          <n-progress intent="success" style="--n-progress: 0.7;"></n-progress>
+        </div>
+        <div>
+          <span class="label">intent="warning"</span>
+          <n-progress intent="warning" style="--n-progress: 0.7;"></n-progress>
+        </div>
+        <div>
+          <span class="label">intent="danger"</span>
+          <n-progress intent="danger" style="--n-progress: 0.7;"></n-progress>
+        </div>
+      </div>
+    <pre class="code-block"><code>&lt;n-progress style="--n-progress: 0.7;"&gt;&lt;/n-progress&gt;
+&lt;n-progress intent="accent" style="--n-progress: 0.7;"&gt;&lt;/n-progress&gt;
+&lt;n-progress intent="success" style="--n-progress: 0.7;"&gt;&lt;/n-progress&gt;
+&lt;n-progress intent="warning" style="--n-progress: 0.7;"&gt;&lt;/n-progress&gt;
+&lt;n-progress intent="danger" style="--n-progress: 0.7;"&gt;&lt;/n-progress&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Indeterminate ── -->
+
+    <h2>Indeterminate</h2>
+    <n-container data-kind="panel" bordered>
+      <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 28rem;">
+        <n-progress indeterminate></n-progress>
+        <n-progress indeterminate intent="accent"></n-progress>
+        <n-progress indeterminate intent="success"></n-progress>
+      </div>
+    <pre class="code-block"><code>&lt;n-progress indeterminate&gt;&lt;/n-progress&gt;
+&lt;n-progress indeterminate intent="accent"&gt;&lt;/n-progress&gt;
+&lt;n-progress indeterminate intent="success"&gt;&lt;/n-progress&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Border Radius ── -->
+
+    <h2>Border Radius</h2>
+    <n-container data-kind="panel" bordered>
+      <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 28rem;">
+        <div>
+          <span class="label">radius="sharp"</span>
+          <n-progress radius="sharp" style="--n-progress: 0.5;"></n-progress>
+        </div>
+        <div>
+          <span class="label">radius="round"</span>
+          <n-progress radius="round" style="--n-progress: 0.5;"></n-progress>
+        </div>
+        <div>
+          <span class="label">radius="pill"</span>
+          <n-progress radius="pill" style="--n-progress: 0.5;"></n-progress>
+        </div>
+      </div>
+    <pre class="code-block"><code>&lt;n-progress radius="sharp" style="--n-progress: 0.5;"&gt;&lt;/n-progress&gt;
+&lt;n-progress radius="round" style="--n-progress: 0.5;"&gt;&lt;/n-progress&gt;
+&lt;n-progress radius="pill" style="--n-progress: 0.5;"&gt;&lt;/n-progress&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Composition ── -->
+
+    <h2>Composition</h2>
+    <n-container data-kind="panel" bordered>
+      <n-container style="max-width: 24rem;">
+        <n-header>
+          <span>Upload Progress</span>
+          <span class="text-sm text-muted">73%</span>
+        </n-header>
+        <n-body>
+          <n-progress intent="accent" style="--n-progress: 0.73;"></n-progress>
+        </n-body>
+      </n-container>
+    <pre class="code-block"><code>&lt;n-container&gt;
+  &lt;n-header&gt;
+    &lt;span&gt;Upload Progress&lt;/span&gt;
+    &lt;span class="text-sm text-muted"&gt;73%&lt;/span&gt;
+  &lt;/n-header&gt;
+  &lt;n-body&gt;
+    &lt;n-progress intent="accent" style="--n-progress: 0.73;"&gt;&lt;/n-progress&gt;
+  &lt;/n-body&gt;
+&lt;/n-container&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── JavaScript-Driven ── -->
+
+    <h2>JavaScript-Driven</h2>
+    <n-container data-kind="panel" bordered>
+      <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 28rem;">
+        <n-progress id="demo-js-progress" intent="accent" style="--n-progress: 0;"></n-progress>
+        <div class="row">
+          <n-button size="sm" variant="secondary" id="demo-progress-reset"><span>Reset</span></n-button>
+          <n-button size="sm" variant="primary" intent="accent" id="demo-progress-animate"><span>Animate</span></n-button>
+        </div>
+      </div>
+    <pre class="code-block"><code>&lt;n-progress id="bar" style="--n-progress: 0;"&gt;&lt;/n-progress&gt;
+
+&lt;script&gt;
+  const bar = document.getElementById('bar');
+  // Set progress from JS:
+  bar.style.setProperty('--n-progress', '0.65');
+&lt;/script&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <h2>API Reference</h2>
+    <ApiReference data={progressApi} />
+  </section>
+
+  <script>
+    import './progress.ts';
+  </script>
+</SidebarLayout>

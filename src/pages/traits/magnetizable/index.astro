@@ -1,0 +1,310 @@
+---
+import SidebarLayout from '../../../layouts/SidebarLayout.astro';
+
+const codeExamples = {
+  siblingSnap: `&lt;n-controller traits="magnetizable"
+  data-trait-magnetizable-threshold="20"
+  data-trait-magnetizable-snap-to-edges="true"
+  data-trait-magnetizable-snap-to-siblings="true"&gt;
+  &lt;div class="magnet-arena"&gt;
+    &lt;div class="magnet-box accent" style="left: 2rem; top: 2rem;"&gt;A&lt;/div&gt;
+    &lt;div class="magnet-box info" style="left: 10rem; top: 2rem;"&gt;B&lt;/div&gt;
+    &lt;!-- ... --&gt;
+  &lt;/div&gt;
+&lt;/n-controller&gt;`,
+  gridSnap: `&lt;n-controller traits="magnetizable"
+  data-trait-magnetizable-grid-size="50"
+  data-trait-magnetizable-threshold="25"
+  data-trait-magnetizable-strength="0.6"
+  data-trait-magnetizable-snap-to-siblings="false"&gt;
+  &lt;div class="magnet-arena grid-bg"&gt;
+    &lt;div class="magnet-box accent" style="left: 0; top: 0;"&gt;1&lt;/div&gt;
+    &lt;div class="magnet-box info" style="left: 150px; top: 0;"&gt;2&lt;/div&gt;
+    &lt;!-- ... --&gt;
+  &lt;/div&gt;
+&lt;/n-controller&gt;`,
+  edgeOnly: `&lt;n-controller traits="magnetizable"
+  data-trait-magnetizable-snap-to-siblings="false"
+  data-trait-magnetizable-snap-to-edges="true"
+  data-trait-magnetizable-threshold="30"&gt;
+  &lt;div class="magnet-arena"&gt;
+    &lt;div class="magnet-box neutral" style="left: 4rem; top: 4rem;"&gt;X&lt;/div&gt;
+    &lt;div class="magnet-box neutral" style="left: 12rem; top: 8rem;"&gt;Y&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/n-controller&gt;`,
+  playground: `import { MagnetController } from '@nonoun/native-ui';
+
+const arena = document.getElementById('playground-arena');
+const ctrl = new MagnetController(arena, {
+  threshold: 20,
+  gridSize: 0,
+  strength: 1,
+  guides: true,
+  snapToEdges: true,
+  snapToSiblings: true,
+});
+
+// Update options dynamically:
+ctrl.threshold = 40;
+ctrl.gridSize = 25;`,
+  alignmentTool: `&lt;n-controller traits="magnetizable"
+  data-trait-magnetizable-threshold="15"
+  data-trait-magnetizable-strength="0.5"
+  data-trait-magnetizable-snap-to-edges="true"
+  data-trait-magnetizable-snap-to-siblings="true"&gt;
+  &lt;div class="magnet-arena"&gt;
+    &lt;div class="box"&gt;Header&lt;/div&gt;
+    &lt;div class="box wide"&gt;Nav Bar&lt;/div&gt;
+    &lt;div class="box tall"&gt;Sidebar&lt;/div&gt;
+    &lt;div class="box"&gt;Content&lt;/div&gt;
+    &lt;div class="box wide"&gt;Footer&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/n-controller&gt;`,
+};
+
+const detailSnap = `{ snappedTo, axis, x, y }`;
+const detailDrop = `{ x, y }`;
+const eventLogCode = `document.addEventListener('native:magnet-snap', (e) =&gt; {
+  const { snappedTo, axis, x, y } = e.detail;
+  log(\`snap: \${snappedTo} on \${axis} at (\${x}, \${y})\`);
+});
+
+document.addEventListener('native:magnet-drop', (e) =&gt; {
+  const { x, y } = e.detail;
+  log(\`drop at (\${x}, \${y})\`);
+});`;
+---
+<SidebarLayout title="Magnetizable">
+  <header>
+    <div slot="title">
+      <div slot="content">
+        <h1>Magnetizable</h1>
+      </div>
+    </div>
+    <div slot="description">
+
+      Snaps elements to alignment guides when dragged near siblings or container edges. Supports grid snapping, configurable threshold and strength, and visual guide lines. Dispatches <code>native:magnet-snap</code> on snap and <code>native:magnet-drop</code> on release.
+
+    </div>
+  </header>
+
+  <section id="magnetizable-page">
+
+    <!-- ── Sibling Snap ── -->
+
+    <h2>Sibling Snap</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Drag any box near another to see snap guides appear. Edges and centers align within the 20px threshold. All five boxes snap to each other and to the container edges.
+      </span>
+      <n-controller traits="magnetizable" data-trait-magnetizable-threshold="20" data-trait-magnetizable-snap-to-edges="true" data-trait-magnetizable-snap-to-siblings="true">
+        <div class="magnet-arena" id="sibling-arena">
+          <div class="magnet-box accent" style="left: 2rem; top: 2rem;">A</div>
+          <div class="magnet-box info" style="left: 10rem; top: 2rem;">B</div>
+          <div class="magnet-box success" style="left: 2rem; top: 10rem;">C</div>
+          <div class="magnet-box warning" style="left: 10rem; top: 10rem;">D</div>
+          <div class="magnet-box danger" style="left: 18rem; top: 6rem;">E</div>
+        </div>
+      </n-controller>
+      <pre class="code-block"><code set:html={codeExamples.siblingSnap} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Grid Snap ── -->
+
+    <h2>Grid Snap (50px)</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Elements snap to a 50px grid. Sibling snapping is disabled so only the grid governs alignment. Strength is set to 0.6 for a softer snap feel.
+      </span>
+      <n-controller traits="magnetizable" data-trait-magnetizable-grid-size="50" data-trait-magnetizable-threshold="25" data-trait-magnetizable-strength="0.6" data-trait-magnetizable-snap-to-siblings="false">
+        <div class="magnet-arena grid-bg" id="grid-arena">
+          <div class="magnet-box accent" style="left: 0; top: 0;">1</div>
+          <div class="magnet-box info" style="left: 150px; top: 0;">2</div>
+          <div class="magnet-box success" style="left: 0; top: 150px;">3</div>
+          <div class="magnet-box warning" style="left: 150px; top: 150px;">4</div>
+        </div>
+      </n-controller>
+      <pre class="code-block"><code set:html={codeExamples.gridSnap} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Edge Snap Only ── -->
+
+    <h2>Edge Snap Only</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Sibling snapping is disabled. Boxes only snap to the container edges with a 30px threshold. Useful for constraining layout to boundaries.
+      </span>
+      <n-controller traits="magnetizable" data-trait-magnetizable-snap-to-siblings="false" data-trait-magnetizable-snap-to-edges="true" data-trait-magnetizable-threshold="30">
+        <div class="magnet-arena" id="edge-arena">
+          <div class="magnet-box neutral" style="left: 4rem; top: 4rem;">X</div>
+          <div class="magnet-box neutral" style="left: 12rem; top: 8rem;">Y</div>
+        </div>
+      </n-controller>
+      <pre class="code-block"><code set:html={codeExamples.edgeOnly} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Options Playground ── -->
+
+    <h2>Options Playground</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Uses <code>MagnetController</code> programmatically. Adjust options in real time and see the effect on snap behavior.
+      </span>
+      <div class="magnet-arena" id="playground-arena">
+        <div class="magnet-box accent" style="left: 2rem; top: 2rem;">P1</div>
+        <div class="magnet-box info" style="left: 10rem; top: 2rem;">P2</div>
+        <div class="magnet-box success" style="left: 2rem; top: 10rem;">P3</div>
+        <div class="magnet-box warning" style="left: 10rem; top: 10rem;">P4</div>
+      </div>
+      <n-container padding="relaxed">
+        <n-stack gap="3">
+          <n-stack direction="row" gap="4" align="center">
+            <span class="text-xs text-muted" style="min-width: 7rem;">Threshold</span>
+            <n-range id="opt-threshold" min="5" max="60" step="1" value="20"></n-range>
+            <span class="text-xs text-muted" id="opt-threshold-val">20</span>
+          </n-stack>
+          <n-stack direction="row" gap="4" align="center">
+            <span class="text-xs text-muted" style="min-width: 7rem;">Grid size</span>
+            <n-range id="opt-grid-size" min="0" max="100" step="5" value="0"></n-range>
+            <span class="text-xs text-muted" id="opt-grid-size-val">0</span>
+          </n-stack>
+          <n-stack direction="row" gap="4" align="center">
+            <span class="text-xs text-muted" style="min-width: 7rem;">Strength</span>
+            <n-range id="opt-strength" min="0.05" max="1" step="0.05" value="1"></n-range>
+            <span class="text-xs text-muted" id="opt-strength-val">1</span>
+          </n-stack>
+          <n-stack direction="row" gap="4" align="center">
+            <span class="text-xs text-muted" style="min-width: 7rem;">Show guides</span>
+            <n-switch id="opt-guides" checked></n-switch>
+          </n-stack>
+          <n-stack direction="row" gap="4" align="center">
+            <span class="text-xs text-muted" style="min-width: 7rem;">Snap to edges</span>
+            <n-switch id="opt-snap-edges" checked></n-switch>
+          </n-stack>
+          <n-stack direction="row" gap="4" align="center">
+            <span class="text-xs text-muted" style="min-width: 7rem;">Snap to siblings</span>
+            <n-switch id="opt-snap-siblings" checked></n-switch>
+          </n-stack>
+          <n-button id="opt-reset" size="sm" variant="ghost">Reset Positions</n-button>
+        </n-stack>
+      </n-container>
+      <pre class="code-block"><code set:html={codeExamples.playground} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Alignment Tool ── -->
+
+    <h2>Alignment Tool</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        A practical layout-building example. Drag mixed-size boxes to arrange a page structure. Boxes snap to each other and container edges with a 15px threshold and 0.5 strength for a smooth feel.
+      </span>
+      <n-controller traits="magnetizable" data-trait-magnetizable-threshold="15" data-trait-magnetizable-strength="0.5" data-trait-magnetizable-snap-to-edges="true" data-trait-magnetizable-snap-to-siblings="true">
+        <div class="magnet-arena magnet-arena--tall" id="alignment-arena">
+          <div class="magnet-box box accent" style="left: 2rem; top: 2rem;">Header</div>
+          <div class="magnet-box box wide info" style="left: 2rem; top: 9rem;">Nav Bar</div>
+          <div class="magnet-box box tall success" style="left: 16rem; top: 2rem;">Sidebar</div>
+          <div class="magnet-box box warning" style="left: 6rem; top: 14rem;">Content</div>
+          <div class="magnet-box box wide danger" style="left: 2rem; top: 22rem;">Footer</div>
+        </div>
+      </n-controller>
+      <pre class="code-block"><code set:html={codeExamples.alignmentTool} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Global Event Log ── -->
+
+    <h2>Global Event Log</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Listens on <code>document</code> for all <code>native:magnet-snap</code> and <code>native:magnet-drop</code> events from any arena on this page.
+      </span>
+      <div id="magnet-global-log" class="output"></div>
+      <pre class="code-block"><code set:html={eventLogCode} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── API Reference ── -->
+
+    <h2>API</h2>
+      <h3>Adapter Attributes</h3>
+      <n-table variant="plain" size="sm" cols="auto auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Type</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>data-trait-magnetizable-threshold</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell><code>20</code></n-table-cell>
+            <n-table-cell>Snap distance in pixels. Elements within this distance of a guide will snap.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-magnetizable-grid-size</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell><code>0</code></n-table-cell>
+            <n-table-cell>Grid snap size in pixels. <code>0</code> disables grid snapping.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-magnetizable-strength</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell><code>1</code></n-table-cell>
+            <n-table-cell>Snap strength from 0 to 1. <code>1</code> is instant snap; lower values ease toward the snap point.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-magnetizable-guides</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>true</code></n-table-cell>
+            <n-table-cell>Show visual guide lines when snapping.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-magnetizable-snap-to-edges</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>true</code></n-table-cell>
+            <n-table-cell>Enable snapping to container edges.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-magnetizable-snap-to-siblings</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>true</code></n-table-cell>
+            <n-table-cell>Enable snapping to sibling element edges and centers.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-magnetizable-disabled</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>false</code></n-table-cell>
+            <n-table-cell>Disables magnet behavior. Elements drag freely without snapping.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>Events</h3>
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Event</n-table-header><n-table-header>Detail</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>native:magnet-snap</code></n-table-cell>
+            <n-table-cell><code set:html={detailSnap} /></n-table-cell>
+            <n-table-cell>Fired when an element snaps to a guide. <code>snappedTo</code> is <code>'grid'</code>, <code>'edge'</code>, or <code>'sibling'</code>; <code>axis</code> is <code>'x'</code> or <code>'y'</code>.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>native:magnet-drop</code></n-table-cell>
+            <n-table-cell><code set:html={detailDrop} /></n-table-cell>
+            <n-table-cell>Fired on release after dragging. <code>x</code> and <code>y</code> are the final coordinates.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>CSS</h3>
+      <n-table variant="plain" size="sm" cols="auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Selector</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>[magnet-snapping]</code></n-table-cell>
+            <n-table-cell>Present on the element while it is actively snapped to a guide. Use for visual snap feedback (ring, shadow, border).</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+  </section>
+
+  <script>
+    import './magnetizable.ts';
+  </script>
+  <style is:global>
+    @import './magnetizable.css';
+  </style>
+
+</SidebarLayout>

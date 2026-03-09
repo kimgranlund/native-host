@@ -4,16 +4,20 @@
    Loaded by SidebarLayout (not by auth or standalone pages).
    ────────────────────────────────────────────────────────────── */
 
-main {
-  --n-content-max-width: 1180px;
-  --n-content-padding: 2rem;
-  /* Alias — package CSS reads the old name for max-width centering */
-  --n-dashboard-panel-content-max-width: var(--n-content-max-width);
-}
+/* ── Sub-container padding & max-width ── */
 
 main > header,
-main > section {
-  padding: var(--n-content-padding, 2rem);
+main > section,
+main > footer {
+  padding: 2rem;
+}
+
+main > header > *,
+main > section > *,
+main > footer > * {
+  max-width: 1180px;
+  width: 100%;
+  margin-inline: auto;
 }
 
 /* ── Typography ── */

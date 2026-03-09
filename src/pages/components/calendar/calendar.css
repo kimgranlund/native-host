@@ -1,0 +1,13 @@
+.hint { margin-top: 0.5rem; }
+.size-label { font-weight: 600; margin: 0 0 0.5rem; }
+
+.output {
+  font-family: monospace;
+  font-size: 0.75rem;
+  color: var(--n-ink-muted-neutral);
+  margin-top: 0.75rem;
+  padding: 0.5rem;
+  background: var(--n-panel-neutral);
+  border-radius: 0.25rem;
+  min-height: 1.5rem;
+}

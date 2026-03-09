@@ -1,0 +1,120 @@
+/* ── Magnet Arena ── */
+
+.magnet-arena {
+  position: relative;
+  min-height: 400px;
+  border: 2px dashed var(--n-border-muted-neutral);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.magnet-arena--tall {
+  min-height: 500px;
+}
+
+/* ── Magnet Box ── */
+
+.magnet-box {
+  position: absolute;
+  width: 5rem;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.375rem;
+  touch-action: none;
+  cursor: grab;
+  font-size: 0.75rem;
+  font-weight: 700;
+  user-select: none;
+  transition: box-shadow 150ms ease;
+}
+
+.magnet-box:active {
+  cursor: grabbing;
+}
+
+.magnet-box[magnet-snapping] {
+  box-shadow: 0 0 0 2px var(--n-surface-accent), 0 0 8px var(--n-surface-accent);
+}
+
+/* ── Color variants ── */
+
+.magnet-box.accent {
+  background: var(--n-surface-accent);
+  color: var(--n-surface-ink-accent);
+  border: 1px solid var(--n-border-accent);
+}
+
+.magnet-box.info {
+  background: var(--n-surface-info);
+  color: var(--n-surface-ink-info);
+  border: 1px solid var(--n-border-info);
+}
+
+.magnet-box.success {
+  background: var(--n-surface-success);
+  color: var(--n-surface-ink-success);
+  border: 1px solid var(--n-border-success);
+}
+
+.magnet-box.warning {
+  background: var(--n-surface-warning);
+  color: var(--n-surface-ink-warning);
+  border: 1px solid var(--n-border-warning);
+}
+
+.magnet-box.danger {
+  background: var(--n-surface-danger);
+  color: var(--n-surface-ink-danger);
+  border: 1px solid var(--n-border-danger);
+}
+
+.magnet-box.neutral {
+  background: var(--n-surface-neutral);
+  color: var(--n-surface-ink-neutral);
+  border: 1px solid var(--n-border-neutral);
+}
+
+/* ── Grid Background ── */
+
+.grid-bg {
+  background-image:
+    linear-gradient(to right, var(--n-border-muted-neutral) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--n-border-muted-neutral) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* ── Layout Boxes (Alignment Tool) ── */
+
+.box {
+  width: 8rem;
+  height: 5rem;
+  font-size: 0.6875rem;
+}
+
+.box.wide {
+  width: 12rem;
+  height: 3rem;
+}
+
+.box.tall {
+  width: 4rem;
+  height: 8rem;
+}
+
+/* ── Output Log ── */
+
+.output {
+  font-family: monospace;
+  font-size: 0.75rem;
+  color: var(--n-ink-muted-neutral);
+  max-height: 8rem;
+  overflow-y: auto;
+  margin-top: 0.75rem;
+  padding: 0.5rem;
+  background: var(--n-panel-neutral);
+  border-radius: 0.25rem;
+}
+
+/* ── Code Blocks ── */

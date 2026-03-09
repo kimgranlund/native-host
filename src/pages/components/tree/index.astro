@@ -1,0 +1,217 @@
+---
+import SidebarLayout from '../../../layouts/SidebarLayout.astro';
+import ApiReference from '../../../components/ApiReference.astro';
+import { treeApi } from '../../../data/api/tree';
+
+const codeExamples = {
+  eventLog: `&lt;n-tree id="event-tree"&gt;
+  &lt;n-tree-item expanded&gt;
+    &lt;span slot="label"&gt;Documents&lt;/span&gt;
+    &lt;n-tree-item&gt;
+      &lt;span slot="label"&gt;report.pdf&lt;/span&gt;
+    &lt;/n-tree-item&gt;
+  &lt;/n-tree-item&gt;
+&lt;/n-tree&gt;
+
+const tree = document.getElementById('event-tree');
+tree.querySelectorAll('n-tree-item').forEach((item) =&gt; {
+  observer.observe(item, { attributes: true });
+});`,
+};
+---
+<SidebarLayout title="Tree">
+  <header>
+    <div slot="title">
+      <div slot="content">
+        <h1>Tree</h1>
+      </div>
+    </div>
+    <div slot="description">
+      <span class="header-tag">&lt;n-tree&gt;</span> Hierarchical expandable tree. Arrow keys expand/collapse, Enter/Space select.
+          </div>
+  </header>
+
+  <section>
+
+    <!-- ── Basic ── -->
+
+    <h2>File Browser</h2>
+    <n-container data-kind="panel" bordered>
+      <n-tree>
+        <n-tree-item expanded>
+          <span>src</span>
+          <n-tree-item>
+            <span>index.ts</span>
+          </n-tree-item>
+          <n-tree-item expanded>
+            <span>components</span>
+            <n-tree-item>
+              <span>n-button.ts</span>
+            </n-tree-item>
+            <n-tree-item>
+              <span>n-input.ts</span>
+            </n-tree-item>
+            <n-tree-item>
+              <span>n-select.ts</span>
+            </n-tree-item>
+          </n-tree-item>
+          <n-tree-item>
+            <span>styles</span>
+            <n-tree-item>
+              <span>index.css</span>
+            </n-tree-item>
+            <n-tree-item>
+              <span>colors.css</span>
+            </n-tree-item>
+          </n-tree-item>
+        </n-tree-item>
+        <n-tree-item>
+          <span>package.json</span>
+        </n-tree-item>
+        <n-tree-item>
+          <span>tsconfig.json</span>
+        </n-tree-item>
+      </n-tree>
+    <pre class="code-block"><code>&lt;n-tree&gt;
+  &lt;n-tree-item expanded&gt;
+    &lt;span slot="label"&gt;src&lt;/span&gt;
+    &lt;n-tree-item&gt;
+      &lt;span slot="label"&gt;index.ts&lt;/span&gt;
+    &lt;/n-tree-item&gt;
+    &lt;n-tree-item expanded&gt;
+      &lt;span slot="label"&gt;components&lt;/span&gt;
+      &lt;n-tree-item&gt;
+        &lt;span slot="label"&gt;n-button.ts&lt;/span&gt;
+      &lt;/n-tree-item&gt;
+    &lt;/n-tree-item&gt;
+  &lt;/n-tree-item&gt;
+&lt;/n-tree&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Navigation ── -->
+
+    <h2>Navigation</h2>
+    <n-container data-kind="panel" bordered>
+      <n-tree>
+        <n-tree-item expanded>
+          <span>Getting Started</span>
+          <n-tree-item selected>
+            <span>Installation</span>
+          </n-tree-item>
+          <n-tree-item>
+            <span>Quick Start</span>
+          </n-tree-item>
+        </n-tree-item>
+        <n-tree-item>
+          <span>Components</span>
+          <n-tree-item>
+            <span>Buttons</span>
+          </n-tree-item>
+          <n-tree-item>
+            <span>Inputs</span>
+          </n-tree-item>
+          <n-tree-item>
+            <span>Selects</span>
+          </n-tree-item>
+        </n-tree-item>
+        <n-tree-item>
+          <span>Theming</span>
+          <n-tree-item>
+            <span>Colors</span>
+          </n-tree-item>
+          <n-tree-item>
+            <span>Typography</span>
+          </n-tree-item>
+        </n-tree-item>
+      </n-tree>
+    <pre class="code-block"><code>&lt;n-tree&gt;
+  &lt;n-tree-item expanded&gt;
+    &lt;span slot="label"&gt;Getting Started&lt;/span&gt;
+    &lt;n-tree-item selected&gt;
+      &lt;span slot="label"&gt;Installation&lt;/span&gt;
+    &lt;/n-tree-item&gt;
+    &lt;n-tree-item&gt;
+      &lt;span slot="label"&gt;Quick Start&lt;/span&gt;
+    &lt;/n-tree-item&gt;
+  &lt;/n-tree-item&gt;
+&lt;/n-tree&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Event Log ── -->
+
+    <h2>Event Log</h2>
+    <n-container data-kind="panel" bordered>
+      <n-tree id="event-tree">
+        <n-tree-item expanded>
+          <span>Documents</span>
+          <n-tree-item>
+            <span>report.pdf</span>
+          </n-tree-item>
+          <n-tree-item>
+            <span>notes.txt</span>
+          </n-tree-item>
+        </n-tree-item>
+        <n-tree-item>
+          <span>Images</span>
+          <n-tree-item>
+            <span>photo.jpg</span>
+          </n-tree-item>
+        </n-tree-item>
+      </n-tree>
+      <div class="log" id="tree-log"></div>
+    <pre class="code-block"><code set:html={codeExamples.eventLog} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Disabled ── -->
+
+    <h2>Disabled</h2>
+    <n-container data-kind="panel" bordered>
+      <n-tree disabled>
+        <n-tree-item expanded>
+          <span>Project</span>
+          <n-tree-item>
+            <span>README.md</span>
+          </n-tree-item>
+          <n-tree-item>
+            <span>package.json</span>
+          </n-tree-item>
+        </n-tree-item>
+      </n-tree>
+    <pre class="code-block"><code>&lt;n-tree disabled&gt;
+  &lt;n-tree-item expanded&gt;
+    &lt;span slot="label"&gt;Project&lt;/span&gt;
+    &lt;n-tree-item&gt;
+      &lt;span slot="label"&gt;README.md&lt;/span&gt;
+    &lt;/n-tree-item&gt;
+  &lt;/n-tree-item&gt;
+&lt;/n-tree&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Debug States (force-*) ── -->
+
+    <h2>Debug States (<code>force-*</code>)</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Attribute-driven pseudo-state overrides for DevTools debugging and visual testing. Applied to individual <code>n-tree-item</code> elements.
+      </span>
+      <n-tree>
+        <n-tree-item force-hover>
+          <span>Force hover</span>
+        </n-tree-item>
+        <n-tree-item force-focus-visible>
+          <span>Force focus-visible</span>
+        </n-tree-item>
+        <n-tree-item>
+          <span>Normal</span>
+        </n-tree-item>
+      </n-tree>
+    </n-container>
+
+    <h2>API Reference</h2>
+    <ApiReference data={treeApi} />
+  </section>
+
+  <script>
+    import './tree.ts';
+  </script>
+</SidebarLayout>

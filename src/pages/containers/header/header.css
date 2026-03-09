@@ -1,0 +1,12 @@
+.header-card-wrap {
+  display: contents;
+}
+.header-card-wrap > n-container {
+  max-width: var(--_header-card-max-width);
+  height: var(--_header-card-height, auto);
+}
+.header-card-wrap--xs { --_header-card-max-width: 18rem; }
+.header-card-wrap--sm { --_header-card-max-width: 24rem; }
+.header-card-wrap--md { --_header-card-max-width: 28rem; }
+.header-card-wrap--h-md { --_header-card-height: 14rem; }
+.header-card-wrap--h-lg { --_header-card-height: 16rem; }

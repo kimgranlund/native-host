@@ -1,0 +1,70 @@
+/* ── Scoped Zone ── */
+
+.scoped-zone {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  background: var(--n-panel-neutral);
+  border: 1px dashed var(--n-border-muted-neutral);
+  border-radius: var(--n-radius);
+  cursor: default;
+  outline-offset: 2px;
+  transition: border-color 150ms ease, background 150ms ease;
+}
+
+.scoped-zone:focus {
+  outline: 2px solid var(--n-focus-ring);
+  border-color: var(--n-border-accent);
+  background: var(--n-panel-neutral);
+}
+
+/* ── Declarative Zone ── */
+
+.declarative-zone {
+  padding: 1rem 1.25rem;
+  background: var(--n-panel-neutral);
+  border: 1px dashed var(--n-border-muted-neutral);
+  border-radius: var(--n-radius);
+}
+
+/* ── Guard Badge ── */
+
+.guard-badge {
+  display: inline-block;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.125rem 0.5rem;
+  border-radius: 9999px;
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.guard-badge--off {
+  background: var(--n-panel-neutral);
+  color: var(--n-ink-muted-neutral);
+  border: 1px solid var(--n-border-muted-neutral);
+}
+
+.guard-badge--on {
+  background: var(--n-surface-accent);
+  color: var(--n-surface-ink-accent);
+  border: 1px solid var(--n-border-accent);
+}
+
+/* ── Output log ── */
+
+.output {
+  font-family: monospace;
+  font-size: 0.75rem;
+  color: var(--n-ink-muted-neutral);
+  max-height: 6rem;
+  overflow-y: auto;
+  margin-top: 0.75rem;
+  padding: 0.5rem;
+  background: var(--n-panel-neutral);
+  border-radius: 0.25rem;
+}
+
+/* ── Code Blocks ── */

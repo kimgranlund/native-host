@@ -1,0 +1,322 @@
+---
+import SidebarLayout from '../../../layouts/SidebarLayout.astro';
+import ApiReference from '../../../components/ApiReference.astro';
+import { segmentedControlApi } from '../../../data/api/segmented-control';
+
+const codeExamples = {
+  changeEvents: `&lt;n-segmented-control id="alignment" value="left"&gt;
+  &lt;n-segment value="left"&gt;Left&lt;/n-segment&gt;
+  &lt;n-segment value="center"&gt;Center&lt;/n-segment&gt;
+  &lt;n-segment value="right"&gt;Right&lt;/n-segment&gt;
+&lt;/n-segmented-control&gt;
+
+&lt;script&gt;
+  document.getElementById('alignment')
+    .addEventListener('native:change', (e) =&gt; {
+      console.log(e.detail.value);
+    });
+&lt;/script&gt;`,
+};
+---
+<SidebarLayout title="Segmented Control">
+  <header>
+    <div slot="title">
+      <div slot="content">
+        <h1>Segmented Control</h1>
+      </div>
+    </div>
+    <div slot="description">
+      <span class="header-tag">&lt;n-segmented-control&gt;</span> Horizontal single-select toggle bar with roving focus, form association, and elevated selected state.
+          </div>
+  </header>
+
+  <section>
+
+    <!-- ── Basic ── -->
+
+    <h2>Basic</h2>
+    <n-container data-kind="panel" bordered>
+      <n-segmented-control value="month">
+        <n-segment value="day">Day</n-segment>
+        <n-segment value="week">Week</n-segment>
+        <n-segment value="month">Month</n-segment>
+        <n-segment value="year">Year</n-segment>
+      </n-segmented-control>
+    <pre class="code-block"><code>&lt;n-segmented-control value="month"&gt;
+  &lt;n-segment value="day"&gt;Day&lt;/n-segment&gt;
+  &lt;n-segment value="week"&gt;Week&lt;/n-segment&gt;
+  &lt;n-segment value="month"&gt;Month&lt;/n-segment&gt;
+  &lt;n-segment value="year"&gt;Year&lt;/n-segment&gt;
+&lt;/n-segmented-control&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Sizes ── -->
+
+    <h2>Sizes</h2>
+    <n-container data-kind="panel" bordered>
+      <n-stack direction="row" wrap align="center">
+        <span class="label">xs</span>
+        <n-segmented-control size="xs" value="a">
+          <n-segment value="a">Alpha</n-segment>
+          <n-segment value="b">Beta</n-segment>
+          <n-segment value="c">Gamma</n-segment>
+        </n-segmented-control>
+      </n-stack>
+      <n-stack direction="row" wrap align="center">
+        <span class="label">sm</span>
+        <n-segmented-control size="sm" value="a">
+          <n-segment value="a">Alpha</n-segment>
+          <n-segment value="b">Beta</n-segment>
+          <n-segment value="c">Gamma</n-segment>
+        </n-segmented-control>
+      </n-stack>
+      <n-stack direction="row" wrap align="center">
+        <span class="label">md</span>
+        <n-segmented-control size="md" value="a">
+          <n-segment value="a">Alpha</n-segment>
+          <n-segment value="b">Beta</n-segment>
+          <n-segment value="c">Gamma</n-segment>
+        </n-segmented-control>
+      </n-stack>
+      <n-stack direction="row" wrap align="center">
+        <span class="label">lg</span>
+        <n-segmented-control size="lg" value="a">
+          <n-segment value="a">Alpha</n-segment>
+          <n-segment value="b">Beta</n-segment>
+          <n-segment value="c">Gamma</n-segment>
+        </n-segmented-control>
+      </n-stack>
+      <n-stack direction="row" wrap align="center">
+        <span class="label">xl</span>
+        <n-segmented-control size="xl" value="a">
+          <n-segment value="a">Alpha</n-segment>
+          <n-segment value="b">Beta</n-segment>
+          <n-segment value="c">Gamma</n-segment>
+        </n-segmented-control>
+      </n-stack>
+      <pre class="code-block"><code>&lt;n-segmented-control size="sm" value="a"&gt;
+  &lt;n-segment value="a"&gt;Alpha&lt;/n-segment&gt;
+  &lt;n-segment value="b"&gt;Beta&lt;/n-segment&gt;
+&lt;/n-segmented-control&gt;
+
+&lt;n-segmented-control size="lg" value="a"&gt;
+  &lt;n-segment value="a"&gt;Alpha&lt;/n-segment&gt;
+  &lt;n-segment value="b"&gt;Beta&lt;/n-segment&gt;
+&lt;/n-segmented-control&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Density ── -->
+
+    <h2>Density</h2>
+    <n-container data-kind="panel" bordered>
+      <h3>compact</h3>
+      <n-stack direction="row" wrap align="center" density="compact">
+        <n-segmented-control value="a">
+          <n-segment value="a">Alpha</n-segment>
+          <n-segment value="b">Beta</n-segment>
+          <n-segment value="c">Gamma</n-segment>
+        </n-segmented-control>
+      </n-stack>
+      <h3>default</h3>
+      <n-stack direction="row" wrap align="center">
+        <n-segmented-control value="a">
+          <n-segment value="a">Alpha</n-segment>
+          <n-segment value="b">Beta</n-segment>
+          <n-segment value="c">Gamma</n-segment>
+        </n-segmented-control>
+      </n-stack>
+      <h3>loose</h3>
+      <n-stack direction="row" wrap align="center" density="loose">
+        <n-segmented-control value="a">
+          <n-segment value="a">Alpha</n-segment>
+          <n-segment value="b">Beta</n-segment>
+          <n-segment value="c">Gamma</n-segment>
+        </n-segmented-control>
+      </n-stack>
+      <pre class="code-block"><code>&lt;div density="compact"&gt;
+  &lt;n-segmented-control value="a"&gt;...&lt;/n-segmented-control&gt;
+&lt;/div&gt;
+
+&lt;div density="loose"&gt;
+  &lt;n-segmented-control value="a"&gt;...&lt;/n-segmented-control&gt;
+&lt;/div&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Intents ── -->
+
+    <h2>Intents</h2>
+    <n-container data-kind="panel" bordered>
+      <n-stack direction="row" wrap align="center">
+        <n-segmented-control intent="neutral" value="a">
+          <n-segment value="a">One</n-segment>
+          <n-segment value="b">Two</n-segment>
+          <n-segment value="c">Three</n-segment>
+        </n-segmented-control>
+      </n-stack>
+      <n-stack direction="row" wrap align="center">
+        <n-segmented-control intent="accent" value="a">
+          <n-segment value="a">One</n-segment>
+          <n-segment value="b">Two</n-segment>
+          <n-segment value="c">Three</n-segment>
+        </n-segmented-control>
+      </n-stack>
+      <n-stack direction="row" wrap align="center">
+        <n-segmented-control intent="success" value="a">
+          <n-segment value="a">One</n-segment>
+          <n-segment value="b">Two</n-segment>
+          <n-segment value="c">Three</n-segment>
+        </n-segmented-control>
+      </n-stack>
+      <pre class="code-block"><code>&lt;n-segmented-control intent="accent" value="a"&gt;
+  &lt;n-segment value="a"&gt;One&lt;/n-segment&gt;
+  &lt;n-segment value="b"&gt;Two&lt;/n-segment&gt;
+&lt;/n-segmented-control&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Disabled ── -->
+
+    <h2>Disabled</h2>
+    <n-container data-kind="panel" bordered>
+      <n-stack direction="row" wrap align="center">
+        <n-segmented-control disabled value="b">
+          <n-segment value="a">One</n-segment>
+          <n-segment value="b">Two</n-segment>
+          <n-segment value="c">Three</n-segment>
+        </n-segmented-control>
+      </n-stack>
+      <n-stack direction="row" wrap align="center">
+        <n-segmented-control value="a">
+          <n-segment value="a">Enabled</n-segment>
+          <n-segment value="b" disabled>Disabled</n-segment>
+          <n-segment value="c">Enabled</n-segment>
+        </n-segmented-control>
+      </n-stack>
+      <pre class="code-block"><code>&lt;n-segmented-control disabled value="b"&gt;
+  &lt;n-segment value="a"&gt;One&lt;/n-segment&gt;
+  &lt;n-segment value="b"&gt;Two&lt;/n-segment&gt;
+&lt;/n-segmented-control&gt;
+
+&lt;!-- Individual segment disabled --&gt;
+&lt;n-segmented-control value="a"&gt;
+  &lt;n-segment value="a"&gt;Enabled&lt;/n-segment&gt;
+  &lt;n-segment value="b" disabled&gt;Disabled&lt;/n-segment&gt;
+&lt;/n-segmented-control&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── With Icons ── -->
+
+    <h2>With Icons</h2>
+    <n-container data-kind="panel" bordered>
+      <n-segmented-control value="grid">
+        <n-segment value="list"><n-icon name="list"></n-icon> List</n-segment>
+        <n-segment value="grid"><n-icon name="grid-four"></n-icon> Grid</n-segment>
+      </n-segmented-control>
+    <pre class="code-block"><code>&lt;n-segmented-control value="grid"&gt;
+  &lt;n-segment value="list"&gt;&lt;n-icon name="list"&gt;&lt;/n-icon&gt; List&lt;/n-segment&gt;
+  &lt;n-segment value="grid"&gt;&lt;n-icon name="grid-four"&gt;&lt;/n-icon&gt; Grid&lt;/n-segment&gt;
+&lt;/n-segmented-control&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Events ── -->
+
+    <h2>Change Events</h2>
+    <n-container data-kind="panel" bordered>
+      <n-segmented-control id="event-sc" intent="accent" value="left">
+        <n-segment value="left">Left</n-segment>
+        <n-segment value="center">Center</n-segment>
+        <n-segment value="right">Right</n-segment>
+      </n-segmented-control>
+      <div class="log" id="event-log"></div>
+    <pre class="code-block"><code set:html={codeExamples.changeEvents} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Form Association ── -->
+
+    <h2>Form Association</h2>
+    <n-container data-kind="panel" bordered>
+      <form id="demo-form">
+        <div style="margin-bottom: 1rem;">
+          <n-segmented-control name="view" value="table">
+            <n-segment value="table">Table</n-segment>
+            <n-segment value="board">Board</n-segment>
+            <n-segment value="timeline">Timeline</n-segment>
+          </n-segmented-control>
+        </div>
+        <n-stack direction="row">
+          <n-button variant="primary" type="submit"><span>Submit</span></n-button>
+          <n-button variant="secondary" type="reset"><span>Reset</span></n-button>
+        </n-stack>
+      </form>
+      <div class="log" id="form-log"></div>
+    <pre class="code-block"><code>&lt;form&gt;
+  &lt;n-segmented-control name="view" value="table"&gt;
+    &lt;n-segment value="table"&gt;Table&lt;/n-segment&gt;
+    &lt;n-segment value="board"&gt;Board&lt;/n-segment&gt;
+    &lt;n-segment value="timeline"&gt;Timeline&lt;/n-segment&gt;
+  &lt;/n-segmented-control&gt;
+  &lt;button type="submit"&gt;Submit&lt;/button&gt;
+&lt;/form&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Radius ── -->
+
+    <h2>Radius</h2>
+    <n-container data-kind="panel" bordered>
+      <n-stack direction="row" wrap align="center">
+        <span class="label">sharp</span>
+        <n-segmented-control radius="sharp" value="a">
+          <n-segment value="a">One</n-segment>
+          <n-segment value="b">Two</n-segment>
+          <n-segment value="c">Three</n-segment>
+        </n-segmented-control>
+      </n-stack>
+      <n-stack direction="row" wrap align="center">
+        <span class="label">default</span>
+        <n-segmented-control value="a">
+          <n-segment value="a">One</n-segment>
+          <n-segment value="b">Two</n-segment>
+          <n-segment value="c">Three</n-segment>
+        </n-segmented-control>
+      </n-stack>
+      <n-stack direction="row" wrap align="center">
+        <span class="label">round</span>
+        <n-segmented-control radius="round" value="a">
+          <n-segment value="a">One</n-segment>
+          <n-segment value="b">Two</n-segment>
+          <n-segment value="c">Three</n-segment>
+        </n-segmented-control>
+      </n-stack>
+      <pre class="code-block"><code>&lt;n-segmented-control radius="sharp" value="a"&gt;
+  &lt;n-segment value="a"&gt;One&lt;/n-segment&gt;
+  &lt;n-segment value="b"&gt;Two&lt;/n-segment&gt;
+&lt;/n-segmented-control&gt;
+
+&lt;n-segmented-control radius="round" value="a"&gt;
+  &lt;n-segment value="a"&gt;One&lt;/n-segment&gt;
+  &lt;n-segment value="b"&gt;Two&lt;/n-segment&gt;
+&lt;/n-segmented-control&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Debug States (force-*) ── -->
+
+    <h2>Debug States (<code>force-*</code>)</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Attribute-driven pseudo-state overrides for DevTools debugging and visual testing. Applied to individual <code>n-segment</code> elements.
+      </span>
+      <n-segmented-control value="normal">
+        <n-segment value="hover" force-hover>Force hover</n-segment>
+        <n-segment value="active" force-active>Force active</n-segment>
+        <n-segment value="focus" force-focus-visible>Force focus-visible</n-segment>
+        <n-segment value="normal">Normal</n-segment>
+      </n-segmented-control>
+    </n-container>
+
+    <h2>API Reference</h2>
+    <ApiReference data={segmentedControlApi} />
+  </section>
+
+  <script>
+    import './segmented-control.ts';
+  </script>
+</SidebarLayout>

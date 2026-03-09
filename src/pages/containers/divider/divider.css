@@ -1,0 +1,10 @@
+.vertical-container {
+  height: 4rem;
+}
+
+.vertical-container--tall {
+  height: 6rem;
+}
+
+.divider-full-btn n-button { width: 100%; }
+.divider-flex-btn { flex: 1; }

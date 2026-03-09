@@ -1,0 +1,147 @@
+---
+import SidebarLayout from '../../../layouts/SidebarLayout.astro';
+
+const codeExamples = {
+  focusTrap: `import { FocusTrapController } from '@nonoun/native-ui';
+
+const region = document.getElementById('trap');
+const trap = new FocusTrapController(region);
+
+function show() {
+  region.removeAttribute('hidden');
+  trap.enable(); // focuses [autofocus] or first focusable
+}
+
+function hide() {
+  trap.disable(); // restores focus to previous element
+  region.setAttribute('hidden', '');
+}`,
+};
+---
+<SidebarLayout title="FocusTrappable">
+  <header>
+    <div slot="title">
+      <div slot="content">
+        <h1>FocusTrappable</h1>
+      </div>
+    </div>
+    <div slot="description">
+
+      Composable trait for trapping Tab focus within a container. When enabled, Tab and Shift+Tab cycle through focusable children without leaving the container. On enable, focus moves to <code>[autofocus]</code> or the first focusable element. On disable, focus returns to the previously focused element.
+
+    </div>
+  </header>
+
+  <section>
+
+    <!-- ── Focus Trap ── -->
+
+    <h2>Focus Trap</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Uses <code>FocusTrapController</code> directly on a plain element. Tab cycles between the inputs and buttons.
+      </span>
+      <n-button id="open-trap">Open Trapped Region</n-button>
+      <div class="trap-region" id="trap" hidden>
+        <span class="text-sm text-muted">
+          Focus is trapped here. Tab cycles between the inputs and buttons. Click "Close" to release.
+        </span>
+        <div class="trap-form">
+          <label>
+            Name
+            <input type="text" placeholder="Your name" autofocus />
+          </label>
+          <label>
+            Email
+            <input type="email" placeholder="you@example.com" />
+          </label>
+        </div>
+        <div class="trap-actions">
+          <n-button id="save-btn" intent="accent">Save</n-button>
+          <n-button id="close-btn">Close</n-button>
+        </div>
+      </div>
+      <pre class="code-block"><code set:html={codeExamples.focusTrap} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Without Autofocus ── -->
+
+    <h2>Without Autofocus</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        When no <code>[autofocus]</code> element exists, focus goes to the first focusable child.
+      </span>
+      <n-button id="open-trap2">Open Trap (no autofocus)</n-button>
+      <div class="trap-region" id="trap2" hidden>
+        <div class="trap-actions">
+          <n-button>First</n-button>
+          <n-button>Second</n-button>
+          <n-button id="close-btn2">Close</n-button>
+        </div>
+      </div>
+    </n-container>
+
+    <!-- ── Built-in: n-dialog ── -->
+
+    <h2>Built-in: n-dialog</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        <code>n-dialog</code> uses FocusTrappable internally. When a modal dialog opens, focus is automatically trapped within it.
+      </span>
+      <n-button id="open-dialog">Open Dialog</n-button>
+      <n-dialog id="demo-dialog">
+        <div class="dialog-card"><n-container>
+          <p style="margin: 0 0 1rem;">Focus is trapped inside this dialog. Tab only cycles between these buttons.</p>
+          <div class="trap-actions">
+            <n-button intent="accent">Action</n-button>
+            <n-button id="close-dialog">Close</n-button>
+          </div>
+        </n-container></div>
+      </n-dialog>
+    </n-container>
+
+    <!-- ── API Reference ── -->
+
+    <h2>API</h2>
+      <h3>Methods</h3>
+      <n-table variant="plain" size="sm" cols="auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Method</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>enable()</code></n-table-cell>
+            <n-table-cell>Starts trapping focus. Moves focus to <code>[autofocus]</code> or first focusable child. Saves the previously focused element for restoration.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>disable()</code></n-table-cell>
+            <n-table-cell>Stops trapping focus. Returns focus to the previously focused element.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>destroy()</code></n-table-cell>
+            <n-table-cell>Disables and cleans up. Call in <code>teardown()</code>.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>Keyboard</h3>
+      <n-table variant="plain" size="sm" cols="auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Key</n-table-header><n-table-header>Action</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>Tab</code></n-table-cell>
+            <n-table-cell>Moves focus to next focusable child. Wraps to first when at last.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>Shift+Tab</code></n-table-cell>
+            <n-table-cell>Moves focus to previous focusable child. Wraps to last when at first.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+  </section>
+
+  <script>
+    import './focus-trappable.ts';
+  </script>
+  <style is:global>
+    @import './focus-trappable.css';
+  </style>
+
+</SidebarLayout>

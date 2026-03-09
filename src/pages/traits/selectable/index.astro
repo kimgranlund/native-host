@@ -1,0 +1,199 @@
+---
+import SidebarLayout from '../../../layouts/SidebarLayout.astro';
+
+const codeExamples = {
+  multipleSelection: `&lt;n-controller
+  traits="selectable"
+  selectable-selector=".select-item"
+  selectable-mode="multiple"
+&gt;
+  &lt;div class="select-list"&gt;
+    &lt;div class="select-item"&gt;Design System&lt;/div&gt;
+    &lt;div class="select-item"&gt;Typography&lt;/div&gt;
+    &lt;div class="select-item"&gt;Color Tokens&lt;/div&gt;
+    &lt;div class="select-item"&gt;Layout Grid&lt;/div&gt;
+    &lt;div class="select-item"&gt;Components&lt;/div&gt;
+    &lt;div class="select-item"&gt;Accessibility&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/n-controller&gt;
+
+list.addEventListener('native:selection-change', (e) =&gt; {
+  const { selected, count } = e.detail;
+  log(\`Selected \${count} item(s)\`);
+});`,
+  singleSelection: `&lt;n-controller
+  traits="selectable"
+  selectable-selector=".select-item"
+  selectable-mode="single"
+&gt;
+  &lt;div class="select-list"&gt;
+    &lt;div class="select-item"&gt;Small&lt;/div&gt;
+    &lt;div class="select-item"&gt;Medium&lt;/div&gt;
+    &lt;div class="select-item"&gt;Large&lt;/div&gt;
+    &lt;div class="select-item"&gt;Extra Large&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/n-controller&gt;
+
+list.addEventListener('native:selection-change', (e) =&gt; {
+  const { selected } = e.detail;
+  const name = selected[0]?.textContent ?? 'none';
+  log(\`Selected: \${name}\`);
+});`,
+};
+const detailSelectedCount = `{ selected, count }`;
+const handleClickSig = `handleClick(item, { shift, ctrl })`;
+---
+<SidebarLayout title="Selectable">
+  <header>
+    <div slot="title">
+      <div slot="content">
+        <h1>Selectable</h1>
+      </div>
+    </div>
+    <div slot="description">
+
+      Multi-selection state management with click, shift+click range, ctrl/cmd+click toggle, and ctrl/cmd+A select all.
+
+    </div>
+  </header>
+
+  <section>
+
+    <!-- ── Multiple Selection ── -->
+
+    <h2>Multiple Selection</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Click to select, <strong>Shift+Click</strong> for range, <strong>Ctrl/Cmd+Click</strong> to toggle, <strong>Ctrl/Cmd+A</strong> to select all.
+      </span>
+      <n-controller traits="selectable" selectable-selector=".select-item" selectable-mode="multiple">
+        <div class="select-list">
+          <div class="select-item">Design System</div>
+          <div class="select-item">Typography</div>
+          <div class="select-item">Color Tokens</div>
+          <div class="select-item">Layout Grid</div>
+          <div class="select-item">Components</div>
+          <div class="select-item">Accessibility</div>
+        </div>
+      </n-controller>
+      <div id="multi-log" class="output"></div>
+      <pre class="code-block"><code set:html={codeExamples.multipleSelection} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Single Selection ── -->
+
+    <h2>Single Selection</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Mode set to <code>'single'</code>. Only one item can be selected at a time.
+      </span>
+      <n-controller traits="selectable" selectable-selector=".select-item" selectable-mode="single">
+        <div class="select-list">
+          <div class="select-item">Small</div>
+          <div class="select-item">Medium</div>
+          <div class="select-item">Large</div>
+          <div class="select-item">Extra Large</div>
+        </div>
+      </n-controller>
+      <div id="single-log" class="output"></div>
+      <pre class="code-block"><code set:html={codeExamples.singleSelection} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── API Reference ── -->
+
+    <h2>API</h2>
+      <h3>Controller Options</h3>
+      <n-table variant="plain" size="sm" cols="auto auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Option</n-table-header><n-table-header>Type</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>selector</code></n-table-cell>
+            <n-table-cell><code>string</code></n-table-cell>
+            <n-table-cell><code>''</code></n-table-cell>
+            <n-table-cell>CSS selector for selectable items within the host.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>mode</code></n-table-cell>
+            <n-table-cell><code>'single' | 'multiple'</code></n-table-cell>
+            <n-table-cell><code>'multiple'</code></n-table-cell>
+            <n-table-cell>Selection mode. Single allows only one item selected at a time.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>disabled</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>false</code></n-table-cell>
+            <n-table-cell>Disables all selection behavior when true.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>Controller Methods</h3>
+      <n-table variant="plain" size="sm" cols="auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Method</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>select(item)</code></n-table-cell>
+            <n-table-cell>Select a single item, clearing all others.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>toggle(item)</code></n-table-cell>
+            <n-table-cell>Toggle an item's selected state without affecting others.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>rangeTo(item)</code></n-table-cell>
+            <n-table-cell>Select all items from the anchor to the given item.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>selectAll()</code></n-table-cell>
+            <n-table-cell>Select all items (multiple mode only).</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>clear()</code></n-table-cell>
+            <n-table-cell>Clear all selections.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>getSelection()</code></n-table-cell>
+            <n-table-cell>Returns an array of currently selected elements.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code set:html={handleClickSig} /></n-table-cell>
+            <n-table-cell>Process a click with modifier keys. Delegates to select/toggle/rangeTo.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>Events</h3>
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Event</n-table-header><n-table-header>Detail</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>native:selection-change</code></n-table-cell>
+            <n-table-cell><code set:html={detailSelectedCount} /></n-table-cell>
+            <n-table-cell>Fired whenever the selection changes. <code>selected</code> is an array of elements.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>CSS Attributes</h3>
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Set on</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>[selected]</code></n-table-cell>
+            <n-table-cell>Selected items</n-table-cell>
+            <n-table-cell>Present on each selected item. Use for styling selected state.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>[selection-anchor]</code></n-table-cell>
+            <n-table-cell>Anchor item</n-table-cell>
+            <n-table-cell>Present on the anchor item used for shift+click range selection.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+  </section>
+
+  <script>
+    import './selectable.ts';
+  </script>
+  <style is:global>
+    @import './selectable.css';
+  </style>
+
+</SidebarLayout>

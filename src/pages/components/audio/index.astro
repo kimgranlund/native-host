@@ -1,0 +1,111 @@
+---
+import SidebarLayout from '../../../layouts/SidebarLayout.astro';
+import ApiReference from '../../../components/ApiReference.astro';
+import { audioApi } from '../../../data/api/audio';
+---
+<SidebarLayout title="Audio">
+  <header>
+    <div slot="title">
+      <div slot="content">
+        <h1>Audio</h1>
+      </div>
+    </div>
+    <div slot="description">
+      <span class="header-tag">&lt;n-audio&gt;</span> CSS-only audio container with token-aware border-radius and responsive sizing.
+    </div>
+  </header>
+
+  <section>
+
+    <!-- ── Basic ── -->
+
+    <h2>Basic</h2>
+    <n-container data-kind="panel" bordered>
+      <div class="row" style="flex-direction: column; max-width: 28rem;">
+        <n-audio>
+          <audio controls>
+            <source src="#" type="audio/mpeg">
+            Your browser does not support the audio element.
+          </audio>
+        </n-audio>
+      </div>
+    <pre class="code-block"><code>&lt;n-audio&gt;
+  &lt;audio controls&gt;
+    &lt;source src="track.mp3" type="audio/mpeg"&gt;
+  &lt;/audio&gt;
+&lt;/n-audio&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Border Radius ── -->
+
+    <h2>Border Radius</h2>
+    <n-container data-kind="panel" bordered>
+      <div class="row" style="flex-direction: column; gap: 1rem; max-width: 28rem;">
+        <div>
+          <span class="label">radius="sharp"</span>
+          <n-audio radius="sharp">
+            <audio controls>
+              <source src="#" type="audio/mpeg">
+            </audio>
+          </n-audio>
+        </div>
+        <div>
+          <span class="label">radius="round"</span>
+          <n-audio radius="round">
+            <audio controls>
+              <source src="#" type="audio/mpeg">
+            </audio>
+          </n-audio>
+        </div>
+        <div>
+          <span class="label">radius="pill"</span>
+          <n-audio radius="pill">
+            <audio controls>
+              <source src="#" type="audio/mpeg">
+            </audio>
+          </n-audio>
+        </div>
+      </div>
+    <pre class="code-block"><code>&lt;n-audio radius="sharp"&gt;
+  &lt;audio controls&gt;...&lt;/audio&gt;
+&lt;/n-audio&gt;
+
+&lt;n-audio radius="round"&gt;
+  &lt;audio controls&gt;...&lt;/audio&gt;
+&lt;/n-audio&gt;
+
+&lt;n-audio radius="pill"&gt;
+  &lt;audio controls&gt;...&lt;/audio&gt;
+&lt;/n-audio&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Inside a Container ── -->
+
+    <h2>Inside a Container</h2>
+    <n-container data-kind="panel" bordered>
+      <n-container style="max-width: 24rem;">
+        <n-header><span>Now Playing</span></n-header>
+        <n-body>
+          <n-audio>
+            <audio controls>
+              <source src="#" type="audio/mpeg">
+            </audio>
+          </n-audio>
+        </n-body>
+      </n-container>
+    <pre class="code-block"><code>&lt;n-container&gt;
+  &lt;n-header&gt;&lt;span&gt;Now Playing&lt;/span&gt;&lt;/n-header&gt;
+  &lt;n-body&gt;
+    &lt;n-audio&gt;
+      &lt;audio controls&gt;
+        &lt;source src="track.mp3" type="audio/mpeg"&gt;
+      &lt;/audio&gt;
+    &lt;/n-audio&gt;
+  &lt;/n-body&gt;
+&lt;/n-container&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <h2>API Reference</h2>
+    <ApiReference data={audioApi} />
+  </section>
+</SidebarLayout>

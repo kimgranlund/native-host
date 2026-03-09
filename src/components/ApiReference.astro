@@ -1,0 +1,141 @@
+---
+import type { ApiReference, ApiSection } from '../data/api/types';
+
+interface Props {
+  data: ApiReference;
+}
+
+const { data } = Astro.props;
+
+const sectionTitle: Record<ApiSection['kind'], string> = {
+  'attributes': 'Attributes',
+  'slots': 'Slots',
+  'events': 'Events',
+  'selectors': 'CSS Selectors',
+  'keyboard': 'Keyboard',
+  'accessibility': 'Accessibility',
+  'methods': 'Methods',
+  'css-properties': 'CSS Custom Properties',
+  'provider-usage': 'Provider Usage',
+};
+
+interface ColConfig {
+  cols: string;
+  headers: string[];
+}
+
+function getColConfig(section: ApiSection): ColConfig {
+  switch (section.kind) {
+    case 'attributes':
+    case 'provider-usage':
+      return { cols: 'auto auto auto 1fr', headers: ['Attribute', 'Type', 'Default', 'Description'] };
+    case 'events':
+      return { cols: 'auto auto 1fr', headers: ['Event', 'Detail', 'Description'] };
+    case 'slots':
+      return { cols: 'auto 1fr', headers: ['Slot', 'Description'] };
+    case 'selectors':
+      const hasTarget = section.rows.some(r => r.target);
+      return hasTarget
+        ? { cols: 'auto auto 1fr', headers: ['Selector', 'Target', 'Description'] }
+        : { cols: 'auto 1fr', headers: ['Selector', 'Description'] };
+    case 'keyboard':
+      return { cols: 'auto 1fr', headers: ['Key', 'Action'] };
+    case 'accessibility':
+      return { cols: 'auto 1fr', headers: ['Property', 'Value'] };
+    case 'methods':
+      const hasReturns = section.rows.some(r => r.returns);
+      return hasReturns
+        ? { cols: 'auto auto 1fr', headers: ['Method', 'Returns', 'Description'] }
+        : { cols: 'auto 1fr', headers: ['Method', 'Description'] };
+    case 'css-properties':
+      return { cols: 'auto auto 1fr', headers: ['Property', 'Default', 'Description'] };
+  }
+}
+
+function getCells(section: ApiSection, row: any): { code: boolean; value: string }[] {
+  switch (section.kind) {
+    case 'attributes':
+    case 'provider-usage':
+      return [
+        { code: true, value: row.name },
+        { code: true, value: row.type },
+        { code: row.default !== '\u2014' && row.default !== 'inherited', value: row.default },
+        { code: false, value: row.description },
+      ];
+    case 'events':
+      return [
+        { code: true, value: row.event },
+        { code: row.detail !== '\u2014', value: row.detail },
+        { code: false, value: row.description },
+      ];
+    case 'slots':
+      return [
+        { code: true, value: row.slot },
+        { code: false, value: row.description },
+      ];
+    case 'selectors': {
+      const hasTarget = section.rows.some((r: any) => r.target);
+      const cells = [{ code: true, value: row.selector }];
+      if (hasTarget) cells.push({ code: false, value: row.target || '\u2014' });
+      cells.push({ code: false, value: row.description });
+      return cells;
+    }
+    case 'keyboard':
+      return [
+        { code: true, value: row.key },
+        { code: false, value: row.action },
+      ];
+    case 'accessibility':
+      return [
+        { code: false, value: row.property },
+        { code: false, value: row.value },
+      ];
+    case 'methods': {
+      const hasReturns = section.rows.some((r: any) => r.returns);
+      const cells = [{ code: true, value: row.method }];
+      if (hasReturns) cells.push({ code: true, value: row.returns || '\u2014' });
+      cells.push({ code: false, value: row.description });
+      return cells;
+    }
+    case 'css-properties':
+      return [
+        { code: true, value: row.property },
+        { code: true, value: row.default },
+        { code: false, value: row.description },
+      ];
+  }
+}
+---
+
+<div class="api-reference">
+  {data.sections.map(section => {
+    const config = getColConfig(section);
+    const title = ('title' in section && section.title) || sectionTitle[section.kind];
+    return (
+      <>
+        <h3>{title}</h3>
+        <n-table variant="plain" size="sm" cols={config.cols}>
+          <n-table-head>
+            <n-table-row>
+              {config.headers.map(h => <n-table-header>{h}</n-table-header>)}
+            </n-table-row>
+          </n-table-head>
+          <n-table-body>
+            {section.rows.map((row: any) => {
+              const cells = getCells(section, row);
+              return (
+                <n-table-row>
+                  {cells.map(cell =>
+                    <n-table-cell>
+                      {cell.code ? <code>{cell.value}</code> : cell.value}
+                    </n-table-cell>
+                  )}
+                </n-table-row>
+              );
+            })}
+          </n-table-body>
+        </n-table>
+      </>
+    );
+  })}
+</div>

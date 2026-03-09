@@ -1,0 +1,385 @@
+---
+import SidebarLayout from '../../../layouts/SidebarLayout.astro';
+const detailInspect = `{ active, layers }`;
+const codeController = `import { CSSInspectController } from '@nonoun/native-ui';
+
+const inspector = new CSSInspectController(el, {
+  depth: 16,
+  scale: 0.85,
+  maxTilt: 60,
+  tiltRadius: 384,
+  perspective: 1200,
+  labels: true,
+});
+
+el.addEventListener('native:inspect', (e) =&gt; {
+  console.log(e.detail.active, e.detail.layers);
+});`;
+---
+<SidebarLayout title="CSS Inspectable">
+  <header>
+    <div slot="title">
+      <div slot="content">
+        <h1>CSS Inspectable</h1>
+      </div>
+    </div>
+    <div slot="description">
+
+      Hold <kbd>Alt</kbd> and hover to preview element outlines, click to explode layers in 3D space with interactive tilt. Click outside or press <kbd>Escape</kbd> to close. Like Firefox's old 3D DOM inspector.
+
+    </div>
+  </header>
+
+  <section>
+
+    <!-- ── Provider Demo ── -->
+
+    <h2>Provider (n-controller)</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Wrap elements with <code>&lt;n-controller traits="css-inspectable"&gt;</code> to make them inspectable. Hold <kbd>Alt</kbd> and hover to preview outlines, then click to explode in 3D.
+      </span>
+
+      <div class="component-grid">
+        <!-- Card layout -->
+        <div class="component-cell">
+          <span class="text-xs text-muted">Card Layout</span>
+          <n-controller traits="css-inspectable">
+            <div class="card inspect-target provider-target" id="provider-card">
+              <div class="card-header">Card Title</div>
+              <div class="card-body">
+                <span>First line of content</span>
+                <span>Second line with more detail</span>
+              </div>
+              <div class="card-footer">
+                <n-button variant="secondary" size="sm">Cancel</n-button>
+                <n-button size="sm">Save</n-button>
+              </div>
+            </div>
+          </n-controller>
+        </div>
+
+        <!-- Nested boxes -->
+        <div class="component-cell">
+          <span class="text-xs text-muted">Nested Structure</span>
+          <n-controller traits="css-inspectable" data-trait-css-inspectable-depth="80">
+            <div class="inspect-target provider-target" id="provider-nested">
+              <div class="nested-box">
+                <span class="text-xs">Outer layer</span>
+                <div class="nested-inner">
+                  <span>Inner layer</span>
+                </div>
+              </div>
+            </div>
+          </n-controller>
+        </div>
+
+        <!-- Form elements -->
+        <div class="component-cell">
+          <span class="text-xs text-muted">Form Elements</span>
+          <n-controller traits="css-inspectable" data-trait-css-inspectable-depth="50" data-trait-css-inspectable-scale="0.9">
+            <div class="inspect-target provider-target" id="provider-form">
+              <n-stack gap="2">
+                <n-input placeholder="Username"></n-input>
+                <n-input placeholder="Email" type="email"></n-input>
+                <n-button>Submit</n-button>
+              </n-stack>
+            </div>
+          </n-controller>
+        </div>
+      </div>
+
+      <div id="provider-log" class="output"></div>
+      <pre class="code-block"><code>&lt;n-controller traits="css-inspectable"&gt;
+  &lt;div class="card"&gt;
+    &lt;div class="card-header"&gt;Card Title&lt;/div&gt;
+    &lt;div class="card-body"&gt;...&lt;/div&gt;
+    &lt;div class="card-footer"&gt;...&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/n-controller&gt;
+
+&lt;!-- With options --&gt;
+&lt;n-controller traits="css-inspectable"
+  data-trait-css-inspectable-depth="80"
+  data-trait-css-inspectable-scale="0.9"&gt;
+  ...
+&lt;/n-controller&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Controller Demo ── -->
+
+    <h2>Controller (programmatic)</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        <code>new CSSInspectController(el, options)</code> — adjust options live with the controls below. Hold <kbd>Alt</kbd> and click the card to inspect, <kbd>Escape</kbd> to close.
+      </span>
+
+      <div class="controller-stage">
+        <div class="card inspect-target" id="controller-target">
+          <div class="card-header">Inspectable Card</div>
+          <div class="card-body">
+            <span>Hover me to explode layers</span>
+            <span>Move your mouse for 3D tilt</span>
+            <div class="nested-inner">Nested child element</div>
+          </div>
+          <div class="card-footer">
+            <n-button variant="secondary" size="sm">Action A</n-button>
+            <n-button size="sm">Action B</n-button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Options -->
+      <n-container>
+        <n-header><span>Options</span></n-header>
+        <n-body>
+          <n-stack gap="3">
+            <n-stack direction="row" align="center" gap="3">
+              <span class="text-sm opt-label">Depth: <strong id="depth-val">16</strong>px</span>
+              <n-range id="opt-depth" min="10" max="150" step="2" value="16"></n-range>
+            </n-stack>
+            <n-stack direction="row" align="center" gap="3">
+              <span class="text-sm opt-label">Scale: <strong id="scale-val">0.85</strong></span>
+              <n-range id="opt-scale" min="0.5" max="1.2" step="0.05" value="0.85"></n-range>
+            </n-stack>
+            <n-stack direction="row" align="center" gap="3">
+              <span class="text-sm opt-label">Perspective: <strong id="perspective-val">1200</strong>px</span>
+              <n-range id="opt-perspective" min="400" max="3000" step="100" value="1200"></n-range>
+            </n-stack>
+            <n-stack direction="row" align="center" gap="3">
+              <span class="text-sm opt-label">Max Tilt: <strong id="max-tilt-val">60</strong>&deg;</span>
+              <n-range id="opt-max-tilt" min="1" max="90" step="1" value="60"></n-range>
+            </n-stack>
+            <n-stack direction="row" align="center" gap="3">
+              <span class="text-sm opt-label">Tilt Radius: <strong id="tilt-radius-val">384</strong>px</span>
+              <n-range id="opt-tilt-radius" min="100" max="1000" step="16" value="384"></n-range>
+            </n-stack>
+            <n-stack direction="row" align="center" gap="3">
+              <n-switch id="opt-labels" checked>Show layer labels</n-switch>
+            </n-stack>
+          </n-stack>
+        </n-body>
+      </n-container>
+
+      <div id="controller-log" class="output"></div>
+      <pre class="code-block"><code set:html={codeController} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Pick Mode ── -->
+
+    <h2>Pick Mode</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        <code>data-trait-css-inspectable-pick</code> — Hold <kbd>Alt</kbd> and hover to highlight any descendant, then <kbd>Alt</kbd>+click to inspect it in 3D. Useful for large containers where you want to inspect individual children rather than the entire host.
+      </span>
+
+      <n-controller traits="css-inspectable" data-trait-css-inspectable-pick>
+        <div class="inspect-target pick-stage" id="pick-target">
+          <div class="card">
+            <div class="card-header">Card One</div>
+            <div class="card-body">
+              <span>First card content</span>
+              <span>With multiple children</span>
+            </div>
+            <div class="card-footer">
+              <n-button size="sm">Action</n-button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">Card Two</div>
+            <div class="card-body">
+              <span>Second card content</span>
+              <div class="nested-inner">Nested element</div>
+            </div>
+          </div>
+          <n-stack gap="2" class="pick-form">
+            <n-input placeholder="Username"></n-input>
+            <n-input placeholder="Email" type="email"></n-input>
+            <n-button>Submit</n-button>
+          </n-stack>
+        </div>
+      </n-controller>
+
+      <div id="pick-log" class="output"></div>
+      <pre class="code-block"><code>&lt;n-controller traits="css-inspectable"
+  data-trait-css-inspectable-pick&gt;
+  &lt;div&gt;
+    &lt;div class="card"&gt;...&lt;/div&gt;
+    &lt;div class="card"&gt;...&lt;/div&gt;
+    &lt;form&gt;...&lt;/form&gt;
+  &lt;/div&gt;
+&lt;/n-controller&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── API Reference ── -->
+
+    <h2>API</h2>
+      <h3>Adapter Attributes</h3>
+      <n-table variant="plain" size="sm" cols="auto auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Type</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>data-trait-css-inspectable-depth</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell><code>60</code></n-table-cell>
+            <n-table-cell>Z-spacing between exploded layers (px)</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-css-inspectable-scale</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell><code>0.85</code></n-table-cell>
+            <n-table-cell>Scale factor during inspection</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-css-inspectable-perspective</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell><code>1200</code></n-table-cell>
+            <n-table-cell>CSS perspective distance (px)</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-css-inspectable-max-tilt</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell><code>25</code></n-table-cell>
+            <n-table-cell>Max mouse tilt angle (deg)</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-css-inspectable-tilt-radius</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell><code>300</code></n-table-cell>
+            <n-table-cell>Mouse distance for max tilt (px)</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-css-inspectable-labels</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>true</code></n-table-cell>
+            <n-table-cell>Show tag/id/class labels on layers</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-css-inspectable-pick</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>false</code></n-table-cell>
+            <n-table-cell>Enable pick mode (Alt+click to choose target)</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-css-inspectable-disabled</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>false</code></n-table-cell>
+            <n-table-cell>Disable the inspector</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>Controller Options</h3>
+      <n-table variant="plain" size="sm" cols="auto auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Option</n-table-header><n-table-header>Type</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>depth</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell><code>16</code></n-table-cell>
+            <n-table-cell>Z-spacing between exploded layers (px)</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>scale</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell><code>0.85</code></n-table-cell>
+            <n-table-cell>Scale factor during inspection</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>perspective</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell><code>1200</code></n-table-cell>
+            <n-table-cell>CSS perspective distance (px)</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>maxTilt</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell><code>60</code></n-table-cell>
+            <n-table-cell>Max mouse tilt angle (deg)</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>tiltRadius</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell><code>384</code></n-table-cell>
+            <n-table-cell>Mouse distance for max tilt (px)</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>labels</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>true</code></n-table-cell>
+            <n-table-cell>Show tag/id/class labels on layers</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>pick</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>false</code></n-table-cell>
+            <n-table-cell>Enable pick mode</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>recursive</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>true</code></n-table-cell>
+            <n-table-cell>Walk all descendants or just direct children</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>Events</h3>
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Event</n-table-header><n-table-header>Detail</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>native:inspect</code></n-table-cell>
+            <n-table-cell><code set:html={detailInspect} /></n-table-cell>
+            <n-table-cell>Fired when inspection mode is toggled. <code>active</code> is a boolean; <code>layers</code> is the number of exploded layers.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>Methods</h3>
+      <n-table variant="plain" size="sm" cols="auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Method</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>inspect(target?)</code></n-table-cell>
+            <n-table-cell>Programmatically activate inspection. Optionally pass a target element (pick mode).</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>dismiss()</code></n-table-cell>
+            <n-table-cell>Programmatically deactivate inspection.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>CSS</h3>
+      <n-table variant="plain" size="sm" cols="auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Selector</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>[inspecting]</code></n-table-cell>
+            <n-table-cell>Present on the host while inspection mode is active.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>[inspect-ready]</code></n-table-cell>
+            <n-table-cell>Present during Alt+hover preview (before click). Use for crosshair cursor.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>[inspect-layer]</code></n-table-cell>
+            <n-table-cell>Applied to each exploded layer during 3D inspection.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>[inspect-hover]</code></n-table-cell>
+            <n-table-cell>Added to the layer under the pointer during inspection.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>[data-inspect-label]</code></n-table-cell>
+            <n-table-cell>Layer label attribute — use <code>::after</code> pseudo-element to display.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+  </section>
+
+  <script>
+    import './css-inspectable.ts';
+  </script>
+  <style is:global>
+    @import './css-inspectable.css';
+  </style>
+
+</SidebarLayout>

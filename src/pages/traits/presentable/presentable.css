@@ -1,0 +1,18 @@
+.present-card {
+  margin-top: 0.75rem;
+  max-width: 32rem;
+}
+
+.output {
+  font-family: monospace;
+  font-size: 0.75rem;
+  color: var(--n-ink-muted-neutral);
+  max-height: 6rem;
+  overflow-y: auto;
+  margin-top: 0.75rem;
+  padding: 0.5rem;
+  background: var(--n-panel-neutral);
+  border-radius: 0.25rem;
+}
+
+/* ── Code Blocks ── */

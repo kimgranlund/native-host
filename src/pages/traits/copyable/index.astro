@@ -1,0 +1,181 @@
+---
+import SidebarLayout from '../../../layouts/SidebarLayout.astro';
+
+const eventDetail = `{ value: string }`;
+const codeExamples = {
+  basicCopyInjection: `&lt;copy-demo traits="copyable pressable"
+  data-trait-copyable-value="npm install native-ui"&gt;
+  &lt;span class="copy-label"&gt;npm install native-ui&lt;/span&gt;
+  &lt;span class="copy-indicator"&gt;Copy&lt;/span&gt;
+&lt;/copy-demo&gt;
+
+// Minimal NativeElement shell
+class CopyDemo extends NativeElement {}
+define('copy-demo', CopyDemo);
+
+// Wire native:press → copy
+el.addEventListener('native:press', () =&gt; {
+  el.getTraitController('copyable')?.copy();
+});`,
+  copyWithGetter: `import { CopyController } from '@nonoun/native-ui';
+
+const el = document.querySelector('#getter-demo');
+const copy = new CopyController(el, {
+  value: () =&gt; new Date().toISOString(),
+});
+
+el.addEventListener('native:press', () =&gt; copy.copy());`,
+};
+---
+<SidebarLayout title="Copyable">
+  <header>
+    <div slot="title">
+      <div slot="content">
+        <h1>Copyable</h1>
+      </div>
+    </div>
+    <div slot="description">
+
+      One-click copy-to-clipboard with visual confirmation feedback. Sets the <code>[copied]</code> attribute during the feedback window and dispatches <code>native:copy</code>.
+
+    </div>
+  </header>
+
+  <section>
+
+    <!-- ── Basic Copy (Injection) ── -->
+
+    <h2>Basic Copy <span class="pattern-badge injection">Injection</span></h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        <code>traits="copyable pressable"</code> on a minimal NativeElement shell. Click triggers copy via <code>native:press</code>. The <code>[copied]</code> attribute provides visual feedback for 2 seconds.
+      </span>
+      <copy-demo traits="copyable pressable" data-trait-copyable-value="npm install native-ui" class="copy-card">
+        <span class="copy-label">npm install native-ui</span>
+        <span class="copy-indicator"><n-icon name="copy"></n-icon> Copy</span>
+      </copy-demo>
+      <div id="basic-log" class="output"></div>
+      <pre class="code-block"><code set:html={codeExamples.basicCopyInjection} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Copy with Getter ── -->
+
+    <h2>Copy with Getter</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        The copyable adapter takes static <code>value</code> strings. For dynamic values (like timestamps), use <code>CopyController</code> directly with a getter function.
+      </span>
+      <copy-demo id="getter-demo" traits="pressable" class="copy-card">
+        <span class="copy-label">Copy current timestamp</span>
+        <span class="copy-indicator"><n-icon name="copy"></n-icon> Copy</span>
+      </copy-demo>
+      <div id="getter-log" class="output"></div>
+      <pre class="code-block"><code set:html={codeExamples.copyWithGetter} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Custom Duration (Injection) ── -->
+
+    <h2>Custom Duration (500ms) <span class="pattern-badge injection">Injection</span></h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        <code>data-trait-copyable-feedback-duration="500"</code> for quick feedback instead of the default 2000ms.
+      </span>
+      <copy-demo traits="copyable pressable" data-trait-copyable-value="Quick feedback copy" data-trait-copyable-feedback-duration="500" class="copy-card">
+        <span class="copy-label">Quick feedback copy</span>
+        <span class="copy-indicator"><n-icon name="copy"></n-icon> Copy</span>
+      </copy-demo>
+      <div id="fast-log" class="output"></div>
+      <pre class="code-block"><code>&lt;copy-demo traits="copyable pressable"
+  data-trait-copyable-value="Quick feedback copy"
+  data-trait-copyable-feedback-duration="500"&gt;
+  &lt;span class="copy-label"&gt;Quick feedback copy&lt;/span&gt;
+  &lt;span class="copy-indicator"&gt;Copy&lt;/span&gt;
+&lt;/copy-demo&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Provider Pattern ── -->
+
+    <h2>Provider Pattern <span class="pattern-badge provider">Provider</span></h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        <code>&lt;n-controller&gt;</code> applies copyable to a plain <code>&lt;div&gt;</code>. No NativeElement subclass needed for the target. The controller manages <code>[copied]</code> feedback; a click listener triggers <code>copy()</code>.
+      </span>
+      <n-controller id="provider-ctrl" traits="copyable" data-trait-copyable-value="npx create-native-ui@latest">
+        <div id="provider-card" class="copy-card">
+          <span class="copy-label">npx create-native-ui@latest</span>
+          <span class="copy-indicator"><n-icon name="copy"></n-icon> Copy</span>
+        </div>
+      </n-controller>
+      <div id="provider-log" class="output"></div>
+      <pre class="code-block"><code>&lt;n-controller traits="copyable"
+  data-trait-copyable-value="npx create-native-ui@latest"&gt;
+  &lt;div class="copy-card"&gt;
+    &lt;span class="copy-label"&gt;npx create-native-ui@latest&lt;/span&gt;
+    &lt;span class="copy-indicator"&gt;Copy&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/n-controller&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── API Reference ── -->
+
+    <h2>API</h2>
+      <h3>Adapter Options (<code>copyable-*</code>)</h3>
+      <n-table variant="plain" size="sm" cols="auto auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Type</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>data-trait-copyable-value</code></n-table-cell>
+            <n-table-cell><code>string</code></n-table-cell>
+            <n-table-cell><code>''</code></n-table-cell>
+            <n-table-cell>The static string to copy. For dynamic values, use <code>CopyController</code> directly with a getter function.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-copyable-feedback-duration</code></n-table-cell>
+            <n-table-cell><code>number</code></n-table-cell>
+            <n-table-cell><code>2000</code></n-table-cell>
+            <n-table-cell>Duration in milliseconds that the <code>[copied]</code> attribute remains set after a successful copy.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>Controller Methods</h3>
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Method</n-table-header><n-table-header>Returns</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>copy()</code></n-table-cell>
+            <n-table-cell><code>Promise&lt;void&gt;</code></n-table-cell>
+            <n-table-cell>Writes the value to the clipboard, sets <code>[copied]</code>, and dispatches <code>native:copy</code>.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>Events</h3>
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Event</n-table-header><n-table-header>Detail</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>native:copy</code></n-table-cell>
+            <n-table-cell><code set:html={eventDetail} /></n-table-cell>
+            <n-table-cell>Fired after a successful copy. <code>detail.value</code> contains the copied string.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>CSS</h3>
+      <n-table variant="plain" size="sm" cols="auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Selector</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>[copied]</code></n-table-cell>
+            <n-table-cell>Present on the element during the feedback window after a successful copy. Use for visual confirmation styling.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+  </section>
+
+  <script>
+    import './copyable.ts';
+  </script>
+  <style is:global>
+    @import './copyable.css';
+  </style>
+
+</SidebarLayout>

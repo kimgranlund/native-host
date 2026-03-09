@@ -1,0 +1,217 @@
+---
+import SidebarLayout from '../../../layouts/SidebarLayout.astro';
+
+const codeExamples = {
+  basicTableSort: `&lt;n-controller traits="sortable" data-trait-sortable-selector="th"&gt;
+  &lt;div&gt;
+    &lt;table class="sort-table"&gt;
+      &lt;thead&gt;
+        &lt;tr&gt;
+          &lt;th&gt;Name&lt;/th&gt;
+          &lt;th&gt;Language&lt;/th&gt;
+          &lt;th&gt;Stars&lt;/th&gt;
+        &lt;/tr&gt;
+      &lt;/thead&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;&lt;td&gt;React&lt;/td&gt;&lt;td&gt;JavaScript&lt;/td&gt;&lt;td&gt;220k&lt;/td&gt;&lt;/tr&gt;
+        &lt;!-- ... --&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/div&gt;
+&lt;/n-controller&gt;
+
+&lt;script&gt;
+  const wrapper = document.getElementById('basic-wrapper');
+  wrapper.addEventListener('native:sort', (e) =&gt; {
+    const { column, direction } = e.detail;
+    const tbody = wrapper.querySelector('tbody');
+    const rows = [...tbody.querySelectorAll('tr')];
+    const headers = [...wrapper.querySelectorAll('th')];
+    const colIndex = headers.findIndex(
+      h =&gt; h.textContent.trim() === column
+    );
+    if (direction === 'none') return;
+    rows.sort((a, b) =&gt; {
+      const aVal = a.children[colIndex].textContent;
+      const bVal = b.children[colIndex].textContent;
+      const cmp = aVal.localeCompare(bVal, undefined, { numeric: true });
+      return direction === 'asc' ? cmp : -cmp;
+    });
+    for (const row of rows) tbody.appendChild(row);
+  });
+&lt;/script&gt;`,
+  customSelector: `&lt;n-controller traits="sortable" data-trait-sortable-selector="[data-column]"&gt;
+  &lt;div&gt;
+    &lt;table class="sort-table"&gt;
+      &lt;thead&gt;
+        &lt;tr&gt;
+          &lt;th data-column="city"&gt;City&lt;/th&gt;
+          &lt;th data-column="country"&gt;Country&lt;/th&gt;
+          &lt;th data-column="population"&gt;Population&lt;/th&gt;
+        &lt;/tr&gt;
+      &lt;/thead&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;&lt;td&gt;Tokyo&lt;/td&gt;&lt;td&gt;Japan&lt;/td&gt;&lt;td&gt;13.96M&lt;/td&gt;&lt;/tr&gt;
+        &lt;!-- ... --&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/div&gt;
+&lt;/n-controller&gt;
+
+&lt;script&gt;
+  const wrapper = document.getElementById('custom-wrapper');
+  wrapper.addEventListener('native:sort', (e) =&gt; {
+    const { column, direction } = e.detail;
+    const tbody = wrapper.querySelector('tbody');
+    const rows = [...tbody.querySelectorAll('tr')];
+    const headers = [...wrapper.querySelectorAll('[data-column]')];
+    const colIndex = headers.findIndex(
+      h =&gt; h.dataset.column === column
+    );
+    if (direction === 'none') return;
+    rows.sort((a, b) =&gt; {
+      const aVal = a.children[colIndex].textContent;
+      const bVal = b.children[colIndex].textContent;
+      const cmp = aVal.localeCompare(bVal, undefined, { numeric: true });
+      return direction === 'asc' ? cmp : -cmp;
+    });
+    for (const row of rows) tbody.appendChild(row);
+  });
+&lt;/script&gt;`,
+};
+const detailColumnDirection = `{ column, direction }`;
+---
+<SidebarLayout title="Sortable">
+  <header>
+    <div slot="title">
+      <div slot="content">
+        <h1>Sortable</h1>
+      </div>
+    </div>
+    <div slot="description">
+
+      Column sort state cycling (asc &rarr; desc &rarr; none) with ARIA sync. Click a header to cycle sort direction. The consumer handles actual data reordering in the <code>native:sort</code> event.
+
+    </div>
+  </header>
+
+  <section id="sortable-page">
+
+    <!-- ── Basic Table Sort ── -->
+
+    <h2>Basic Table Sort</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        <code>&lt;n-controller&gt;</code> wraps a plain <code>&lt;div&gt;</code> and applies the sortable trait. Click column headers to cycle sort direction. ARIA <code>aria-sort</code> is synced automatically.
+      </span>
+      <n-controller traits="sortable" data-trait-sortable-selector="th">
+        <div id="basic-wrapper">
+          <table class="sort-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Language</th>
+                <th>Stars</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>React</td><td>JavaScript</td><td>220k</td></tr>
+              <tr><td>Vue</td><td>TypeScript</td><td>207k</td></tr>
+              <tr><td>Svelte</td><td>TypeScript</td><td>80k</td></tr>
+              <tr><td>Angular</td><td>TypeScript</td><td>96k</td></tr>
+              <tr><td>Lit</td><td>TypeScript</td><td>18k</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </n-controller>
+      <div id="basic-log" class="output"></div>
+      <pre class="code-block"><code set:html={codeExamples.basicTableSort} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Custom Selector ── -->
+
+    <h2>Custom Selector</h2>
+    <n-container data-kind="panel" bordered>
+      <span class="text-xs text-muted">
+        Using <code>data-column</code> attributes on headers with a <code>[data-column]</code> selector. Column identity comes from the attribute rather than text content.
+      </span>
+      <n-controller traits="sortable" data-trait-sortable-selector="[data-column]">
+        <div id="custom-wrapper">
+          <table class="sort-table">
+            <thead>
+              <tr>
+                <th data-column="city">City</th>
+                <th data-column="country">Country</th>
+                <th data-column="population">Population</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Tokyo</td><td>Japan</td><td>13.96M</td></tr>
+              <tr><td>London</td><td>UK</td><td>8.98M</td></tr>
+              <tr><td>New York</td><td>USA</td><td>8.34M</td></tr>
+              <tr><td>Paris</td><td>France</td><td>2.16M</td></tr>
+              <tr><td>Berlin</td><td>Germany</td><td>3.64M</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </n-controller>
+      <div id="custom-log" class="output"></div>
+      <pre class="code-block"><code set:html={codeExamples.customSelector} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── API Reference ── -->
+
+    <h2>API</h2>
+      <h3>Provider Usage</h3>
+      <n-table variant="plain" size="sm" cols="auto auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Attribute</n-table-header><n-table-header>Type</n-table-header><n-table-header>Default</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>data-trait-sortable-selector</code></n-table-cell>
+            <n-table-cell><code>string</code></n-table-cell>
+            <n-table-cell><code>''</code></n-table-cell>
+            <n-table-cell>CSS selector for clickable header elements within the host.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>data-trait-sortable-disabled</code></n-table-cell>
+            <n-table-cell><code>boolean</code></n-table-cell>
+            <n-table-cell><code>false</code></n-table-cell>
+            <n-table-cell>Disables sort cycling when true. Header clicks are ignored.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>Events</h3>
+      <n-table variant="plain" size="sm" cols="auto auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Event</n-table-header><n-table-header>Detail</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>native:sort</code></n-table-cell>
+            <n-table-cell><code set:html={detailColumnDirection} /></n-table-cell>
+            <n-table-cell>Fired when sort state changes. <code>column</code> is the column name (from <code>data-column</code> or text content), <code>direction</code> is <code>'asc'</code>, <code>'desc'</code>, or <code>'none'</code>. Consumer handles actual data reordering.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+      <h3>CSS</h3>
+      <n-table variant="plain" size="sm" cols="auto 1fr">
+        <n-table-head><n-table-row><n-table-header>Selector</n-table-header><n-table-header>Description</n-table-header></n-table-row></n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>[aria-sort="ascending"]</code></n-table-cell>
+            <n-table-cell>Set on the header element for the currently sorted column when direction is <code>'asc'</code>.</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>[aria-sort="descending"]</code></n-table-cell>
+            <n-table-cell>Set on the header element for the currently sorted column when direction is <code>'desc'</code>.</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+  </section>
+
+  <script>
+    import './sortable.ts';
+  </script>
+  <style is:global>
+    @import './sortable.css';
+  </style>
+
+</SidebarLayout>

@@ -1,0 +1,216 @@
+---
+import SidebarLayout from '../../../layouts/SidebarLayout.astro';
+import ApiReference from '../../../components/ApiReference.astro';
+import { stackApi } from '../../../data/api/stack';
+---
+<SidebarLayout title="Stack">
+  <header>
+    <div slot="title">
+      <div slot="content">
+        <h1>Stack</h1>
+      </div>
+    </div>
+    <div slot="description">
+      <span class="header-tag">&lt;n-stack&gt;</span> Flex layout utility. Vertical or horizontal stacking with configurable gap, alignment, and wrapping. CSS-only container.
+          </div>
+  </header>
+
+  <section>
+
+    <!-- ── Vertical (default) ── -->
+
+    <h2>Vertical (default)</h2>
+    <n-container data-kind="panel" bordered>
+      <n-stack>
+        <div class="box"><n-container><n-body>Item 1</n-body></n-container></div>
+        <div class="box"><n-container><n-body>Item 2</n-body></n-container></div>
+        <div class="box"><n-container><n-body>Item 3</n-body></n-container></div>
+      </n-stack>
+    <pre class="code-block"><code>&lt;n-stack&gt;
+  &lt;div&gt;Item 1&lt;/div&gt;
+  &lt;div&gt;Item 2&lt;/div&gt;
+  &lt;div&gt;Item 3&lt;/div&gt;
+&lt;/n-stack&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Horizontal ── -->
+
+    <h2>Horizontal</h2>
+    <n-container data-kind="panel" bordered>
+      <n-stack direction="row">
+        <div class="box"><n-container><n-body>Item 1</n-body></n-container></div>
+        <div class="box"><n-container><n-body>Item 2</n-body></n-container></div>
+        <div class="box"><n-container><n-body>Item 3</n-body></n-container></div>
+      </n-stack>
+    <pre class="code-block"><code>&lt;n-stack direction="row"&gt;
+  &lt;div&gt;Item 1&lt;/div&gt;
+  &lt;div&gt;Item 2&lt;/div&gt;
+  &lt;div&gt;Item 3&lt;/div&gt;
+&lt;/n-stack&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Gap sizes ── -->
+
+    <h2>Gap Sizes</h2>
+    <n-container data-kind="panel" bordered>
+      <h3>gap="0"</h3>
+      <n-stack direction="row" gap="0">
+        <div class="box"><n-container><n-body>A</n-body></n-container></div>
+        <div class="box"><n-container><n-body>B</n-body></n-container></div>
+        <div class="box"><n-container><n-body>C</n-body></n-container></div>
+      </n-stack>
+      <h3>gap="1"</h3>
+      <n-stack direction="row" gap="1">
+        <div class="box"><n-container><n-body>A</n-body></n-container></div>
+        <div class="box"><n-container><n-body>B</n-body></n-container></div>
+        <div class="box"><n-container><n-body>C</n-body></n-container></div>
+      </n-stack>
+      <h3>gap="2" (default)</h3>
+      <n-stack direction="row" gap="2">
+        <div class="box"><n-container><n-body>A</n-body></n-container></div>
+        <div class="box"><n-container><n-body>B</n-body></n-container></div>
+        <div class="box"><n-container><n-body>C</n-body></n-container></div>
+      </n-stack>
+      <h3>gap="4"</h3>
+      <n-stack direction="row" gap="4">
+        <div class="box"><n-container><n-body>A</n-body></n-container></div>
+        <div class="box"><n-container><n-body>B</n-body></n-container></div>
+        <div class="box"><n-container><n-body>C</n-body></n-container></div>
+      </n-stack>
+      <h3>gap="8"</h3>
+      <n-stack direction="row" gap="8">
+        <div class="box"><n-container><n-body>A</n-body></n-container></div>
+        <div class="box"><n-container><n-body>B</n-body></n-container></div>
+        <div class="box"><n-container><n-body>C</n-body></n-container></div>
+      </n-stack>
+    <pre class="code-block"><code>&lt;n-stack direction="row" gap="0"&gt;...&lt;/n-stack&gt;
+&lt;n-stack direction="row" gap="2"&gt;...&lt;/n-stack&gt;
+&lt;n-stack direction="row" gap="4"&gt;...&lt;/n-stack&gt;
+&lt;n-stack direction="row" gap="8"&gt;...&lt;/n-stack&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Alignment ── -->
+
+    <h2>Alignment</h2>
+    <n-container data-kind="panel" bordered>
+      <h3>align="start"</h3>
+      <div class="align-demo"><n-stack direction="row" align="start">
+        <div class="box"><n-container><n-body>Short</n-body></n-container></div>
+        <div class="box box-tall"><n-container><n-body>Tall</n-body></n-container></div>
+        <div class="box"><n-container><n-body>Short</n-body></n-container></div>
+      </n-stack></div>
+      <h3>align="center"</h3>
+      <div class="align-demo"><n-stack direction="row" align="center">
+        <div class="box"><n-container><n-body>Short</n-body></n-container></div>
+        <div class="box box-tall"><n-container><n-body>Tall</n-body></n-container></div>
+        <div class="box"><n-container><n-body>Short</n-body></n-container></div>
+      </n-stack></div>
+      <h3>align="end"</h3>
+      <div class="align-demo"><n-stack direction="row" align="end">
+        <div class="box"><n-container><n-body>Short</n-body></n-container></div>
+        <div class="box box-tall"><n-container><n-body>Tall</n-body></n-container></div>
+        <div class="box"><n-container><n-body>Short</n-body></n-container></div>
+      </n-stack></div>
+    <pre class="code-block"><code>&lt;n-stack direction="row" align="start"&gt;...&lt;/n-stack&gt;
+&lt;n-stack direction="row" align="center"&gt;...&lt;/n-stack&gt;
+&lt;n-stack direction="row" align="end"&gt;...&lt;/n-stack&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Justify ── -->
+
+    <h2>Justify</h2>
+    <n-container data-kind="panel" bordered>
+      <h3>justify="between"</h3>
+      <n-stack direction="row" justify="between">
+        <div class="box"><n-container><n-body>Left</n-body></n-container></div>
+        <div class="box"><n-container><n-body>Right</n-body></n-container></div>
+      </n-stack>
+      <h3>justify="center"</h3>
+      <n-stack direction="row" justify="center">
+        <div class="box"><n-container><n-body>Centered</n-body></n-container></div>
+        <div class="box"><n-container><n-body>Items</n-body></n-container></div>
+      </n-stack>
+      <h3>justify="evenly"</h3>
+      <n-stack direction="row" justify="evenly">
+        <div class="box"><n-container><n-body>A</n-body></n-container></div>
+        <div class="box"><n-container><n-body>B</n-body></n-container></div>
+        <div class="box"><n-container><n-body>C</n-body></n-container></div>
+      </n-stack>
+    <pre class="code-block"><code>&lt;n-stack direction="row" justify="between"&gt;
+  &lt;div&gt;Left&lt;/div&gt;
+  &lt;div&gt;Right&lt;/div&gt;
+&lt;/n-stack&gt;
+
+&lt;n-stack direction="row" justify="center"&gt;...&lt;/n-stack&gt;
+&lt;n-stack direction="row" justify="evenly"&gt;...&lt;/n-stack&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Wrap ── -->
+
+    <h2>Wrap</h2>
+    <n-container data-kind="panel" bordered>
+      <n-stack direction="row" wrap gap="2">
+        <div class="box"><n-container><n-body>Tag 1</n-body></n-container></div>
+        <div class="box"><n-container><n-body>Tag 2</n-body></n-container></div>
+        <div class="box"><n-container><n-body>Tag 3</n-body></n-container></div>
+        <div class="box"><n-container><n-body>Tag 4</n-body></n-container></div>
+        <div class="box"><n-container><n-body>Tag 5</n-body></n-container></div>
+        <div class="box"><n-container><n-body>Tag 6</n-body></n-container></div>
+        <div class="box"><n-container><n-body>Tag 7</n-body></n-container></div>
+        <div class="box"><n-container><n-body>Tag 8</n-body></n-container></div>
+        <div class="box"><n-container><n-body>Tag 9</n-body></n-container></div>
+        <div class="box"><n-container><n-body>Tag 10</n-body></n-container></div>
+      </n-stack>
+    <pre class="code-block"><code>&lt;n-stack direction="row" wrap gap="2"&gt;
+  &lt;div&gt;Tag 1&lt;/div&gt;
+  &lt;div&gt;Tag 2&lt;/div&gt;
+  ...
+&lt;/n-stack&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Composition ── -->
+
+    <h2>Composition (with components)</h2>
+    <n-container data-kind="panel" bordered>
+      <h3>Form layout</h3>
+      <n-stack gap="4">
+        <n-input placeholder="Email address"></n-input>
+        <n-input placeholder="Password" type="password"></n-input>
+        <n-stack direction="row" justify="between" align="center">
+          <n-checkbox>Remember me</n-checkbox>
+          <n-button variant="primary" intent="accent"><span>Sign In</span></n-button>
+        </n-stack>
+      </n-stack>
+    <pre class="code-block"><code>&lt;n-stack gap="4"&gt;
+  &lt;n-input placeholder="Email address"&gt;&lt;/n-input&gt;
+  &lt;n-input placeholder="Password" type="password"&gt;&lt;/n-input&gt;
+  &lt;n-stack direction="row" justify="between" align="center"&gt;
+    &lt;n-checkbox&gt;Remember me&lt;/n-checkbox&gt;
+    &lt;n-button variant="primary" intent="accent"&gt;Sign In&lt;/n-button&gt;
+  &lt;/n-stack&gt;
+&lt;/n-stack&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <n-container data-kind="panel" bordered>
+      <h3>Button group</h3>
+      <n-stack direction="row" gap="2">
+        <n-button variant="primary" intent="accent"><span>Save</span></n-button>
+        <n-button><span>Cancel</span></n-button>
+        <n-button variant="ghost" intent="danger"><span>Delete</span></n-button>
+      </n-stack>
+    <pre class="code-block"><code>&lt;n-stack direction="row" gap="2"&gt;
+  &lt;n-button variant="primary" intent="accent"&gt;Save&lt;/n-button&gt;
+  &lt;n-button&gt;Cancel&lt;/n-button&gt;
+  &lt;n-button variant="ghost" intent="danger"&gt;Delete&lt;/n-button&gt;
+&lt;/n-stack&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <h2>API Reference</h2>
+    <ApiReference data={stackApi} />
+  </section>
+
+  <style is:global>
+    @import './stack.css';
+  </style>
+
+</SidebarLayout>

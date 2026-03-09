@@ -1,0 +1,159 @@
+---
+import SidebarLayout from '../../../layouts/SidebarLayout.astro';
+
+const codeExamples = {
+  customDuration500ms: `&lt;!-- Custom animation duration (default: 200ms) --&gt;
+&lt;n-controller traits="collapsible" collapsible-duration="500"&gt;
+  &lt;div&gt;
+    &lt;p&gt;Slower 500ms animation&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/n-controller&gt;
+
+&lt;!-- Imperative: CollapsibleController --&gt;
+&lt;script&gt;
+  import { CollapsibleController } from '@nonoun/native-ui';
+
+  const ctrl = new CollapsibleController(hostElement, {
+    duration: 500
+  });
+  ctrl.toggle();
+&lt;/script&gt;`,
+};
+---
+<SidebarLayout title="Collapsible">
+  <header>
+    <div slot="title">
+      <div slot="content">
+        <h1>Collapsible</h1>
+      </div>
+    </div>
+    <div slot="description">
+
+      Composable trait for animated show/hide with smooth height transitions. Dispatches <code>native:expand</code> and <code>native:collapse</code> events.
+
+    </div>
+  </header>
+
+  <section>
+
+    <!-- ── Basic Toggle ── -->
+
+    <h2>Basic Toggle</h2>
+    <n-container data-kind="panel" bordered>
+      <n-button id="toggle-btn">Toggle Content</n-button>
+      <collapse-demo traits="collapsible" id="section1">
+        <div class="collapse-content">
+          <p>This content smoothly animates open and closed using the Collapsible trait.</p>
+          <p>The height transition is calculated dynamically from the content's natural scroll height.</p>
+        </div>
+      </collapse-demo>
+      <div id="log"></div>
+    <pre class="code-block"><code>&lt;!-- Declarative: n-controller with collapsible trait --&gt;
+&lt;n-controller traits="collapsible"&gt;
+  &lt;div id="my-section"&gt;
+    &lt;p&gt;Collapsible content here&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/n-controller&gt;
+
+&lt;script&gt;
+  // Toggle programmatically
+  const el = document.getElementById('my-section');
+  el.getTraitController('collapsible').toggle();
+
+  // Listen for events
+  el.addEventListener('native:expand', () =&gt; console.log('Expanded'));
+  el.addEventListener('native:collapse', () =&gt; console.log('Collapsed'));
+&lt;/script&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Initially Collapsed ── -->
+
+    <h2>Initially Collapsed</h2>
+    <n-container data-kind="panel" bordered>
+      <n-button id="expand-btn">Expand</n-button>
+      <collapse-demo traits="collapsible" id="section2" collapsed>
+        <div class="collapse-content">
+          <p>I was hidden on page load. Click "Expand" to reveal me with a smooth animation.</p>
+        </div>
+      </collapse-demo>
+    <pre class="code-block"><code>&lt;!-- Start collapsed with the collapsed attribute --&gt;
+&lt;n-controller traits="collapsible"&gt;
+  &lt;div collapsed&gt;
+    &lt;p&gt;Hidden on page load&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/n-controller&gt;
+
+&lt;script&gt;
+  // Expand/collapse individually
+  const ctrl = el.getTraitController('collapsible');
+  if (ctrl.collapsed) ctrl.expand();
+  else ctrl.collapse();
+&lt;/script&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Custom Duration ── -->
+
+    <h2>Custom Duration (500ms)</h2>
+    <n-container data-kind="panel" bordered>
+      <n-button id="slow-btn">Toggle Slow</n-button>
+      <collapse-demo traits="collapsible" collapsible-duration="500" id="section3">
+        <div class="collapse-content">
+          <p>This section uses a custom <code>collapsible-duration="500"</code> for a slower, more dramatic animation.</p>
+        </div>
+      </collapse-demo>
+    <pre class="code-block"><code set:html={codeExamples.customDuration500ms} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── API Reference ── -->
+
+    <h2>API</h2>
+    <n-container data-kind="panel">
+      <n-table variant="plain" size="sm" cols="auto 1fr">
+        <n-table-head>
+          <n-table-row>
+            <n-table-header>Property / Method</n-table-header>
+            <n-table-header>Description</n-table-header>
+          </n-table-row>
+        </n-table-head>
+        <n-table-body>
+          <n-table-row>
+            <n-table-cell><code>toggle()</code></n-table-cell>
+            <n-table-cell>Toggle between expanded and collapsed</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>expand()</code></n-table-cell>
+            <n-table-cell>Expand the content</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>collapse()</code></n-table-cell>
+            <n-table-cell>Collapse the content</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>collapsed</code></n-table-cell>
+            <n-table-cell>Boolean — current collapsed state</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>collapsible-duration</code></n-table-cell>
+            <n-table-cell>Animation duration in ms (default: 200)</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>native:expand</code></n-table-cell>
+            <n-table-cell>Event dispatched after expand animation completes</n-table-cell>
+          </n-table-row>
+          <n-table-row>
+            <n-table-cell><code>native:collapse</code></n-table-cell>
+            <n-table-cell>Event dispatched after collapse animation completes</n-table-cell>
+          </n-table-row>
+        </n-table-body>
+      </n-table>
+    </n-container>
+  </section>
+
+  <script>
+    import './collapsible.ts';
+  </script>
+  <style is:global>
+    @import './collapsible.css';
+  </style>
+
+</SidebarLayout>

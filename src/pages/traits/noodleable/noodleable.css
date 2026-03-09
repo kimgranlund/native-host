@@ -1,0 +1,194 @@
+@import '@nonoun/native-code/css';
+
+/* ── Noodle Arena ── */
+
+.noodle-arena {
+  position: relative;
+  min-height: 340px;
+  border: 2px dashed var(--n-border-muted-neutral);
+  border-radius: var(--n-radius);
+  overflow: visible;
+}
+
+.noodle-arena--tall {
+  min-height: 460px;
+}
+
+.noodle-arena--short {
+  min-height: 200px;
+}
+
+/* ── Flow Nodes ── */
+
+.flow-node {
+  position: absolute;
+  min-width: 7rem;
+  padding: 0.625rem 0.875rem;
+  border-radius: var(--n-radius);
+  font-size: 0.75rem;
+  font-weight: 600;
+  user-select: none;
+  touch-action: none;
+  cursor: grab;
+  text-align: center;
+}
+
+.flow-node:active {
+  cursor: grabbing;
+}
+
+.flow-node[intent] {
+  background: var(--n-button);
+  border: 1px solid var(--n-border-muted);
+  color: var(--n-ink);
+}
+
+.flow-node[disabled] {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ── Add Node Button ── */
+
+.flow-add-btn {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid var(--n-border-accent);
+  background: var(--n-button-accent);
+  color: var(--n-ink-accent);
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  padding: 0;
+  transition: transform 100ms ease;
+}
+
+.flow-add-btn:hover {
+  transform: scale(1.2);
+}
+
+/* ── Split Layout ── */
+
+.flow-split {
+  display: flex;
+  gap: 0;
+  min-height: 480px;
+  max-height: 75dvh;
+  background-color: var(--n-panel);
+  border: 2px dashed var(--n-border-muted-neutral);
+  border-radius: var(--n-radius);
+  overflow: hidden;
+}
+
+.flow-split-canvas {
+  position: relative;
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+}
+
+.flow-split-handle {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 5px;
+  height: 100%;
+  cursor: ew-resize;
+  background: var(--n-border-muted-neutral);
+  opacity: 0.3;
+  transition: opacity 150ms ease;
+  z-index: 5;
+}
+
+.flow-canvas-controls {
+  position: absolute;
+  left: 1.5rem;
+  bottom: 1.5rem;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.flow-split-handle:hover {
+  opacity: 0.8;
+  background: var(--n-border-accent);
+}
+
+.flow-split-editor {
+  flex: 1;
+  min-width: 200px;
+  overflow: hidden;
+  border-left: 1px solid var(--n-border-muted-neutral);
+  display: flex;
+  flex-direction: column;
+}
+
+.flow-split-editor > div {
+  flex: 1;
+  min-height: 0;
+}
+
+.flow-split-editor .cm-editor {
+  height: 100%;
+}
+
+.flow-split-editor .cm-scroller {
+  overflow: auto;
+}
+
+/* ── Canvas Viewport (pan) ── */
+
+.canvas-viewport {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  cursor: grab;
+}
+
+.canvas-viewport:active {
+  cursor: grabbing;
+}
+
+.canvas-transform {
+  transform-origin: 0 0;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.flow-split[presented] {
+  max-height: none;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 0;
+}
+
+/* Inside split, arena loses its own border */
+.flow-split .noodle-arena {
+  border: none;
+  min-height: 100%;
+}
+
+/* ── Output Log ── */
+
+.output {
+  font-family: monospace;
+  font-size: 0.75rem;
+  color: var(--n-ink-muted-neutral);
+  max-height: 8rem;
+  overflow-y: auto;
+  margin-top: 0.75rem;
+  padding: 0.5rem;
+  background: var(--n-panel-neutral);
+  border-radius: 0.25rem;
+}

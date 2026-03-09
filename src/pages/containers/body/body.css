@@ -1,0 +1,15 @@
+.body-card-wrap {
+  max-width: 24rem;
+}
+
+.body-card-wrap--md {
+  max-width: 28rem;
+}
+
+.body-card-wrap--h16 {
+  height: 16rem;
+}
+
+.body-card-wrap--h14 {
+  height: 14rem;
+}

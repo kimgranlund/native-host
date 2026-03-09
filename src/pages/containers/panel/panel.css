@@ -1,0 +1,13 @@
+.sidebar-demo {
+  height: 16rem;
+}
+
+.sidebar-panel-wrapper {
+  width: 14rem;
+  flex-shrink: 0;
+}
+
+.content-area {
+  flex: 1;
+  padding: 1rem;
+}

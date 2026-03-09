@@ -1,0 +1,44 @@
+/* ── Vertical nav list ── */
+
+.nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: fit-content;
+  min-width: 12rem;
+}
+
+/* ── Horizontal filter bar ── */
+
+.filter-bar {
+  display: flex;
+  gap: 0.25rem;
+}
+
+/* ── Value display ── */
+
+.value-display {
+  font-family: monospace;
+  font-size: 0.8125rem;
+  color: var(--n-ink-muted-neutral);
+  margin-top: 0.75rem;
+  padding: 0.5rem;
+  background: var(--n-panel-neutral);
+  border-radius: 0.25rem;
+}
+
+/* ── Event log ── */
+
+.output {
+  font-family: monospace;
+  font-size: 0.75rem;
+  color: var(--n-ink-muted-neutral);
+  max-height: 6rem;
+  overflow-y: auto;
+  margin-top: 0.75rem;
+  padding: 0.5rem;
+  background: var(--n-panel-neutral);
+  border-radius: 0.25rem;
+}
+
+/* ── Code Blocks ── */

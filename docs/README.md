@@ -67,4 +67,4 @@ npm run db:studio    # browse database
 
 ## Cross-Project Tickets
 
-Bug/feature exchange with native-ui lives in `/TICKETS/`. Index: `TICKET-AGENT.md`. To file a ticket: create `T{next}-{slug}.md` and add a row to the index.
+Bug/feature exchange with native-ui lives in `../../dev-ops/TICKETS/`. Index: `TICKET-AGENT.md`. To file a ticket: create `T{next}-{slug}.md` and add a row to the index.
