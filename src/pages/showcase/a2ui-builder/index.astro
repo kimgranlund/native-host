@@ -1,5 +1,51 @@
 ---
 import SidebarLayout from '../../../layouts/SidebarLayout.astro';
+import { db } from '../../../db/client';
+import { contentType, contentObject } from '../../../db/schema';
+import { eq } from 'drizzle-orm';
+
+const user = Astro.locals.user;
+
+// Load builder models from DB (graceful fallback if not seeded yet)
+interface BuilderModel { name: string; provider: string; modelId: string; tier: string }
+let models: BuilderModel[] = [];
+let hasPremiumAccess = false;
+
+const [modelType] = await db.select().from(contentType).where(eq(contentType.slug, 'builder-model'));
+if (modelType) {
+  const entries = await db.select().from(contentObject).where(eq(contentObject.contentTypeId, modelType.id));
+  models = entries
+    .filter(e => e.status === 'active')
+    .map(e => JSON.parse(e.data) as BuilderModel);
+}
+
+// Check premium access for current user
+if (user?.email) {
+  const [accessType] = await db.select().from(contentType).where(eq(contentType.slug, 'builder-model-access'));
+  if (accessType) {
+    const grants = await db.select().from(contentObject).where(eq(contentObject.contentTypeId, accessType.id));
+    hasPremiumAccess = grants.some(g => {
+      const parsed = JSON.parse(g.data) as { email: string };
+      return parsed.email === user.email;
+    });
+  }
+}
+
+// Fallback: if no models in DB yet, use hardcoded defaults
+if (models.length === 0) {
+  models = [
+    { name: 'Human', provider: 'none', modelId: 'human', tier: 'free' },
+    { name: 'Claude Haiku 4.5', provider: 'anthropic', modelId: 'claude-haiku-4-5', tier: 'free' },
+    { name: 'GPT-5 mini', provider: 'openai', modelId: 'gpt-5-mini', tier: 'free' },
+    { name: 'GPT-5 nano', provider: 'openai', modelId: 'gpt-5-nano', tier: 'free' },
+    { name: 'GPT-4.1 mini', provider: 'openai', modelId: 'gpt-4.1-mini', tier: 'free' },
+    { name: 'GPT-4.1 nano', provider: 'openai', modelId: 'gpt-4.1-nano', tier: 'free' },
+  ];
+}
+
+// Filter: show free models always, premium only if user has access
+const visibleModels = models.filter(m => m.tier === 'free' || hasPremiumAccess);
+const defaultModel = visibleModels.find(m => m.modelId === 'claude-haiku-4-5') ?? visibleModels[0];
 ---
 <SidebarLayout title="A2UI Builder">
   <section id="a2ui-builder-page">
@@ -33,15 +79,12 @@ import SidebarLayout from '../../../layouts/SidebarLayout.astro';
             <n-chat-input-advanced id="chat-composer">
               <n-chat-input-header>
                 <nav>
-                  <n-select id="model-picker" value="claude-haiku-4-5" data-role="model-picker">
-                    <n-button variant="ghost" inline size="sm"><span slot="label">Claude Haiku 4.5</span> <n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
+                  <n-select id="model-picker" value={defaultModel?.modelId ?? 'claude-haiku-4-5'} data-role="model-picker">
+                    <n-button variant="ghost" inline size="sm"><span slot="label">{defaultModel?.name ?? 'Claude Haiku 4.5'}</span> <n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
                     <n-listbox popover="auto">
-                      <n-option value="human">Human</n-option>
-                      <n-option value="claude-haiku-4-5" selected>Claude Haiku 4.5</n-option>
-                      <n-option value="gpt-5-mini">GPT-5 mini</n-option>
-                      <n-option value="gpt-5-nano">GPT-5 nano</n-option>
-                      <n-option value="gpt-4.1-mini">GPT-4.1 mini</n-option>
-                      <n-option value="gpt-4.1-nano">GPT-4.1 nano</n-option>
+                      {visibleModels.map(m => (
+                        <n-option value={m.modelId} selected={m.modelId === defaultModel?.modelId ? true : undefined}>{m.name}</n-option>
+                      ))}
                     </n-listbox>
                   </n-select>
                   <n-button variant="ghost" inline size="sm"><n-icon name="brain"></n-icon> UI Builder</n-button>

@@ -1,0 +1,420 @@
+---
+import SidebarLayout from '../../../layouts/SidebarLayout.astro';
+import AdminLayout from '../../../components/AdminLayout.astro';
+import { requireAdmin } from '../../../lib/permissions';
+import { db } from '../../../db/client';
+import { contentType, contentObject } from '../../../db/schema';
+import { eq } from 'drizzle-orm';
+import { randomUUID } from 'node:crypto';
+
+const ctx = await requireAdmin(Astro.locals);
+if (ctx instanceof Response) return ctx;
+
+// ── Seed: ensure builder-model content type + default models exist ──
+
+let [modelType] = await db.select().from(contentType).where(eq(contentType.slug, 'builder-model'));
+if (!modelType) {
+  const now = new Date();
+  const id = randomUUID();
+  await db.insert(contentType).values({
+    id,
+    slug: 'builder-model',
+    name: 'Builder Model',
+    schema: JSON.stringify({ type: 'object' }),
+    versioned: false,
+    createdAt: now,
+    updatedAt: now,
+  });
+  [modelType] = await db.select().from(contentType).where(eq(contentType.slug, 'builder-model'));
+
+  // Seed default models
+  const defaults = [
+    { slug: 'human', data: { name: 'Human', provider: 'none', modelId: 'human', tier: 'free' } },
+    { slug: 'claude-haiku-4-5', data: { name: 'Claude Haiku 4.5', provider: 'anthropic', modelId: 'claude-haiku-4-5', tier: 'free' } },
+    { slug: 'gpt-5-mini', data: { name: 'GPT-5 mini', provider: 'openai', modelId: 'gpt-5-mini', tier: 'free' } },
+    { slug: 'gpt-5-nano', data: { name: 'GPT-5 nano', provider: 'openai', modelId: 'gpt-5-nano', tier: 'free' } },
+    { slug: 'gpt-4-1-mini', data: { name: 'GPT-4.1 mini', provider: 'openai', modelId: 'gpt-4.1-mini', tier: 'free' } },
+    { slug: 'gpt-4-1-nano', data: { name: 'GPT-4.1 nano', provider: 'openai', modelId: 'gpt-4.1-nano', tier: 'free' } },
+    { slug: 'claude-opus-4-6', data: { name: 'Claude Opus 4.6', provider: 'anthropic', modelId: 'claude-opus-4-6', tier: 'premium' } },
+    { slug: 'claude-sonnet-4-6', data: { name: 'Claude Sonnet 4.6', provider: 'anthropic', modelId: 'claude-sonnet-4-6', tier: 'premium' } },
+    { slug: 'chatgpt-5-4', data: { name: 'ChatGPT 5.4', provider: 'openai', modelId: 'chatgpt-5.4', tier: 'premium' } },
+    { slug: 'chatgpt-5-3', data: { name: 'ChatGPT 5.3', provider: 'openai', modelId: 'chatgpt-5.3', tier: 'premium' } },
+  ];
+  for (const d of defaults) {
+    await db.insert(contentObject).values({
+      id: randomUUID(),
+      contentTypeId: modelType.id,
+      slug: d.slug,
+      data: JSON.stringify(d.data),
+      version: 1,
+      status: 'active',
+      createdAt: now,
+      updatedAt: now,
+    });
+  }
+}
+
+// ── Seed: ensure builder-model-access content type + default grant ──
+
+let [accessType] = await db.select().from(contentType).where(eq(contentType.slug, 'builder-model-access'));
+if (!accessType) {
+  const now = new Date();
+  const id = randomUUID();
+  await db.insert(contentType).values({
+    id,
+    slug: 'builder-model-access',
+    name: 'Builder Model Access',
+    schema: JSON.stringify({ type: 'object' }),
+    versioned: false,
+    createdAt: now,
+    updatedAt: now,
+  });
+  [accessType] = await db.select().from(contentType).where(eq(contentType.slug, 'builder-model-access'));
+
+  // Seed default access
+  await db.insert(contentObject).values({
+    id: randomUUID(),
+    contentTypeId: accessType.id,
+    slug: 'kim-granlund',
+    data: JSON.stringify({ email: 'kim.granlund@gmail.com' }),
+    version: 1,
+    status: 'active',
+    createdAt: now,
+    updatedAt: now,
+  });
+}
+
+// ── Load data ──
+
+const modelEntries = await db.select().from(contentObject).where(eq(contentObject.contentTypeId, modelType.id));
+const models = modelEntries.map(e => ({ ...e, parsed: JSON.parse(e.data) as Record<string, unknown> }));
+
+const accessEntries = await db.select().from(contentObject).where(eq(contentObject.contentTypeId, accessType.id));
+const grants = accessEntries.map(e => ({ ...e, parsed: JSON.parse(e.data) as Record<string, unknown> }));
+
+function tierIntent(tier: string) {
+  if (tier === 'premium') return 'accent';
+  return 'neutral';
+}
+---
+<SidebarLayout title="Builder Models">
+  <AdminLayout current="/admin/registry/builder-models" orgId={ctx.orgId}>
+
+    <!-- ── Models Table ── -->
+    <n-table id="bm-table" cols="1fr auto auto auto auto">
+      <n-table-row colspan>
+        <n-table-cell>
+          <header>
+            <h1>Builder Models</h1>
+            <n-button id="create-bm-btn" variant="primary" intent="accent">
+              <n-icon name="plus" slot="leading"></n-icon>
+              <span>Add Model</span>
+            </n-button>
+          </header>
+        </n-table-cell>
+      </n-table-row>
+      <n-table-row header>
+        <n-table-cell>Name</n-table-cell>
+        <n-table-cell>Provider</n-table-cell>
+        <n-table-cell>Model ID</n-table-cell>
+        <n-table-cell>Tier</n-table-cell>
+        <n-table-cell>Actions</n-table-cell>
+      </n-table-row>
+      {models.map(m => (
+        <n-table-row>
+          <n-table-cell><span class="text-strong">{m.parsed.name as string}</span></n-table-cell>
+          <n-table-cell><span class="text-sm">{m.parsed.provider as string}</span></n-table-cell>
+          <n-table-cell><span class="text-muted text-sm">{m.parsed.modelId as string}</span></n-table-cell>
+          <n-table-cell><n-badge intent={tierIntent(m.parsed.tier as string)}>{m.parsed.tier as string}</n-badge></n-table-cell>
+          <n-table-cell>
+            <n-stack direction="row" gap="1">
+              <n-button variant="ghost" size="sm" data-action="edit-model"
+                data-entry-id={m.id}
+                data-entry-name={m.parsed.name as string}
+                data-entry-provider={m.parsed.provider as string}
+                data-entry-model-id={m.parsed.modelId as string}
+                data-entry-tier={m.parsed.tier as string}>
+                <nav><n-icon name="pencil-simple"></n-icon></nav>
+              </n-button>
+              <n-button variant="ghost" size="sm" intent="danger" data-action="delete-model"
+                data-entry-id={m.id}
+                data-entry-name={m.parsed.name as string}>
+                <nav><n-icon name="trash"></n-icon></nav>
+              </n-button>
+            </n-stack>
+          </n-table-cell>
+        </n-table-row>
+      ))}
+    </n-table>
+
+    <!-- ── Premium Access Table ── -->
+    <n-table id="ba-table" cols="1fr auto auto">
+      <n-table-row colspan>
+        <n-table-cell>
+          <header>
+            <h2>Premium Access</h2>
+            <n-button id="create-ba-btn" variant="primary" intent="accent">
+              <n-icon name="plus" slot="leading"></n-icon>
+              <span>Grant Access</span>
+            </n-button>
+          </header>
+        </n-table-cell>
+      </n-table-row>
+      <n-table-row header>
+        <n-table-cell>Email</n-table-cell>
+        <n-table-cell>Granted</n-table-cell>
+        <n-table-cell>Actions</n-table-cell>
+      </n-table-row>
+      {grants.map(g => (
+        <n-table-row>
+          <n-table-cell><span class="text-strong">{g.parsed.email as string}</span></n-table-cell>
+          <n-table-cell><span class="text-muted text-sm">{g.createdAt.toLocaleDateString()}</span></n-table-cell>
+          <n-table-cell>
+            <n-button variant="ghost" size="sm" intent="danger" data-action="delete-access"
+              data-entry-id={g.id}
+              data-entry-email={g.parsed.email as string}>
+              <nav><n-icon name="trash"></n-icon></nav>
+            </n-button>
+          </n-table-cell>
+        </n-table-row>
+      ))}
+    </n-table>
+
+    <!-- ── Model Dialog ── -->
+    <n-dialog id="bm-dialog">
+      <div class="admin-dialog-card">
+        <n-container>
+          <n-header><span id="bm-dialog-title">Add Model</span></n-header>
+          <n-body>
+            <n-stack gap="4">
+              <n-field required>
+                <label slot="label">Name</label>
+                <n-input id="bm-name" placeholder="e.g. Claude Opus 4.6"></n-input>
+              </n-field>
+              <n-field required>
+                <label slot="label">Provider</label>
+                <n-select id="bm-provider" value="anthropic" options='[{"value":"anthropic","label":"Anthropic"},{"value":"openai","label":"OpenAI"},{"value":"none","label":"None"}]'></n-select>
+              </n-field>
+              <n-field required>
+                <label slot="label">Model ID</label>
+                <n-input id="bm-model-id" placeholder="e.g. claude-opus-4-6"></n-input>
+              </n-field>
+              <n-field required>
+                <label slot="label">Tier</label>
+                <n-select id="bm-tier" value="free" options='[{"value":"free","label":"Free"},{"value":"premium","label":"Premium"}]'></n-select>
+              </n-field>
+            </n-stack>
+          </n-body>
+          <n-footer>
+            <n-button id="bm-cancel"><span slot="label">Cancel</span></n-button>
+            <n-button id="bm-submit" variant="primary" intent="accent"><span slot="label">Save</span></n-button>
+          </n-footer>
+        </n-container>
+      </div>
+    </n-dialog>
+
+    <!-- ── Model Delete Dialog ── -->
+    <n-dialog id="bm-delete-dialog">
+      <div class="admin-dialog-card">
+        <n-container>
+          <n-header>
+            <nav><n-icon name="warning" size="lg"></n-icon></nav>
+            <span>Delete Model?</span>
+          </n-header>
+          <n-body>
+            <span>Are you sure you want to delete <span class="text-strong" id="bm-delete-name"></span>?</span>
+          </n-body>
+          <n-footer>
+            <n-button id="bm-delete-cancel"><span slot="label">Cancel</span></n-button>
+            <n-button id="bm-delete-submit" variant="primary" intent="danger">
+              <n-icon name="trash" slot="leading"></n-icon><span>Delete</span>
+            </n-button>
+          </n-footer>
+        </n-container>
+      </div>
+    </n-dialog>
+
+    <!-- ── Access Dialog ── -->
+    <n-dialog id="ba-dialog">
+      <div class="admin-dialog-card">
+        <n-container>
+          <n-header><span>Grant Premium Access</span></n-header>
+          <n-body>
+            <n-stack gap="4">
+              <n-field required>
+                <label slot="label">Email</label>
+                <n-input id="ba-email" placeholder="user@example.com"></n-input>
+              </n-field>
+            </n-stack>
+          </n-body>
+          <n-footer>
+            <n-button id="ba-cancel"><span slot="label">Cancel</span></n-button>
+            <n-button id="ba-submit" variant="primary" intent="accent"><span slot="label">Grant</span></n-button>
+          </n-footer>
+        </n-container>
+      </div>
+    </n-dialog>
+
+    <!-- ── Access Delete Dialog ── -->
+    <n-dialog id="ba-delete-dialog">
+      <div class="admin-dialog-card">
+        <n-container>
+          <n-header>
+            <nav><n-icon name="warning" size="lg"></n-icon></nav>
+            <span>Revoke Access?</span>
+          </n-header>
+          <n-body>
+            <span>Revoke premium access for <span class="text-strong" id="ba-delete-email"></span>?</span>
+          </n-body>
+          <n-footer>
+            <n-button id="ba-delete-cancel"><span slot="label">Cancel</span></n-button>
+            <n-button id="ba-delete-submit" variant="primary" intent="danger">
+              <n-icon name="trash" slot="leading"></n-icon><span>Revoke</span>
+            </n-button>
+          </n-footer>
+        </n-container>
+      </div>
+    </n-dialog>
+
+  </AdminLayout>
+</SidebarLayout>
+
+<script>
+document.addEventListener('astro:page-load', () => {
+  const bmTable = document.getElementById('bm-table');
+  if (!bmTable || bmTable.hasAttribute('data-wired')) return;
+  bmTable.setAttribute('data-wired', '');
+
+  // ── Model CRUD ──
+  let editingModelId = '';
+  let deletingModelId = '';
+
+  const bmDialog = document.getElementById('bm-dialog') as any;
+  const bmDeleteDialog = document.getElementById('bm-delete-dialog') as any;
+  const bmTitle = document.getElementById('bm-dialog-title');
+  const bmName = document.getElementById('bm-name') as any;
+  const bmProvider = document.getElementById('bm-provider') as any;
+  const bmModelId = document.getElementById('bm-model-id') as any;
+  const bmTier = document.getElementById('bm-tier') as any;
+
+  function resetModelForm() {
+    editingModelId = '';
+    if (bmName) bmName.value = '';
+    if (bmProvider) bmProvider.value = 'anthropic';
+    if (bmModelId) bmModelId.value = '';
+    if (bmTier) bmTier.value = 'free';
+    if (bmTitle) bmTitle.textContent = 'Add Model';
+  }
+
+  function nameToSlug(name: string) {
+    return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  }
+
+  document.getElementById('create-bm-btn')?.addEventListener('native:press', () => {
+    resetModelForm();
+    bmDialog?.showModal();
+  });
+
+  bmTable.querySelectorAll('[data-action="edit-model"]').forEach(btn => {
+    btn.addEventListener('native:press', () => {
+      editingModelId = btn.getAttribute('data-entry-id') || '';
+      if (bmTitle) bmTitle.textContent = 'Edit Model';
+      if (bmName) bmName.value = btn.getAttribute('data-entry-name') || '';
+      if (bmProvider) bmProvider.value = btn.getAttribute('data-entry-provider') || 'anthropic';
+      if (bmModelId) bmModelId.value = btn.getAttribute('data-entry-model-id') || '';
+      if (bmTier) bmTier.value = btn.getAttribute('data-entry-tier') || 'free';
+      bmDialog?.showModal();
+    });
+  });
+
+  document.getElementById('bm-cancel')?.addEventListener('native:press', () => bmDialog?.close());
+  document.getElementById('bm-submit')?.addEventListener('native:press', async () => {
+    const name = bmName?.value?.trim();
+    if (!name) return;
+
+    const data = {
+      name,
+      provider: bmProvider?.value || 'anthropic',
+      modelId: bmModelId?.value?.trim() || '',
+      tier: bmTier?.value || 'free',
+    };
+
+    const url = editingModelId
+      ? `/api/admin/registry/builder-model/${editingModelId}`
+      : '/api/admin/registry/builder-model';
+    const method = editingModelId ? 'PATCH' : 'POST';
+
+    const res = await fetch(url, {
+      method,
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'same-origin',
+      body: JSON.stringify({ slug: nameToSlug(data.modelId || name), data }),
+    });
+    if (res.ok) { bmDialog?.close(); location.reload(); }
+  });
+
+  bmTable.querySelectorAll('[data-action="delete-model"]').forEach(btn => {
+    btn.addEventListener('native:press', () => {
+      deletingModelId = btn.getAttribute('data-entry-id') || '';
+      const el = document.getElementById('bm-delete-name');
+      if (el) el.textContent = btn.getAttribute('data-entry-name') || '';
+      bmDeleteDialog?.showModal();
+    });
+  });
+
+  document.getElementById('bm-delete-cancel')?.addEventListener('native:press', () => bmDeleteDialog?.close());
+  document.getElementById('bm-delete-submit')?.addEventListener('native:press', async () => {
+    const res = await fetch(`/api/admin/registry/builder-model/${deletingModelId}`, {
+      method: 'DELETE',
+      credentials: 'same-origin',
+    });
+    if (res.ok) { bmDeleteDialog?.close(); location.reload(); }
+  });
+
+  // ── Access CRUD ──
+  let deletingAccessId = '';
+
+  const baDialog = document.getElementById('ba-dialog') as any;
+  const baDeleteDialog = document.getElementById('ba-delete-dialog') as any;
+  const baEmail = document.getElementById('ba-email') as any;
+
+  document.getElementById('create-ba-btn')?.addEventListener('native:press', () => {
+    if (baEmail) baEmail.value = '';
+    baDialog?.showModal();
+  });
+
+  document.getElementById('ba-cancel')?.addEventListener('native:press', () => baDialog?.close());
+  document.getElementById('ba-submit')?.addEventListener('native:press', async () => {
+    const email = baEmail?.value?.trim();
+    if (!email) return;
+
+    const slug = email.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '').toLowerCase();
+    const res = await fetch('/api/admin/registry/builder-model-access', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'same-origin',
+      body: JSON.stringify({ slug, data: { email } }),
+    });
+    if (res.ok) { baDialog?.close(); location.reload(); }
+  });
+
+  const baTable = document.getElementById('ba-table');
+  baTable?.querySelectorAll('[data-action="delete-access"]').forEach(btn => {
+    btn.addEventListener('native:press', () => {
+      deletingAccessId = btn.getAttribute('data-entry-id') || '';
+      const el = document.getElementById('ba-delete-email');
+      if (el) el.textContent = btn.getAttribute('data-entry-email') || '';
+      baDeleteDialog?.showModal();
+    });
+  });
+
+  document.getElementById('ba-delete-cancel')?.addEventListener('native:press', () => baDeleteDialog?.close());
+  document.getElementById('ba-delete-submit')?.addEventListener('native:press', async () => {
+    const res = await fetch(`/api/admin/registry/builder-model-access/${deletingAccessId}`, {
+      method: 'DELETE',
+      credentials: 'same-origin',
+    });
+    if (res.ok) { baDeleteDialog?.close(); location.reload(); }
+  });
+});
+</script>
