@@ -213,6 +213,7 @@
   color: var(--n-ink);
   padding: 1rem;
   font-family: inherit;
+  min-width: 24rem;
 }
 
 /* ── Concepts pane ── */
