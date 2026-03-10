@@ -211,9 +211,11 @@
   color-scheme: light;
   background: var(--n-body);
   color: var(--n-ink);
-  padding: 1rem;
   font-family: inherit;
-  min-width: 24rem;
+}
+
+#preview-mount {
+  min-width: 18rem;
 }
 
 /* ── Concepts pane ── */

@@ -47,9 +47,10 @@ if (models.length === 0) {
 const visibleModels = models.filter(m => m.modelId !== 'human' && (m.tier === 'free' || hasPremiumAccess));
 const defaultModel = visibleModels.find(m => m.modelId === 'claude-haiku-4-5') ?? visibleModels[0];
 
-// Group by provider for the picker
+// Group by provider for the picker (Anthropic first)
 const providerLabels: Record<string, string> = { anthropic: 'Anthropic', openai: 'OpenAI' };
-const grouped = new Map<string, BuilderModel[]>();
+const providerOrder = ['Anthropic', 'OpenAI', 'Other'];
+const grouped = new Map<string, BuilderModel[]>(providerOrder.map(k => [k, []]));
 for (const m of visibleModels) {
   const key = providerLabels[m.provider] ?? 'Other';
   if (!grouped.has(key)) grouped.set(key, []);
@@ -91,7 +92,7 @@ for (const m of visibleModels) {
                   <n-select id="model-picker" value={defaultModel?.modelId ?? 'claude-haiku-4-5'} data-role="model-picker">
                     <n-button variant="ghost" inline size="sm" density="compact"><span slot="label">{defaultModel?.name ?? 'Claude Haiku 4.5'}</span> <n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
                     <n-listbox popover="auto">
-                      {[...grouped.entries()].map(([label, models]) => (
+                      {[...grouped.entries()].filter(([, models]) => models.length > 0).map(([label, models]) => (
                         <n-option-group>
                           <n-option-group-header>{label}</n-option-group-header>
                           {models.map(m => (
