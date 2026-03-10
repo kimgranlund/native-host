@@ -17,6 +17,8 @@ import buildings from '@phosphor-icons/core/assets/regular/buildings.svg?raw';
 import backspace from '@phosphor-icons/core/assets/regular/backspace.svg?raw';
 import bell from '@phosphor-icons/core/assets/regular/bell.svg?raw';
 import bookOpen from '@phosphor-icons/core/assets/regular/book-open.svg?raw';
+import bracketsCurly from '@phosphor-icons/core/assets/regular/brackets-curly.svg?raw';
+import brain from '@phosphor-icons/core/assets/regular/brain.svg?raw';
 import calendar from '@phosphor-icons/core/assets/regular/calendar.svg?raw';
 import caretDown from '@phosphor-icons/core/assets/regular/caret-down.svg?raw';
 import caretLeft from '@phosphor-icons/core/assets/regular/caret-left.svg?raw';
@@ -38,6 +40,7 @@ import control from '@phosphor-icons/core/assets/regular/control.svg?raw';
 import copy from '@phosphor-icons/core/assets/regular/copy.svg?raw';
 import cpu from '@phosphor-icons/core/assets/regular/cpu.svg?raw';
 import creditCard from '@phosphor-icons/core/assets/regular/credit-card.svg?raw';
+import crosshair from '@phosphor-icons/core/assets/regular/crosshair.svg?raw';
 import cube from '@phosphor-icons/core/assets/regular/cube.svg?raw';
 import currencyDollar from '@phosphor-icons/core/assets/regular/currency-dollar.svg?raw';
 import database from '@phosphor-icons/core/assets/regular/database.svg?raw';
@@ -46,7 +49,9 @@ import download from '@phosphor-icons/core/assets/regular/download.svg?raw';
 import envelope from '@phosphor-icons/core/assets/regular/envelope.svg?raw';
 import envelopeSimple from '@phosphor-icons/core/assets/regular/envelope-simple.svg?raw';
 import eye from '@phosphor-icons/core/assets/regular/eye.svg?raw';
+import fileCode from '@phosphor-icons/core/assets/regular/file-code.svg?raw';
 import fileText from '@phosphor-icons/core/assets/regular/file-text.svg?raw';
+import flask from '@phosphor-icons/core/assets/regular/flask.svg?raw';
 import floppyDisk from '@phosphor-icons/core/assets/regular/floppy-disk.svg?raw';
 import folder from '@phosphor-icons/core/assets/regular/folder.svg?raw';
 import folderOpen from '@phosphor-icons/core/assets/regular/folder-open.svg?raw';
@@ -61,9 +66,11 @@ import house from '@phosphor-icons/core/assets/regular/house.svg?raw';
 import image from '@phosphor-icons/core/assets/regular/image.svg?raw';
 import keyReturn from '@phosphor-icons/core/assets/regular/key-return.svg?raw';
 import info from '@phosphor-icons/core/assets/regular/info.svg?raw';
+import lightbulb from '@phosphor-icons/core/assets/regular/lightbulb.svg?raw';
 import lightning from '@phosphor-icons/core/assets/regular/lightning.svg?raw';
 import link from '@phosphor-icons/core/assets/regular/link.svg?raw';
 import list from '@phosphor-icons/core/assets/regular/list.svg?raw';
+import listChecks from '@phosphor-icons/core/assets/regular/list-checks.svg?raw';
 import listBullets from '@phosphor-icons/core/assets/regular/list-bullets.svg?raw';
 import listDashes from '@phosphor-icons/core/assets/regular/list-dashes.svg?raw';
 import listNumbers from '@phosphor-icons/core/assets/regular/list-numbers.svg?raw';
@@ -77,6 +84,7 @@ import moon from '@phosphor-icons/core/assets/regular/moon.svg?raw';
 import option from '@phosphor-icons/core/assets/regular/option.svg?raw';
 import pkg from '@phosphor-icons/core/assets/regular/package.svg?raw';
 import quotes from '@phosphor-icons/core/assets/regular/quotes.svg?raw';
+import record from '@phosphor-icons/core/assets/regular/record.svg?raw';
 import pencilSimple from '@phosphor-icons/core/assets/regular/pencil-simple.svg?raw';
 import percent from '@phosphor-icons/core/assets/regular/percent.svg?raw';
 import phone from '@phosphor-icons/core/assets/regular/phone.svg?raw';
@@ -120,6 +128,7 @@ import textB from '@phosphor-icons/core/assets/regular/text-b.svg?raw';
 import textItalic from '@phosphor-icons/core/assets/regular/text-italic.svg?raw';
 import textStrikethrough from '@phosphor-icons/core/assets/regular/text-strikethrough.svg?raw';
 import textUnderline from '@phosphor-icons/core/assets/regular/text-underline.svg?raw';
+import treeStructure from '@phosphor-icons/core/assets/regular/tree-structure.svg?raw';
 import trash from '@phosphor-icons/core/assets/regular/trash.svg?raw';
 import trendDown from '@phosphor-icons/core/assets/regular/trend-down.svg?raw';
 import trendUp from '@phosphor-icons/core/assets/regular/trend-up.svg?raw';
@@ -159,6 +168,8 @@ const icons: Record<string, string> = {
   'backspace': backspace,
   'bell': bell,
   'book-open': bookOpen,
+  'brackets-curly': bracketsCurly,
+  'brain': brain,
   'calendar': calendar,
   'caret-down': caretDown,
   'caret-left': caretLeft,
@@ -180,6 +191,7 @@ const icons: Record<string, string> = {
   'copy': copy,
   'cpu': cpu,
   'credit-card': creditCard,
+  'crosshair': crosshair,
   'cube': cube,
   'currency-dollar': currencyDollar,
   'database': database,
@@ -188,7 +200,9 @@ const icons: Record<string, string> = {
   'envelope': envelope,
   'envelope-simple': envelopeSimple,
   'eye': eye,
+  'file-code': fileCode,
   'file-text': fileText,
+  'flask': flask,
   'floppy-disk': floppyDisk,
   'folder': folder,
   'folder-open': folderOpen,
@@ -203,9 +217,11 @@ const icons: Record<string, string> = {
   'image': image,
   'key-return': keyReturn,
   'info': info,
+  'lightbulb': lightbulb,
   'lightning': lightning,
   'link': link,
   'list': list,
+  'list-checks': listChecks,
   'list-bullets': listBullets,
   'list-dashes': listDashes,
   'list-numbers': listNumbers,
@@ -219,6 +235,7 @@ const icons: Record<string, string> = {
   'option': option,
   'package': pkg,
   'quotes': quotes,
+  'record': record,
   'pencil-simple': pencilSimple,
   'percent': percent,
   'phone': phone,
@@ -262,6 +279,7 @@ const icons: Record<string, string> = {
   'text-italic': textItalic,
   'text-strikethrough': textStrikethrough,
   'text-underline': textUnderline,
+  'tree-structure': treeStructure,
   'trash': trash,
   'trend-down': trendDown,
   'trend-up': trendUp,

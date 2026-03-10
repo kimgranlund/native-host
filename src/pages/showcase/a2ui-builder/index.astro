@@ -1,0 +1,172 @@
+---
+import SidebarLayout from '../../../layouts/SidebarLayout.astro';
+---
+<SidebarLayout title="A2UI Builder">
+  <section id="a2ui-builder-page">
+    <div class="builder">
+
+      <!-- ── Header toolbar: panel toggle chips ── -->
+      <n-header>
+        <n-toolbar variant="ghost" size="sm">
+          <span class="builder-title">A2UI Builder</span>
+          <span fill></span>
+          <n-button variant="ghost" size="sm" data-chip="preview">Preview</n-button>
+          <n-button variant="ghost" size="sm" data-chip="concepts">Concepts</n-button>
+          <n-button variant="ghost" size="sm" data-chip="schema">Schema</n-button>
+          <n-button variant="ghost" size="sm" data-chip="map">Map</n-button>
+          <n-button variant="ghost" size="sm" data-chip="prompt">Prompt</n-button>
+          <span fill></span>
+          <n-button variant="ghost" size="sm" id="lightbox-toggle" title="Toggle light/dark preview"><n-icon name="moon"></n-icon></n-button>
+        </n-toolbar>
+      </n-header>
+
+      <!-- ── Split: chat left, panes right ── -->
+      <div class="builder-split">
+
+        <!-- Chat (left) -->
+        <div class="builder-chat" data-region="chat">
+          <n-chat-feed id="chat-feed" auto-scroll></n-chat-feed>
+          <n-footer>
+            <n-chat-input-advanced id="chat-composer">
+              <n-chat-input-header>
+                <nav>
+                  <n-select id="model-picker" value="claude-haiku-4-5" data-role="model-picker">
+                    <n-button variant="ghost" inline size="sm"><span slot="label">Claude Haiku 4.5</span> <n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
+                    <n-listbox popover="auto">
+                      <n-option value="human">Human</n-option>
+                      <n-option value="claude-haiku-4-5" selected>Claude Haiku 4.5</n-option>
+                      <n-option value="gpt-5-mini">GPT-5 mini</n-option>
+                      <n-option value="gpt-5-nano">GPT-5 nano</n-option>
+                      <n-option value="gpt-4.1-mini">GPT-4.1 mini</n-option>
+                      <n-option value="gpt-4.1-nano">GPT-4.1 nano</n-option>
+                    </n-listbox>
+                  </n-select>
+                  <n-button variant="ghost" inline size="sm"><n-icon name="brain"></n-icon> UI Builder</n-button>
+                </nav>
+                <aside>
+                  <n-button variant="ghost" inline size="sm" data-role="toggle-inspector"><n-icon name="sliders"></n-icon></n-button>
+                  <n-button variant="ghost" inline size="sm"><n-icon name="clock"></n-icon></n-button>
+                </aside>
+              </n-chat-input-header>
+              <n-chat-input-prompt>
+                <n-textarea placeholder="Describe a UI..." autogrow rows="1"></n-textarea>
+                <n-button variant="ghost" inline size="sm" data-role="improve"><n-icon name="sparkle"></n-icon></n-button>
+                <n-toolbar variant="plain" padding="3">
+                  <n-button variant="ghost" radius="round" inline><n-icon name="plus"></n-icon></n-button>
+                  <n-button variant="ghost" radius="round" inline><n-icon name="magnifying-glass"></n-icon></n-button>
+                  <n-button variant="ghost" radius="round" inline><n-icon name="compass"></n-icon></n-button>
+                  <n-button variant="ghost" radius="round" inline><n-icon name="flask"></n-icon></n-button>
+                  <span fill></span>
+                  <n-button variant="ghost" radius="round" inline><n-icon name="record"></n-icon></n-button>
+                  <n-button variant="ghost" radius="round" inline><n-icon name="microphone"></n-icon></n-button>
+                  <n-button variant="primary" intent="accent" radius="round" inline disabled data-role="submit"><n-icon name="arrow-up"></n-icon></n-button>
+                </n-toolbar>
+              </n-chat-input-prompt>
+              <n-chat-input-chips>
+                <n-button variant="ghost" size="sm" radius="round"><n-icon name="lightbulb"></n-icon> Clarify problem</n-button>
+                <n-button variant="ghost" size="sm" radius="round"><n-icon name="crosshair"></n-icon> Define context</n-button>
+                <n-button variant="ghost" size="sm" radius="round"><n-icon name="list-checks"></n-icon> Select deliverable</n-button>
+                <n-button variant="ghost" size="sm" radius="round"><n-icon name="pencil-simple"></n-icon> Refine requirements</n-button>
+              </n-chat-input-chips>
+            </n-chat-input-advanced>
+          </n-footer>
+          <div class="resize-handle"></div>
+        </div>
+
+        <!-- Pane: Preview -->
+        <div class="builder-pane" data-panel="preview">
+          <n-header>
+            <nav><n-icon name="eye"></n-icon></nav>
+            <span>Preview</span>
+            <aside><n-button variant="ghost" size="sm" data-close-panel="preview"><n-icon name="x"></n-icon></n-button></aside>
+          </n-header>
+          <div class="builder-pane-content">
+            <div id="preview-mount">
+              <span class="empty-state">Live preview will appear here</span>
+            </div>
+          </div>
+          <div class="resize-handle"></div>
+        </div>
+
+        <!-- Pane: Concepts -->
+        <div class="builder-pane" data-panel="concepts">
+          <n-header>
+            <nav><n-icon name="lightbulb"></n-icon></nav>
+            <span>Concepts</span>
+            <aside><n-button variant="ghost" size="sm" data-close-panel="concepts"><n-icon name="x"></n-icon></n-button></aside>
+          </n-header>
+          <div class="builder-pane-content">
+            <div id="concepts-wrap" class="concepts-wrap">
+              <span class="empty-state">Concepts will appear here</span>
+            </div>
+          </div>
+          <div class="resize-handle"></div>
+        </div>
+
+        <!-- Pane: Schema -->
+        <div class="builder-pane" data-panel="schema">
+          <n-header>
+            <nav><n-icon name="brackets-curly"></n-icon></nav>
+            <span>Schema</span>
+            <aside><n-button variant="ghost" size="sm" data-close-panel="schema"><n-icon name="x"></n-icon></n-button></aside>
+          </n-header>
+          <div class="builder-pane-content">
+            <pre id="schema-pre" class="pane-pre"><span class="empty-state">A2UI schema will appear here</span></pre>
+          </div>
+          <div class="resize-handle"></div>
+        </div>
+
+        <!-- Pane: Component Map -->
+        <div class="builder-pane" data-panel="map" hidden>
+          <n-header>
+            <nav><n-icon name="tree-structure"></n-icon></nav>
+            <span>Map</span>
+            <aside><n-button variant="ghost" size="sm" data-close-panel="map"><n-icon name="x"></n-icon></n-button></aside>
+          </n-header>
+          <div class="builder-pane-content">
+            <table id="map-table" class="map-table">
+              <thead><tr><th class="map-chevron"></th><th>A2UI Type</th><th>Native Tag</th><th>Category</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="resize-handle"></div>
+        </div>
+
+        <!-- Pane: System Prompt (editable) -->
+        <div class="builder-pane" data-panel="prompt" hidden>
+          <n-header>
+            <nav><n-icon name="terminal"></n-icon></nav>
+            <span>Prompt</span>
+            <aside><n-button variant="ghost" size="sm" data-close-panel="prompt"><n-icon name="x"></n-icon></n-button></aside>
+          </n-header>
+          <div class="builder-pane-content">
+            <textarea id="prompt-editor" class="prompt-editor" spellcheck="false"></textarea>
+          </div>
+          <div class="resize-handle"></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <script>
+    import './a2ui-builder.ts';
+  </script>
+
+  <style is:global>
+    @import '@nonoun/native-ai/css';
+    @import './a2ui-builder.css';
+
+    /* Builder fills remaining <main> flex space.
+       Override content.css padding + max-width so it goes edge-to-edge. */
+    #a2ui-builder-page {
+      flex: 1;
+      min-height: 500px;
+      padding: 0;
+    }
+    #a2ui-builder-page > * {
+      max-width: none;
+      margin: 0;
+    }
+  </style>
+</SidebarLayout>

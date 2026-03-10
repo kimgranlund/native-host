@@ -16,6 +16,7 @@
     text-rendering: optimizeLegibility;
 
     font-family: var(--n-font-family);
+    font-size: var(--n-font-size);
     line-height: var(--n-text-line-height);
     background: var(--n-doc-neutral);
     color: var(--n-ink-neutral);
