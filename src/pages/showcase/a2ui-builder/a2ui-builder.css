@@ -385,7 +385,7 @@ n-chat-message[data-type="gap"] n-chat-message-text {
   width: 0.75em;
   height: 0.75em;
   margin-inline-end: 0.4em;
-  border: 2px solid currentColor;
+  border: 1.5px solid currentColor;
   border-top-color: transparent;
   border-radius: 50%;
   vertical-align: -0.1em;
@@ -394,6 +394,11 @@ n-chat-message[data-type="gap"] n-chat-message-text {
 
 @keyframes builder-spin {
   to { transform: rotate(360deg); }
+}
+
+.builder-progress-summary {
+  font-size: var(--n-font-size-sm);
+  color: var(--n-ink-muted);
 }
 
 /* ── Empty state ── */

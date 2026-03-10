@@ -972,6 +972,39 @@ ${js}
     }
   }
 
+  // ── Progress step classification ──
+
+  function classifySteps(query: string, isIterating: boolean): [string, string, string] {
+    const q = query.toLowerCase();
+
+    // Style / CSS requests
+    if (/\b(style|color|theme|dark|light|background|font|spacing|padding|margin|border|shadow|round|gradient)\b/.test(q)) {
+      return ['Thinking', 'Analyzing Styles', 'Styling UI'];
+    }
+    // Interactivity / JS requests
+    if (/\b(click|event|handler|interact|button press|toggle|animate|show|hide|submit|validate)\b/.test(q)) {
+      return ['Thinking', 'Planning Logic', 'Wiring Events'];
+    }
+    // Layout / structure changes
+    if (/\b(layout|grid|stack|column|row|sidebar|header|footer|responsive|mobile|split|arrange|reorder|move)\b/.test(q)) {
+      return ['Thinking', 'Planning Layout', 'Restructuring UI'];
+    }
+    // Questions / explanations
+    if (/^(what|how|why|can you|is it|explain|tell me|describe)\b/.test(q)) {
+      return ['Thinking', 'Analyzing', 'Composing Response'];
+    }
+    // Removal / simplification
+    if (/\b(remove|delete|simplify|strip|clean|fewer|less|minimal)\b/.test(q)) {
+      return ['Thinking', 'Reviewing Structure', 'Simplifying UI'];
+    }
+    // Iteration (has existing schema)
+    if (isIterating) {
+      return ['Thinking', 'Reviewing Changes', 'Updating UI'];
+    }
+    // Default: first generation
+    return ['Thinking', 'Concept Mapping', 'Creating UI'];
+  }
+
   // ── Send handler ──
 
   async function sendMessage(value: string) {
@@ -1003,14 +1036,13 @@ ${js}
     chatFeed.appendChild(progressEl);
     chatFeed.scrollTop = chatFeed.scrollHeight;
 
-    const steps = ['Thinking', 'Concept Mapping', 'Creating UI'];
-    let stepIndex = 0;
+    // Pick reasoning steps based on user intent
+    const steps = classifySteps(value, !!currentSchema);
     let elapsed = 0;
 
     // Create a line element for each step
     const lines: HTMLDivElement[] = [];
     function addStep(index: number) {
-      // Remove active state from previous step
       const prev = lines[lines.length - 1];
       if (prev) prev.removeAttribute('data-active');
 
@@ -1024,7 +1056,7 @@ ${js}
     }
 
     function updateThinkingTime() {
-      if (lines[0]) lines[0].textContent = `${steps[0]} ${elapsed}s`;
+      if (lines[0]) lines[0].textContent = `Thinking ${elapsed}s`;
     }
 
     addStep(0);
@@ -1035,16 +1067,20 @@ ${js}
       updateThinkingTime();
     }, 1000);
 
-    // Advance to next step after delays — previous steps stay visible
+    // Advance to next step after delays
     const stepTimers = [
-      setTimeout(() => { stepIndex = 1; addStep(1); }, 2000),
-      setTimeout(() => { stepIndex = 2; addStep(2); }, 4000),
+      setTimeout(() => addStep(1), 2000),
+      setTimeout(() => addStep(2), 4000),
     ];
 
-    function clearProgress() {
+    function clearProgress(summaryVerb?: string) {
       clearInterval(tickTimer);
       for (const t of stepTimers) clearTimeout(t);
-      progressEl.remove();
+      // Replace progress steps with a compact summary
+      const label = summaryVerb ?? steps[steps.length - 1];
+      progressEl.textContent = '';
+      progressEl.className = 'builder-progress-summary';
+      progressEl.textContent = `Thought for ${elapsed}s · ${label}`;
     }
 
     try {
@@ -1053,8 +1089,6 @@ ${js}
         messages,
         query: value,
       });
-
-      clearProgress();
 
       const raw = (response as Record<string, unknown>).message as string | undefined;
       const trimmed = raw?.trim();
@@ -1065,11 +1099,21 @@ ${js}
         result.schema.surfaceId = 'preview';
       }
 
+      // Summary verb based on actual response type
+      const summaryVerbs: Record<string, string> = {
+        schema: currentSchema ? 'Updated UI' : 'Created UI',
+        question: 'Responded',
+        gap: 'Found Gaps',
+        remap: 'Remapped Components',
+        prompt: 'Generated Prompt',
+      };
+      clearProgress(summaryVerbs[result.type ?? '']);
+
       messages.push({ role: 'assistant', message: trimmed! });
       applyResult(result);
 
     } catch (err) {
-      clearProgress();
+      clearProgress('Error');
       if (err instanceof GatewayRequestError && err.kind === 'auth') {
         addMessage('assistant', `API key error — check that your API key is valid and the proxy endpoint is configured. The Anthropic API is not available in all regions — if you are outside the US, you may need to use a proxy or VPN. (${err.status}: ${err.message})`);
       } else {
