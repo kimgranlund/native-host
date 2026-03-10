@@ -10,13 +10,12 @@ native-host depends on 7 @nonoun packages. All are light DOM web component libra
 
 | Package | Version | HTML Tags | JS Registration | CSS Import | Role |
 |---------|---------|-----------|-----------------|------------|------|
-| @nonoun/native-ui | 0.6.1 | `n-*` (n-button, n-dialog, n-icon, etc.) | `import '@nonoun/native-ui/register'` | `@import '@nonoun/native-ui/css/foundation'` + `@import '@nonoun/native-ui/css/components'` | Core component library |
-| @nonoun/native-dashboard | 0.3.1 | native-app, n-sidebar-nav, n-sidebar-nav-item, n-sidebar-group, n-sidebar-group-header, n-sidebar-item, n-sidebar-header, n-sidebar-content, n-sidebar-footer (CSS-only: n-app-breadcrumb, n-app-canvas, n-app-panel) | `import '@nonoun/native-dashboard'` | `@import '@nonoun/native-dashboard/css'` | Layout, sidebar, nav |
-| @nonoun/native-design | 0.5.1 | native-tokens, native-tokens-* | `import '@nonoun/native-design'` | `@import '@nonoun/native-design/css'` | Inspector widget |
-| @nonoun/native-ai | 0.1.2 | n-chat, n-chat-* | `import '@nonoun/native-ai/register'` | `@import '@nonoun/native-ai/css'` | Chat panel |
-| @nonoun/native-code | 0.2.5 | native-editor | `import '@nonoun/native-code/register'` | -- | Markdown editor (CodeMirror) |
-| @nonoun/native-code | 0.2.5 | native-playground | `import '@nonoun/native-code/register'` | -- | Live code sandbox |
-| @nonoun/native-code | 0.2.6 | native-codemirror | `import '@nonoun/native-code/register'` | `@import '@nonoun/native-code/css'` | CodeMirror element + utilities |
+| @nonoun/native-ui | 0.7.115 | `n-*` (n-button, n-dialog, n-icon, etc.) | `import '@nonoun/native-ui/register'` | `@import '@nonoun/native-ui/css/foundation'` + `@import '@nonoun/native-ui/css/components'` | Core component library |
+| @nonoun/native-dashboard | 0.4.21 | native-app, n-sidebar-nav, n-sidebar-nav-item, n-sidebar-group, n-sidebar-group-header, n-sidebar-item, n-sidebar-header, n-sidebar-content, n-sidebar-footer | `import '@nonoun/native-dashboard'` | `@import '@nonoun/native-dashboard/css'` | Layout, sidebar, nav |
+| @nonoun/native-design | 0.6.7 | native-tokens, native-tokens-* | `import '@nonoun/native-design'` | `@import '@nonoun/native-design/css'` | Inspector widget |
+| @nonoun/native-ai | 1.0.59 | n-chat, n-chat-* | `import '@nonoun/native-ai/register'` | `@import '@nonoun/native-ai/css'` | Chat + A2UI builder |
+| @nonoun/native-code | 1.0.8 | native-editor, native-playground, native-codemirror | `import '@nonoun/native-code/register'` | `@import '@nonoun/native-code/css'` | Editor + playground + CodeMirror |
+| @nonoun/native-data-viz | 0.2.5 | n-chart | `import '@nonoun/native-data-viz/register'` | `@import '@nonoun/native-data-viz/css'` | Charts (SVG) |
 
 Dev dependency: `@phosphor-icons/core` (icon SVG source, not shipped to client).
 
@@ -24,8 +23,8 @@ Dev dependency: `@phosphor-icons/core` (icon SVG source, not shipped to client).
 
 Two naming schemes:
 
-- **Short `n-*` prefix** -- used by native-ui, native-app, and native-chat. Examples: `n-button`, `n-sidebar`, `n-chat`.
-- **Full package name prefix** -- used by native-tokens, native-editor, native-playground, native-codemirror. Examples: `<native-tokens>`, `<native-editor>`, `<native-playground>`, `<native-codemirror>`.
+- **Short `n-*` prefix** -- used by native-ui, native-dashboard, native-ai, and native-data-viz. Examples: `n-button`, `n-sidebar`, `n-chat`, `n-chart`.
+- **Full package name prefix** -- used by native-tokens (design), native-editor, native-playground, native-codemirror (code). Examples: `<native-tokens>`, `<native-editor>`, `<native-playground>`, `<native-codemirror>`.
 
 Do NOT mix these up. `n-tokens` and `n-editor` are wrong.
 
@@ -38,22 +37,15 @@ Registration happens in `src/scripts/setup.ts`, loaded via `BaseLayout.astro`.
 import '@nonoun/native-ui/register';
 import '@nonoun/native-dashboard';
 import '@nonoun/native-ai/register';
+import '@nonoun/native-design';
+import '@nonoun/native-code/register';
+import '@nonoun/native-data-viz/register';
 import { registerAllTraits } from '@nonoun/native-ui';
 
 registerAllTraits();
-
-// n-app-panel: CSS-driven layout panel used for the main content area.
-// native-app 0.3.x removed the JS class but kept the CSS. Register a minimal
-// element so :not(:defined) doesn't hide it. Aside panels now use component-
-// specific elements (native-tokens-panel, native-chat-panel).
-if (!customElements.get('n-app-panel')) {
-  customElements.define('n-app-panel', class extends HTMLElement {});
-}
 ```
 
-**n-app-panel special case**: native-app 0.3.x removed the JS class but kept the CSS. The host registers a bare `HTMLElement` stub so `:not(:defined)` selectors don't hide the main content panel. Aside panels use component-specific elements (`native-tokens-panel`, `native-chat-panel`) which extend `NativeElement` and manage their own `[aside]`/`[open]` behavior.
-
-native-tokens, native-editor, native-playground, and native-codemirror are NOT registered in setup.ts. They are imported on specific pages that use them.
+All 7 packages are now registered in setup.ts. All traits (29 total) are registered via `registerAllTraits()`.
 
 ## CSS Loading
 
@@ -76,15 +68,15 @@ All CSS is loaded in layouts via `<style is:global>` with `@import`. Never use `
 @import '@nonoun/native-design/css';
 ```
 
-native-editor, native-playground, and native-codemirror have no separate CSS imports.
+native-data-viz CSS is only imported on the chart page. native-code CSS is imported on pages using CodeMirror.
 
 ## Icon System
 
-121 Phosphor icons are registered in `src/scripts/icons.ts` using `registerIcon()` from native-ui. Icons are inlined at build time via Vite's `?raw` import.
+~122 Phosphor icons are registered in `src/scripts/icons.ts` using `registerIcon()` from native-ui. Icons are inlined at build time via Vite's `?raw` import.
 
 Two weight categories:
-- **Regular weight** -- 116 icons
-- **Fill weight** -- 5 icons (chat-dots-fill, code-fill, dots-three-outline-fill, sidebar-simple-fill, sliders-horizontal-fill)
+- **Regular weight** -- ~117 icons
+- **Fill weight** -- ~5 icons (chat-dots-fill, code-fill, dots-three-outline-fill, sidebar-simple-fill, sliders-horizontal-fill, play-fill, star-fill)
 
 ### Pattern for adding a new icon
 
@@ -122,10 +114,10 @@ Use in HTML: `<n-icon name="my-icon"></n-icon>`. For fill variant: `<n-icon name
 
 | File | Purpose |
 |------|---------|
-| `src/scripts/setup.ts` | Registers native-ui, native-app, native-chat, traits, and the n-app-panel stub |
-| `src/scripts/icons.ts` | Registers 121 Phosphor icons via `registerIcon()` with `?raw` SVG imports |
-| `src/layouts/BaseLayout.astro` | HTML shell -- loads foundation + component + app + chat CSS, runs setup.ts and icons.ts |
-| `src/layouts/SidebarLayout.astro` | Wraps BaseLayout -- adds native-tokens CSS, sidebar nav, inspector panel, chat panel |
+| `src/scripts/setup.ts` | Registers all 7 @nonoun packages + all 29 traits |
+| `src/scripts/icons.ts` | Registers ~122 Phosphor icons via `registerIcon()` with `?raw` SVG imports |
+| `src/layouts/BaseLayout.astro` | HTML shell -- loads foundation + component + dashboard CSS, runs setup.ts and icons.ts |
+| `src/layouts/SidebarLayout.astro` | Wraps BaseLayout -- adds global + chrome + content + demo + ai + design CSS, sidebar nav |
 | `package.json` | All @nonoun packages listed under `dependencies`; @phosphor-icons/core under `devDependencies` |
 
 ## See Also
