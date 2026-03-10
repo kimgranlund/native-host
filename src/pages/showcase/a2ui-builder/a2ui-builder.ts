@@ -13,7 +13,7 @@
 import { Kernel, resetKernel } from '@nonoun/native-ui/kernel';
 import { createA2UIAdapter, COMPONENT_MAP as REGISTRY, getComponentCategory } from '@nonoun/native-ai';
 import type { EventSpec, PropertySpec, MethodSpec } from '@nonoun/native-ai';
-import { ClaudeGatewayAdapter, OpenAiGatewayAdapter } from '@nonoun/native-ai/gateway';
+import { ClaudeGatewayAdapter, OpenAiGatewayAdapter, GatewayRequestError } from '@nonoun/native-ai/gateway';
 import type { GatewayAdapter } from '@nonoun/native-ai/gateway';
 import { ConfettiController } from '@nonoun/native-ui/traits';
 import promptJson from './system-prompt.json';
@@ -900,7 +900,11 @@ document.addEventListener('astro:page-load', () => {
 
     } catch (err) {
       clearProgress();
-      addMessage('assistant', `Error: ${(err as Error).message}`);
+      if (err instanceof GatewayRequestError && err.kind === 'auth') {
+        addMessage('assistant', `API key error — check that your API key is valid and the proxy endpoint is configured. (${err.status}: ${err.message})`);
+      } else {
+        addMessage('assistant', `Error: ${(err as Error).message}`);
+      }
       console.error('[A2UI Builder]', err);
     } finally {
       chatComposer.busy = false;
