@@ -4,13 +4,6 @@ const UPSTREAM = 'https://api.anthropic.com/v1/messages';
 const STRIP_HEADERS = new Set(['host', 'connection', 'cookie', 'origin', 'referer']);
 
 export const POST: APIRoute = async ({ request, locals }) => {
-  if (!locals.user) {
-    return new Response(JSON.stringify({ error: { message: 'Unauthorized', provider: 'anthropic', status: 401 } }), {
-      status: 401,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  }
-
   const apiKey = import.meta.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
     return new Response(JSON.stringify({ error: { message: 'ANTHROPIC_API_KEY not configured', provider: 'anthropic', status: 500 } }), {
@@ -45,7 +38,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     route: '/api/anthropic/messages',
     provider: 'anthropic',
     request_id: requestId,
-    user_id: locals.user.id,
+    user_id: locals.user?.id ?? 'anonymous',
     status_code: upstream.status,
     duration_ms: duration,
     upstream_request_id: upstream.headers.get('request-id') ?? undefined,

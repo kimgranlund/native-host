@@ -4,13 +4,6 @@ const UPSTREAM = 'https://api.openai.com/v1/chat/completions';
 const STRIP_HEADERS = new Set(['host', 'connection', 'cookie', 'origin', 'referer']);
 
 export const POST: APIRoute = async ({ request, locals }) => {
-  if (!locals.user) {
-    return new Response(JSON.stringify({ error: { message: 'Unauthorized', provider: 'openai', status: 401 } }), {
-      status: 401,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  }
-
   const apiKey = import.meta.env.OPENAI_API_KEY;
   if (!apiKey) {
     return new Response(JSON.stringify({ error: { message: 'OPENAI_API_KEY not configured', provider: 'openai', status: 500 } }), {
@@ -48,7 +41,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     route: '/api/openai/chat/completions',
     provider: 'openai',
     request_id: requestId,
-    user_id: locals.user.id,
+    user_id: locals.user?.id ?? 'anonymous',
     status_code: upstream.status,
     duration_ms: duration,
     upstream_request_id: upstream.headers.get('x-request-id') ?? undefined,
