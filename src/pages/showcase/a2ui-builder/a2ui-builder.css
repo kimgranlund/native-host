@@ -70,10 +70,7 @@
   min-height: 0;
   overflow: hidden;
 
-  /* Force light context — the chat panel is always light regardless of OS color scheme */
-  color-scheme: light;
   background: var(--n-body);
-  color: var(--n-ink);
 }
 
 .builder-chat > n-chat-feed {
@@ -204,13 +201,10 @@
   line-height: 1.5;
 }
 
-/* ── Preview pane: light bg ── */
+/* ── Preview pane ── */
 
 .builder-pane[data-panel="preview"] .builder-pane-content {
-  /* Force light context — rendered UI should always display in light mode */
-  color-scheme: light;
   background: var(--n-body);
-  color: var(--n-ink);
   font-family: inherit;
 }
 
