@@ -303,6 +303,35 @@ function mockResponse(input: string): MockResult {
   return fallback;
 }
 
+/**
+ * Extract a JSON object from an LLM response that may contain surrounding
+ * text, markdown fences, or other non-JSON content.
+ */
+function parseJSON(raw: string | undefined): MockResult {
+  const text = raw?.trim();
+  if (!text) throw new Error('Empty response from LLM');
+
+  // 1. Direct parse — response is pure JSON
+  try { return JSON.parse(text); } catch { /* fall through */ }
+
+  // 2. Markdown code fences: ```json ... ``` or ``` ... ```
+  const fenced = text.match(/```(?:json)?\s*([\s\S]*?)```/);
+  if (fenced) {
+    try { return JSON.parse(fenced[1].trim()); } catch { /* fall through */ }
+  }
+
+  // 3. Extract first { ... } span (greedy — outermost braces)
+  const braceStart = text.indexOf('{');
+  const braceEnd = text.lastIndexOf('}');
+  if (braceStart !== -1 && braceEnd > braceStart) {
+    try { return JSON.parse(text.slice(braceStart, braceEnd + 1)); } catch { /* fall through */ }
+  }
+
+  // 4. Nothing worked — show truncated response for debugging
+  const preview = text.length > 200 ? text.slice(0, 200) + '…' : text;
+  throw new Error(`Could not parse JSON from response:\n${preview}`);
+}
+
 // ── Boot ──
 // [CHANGED] Wrapped in astro:page-load for View Transitions support.
 // Source runs at module level since it's a standalone HTML page.
@@ -846,8 +875,9 @@ document.addEventListener('astro:page-load', () => {
     }
     if (result.js !== undefined) {
       jsEditor.value = result.js;
-      applyJSToPreview(result.js);
       if (!activePanels.has('js')) { activePanels.add('js'); syncPanels(); }
+      // Defer JS execution — adapter needs a frame to stamp DOM elements
+      requestAnimationFrame(() => applyJSToPreview(result.js!));
     }
 
     // Show suggestion chips after questions
@@ -937,17 +967,7 @@ document.addEventListener('astro:page-load', () => {
 
       const raw = (response as Record<string, unknown>).message as string | undefined;
       const trimmed = raw?.trim();
-      let result: MockResult;
-      try {
-        result = JSON.parse(trimmed!);
-      } catch {
-        const fenced = trimmed?.match(/```(?:json)?\s*([\s\S]*?)```/);
-        if (fenced) {
-          result = JSON.parse(fenced[1].trim());
-        } else {
-          throw new Error('Could not parse JSON from response');
-        }
-      }
+      const result = parseJSON(trimmed);
 
       if (!result.type) result.type = result.gaps?.length ? 'gap' : result.prompt ? 'prompt' : result.schema ? 'schema' : 'question';
       if (result.schema && !result.schema.surfaceId) {
