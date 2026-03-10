@@ -13,14 +13,16 @@ export interface PageEntry {
 // Badge assignments — pages with recent changes
 const pageBadges: Record<string, BadgeKind> = {
   '/changelog': 'updated',
+  '/showcase/a2ui-builder': 'new',
   '/showcase/a2a-tictactoe': 'new',
+  '/traits/noodleable': 'new',
+  '/a2ui/a2ui-workbench': 'new',
   '/traits/tossable': 'new',
   '/traits/flippable': 'new',
   '/traits/parallaxable': 'new',
   '/traits/confettible': 'new',
   '/traits/magnetizable': 'new',
   '/traits/css-inspectable': 'new',
-  '/traits/noodleable': 'new',
   '/controllers/store-controller': 'new',
 };
 
@@ -85,6 +87,7 @@ const titleOverrides: Record<string, string> = {
   '/a2ui/a2ui-workbench': 'A2UI Workbench',
   '/icons': 'Icons',
   '/kernel': 'Kernel',
+  '/showcase/a2ui-builder': 'A2UI Builder',
   '/showcase/a2a-tictactoe': 'A2A Demo',
   '/changelog': 'Changelog',
   '/gateways': 'Gateways',
@@ -167,12 +170,24 @@ export const demoHighlights: { path: string; title: string }[] = [
 ];
 
 // New & Updated pages — filtered from sitemap badges
+// Pinned paths appear first in the specified order, then remaining by badge kind + alpha
+const pinnedOrder = [
+  '/showcase/a2ui-builder',
+  '/showcase/a2a-tictactoe',
+  '/traits/noodleable',
+  '/a2ui/a2ui-workbench',
+];
 export function getNewAndUpdatedPages(): PageEntry[] {
-  const order: Record<string, number> = { new: 0, updated: 1, recent: 2 };
+  const kindOrder: Record<string, number> = { new: 0, updated: 1, recent: 2 };
   return sitemap
     .filter(e => e.badge)
     .sort((a, b) => {
-      return (order[a.badge!] ?? 9) - (order[b.badge!] ?? 9) || a.title.localeCompare(b.title);
+      const pa = pinnedOrder.indexOf(a.path);
+      const pb = pinnedOrder.indexOf(b.path);
+      if (pa !== -1 && pb !== -1) return pa - pb;
+      if (pa !== -1) return -1;
+      if (pb !== -1) return 1;
+      return (kindOrder[a.badge!] ?? 9) - (kindOrder[b.badge!] ?? 9) || a.title.localeCompare(b.title);
     });
 }
 
