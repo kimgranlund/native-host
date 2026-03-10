@@ -963,7 +963,12 @@ ${js}
 
     // Show suggestion chips after questions
     if (result.suggestions?.length) {
-      addSeedChips(result.suggestions);
+      // LLM returns { label, prompt } — map to SeedOption { label, value }
+      const seeds: SeedOption[] = result.suggestions.map(s => ({
+        label: s.label,
+        value: (s as Record<string, string>).prompt ?? (s as Record<string, string>).value ?? s.label,
+      }));
+      addSeedChips(seeds);
     }
   }
 
@@ -1005,8 +1010,13 @@ ${js}
     // Create a line element for each step
     const lines: HTMLDivElement[] = [];
     function addStep(index: number) {
+      // Remove active state from previous step
+      const prev = lines[lines.length - 1];
+      if (prev) prev.removeAttribute('data-active');
+
       const line = document.createElement('div');
       line.className = 'builder-progress-step';
+      line.setAttribute('data-active', '');
       line.textContent = steps[index];
       progressEl.appendChild(line);
       lines.push(line);
