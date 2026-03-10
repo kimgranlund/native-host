@@ -35,6 +35,9 @@ const PANELS = [
   { id: 'preview',  label: 'Preview',  icon: 'eye' },
   { id: 'concepts', label: 'Concepts', icon: 'tag' },
   { id: 'schema',   label: 'Schema',   icon: 'brackets-curly' },
+  { id: 'html',     label: 'HTML',     icon: 'brackets-angle' },
+  { id: 'css',      label: 'CSS',      icon: 'paint-brush' },
+  { id: 'js',       label: 'JS',       icon: 'lightning' },
   { id: 'map',      label: 'Map',      icon: 'squares-four' },
   { id: 'prompt',   label: 'Prompt',   icon: 'file-code' },
 ];
@@ -109,6 +112,8 @@ interface MockResult {
   prompt?: string;
   gaps?: { component: string; need: string; context: string; impact: string; suggestion: string }[];
   partial?: { canGenerate: string; cannotGenerate: string };
+  css?: string;
+  js?: string;
 }
 
 let currentSchema: MockResult['schema'] | null = null;
@@ -327,6 +332,9 @@ document.addEventListener('astro:page-load', () => {
   const schemaPre = document.getElementById('schema-pre')!;
   const mapTable = document.getElementById('map-table')!;
   const promptEditor = document.getElementById('prompt-editor') as HTMLTextAreaElement;
+  const htmlPre = document.getElementById('html-pre')!;
+  const cssEditor = document.getElementById('css-editor') as HTMLTextAreaElement;
+  const jsEditor = document.getElementById('js-editor') as HTMLTextAreaElement;
   const modelPicker = document.getElementById('model-picker') as HTMLElement & { value: string };
 
   // Wire model picker → rebuild adapter on change
@@ -711,16 +719,55 @@ document.addEventListener('astro:page-load', () => {
     schemaPre.textContent = JSON.stringify(schema, null, 2);
   }
 
+  // ── CSS/JS live apply ──
+
+  let previewStyle: HTMLStyleElement | null = null;
+
+  function applyCSSToPreview(css: string): void {
+    if (!previewStyle) {
+      previewStyle = document.createElement('style');
+      previewStyle.dataset.builder = 'custom';
+      previewMount.prepend(previewStyle);
+    }
+    previewStyle.textContent = css;
+  }
+
+  function applyJSToPreview(js: string): void {
+    try {
+      const fn = new Function('preview', js);
+      fn(previewMount);
+    } catch (err) {
+      console.error('[A2UI Builder] JS error:', err);
+      addMessage('assistant', `JS Error: ${(err as Error).message}`);
+    }
+  }
+
+  // Live CSS on input
+  cssEditor.addEventListener('input', () => {
+    applyCSSToPreview(cssEditor.value);
+  });
+
+  // JS apply button
+  document.querySelector('[data-role="apply-js"]')?.addEventListener('native:press', () => {
+    if (jsEditor.value.trim()) applyJSToPreview(jsEditor.value);
+  });
+
   function renderPreview(schema: MockResult['schema']) {
     if (currentAdapter) {
       currentAdapter.destroy();
       currentAdapter = null;
     }
     previewMount.innerHTML = '';
+    previewStyle = null;
     currentAdapter = createA2UIAdapter(kernel, {
       onClientMessage: (msg: unknown) => console.log('[A2UI Builder →]', msg),
     });
     currentAdapter.receive({ updateComponents: schema }, previewMount);
+
+    // Extract rendered HTML after adapter finishes rendering
+    queueMicrotask(() => {
+      htmlPre.textContent = previewMount.innerHTML;
+    });
   }
 
   function formatGapReport(gaps: MockResult['gaps'], partial?: MockResult['partial']): string {
@@ -789,6 +836,18 @@ document.addEventListener('astro:page-load', () => {
       currentSchema = result.schema;
       renderSchema(result.schema);
       renderPreview(result.schema);
+    }
+
+    // Apply CSS/JS from LLM response and auto-open panes
+    if (result.css !== undefined) {
+      cssEditor.value = result.css;
+      applyCSSToPreview(result.css);
+      if (!activePanels.has('css')) { activePanels.add('css'); syncPanels(); }
+    }
+    if (result.js !== undefined) {
+      jsEditor.value = result.js;
+      applyJSToPreview(result.js);
+      if (!activePanels.has('js')) { activePanels.add('js'); syncPanels(); }
     }
 
     // Show suggestion chips after questions

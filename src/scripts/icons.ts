@@ -17,6 +17,7 @@ import buildings from '@phosphor-icons/core/assets/regular/buildings.svg?raw';
 import backspace from '@phosphor-icons/core/assets/regular/backspace.svg?raw';
 import bell from '@phosphor-icons/core/assets/regular/bell.svg?raw';
 import bookOpen from '@phosphor-icons/core/assets/regular/book-open.svg?raw';
+import bracketsAngle from '@phosphor-icons/core/assets/regular/brackets-angle.svg?raw';
 import bracketsCurly from '@phosphor-icons/core/assets/regular/brackets-curly.svg?raw';
 import brain from '@phosphor-icons/core/assets/regular/brain.svg?raw';
 import calendar from '@phosphor-icons/core/assets/regular/calendar.svg?raw';
@@ -82,6 +83,7 @@ import mapPin from '@phosphor-icons/core/assets/regular/map-pin.svg?raw';
 import microphone from '@phosphor-icons/core/assets/regular/microphone.svg?raw';
 import moon from '@phosphor-icons/core/assets/regular/moon.svg?raw';
 import option from '@phosphor-icons/core/assets/regular/option.svg?raw';
+import paintBrush from '@phosphor-icons/core/assets/regular/paint-brush.svg?raw';
 import pkg from '@phosphor-icons/core/assets/regular/package.svg?raw';
 import quotes from '@phosphor-icons/core/assets/regular/quotes.svg?raw';
 import record from '@phosphor-icons/core/assets/regular/record.svg?raw';
@@ -168,6 +170,7 @@ const icons: Record<string, string> = {
   'backspace': backspace,
   'bell': bell,
   'book-open': bookOpen,
+  'brackets-angle': bracketsAngle,
   'brackets-curly': bracketsCurly,
   'brain': brain,
   'calendar': calendar,
@@ -234,6 +237,7 @@ const icons: Record<string, string> = {
   'moon': moon,
   'option': option,
   'package': pkg,
+  'paint-brush': paintBrush,
   'quotes': quotes,
   'record': record,
   'pencil-simple': pencilSimple,
