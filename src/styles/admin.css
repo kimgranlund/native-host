@@ -36,3 +36,17 @@
   color: var(--n-ink-accent);
 }
 
+/* ── Tier Matrix ── */
+
+#tier-matrix-table n-table-row:not([header]):not([colspan]):nth-child(odd) {
+  background: color-mix(in oklch, var(--n-bg-neutral) 50%, transparent);
+}
+
+#tier-matrix-table n-table-row:not([header]):not([colspan]) {
+  border-block-end: 1px solid color-mix(in oklch, var(--n-border-neutral) 40%, transparent);
+}
+
+#tier-matrix-table [data-tier-toggle][data-enabled="false"] {
+  opacity: 0.35;
+}
+

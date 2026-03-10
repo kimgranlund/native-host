@@ -78,6 +78,7 @@ import listNumbers from '@phosphor-icons/core/assets/regular/list-numbers.svg?ra
 import lock from '@phosphor-icons/core/assets/regular/lock.svg?raw';
 import magnifyingGlass from '@phosphor-icons/core/assets/regular/magnifying-glass.svg?raw';
 import magnifyingGlassMinus from '@phosphor-icons/core/assets/regular/magnifying-glass-minus.svg?raw';
+import minusCircle from '@phosphor-icons/core/assets/regular/minus-circle.svg?raw';
 import magnifyingGlassPlus from '@phosphor-icons/core/assets/regular/magnifying-glass-plus.svg?raw';
 import mapPin from '@phosphor-icons/core/assets/regular/map-pin.svg?raw';
 import microphone from '@phosphor-icons/core/assets/regular/microphone.svg?raw';
@@ -231,6 +232,7 @@ const icons: Record<string, string> = {
   'lock': lock,
   'magnifying-glass': magnifyingGlass,
   'magnifying-glass-minus': magnifyingGlassMinus,
+  'minus-circle': minusCircle,
   'magnifying-glass-plus': magnifyingGlassPlus,
   'map-pin': mapPin,
   'microphone': microphone,

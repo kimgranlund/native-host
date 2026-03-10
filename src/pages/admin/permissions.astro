@@ -72,7 +72,7 @@ const permissionsJson = JSON.stringify(allPermissions.map(p => ({ value: p.id, l
                           data-perm-id={p.id}
                           data-enabled={enabled ? 'true' : 'false'}
                         >
-                          <nav><n-icon name={enabled ? 'check-circle' : 'circle'} weight={enabled ? 'fill' : undefined}></n-icon></nav>
+                          <nav><n-icon name={enabled ? 'check-circle' : 'minus-circle'} weight={enabled ? 'fill' : undefined}></n-icon></nav>
                         </n-button>
                       </n-table-cell>
                     );
@@ -245,12 +245,7 @@ document.addEventListener('astro:page-load', () => {
         btn.setAttribute('data-enabled', String(newEnabled));
         const icon = btn.querySelector('n-icon');
         if (icon) {
-          icon.setAttribute('name', newEnabled ? 'check-circle' : 'circle');
-          if (newEnabled) {
-            icon.setAttribute('weight', 'fill');
-          } else {
-            icon.removeAttribute('weight');
-          }
+          icon.setAttribute('name', newEnabled ? 'check-circle' : 'minus-circle');
         }
         if (newEnabled) {
           btn.setAttribute('intent', 'accent');

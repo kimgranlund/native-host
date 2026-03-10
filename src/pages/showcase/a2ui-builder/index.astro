@@ -43,9 +43,18 @@ if (models.length === 0) {
   ];
 }
 
-// Filter: show free models always, premium only if user has access
-const visibleModels = models.filter(m => m.tier === 'free' || hasPremiumAccess);
+// Filter: show free models always, premium only if user has access; exclude "human"
+const visibleModels = models.filter(m => m.modelId !== 'human' && (m.tier === 'free' || hasPremiumAccess));
 const defaultModel = visibleModels.find(m => m.modelId === 'claude-haiku-4-5') ?? visibleModels[0];
+
+// Group by provider for the picker
+const providerLabels: Record<string, string> = { anthropic: 'Anthropic', openai: 'OpenAI' };
+const grouped = new Map<string, BuilderModel[]>();
+for (const m of visibleModels) {
+  const key = providerLabels[m.provider] ?? 'Other';
+  if (!grouped.has(key)) grouped.set(key, []);
+  grouped.get(key)!.push(m);
+}
 ---
 <SidebarLayout title="A2UI Builder">
   <section id="a2ui-builder-page">
@@ -82,8 +91,13 @@ const defaultModel = visibleModels.find(m => m.modelId === 'claude-haiku-4-5') ?
                   <n-select id="model-picker" value={defaultModel?.modelId ?? 'claude-haiku-4-5'} data-role="model-picker">
                     <n-button variant="ghost" inline size="sm" density="compact"><span slot="label">{defaultModel?.name ?? 'Claude Haiku 4.5'}</span> <n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
                     <n-listbox popover="auto">
-                      {visibleModels.map(m => (
-                        <n-option value={m.modelId} selected={m.modelId === defaultModel?.modelId ? true : undefined}>{m.name}</n-option>
+                      {[...grouped.entries()].map(([label, models]) => (
+                        <n-option-group>
+                          <n-option-group-header>{label}</n-option-group-header>
+                          {models.map(m => (
+                            <n-option value={m.modelId} selected={m.modelId === defaultModel?.modelId ? true : undefined}>{m.name}</n-option>
+                          ))}
+                        </n-option-group>
                       ))}
                     </n-listbox>
                   </n-select>
