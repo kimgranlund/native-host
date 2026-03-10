@@ -752,18 +752,65 @@ document.addEventListener('astro:page-load', () => {
 
   let previewStyle: HTMLStyleElement | null = null;
 
+  /** Scope CSS rules under #preview-mount so they don't leak into the builder UI. */
+  function scopeCSS(css: string): string {
+    // If the user already scoped to #preview-mount, pass through
+    if (css.includes('#preview-mount')) return css;
+    // Wrap each rule: add #preview-mount prefix to every selector
+    return css.replace(
+      /([^{}@]+)\{/g,
+      (_match, selectors: string) => {
+        const scoped = selectors
+          .split(',')
+          .map((s: string) => `#preview-mount ${s.trim()}`)
+          .join(', ');
+        return `${scoped} {`;
+      },
+    );
+  }
+
   function applyCSSToPreview(css: string): void {
     if (!previewStyle) {
       previewStyle = document.createElement('style');
       previewStyle.dataset.builder = 'custom';
       previewMount.prepend(previewStyle);
     }
-    previewStyle.textContent = css;
+    previewStyle.textContent = scopeCSS(css);
+  }
+
+  /** Wait for custom elements inside the preview to upgrade, then two rAFs. */
+  async function waitForPreviewReady(): Promise<void> {
+    const tags = new Set<string>();
+    for (const el of previewMount.querySelectorAll('*')) {
+      if (el.localName.includes('-')) tags.add(el.localName);
+    }
+    // Only wait for tags that are actually registered (or will be soon).
+    // CSS-only undefined CEs (n-stack, n-body, n-header, etc.) never register
+    // so whenDefined() would hang forever. Use a short timeout as a race.
+    const TIMEOUT = 500;
+    const withTimeout = (p: Promise<unknown>) =>
+      Promise.race([p, new Promise(r => setTimeout(r, TIMEOUT))]);
+    const defined = [...tags].filter(t => customElements.get(t));
+    const pending = [...tags].filter(t => !customElements.get(t));
+    await Promise.all([
+      ...defined.map(t => customElements.whenDefined(t)),
+      ...pending.map(t => withTimeout(customElements.whenDefined(t))),
+    ]);
+    // Two rAFs — first for CE upgrade, second for child rendering
+    await new Promise(r => requestAnimationFrame(r as FrameRequestCallback));
+    await new Promise(r => requestAnimationFrame(r as FrameRequestCallback));
   }
 
   function applyJSToPreview(js: string): void {
+    if (!previewMount.children.length) return;
+
     try {
-      const fn = new Function('preview', js);
+      const wrapper = `(function(preview){
+  var $ = function(sel){ return preview.querySelector(sel); };
+  var $$ = function(sel){ return preview.querySelectorAll(sel); };
+${js}
+}(__mount__))`;
+      const fn = new Function('__mount__', wrapper);
       fn(previewMount);
     } catch (err) {
       console.error('[A2UI Builder] JS error:', err);
@@ -771,14 +818,48 @@ document.addEventListener('astro:page-load', () => {
     }
   }
 
-  // Live CSS on input
-  cssEditor.addEventListener('input', () => {
-    applyCSSToPreview(cssEditor.value);
+  // CSS editor — debounced input + Cmd/Ctrl-S
+  let cssDebounce: ReturnType<typeof setTimeout> | null = null;
+  function debouncedCSSApply(): void {
+    if (cssDebounce) clearTimeout(cssDebounce);
+    cssDebounce = setTimeout(() => applyCSSToPreview(cssEditor.value), 300);
+  }
+
+  cssEditor.addEventListener('input', debouncedCSSApply);
+  cssEditor.addEventListener('keydown', (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 's') {
+      e.preventDefault();
+      if (cssDebounce) clearTimeout(cssDebounce);
+      applyCSSToPreview(cssEditor.value);
+    }
   });
 
-  // JS apply button
-  document.querySelector('[data-role="apply-js"]')?.addEventListener('native:press', () => {
-    if (jsEditor.value.trim()) applyJSToPreview(jsEditor.value);
+  // JS apply — Play button (pointerup delegation) + Cmd/Ctrl-S
+  let jsRunning = false;
+  function runJS(): void {
+    const js = jsEditor.value.trim();
+    if (!js || jsRunning) return;
+    jsRunning = true;
+    waitForPreviewReady().then(() => {
+      applyJSToPreview(js);
+      jsRunning = false;
+    });
+  }
+
+  document.addEventListener('pointerup', (e) => {
+    // Walk composedPath to cross shadow DOM boundaries
+    for (const node of e.composedPath()) {
+      if (node instanceof HTMLElement && node.matches('[data-role="apply-js"]')) {
+        runJS();
+        break;
+      }
+    }
+  });
+  jsEditor.addEventListener('keydown', (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 's') {
+      e.preventDefault();
+      runJS();
+    }
   });
 
   function renderPreview(schema: MockResult['schema']) {
@@ -876,8 +957,8 @@ document.addEventListener('astro:page-load', () => {
     if (result.js !== undefined) {
       jsEditor.value = result.js;
       if (!activePanels.has('js')) { activePanels.add('js'); syncPanels(); }
-      // Defer JS execution — adapter needs a frame to stamp DOM elements
-      requestAnimationFrame(() => applyJSToPreview(result.js!));
+      // Defer JS execution — wait for all custom elements in preview to upgrade
+      waitForPreviewReady().then(() => applyJSToPreview(result.js!));
     }
 
     // Show suggestion chips after questions
@@ -980,7 +1061,7 @@ document.addEventListener('astro:page-load', () => {
     } catch (err) {
       clearProgress();
       if (err instanceof GatewayRequestError && err.kind === 'auth') {
-        addMessage('assistant', `API key error — check that your API key is valid and the proxy endpoint is configured. (${err.status}: ${err.message})`);
+        addMessage('assistant', `API key error — check that your API key is valid and the proxy endpoint is configured. The Anthropic API is not available in all regions — if you are outside the US, you may need to use a proxy or VPN. (${err.status}: ${err.message})`);
       } else {
         addMessage('assistant', `Error: ${(err as Error).message}`);
       }
