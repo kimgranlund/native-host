@@ -698,7 +698,7 @@ document.addEventListener('astro:page-load', () => {
     if (type) message.setAttribute('data-type', type);
 
     const messageText = document.createElement('n-chat-message-text') as HTMLElement & { content: string };
-    messageText.setAttribute('format', role === 'user' ? 'plain' : 'markdown');
+    messageText.setAttribute('format', 'markdown');
     messageText.content = text;
 
     message.appendChild(messageText);
