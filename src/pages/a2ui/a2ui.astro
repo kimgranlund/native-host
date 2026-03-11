@@ -198,8 +198,8 @@ document.addEventListener('astro:page-load', async () => {
       }
 
       function appendUserMessage(text) {
-        const group = document.createElement('n-chat-messages');
-        const msg = document.createElement('n-chat-message');
+        const group = document.createElement('n-agent-dialogue');
+        const msg = document.createElement('n-agent-dialogue-item');
         msg.setAttribute('role', 'user');
         const content = document.createElement('n-chat-message-text');
         content.textContent = text;
@@ -210,11 +210,11 @@ document.addEventListener('astro:page-load', async () => {
       }
 
       function appendAssistantMessage() {
-        const group = document.createElement('n-chat-messages');
-        const msg = document.createElement('n-chat-message');
+        const group = document.createElement('n-agent-dialogue');
+        const msg = document.createElement('n-agent-dialogue-item');
         msg.setAttribute('role', 'assistant');
         // WHY: Use a plain div as the adapter container inside the message.
-        // n-chat-message stamps its own internal DOM (action toolbar etc.),
+        // n-agent-dialogue-item stamps its own internal DOM (action toolbar etc.),
         // so the adapter's executePlan must append to a neutral child.
         const container = document.createElement('div');
         msg.appendChild(container);

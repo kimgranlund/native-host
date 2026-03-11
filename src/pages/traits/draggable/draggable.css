@@ -28,7 +28,7 @@
   font-size: 0.875rem;
 }
 
-.drag-item > span {
+.drag-item > span:not(.handle) {
   flex: 1;
 }
 

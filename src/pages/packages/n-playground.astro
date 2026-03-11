@@ -2,7 +2,7 @@
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 
 // Playground content blocks — defined as strings to avoid Astro's
-// script processing. Injected with set:html on each native-playground.
+// script processing. Injected with set:html on each n-playground.
 
 const basicPlayground = `
 <script type="playground/html">
@@ -198,15 +198,15 @@ body {
 }
 </script>`;
 ---
-<SidebarLayout title="Playground">
+<SidebarLayout title="n-playground">
   <header>
     <div slot="title">
       <div slot="content">
-        <h1>Playground</h1>
+        <h1>n-playground</h1>
       </div>
     </div>
     <div slot="description">
-      <span class="header-tag">&lt;native-playground&gt;</span> Embeddable live code sandbox with tabbed CodeMirror editors, sandboxed iframe preview, and console capture.
+      <span class="header-tag">&lt;n-playground&gt;</span> Embeddable live code sandbox with tabbed CodeMirror editors, sandboxed iframe preview, and console capture.
           </div>
   </header>
 
@@ -215,8 +215,8 @@ body {
     <!-- ── Basic ── -->
 
     <h2>Basic</h2>
-    <div class="playground-wrap"><native-playground auto-run set:html={basicPlayground} /></div>
-    <pre class="code-block"><code>&lt;native-playground auto-run&gt;
+    <div class="playground-wrap"><n-playground auto-run set:html={basicPlayground} /></div>
+    <pre class="code-block"><code>&lt;n-playground auto-run&gt;
   &lt;script type="playground/html"&gt;
     &lt;button class="btn primary"&gt;Hello Playground&lt;/button&gt;
   &lt;/script&gt;
@@ -227,13 +227,13 @@ body {
     document.querySelector('.btn')
       .addEventListener('click', (e) =&gt; &#123; ... &#125;);
   &lt;/script&gt;
-&lt;/native-playground&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/n-playground&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
 
     <!-- ── Vertical Orientation ── -->
 
     <h2>Vertical Orientation</h2>
-    <div class="playground-wrap"><native-playground orientation="vertical" auto-run set:html={verticalPlayground} /></div>
-    <pre class="code-block"><code>&lt;native-playground orientation="vertical" auto-run&gt;
+    <div class="playground-wrap"><n-playground orientation="vertical" auto-run set:html={verticalPlayground} /></div>
+    <pre class="code-block"><code>&lt;n-playground orientation="vertical" auto-run&gt;
   &lt;script type="playground/html"&gt;
     &lt;span class="badge"&gt;Badge&lt;/span&gt;
     &lt;span class="badge accent"&gt;Accent&lt;/span&gt;
@@ -241,14 +241,14 @@ body {
   &lt;script type="playground/css"&gt;
     .badge &#123; ... &#125;
   &lt;/script&gt;
-&lt;/native-playground&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/n-playground&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
 
     <!-- ── Console Capture ── -->
 
     <h2>Console Capture</h2>
     <div class="hint"><span class="text-xs text-muted">Click "Console" in the toolbar, then press the button to see captured logs.</span></div>
-    <div class="playground-wrap"><native-playground auto-run console-open set:html={consolePlayground} /></div>
-    <pre class="code-block"><code>&lt;native-playground auto-run console-open&gt;
+    <div class="playground-wrap"><n-playground auto-run console-open set:html={consolePlayground} /></div>
+    <pre class="code-block"><code>&lt;n-playground auto-run console-open&gt;
   &lt;script type="playground/html"&gt;
     &lt;button id="log-btn"&gt;Log Something&lt;/button&gt;
   &lt;/script&gt;
@@ -262,28 +262,28 @@ body {
         if (count % 5 === 0) console.error('Error');
       &#125;);
   &lt;/script&gt;
-&lt;/native-playground&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/n-playground&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
 
     <!-- ── Read-only ── -->
 
     <h2>Read-only</h2>
     <div class="hint"><span class="text-xs text-muted">Editors are non-editable. Useful for documentation showcases.</span></div>
-    <div class="playground-wrap"><native-playground readonly auto-run set:html={readonlyPlayground} /></div>
-    <pre class="code-block"><code>&lt;native-playground readonly auto-run&gt;
+    <div class="playground-wrap"><n-playground readonly auto-run set:html={readonlyPlayground} /></div>
+    <pre class="code-block"><code>&lt;n-playground readonly auto-run&gt;
   &lt;script type="playground/html"&gt;
     &lt;input type="text" placeholder="Type here..." /&gt;
   &lt;/script&gt;
   &lt;script type="playground/css"&gt;
     .search-input &#123; ... &#125;
   &lt;/script&gt;
-&lt;/native-playground&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/n-playground&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
 
     <!-- ── Active Tab: CSS ── -->
 
     <h2>Active Tab: CSS</h2>
     <div class="hint"><span class="text-xs text-muted">Opens with the CSS tab pre-selected.</span></div>
-    <div class="playground-wrap"><native-playground active-tab="css" auto-run set:html={activeTabPlayground} /></div>
-    <pre class="code-block"><code>&lt;native-playground active-tab="css" auto-run&gt;
+    <div class="playground-wrap"><n-playground active-tab="css" auto-run set:html={activeTabPlayground} /></div>
+    <pre class="code-block"><code>&lt;n-playground active-tab="css" auto-run&gt;
   &lt;script type="playground/html"&gt;
     &lt;div class="card"&gt;
       &lt;h2&gt;Styled Card&lt;/h2&gt;
@@ -298,7 +298,7 @@ body {
       padding: 1.5rem;
     &#125;
   &lt;/script&gt;
-&lt;/native-playground&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/n-playground&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
   </section>
 
   <style is:global>

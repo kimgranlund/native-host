@@ -11,8 +11,8 @@ export const paneApi: ApiReference = {
         { name: 'closeable', type: 'boolean', default: 'false', description: 'Shows a close button in the header.' },
         { name: 'minimizable', type: 'boolean', default: 'false', description: 'Shows a minimize/restore toggle button in the header.' },
         { name: 'minimized', type: 'boolean', default: 'false', description: 'Collapses the pane to header-only.' },
-        { name: 'min-size', type: 'number', default: '0', description: 'Minimum pane size in pixels during resize.' },
-        { name: 'max-size', type: 'number', default: '∞', description: 'Maximum pane size in pixels during resize.' },
+        { name: 'size-min', type: 'number', default: '0', description: 'Minimum pane size in pixels during resize.' },
+        { name: 'size-max', type: 'number', default: '∞', description: 'Maximum pane size in pixels during resize.' },
       ],
     },
     {

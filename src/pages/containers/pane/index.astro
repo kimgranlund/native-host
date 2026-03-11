@@ -101,10 +101,10 @@ import { paneApi, paneGroupApi } from '../../../data/api/pane';
     <!-- ── Size Constraints ── -->
 
     <h2>Size Constraints</h2>
-    <p>Use <code>min-size</code> and <code>max-size</code> attributes to constrain pane dimensions during resize.</p>
+    <p>Use <code>size-min</code> and <code>size-max</code> attributes to constrain pane dimensions during resize.</p>
     <n-container data-kind="panel" bordered class="demo-panes">
       <n-panes>
-        <n-pane label="Sidebar" icon="sidebar" min-size="120" max-size="300">
+        <n-pane label="Sidebar" icon="sidebar" size-min="120" size-max="300">
           <n-body><p>min: 120px, max: 300px</p></n-body>
         </n-pane>
         <n-pane label="Main" icon="code">
@@ -113,7 +113,7 @@ import { paneApi, paneGroupApi } from '../../../data/api/pane';
       </n-panes>
     </n-container>
     <pre class="code-block"><code>&lt;n-panes&gt;
-  &lt;n-pane label="Sidebar" icon="sidebar" min-size="120" max-size="300"&gt;
+  &lt;n-pane label="Sidebar" icon="sidebar" size-min="120" size-max="300"&gt;
     &lt;n-body&gt;Constrained width&lt;/n-body&gt;
   &lt;/n-pane&gt;
   &lt;n-pane label="Main" icon="code"&gt;
@@ -127,7 +127,7 @@ import { paneApi, paneGroupApi } from '../../../data/api/pane';
     <p>Nest <code>&lt;n-panes&gt;</code> inside a pane to create complex layouts. Horizontal outside, vertical inside.</p>
     <n-container data-kind="panel" bordered class="demo-panes demo-panes-ide">
       <n-panes>
-        <n-pane label="Sidebar" icon="sidebar" min-size="120" max-size="300">
+        <n-pane label="Sidebar" icon="sidebar" size-min="120" size-max="300">
           <n-body><p>Sidebar content</p></n-body>
         </n-pane>
         <n-pane>
@@ -143,7 +143,7 @@ import { paneApi, paneGroupApi } from '../../../data/api/pane';
       </n-panes>
     </n-container>
     <pre class="code-block"><code>&lt;n-panes&gt;
-  &lt;n-pane label="Sidebar" icon="sidebar" min-size="120" max-size="300"&gt;
+  &lt;n-pane label="Sidebar" icon="sidebar" size-min="120" size-max="300"&gt;
     &lt;n-body&gt;Sidebar&lt;/n-body&gt;
   &lt;/n-pane&gt;
   &lt;n-pane&gt;

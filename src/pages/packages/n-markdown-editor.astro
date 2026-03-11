@@ -1,15 +1,15 @@
 ---
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
-<SidebarLayout title="Editor">
+<SidebarLayout title="n-markdown-editor">
   <header>
     <div slot="title">
       <div slot="content">
-        <h1>Editor</h1>
+        <h1>n-markdown-editor</h1>
       </div>
     </div>
     <div slot="description">
-      <span class="header-tag">&lt;native-editor&gt;</span> Markdown content editor with live preview and source modes.
+      <span class="header-tag">&lt;n-markdown-editor&gt;</span> Markdown content editor with live preview and source modes.
       Built on CodeMirror 6, renders a toolbar with formatting commands and an Obsidian-style live preview.
           </div>
   </header>
@@ -19,55 +19,55 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
     <!-- ── Default (Live Preview) ── -->
 
     <h2>Default — Live Preview Mode</h2>
-    <div class="editor-wrap"><native-editor id="demo-default"></native-editor></div>
-    <pre class="code-block"><code>&lt;native-editor&gt;
+    <div class="editor-wrap"><n-markdown-editor id="demo-default"></n-markdown-editor></div>
+    <pre class="code-block"><code>&lt;n-markdown-editor&gt;
   &lt;script type="text/markdown"&gt;
 # Hello World
 
 This is a **bold** and *italic* text.
   &lt;/script&gt;
-&lt;/native-editor&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/n-markdown-editor&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
 
     <!-- ── Source Mode ── -->
 
     <h2>Source Mode</h2>
-    <native-editor id="demo-source" mode="source"></native-editor>
-    <pre class="code-block"><code>&lt;native-editor mode="source"&gt;
+    <n-markdown-editor id="demo-source" mode="source"></n-markdown-editor>
+    <pre class="code-block"><code>&lt;n-markdown-editor mode="source"&gt;
   &lt;script type="text/markdown"&gt;
 # Source Mode
 Raw markdown without decorations.
   &lt;/script&gt;
-&lt;/native-editor&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/n-markdown-editor&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
 
     <!-- ── Placeholder ── -->
 
     <h2>Placeholder</h2>
-    <native-editor id="demo-placeholder" placeholder="Start typing your markdown here..."></native-editor>
-    <pre class="code-block"><code>&lt;native-editor placeholder="Start typing..."&gt;&lt;/native-editor&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    <n-markdown-editor id="demo-placeholder" placeholder="Start typing your markdown here..."></n-markdown-editor>
+    <pre class="code-block"><code>&lt;n-markdown-editor placeholder="Start typing..."&gt;&lt;/n-markdown-editor&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
 
     <!-- ── Read-only ── -->
 
     <h2>Read-only</h2>
-    <native-editor id="demo-readonly" readonly></native-editor>
-    <pre class="code-block"><code>&lt;native-editor readonly&gt;
+    <n-markdown-editor id="demo-readonly" readonly></n-markdown-editor>
+    <pre class="code-block"><code>&lt;n-markdown-editor readonly&gt;
   &lt;script type="text/markdown"&gt;
 # Read-only Document
 Content is not editable.
   &lt;/script&gt;
-&lt;/native-editor&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+&lt;/n-markdown-editor&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
 
     <!-- ── Disabled ── -->
 
     <h2>Disabled</h2>
-    <native-editor id="demo-disabled" disabled></native-editor>
-    <pre class="code-block"><code>&lt;native-editor disabled&gt;...&lt;/native-editor&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    <n-markdown-editor id="demo-disabled" disabled></n-markdown-editor>
+    <pre class="code-block"><code>&lt;n-markdown-editor disabled&gt;...&lt;/n-markdown-editor&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
 
     <!-- ── Form Integration ── -->
 
     <h2>Form Integration</h2>
     <n-stack gap="4">
       <form id="demo-form">
-        <div class="editor-short"><native-editor id="demo-form-editor" name="content"></native-editor></div>
+        <div class="editor-short"><n-markdown-editor id="demo-form-editor" name="content"></n-markdown-editor></div>
       </form>
       <n-stack direction="row">
         <n-button type="submit" form="demo-form" variant="primary">Submit</n-button>
@@ -76,7 +76,7 @@ Content is not editable.
     </n-stack>
     <div class="log" id="form-output"></div>
     <pre class="code-block"><code>&lt;form&gt;
-  &lt;native-editor name="content"&gt;...&lt;/native-editor&gt;
+  &lt;n-markdown-editor name="content"&gt;...&lt;/n-markdown-editor&gt;
   &lt;n-button type="submit"&gt;Submit&lt;/n-button&gt;
   &lt;n-button type="reset"&gt;Reset&lt;/n-button&gt;
 &lt;/form&gt;
@@ -92,9 +92,9 @@ Content is not editable.
     <!-- ── Change Events ── -->
 
     <h2>Change Events</h2>
-    <div class="editor-compact"><native-editor id="demo-events"></native-editor></div>
+    <div class="editor-compact"><n-markdown-editor id="demo-events"></n-markdown-editor></div>
     <div class="log event-log" id="event-log"></div>
-    <pre class="code-block"><code>&lt;native-editor id="editor"&gt;...&lt;/native-editor&gt;
+    <pre class="code-block"><code>&lt;n-markdown-editor id="editor"&gt;...&lt;/n-markdown-editor&gt;
 
 &lt;script&gt;
   editor.addEventListener('change', (e) =&gt; &#123;
@@ -105,7 +105,7 @@ Content is not editable.
     <!-- ── Data Gateway (src) ── -->
 
     <h2>Data Gateway — Load from URL</h2>
-    <native-editor id="demo-gateway"></native-editor>
+    <n-markdown-editor id="demo-gateway"></n-markdown-editor>
     <div class="gateway-actions">
       <n-stack direction="row" align="center">
         <n-button id="gateway-save" variant="primary" disabled>Save</n-button>
@@ -113,7 +113,7 @@ Content is not editable.
         <span class="gateway-status" id="gateway-status"></span>
       </n-stack>
     </div>
-    <pre class="code-block"><code>&lt;native-editor id="editor" src="/api/content"&gt;&lt;/native-editor&gt;
+    <pre class="code-block"><code>&lt;n-markdown-editor id="editor" src="/api/content"&gt;&lt;/n-markdown-editor&gt;
 
 &lt;script&gt;
   editor.addEventListener('dirty-change', (e) =&gt; &#123;
@@ -288,9 +288,9 @@ Content is not editable.
       height: 200px;
     }
 
-    .editor-wrap > native-editor,
-    .editor-short > native-editor,
-    .editor-compact > native-editor {
+    .editor-wrap > n-markdown-editor,
+    .editor-short > n-markdown-editor,
+    .editor-compact > n-markdown-editor {
       height: 100%;
     }
 

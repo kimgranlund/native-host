@@ -1,15 +1,15 @@
 ---
 import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
-<SidebarLayout title="CodeMirror">
+<SidebarLayout title="n-editor">
   <header>
     <div slot="title">
       <div slot="content">
-        <h1>Codemirror</h1>
+        <h1>n-editor</h1>
       </div>
     </div>
     <div slot="description">
-      <span class="header-tag">&lt;native-codemirror&gt;</span> Shared CodeMirror 6 integration layer for the NativeUI ecosystem.
+      <span class="header-tag">&lt;n-editor&gt;</span> Shared CodeMirror 6 integration layer for the NativeUI ecosystem.
       Provides a dark theme, syntax highlighting, base extensions (keymaps, history, brackets, autocomplete, line numbers),
       and a <code>createEditorView()</code> factory.
           </div>
@@ -310,7 +310,7 @@ See the [documentation](https://native-ui.dev) for the full API.`,
 
   createEditorView(document.getElementById('readonly-demo'), {
     doc: `// This editor is read-only — you can select text but cannot edit.
-const greeting = 'Hello from native-codemirror!';
+const greeting = 'Hello from n-editor!';
 console.log(greeting);`,
     extensions: [javascript()],
     readonly: true,

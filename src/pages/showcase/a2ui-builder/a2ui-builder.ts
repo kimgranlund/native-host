@@ -326,50 +326,6 @@ function mockResponse(input: string): MockResult {
   return fallback;
 }
 
-// ── CSS/JS helpers (pure functions — outside page-load) ──
-
-/** Scope CSS rules under #preview-mount so they don't leak into the builder UI. */
-function scopeCSS(css: string): string {
-  // If the user already scoped to #preview-mount, pass through
-  if (css.includes('#preview-mount')) return css;
-  // Wrap each rule: add #preview-mount prefix to every selector
-  return css.replace(
-    /([^{}@]+)\{/g,
-    (_match, selectors: string) => {
-      const scoped = selectors
-        .split(',')
-        .map((s: string) => `#preview-mount ${s.trim()}`)
-        .join(', ');
-      return `${scoped} {`;
-    },
-  );
-}
-
-/** Wait for custom elements inside the preview to upgrade, then two rAFs. */
-async function waitForPreviewReady(previewMount: HTMLElement): Promise<void> {
-  const tags = new Set<string>();
-  for (const el of previewMount.querySelectorAll('*')) {
-    if (el.localName.includes('-')) tags.add(el.localName);
-  }
-  // Only wait for tags that are actually registered (or will be soon).
-  // CSS-only undefined CEs (n-stack, n-body, n-header, etc.) never register
-  // so whenDefined() would hang forever. Use a short timeout as a race.
-  const TIMEOUT = 500;
-  const withTimeout = (p: Promise<unknown>) =>
-    Promise.race([p, new Promise(r => setTimeout(r, TIMEOUT))]);
-  const defined = [...tags].filter(t => customElements.get(t));
-  const pending = [...tags].filter(t => !customElements.get(t));
-  await Promise.all([
-    ...defined.map(t => customElements.whenDefined(t)),
-    ...pending.map(t => withTimeout(customElements.whenDefined(t))),
-  ]);
-  // Two rAFs — first for CE upgrade, second for child rendering
-  await new Promise(r => requestAnimationFrame(r as FrameRequestCallback));
-  await new Promise(r => requestAnimationFrame(r as FrameRequestCallback));
-}
-
-// ── Render helpers (pure functions) ──
-
 /**
  * Extract a JSON object from an LLM response that may contain surrounding
  * text, markdown fences, or other non-JSON content.
@@ -399,35 +355,6 @@ function parseJSON(raw: string | undefined): MockResult {
   throw new Error(`Could not parse JSON from response:\n${preview}`);
 }
 
-function renderPropsTable(props: readonly PropertySpec[]): string {
-  if (!props.length) return '';
-  const rows = props.map(p => {
-    const reactive = p.reactive ? '<span class="map-reactive">reactive</span>' : '';
-    const note = p.note ? ` <span class="map-note">${p.note}</span>` : '';
-    return `<tr><td><code>${p.attr}</code></td><td>${p.type}</td><td>${reactive}${note}</td></tr>`;
-  }).join('');
-  return `<div class="map-detail-section"><div class="map-detail-label">Properties</div><table><thead><tr><th>Attr</th><th>Type</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>`;
-}
-
-function renderEventsTable(events: readonly EventSpec[]): string {
-  if (!events.length) return '';
-  const rows = events.map(e => {
-    const detail = e.detail ? Object.entries(e.detail).map(([k, v]) => `${k}: ${v}`).join(', ') : '—';
-    return `<tr><td><code>${e.event}</code></td><td>${detail}</td><td>${e.description}</td></tr>`;
-  }).join('');
-  return `<div class="map-detail-section"><div class="map-detail-label">Events</div><table><thead><tr><th>Event</th><th>Detail</th><th>Description</th></tr></thead><tbody>${rows}</tbody></table></div>`;
-}
-
-function renderMethodsTable(methods: readonly MethodSpec[]): string {
-  if (!methods.length) return '';
-  const rows = methods.map(m => {
-    const params = m.params ? Object.entries(m.params).map(([k, v]) => `${k}: ${v}`).join(', ') : '';
-    const sig = `${m.name}(${params})`;
-    return `<tr><td><code>${sig}</code></td><td>${m.returns ?? 'void'}</td><td>${m.description}</td></tr>`;
-  }).join('');
-  return `<div class="map-detail-section"><div class="map-detail-label">Methods</div><table><thead><tr><th>Method</th><th>Returns</th><th>Description</th></tr></thead><tbody>${rows}</tbody></table></div>`;
-}
-
 /** Strip markdown fences (```json ... ```) that LLMs sometimes add despite instructions. */
 function stripFences(raw: string): string {
   const trimmed = raw.trim();
@@ -439,22 +366,21 @@ function stripFences(raw: string): string {
   return trimmed;
 }
 
-// ── Progress step classification (single-shot mode) ──
-
-function classifySteps(query: string, isIterating: boolean): [string, string, string] {
-  const q = query.toLowerCase();
-  if (/\b(style|color|theme|dark|light|background|font|spacing|padding|margin|border|shadow|round|gradient)\b/.test(q))
-    return ['Thinking', 'Analyzing Styles', 'Styling UI'];
-  if (/\b(click|event|handler|interact|button press|toggle|animate|show|hide|submit|validate)\b/.test(q))
-    return ['Thinking', 'Planning Logic', 'Wiring Events'];
-  if (/\b(layout|grid|stack|column|row|sidebar|header|footer|responsive|mobile|split|arrange|reorder|move)\b/.test(q))
-    return ['Thinking', 'Planning Layout', 'Restructuring UI'];
-  if (/^(what|how|why|can you|is it|explain|tell me|describe)\b/.test(q))
-    return ['Thinking', 'Analyzing', 'Composing Response'];
-  if (/\b(remove|delete|simplify|strip|clean|fewer|less|minimal)\b/.test(q))
-    return ['Thinking', 'Reviewing Structure', 'Simplifying UI'];
-  if (isIterating) return ['Thinking', 'Reviewing Changes', 'Updating UI'];
-  return ['Thinking', 'Concept Mapping', 'Creating UI'];
+/** Scope CSS rules under #preview-mount so they don't leak into the builder UI. */
+function scopeCSS(css: string): string {
+  // If the user already scoped to #preview-mount, pass through
+  if (css.includes('#preview-mount')) return css;
+  // Wrap each rule: add #preview-mount prefix to every selector
+  return css.replace(
+    /([^{}@]+)\{/g,
+    (_match, selectors: string) => {
+      const scoped = selectors
+        .split(',')
+        .map((s: string) => `#preview-mount ${s.trim()}`)
+        .join(', ');
+      return `${scoped} {`;
+    },
+  );
 }
 
 function formatGapReport(gaps: MockResult['gaps'], partial?: MockResult['partial']): string {
@@ -475,6 +401,24 @@ function formatGapReport(gaps: MockResult['gaps'], partial?: MockResult['partial
   return lines.join('\n');
 }
 
+// ── Progress step classification (single-shot mode) ──
+
+function classifySteps(query: string, isIterating: boolean): [string, string, string] {
+  const q = query.toLowerCase();
+  if (/\b(style|color|theme|dark|light|background|font|spacing|padding|margin|border|shadow|round|gradient)\b/.test(q))
+    return ['Thinking', 'Analyzing Styles', 'Styling UI'];
+  if (/\b(click|event|handler|interact|button press|toggle|animate|show|hide|submit|validate)\b/.test(q))
+    return ['Thinking', 'Planning Logic', 'Wiring Events'];
+  if (/\b(layout|grid|stack|column|row|sidebar|header|footer|responsive|mobile|split|arrange|reorder|move)\b/.test(q))
+    return ['Thinking', 'Planning Layout', 'Restructuring UI'];
+  if (/^(what|how|why|can you|is it|explain|tell me|describe)\b/.test(q))
+    return ['Thinking', 'Analyzing', 'Composing Response'];
+  if (/\b(remove|delete|simplify|strip|clean|fewer|less|minimal)\b/.test(q))
+    return ['Thinking', 'Reviewing Structure', 'Simplifying UI'];
+  if (isIterating) return ['Thinking', 'Reviewing Changes', 'Updating UI'];
+  return ['Thinking', 'Concept Mapping', 'Creating UI'];
+}
+
 // ── Imperative code — wrapped for Astro View Transitions ──
 
 document.addEventListener('astro:page-load', () => {
@@ -488,7 +432,7 @@ document.addEventListener('astro:page-load', () => {
   const kernel = new Kernel({ allowUnregistered: true });
   let currentAdapter: ReturnType<typeof createA2UIAdapter> | null = null;
 
-  const activePanels = new Set(['preview', 'concepts']);
+  const activePanels = new Set(['preview']);
 
   currentModel = 'claude-haiku-4-5';
   let llm: GatewayAdapter | null = buildAdapter(currentModel);
@@ -530,6 +474,29 @@ document.addEventListener('astro:page-load', () => {
     previewStyle.textContent = scopeCSS(css);
   }
 
+  /** Wait for custom elements inside the preview to upgrade, then two rAFs. */
+  async function waitForPreviewReady(): Promise<void> {
+    const tags = new Set<string>();
+    for (const el of previewMount.querySelectorAll('*')) {
+      if (el.localName.includes('-')) tags.add(el.localName);
+    }
+    // Only wait for tags that are actually registered (or will be soon).
+    // CSS-only undefined CEs (n-stack, n-body, n-header, etc.) never register
+    // so whenDefined() would hang forever. Use a short timeout as a race.
+    const TIMEOUT = 500;
+    const withTimeout = (p: Promise<unknown>) =>
+      Promise.race([p, new Promise(r => setTimeout(r, TIMEOUT))]);
+    const defined = [...tags].filter(t => customElements.get(t));
+    const pending = [...tags].filter(t => !customElements.get(t));
+    await Promise.all([
+      ...defined.map(t => customElements.whenDefined(t)),
+      ...pending.map(t => withTimeout(customElements.whenDefined(t))),
+    ]);
+    // Two rAFs — first for CE upgrade, second for child rendering
+    await new Promise(r => requestAnimationFrame(r as FrameRequestCallback));
+    await new Promise(r => requestAnimationFrame(r as FrameRequestCallback));
+  }
+
   function applyJSToPreview(js: string): void {
     if (!previewMount.children.length) return;
 
@@ -569,7 +536,7 @@ ${js}
     const js = jsEditor.value.trim();
     if (!js || jsRunning) return;
     jsRunning = true;
-    waitForPreviewReady(previewMount).then(() => {
+    waitForPreviewReady().then(() => {
       applyJSToPreview(js);
       jsRunning = false;
     });
@@ -643,10 +610,9 @@ ${js}
   });
 
   function syncPanels() {
-    // Clear explicit widths so flex redistributes
+    // Clear inline flex so CSS defaults redistribute
     for (const [_, el] of paneEls) {
-      el.style.removeProperty('width');
-      el.style.removeProperty('flex-grow');
+      el.style.removeProperty('flex');
     }
     for (const [id, el] of paneEls) el.hidden = !activePanels.has(id);
     for (const [id, chip] of chipEls) chip.toggleAttribute('data-active', activePanels.has(id));
@@ -654,15 +620,15 @@ ${js}
 
   // ── Lightbox toggle (light/dark preview) ──
 
+  const previewBody = document.querySelector('n-pane[data-panel="preview"] > n-body') as HTMLElement | null;
   const colorSchemeBtn = document.getElementById('lightbox-toggle');
-  const previewContent = document.querySelector('n-pane[data-panel="preview"] > n-body') as HTMLElement | null;
   let userOverride: boolean | null = null; // null = inherit from context
 
   function resolvePreviewDark(): boolean {
     if (userOverride !== null) return userOverride;
     // Check computed color-scheme on the preview or its ancestors
-    if (previewContent) {
-      const computed = getComputedStyle(previewContent).colorScheme;
+    if (previewBody) {
+      const computed = getComputedStyle(previewBody).colorScheme;
       if (computed === 'dark') return true;
       if (computed === 'light') return false;
     }
@@ -681,11 +647,81 @@ ${js}
   colorSchemeBtn?.addEventListener('native:press', () => {
     const wasDark = resolvePreviewDark();
     userOverride = !wasDark;
-    if (previewContent) {
-      previewContent.style.colorScheme = userOverride ? 'dark' : 'light';
+    if (previewBody) {
+      previewBody.style.colorScheme = userOverride ? 'dark' : 'light';
     }
     syncColorSchemeIcon();
   });
+
+  // ── CSS Inspector toggle ──
+
+  const inspectToggleBtn = document.getElementById('inspect-toggle');
+  let cssInspector: CSSInspectController | null = null;
+
+  inspectToggleBtn?.addEventListener('native:press', () => {
+    if (cssInspector) {
+      cssInspector.dismiss();
+      cssInspector.destroy();
+      cssInspector = null;
+      inspectToggleBtn.removeAttribute('data-active');
+    } else {
+      cssInspector = new CSSInspectController(previewMount, { pick: true, labels: true });
+      inspectToggleBtn.setAttribute('data-active', '');
+    }
+  });
+
+  // Clean up inspector when preview content changes
+  previewMount.addEventListener('native:inspect', (e: Event) => {
+    const detail = (e as CustomEvent).detail;
+    if (!detail.active && cssInspector) {
+      // Inspector dismissed itself (e.g. Escape) — sync button state
+      inspectToggleBtn?.removeAttribute('data-active');
+    }
+  });
+
+  // ── Preview canvas panning (infinite, translate-based) ──
+
+  if (previewBody && previewMount) {
+    let panX = 0;
+    let panY = 0;
+    let panStartX = 0;
+    let panStartY = 0;
+    let panOriginX = 0;
+    let panOriginY = 0;
+
+    function applyTransform() {
+      previewMount.style.transform = `translate(calc(-50% + ${panX}px), calc(-50% + ${panY}px))`;
+    }
+
+    previewBody.addEventListener('pointerdown', (e: PointerEvent) => {
+      // Only pan when clicking on the canvas background, not on the artifact
+      const target = e.target as HTMLElement;
+      if (target.closest('#preview-mount')) return;
+      if (e.button !== 0) return;
+
+      panStartX = e.clientX;
+      panStartY = e.clientY;
+      panOriginX = panX;
+      panOriginY = panY;
+      previewBody.setAttribute('data-panning', '');
+      previewBody.setPointerCapture(e.pointerId);
+    });
+
+    previewBody.addEventListener('pointermove', (e: PointerEvent) => {
+      if (!previewBody.hasAttribute('data-panning')) return;
+      panX = panOriginX + (e.clientX - panStartX);
+      panY = panOriginY + (e.clientY - panStartY);
+      applyTransform();
+    });
+
+    previewBody.addEventListener('pointerup', () => {
+      previewBody.removeAttribute('data-panning');
+    });
+
+    previewBody.addEventListener('lostpointercapture', () => {
+      previewBody.removeAttribute('data-panning');
+    });
+  }
 
   // ── Lightbox mode (fullscreen overlay) ──
 
@@ -722,214 +758,7 @@ ${js}
     }
   });
 
-  // ── CSS Inspector toggle ──
-
-  const inspectToggleBtn = document.getElementById('inspect-toggle');
-  let cssInspector: InstanceType<typeof CSSInspectController> | null = null;
-
-  inspectToggleBtn?.addEventListener('native:press', () => {
-    if (cssInspector) {
-      cssInspector.dismiss();
-      cssInspector.destroy();
-      cssInspector = null;
-      inspectToggleBtn.removeAttribute('data-active');
-    } else {
-      cssInspector = new CSSInspectController(previewMount, { pick: true, labels: true });
-      inspectToggleBtn.setAttribute('data-active', '');
-    }
-  });
-
-  previewMount.addEventListener('native:inspect', (e: Event) => {
-    const detail = (e as CustomEvent).detail;
-    if (!detail.active && cssInspector) {
-      inspectToggleBtn?.removeAttribute('data-active');
-    }
-  });
-
-  // ── Preview canvas panning ──
-
-  const previewBody = document.querySelector('n-pane[data-panel="preview"] > n-body') as HTMLElement | null;
-
-  if (previewBody) {
-    let panStartX = 0;
-    let panStartY = 0;
-    let scrollStartX = 0;
-    let scrollStartY = 0;
-
-    previewBody.addEventListener('pointerdown', (e: PointerEvent) => {
-      const target = e.target as HTMLElement;
-      if (target.closest('#preview-mount')) return;
-      if (e.button !== 0) return;
-
-      panStartX = e.clientX;
-      panStartY = e.clientY;
-      scrollStartX = previewBody.scrollLeft;
-      scrollStartY = previewBody.scrollTop;
-      previewBody.setAttribute('data-panning', '');
-      previewBody.setPointerCapture(e.pointerId);
-    });
-
-    previewBody.addEventListener('pointermove', (e: PointerEvent) => {
-      if (!previewBody.hasAttribute('data-panning')) return;
-      previewBody.scrollLeft = scrollStartX - (e.clientX - panStartX);
-      previewBody.scrollTop = scrollStartY - (e.clientY - panStartY);
-    });
-
-    previewBody.addEventListener('pointerup', () => {
-      previewBody.removeAttribute('data-panning');
-    });
-
-    previewBody.addEventListener('lostpointercapture', () => {
-      previewBody.removeAttribute('data-panning');
-    });
-
-    requestAnimationFrame(() => {
-      previewBody.scrollLeft = (previewBody.scrollWidth - previewBody.clientWidth) / 2;
-      previewBody.scrollTop = (previewBody.scrollHeight - previewBody.clientHeight) / 2;
-    });
-  }
-
-  // ── Coordinated resize ──
-
-  const splitEl = document.querySelector('.builder-split') as HTMLElement;
-  const chatEl = document.querySelector('.builder-chat') as HTMLElement;
-  const PANEL_ORDER = PANELS.map(p => p.id);
-
-  interface ResizeDrag {
-    type: 'chat' | 'pane';
-    startX: number;
-    chatStartW?: number;
-    sourceId?: string;
-    sourceStartW?: number;
-    targetId: string;
-    targetStartW: number;
-  }
-
-  let resizeDrag: ResizeDrag | null = null;
-
-  function getVisiblePanes() {
-    return PANEL_ORDER.filter(id => activePanels.has(id));
-  }
-
-  splitEl.addEventListener('pointerdown', (e: PointerEvent) => {
-    if (e.button !== 0) return;
-    const handle = (e.target as HTMLElement).closest?.('.resize-handle');
-    if (!handle) return;
-
-    const parent = handle.parentElement!;
-    e.preventDefault();
-
-    const CHAT_MIN = 280;
-    const PANE_MIN = 150;
-
-    if (parent === chatEl) {
-      const visible = getVisiblePanes();
-      if (!visible.length) return;
-
-      const firstPaneEl = paneEls.get(visible[0]);
-      if (!firstPaneEl) return;
-
-      resizeDrag = {
-        type: 'chat',
-        startX: e.clientX,
-        chatStartW: chatEl.offsetWidth,
-        targetId: visible[0],
-        targetStartW: firstPaneEl.offsetWidth,
-      };
-    } else if (parent.matches('n-pane')) {
-      const panelId = (parent as HTMLElement).dataset.panel!;
-      const visible = getVisiblePanes();
-      const idx = visible.indexOf(panelId);
-      if (idx === -1 || idx >= visible.length - 1) return;
-
-      const nextId = visible[idx + 1];
-      const nextEl = paneEls.get(nextId);
-      if (!nextEl) return;
-
-      resizeDrag = {
-        type: 'pane',
-        startX: e.clientX,
-        sourceId: panelId,
-        sourceStartW: parent.offsetWidth,
-        targetId: nextId,
-        targetStartW: nextEl.offsetWidth,
-      };
-    } else {
-      return;
-    }
-
-    // Freeze all widths
-    chatEl.style.width = `${chatEl.offsetWidth}px`;
-    for (const id of getVisiblePanes()) {
-      const el = paneEls.get(id);
-      if (el) {
-        el.style.width = `${el.offsetWidth}px`;
-        el.style.removeProperty('flex-grow');
-      }
-    }
-
-    parent.setAttribute('data-resizing', '');
-    document.body.style.cursor = 'col-resize';
-    document.body.style.userSelect = 'none';
-
-    document.addEventListener('pointermove', onResizeMove);
-    document.addEventListener('pointerup', onResizeUp);
-  });
-
-  function onResizeMove(e: PointerEvent) {
-    if (!resizeDrag) return;
-    const CHAT_MIN = 280;
-    const PANE_MIN = 150;
-    const dx = e.clientX - resizeDrag.startX;
-
-    if (resizeDrag.type === 'chat') {
-      const newChatW = Math.max(CHAT_MIN, resizeDrag.chatStartW! + dx);
-      const newPaneW = Math.max(PANE_MIN, resizeDrag.targetStartW - (newChatW - resizeDrag.chatStartW!));
-      chatEl.style.width = `${newChatW}px`;
-      const paneEl = paneEls.get(resizeDrag.targetId);
-      if (paneEl) paneEl.style.width = `${newPaneW}px`;
-    } else {
-      const sourceEl = paneEls.get(resizeDrag.sourceId!);
-      const targetEl = paneEls.get(resizeDrag.targetId);
-      if (!sourceEl || !targetEl) return;
-      const newSourceW = Math.max(PANE_MIN, resizeDrag.sourceStartW! + dx);
-      const newTargetW = Math.max(PANE_MIN, resizeDrag.targetStartW - (newSourceW - resizeDrag.sourceStartW!));
-      sourceEl.style.width = `${newSourceW}px`;
-      targetEl.style.width = `${newTargetW}px`;
-    }
-  }
-
-  function onResizeUp() {
-    if (!resizeDrag) return;
-
-    // Convert pixel widths → flex-grow ratios
-    const visible = getVisiblePanes();
-    const widths = visible.map(id => paneEls.get(id)?.offsetWidth ?? 0);
-    const total = widths.reduce((s, w) => s + w, 0);
-    if (total > 0) {
-      for (let i = 0; i < visible.length; i++) {
-        const el = paneEls.get(visible[i]);
-        if (el) {
-          el.style.flexGrow = String((widths[i] / total) * visible.length);
-          el.style.removeProperty('width');
-        }
-      }
-    }
-
-    // Convert chat to percentage
-    if (splitEl.offsetWidth > 0) {
-      const ratio = chatEl.offsetWidth / splitEl.offsetWidth;
-      chatEl.style.width = `${(ratio * 100).toFixed(2)}%`;
-    }
-
-    // Clean up
-    document.querySelectorAll('[data-resizing]').forEach(el => el.removeAttribute('data-resizing'));
-    document.body.style.removeProperty('cursor');
-    document.body.style.removeProperty('user-select');
-    document.removeEventListener('pointermove', onResizeMove);
-    document.removeEventListener('pointerup', onResizeUp);
-    resizeDrag = null;
-  }
+  // ── Pane layout (resize handled by n-panes component) ──
 
   // ── Populate static panels ──
 
@@ -942,6 +771,35 @@ ${js}
 
   // Component map table — populated from protocol registry
   const tbody = mapTable.querySelector('tbody')!;
+
+  function renderPropsTable(props: readonly PropertySpec[]): string {
+    if (!props.length) return '';
+    const rows = props.map(p => {
+      const reactive = p.reactive ? '<span class="map-reactive">reactive</span>' : '';
+      const note = p.note ? ` <span class="map-note">${p.note}</span>` : '';
+      return `<tr><td><code>${p.attr}</code></td><td>${p.type}</td><td>${reactive}${note}</td></tr>`;
+    }).join('');
+    return `<div class="map-detail-section"><div class="map-detail-label">Properties</div><table><thead><tr><th>Attr</th><th>Type</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  }
+
+  function renderEventsTable(events: readonly EventSpec[]): string {
+    if (!events.length) return '';
+    const rows = events.map(e => {
+      const detail = e.detail ? Object.entries(e.detail).map(([k, v]) => `${k}: ${v}`).join(', ') : '—';
+      return `<tr><td><code>${e.event}</code></td><td>${detail}</td><td>${e.description}</td></tr>`;
+    }).join('');
+    return `<div class="map-detail-section"><div class="map-detail-label">Events</div><table><thead><tr><th>Event</th><th>Detail</th><th>Description</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  }
+
+  function renderMethodsTable(methods: readonly MethodSpec[]): string {
+    if (!methods.length) return '';
+    const rows = methods.map(m => {
+      const params = m.params ? Object.entries(m.params).map(([k, v]) => `${k}: ${v}`).join(', ') : '';
+      const sig = `${m.name}(${params})`;
+      return `<tr><td><code>${sig}</code></td><td>${m.returns ?? 'void'}</td><td>${m.description}</td></tr>`;
+    }).join('');
+    return `<div class="map-detail-section"><div class="map-detail-label">Methods</div><table><thead><tr><th>Method</th><th>Returns</th><th>Description</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  }
 
   for (const mapping of REGISTRY.values()) {
     const cat = getComponentCategory(mapping.a2uiType);
@@ -992,7 +850,7 @@ ${js}
     // Reuse the last group if same role and it's not separated by seeds
     let group = lastMessageGroup;
     if (!group || lastMessageRole !== role) {
-      group = document.createElement('n-chat-messages');
+      group = document.createElement('n-agent-dialogue');
       group.setAttribute('data-role', role);
       group.setAttribute('sender', role === 'user' ? 'You' : 'Builder');
 
@@ -1008,7 +866,7 @@ ${js}
       lastMessageRole = role;
     }
 
-    const message = document.createElement('n-chat-message');
+    const message = document.createElement('n-agent-dialogue-item');
     message.setAttribute('data-role', role);
     message.setAttribute('message-id', msgId);
     message.setAttribute('actions', role === 'assistant' ? 'copy,retry' : 'copy');
@@ -1032,7 +890,7 @@ ${js}
     lastMessageGroup = null;
     lastMessageRole = null;
 
-    const group = document.createElement('n-chat-messages');
+    const group = document.createElement('n-agent-dialogue');
     group.setAttribute('data-role', 'assistant');
     group.setAttribute('sender', 'Builder');
     group.setAttribute('data-seeds', '');
@@ -1050,6 +908,7 @@ ${js}
     lastMessageGroup = null;
     lastMessageRole = null;
   }
+
 
   // ── Insights pane (accumulating reasoning log) ──
 
@@ -1254,7 +1113,7 @@ ${js}
     if (result.js !== undefined) {
       jsEditor.value = result.js;
       // Defer JS execution — wait for all custom elements in preview to upgrade
-      waitForPreviewReady(previewMount).then(() => applyJSToPreview(result.js!));
+      waitForPreviewReady().then(() => applyJSToPreview(result.js!));
     }
 
     // Show suggestion chips after questions
@@ -1347,7 +1206,7 @@ ${js}
     }
   }
 
-  // ── Pipeline send (multi-step LLM calls) ──
+  // ── Pipeline send (multi-step LLM calls, real progress) ──
 
   async function sendPipeline(value: string) {
     const progressEl = document.createElement('div');
@@ -1418,28 +1277,35 @@ ${js}
       const trimmed = pipelineResult.raw?.trim();
       const result = parseJSON(trimmed);
 
-      // Finalize progress
-      for (const line of stepLines.values()) {
-        line.removeAttribute('data-active');
-        line.removeAttribute('data-pending');
-      }
-      progressEl.remove();
+      if (!result.type) result.type = result.gaps?.length ? 'gap' : result.prompt ? 'prompt' : result.schema ? 'schema' : 'question';
+      if (result.schema && !result.schema.surfaceId) result.schema.surfaceId = 'preview';
 
-      if (result) {
-        messages.push({ role: 'assistant', message: trimmed || '' });
-        applyResult(result);
-      } else {
-        addMessage('assistant', trimmed || '(Empty pipeline result)');
-      }
+      const summaryVerbs: Record<string, string> = {
+        schema: currentSchema ? 'Updated UI' : 'Created UI',
+        question: 'Responded',
+        gap: 'Found Gaps',
+        remap: 'Remapped Components',
+        prompt: 'Generated Prompt',
+      };
+      const label = summaryVerbs[result.type ?? ''] ?? 'Done';
+      progressEl.textContent = '';
+      progressEl.className = 'builder-progress-summary';
+      progressEl.textContent = `Thought for ${elapsed}s · ${label}`;
+
+      messages.push({ role: 'assistant', message: trimmed! });
+      applyResult(result);
     } catch (err) {
       clearInterval(tickTimer);
-      progressEl.remove();
+      progressEl.textContent = '';
+      progressEl.className = 'builder-progress-summary';
+      progressEl.textContent = `Thought for ${elapsed}s · Error`;
+
       if (err instanceof GatewayRequestError && err.kind === 'auth') {
-        addMessage('assistant', `API key error — ${(err as Error).message}`);
+        addMessage('assistant', `API key error — check that your API key is valid and the proxy endpoint is configured. The Anthropic API is not available in all regions — if you are outside the US, you may need to use a proxy or VPN. (${(err as GatewayRequestError).status}: ${(err as Error).message})`);
       } else {
-        addMessage('assistant', `Pipeline error: ${(err as Error).message}`);
+        addMessage('assistant', `Error: ${(err as Error).message}`);
       }
-      console.error('[A2UI Builder Pipeline]', err);
+      console.error('[A2UI Builder]', err);
     }
   }
 
@@ -1519,9 +1385,9 @@ ${js}
   const welcomeEl = document.createElement('div');
   welcomeEl.className = 'builder-welcome';
   welcomeEl.innerHTML = `
-    <h1 class="builder-welcome-heading">Got UI?</h1>
-    <div class="builder-welcome-chips"></div>
-  `;
+  <h1 class="builder-welcome-heading">Got UI?</h1>
+  <div class="builder-welcome-chips"></div>
+`;
 
   const welcomeChips = welcomeEl.querySelector('.builder-welcome-chips')!;
   const starters = [
@@ -1555,7 +1421,7 @@ ${js}
   }
 
   // Dismiss on first user input (textarea focus or keydown)
-  const textarea = document.querySelector<HTMLElement>('.builder-chat n-textarea');
+  const textarea = document.querySelector<HTMLElement>('[data-panel="agent-chat"] n-textarea');
   if (textarea) {
     const onFirstInput = () => {
       dismissWelcome();
