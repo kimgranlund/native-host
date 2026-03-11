@@ -9,7 +9,7 @@
 // 4. All imperative code wrapped in astro:page-load with element guard
 // 5. REGISTRY from npm (COMPONENT_MAP export), not local array
 // 6. ConfettiController import → npm path
-// 7. Pipeline imports removed (pipeline.ts is upstream-only)
+// 7. Pipeline imports → local copies of pipeline.ts + step-prompts.ts
 
 import { Kernel, resetKernel } from '@nonoun/native-ui/kernel';
 import { createA2UIAdapter, COMPONENT_MAP as REGISTRY, getComponentCategory } from '@nonoun/native-ai';
@@ -17,6 +17,8 @@ import type { EventSpec, PropertySpec, MethodSpec } from '@nonoun/native-ai';
 import { ClaudeGatewayAdapter, OpenAiGatewayAdapter, GatewayRequestError } from '@nonoun/native-ai/gateway';
 import type { GatewayAdapter } from '@nonoun/native-ai/gateway';
 import { ConfettiController, CSSInspectController } from '@nonoun/native-ui/traits';
+import { PIPELINE_STEPS, runPipeline, shouldSkipEarlySteps } from './pipeline.ts';
+import type { PipelineStep, PipelineCallbacks } from './pipeline.ts';
 import promptJson from './system-prompt.json';
 
 // ── System prompt ──
@@ -80,6 +82,32 @@ function buildAdapter(model: string): GatewayAdapter | null {
     apiKey: 'proxy',
   });
 }
+
+function buildStepAdapter(stepSystemPrompt: string, maxTokens: number): GatewayAdapter | null {
+  if (isClaudeModel(currentModel)) {
+    return new ClaudeGatewayAdapter({
+      clientId: 'a2ui-builder-step',
+      baseUrl: '/api/anthropic',
+      model: currentModel,
+      maxTokens,
+      system: stepSystemPrompt,
+      apiKey: 'proxy',
+      anthropicVersion: '2023-06-01',
+    });
+  }
+  return new OpenAiGatewayAdapter({
+    clientId: 'a2ui-builder-step',
+    baseUrl: '/api/openai',
+    model: currentModel,
+    maxTokens,
+    system: stepSystemPrompt,
+    apiKey: 'proxy',
+  });
+}
+
+// [CHANGED] currentModel is declared inside astro:page-load block but
+// buildStepAdapter needs it. Hoist it to module scope.
+let currentModel = 'claude-haiku-4-5';
 
 interface Message {
   role: string;
@@ -462,8 +490,9 @@ document.addEventListener('astro:page-load', () => {
 
   const activePanels = new Set(['preview', 'concepts']);
 
-  let currentModel = 'claude-haiku-4-5';
+  currentModel = 'claude-haiku-4-5';
   let llm: GatewayAdapter | null = buildAdapter(currentModel);
+  let pipelineMode = false;
 
   const messages: Message[] = [];
 
@@ -678,6 +707,19 @@ ${js}
     lightboxModeBtn.toggleAttribute('data-active', lightboxMode);
     const icon = lightboxModeBtn.querySelector('n-icon');
     if (icon) icon.setAttribute('name', lightboxMode ? 'arrows-in-simple' : 'arrows-out-simple');
+  });
+
+  // ── Pipeline mode toggle (Flask button) ──
+
+  const pipelineBtn = document.querySelector('[data-role="toggle-pipeline"]') as HTMLElement | null;
+  pipelineBtn?.addEventListener('native:press', () => {
+    pipelineMode = !pipelineMode;
+    pipelineBtn.toggleAttribute('data-active', pipelineMode);
+    if (pipelineMode) {
+      pipelineBtn.setAttribute('intent', 'accent');
+    } else {
+      pipelineBtn.removeAttribute('intent');
+    }
   });
 
   // ── CSS Inspector toggle ──
@@ -1204,15 +1246,13 @@ ${js}
       renderPreview(result.schema);
     }
 
-    // Apply CSS/JS from LLM response and auto-open panes
+    // Apply CSS/JS from LLM response (don't auto-toggle panes)
     if (result.css !== undefined) {
       cssEditor.value = result.css;
       applyCSSToPreview(result.css);
-      if (!activePanels.has('css')) { activePanels.add('css'); syncPanels(); }
     }
     if (result.js !== undefined) {
       jsEditor.value = result.js;
-      if (!activePanels.has('js')) { activePanels.add('js'); syncPanels(); }
       // Defer JS execution — wait for all custom elements in preview to upgrade
       waitForPreviewReady(previewMount).then(() => applyJSToPreview(result.js!));
     }
@@ -1307,6 +1347,102 @@ ${js}
     }
   }
 
+  // ── Pipeline send (multi-step LLM calls) ──
+
+  async function sendPipeline(value: string) {
+    const progressEl = document.createElement('div');
+    progressEl.className = 'builder-progress';
+    chatFeed.appendChild(progressEl);
+    chatFeed.scrollTop = chatFeed.scrollHeight;
+
+    const skip = shouldSkipEarlySteps(value, !!currentSchema);
+    const visibleSteps = skip ? PIPELINE_STEPS.slice(2) : PIPELINE_STEPS;
+
+    const stepLines = new Map<string, HTMLDivElement>();
+    for (const step of visibleSteps) {
+      const line = document.createElement('div');
+      line.className = 'builder-progress-step';
+      line.setAttribute('data-pending', '');
+      line.textContent = step.label;
+      progressEl.appendChild(line);
+      stepLines.set(step.id, line);
+    }
+
+    let elapsed = 0;
+    const tickTimer = setInterval(() => { elapsed++; }, 1000);
+
+    const callbacks: PipelineCallbacks = {
+      onStepStart(step: PipelineStep, _index: number) {
+        const line = stepLines.get(step.id);
+        if (!line) return;
+        line.removeAttribute('data-pending');
+        line.setAttribute('data-active', '');
+        line.textContent = step.activeLabel;
+        chatFeed.scrollTop = chatFeed.scrollHeight;
+      },
+      onStepComplete(step: PipelineStep, _index: number, output: string) {
+        const line = stepLines.get(step.id);
+        if (line) {
+          line.removeAttribute('data-active');
+          line.setAttribute('data-done', '');
+          line.textContent = step.doneLabel;
+        }
+        if (step.id === 'interpret') appendInterpretation(output);
+        if (step.id === 'concepts') appendConcepts(output);
+        if (step.id === 'plan') appendPlan(output);
+        if (step.id === 'construct') schemaPre.textContent = output;
+      },
+      onStreamChunk(_delta: string, fullMessage: string) {
+        schemaPre.textContent = fullMessage;
+      },
+      onError(step: PipelineStep, _index: number, _error: Error) {
+        const line = stepLines.get(step.id);
+        if (line) {
+          line.removeAttribute('data-active');
+          line.style.color = 'var(--n-ink-danger)';
+          line.textContent = `${step.label} — Error`;
+        }
+      },
+    };
+
+    try {
+      const pipelineResult = await runPipeline(
+        { query: value, currentSchema, componentRef, conversationHistory: messages },
+        callbacks,
+        buildStepAdapter,
+        systemPrompt,
+      );
+
+      clearInterval(tickTimer);
+
+      const trimmed = pipelineResult.raw?.trim();
+      const result = parseJSON(trimmed);
+
+      // Finalize progress
+      for (const line of stepLines.values()) {
+        line.removeAttribute('data-active');
+        line.removeAttribute('data-pending');
+      }
+      progressEl.remove();
+
+      if (result) {
+        messages.push({ role: 'assistant', message: trimmed || '' });
+        applyResult(result);
+      } else {
+        addMessage('assistant', trimmed || '(Empty pipeline result)');
+      }
+    } catch (err) {
+      clearInterval(tickTimer);
+      progressEl.remove();
+      if (err instanceof GatewayRequestError && err.kind === 'auth') {
+        addMessage('assistant', `API key error — ${(err as Error).message}`);
+      } else {
+        addMessage('assistant', `Pipeline error: ${(err as Error).message}`);
+      }
+      console.error('[A2UI Builder Pipeline]', err);
+    }
+  }
+
   // ── Send handler ──
 
   async function sendMessage(value: string) {
@@ -1329,7 +1465,11 @@ ${js}
     lastMessageRole = null;
 
     try {
-      await sendSingleShot(value);
+      if (pipelineMode) {
+        await sendPipeline(value);
+      } else {
+        await sendSingleShot(value);
+      }
     } finally {
       chatComposer.busy = false;
     }
