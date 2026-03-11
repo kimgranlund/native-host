@@ -54,7 +54,6 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       <n-footer>
         <n-stack direction="row" gap="4" align="center" justify="space-between">
           <n-select id="model-x" placeholder="X player" inline>
-            <n-button justify="spread">Claude Haiku 4.5<n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
             <n-listbox popover="auto">
               <n-option value="human">Human</n-option>
               <n-option value="claude-haiku-4-5-20251001" selected>Claude Haiku 4.5</n-option>
@@ -66,7 +65,6 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
             <span class="ttt-score-num" id="score-o">0</span>
           </n-stack>
           <n-select id="model-o" placeholder="O player" inline>
-            <n-button justify="spread">GPT-5 mini<n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
             <n-listbox popover="auto">
               <n-option value="human">Human</n-option>
               <n-option value="gpt-5-mini" selected>GPT-5 mini</n-option>

@@ -88,8 +88,7 @@ for (const m of visibleModels) {
             <n-chat-input-advanced id="chat-composer">
               <n-chat-input-header>
                 <nav>
-                  <n-select id="model-picker" value={defaultModel?.modelId ?? 'claude-haiku-4-5'} data-role="model-picker">
-                    <n-button variant="ghost" inline size="sm" density="compact"><span slot="label">{defaultModel?.name ?? 'Claude Haiku 4.5'}</span> <n-icon name="caret-up-down" slot="trailing"></n-icon></n-button>
+                  <n-select id="model-picker" value={defaultModel?.modelId ?? 'claude-haiku-4-5'} data-role="model-picker" variant="ghost" inline size="sm" density="compact" placeholder={defaultModel?.name ?? 'Claude Haiku 4.5'}>
                     <n-listbox popover="auto">
                       {[...grouped.entries()].filter(([, models]) => models.length > 0).map(([label, models]) => (
                         <n-option-group>
