@@ -977,7 +977,7 @@ document.addEventListener('astro:page-load', () => {
           btnY = pos.y + hoveredNode.offsetHeight + gap;
         } else {
           btnX = pos.x + hoveredNode.offsetWidth / 2 - btnSize / 2;
-          btnY = pos.y - hoveredNode.offsetHeight - gap;
+          btnY = pos.y - btnSize - gap;
         }
         addBtn.style.left = btnX + 'px';
         addBtn.style.top = btnY + 'px';
