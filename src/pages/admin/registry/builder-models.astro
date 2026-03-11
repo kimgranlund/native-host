@@ -280,6 +280,8 @@ function tierIntent(tier: string) {
 </SidebarLayout>
 
 <script>
+import { navigate } from 'astro:transitions/client';
+
 document.addEventListener('astro:page-load', () => {
   const bmTable = document.getElementById('bm-table');
   if (!bmTable || bmTable.hasAttribute('data-wired')) return;
@@ -350,7 +352,7 @@ document.addEventListener('astro:page-load', () => {
       credentials: 'same-origin',
       body: JSON.stringify({ slug: nameToSlug(data.modelId || name), data }),
     });
-    if (res.ok) { bmDialog?.close(); location.reload(); }
+    if (res.ok) { bmDialog?.close(); navigate(location.pathname); }
   });
 
   bmTable.querySelectorAll('[data-action="delete-model"]').forEach(btn => {
@@ -368,7 +370,7 @@ document.addEventListener('astro:page-load', () => {
       method: 'DELETE',
       credentials: 'same-origin',
     });
-    if (res.ok) { bmDeleteDialog?.close(); location.reload(); }
+    if (res.ok) { bmDeleteDialog?.close(); navigate(location.pathname); }
   });
 
   // ── Access CRUD ──
@@ -395,7 +397,7 @@ document.addEventListener('astro:page-load', () => {
       credentials: 'same-origin',
       body: JSON.stringify({ slug, data: { email } }),
     });
-    if (res.ok) { baDialog?.close(); location.reload(); }
+    if (res.ok) { baDialog?.close(); navigate(location.pathname); }
   });
 
   const baTable = document.getElementById('ba-table');
@@ -414,7 +416,7 @@ document.addEventListener('astro:page-load', () => {
       method: 'DELETE',
       credentials: 'same-origin',
     });
-    if (res.ok) { baDeleteDialog?.close(); location.reload(); }
+    if (res.ok) { baDeleteDialog?.close(); navigate(location.pathname); }
   });
 });
 </script>

@@ -230,6 +230,7 @@ function roleIntent(role: string) {
 </SidebarLayout>
 
 <script>
+import { navigate } from 'astro:transitions/client';
 document.addEventListener('astro:page-load', () => {
   const table = document.getElementById('members-table');
   if (!table || table.hasAttribute('data-wired')) return;
@@ -251,7 +252,7 @@ document.addEventListener('astro:page-load', () => {
     });
     if (res.ok) {
       inviteDialog?.close();
-      location.reload();
+      navigate(location.pathname);
     }
   });
 
@@ -278,7 +279,7 @@ document.addEventListener('astro:page-load', () => {
     });
     if (res.ok) {
       roleDialog?.close();
-      location.reload();
+      navigate(location.pathname);
     }
   });
 
@@ -302,7 +303,7 @@ document.addEventListener('astro:page-load', () => {
     });
     if (res.ok) {
       removeDialog?.close();
-      location.reload();
+      navigate(location.pathname);
     }
   });
 
@@ -314,7 +315,7 @@ document.addEventListener('astro:page-load', () => {
         method: 'DELETE',
         credentials: 'same-origin',
       });
-      if (res.ok) location.reload();
+      if (res.ok) navigate(location.pathname);
     });
   });
 });

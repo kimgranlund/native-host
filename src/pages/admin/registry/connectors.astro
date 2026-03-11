@@ -175,6 +175,7 @@ function typeIntent(type: string) {
 </SidebarLayout>
 
 <script>
+import { navigate } from 'astro:transitions/client';
 document.addEventListener('astro:page-load', () => {
   const table = document.getElementById('connectors-table');
   if (!table || table.hasAttribute('data-wired')) return;
@@ -257,7 +258,7 @@ document.addEventListener('astro:page-load', () => {
       });
       if (res.ok) {
         formDialog?.close();
-        location.reload();
+        navigate(location.pathname);
       }
     } else {
       // Create new
@@ -273,7 +274,7 @@ document.addEventListener('astro:page-load', () => {
       });
       if (res.ok) {
         formDialog?.close();
-        location.reload();
+        navigate(location.pathname);
       }
     }
   });
@@ -297,7 +298,7 @@ document.addEventListener('astro:page-load', () => {
     });
     if (res.ok) {
       deleteDialog?.close();
-      location.reload();
+      navigate(location.pathname);
     }
   });
 });

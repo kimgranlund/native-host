@@ -215,6 +215,7 @@ function formatDate(d: Date) {
 </style>
 
 <script>
+import { navigate } from 'astro:transitions/client';
 document.addEventListener('astro:page-load', () => {
   const table = document.getElementById('ct-table');
   if (!table || table.hasAttribute('data-wired')) return;
@@ -335,7 +336,7 @@ document.addEventListener('astro:page-load', () => {
       });
       if (res.ok) {
         formDialog?.close();
-        location.reload();
+        navigate(location.pathname);
       } else {
         const err = await res.json().catch(() => ({ error: 'Failed to update' }));
         const { ToastController } = await import('@nonoun/native-ui');
@@ -351,7 +352,7 @@ document.addEventListener('astro:page-load', () => {
       });
       if (res.ok) {
         formDialog?.close();
-        location.reload();
+        navigate(location.pathname);
       } else {
         const err = await res.json().catch(() => ({ error: 'Failed to create' }));
         const { ToastController } = await import('@nonoun/native-ui');
@@ -387,7 +388,7 @@ document.addEventListener('astro:page-load', () => {
     });
     if (res.ok) {
       deleteDialog?.close();
-      location.reload();
+      navigate(location.pathname);
     }
   });
 });

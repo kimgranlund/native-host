@@ -67,6 +67,8 @@ const navItems = [
 </style>
 
 <script>
+import { navigate } from 'astro:transitions/client';
+
 document.addEventListener('astro:page-load', () => {
   const tabs = document.getElementById('admin-tabs');
   if (!tabs || tabs.hasAttribute('data-wired')) return;
@@ -74,7 +76,7 @@ document.addEventListener('astro:page-load', () => {
 
   tabs.addEventListener('native:change', (e: any) => {
     const path = e.detail?.value;
-    if (path) window.location.href = path;
+    if (path) navigate(path);
   });
 });
 </script>

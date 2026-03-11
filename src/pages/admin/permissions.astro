@@ -220,6 +220,7 @@ const permissionsJson = JSON.stringify(allPermissions.map(p => ({ value: p.id, l
 </SidebarLayout>
 
 <script>
+import { navigate } from 'astro:transitions/client';
 document.addEventListener('astro:page-load', () => {
   const page = document.getElementById('permissions-page');
   if (!page || page.hasAttribute('data-wired')) return;
@@ -306,7 +307,7 @@ document.addEventListener('astro:page-load', () => {
 
     if (res.ok) {
       grantDialog?.close();
-      location.reload();
+      navigate(location.pathname);
     }
   });
 
@@ -327,7 +328,7 @@ document.addEventListener('astro:page-load', () => {
     });
     if (res.ok) {
       deleteGrantDialog?.close();
-      location.reload();
+      navigate(location.pathname);
     }
   });
 });
