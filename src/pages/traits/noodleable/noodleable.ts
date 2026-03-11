@@ -1,5 +1,6 @@
 import { NoodleController, MagnetController, PresentController } from '@nonoun/native-ui';
 import { createEditorView, EditorView } from '@nonoun/native-code';
+import { EditorSelection } from '@codemirror/state';
 import { json } from '@codemirror/lang-json';
 import { logAppend as appendLog } from '../../../scripts/event-log';
 
@@ -25,6 +26,81 @@ document.addEventListener('astro:page-load', () => {
   /** @type {number|null} */
   let editorSyncTimer = null;
   const intents = ['accent', 'info', 'success', 'warning', 'danger'];
+  /** @type {string|null} */
+  let selectedNodeId: string | null = null;
+
+  // ── Node Selection ──
+
+  function selectNode(nodeId: string | null) {
+    flowArena?.querySelectorAll('.flow-node[data-selected]').forEach(el => el.removeAttribute('data-selected'));
+    selectedNodeId = nodeId;
+    if (nodeId) {
+      const el = document.getElementById(nodeId);
+      if (el) el.setAttribute('data-selected', '');
+      syncCanvasToEditor();
+      highlightNodeInEditor(nodeId);
+    }
+  }
+
+  function highlightNodeInEditor(nodeId: string | null) {
+    if (!editorView || !nodeId) return;
+    const doc = editorView.state.doc.toString();
+    // Find the node's JSON block by its "id" field
+    const idPattern = `"id": "${nodeId}"`;
+    const idIndex = doc.indexOf(idPattern);
+    if (idIndex < 0) return;
+    // Walk backwards to find the opening brace
+    let braceCount = 0;
+    let blockStart = idIndex;
+    for (let i = idIndex; i >= 0; i--) {
+      if (doc[i] === '}') braceCount++;
+      if (doc[i] === '{') {
+        if (braceCount === 0) { blockStart = i; break; }
+        braceCount--;
+      }
+    }
+    // Walk forwards to find the closing brace
+    braceCount = 0;
+    let blockEnd = idIndex;
+    for (let i = idIndex; i < doc.length; i++) {
+      if (doc[i] === '{') braceCount++;
+      if (doc[i] === '}') {
+        if (braceCount === 1) { blockEnd = i + 1; break; }
+        braceCount--;
+      }
+    }
+    suppressEditorSync = true;
+    editorView.dispatch({
+      selection: EditorSelection.range(blockStart, blockEnd),
+      scrollIntoView: true,
+    });
+    suppressEditorSync = false;
+  }
+
+  // ── Inline Label Editing ──
+
+  /** @type {HTMLElement|null} */
+  let editingNode: HTMLElement | null = null;
+
+  function startEditing(node: HTMLElement) {
+    if (editingNode) stopEditing(editingNode);
+    editingNode = node;
+    node.setAttribute('contenteditable', 'true');
+    node.setAttribute('data-editing', '');
+    node.focus();
+    const range = document.createRange();
+    range.selectNodeContents(node);
+    const sel = window.getSelection();
+    sel?.removeAllRanges();
+    sel?.addRange(range);
+  }
+
+  function stopEditing(node: HTMLElement) {
+    node.removeAttribute('contenteditable');
+    node.removeAttribute('data-editing');
+    editingNode = null;
+    syncCanvasToEditor();
+  }
 
   if (flowArena && flowViewport && flowTransform) {
     magnet = new MagnetController(flowArena, {
@@ -44,6 +120,36 @@ document.addEventListener('astro:page-load', () => {
         { id: 'init-1', from: 'f-sensor', to: 'f-filter', fromPort: 'right', toPort: 'left' },
         { id: 'init-2', from: 'f-transform', to: 'f-merge', fromPort: 'right', toPort: 'left' },
       ],
+    });
+
+    // ── Node Selection + Inline Editing Events ──
+
+    flowArena.addEventListener('pointerdown', (e) => {
+      const target = (e.target as HTMLElement).closest('.flow-node') as HTMLElement | null;
+      if (target && !target.hasAttribute('data-editing')) {
+        selectNode(target.id);
+      }
+    });
+
+    flowArena.addEventListener('dblclick', (e) => {
+      const target = (e.target as HTMLElement).closest('.flow-node') as HTMLElement | null;
+      if (target) startEditing(target);
+    });
+
+    flowArena.addEventListener('keydown', (e) => {
+      if (!editingNode) return;
+      if (e.key === 'Enter' || e.key === 'Escape') {
+        e.preventDefault();
+        stopEditing(editingNode);
+      }
+    });
+
+    flowArena.addEventListener('focusout', (e) => {
+      if (!editingNode) return;
+      const related = (e as FocusEvent).relatedTarget as HTMLElement | null;
+      if (!related || !editingNode.contains(related)) {
+        stopEditing(editingNode);
+      }
     });
 
     // ── Snap & Guides Toggles ──
@@ -86,10 +192,12 @@ document.addEventListener('astro:page-load', () => {
     flowArena.addEventListener('native:magnet-snap', () => {
       noodle?.update();
       syncCanvasToEditor();
+      highlightNodeInEditor(selectedNodeId);
     });
     flowArena.addEventListener('native:magnet-drop', () => {
       noodle?.update();
       syncCanvasToEditor();
+      highlightNodeInEditor(selectedNodeId);
     });
 
     // Keep add button attached to node during drag
@@ -97,6 +205,8 @@ document.addEventListener('astro:page-load', () => {
       if (flowArena.hasAttribute('magnetized')) {
         noodle?.update();
         updateAddButtonPosition();
+        syncCanvasToEditor();
+        highlightNodeInEditor(selectedNodeId);
       }
     });
     flowArena.addEventListener('native:noodle-connect', () => syncCanvasToEditor());
@@ -297,14 +407,16 @@ document.addEventListener('astro:page-load', () => {
 
     function serializeGraph() {
       const nodes = /** @type {any[]} */ ([]);
-      flowArena.querySelectorAll('.flow-node').forEach((/** @type {HTMLElement} */ el) => {
+      flowArena.querySelectorAll('.flow-node').forEach((el) => {
+        const htmlEl = el as HTMLElement;
+        const pos = getNodePosition(htmlEl);
         nodes.push({
-          id: el.id,
-          label: el.textContent?.trim() || '',
-          intent: el.getAttribute('intent') || 'neutral',
-          ports: el.getAttribute('data-noodle-port') || '',
-          x: Math.round(el.offsetLeft),
-          y: Math.round(el.offsetTop),
+          id: htmlEl.id,
+          label: htmlEl.textContent?.trim() || '',
+          intent: htmlEl.getAttribute('intent') || 'neutral',
+          ports: htmlEl.getAttribute('data-noodle-port') || '',
+          x: Math.round(pos.x),
+          y: Math.round(pos.y),
         });
       });
       const connections = noodle?.getConnections() || [];
@@ -370,6 +482,65 @@ document.addEventListener('astro:page-load', () => {
       }
     }
 
+    // ── Editor Click → Canvas Pan ──
+
+    function findNodeIdAtCursor(): string | null {
+      if (!editorView) return null;
+      const pos = editorView.state.selection.main.head;
+      const doc = editorView.state.doc.toString();
+      // Walk backwards from cursor to find enclosing `{`
+      let braceCount = 0;
+      let blockStart = -1;
+      for (let i = pos; i >= 0; i--) {
+        if (doc[i] === '}') braceCount++;
+        if (doc[i] === '{') {
+          if (braceCount === 0) { blockStart = i; break; }
+          braceCount--;
+        }
+      }
+      if (blockStart < 0) return null;
+      // Walk forwards to find closing `}`
+      braceCount = 0;
+      let blockEnd = -1;
+      for (let i = blockStart; i < doc.length; i++) {
+        if (doc[i] === '{') braceCount++;
+        if (doc[i] === '}') {
+          braceCount--;
+          if (braceCount === 0) { blockEnd = i + 1; break; }
+        }
+      }
+      if (blockEnd < 0) return null;
+      const block = doc.slice(blockStart, blockEnd);
+      const idMatch = block.match(/"id":\s*"([^"]+)"/);
+      return idMatch ? idMatch[1] : null;
+    }
+
+    function panCanvasToNode(nodeId: string) {
+      if (!flowViewport || !flowTransform) return;
+      const el = document.getElementById(nodeId) as HTMLElement | null;
+      if (!el) return;
+      const pos = getNodePosition(el);
+      const vpRect = flowViewport.getBoundingClientRect();
+      const vpCenterX = vpRect.width / 2;
+      const vpCenterY = vpRect.height / 2;
+      const nodeCenterX = pos.x + el.offsetWidth / 2 + panX;
+      const nodeCenterY = pos.y + el.offsetHeight / 2 + panY;
+      const distX = Math.abs(nodeCenterX - vpCenterX);
+      const distY = Math.abs(nodeCenterY - vpCenterY);
+      // Only pan if node is far from center (>25% of viewport)
+      if (distX > vpRect.width * 0.25 || distY > vpRect.height * 0.25) {
+        panX = vpCenterX - (pos.x + el.offsetWidth / 2);
+        panY = vpCenterY - (pos.y + el.offsetHeight / 2);
+        flowTransform.style.transition = 'transform 300ms ease';
+        flowTransform.style.transform = `translate(${panX}px, ${panY}px)`;
+        flowTransform.addEventListener('transitionend', () => {
+          flowTransform.style.transition = '';
+          noodle?.update();
+        }, { once: true });
+      }
+      selectNode(nodeId);
+    }
+
     if (editorContainer) {
       const initial = JSON.stringify(serializeGraph(), null, 2);
       editorView = createEditorView(editorContainer, {
@@ -377,9 +548,16 @@ document.addEventListener('astro:page-load', () => {
         extensions: [
           json(),
           EditorView.updateListener.of((update) => {
-            if (!update.docChanged || suppressEditorSync) return;
-            if (editorSyncTimer) clearTimeout(editorSyncTimer);
-            editorSyncTimer = window.setTimeout(syncEditorToCanvas, 300);
+            if (update.docChanged && !suppressEditorSync) {
+              if (editorSyncTimer) clearTimeout(editorSyncTimer);
+              editorSyncTimer = window.setTimeout(syncEditorToCanvas, 300);
+            }
+            if (update.selectionSet && !suppressEditorSync) {
+              const nodeId = findNodeIdAtCursor();
+              if (nodeId && nodeId !== selectedNodeId) {
+                panCanvasToNode(nodeId);
+              }
+            }
           }),
         ],
       });

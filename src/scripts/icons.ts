@@ -78,6 +78,7 @@ import listNumbers from '@phosphor-icons/core/assets/regular/list-numbers.svg?ra
 import lock from '@phosphor-icons/core/assets/regular/lock.svg?raw';
 import magnifyingGlass from '@phosphor-icons/core/assets/regular/magnifying-glass.svg?raw';
 import magnifyingGlassMinus from '@phosphor-icons/core/assets/regular/magnifying-glass-minus.svg?raw';
+import minus from '@phosphor-icons/core/assets/regular/minus.svg?raw';
 import minusCircle from '@phosphor-icons/core/assets/regular/minus-circle.svg?raw';
 import magnifyingGlassPlus from '@phosphor-icons/core/assets/regular/magnifying-glass-plus.svg?raw';
 import mapPin from '@phosphor-icons/core/assets/regular/map-pin.svg?raw';
@@ -107,6 +108,7 @@ import shieldCheck from '@phosphor-icons/core/assets/regular/shield-check.svg?ra
 import shoppingBag from '@phosphor-icons/core/assets/regular/shopping-bag.svg?raw';
 import shoppingCart from '@phosphor-icons/core/assets/regular/shopping-cart.svg?raw';
 import shuffle from '@phosphor-icons/core/assets/regular/shuffle.svg?raw';
+import sidebar from '@phosphor-icons/core/assets/regular/sidebar.svg?raw';
 import sidebarSimple from '@phosphor-icons/core/assets/regular/sidebar-simple.svg?raw';
 import signOut from '@phosphor-icons/core/assets/regular/sign-out.svg?raw';
 import skipBack from '@phosphor-icons/core/assets/regular/skip-back.svg?raw';
@@ -232,6 +234,7 @@ const icons: Record<string, string> = {
   'lock': lock,
   'magnifying-glass': magnifyingGlass,
   'magnifying-glass-minus': magnifyingGlassMinus,
+  'minus': minus,
   'minus-circle': minusCircle,
   'magnifying-glass-plus': magnifyingGlassPlus,
   'map-pin': mapPin,
@@ -261,6 +264,7 @@ const icons: Record<string, string> = {
   'shopping-bag': shoppingBag,
   'shopping-cart': shoppingCart,
   'shuffle': shuffle,
+  'sidebar': sidebar,
   'sidebar-simple': sidebarSimple,
   'sign-out': signOut,
   'skip-back': skipBack,

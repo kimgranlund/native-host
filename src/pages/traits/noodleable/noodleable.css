@@ -37,8 +37,26 @@
   transition: box-shadow 200ms ease;
 }
 
+.flow-node:hover {
+  box-shadow: 0 0 0 2px var(--n-border-accent), 0 2px 8px rgba(0, 0, 0, 0.08);
+  z-index: 2;
+}
+
 .flow-node:active {
   cursor: grabbing;
+}
+
+.flow-node[data-selected] {
+  box-shadow: 0 0 0 2px var(--n-color-accent-500), 0 2px 12px rgba(0, 0, 0, 0.12);
+  z-index: 3;
+}
+
+.flow-node[data-editing] {
+  cursor: text;
+  user-select: text;
+  touch-action: auto;
+  outline: 1px solid var(--n-color-accent-400);
+  outline-offset: 1px;
 }
 
 .flow-node[disabled] {
@@ -126,6 +144,19 @@
   background: var(--n-border-accent);
 }
 
+.flow-split > n-header {
+  display: flex;
+  align-items: center;
+  flex: none;
+  width: 100%;
+  background-color: var(--n-panel);
+  border-bottom: 1px solid var(--n-border-muted-neutral);
+}
+
+.flow-split > n-header n-toolbar {
+  width: 100%;
+}
+
 .flow-split-editor {
   flex: 1;
   min-width: 200px;
@@ -209,6 +240,12 @@
 @keyframes noodle-port-pulse {
   0%, 100% { box-shadow: 0 0 0 2px var(--n-color-accent-300), 0 1px 3px rgba(0, 0, 0, 0.2); }
   50% { box-shadow: 0 0 0 4px var(--n-color-accent-200), 0 0 8px var(--n-color-accent-400); }
+}
+
+/* ── Editor selection highlight ── */
+
+.flow-split-editor .cm-selectionBackground {
+  background: oklch(0.65 0.12 250 / 0.2) !important;
 }
 
 /* ── Output Log ── */

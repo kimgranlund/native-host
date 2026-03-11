@@ -1,0 +1,200 @@
+---
+import SidebarLayout from '../../../layouts/SidebarLayout.astro';
+import ApiReference from '../../../components/ApiReference.astro';
+import { paneApi, paneGroupApi } from '../../../data/api/pane';
+---
+<SidebarLayout title="Pane">
+  <header>
+    <div slot="title">
+      <div slot="content">
+        <h1>Pane</h1>
+      </div>
+    </div>
+    <div slot="description">
+      <span class="header-tag">&lt;n-pane&gt; / &lt;n-panes&gt;</span> Resizable, closeable, minimizable pane groups with coordinated resize handles.
+    </div>
+  </header>
+
+  <section>
+
+    <!-- ── Horizontal ── -->
+
+    <h2>Horizontal Panes</h2>
+    <p>Side-by-side panes with drag-to-resize handles between them. The default orientation.</p>
+    <n-container data-kind="panel" bordered class="demo-panes">
+      <n-panes>
+        <n-pane label="Explorer" icon="folder">
+          <n-body><p>File tree content</p></n-body>
+        </n-pane>
+        <n-pane label="Editor" icon="code">
+          <n-body><p>Code editor content</p></n-body>
+        </n-pane>
+        <n-pane label="Preview" icon="eye">
+          <n-body><p>Preview content</p></n-body>
+        </n-pane>
+      </n-panes>
+    </n-container>
+    <pre class="code-block"><code>&lt;n-panes&gt;
+  &lt;n-pane label="Explorer" icon="folder"&gt;
+    &lt;n-body&gt;File tree content&lt;/n-body&gt;
+  &lt;/n-pane&gt;
+  &lt;n-pane label="Editor" icon="code"&gt;
+    &lt;n-body&gt;Code editor content&lt;/n-body&gt;
+  &lt;/n-pane&gt;
+  &lt;n-pane label="Preview" icon="eye"&gt;
+    &lt;n-body&gt;Preview content&lt;/n-body&gt;
+  &lt;/n-pane&gt;
+&lt;/n-panes&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+
+    <!-- ── Vertical ── -->
+
+    <h2>Vertical Panes</h2>
+    <p>Stacked panes with <code>orientation="vertical"</code>. Resize handles appear between rows.</p>
+    <n-container data-kind="panel" bordered class="demo-panes demo-panes-tall">
+      <n-panes orientation="vertical">
+        <n-pane label="Source">
+          <n-body><p>Source panel content</p></n-body>
+        </n-pane>
+        <n-pane label="Console">
+          <n-body><p>Console output</p></n-body>
+        </n-pane>
+      </n-panes>
+    </n-container>
+    <pre class="code-block"><code>&lt;n-panes orientation="vertical"&gt;
+  &lt;n-pane label="Source"&gt;
+    &lt;n-body&gt;Source panel content&lt;/n-body&gt;
+  &lt;/n-pane&gt;
+  &lt;n-pane label="Console"&gt;
+    &lt;n-body&gt;Console output&lt;/n-body&gt;
+  &lt;/n-pane&gt;
+&lt;/n-panes&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+
+    <!-- ── Closeable & Minimizable ── -->
+
+    <h2>Closeable &amp; Minimizable</h2>
+    <p>Add <code>closeable</code> and/or <code>minimizable</code> attributes. Close dispatches a cancelable <code>native:pane-close</code> event.</p>
+    <n-container data-kind="panel" bordered class="demo-panes">
+      <n-panes id="closeable-demo">
+        <n-pane label="Panel A" closeable minimizable>
+          <n-body><p>This pane can be closed or minimized.</p></n-body>
+        </n-pane>
+        <n-pane label="Panel B" closeable minimizable>
+          <n-body><p>This one too.</p></n-body>
+        </n-pane>
+        <n-pane label="Panel C">
+          <n-body><p>This one stays.</p></n-body>
+        </n-pane>
+      </n-panes>
+    </n-container>
+    <pre class="code-block"><code>&lt;n-panes&gt;
+  &lt;n-pane label="Panel A" closeable minimizable&gt;
+    &lt;n-body&gt;Can be closed or minimized.&lt;/n-body&gt;
+  &lt;/n-pane&gt;
+  &lt;n-pane label="Panel B" closeable minimizable&gt;
+    &lt;n-body&gt;This one too.&lt;/n-body&gt;
+  &lt;/n-pane&gt;
+  &lt;n-pane label="Panel C"&gt;
+    &lt;n-body&gt;This one stays.&lt;/n-body&gt;
+  &lt;/n-pane&gt;
+&lt;/n-panes&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+
+    <!-- ── Size Constraints ── -->
+
+    <h2>Size Constraints</h2>
+    <p>Use <code>min-size</code> and <code>max-size</code> attributes to constrain pane dimensions during resize.</p>
+    <n-container data-kind="panel" bordered class="demo-panes">
+      <n-panes>
+        <n-pane label="Sidebar" icon="sidebar" min-size="120" max-size="300">
+          <n-body><p>min: 120px, max: 300px</p></n-body>
+        </n-pane>
+        <n-pane label="Main" icon="code">
+          <n-body><p>Unconstrained — fills remaining space</p></n-body>
+        </n-pane>
+      </n-panes>
+    </n-container>
+    <pre class="code-block"><code>&lt;n-panes&gt;
+  &lt;n-pane label="Sidebar" icon="sidebar" min-size="120" max-size="300"&gt;
+    &lt;n-body&gt;Constrained width&lt;/n-body&gt;
+  &lt;/n-pane&gt;
+  &lt;n-pane label="Main" icon="code"&gt;
+    &lt;n-body&gt;Fills remaining space&lt;/n-body&gt;
+  &lt;/n-pane&gt;
+&lt;/n-panes&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+
+    <!-- ── Nested ── -->
+
+    <h2>Nested Panes (IDE Layout)</h2>
+    <p>Nest <code>&lt;n-panes&gt;</code> inside a pane to create complex layouts. Horizontal outside, vertical inside.</p>
+    <n-container data-kind="panel" bordered class="demo-panes demo-panes-ide">
+      <n-panes>
+        <n-pane label="Sidebar" icon="sidebar" min-size="120" max-size="300">
+          <n-body><p>Sidebar content</p></n-body>
+        </n-pane>
+        <n-pane>
+          <n-panes orientation="vertical">
+            <n-pane label="Editor" icon="code">
+              <n-body><p>Editor content</p></n-body>
+            </n-pane>
+            <n-pane label="Terminal" icon="terminal">
+              <n-body><p>Terminal output</p></n-body>
+            </n-pane>
+          </n-panes>
+        </n-pane>
+      </n-panes>
+    </n-container>
+    <pre class="code-block"><code>&lt;n-panes&gt;
+  &lt;n-pane label="Sidebar" icon="sidebar" min-size="120" max-size="300"&gt;
+    &lt;n-body&gt;Sidebar&lt;/n-body&gt;
+  &lt;/n-pane&gt;
+  &lt;n-pane&gt;
+    &lt;n-panes orientation="vertical"&gt;
+      &lt;n-pane label="Editor" icon="code"&gt;
+        &lt;n-body&gt;Code&lt;/n-body&gt;
+      &lt;/n-pane&gt;
+      &lt;n-pane label="Terminal" icon="terminal"&gt;
+        &lt;n-body&gt;Output&lt;/n-body&gt;
+      &lt;/n-pane&gt;
+    &lt;/n-panes&gt;
+  &lt;/n-pane&gt;
+&lt;/n-panes&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+
+    <!-- ── Events ── -->
+
+    <h2>Events</h2>
+    <p>Interact with the closeable demo above to see events logged here.</p>
+    <n-container data-kind="panel" bordered>
+      <n-body>
+        <div id="event-log" class="log" style="min-height: 4rem; font-size: var(--n-font-size-sm); color: var(--n-ink-muted);"></div>
+      </n-body>
+    </n-container>
+
+    <!-- ── API Reference ── -->
+
+    <h2>API Reference</h2>
+    <h3>&lt;n-pane&gt;</h3>
+    <ApiReference data={paneApi} />
+    <h3>&lt;n-panes&gt;</h3>
+    <ApiReference data={paneGroupApi} />
+  </section>
+
+  <script>
+    document.addEventListener('astro:page-load', () => {
+      const log = document.getElementById('event-log');
+      if (!log) return;
+      const events = ['native:pane-close', 'native:pane-minimize', 'native:pane-restore', 'native:pane-resize'];
+      for (const name of events) {
+        document.addEventListener(name, (e: Event) => {
+          const ce = e as CustomEvent;
+          const label = (ce.detail.pane as HTMLElement)?.getAttribute?.('label') ?? '';
+          const line = document.createElement('div');
+          line.textContent = `${name}${label ? ` — ${label}` : ''}${ce.detail.sizes ? ` sizes: [${ce.detail.sizes.map((s: number) => Math.round(s)).join(', ')}]` : ''}`;
+          log.prepend(line);
+        });
+      }
+    });
+  </script>
+
+  <style is:global>
+    @import './pane.css';
+  </style>
+</SidebarLayout>

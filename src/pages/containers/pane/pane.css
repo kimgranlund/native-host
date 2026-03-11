@@ -1,0 +1,15 @@
+.demo-panes {
+  height: 280px;
+}
+
+.demo-panes-tall {
+  height: 360px;
+}
+
+.demo-panes-ide {
+  height: 400px;
+}
+
+.demo-panes n-body {
+  padding: 0.5rem;
+}
