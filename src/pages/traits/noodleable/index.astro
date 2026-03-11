@@ -116,33 +116,60 @@ document.addEventListener('native:noodle-disconnect', (e) =&gt; {
       <span class="text-xs text-muted">
         Drag from a port dot to another port to create a connection. Click a noodle to delete it. Nodes are draggable via MagnetController. Hover a port and click <code>+</code> to add a node. Drag empty space to pan the canvas. The JSON pane on the right is live and editable.
       </span>
-      <div class="flow-split">
+      <div class="flow-split" id="flow-split">
+        <n-header>
+          <n-toolbar variant="ghost" size="sm">
+            <span class="flow-toolbar-title">Flow Builder</span>
+            <n-select id="flow-doc-select" placeholder="Load dataset…" size="sm" style="min-width: 14rem;"></n-select>
+            <span fill></span>
+            <n-button id="layout-flow" size="sm" variant="ghost" aria-label="Flow layout"><n-icon name="flow-arrow"></n-icon></n-button>
+            <n-button id="layout-dag" size="sm" variant="ghost" aria-label="DAG layout"><n-icon name="git-branch"></n-icon></n-button>
+            <n-button id="layout-grid" size="sm" variant="ghost" aria-label="Grid layout"><n-icon name="grid-four"></n-icon></n-button>
+            <n-button id="layout-cluster" size="sm" variant="ghost" aria-label="Cluster layout"><n-icon name="graph"></n-icon></n-button>
+            <n-button id="layout-tree" size="sm" variant="ghost" aria-label="Tree layout"><n-icon name="tree-structure"></n-icon></n-button>
+            <n-button id="layout-radial" size="sm" variant="ghost" aria-label="Radial layout"><n-icon name="target"></n-icon></n-button>
+            <n-button id="layout-force" size="sm" variant="ghost" aria-label="Force layout"><n-icon name="atom"></n-icon></n-button>
+            <n-button id="layout-swimlane" size="sm" variant="ghost" aria-label="Swimlane layout"><n-icon name="rows"></n-icon></n-button>
+            <n-divider orientation="vertical" style="height: 1.25rem;"></n-divider>
+            <n-button id="zoom-out" size="sm" variant="ghost" aria-label="Zoom out"><n-icon name="minus"></n-icon></n-button>
+            <span id="zoom-label" class="flow-zoom-label">100%</span>
+            <n-button id="zoom-in" size="sm" variant="ghost" aria-label="Zoom in"><n-icon name="plus"></n-icon></n-button>
+            <n-divider orientation="vertical" style="height: 1.25rem;"></n-divider>
+            <n-switch id="flow-snap-toggle" size="sm">Snap</n-switch>
+            <n-switch id="flow-guides-toggle" size="sm">Guides</n-switch>
+            <n-button id="flow-lightbox-btn" size="sm" variant="ghost" aria-label="Expand"><n-icon name="arrows-out-simple"></n-icon></n-button>
+          </n-toolbar>
+        </n-header>
         <div class="flow-split-canvas" id="flow-canvas-pane">
           <div class="canvas-viewport" id="flow-viewport">
             <div class="canvas-transform" id="flow-transform">
               <div class="noodle-arena noodle-arena--tall" id="flow-arena">
-                <div class="flow-node" intent="accent" id="f-sensor" data-noodle-port="right" style="left: 1.5rem; top: 2rem;">Sensor</div>
-                <div class="flow-node" intent="accent" id="f-api" data-noodle-port="right" style="left: 1.5rem; top: 10rem;">API</div>
-                <div class="flow-node" intent="accent" id="f-timer" data-noodle-port="right" style="left: 1.5rem; top: 18rem;">Timer</div>
-                <div class="flow-node" intent="info" id="f-filter" data-noodle-port="left right" style="left: 14rem; top: 3.5rem;">Filter</div>
-                <div class="flow-node" intent="info" id="f-transform" data-noodle-port="left right" style="left: 14rem; top: 11.5rem;">Transform</div>
-                <div class="flow-node" intent="info" id="f-merge" data-noodle-port="left right" style="left: 26rem; top: 7.5rem;">Merge</div>
-                <div class="flow-node" intent="success" id="f-display" data-noodle-port="left" style="left: 38rem; top: 3.5rem;">Display</div>
-                <div class="flow-node" intent="success" id="f-database" data-noodle-port="left" style="left: 38rem; top: 11.5rem;">Database</div>
-                <div class="flow-node" intent="success" id="f-alert" data-noodle-port="left" style="left: 38rem; top: 19rem;">Alert</div>
+                <!-- Inputs -->
+                <div class="flow-node" intent="accent" id="f-sensor" data-noodle-port="right bottom" style="left: 1.5rem; top: 2rem;">Sensor</div>
+                <div class="flow-node" intent="accent" id="f-api" data-noodle-port="right top bottom" style="left: 1.5rem; top: 10rem;">API</div>
+                <div class="flow-node" intent="accent" id="f-timer" data-noodle-port="right top" style="left: 1.5rem; top: 18rem;">Timer</div>
+                <!-- Processing -->
+                <div class="flow-node" intent="info" id="f-filter" data-noodle-port="left right top bottom" style="left: 14rem; top: 3.5rem;">Filter</div>
+                <div class="flow-node" intent="info" id="f-transform" data-noodle-port="left right top bottom" style="left: 14rem; top: 11.5rem;">Transform</div>
+                <div class="flow-node" intent="info" id="f-merge" data-noodle-port="left right top bottom" style="left: 26rem; top: 7.5rem;">Merge</div>
+                <!-- Outputs -->
+                <div class="flow-node" intent="success" id="f-display" data-noodle-port="left top bottom" style="left: 38rem; top: 3.5rem;">Display</div>
+                <div class="flow-node" intent="success" id="f-database" data-noodle-port="left top bottom" style="left: 38rem; top: 11.5rem;">Database</div>
+                <div class="flow-node" intent="success" id="f-alert" data-noodle-port="left top" style="left: 38rem; top: 19rem;">Alert</div>
               </div>
             </div>
           </div>
-          <div class="flow-canvas-controls">
-            <n-switch id="flow-snap-toggle">Snap</n-switch>
-            <n-switch id="flow-guides-toggle">Guides</n-switch>
-            <n-button id="flow-fullscreen-btn" size="sm" variant="ghost" aria-label="Fullscreen"><n-icon name="arrows-out"></n-icon></n-button>
-          </div>
           <div class="flow-split-handle" id="flow-split-handle"></div>
         </div>
-        <div class="flow-split-editor" id="flow-editor-pane">
-          <div id="flow-json-editor"></div>
-        </div>
+        <n-pane id="flow-editor-pane">
+          <n-header>
+            <nav><n-icon inline name="brackets-curly"></n-icon></nav>
+            <span>JSON</span>
+          </n-header>
+          <n-body>
+            <div id="flow-json-editor"></div>
+          </n-body>
+        </n-pane>
       </div>
       <pre class="code-block"><code set:html={codeExamples.interactive} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-container>
@@ -154,7 +181,7 @@ document.addEventListener('native:noodle-disconnect', (e) =&gt; {
       <span class="text-xs text-muted">
         Three connection styles side by side: <code>bezier</code> (smooth curves), <code>step</code> (right-angle connectors), and <code>straight</code> (direct lines).
       </span>
-      <div class="stack" direction="row" gap="4" style="display: flex; gap: 1rem;">
+      <div style="display: flex; gap: 1rem;">
         <div style="flex: 1;">
           <span class="text-xs text-strong">Bezier</span>
           <div class="noodle-arena noodle-arena--short" id="style-bezier">
@@ -174,9 +201,9 @@ document.addEventListener('native:noodle-disconnect', (e) =&gt; {
         <div style="flex: 1;">
           <span class="text-xs text-strong">Straight</span>
           <div class="noodle-arena noodle-arena--short" id="style-straight">
-            <div class="flow-node" intent="accent" id="ln-a" data-noodle-port="right" style="left: 1rem; top: 2rem;">A</div>
-            <div class="flow-node" intent="info" id="ln-b" data-noodle-port="left right" style="left: 8rem; top: 6rem;">B</div>
-            <div class="flow-node" intent="success" id="ln-c" data-noodle-port="left" style="left: 15rem; top: 2rem;">C</div>
+            <div class="flow-node" intent="accent" id="sl-a" data-noodle-port="right" style="left: 1rem; top: 2rem;">A</div>
+            <div class="flow-node" intent="info" id="sl-b" data-noodle-port="left right" style="left: 8rem; top: 6rem;">B</div>
+            <div class="flow-node" intent="success" id="sl-c" data-noodle-port="left" style="left: 15rem; top: 2rem;">C</div>
           </div>
         </div>
       </div>
@@ -191,10 +218,10 @@ document.addEventListener('native:noodle-disconnect', (e) =&gt; {
         Pre-wired bezier connections between three nodes. Not editable — demonstrates the simplest setup with declarative connections via the programmatic API.
       </span>
       <div class="noodle-arena" id="static-arena">
-        <div class="flow-node" intent="accent" id="s-input-a" data-noodle-port="right" style="left: 2rem; top: 5rem;">Input A</div>
-        <div class="flow-node" intent="accent" id="s-input-b" data-noodle-port="right" style="left: 2rem; top: 12rem;">Input B</div>
-        <div class="flow-node" intent="info" id="s-process" data-noodle-port="left right" style="left: 16rem; top: 8rem;">Process</div>
-        <div class="flow-node" intent="success" id="s-output" data-noodle-port="left" style="left: 30rem; top: 8rem;">Output</div>
+        <div class="flow-node" intent="accent" id="s-in1" data-noodle-port="right" style="left: 2rem; top: 3rem;">Input A</div>
+        <div class="flow-node" intent="accent" id="s-in2" data-noodle-port="right" style="left: 2rem; top: 10rem;">Input B</div>
+        <div class="flow-node" intent="info" id="s-proc" data-noodle-port="left right" style="left: 16rem; top: 6.5rem;">Process</div>
+        <div class="flow-node" intent="success" id="s-out" data-noodle-port="left" style="left: 30rem; top: 6.5rem;">Output</div>
       </div>
       <pre class="code-block"><code set:html={codeExamples.staticConnections} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-container>
@@ -219,9 +246,13 @@ document.addEventListener('native:noodle-disconnect', (e) =&gt; {
     <h2>Event Log</h2>
     <n-container data-kind="panel" bordered>
       <span class="text-xs text-muted">
-        Listens on <code>document</code> for all <code>native:noodle-connect</code>, <code>native:noodle-disconnect</code>, and <code>native:noodle-drag</code> events from the interactive flow builder above.
+        Listens on <code>document</code> for all <code>native:noodle-connect</code> and <code>native:noodle-disconnect</code> events.
       </span>
-      <div id="noodle-event-log" class="output"></div>
+      <article bordered>
+        <div class="body" padding="tight" show-scrollbar style="max-height: 8rem;">
+          <div class="event-log" id="event-log"></div>
+        </div>
+      </article>
       <pre class="code-block"><code set:html={eventLogCode} /><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-container>
 

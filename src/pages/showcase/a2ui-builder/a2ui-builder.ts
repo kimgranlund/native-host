@@ -16,7 +16,7 @@ import { createA2UIAdapter, COMPONENT_MAP as REGISTRY, getComponentCategory } fr
 import type { EventSpec, PropertySpec, MethodSpec } from '@nonoun/native-ai';
 import { ClaudeGatewayAdapter, OpenAiGatewayAdapter, GatewayRequestError } from '@nonoun/native-ai/gateway';
 import type { GatewayAdapter } from '@nonoun/native-ai/gateway';
-import { ConfettiController } from '@nonoun/native-ui/traits';
+import { ConfettiController, CSSInspectController } from '@nonoun/native-ui/traits';
 import promptJson from './system-prompt.json';
 
 // ── System prompt ──
@@ -680,6 +680,73 @@ ${js}
     if (icon) icon.setAttribute('name', lightboxMode ? 'arrows-in-simple' : 'arrows-out-simple');
   });
 
+  // ── CSS Inspector toggle ──
+
+  const inspectToggleBtn = document.getElementById('inspect-toggle');
+  let cssInspector: InstanceType<typeof CSSInspectController> | null = null;
+
+  inspectToggleBtn?.addEventListener('native:press', () => {
+    if (cssInspector) {
+      cssInspector.dismiss();
+      cssInspector.destroy();
+      cssInspector = null;
+      inspectToggleBtn.removeAttribute('data-active');
+    } else {
+      cssInspector = new CSSInspectController(previewMount, { pick: true, labels: true });
+      inspectToggleBtn.setAttribute('data-active', '');
+    }
+  });
+
+  previewMount.addEventListener('native:inspect', (e: Event) => {
+    const detail = (e as CustomEvent).detail;
+    if (!detail.active && cssInspector) {
+      inspectToggleBtn?.removeAttribute('data-active');
+    }
+  });
+
+  // ── Preview canvas panning ──
+
+  const previewBody = document.querySelector('n-pane[data-panel="preview"] > n-body') as HTMLElement | null;
+
+  if (previewBody) {
+    let panStartX = 0;
+    let panStartY = 0;
+    let scrollStartX = 0;
+    let scrollStartY = 0;
+
+    previewBody.addEventListener('pointerdown', (e: PointerEvent) => {
+      const target = e.target as HTMLElement;
+      if (target.closest('#preview-mount')) return;
+      if (e.button !== 0) return;
+
+      panStartX = e.clientX;
+      panStartY = e.clientY;
+      scrollStartX = previewBody.scrollLeft;
+      scrollStartY = previewBody.scrollTop;
+      previewBody.setAttribute('data-panning', '');
+      previewBody.setPointerCapture(e.pointerId);
+    });
+
+    previewBody.addEventListener('pointermove', (e: PointerEvent) => {
+      if (!previewBody.hasAttribute('data-panning')) return;
+      previewBody.scrollLeft = scrollStartX - (e.clientX - panStartX);
+      previewBody.scrollTop = scrollStartY - (e.clientY - panStartY);
+    });
+
+    previewBody.addEventListener('pointerup', () => {
+      previewBody.removeAttribute('data-panning');
+    });
+
+    previewBody.addEventListener('lostpointercapture', () => {
+      previewBody.removeAttribute('data-panning');
+    });
+
+    requestAnimationFrame(() => {
+      previewBody.scrollLeft = (previewBody.scrollWidth - previewBody.clientWidth) / 2;
+      previewBody.scrollTop = (previewBody.scrollHeight - previewBody.clientHeight) / 2;
+    });
+  }
+
   // ── Coordinated resize ──
 
   const splitEl = document.querySelector('.builder-split') as HTMLElement;
@@ -1067,6 +1134,13 @@ ${js}
     if (currentAdapter) {
       currentAdapter.destroy();
       currentAdapter = null;
+    }
+    // Dismiss CSS inspector if active
+    if (cssInspector) {
+      cssInspector.dismiss();
+      cssInspector.destroy();
+      cssInspector = null;
+      inspectToggleBtn?.removeAttribute('data-active');
     }
     previewMount.innerHTML = '';
     previewStyle = null; // Reset — will be recreated if CSS is applied

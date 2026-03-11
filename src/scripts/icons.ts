@@ -13,6 +13,7 @@ import arrowsIn from '@phosphor-icons/core/assets/regular/arrows-in.svg?raw';
 import arrowsInSimple from '@phosphor-icons/core/assets/regular/arrows-in-simple.svg?raw';
 import arrowsOut from '@phosphor-icons/core/assets/regular/arrows-out.svg?raw';
 import arrowsOutSimple from '@phosphor-icons/core/assets/regular/arrows-out-simple.svg?raw';
+import atom from '@phosphor-icons/core/assets/regular/atom.svg?raw';
 import buildings from '@phosphor-icons/core/assets/regular/buildings.svg?raw';
 import backspace from '@phosphor-icons/core/assets/regular/backspace.svg?raw';
 import bell from '@phosphor-icons/core/assets/regular/bell.svg?raw';
@@ -53,14 +54,17 @@ import eye from '@phosphor-icons/core/assets/regular/eye.svg?raw';
 import fileCode from '@phosphor-icons/core/assets/regular/file-code.svg?raw';
 import fileText from '@phosphor-icons/core/assets/regular/file-text.svg?raw';
 import flask from '@phosphor-icons/core/assets/regular/flask.svg?raw';
+import flowArrow from '@phosphor-icons/core/assets/regular/flow-arrow.svg?raw';
 import floppyDisk from '@phosphor-icons/core/assets/regular/floppy-disk.svg?raw';
 import folder from '@phosphor-icons/core/assets/regular/folder.svg?raw';
 import folderOpen from '@phosphor-icons/core/assets/regular/folder-open.svg?raw';
 import funnel from '@phosphor-icons/core/assets/regular/funnel.svg?raw';
 import gameController from '@phosphor-icons/core/assets/regular/game-controller.svg?raw';
 import gear from '@phosphor-icons/core/assets/regular/gear.svg?raw';
+import gitBranch from '@phosphor-icons/core/assets/regular/git-branch.svg?raw';
 import githubLogo from '@phosphor-icons/core/assets/regular/github-logo.svg?raw';
 import googleLogo from '@phosphor-icons/core/assets/regular/google-logo.svg?raw';
+import graph from '@phosphor-icons/core/assets/regular/graph.svg?raw';
 import gridFour from '@phosphor-icons/core/assets/regular/grid-four.svg?raw';
 import heart from '@phosphor-icons/core/assets/regular/heart.svg?raw';
 import house from '@phosphor-icons/core/assets/regular/house.svg?raw';
@@ -101,6 +105,7 @@ import pulse from '@phosphor-icons/core/assets/regular/pulse.svg?raw';
 import receipt from '@phosphor-icons/core/assets/regular/receipt.svg?raw';
 import repeat from '@phosphor-icons/core/assets/regular/repeat.svg?raw';
 import robot from '@phosphor-icons/core/assets/regular/robot.svg?raw';
+import rows from '@phosphor-icons/core/assets/regular/rows.svg?raw';
 import rocketLaunch from '@phosphor-icons/core/assets/regular/rocket-launch.svg?raw';
 import scissors from '@phosphor-icons/core/assets/regular/scissors.svg?raw';
 import selectionAll from '@phosphor-icons/core/assets/regular/selection-all.svg?raw';
@@ -122,6 +127,7 @@ import squaresFour from '@phosphor-icons/core/assets/regular/squares-four.svg?ra
 import stackSimple from '@phosphor-icons/core/assets/regular/stack-simple.svg?raw';
 import star from '@phosphor-icons/core/assets/regular/star.svg?raw';
 import sun from '@phosphor-icons/core/assets/regular/sun.svg?raw';
+import target from '@phosphor-icons/core/assets/regular/target.svg?raw';
 import terminal from '@phosphor-icons/core/assets/regular/terminal.svg?raw';
 import textAlignCenter from '@phosphor-icons/core/assets/regular/text-align-center.svg?raw';
 import textHOne from '@phosphor-icons/core/assets/regular/text-h-one.svg?raw';
@@ -169,6 +175,7 @@ const icons: Record<string, string> = {
   'arrows-in-simple': arrowsInSimple,
   'arrows-out': arrowsOut,
   'arrows-out-simple': arrowsOutSimple,
+  'atom': atom,
   'buildings': buildings,
   'backspace': backspace,
   'bell': bell,
@@ -209,14 +216,17 @@ const icons: Record<string, string> = {
   'file-code': fileCode,
   'file-text': fileText,
   'flask': flask,
+  'flow-arrow': flowArrow,
   'floppy-disk': floppyDisk,
   'folder': folder,
   'folder-open': folderOpen,
   'funnel': funnel,
   'game-controller': gameController,
   'gear': gear,
+  'git-branch': gitBranch,
   'github-logo': githubLogo,
   'google-logo': googleLogo,
+  'graph': graph,
   'grid-four': gridFour,
   'heart': heart,
   'house': house,
@@ -258,6 +268,7 @@ const icons: Record<string, string> = {
   'repeat': repeat,
   'robot': robot,
   'rocket-launch': rocketLaunch,
+  'rows': rows,
   'scissors': scissors,
   'selection-all': selectionAll,
   'shield-check': shieldCheck,
@@ -278,6 +289,7 @@ const icons: Record<string, string> = {
   'stack-simple': stackSimple,
   'star': star,
   'sun': sun,
+  'target': target,
   'terminal': terminal,
   'text-align-center': textAlignCenter,
   'text-h-one': textHOne,
