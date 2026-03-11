@@ -9,6 +9,7 @@
 // 4. All imperative code wrapped in astro:page-load with element guard
 // 5. REGISTRY from npm (COMPONENT_MAP export), not local array
 // 6. ConfettiController import → npm path
+// 7. Pipeline imports removed (pipeline.ts is upstream-only)
 
 import { Kernel, resetKernel } from '@nonoun/native-ui/kernel';
 import { createA2UIAdapter, COMPONENT_MAP as REGISTRY, getComponentCategory } from '@nonoun/native-ai';
@@ -33,7 +34,7 @@ const DEFAULT_SYSTEM_PROMPT = (promptJson as { prompt: string }).prompt
 
 const PANELS = [
   { id: 'preview',  label: 'Preview',  icon: 'eye' },
-  { id: 'concepts', label: 'Concepts', icon: 'tag' },
+  { id: 'concepts', label: 'Insights', icon: 'lightbulb' },
   { id: 'schema',   label: 'Schema',   icon: 'brackets-curly' },
   { id: 'html',     label: 'HTML',     icon: 'brackets-angle' },
   { id: 'css',      label: 'CSS',      icon: 'paint-brush' },
@@ -42,9 +43,8 @@ const PANELS = [
   { id: 'prompt',   label: 'Prompt',   icon: 'file-code' },
 ];
 
-const activePanels = new Set(['preview', 'concepts']);
-
 // ── LLM adapter ──
+
 // [CHANGED] Source reads VITE_ANTHROPIC_API_KEY / VITE_OPENAI_API_KEY from env.
 // Host uses server-side API proxies at /api/anthropic and /api/openai,
 // so we always pass apiKey: 'proxy'.
@@ -81,15 +81,10 @@ function buildAdapter(model: string): GatewayAdapter | null {
   });
 }
 
-let currentModel = 'claude-haiku-4-5';
-let llm: GatewayAdapter | null = buildAdapter(currentModel);
-
 interface Message {
   role: string;
   message: string;
 }
-
-const messages: Message[] = [];
 
 // ── Mock fallback ──
 
@@ -303,6 +298,50 @@ function mockResponse(input: string): MockResult {
   return fallback;
 }
 
+// ── CSS/JS helpers (pure functions — outside page-load) ──
+
+/** Scope CSS rules under #preview-mount so they don't leak into the builder UI. */
+function scopeCSS(css: string): string {
+  // If the user already scoped to #preview-mount, pass through
+  if (css.includes('#preview-mount')) return css;
+  // Wrap each rule: add #preview-mount prefix to every selector
+  return css.replace(
+    /([^{}@]+)\{/g,
+    (_match, selectors: string) => {
+      const scoped = selectors
+        .split(',')
+        .map((s: string) => `#preview-mount ${s.trim()}`)
+        .join(', ');
+      return `${scoped} {`;
+    },
+  );
+}
+
+/** Wait for custom elements inside the preview to upgrade, then two rAFs. */
+async function waitForPreviewReady(previewMount: HTMLElement): Promise<void> {
+  const tags = new Set<string>();
+  for (const el of previewMount.querySelectorAll('*')) {
+    if (el.localName.includes('-')) tags.add(el.localName);
+  }
+  // Only wait for tags that are actually registered (or will be soon).
+  // CSS-only undefined CEs (n-stack, n-body, n-header, etc.) never register
+  // so whenDefined() would hang forever. Use a short timeout as a race.
+  const TIMEOUT = 500;
+  const withTimeout = (p: Promise<unknown>) =>
+    Promise.race([p, new Promise(r => setTimeout(r, TIMEOUT))]);
+  const defined = [...tags].filter(t => customElements.get(t));
+  const pending = [...tags].filter(t => !customElements.get(t));
+  await Promise.all([
+    ...defined.map(t => customElements.whenDefined(t)),
+    ...pending.map(t => withTimeout(customElements.whenDefined(t))),
+  ]);
+  // Two rAFs — first for CE upgrade, second for child rendering
+  await new Promise(r => requestAnimationFrame(r as FrameRequestCallback));
+  await new Promise(r => requestAnimationFrame(r as FrameRequestCallback));
+}
+
+// ── Render helpers (pure functions) ──
+
 /**
  * Extract a JSON object from an LLM response that may contain surrounding
  * text, markdown fences, or other non-JSON content.
@@ -332,18 +371,101 @@ function parseJSON(raw: string | undefined): MockResult {
   throw new Error(`Could not parse JSON from response:\n${preview}`);
 }
 
-// ── Boot ──
-// [CHANGED] Wrapped in astro:page-load for View Transitions support.
-// Source runs at module level since it's a standalone HTML page.
+function renderPropsTable(props: readonly PropertySpec[]): string {
+  if (!props.length) return '';
+  const rows = props.map(p => {
+    const reactive = p.reactive ? '<span class="map-reactive">reactive</span>' : '';
+    const note = p.note ? ` <span class="map-note">${p.note}</span>` : '';
+    return `<tr><td><code>${p.attr}</code></td><td>${p.type}</td><td>${reactive}${note}</td></tr>`;
+  }).join('');
+  return `<div class="map-detail-section"><div class="map-detail-label">Properties</div><table><thead><tr><th>Attr</th><th>Type</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+
+function renderEventsTable(events: readonly EventSpec[]): string {
+  if (!events.length) return '';
+  const rows = events.map(e => {
+    const detail = e.detail ? Object.entries(e.detail).map(([k, v]) => `${k}: ${v}`).join(', ') : '—';
+    return `<tr><td><code>${e.event}</code></td><td>${detail}</td><td>${e.description}</td></tr>`;
+  }).join('');
+  return `<div class="map-detail-section"><div class="map-detail-label">Events</div><table><thead><tr><th>Event</th><th>Detail</th><th>Description</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+
+function renderMethodsTable(methods: readonly MethodSpec[]): string {
+  if (!methods.length) return '';
+  const rows = methods.map(m => {
+    const params = m.params ? Object.entries(m.params).map(([k, v]) => `${k}: ${v}`).join(', ') : '';
+    const sig = `${m.name}(${params})`;
+    return `<tr><td><code>${sig}</code></td><td>${m.returns ?? 'void'}</td><td>${m.description}</td></tr>`;
+  }).join('');
+  return `<div class="map-detail-section"><div class="map-detail-label">Methods</div><table><thead><tr><th>Method</th><th>Returns</th><th>Description</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+
+/** Strip markdown fences (```json ... ```) that LLMs sometimes add despite instructions. */
+function stripFences(raw: string): string {
+  const trimmed = raw.trim();
+  const fenceStart = /^```(?:json)?\s*\n?/;
+  const fenceEnd = /\n?```\s*$/;
+  if (fenceStart.test(trimmed) && fenceEnd.test(trimmed)) {
+    return trimmed.replace(fenceStart, '').replace(fenceEnd, '').trim();
+  }
+  return trimmed;
+}
+
+// ── Progress step classification (single-shot mode) ──
+
+function classifySteps(query: string, isIterating: boolean): [string, string, string] {
+  const q = query.toLowerCase();
+  if (/\b(style|color|theme|dark|light|background|font|spacing|padding|margin|border|shadow|round|gradient)\b/.test(q))
+    return ['Thinking', 'Analyzing Styles', 'Styling UI'];
+  if (/\b(click|event|handler|interact|button press|toggle|animate|show|hide|submit|validate)\b/.test(q))
+    return ['Thinking', 'Planning Logic', 'Wiring Events'];
+  if (/\b(layout|grid|stack|column|row|sidebar|header|footer|responsive|mobile|split|arrange|reorder|move)\b/.test(q))
+    return ['Thinking', 'Planning Layout', 'Restructuring UI'];
+  if (/^(what|how|why|can you|is it|explain|tell me|describe)\b/.test(q))
+    return ['Thinking', 'Analyzing', 'Composing Response'];
+  if (/\b(remove|delete|simplify|strip|clean|fewer|less|minimal)\b/.test(q))
+    return ['Thinking', 'Reviewing Structure', 'Simplifying UI'];
+  if (isIterating) return ['Thinking', 'Reviewing Changes', 'Updating UI'];
+  return ['Thinking', 'Concept Mapping', 'Creating UI'];
+}
+
+function formatGapReport(gaps: MockResult['gaps'], partial?: MockResult['partial']): string {
+  if (!gaps?.length) return '';
+  const lines: string[] = ['## API Gaps Found\n'];
+  for (const g of gaps) {
+    lines.push(`**${g.component}**`);
+    lines.push(`- **Need:** ${g.need}`);
+    lines.push(`- **Context:** ${g.context}`);
+    lines.push(`- **Impact:** ${g.impact}`);
+    lines.push(`- **Suggestion:** ${g.suggestion} *(UNVERIFIED)*\n`);
+  }
+  if (partial) {
+    lines.push('---');
+    lines.push(`**Can generate:** ${partial.canGenerate}`);
+    lines.push(`**Cannot generate:** ${partial.cannotGenerate}`);
+  }
+  return lines.join('\n');
+}
+
+// ── Imperative code — wrapped for Astro View Transitions ──
 
 document.addEventListener('astro:page-load', () => {
   const pageEl = document.getElementById('a2ui-builder-page');
   if (!pageEl || pageEl.dataset.wired) return;
   pageEl.dataset.wired = '';
 
+  // ── Boot ──
+
   resetKernel();
   const kernel = new Kernel({ allowUnregistered: true });
   let currentAdapter: ReturnType<typeof createA2UIAdapter> | null = null;
+
+  const activePanels = new Set(['preview', 'concepts']);
+
+  let currentModel = 'claude-haiku-4-5';
+  let llm: GatewayAdapter | null = buildAdapter(currentModel);
+
+  const messages: Message[] = [];
 
   // ── DOM refs ──
 
@@ -359,12 +481,86 @@ document.addEventListener('astro:page-load', () => {
   const previewMount = document.getElementById('preview-mount')!;
   const conceptsWrap = document.getElementById('concepts-wrap')!;
   const schemaPre = document.getElementById('schema-pre')!;
-  const mapTable = document.getElementById('map-table')!;
-  const promptEditor = document.getElementById('prompt-editor') as HTMLTextAreaElement;
   const htmlPre = document.getElementById('html-pre')!;
   const cssEditor = document.getElementById('css-editor') as HTMLTextAreaElement;
   const jsEditor = document.getElementById('js-editor') as HTMLTextAreaElement;
+  const mapTable = document.getElementById('map-table')!;
+  const promptEditor = document.getElementById('prompt-editor') as HTMLTextAreaElement;
   const modelPicker = document.getElementById('model-picker') as HTMLElement & { value: string };
+
+  // ── CSS/JS live apply ──
+
+  let previewStyle: HTMLStyleElement | null = null;
+
+  function applyCSSToPreview(css: string): void {
+    if (!previewStyle) {
+      previewStyle = document.createElement('style');
+      previewStyle.dataset.builder = 'custom';
+      previewMount.prepend(previewStyle);
+    }
+    previewStyle.textContent = scopeCSS(css);
+  }
+
+  function applyJSToPreview(js: string): void {
+    if (!previewMount.children.length) return;
+
+    try {
+      const wrapper = `(function(preview){
+  var $ = function(sel){ return preview.querySelector(sel); };
+  var $$ = function(sel){ return preview.querySelectorAll(sel); };
+${js}
+}(__mount__))`;
+      const fn = new Function('__mount__', wrapper);
+      fn(previewMount);
+    } catch (err) {
+      console.error('[A2UI Builder] JS error:', err);
+      addMessage('assistant', `JS Error: ${(err as Error).message}`);
+    }
+  }
+
+  // CSS editor — debounced input + Cmd/Ctrl-S
+  let cssDebounce: ReturnType<typeof setTimeout> | null = null;
+  function debouncedCSSApply(): void {
+    if (cssDebounce) clearTimeout(cssDebounce);
+    cssDebounce = setTimeout(() => applyCSSToPreview(cssEditor.value), 300);
+  }
+
+  cssEditor.addEventListener('input', debouncedCSSApply);
+  cssEditor.addEventListener('keydown', (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 's') {
+      e.preventDefault();
+      if (cssDebounce) clearTimeout(cssDebounce);
+      applyCSSToPreview(cssEditor.value);
+    }
+  });
+
+  // JS apply — Play button (pointerup delegation) + Cmd/Ctrl-S
+  let jsRunning = false;
+  function runJS(): void {
+    const js = jsEditor.value.trim();
+    if (!js || jsRunning) return;
+    jsRunning = true;
+    waitForPreviewReady(previewMount).then(() => {
+      applyJSToPreview(js);
+      jsRunning = false;
+    });
+  }
+
+  document.addEventListener('pointerup', (e) => {
+    // Walk composedPath to cross shadow DOM boundaries
+    for (const node of e.composedPath()) {
+      if (node instanceof HTMLElement && node.matches('[data-role="apply-js"]')) {
+        runJS();
+        break;
+      }
+    }
+  });
+  jsEditor.addEventListener('keydown', (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 's') {
+      e.preventDefault();
+      runJS();
+    }
+  });
 
   // Wire model picker → rebuild adapter on change
   modelPicker.addEventListener('native:change', () => {
@@ -375,7 +571,7 @@ document.addEventListener('astro:page-load', () => {
   // ── Init pane refs + chips ──
 
   for (const panel of PANELS) {
-    const paneEl = document.querySelector(`.builder-pane[data-panel="${panel.id}"]`) as HTMLElement | null;
+    const paneEl = document.querySelector(`n-pane[data-panel="${panel.id}"]`) as HTMLElement | null;
     if (paneEl) {
       paneEls.set(panel.id, paneEl);
       paneEl.hidden = !activePanels.has(panel.id);
@@ -429,18 +625,59 @@ document.addEventListener('astro:page-load', () => {
 
   // ── Lightbox toggle (light/dark preview) ──
 
-  const lightboxBtn = document.getElementById('lightbox-toggle');
-  const previewContent = document.querySelector('.builder-pane[data-panel="preview"] .builder-pane-content') as HTMLElement | null;
-  let darkPreview = false;
+  const colorSchemeBtn = document.getElementById('lightbox-toggle');
+  const previewContent = document.querySelector('n-pane[data-panel="preview"] > n-body') as HTMLElement | null;
+  let userOverride: boolean | null = null; // null = inherit from context
 
-  lightboxBtn?.addEventListener('native:press', () => {
-    darkPreview = !darkPreview;
+  function resolvePreviewDark(): boolean {
+    if (userOverride !== null) return userOverride;
+    // Check computed color-scheme on the preview or its ancestors
     if (previewContent) {
-      previewContent.style.colorScheme = darkPreview ? 'dark' : 'light';
+      const computed = getComputedStyle(previewContent).colorScheme;
+      if (computed === 'dark') return true;
+      if (computed === 'light') return false;
     }
-    const icon = lightboxBtn.querySelector('n-icon');
-    if (icon) icon.setAttribute('name', darkPreview ? 'sun' : 'moon');
-    lightboxBtn.toggleAttribute('data-active', darkPreview);
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+
+  function syncColorSchemeIcon(): void {
+    const dark = resolvePreviewDark();
+    const icon = colorSchemeBtn?.querySelector('n-icon');
+    if (icon) icon.setAttribute('name', dark ? 'sun' : 'moon');
+  }
+
+  // Sync icon to initial context
+  syncColorSchemeIcon();
+
+  colorSchemeBtn?.addEventListener('native:press', () => {
+    const wasDark = resolvePreviewDark();
+    userOverride = !wasDark;
+    if (previewContent) {
+      previewContent.style.colorScheme = userOverride ? 'dark' : 'light';
+    }
+    syncColorSchemeIcon();
+  });
+
+  // ── Lightbox mode (fullscreen overlay) ──
+
+  const lightboxModeBtn = document.getElementById('lightbox-btn');
+  const builderEl = document.querySelector('.builder') as HTMLElement | null;
+  let lightboxMode = false;
+
+  lightboxModeBtn?.addEventListener('native:press', () => {
+    if (!builderEl) return;
+    lightboxMode = !lightboxMode;
+    if (lightboxMode) {
+      builderEl.setAttribute('popover', 'manual');
+      builderEl.showPopover();
+    } else {
+      builderEl.hidePopover();
+      builderEl.removeAttribute('popover');
+    }
+    builderEl.toggleAttribute('data-lightbox', lightboxMode);
+    lightboxModeBtn.toggleAttribute('data-active', lightboxMode);
+    const icon = lightboxModeBtn.querySelector('n-icon');
+    if (icon) icon.setAttribute('name', lightboxMode ? 'arrows-in-simple' : 'arrows-out-simple');
   });
 
   // ── Coordinated resize ──
@@ -490,7 +727,7 @@ document.addEventListener('astro:page-load', () => {
         targetId: visible[0],
         targetStartW: firstPaneEl.offsetWidth,
       };
-    } else if (parent.classList.contains('builder-pane')) {
+    } else if (parent.matches('n-pane')) {
       const panelId = (parent as HTMLElement).dataset.panel!;
       const visible = getVisiblePanes();
       const idx = visible.indexOf(panelId);
@@ -596,35 +833,6 @@ document.addEventListener('astro:page-load', () => {
 
   // Component map table — populated from protocol registry
   const tbody = mapTable.querySelector('tbody')!;
-
-  function renderPropsTable(props: readonly PropertySpec[]): string {
-    if (!props.length) return '';
-    const rows = props.map(p => {
-      const reactive = p.reactive ? '<span class="map-reactive">reactive</span>' : '';
-      const note = p.note ? ` <span class="map-note">${p.note}</span>` : '';
-      return `<tr><td><code>${p.attr}</code></td><td>${p.type}</td><td>${reactive}${note}</td></tr>`;
-    }).join('');
-    return `<div class="map-detail-section"><div class="map-detail-label">Properties</div><table><thead><tr><th>Attr</th><th>Type</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>`;
-  }
-
-  function renderEventsTable(events: readonly EventSpec[]): string {
-    if (!events.length) return '';
-    const rows = events.map(e => {
-      const detail = e.detail ? Object.entries(e.detail).map(([k, v]) => `${k}: ${v}`).join(', ') : '—';
-      return `<tr><td><code>${e.event}</code></td><td>${detail}</td><td>${e.description}</td></tr>`;
-    }).join('');
-    return `<div class="map-detail-section"><div class="map-detail-label">Events</div><table><thead><tr><th>Event</th><th>Detail</th><th>Description</th></tr></thead><tbody>${rows}</tbody></table></div>`;
-  }
-
-  function renderMethodsTable(methods: readonly MethodSpec[]): string {
-    if (!methods.length) return '';
-    const rows = methods.map(m => {
-      const params = m.params ? Object.entries(m.params).map(([k, v]) => `${k}: ${v}`).join(', ') : '';
-      const sig = `${m.name}(${params})`;
-      return `<tr><td><code>${sig}</code></td><td>${m.returns ?? 'void'}</td><td>${m.description}</td></tr>`;
-    }).join('');
-    return `<div class="map-detail-section"><div class="map-detail-label">Methods</div><table><thead><tr><th>Method</th><th>Returns</th><th>Description</th></tr></thead><tbody>${rows}</tbody></table></div>`;
-  }
 
   for (const mapping of REGISTRY.values()) {
     const cat = getComponentCategory(mapping.a2uiType);
@@ -734,13 +942,120 @@ document.addEventListener('astro:page-load', () => {
     lastMessageRole = null;
   }
 
-  function renderConcepts(concepts?: string[]) {
-    conceptsWrap.innerHTML = '';
-    if (!concepts?.length) return;
-    for (const c of concepts) {
+  // ── Insights pane (accumulating reasoning log) ──
+
+  let insightCounter = 0;
+
+  function appendInsightEntry(label: string): HTMLElement {
+    insightCounter++;
+    const entry = document.createElement('div');
+    entry.className = 'insight-entry';
+
+    const header = document.createElement('div');
+    header.className = 'insight-header';
+    const num = document.createElement('span');
+    num.className = 'insight-num';
+    num.textContent = `#${insightCounter}`;
+    header.appendChild(num);
+    const title = document.createElement('span');
+    title.className = 'insight-label';
+    title.textContent = label;
+    header.appendChild(title);
+    entry.appendChild(header);
+
+    conceptsWrap.appendChild(entry);
+    conceptsWrap.scrollTop = conceptsWrap.scrollHeight;
+    return entry;
+  }
+
+  function appendInsightText(parent: HTMLElement, text: string, muted = false): void {
+    const el = document.createElement('span');
+    el.className = 'text';
+    el.setAttribute('size', 'sm');
+    if (muted) el.setAttribute('muted', '');
+    el.textContent = text;
+    parent.appendChild(el);
+  }
+
+  function appendInsightBadges(parent: HTMLElement, items: string[], intent?: string): void {
+    const wrap = document.createElement('div');
+    wrap.className = 'insight-badges';
+    for (const item of items) {
       const badge = document.createElement('n-badge');
-      badge.textContent = c;
-      conceptsWrap.appendChild(badge);
+      if (intent) badge.setAttribute('intent', intent);
+      badge.textContent = item;
+      wrap.appendChild(badge);
+    }
+    parent.appendChild(wrap);
+  }
+
+  function appendInterpretation(output: string): void {
+    try {
+      const data = JSON.parse(stripFences(output));
+      const entry = appendInsightEntry('Interpretation');
+
+      if (data.intent) appendInsightText(entry, data.intent);
+      const meta: string[] = [];
+      if (data.uiKind) meta.push(data.uiKind);
+      if (meta.length) appendInsightBadges(entry, meta);
+      if (data.assumptions?.length) {
+        for (const a of data.assumptions) appendInsightText(entry, `→ ${a}`, true);
+      }
+    } catch {
+      const entry = appendInsightEntry('Interpretation');
+      appendInsightText(entry, output.slice(0, 300), true);
+    }
+  }
+
+  function appendConcepts(output: string): void {
+    try {
+      const data = JSON.parse(stripFences(output));
+      const entry = appendInsightEntry('Concepts');
+
+      // Design patterns as highlighted items
+      for (const c of data.concepts ?? []) {
+        const item = document.createElement('div');
+        item.className = 'insight-concept';
+        const name = document.createElement('span');
+        name.className = 'insight-concept-name';
+        name.textContent = c.pattern;
+        item.appendChild(name);
+        if (c.rationale) appendInsightText(item, c.rationale, true);
+        entry.appendChild(item);
+      }
+
+      // Interactions as accent badges
+      if (data.interactions?.length) {
+        appendInsightBadges(entry, data.interactions, 'accent');
+      }
+
+      // Data flow + state model as text
+      if (data.dataFlow) appendInsightText(entry, data.dataFlow);
+      if (data.stateModel) appendInsightText(entry, data.stateModel, true);
+    } catch {
+      const entry = appendInsightEntry('Concepts');
+      appendInsightText(entry, output.slice(0, 300), true);
+    }
+  }
+
+  function appendPlan(output: string): void {
+    try {
+      const data = JSON.parse(stripFences(output));
+      const entry = appendInsightEntry('Plan');
+
+      if (data.layout) appendInsightText(entry, data.layout);
+      if (data.hierarchy) appendInsightText(entry, data.hierarchy, true);
+
+      const traits = data.traits ?? [];
+      if (traits.length) appendInsightBadges(entry, traits);
+
+      const notes: string[] = [];
+      if (data.cssNeeded && data.cssNotes) notes.push(`CSS: ${data.cssNotes}`);
+      if (data.jsNeeded && data.jsNotes) notes.push(`JS: ${data.jsNotes}`);
+      for (const n of notes) appendInsightText(entry, n, true);
+    } catch {
+      const entry = appendInsightEntry('Plan');
+      appendInsightText(entry, output.slice(0, 300), true);
     }
   }
 
@@ -748,127 +1063,13 @@ document.addEventListener('astro:page-load', () => {
     schemaPre.textContent = JSON.stringify(schema, null, 2);
   }
 
-  // ── CSS/JS live apply ──
-
-  let previewStyle: HTMLStyleElement | null = null;
-
-  /** Scope CSS rules under #preview-mount so they don't leak into the builder UI. */
-  function scopeCSS(css: string): string {
-    // If the user already scoped to #preview-mount, pass through
-    if (css.includes('#preview-mount')) return css;
-    // Wrap each rule: add #preview-mount prefix to every selector
-    return css.replace(
-      /([^{}@]+)\{/g,
-      (_match, selectors: string) => {
-        const scoped = selectors
-          .split(',')
-          .map((s: string) => `#preview-mount ${s.trim()}`)
-          .join(', ');
-        return `${scoped} {`;
-      },
-    );
-  }
-
-  function applyCSSToPreview(css: string): void {
-    if (!previewStyle) {
-      previewStyle = document.createElement('style');
-      previewStyle.dataset.builder = 'custom';
-      previewMount.prepend(previewStyle);
-    }
-    previewStyle.textContent = scopeCSS(css);
-  }
-
-  /** Wait for custom elements inside the preview to upgrade, then two rAFs. */
-  async function waitForPreviewReady(): Promise<void> {
-    const tags = new Set<string>();
-    for (const el of previewMount.querySelectorAll('*')) {
-      if (el.localName.includes('-')) tags.add(el.localName);
-    }
-    // Only wait for tags that are actually registered (or will be soon).
-    // CSS-only undefined CEs (n-stack, n-body, n-header, etc.) never register
-    // so whenDefined() would hang forever. Use a short timeout as a race.
-    const TIMEOUT = 500;
-    const withTimeout = (p: Promise<unknown>) =>
-      Promise.race([p, new Promise(r => setTimeout(r, TIMEOUT))]);
-    const defined = [...tags].filter(t => customElements.get(t));
-    const pending = [...tags].filter(t => !customElements.get(t));
-    await Promise.all([
-      ...defined.map(t => customElements.whenDefined(t)),
-      ...pending.map(t => withTimeout(customElements.whenDefined(t))),
-    ]);
-    // Two rAFs — first for CE upgrade, second for child rendering
-    await new Promise(r => requestAnimationFrame(r as FrameRequestCallback));
-    await new Promise(r => requestAnimationFrame(r as FrameRequestCallback));
-  }
-
-  function applyJSToPreview(js: string): void {
-    if (!previewMount.children.length) return;
-
-    try {
-      const wrapper = `(function(preview){
-  var $ = function(sel){ return preview.querySelector(sel); };
-  var $$ = function(sel){ return preview.querySelectorAll(sel); };
-${js}
-}(__mount__))`;
-      const fn = new Function('__mount__', wrapper);
-      fn(previewMount);
-    } catch (err) {
-      console.error('[A2UI Builder] JS error:', err);
-      addMessage('assistant', `JS Error: ${(err as Error).message}`);
-    }
-  }
-
-  // CSS editor — debounced input + Cmd/Ctrl-S
-  let cssDebounce: ReturnType<typeof setTimeout> | null = null;
-  function debouncedCSSApply(): void {
-    if (cssDebounce) clearTimeout(cssDebounce);
-    cssDebounce = setTimeout(() => applyCSSToPreview(cssEditor.value), 300);
-  }
-
-  cssEditor.addEventListener('input', debouncedCSSApply);
-  cssEditor.addEventListener('keydown', (e) => {
-    if ((e.metaKey || e.ctrlKey) && e.key === 's') {
-      e.preventDefault();
-      if (cssDebounce) clearTimeout(cssDebounce);
-      applyCSSToPreview(cssEditor.value);
-    }
-  });
-
-  // JS apply — Play button (pointerup delegation) + Cmd/Ctrl-S
-  let jsRunning = false;
-  function runJS(): void {
-    const js = jsEditor.value.trim();
-    if (!js || jsRunning) return;
-    jsRunning = true;
-    waitForPreviewReady().then(() => {
-      applyJSToPreview(js);
-      jsRunning = false;
-    });
-  }
-
-  document.addEventListener('pointerup', (e) => {
-    // Walk composedPath to cross shadow DOM boundaries
-    for (const node of e.composedPath()) {
-      if (node instanceof HTMLElement && node.matches('[data-role="apply-js"]')) {
-        runJS();
-        break;
-      }
-    }
-  });
-  jsEditor.addEventListener('keydown', (e) => {
-    if ((e.metaKey || e.ctrlKey) && e.key === 's') {
-      e.preventDefault();
-      runJS();
-    }
-  });
-
   function renderPreview(schema: MockResult['schema']) {
     if (currentAdapter) {
       currentAdapter.destroy();
       currentAdapter = null;
     }
     previewMount.innerHTML = '';
-    previewStyle = null;
+    previewStyle = null; // Reset — will be recreated if CSS is applied
     currentAdapter = createA2UIAdapter(kernel, {
       onClientMessage: (msg: unknown) => console.log('[A2UI Builder →]', msg),
     });
@@ -878,24 +1079,6 @@ ${js}
     queueMicrotask(() => {
       htmlPre.textContent = previewMount.innerHTML;
     });
-  }
-
-  function formatGapReport(gaps: MockResult['gaps'], partial?: MockResult['partial']): string {
-    if (!gaps?.length) return '';
-    const lines: string[] = ['## API Gaps Found\n'];
-    for (const g of gaps) {
-      lines.push(`**${g.component}**`);
-      lines.push(`- **Need:** ${g.need}`);
-      lines.push(`- **Context:** ${g.context}`);
-      lines.push(`- **Impact:** ${g.impact}`);
-      lines.push(`- **Suggestion:** ${g.suggestion} *(UNVERIFIED)*\n`);
-    }
-    if (partial) {
-      lines.push('---');
-      lines.push(`**Can generate:** ${partial.canGenerate}`);
-      lines.push(`**Cannot generate:** ${partial.cannotGenerate}`);
-    }
-    return lines.join('\n');
   }
 
   function applyResult(result: MockResult) {
@@ -910,7 +1093,6 @@ ${js}
       reply += '\n' + result.questions.map((q, i) => `${i + 1}. ${q}`).join('\n');
     }
     addMessage('assistant', reply, tag);
-    renderConcepts(result.concepts);
 
     // Handle remaps
     if (isRemap && result.remaps?.length) {
@@ -958,7 +1140,7 @@ ${js}
       jsEditor.value = result.js;
       if (!activePanels.has('js')) { activePanels.add('js'); syncPanels(); }
       // Defer JS execution — wait for all custom elements in preview to upgrade
-      waitForPreviewReady().then(() => applyJSToPreview(result.js!));
+      waitForPreviewReady(previewMount).then(() => applyJSToPreview(result.js!));
     }
 
     // Show suggestion chips after questions
@@ -972,80 +1154,21 @@ ${js}
     }
   }
 
-  // ── Progress step classification ──
+  // ── Single-shot send (one LLM call, timer-based progress) ──
 
-  function classifySteps(query: string, isIterating: boolean): [string, string, string] {
-    const q = query.toLowerCase();
-
-    // Style / CSS requests
-    if (/\b(style|color|theme|dark|light|background|font|spacing|padding|margin|border|shadow|round|gradient)\b/.test(q)) {
-      return ['Thinking', 'Analyzing Styles', 'Styling UI'];
-    }
-    // Interactivity / JS requests
-    if (/\b(click|event|handler|interact|button press|toggle|animate|show|hide|submit|validate)\b/.test(q)) {
-      return ['Thinking', 'Planning Logic', 'Wiring Events'];
-    }
-    // Layout / structure changes
-    if (/\b(layout|grid|stack|column|row|sidebar|header|footer|responsive|mobile|split|arrange|reorder|move)\b/.test(q)) {
-      return ['Thinking', 'Planning Layout', 'Restructuring UI'];
-    }
-    // Questions / explanations
-    if (/^(what|how|why|can you|is it|explain|tell me|describe)\b/.test(q)) {
-      return ['Thinking', 'Analyzing', 'Composing Response'];
-    }
-    // Removal / simplification
-    if (/\b(remove|delete|simplify|strip|clean|fewer|less|minimal)\b/.test(q)) {
-      return ['Thinking', 'Reviewing Structure', 'Simplifying UI'];
-    }
-    // Iteration (has existing schema)
-    if (isIterating) {
-      return ['Thinking', 'Reviewing Changes', 'Updating UI'];
-    }
-    // Default: first generation
-    return ['Thinking', 'Concept Mapping', 'Creating UI'];
-  }
-
-  // ── Send handler ──
-
-  async function sendMessage(value: string) {
-    // Clear any existing seed chips
-    clearSeeds();
-
-    addMessage('user', value);
-
-    // Inject current schema context so the LLM can refine it
-    const userMessage = currentSchema
-      ? `[CURRENT SCHEMA]\n${JSON.stringify(currentSchema, null, 2)}\n[/CURRENT SCHEMA]\n\n${value}`
-      : value;
-    messages.push({ role: 'user', message: userMessage });
-
-    if (!llm) {
-      setTimeout(() => applyResult(mockResponse(value)), 300);
-      return;
-    }
-
-    chatComposer.busy = true;
-
-    // Typing indicator breaks grouping
-    lastMessageGroup = null;
-    lastMessageRole = null;
-
-    // Show multi-step progress indicator
+  async function sendSingleShot(value: string) {
     const progressEl = document.createElement('div');
     progressEl.className = 'builder-progress';
     chatFeed.appendChild(progressEl);
     chatFeed.scrollTop = chatFeed.scrollHeight;
 
-    // Pick reasoning steps based on user intent
     const steps = classifySteps(value, !!currentSchema);
     let elapsed = 0;
 
-    // Create a line element for each step
     const lines: HTMLDivElement[] = [];
     function addStep(index: number) {
       const prev = lines[lines.length - 1];
       if (prev) prev.removeAttribute('data-active');
-
       const line = document.createElement('div');
       line.className = 'builder-progress-step';
       line.setAttribute('data-active', '');
@@ -1055,19 +1178,11 @@ ${js}
       chatFeed.scrollTop = chatFeed.scrollHeight;
     }
 
-    function updateThinkingTime() {
-      if (lines[0]) lines[0].textContent = `Thinking ${elapsed}s`;
-    }
-
     addStep(0);
-    updateThinkingTime();
-
     const tickTimer = setInterval(() => {
       elapsed++;
-      updateThinkingTime();
+      if (lines[0]) lines[0].textContent = `Thinking ${elapsed}s`;
     }, 1000);
-
-    // Advance to next step after delays
     const stepTimers = [
       setTimeout(() => addStep(1), 2000),
       setTimeout(() => addStep(2), 4000),
@@ -1076,7 +1191,6 @@ ${js}
     function clearProgress(summaryVerb?: string) {
       clearInterval(tickTimer);
       for (const t of stepTimers) clearTimeout(t);
-      // Replace progress steps with a compact summary
       const label = summaryVerb ?? steps[steps.length - 1];
       progressEl.textContent = '';
       progressEl.className = 'builder-progress-summary';
@@ -1084,7 +1198,7 @@ ${js}
     }
 
     try {
-      const response = await llm.sendMessage({
+      const response = await llm!.sendMessage({
         id: crypto.randomUUID(),
         messages,
         query: value,
@@ -1095,11 +1209,8 @@ ${js}
       const result = parseJSON(trimmed);
 
       if (!result.type) result.type = result.gaps?.length ? 'gap' : result.prompt ? 'prompt' : result.schema ? 'schema' : 'question';
-      if (result.schema && !result.schema.surfaceId) {
-        result.schema.surfaceId = 'preview';
-      }
+      if (result.schema && !result.schema.surfaceId) result.schema.surfaceId = 'preview';
 
-      // Summary verb based on actual response type
       const summaryVerbs: Record<string, string> = {
         schema: currentSchema ? 'Updated UI' : 'Created UI',
         question: 'Responded',
@@ -1111,15 +1222,40 @@ ${js}
 
       messages.push({ role: 'assistant', message: trimmed! });
       applyResult(result);
-
     } catch (err) {
       clearProgress('Error');
       if (err instanceof GatewayRequestError && err.kind === 'auth') {
-        addMessage('assistant', `API key error — check that your API key is valid and the proxy endpoint is configured. The Anthropic API is not available in all regions — if you are outside the US, you may need to use a proxy or VPN. (${err.status}: ${err.message})`);
+        addMessage('assistant', `API key error — check that your API key is valid and the proxy endpoint is configured. The Anthropic API is not available in all regions — if you are outside the US, you may need to use a proxy or VPN. (${(err as GatewayRequestError).status}: ${(err as Error).message})`);
       } else {
         addMessage('assistant', `Error: ${(err as Error).message}`);
       }
       console.error('[A2UI Builder]', err);
+    }
+  }
+
+  // ── Send handler ──
+
+  async function sendMessage(value: string) {
+    clearSeeds();
+    addMessage('user', value);
+    dismissWelcome();
+
+    const userMessage = currentSchema
+      ? `[CURRENT SCHEMA]\n${JSON.stringify(currentSchema, null, 2)}\n[/CURRENT SCHEMA]\n\n${value}`
+      : value;
+    messages.push({ role: 'user', message: userMessage });
+
+    if (!llm) {
+      setTimeout(() => applyResult(mockResponse(value)), 300);
+      return;
+    }
+
+    chatComposer.busy = true;
+    lastMessageGroup = null;
+    lastMessageRole = null;
+
+    try {
+      await sendSingleShot(value);
     } finally {
       chatComposer.busy = false;
     }
