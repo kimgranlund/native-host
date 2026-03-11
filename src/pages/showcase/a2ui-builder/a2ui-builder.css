@@ -164,8 +164,7 @@
 .builder n-pane {
   position: relative;
   min-width: 200px;
-  border-inline-start: 1px solid transparent;
-  transition: border-color 150ms;
+  border-inline-start: none;
 }
 
 /* Pane header */
@@ -456,7 +455,7 @@ n-chat-message[data-type="gap"] n-chat-message-text {
 .builder n-pane:has(> .resize-handle:hover) + n-pane,
 .builder-chat[data-resizing] + n-pane,
 .builder n-pane[data-resizing] + n-pane {
-  border-inline-start-color: var(--pg-border-color, var(--n-border-muted));
+  border-inline-start: 1px solid var(--pg-border-color, var(--n-border-muted));
 }
 
 /* When resized (explicit width), don't flex-grow */
