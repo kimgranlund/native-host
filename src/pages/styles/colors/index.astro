@@ -43,12 +43,27 @@ const codeExamples = {
 
     </div>
     <div slot="actions">
-      <n-select id="export-select" size="sm" variant="outline" placeholder="Export Colors" density="inline">
+      <n-select id="export-select" size="sm" variant="outline" placeholder="Export Colors">
         <n-listbox popover="auto">
-          <n-option value="all">Export All Tokens (CSS)</n-option>
-          <n-option value="computed">Export Computed Colors (CSS)</n-option>
-          <n-option value="semantic">Export Semantic Colors (CSS)</n-option>
-          <n-option value="figma">Export Figma Variables (JSON)</n-option>
+          <n-option value="figma-computed">Figma (computed)</n-option>
+          <n-option value="figma-all">Figma (computed + semantic)</n-option>
+          <n-option value="css-computed">CSS (computed)</n-option>
+          <n-option value="css-all">CSS (computed + semantic)</n-option>
+        </n-listbox>
+      </n-select>
+      <n-select id="theme-select" size="sm" variant="outline" placeholder="Theme">
+        <n-listbox popover="auto">
+          <n-option value="">Default</n-option>
+          <n-option value="forest">Forest</n-option>
+          <n-option value="rose">Rose</n-option>
+          <n-option value="zinc">Zinc</n-option>
+        </n-listbox>
+      </n-select>
+      <n-select id="scheme-select" size="sm" variant="outline" placeholder="Scheme">
+        <n-listbox popover="auto">
+          <n-option value="system">System</n-option>
+          <n-option value="light">Light</n-option>
+          <n-option value="dark">Dark</n-option>
         </n-listbox>
       </n-select>
     </div>
@@ -63,22 +78,54 @@ const codeExamples = {
 
   <script>
     import '@nonoun/native-design';
-    import { exportCss, exportFigma } from './colors-export.js';
+    import { exportCss, exportFigma } from './colors-export.ts';
 
     document.addEventListener('astro:page-load', () => {
       const sel = document.getElementById('export-select');
       if (!sel) return;
 
-      sel.addEventListener('native:change', (e) => {
-        const v = /** @type {CustomEvent} */ (e).detail.value;
+      // ── Export select ──
+      sel.addEventListener('native:change', (e: Event) => {
+        const v = (e as CustomEvent).detail.value;
         if (!v) return;
-        if (v === 'figma') {
-          exportFigma();
-        } else {
-          exportCss(v);
+        switch (v) {
+          case 'figma-computed': exportFigma('computed'); break;
+          case 'figma-all':      exportFigma('all'); break;
+          case 'css-computed':   exportCss('computed'); break;
+          case 'css-all':        exportCss('all'); break;
         }
-        // Reset so the same option can be picked again
-        /** @type {any} */ (sel).value = '';
+        (sel as HTMLElement & { value: string }).value = '';
+      });
+
+      // ── Theme select ──
+      const themeSel = document.getElementById('theme-select');
+      themeSel?.addEventListener('native:change', (e: Event) => {
+        const val = (e as CustomEvent).detail.value;
+        const root = document.documentElement;
+        if (val) {
+          root.setAttribute('theme', val);
+        } else {
+          root.removeAttribute('theme');
+        }
+      });
+
+      // ── Scheme select ──
+      const schemeSel = document.getElementById('scheme-select');
+      const storedScheme = localStorage.getItem('color-scheme');
+      if (storedScheme) {
+        document.documentElement.style.colorScheme = storedScheme;
+        (schemeSel as HTMLElement & { value: string }).value = storedScheme;
+      }
+      schemeSel?.addEventListener('native:change', (e: Event) => {
+        const scheme = (e as CustomEvent).detail.value;
+        const root = document.documentElement;
+        if (scheme === 'system') {
+          root.style.removeProperty('colorScheme');
+          localStorage.removeItem('color-scheme');
+        } else {
+          root.style.colorScheme = scheme;
+          localStorage.setItem('color-scheme', scheme);
+        }
       });
     });
   </script>

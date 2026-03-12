@@ -125,12 +125,14 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
           </n-container>
 
           <n-container>
-            <n-header><a href="/styles/colors">Colors page</a> — 4 export buttons for design handoff</n-header>
+            <n-header><a href="/styles/colors">Colors page</a> — modernized with n-select dropdowns + restructured Figma export (T0228)</n-header>
             <n-body>
               <ul>
-                <li>Export All Tokens, Computed Colors, Semantic Colors (CSS)</li>
-                <li>Export Figma Variables JSON with light + dark modes</li>
-                <li>Page converted to co-located folder pattern</li>
+                <li>Theme and Scheme <code>&lt;n-select&gt;</code> dropdowns for live switching</li>
+                <li>4 export options: Figma (computed), Figma (computed + semantic), CSS (computed), CSS (all)</li>
+                <li>Figma Variables JSON restructured with nested folders — no more group/variable conflicts</li>
+                <li>Expanded <code>TOKEN_TO_FIGMA</code> with state variants (hover, active, disabled) for all ground categories</li>
+                <li><code>GROUP_DOCS</code> documentation comments in exported CSS</li>
               </ul>
             </n-body>
           </n-container>
