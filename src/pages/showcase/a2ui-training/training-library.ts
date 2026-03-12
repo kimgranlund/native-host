@@ -177,8 +177,6 @@ document.addEventListener('astro:page-load', async () => {
   const compareToggle = document.getElementById('compare-toggle') as HTMLElement & { value: string };
   const chatToggle = document.getElementById('chat-toggle')!;
   const chatPane = document.getElementById('llm-chat-pane') as HTMLElement & NLLMChatPane;
-  const btnPrev = document.getElementById('btn-prev')!;
-  const btnNext = document.getElementById('btn-next')!;
   const btnCenter = document.getElementById('btn-center')!;
   const btnResetZoom = document.getElementById('btn-reset-zoom')!;
 
@@ -1230,14 +1228,6 @@ ${JSON.stringify({ surfaceId: 'lightbox', components: currentPattern.components 
 
   // Preview click inspection
   canvas.addEventListener('click', onPreviewClick);
-
-  // Surface steppers (prev/next)
-  btnPrev.addEventListener('pointerup', () => {
-    // TODO: step through surfaces when multi-surface patterns exist
-  });
-  btnNext.addEventListener('pointerup', () => {
-    // TODO: step through surfaces when multi-surface patterns exist
-  });
 
   // ── Boot ──
   populateCategoryFilter();
