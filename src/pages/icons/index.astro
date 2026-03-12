@@ -1,5 +1,5 @@
 ---
-import SidebarLayout from '../layouts/SidebarLayout.astro';
+import SidebarLayout from '../../layouts/SidebarLayout.astro';
 ---
 <SidebarLayout title="Icons">
   <header>
@@ -14,6 +14,12 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
   </header>
 
   <section>
+
+    <!-- ── All Icons ── -->
+
+    <h2>All Icons <span id="icon-count" class="col-label"></span></h2>
+    <n-input id="icon-search" placeholder="Search icons..." size="sm"></n-input>
+    <div id="all-icons-grid" class="all-icons-grid"></div>
 
     <!-- ── Basic Icons ── -->
 
@@ -296,42 +302,10 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
   </section>
 
   <script>
-import { logPrepend } from '../scripts/event-log';
-import { registerIcon } from '@nonoun/native-ui';
-
-document.addEventListener('astro:page-load', () => {
-  const dynamicIcon = document.getElementById('dynamic-icon');
-  if (!dynamicIcon) return;
-
-  // ── Dynamic name change ──
-
-  const iconPicker = document.getElementById('icon-picker');
-  iconPicker?.addEventListener('change', () => {
-    dynamicIcon.setAttribute('name', iconPicker?.value ?? 'house');
-  });
-
-  // ── Late registration demo ──
-
-  const registerBtn = document.getElementById('register-btn');
-  const lateLog = document.getElementById('late-log');
-
-  function log(msg) {
-    logPrepend(lateLog, msg);
-  }
-
-  log('n-icon[name="late-demo"] created — icon not yet registered, renders empty.');
-
-  registerBtn?.addEventListener('click', () => {
-    registerIcon('late-demo', '<svg viewBox="0 0 256 256" fill="currentColor"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>');
-    log('registerIcon("late-demo", ...) called — icon should now appear!');
-    if (registerBtn) registerBtn.disabled = true;
-  });
-});
+    import './icons.ts';
   </script>
   <style is:global>
-    .icon-card-wrap {
-      min-width: 5rem;
-    }
-</style>
+    @import './icons.css';
+  </style>
 
 </SidebarLayout>
