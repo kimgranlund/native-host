@@ -936,11 +936,25 @@ ${js}
   }
 
 
-  // ── Insights pane (accumulating reasoning log) ──
+  // ── Insights pane (placeholder+fill reasoning log) ──
 
   let insightCounter = 0;
+  const insightEntries = new Map<string, HTMLElement>();
 
-  function appendInsightEntry(label: string): HTMLElement {
+  const stepLabels: Record<string, string> = {
+    interpret: 'Interpretation',
+    concepts: 'Concepts',
+    plan: 'Plan',
+    construct: 'Construction',
+  };
+
+  function clearInsights(): void {
+    conceptsWrap.innerHTML = '';
+    insightCounter = 0;
+    insightEntries.clear();
+  }
+
+  function appendInsightEntry(label: string, stepId?: string): HTMLElement {
     insightCounter++;
     const entry = document.createElement('div');
     entry.className = 'insight-entry';
@@ -959,14 +973,22 @@ ${js}
 
     conceptsWrap.appendChild(entry);
     conceptsWrap.scrollTop = conceptsWrap.scrollHeight;
+
+    if (stepId) insightEntries.set(stepId, entry);
     return entry;
+  }
+
+  function appendInsightPlaceholder(parent: HTMLElement, text: string): void {
+    const el = document.createElement('span');
+    el.className = 'insight-placeholder';
+    el.textContent = text;
+    parent.appendChild(el);
   }
 
   function appendInsightText(parent: HTMLElement, text: string, muted = false): void {
     const el = document.createElement('span');
-    el.className = 'text';
-    el.setAttribute('size', 'sm');
-    if (muted) el.setAttribute('muted', '');
+    el.className = 'insight-text';
+    if (muted) el.setAttribute('data-muted', '');
     el.textContent = text;
     parent.appendChild(el);
   }
@@ -983,11 +1005,10 @@ ${js}
     parent.appendChild(wrap);
   }
 
-  function appendInterpretation(output: string): void {
+  function fillInterpretation(entry: HTMLElement, output: string): void {
+    entry.querySelector('.insight-placeholder')?.remove();
     try {
       const data = JSON.parse(stripFences(output));
-      const entry = appendInsightEntry('Interpretation');
-
       if (data.intent) appendInsightText(entry, data.intent);
       const meta: string[] = [];
       if (data.uiKind) meta.push(data.uiKind);
@@ -996,15 +1017,14 @@ ${js}
         for (const a of data.assumptions) appendInsightText(entry, `→ ${a}`, true);
       }
     } catch {
-      const entry = appendInsightEntry('Interpretation');
       appendInsightText(entry, output.slice(0, 300), true);
     }
   }
 
-  function appendConcepts(output: string): void {
+  function fillConcepts(entry: HTMLElement, output: string): void {
+    entry.querySelector('.insight-placeholder')?.remove();
     try {
       const data = JSON.parse(stripFences(output));
-      const entry = appendInsightEntry('Concepts');
 
       // Design patterns as highlighted items
       for (const c of data.concepts ?? []) {
@@ -1027,16 +1047,14 @@ ${js}
       if (data.dataFlow) appendInsightText(entry, data.dataFlow);
       if (data.stateModel) appendInsightText(entry, data.stateModel, true);
     } catch {
-      const entry = appendInsightEntry('Concepts');
       appendInsightText(entry, output.slice(0, 300), true);
     }
   }
 
-  function appendPlan(output: string): void {
+  function fillPlan(entry: HTMLElement, output: string): void {
+    entry.querySelector('.insight-placeholder')?.remove();
     try {
       const data = JSON.parse(stripFences(output));
-      const entry = appendInsightEntry('Plan');
-
       if (data.layout) appendInsightText(entry, data.layout);
       if (data.hierarchy) appendInsightText(entry, data.hierarchy, true);
 
@@ -1048,8 +1066,19 @@ ${js}
       if (data.jsNeeded && data.jsNotes) notes.push(`JS: ${data.jsNotes}`);
       for (const n of notes) appendInsightText(entry, n, true);
     } catch {
-      const entry = appendInsightEntry('Plan');
       appendInsightText(entry, output.slice(0, 300), true);
+    }
+  }
+
+  function fillConstruct(entry: HTMLElement, output: string): void {
+    entry.querySelector('.insight-placeholder')?.remove();
+    try {
+      const data = JSON.parse(stripFences(output));
+      const count = data.components?.length ?? 0;
+      appendInsightText(entry, `Built ${count} component${count !== 1 ? 's' : ''}`);
+      if (data.surfaceId) appendInsightBadges(entry, [data.surfaceId]);
+    } catch {
+      appendInsightText(entry, 'Schema constructed', true);
     }
   }
 
@@ -1266,6 +1295,8 @@ ${js}
     let elapsed = 0;
     const tickTimer = setInterval(() => { elapsed++; }, 1000);
 
+    clearInsights();
+
     const callbacks: PipelineCallbacks = {
       onStepStart(step: PipelineStep, _index: number) {
         const line = stepLines.get(step.id);
@@ -1274,6 +1305,10 @@ ${js}
         line.setAttribute('data-active', '');
         line.textContent = step.activeLabel;
         chatFeed.scrollTop = chatFeed.scrollHeight;
+
+        // Create placeholder insight entry
+        const entry = appendInsightEntry(stepLabels[step.id] ?? step.label, step.id);
+        appendInsightPlaceholder(entry, step.activeLabel);
       },
       onStepComplete(step: PipelineStep, _index: number, output: string) {
         const line = stepLines.get(step.id);
@@ -1282,20 +1317,32 @@ ${js}
           line.setAttribute('data-done', '');
           line.textContent = step.doneLabel;
         }
-        if (step.id === 'interpret') appendInterpretation(output);
-        if (step.id === 'concepts') appendConcepts(output);
-        if (step.id === 'plan') appendPlan(output);
-        if (step.id === 'construct') schemaPre.textContent = output;
+
+        const entry = insightEntries.get(step.id);
+        if (!entry) return;
+
+        if (step.id === 'interpret') fillInterpretation(entry, output);
+        else if (step.id === 'concepts') fillConcepts(entry, output);
+        else if (step.id === 'plan') fillPlan(entry, output);
+        else if (step.id === 'construct') {
+          fillConstruct(entry, output);
+          schemaPre.textContent = output;
+        }
       },
       onStreamChunk(_delta: string, fullMessage: string) {
         schemaPre.textContent = fullMessage;
       },
-      onError(step: PipelineStep, _index: number, _error: Error) {
+      onError(step: PipelineStep, _index: number, error: Error) {
         const line = stepLines.get(step.id);
         if (line) {
           line.removeAttribute('data-active');
           line.style.color = 'var(--n-ink-danger)';
           line.textContent = `${step.label} — Error`;
+        }
+        const entry = insightEntries.get(step.id);
+        if (entry) {
+          entry.querySelector('.insight-placeholder')?.remove();
+          appendInsightText(entry, `Error: ${error.message}`, true);
         }
       },
     };

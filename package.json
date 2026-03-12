@@ -20,7 +20,7 @@
     "@codemirror/lang-javascript": "^6.2.5",
     "@codemirror/lang-markdown": "^6.5.0",
     "@libsql/client": "^0.17.0",
-    "@nonoun/native-ai": "^1.0.92",
+    "@nonoun/native-ai": "^1.0.95",
     "@nonoun/native-code": "^1.0.12",
     "@nonoun/native-dashboard": "^0.4.22",
     "@nonoun/native-data-viz": "^0.2.5",
