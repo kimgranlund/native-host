@@ -154,7 +154,7 @@ document.addEventListener('astro:page-load', async () => {
     { id: 'chat' },
   ] as const;
   type PanelId = typeof PANELS[number]['id'];
-  const activePanels = new Set<PanelId>(['schema']);
+  const activePanels = new Set<PanelId>(['preview', 'schema']);
   const paneEls = new Map<PanelId, HTMLElement>();
   const chipEls = new Map<PanelId, HTMLElement>();
 
@@ -520,8 +520,9 @@ document.addEventListener('astro:page-load', async () => {
     void chatController; // suppress unused warning
     void chatPane;
 
-    // Reset panels to default (schema visible)
+    // Reset panels to default (preview + schema visible)
     activePanels.clear();
+    activePanels.add('preview');
     activePanels.add('schema');
     syncPanels();
 
@@ -529,6 +530,8 @@ document.addEventListener('astro:page-load', async () => {
   }
 
   function renderLightboxPreview(components: Record<string, unknown>[]): void {
+    // Tear down inspector before destroying artifact DOM
+    if (cssInspector) dismissInspector();
     lightboxAdapter?.destroy();
     canvas.innerHTML = '';
 
@@ -644,6 +647,24 @@ document.addEventListener('astro:page-load', async () => {
     });
   }
 
+  function clearOptionHover(): void {
+    canvas.querySelectorAll('[data-option-hover]').forEach((el) => {
+      el.removeAttribute('data-option-hover');
+    });
+  }
+
+  /** Option+hover: highlight the element under the cursor. */
+  function onOptionHover(e: PointerEvent): void {
+    if (!e.altKey) { clearOptionHover(); return; }
+    const target = (e.target as HTMLElement).closest('[id]') as HTMLElement | null;
+    const current = canvas.querySelector('[data-option-hover]');
+    if (target === current) return;
+    clearOptionHover();
+    if (target && target !== canvas && target !== lightboxPreview) {
+      target.setAttribute('data-option-hover', '');
+    }
+  }
+
   /** Select a range in a CodeMirror editor and scroll it into view. */
   function selectRange(editor: NEditor, from: number, to: number): void {
     const view = editor.editorView;
@@ -715,13 +736,15 @@ document.addEventListener('astro:page-load', async () => {
     return true;
   }
 
-  /** Preview → editor: click element highlights it in the current panel's editor (or falls back). */
+  /** Preview → editor: Option+click selects element and highlights in the editor. */
   function onPreviewClick(e: Event): void {
+    if (!(e as MouseEvent).altKey) return;
     const target = e.target as HTMLElement;
     clearHighlights();
+    clearOptionHover();
 
     const el = target.closest('[id]') as HTMLElement | null;
-    if (!el || el === lightboxPreview) return;
+    if (!el || el === lightboxPreview || el === canvas) return;
     const clickedId = el.id;
 
     el.setAttribute('data-highlight', '');
@@ -1080,6 +1103,7 @@ ${JSON.stringify({ surfaceId: 'lightbox', components: currentPattern.components 
     chatController?.destroy();
     chatController = null;
     activePanels.clear();
+    activePanels.add('preview');
     activePanels.add('schema');
     syncPanels();
     dialog.removeAttribute('data-fullscreen');
@@ -1139,6 +1163,11 @@ ${JSON.stringify({ surfaceId: 'lightbox', components: currentPattern.components 
   lightboxPreview.addEventListener('pointercancel', onPanPointerUp);
   lightboxPreview.addEventListener('wheel', onWheelZoom, { passive: false });
 
+  // Option+hover element highlighting
+  canvas.addEventListener('pointermove', onOptionHover);
+  canvas.addEventListener('pointerleave', clearOptionHover);
+  document.addEventListener('keyup', (e) => { if (e.key === 'Alt') clearOptionHover(); });
+
   // Center + reset zoom buttons
   btnCenter.addEventListener('pointerup', centerContents);
   btnResetZoom.addEventListener('pointerup', resetZoom);
@@ -1148,7 +1177,9 @@ ${JSON.stringify({ surfaceId: 'lightbox', components: currentPattern.components 
     if (cssInspector) {
       dismissInspector();
     } else {
-      cssInspector = new CSSInspectController(canvas, { pick: true, labels: true, alwaysReady: true });
+      const artifact = canvas.firstElementChild as HTMLElement | null;
+      if (!artifact) return;
+      cssInspector = new CSSInspectController(artifact, { pick: true, labels: true, alwaysReady: true });
       inspectToggleBtn.setAttribute('force-active', '');
       bridgeInspectorSelection();
     }

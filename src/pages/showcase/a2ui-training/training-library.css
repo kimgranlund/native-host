@@ -276,15 +276,11 @@
   outline-offset: -2px;
 }
 
-/* Clickable elements in preview */
-.tl-canvas [id] {
-  cursor: pointer;
-  transition: outline 150ms;
-}
-
-.tl-canvas [id]:hover {
+/* Option+hover highlight */
+.tl-canvas [data-option-hover] {
   outline: 2px solid var(--n-border-accent);
   outline-offset: 2px;
+  cursor: default;
 }
 
 .tl-canvas [data-highlight] {
