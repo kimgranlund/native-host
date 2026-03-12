@@ -1,0 +1,181 @@
+---
+import SidebarLayout from '../../../layouts/SidebarLayout.astro';
+import ApiReference from '../../../components/ApiReference.astro';
+import { feedApi } from '../../../data/api/feed';
+---
+<SidebarLayout title="Feed">
+  <header>
+    <div slot="title">
+      <div slot="content">
+        <h1>Feed</h1>
+      </div>
+    </div>
+    <div slot="description">
+      <span class="header-tag">&lt;n-feed&gt;</span> Generic scrollable feed container with auto-scroll, pin detection, and virtual scroll windowing.
+    </div>
+  </header>
+
+  <section>
+
+    <!-- ── Basic ── -->
+
+    <h2>Basic Feed</h2>
+    <p>A scrollable container for sequential content. Add <code>scroll</code> to enable overflow scrolling.</p>
+    <n-container data-kind="panel" bordered>
+      <div class="feed-demo">
+        <n-feed scroll>
+          <div class="feed-item">Message 1</div>
+          <div class="feed-item">Message 2</div>
+          <div class="feed-item">Message 3</div>
+          <div class="feed-item">Message 4</div>
+          <div class="feed-item">Message 5</div>
+          <div class="feed-item">Message 6</div>
+          <div class="feed-item">Message 7</div>
+          <div class="feed-item">Message 8</div>
+          <div class="feed-item">Message 9</div>
+          <div class="feed-item">Message 10</div>
+        </n-feed>
+      </div>
+    <pre class="code-block"><code>&lt;n-feed scroll&gt;
+  &lt;div&gt;Message 1&lt;/div&gt;
+  &lt;div&gt;Message 2&lt;/div&gt;
+  ...
+&lt;/n-feed&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Bottom-Anchored ── -->
+
+    <h2>Bottom-Anchored (Chat Style)</h2>
+    <p>Use <code>align="end"</code> to push content to the bottom — typical for chat-style feeds.</p>
+    <n-container data-kind="panel" bordered>
+      <div class="feed-demo">
+        <n-feed scroll align="end">
+          <div class="feed-item">Older message...</div>
+          <div class="feed-item">Another message...</div>
+          <div class="feed-item">Recent message</div>
+          <div class="feed-item">Latest message</div>
+        </n-feed>
+      </div>
+    <pre class="code-block"><code>&lt;n-feed scroll align="end"&gt;
+  &lt;!-- content pushed to bottom --&gt;
+&lt;/n-feed&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Auto-Scroll + Pin Detection ── -->
+
+    <h2>Auto-Scroll + Pin Detection</h2>
+    <p>Add <code>auto-scroll</code> to automatically scroll when new content arrives (while pinned to bottom). Scroll up to unpin.</p>
+    <n-container data-kind="panel" bordered>
+      <div class="feed-controls">
+        <n-button id="add-item" size="sm">Add Item</n-button>
+        <n-button id="scroll-bottom" size="sm" variant="outline"><n-icon name="arrow-down"></n-icon> Scroll to Bottom</n-button>
+        <span id="pin-status">Pinned to bottom</span>
+      </div>
+      <div class="feed-demo">
+        <n-feed id="auto-feed" scroll align="end" auto-scroll>
+          <div class="feed-item">Item 1</div>
+          <div class="feed-item">Item 2</div>
+          <div class="feed-item">Item 3</div>
+          <div class="feed-item">Item 4</div>
+          <div class="feed-item">Item 5</div>
+          <div class="feed-item">Item 6</div>
+          <div class="feed-item">Item 7</div>
+          <div class="feed-item">Item 8</div>
+          <div class="feed-item">Item 9</div>
+          <div class="feed-item">Item 10</div>
+        </n-feed>
+      </div>
+    <pre class="code-block"><code>&lt;n-feed scroll align="end" auto-scroll&gt;
+  &lt;!-- new items auto-scroll when pinned --&gt;
+&lt;/n-feed&gt;
+
+feed.addEventListener('native:feed-scroll', (e) =&gt; &#123;
+  console.log(e.detail.isPinned); // true/false
+&#125;);</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Virtual Scroll ── -->
+
+    <h2>Virtual Scroll (10,000 items)</h2>
+    <p>For large datasets, enable <code>virtual</code> to only render visible items. Set <code>virtual-item-height</code> for accurate scrollbar sizing.</p>
+    <n-container data-kind="panel" bordered>
+      <span id="range-log" class="text-sm text-muted">Loading...</span>
+      <div class="feed-demo">
+        <n-feed id="virtual-feed" scroll virtual virtual-item-height="44" virtual-overscan="10">
+        </n-feed>
+      </div>
+    <pre class="code-block"><code>&lt;n-feed scroll virtual virtual-item-height="44" virtual-overscan="10"&gt;
+&lt;/n-feed&gt;
+
+feed.items = arrayOf10000;
+feed.itemRenderer = (item, i) =&gt; &#123;
+  const el = document.createElement('div');
+  el.textContent = item.text;
+  return el;
+&#125;;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── API Reference ── -->
+
+    <h2>API Reference</h2>
+    <ApiReference data={feedApi} />
+  </section>
+
+  <script>
+    document.addEventListener('astro:page-load', () => {
+      const autoFeed = document.getElementById('auto-feed') as HTMLElement & { scrollToBottom: (smooth?: boolean) => void };
+      if (!autoFeed) return;
+
+      const pinStatus = document.getElementById('pin-status')!;
+      const addBtn = document.getElementById('add-item')!;
+      const scrollBtn = document.getElementById('scroll-bottom')!;
+      let autoCounter = 10;
+
+      addBtn.addEventListener('click', () => {
+        autoCounter++;
+        const div = document.createElement('div');
+        div.className = 'feed-item';
+        div.textContent = `Item ${autoCounter} — added at ${new Date().toLocaleTimeString()}`;
+        autoFeed.appendChild(div);
+      });
+
+      scrollBtn.addEventListener('click', () => {
+        autoFeed.scrollToBottom();
+      });
+
+      autoFeed.addEventListener('native:feed-scroll', ((e: CustomEvent) => {
+        pinStatus.textContent = e.detail.isPinned ? 'Pinned to bottom' : 'Scrolled up';
+      }) as EventListener);
+
+      // ── Virtual scroll demo ──
+
+      const virtualFeed = document.getElementById('virtual-feed') as HTMLElement & {
+        items: unknown[];
+        itemRenderer: (item: unknown, index: number) => HTMLElement;
+      };
+
+      const items = Array.from({ length: 10000 }, (_, i) => ({
+        id: i,
+        text: `Virtual item ${i + 1}`,
+      }));
+
+      virtualFeed.itemRenderer = (item: { id: number; text: string }, index: number) => {
+        const div = document.createElement('div');
+        div.className = 'feed-item';
+        div.textContent = `${item.text} (index: ${index})`;
+        return div;
+      };
+
+      virtualFeed.items = items;
+
+      const rangeLog = document.getElementById('range-log')!;
+      virtualFeed.addEventListener('native:range-change', ((e: CustomEvent) => {
+        rangeLog.textContent = `Showing ${e.detail.start}–${e.detail.end} of ${e.detail.total}`;
+      }) as EventListener);
+    });
+  </script>
+
+  <style is:global>
+    @import './feed.css';
+  </style>
+</SidebarLayout>

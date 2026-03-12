@@ -14,6 +14,8 @@ export interface PageEntry {
 const pageBadges: Record<string, BadgeKind> = {
   '/changelog': 'updated',
   '/containers/pane': 'updated',
+  '/components/feed': 'new',
+  '/packages/n-editor': 'updated',
   '/showcase/a2ui-builder': 'new',
   '/showcase/a2a-tictactoe': 'new',
   '/traits/noodleable': 'new',

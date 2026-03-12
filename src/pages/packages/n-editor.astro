@@ -118,6 +118,82 @@ createEditorView(container, &#123;
   ],
 &#125;);</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
     </n-container>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- ── <n-editor> Element ── -->
+
+    <n-divider></n-divider>
+    <h2>&lt;n-editor&gt; Element</h2>
+    <span class="text-sm text-muted">Declarative custom element wrapper — set content via <code>value</code> attribute or child <code>&lt;script type="text/plain"&gt;</code>.</span>
+
+    <!-- ── Element: Basic ── -->
+
+    <h3>Basic</h3>
+    <n-container data-kind="panel" bordered>
+      <n-editor id="el-basic" style="height: 180px;"></n-editor>
+    <pre class="code-block"><code>&lt;n-editor&gt;
+  &lt;script type="text/plain"&gt;
+    const greeting = 'Hello from &lt;n-editor&gt;!';
+  &lt;/script&gt;
+&lt;/n-editor&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Element: Placeholder ── -->
+
+    <h3>Placeholder</h3>
+    <n-container data-kind="panel" bordered>
+      <n-editor id="el-placeholder" placeholder="Type some code here..." style="height: 120px;"></n-editor>
+    <pre class="code-block"><code>&lt;n-editor placeholder="Type some code here..."&gt;&lt;/n-editor&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Element: Read-only ── -->
+
+    <h3>Read-only</h3>
+    <n-container data-kind="panel" bordered>
+      <n-editor id="el-readonly" readonly style="height: 120px;"></n-editor>
+    <pre class="code-block"><code>&lt;n-editor readonly&gt;...&lt;/n-editor&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Element: Disabled ── -->
+
+    <h3>Disabled</h3>
+    <n-container data-kind="panel" bordered>
+      <n-editor id="el-disabled" disabled style="height: 120px;"></n-editor>
+    <pre class="code-block"><code>&lt;n-editor disabled&gt;...&lt;/n-editor&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Element: No Line Numbers ── -->
+
+    <h3>No Line Numbers</h3>
+    <n-container data-kind="panel" bordered>
+      <n-editor id="el-no-lines" line-numbers="false" style="height: 120px;"></n-editor>
+    <pre class="code-block"><code>&lt;n-editor line-numbers="false"&gt;...&lt;/n-editor&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Element: Line Wrapping ── -->
+
+    <h3>Line Wrapping</h3>
+    <n-container data-kind="panel" bordered>
+      <n-editor id="el-wrap" line-wrapping style="height: 120px;"></n-editor>
+    <pre class="code-block"><code>&lt;n-editor line-wrapping&gt;...&lt;/n-editor&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Element: Events ── -->
+
+    <h3>Events</h3>
+    <span class="text-sm text-muted">Fires <code>native:input</code> on every keystroke and <code>native:change</code> on blur.</span>
+    <n-container data-kind="panel" bordered>
+      <n-editor id="el-events" style="height: 120px;"></n-editor>
+      <div class="log" id="editor-event-log" style="max-height: 80px;"></div>
+    <pre class="code-block"><code>&lt;n-editor&gt;...&lt;/n-editor&gt;
+
+editor.addEventListener('native:input', (e) =&gt; &#123;
+  console.log('input', e.detail.value.length, 'chars');
+&#125;);
+editor.addEventListener('native:change', (e) =&gt; &#123;
+  console.log('change', e.detail.value.length, 'chars');
+&#125;);</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
   </section>
 
   <script>
@@ -333,6 +409,37 @@ console.log(greeting);`,
       }),
     ],
   });
+
+  // ── <n-editor> element demos — populate values ──
+
+  const elValues: Record<string, string> = {
+    'el-basic': "const greeting = 'Hello from <n-editor>!';\nconsole.log(greeting);",
+    'el-readonly': '// Read-only — selectable but not editable\nconst PI = 3.14159;',
+    'el-disabled': '// Disabled — not focusable\nconst x = 0;',
+    'el-no-lines': '// Line numbers hidden\nfunction add(a, b) { return a + b; }',
+    'el-wrap': '// This is a very long line that should wrap when the editor is narrower than the text content, rather than showing a horizontal scrollbar like it would by default.',
+    'el-events': '// Type here to see events',
+  };
+  for (const [id, val] of Object.entries(elValues)) {
+    const el = document.getElementById(id) as HTMLElement & { value: string } | null;
+    if (el) el.value = val;
+  }
+
+  // ── <n-editor> element events demo ──
+
+  const editorEventLog = document.getElementById('editor-event-log');
+  const elEvents = document.getElementById('el-events');
+  if (elEvents && editorEventLog) {
+    let evtCount = 0;
+    elEvents.addEventListener('native:input', ((e: CustomEvent) => {
+      evtCount++;
+      logPrepend(editorEventLog, `#${evtCount} input — ${e.detail.value.length} chars`);
+    }) as EventListener);
+    elEvents.addEventListener('native:change', ((e: CustomEvent) => {
+      evtCount++;
+      logPrepend(editorEventLog, `#${evtCount} change — ${e.detail.value.length} chars`);
+    }) as EventListener);
+  }
   });
 </script>
   <style is:global>
