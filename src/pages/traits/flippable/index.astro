@@ -75,7 +75,7 @@ const detailFlip = `{ flipped: boolean, axis: string }`;
       <span class="text-xs text-muted">
         Click the card to flip between front and back faces. The hover card flips on pointer enter/leave.
       </span>
-      <n-stack direction="row" gap="4" style="flex-wrap: wrap;">
+      <n-stack direction="row" gap="4" wrap>
         <n-controller traits="flippable">
           <div class="flip-card" id="flip-click" tabindex="0">
             <div class="flip-face flip-front"><n-stack align="center" gap="2"><span class="flip-label">Front</span><span class="text-xs text-muted">Click to flip</span></n-stack></div>
@@ -100,7 +100,7 @@ const detailFlip = `{ flipped: boolean, axis: string }`;
       <span class="text-xs text-muted">
         Y-axis rotates around the vertical axis (default). X-axis rotates around the horizontal axis. The back face needs <code>rotateX(180deg)</code> for X-axis cards.
       </span>
-      <n-stack direction="row" gap="4" style="flex-wrap: wrap;">
+      <n-stack direction="row" gap="4" wrap>
         <n-controller traits="flippable" data-trait-flippable-axis="y">
           <div class="flip-card" id="flip-y" tabindex="0">
             <div class="flip-face flip-front"><n-stack align="center" gap="2"><span class="flip-label">Y-Axis</span><span class="text-xs text-muted">rotateY(180deg)</span></n-stack></div>
@@ -125,7 +125,7 @@ const detailFlip = `{ flipped: boolean, axis: string }`;
       <span class="text-xs text-muted">
         Use <code>FlipController</code> directly with <code>trigger: 'manual'</code>. Call <code>flip()</code>, <code>unflip()</code>, or <code>toggle()</code> to control the card programmatically.
       </span>
-      <n-stack direction="row" gap="4" align="start" style="flex-wrap: wrap;">
+      <n-stack direction="row" gap="4" align="start" wrap>
         <div id="flip-manual" class="flip-card" tabindex="0">
           <div class="flip-face flip-front"><n-stack align="center" gap="2"><span class="flip-label">Manual</span><span class="text-xs text-muted">Use the buttons below</span></n-stack></div>
           <div class="flip-face flip-back" data-flip-back><n-stack align="center" gap="2"><span class="flip-label">Back</span><span class="text-xs text-muted">Programmatic flip</span></n-stack></div>
@@ -147,7 +147,7 @@ const detailFlip = `{ flipped: boolean, axis: string }`;
       <span class="text-xs text-muted">
         Adjust controller options in real time. The card is destroyed and recreated when axis or trigger changes.
       </span>
-      <n-stack direction="row" gap="4" align="start" style="flex-wrap: wrap;">
+      <n-stack direction="row" gap="4" align="start" wrap>
         <div id="flip-playground" class="flip-card" tabindex="0">
           <div class="flip-face flip-front"><n-stack align="center" gap="2"><span class="flip-label">Playground</span><span class="text-xs text-muted">Adjust options</span></n-stack></div>
           <div class="flip-face flip-back" data-flip-back><n-stack align="center" gap="2"><span class="flip-label">Back</span></n-stack></div>

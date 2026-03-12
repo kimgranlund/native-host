@@ -22,7 +22,7 @@ import { pictureApi } from '../../../data/api/picture';
     <h2>Basic</h2>
     <n-container data-kind="panel" bordered>
       <div class="row">
-        <n-picture style="max-width: 20rem;">
+        <n-picture class="pic-basic">
           <img src="https://picsum.photos/seed/native-1/400/300" alt="Sample image" />
         </n-picture>
       </div>
@@ -38,25 +38,25 @@ import { pictureApi } from '../../../data/api/picture';
       <div class="row">
         <div>
           <span class="label">fit="cover" (default)</span>
-          <n-picture style="width: 12rem; height: 8rem;">
+          <n-picture class="pic-fit">
             <img src="https://picsum.photos/seed/native-2/400/300" alt="Cover fit" />
           </n-picture>
         </div>
         <div>
           <span class="label">fit="contain"</span>
-          <n-picture fit="contain" style="width: 12rem; height: 8rem; background: var(--n-control);">
+          <n-picture fit="contain" class="pic-fit pic-contain-bg">
             <img src="https://picsum.photos/seed/native-2/400/300" alt="Contain fit" />
           </n-picture>
         </div>
         <div>
           <span class="label">fit="fill"</span>
-          <n-picture fit="fill" style="width: 12rem; height: 8rem;">
+          <n-picture fit="fill" class="pic-fit">
             <img src="https://picsum.photos/seed/native-2/400/300" alt="Fill fit" />
           </n-picture>
         </div>
         <div>
           <span class="label">fit="none"</span>
-          <n-picture fit="none" style="width: 12rem; height: 8rem;">
+          <n-picture fit="none" class="pic-fit">
             <img src="https://picsum.photos/seed/native-2/400/300" alt="None fit" />
           </n-picture>
         </div>
@@ -74,19 +74,19 @@ import { pictureApi } from '../../../data/api/picture';
       <div class="row">
         <div>
           <span class="label">aspect="square" (1:1)</span>
-          <n-picture aspect="square" style="width: 10rem;">
+          <n-picture aspect="square" class="pic-10">
             <img src="https://picsum.photos/seed/native-3/400/300" alt="Square aspect" />
           </n-picture>
         </div>
         <div>
           <span class="label">aspect="video" (16:9)</span>
-          <n-picture aspect="video" style="width: 16rem;">
+          <n-picture aspect="video" class="pic-16">
             <img src="https://picsum.photos/seed/native-3/400/300" alt="Video aspect" />
           </n-picture>
         </div>
         <div>
           <span class="label">aspect="photo" (4:3)</span>
-          <n-picture aspect="photo" style="width: 12rem;">
+          <n-picture aspect="photo" class="pic-12">
             <img src="https://picsum.photos/seed/native-3/400/300" alt="Photo aspect" />
           </n-picture>
         </div>
@@ -103,19 +103,19 @@ import { pictureApi } from '../../../data/api/picture';
       <div class="row">
         <div>
           <span class="label">radius="sharp"</span>
-          <n-picture radius="sharp" style="width: 10rem;">
+          <n-picture radius="sharp" class="pic-10">
             <img src="https://picsum.photos/seed/native-4/400/300" alt="Sharp radius" />
           </n-picture>
         </div>
         <div>
           <span class="label">radius="round"</span>
-          <n-picture radius="round" style="width: 10rem;">
+          <n-picture radius="round" class="pic-10">
             <img src="https://picsum.photos/seed/native-4/400/300" alt="Round radius" />
           </n-picture>
         </div>
         <div>
           <span class="label">radius="pill"</span>
-          <n-picture radius="pill" aspect="square" style="width: 10rem;">
+          <n-picture radius="pill" aspect="square" class="pic-10">
             <img src="https://picsum.photos/seed/native-4/400/300" alt="Pill radius" />
           </n-picture>
         </div>
@@ -131,7 +131,7 @@ import { pictureApi } from '../../../data/api/picture';
     <n-container data-kind="panel" bordered>
       <p>
         Text before
-        <n-picture inline style="width: 4rem; vertical-align: middle;">
+        <n-picture inline class="pic-inline">
           <img src="https://picsum.photos/seed/native-5/100/100" alt="Inline image" />
         </n-picture>
         text after the inline image.
@@ -183,4 +183,14 @@ import { pictureApi } from '../../../data/api/picture';
     <h2>API Reference</h2>
     <ApiReference data={pictureApi} />
   </section>
+
+  <style is:global>
+    .pic-basic { --n-picture-max-width: 20rem; }
+    .pic-fit { --n-picture-width: 12rem; --n-picture-height: 8rem; }
+    .pic-contain-bg { background: var(--n-control); }
+    .pic-10 { --n-picture-width: 10rem; }
+    .pic-12 { --n-picture-width: 12rem; }
+    .pic-16 { --n-picture-width: 16rem; }
+    .pic-inline { --n-picture-width: 4rem; vertical-align: middle; }
+  </style>
 </SidebarLayout>

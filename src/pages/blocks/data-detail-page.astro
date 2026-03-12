@@ -408,9 +408,8 @@ import SidebarLayout from '../../layouts/SidebarLayout.astro';
       color: var(--n-ink-strong-danger);
     }
 
-    /* Known API gap: n-tab-panel has no padding attribute */
     :where(n-tab-panel) {
-      padding-block: 0;
+      --n-padding: 0;
     }
 
 </style>

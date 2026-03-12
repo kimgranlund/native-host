@@ -10,7 +10,7 @@
   height: 400px;
 }
 
-/* T0202: n-body is CSS-only (no shadow DOM) with no padding attribute — accepted exception */
 .demo-panes n-body {
-  padding: 0.5rem;
+  --n-padding-block: 0.5rem;
+  --n-padding-inline: 0.5rem;
 }

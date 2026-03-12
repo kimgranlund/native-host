@@ -1,15 +1,11 @@
-// TODO: Uncomment when @nonoun/native-ui@0.7.144 is published
-// import { LinkPasteController, SlashCommandController, MentionController, BacktickWrapController } from '@nonoun/native-ui/traits';
-import { SlashCommandController, MentionController, BacktickWrapController } from '@nonoun/native-ui/traits';
+import { LinkPasteController, SlashCommandController, MentionController, BacktickWrapController } from '@nonoun/native-ui/traits';
 import { logAppend as appendLog } from '../../../scripts/event-log';
 
 document.addEventListener('astro:page-load', () => {
   if (!document.getElementById('link-pasteable-page')) return;
 
   // ── Basic Link Paste ──
-  // Blocked on LinkPasteController export from native-ui@0.7.144
 
-  /*
   const basicWrapper = document.getElementById('basic-wrapper')!;
   const basicTextarea = document.getElementById('basic-textarea')!;
   const basicLog = document.getElementById('basic-log');
@@ -22,7 +18,6 @@ document.addEventListener('astro:page-load', () => {
     const detail = (e as CustomEvent).detail;
     appendLog(basicLog, `Linked: "${detail.text}" → ${detail.url}`);
   });
-  */
 
   // ── Combined: All Text Commands ──
 
@@ -52,7 +47,7 @@ document.addEventListener('astro:page-load', () => {
     input: comboTextarea,
   });
 
-  // TODO: new LinkPasteController(comboWrapper, { input: comboTextarea });
+  new LinkPasteController(comboWrapper, { input: comboTextarea });
 
   comboWrapper.addEventListener('native:slash-select', (e) => {
     const detail = (e as CustomEvent).detail;

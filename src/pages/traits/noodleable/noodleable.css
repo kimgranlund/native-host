@@ -20,6 +20,8 @@
 
 /* ── Flow Nodes ── */
 
+.flow-toolbar-divider { --n-divider-size: 1.25rem; }
+
 .flow-toolbar-title {
   font-weight: 600;
   font-size: 0.75rem;
@@ -153,13 +155,12 @@
   background: var(--n-border-accent);
 }
 
-/* T0202: n-header is CSS-only (no shadow DOM) with no display/layout attribute — accepted exception */
 .flow-split > n-header {
   display: flex;
   align-items: center;
   flex: none;
   grid-column: 1 / -1;
-  background-color: var(--n-panel);
+  --n-background: var(--n-panel);
   border-bottom: 1px solid var(--n-border-muted-neutral);
 }
 
@@ -177,13 +178,13 @@
 }
 
 .flow-split > n-pane > n-header {
-  background: var(--n-panel);
+  --n-background: var(--n-panel);
   border-block-end: 1px solid var(--n-border-muted-neutral);
 }
 
-/* T0202: n-body is CSS-only — accepted exception */
 .flow-split > n-pane > n-body {
-  padding: 0;
+  --n-padding-block: 0;
+  --n-padding-inline: 0;
 }
 
 .flow-split > n-pane > n-body > div {
