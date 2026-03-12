@@ -11,6 +11,7 @@ import arrowRight from '@phosphor-icons/core/assets/regular/arrow-right.svg?raw'
 import arrowUp from '@phosphor-icons/core/assets/regular/arrow-up.svg?raw';
 import arrowsIn from '@phosphor-icons/core/assets/regular/arrows-in.svg?raw';
 import arrowsInSimple from '@phosphor-icons/core/assets/regular/arrows-in-simple.svg?raw';
+import arrowsMerge from '@phosphor-icons/core/assets/regular/arrows-merge.svg?raw';
 import arrowsOut from '@phosphor-icons/core/assets/regular/arrows-out.svg?raw';
 import arrowsOutSimple from '@phosphor-icons/core/assets/regular/arrows-out-simple.svg?raw';
 import atom from '@phosphor-icons/core/assets/regular/atom.svg?raw';
@@ -28,6 +29,7 @@ import caretRight from '@phosphor-icons/core/assets/regular/caret-right.svg?raw'
 import caretUp from '@phosphor-icons/core/assets/regular/caret-up.svg?raw';
 import caretUpDown from '@phosphor-icons/core/assets/regular/caret-up-down.svg?raw';
 import chartBar from '@phosphor-icons/core/assets/regular/chart-bar.svg?raw';
+import cloud from '@phosphor-icons/core/assets/regular/cloud.svg?raw';
 import chatCircle from '@phosphor-icons/core/assets/regular/chat-circle.svg?raw';
 import chatDots from '@phosphor-icons/core/assets/regular/chat-dots.svg?raw';
 import check from '@phosphor-icons/core/assets/regular/check.svg?raw';
@@ -49,6 +51,7 @@ import database from '@phosphor-icons/core/assets/regular/database.svg?raw';
 import dotsThree from '@phosphor-icons/core/assets/regular/dots-three.svg?raw';
 import download from '@phosphor-icons/core/assets/regular/download.svg?raw';
 import envelope from '@phosphor-icons/core/assets/regular/envelope.svg?raw';
+import exportIcon from '@phosphor-icons/core/assets/regular/export.svg?raw';
 import envelopeSimple from '@phosphor-icons/core/assets/regular/envelope-simple.svg?raw';
 import eye from '@phosphor-icons/core/assets/regular/eye.svg?raw';
 import fileCode from '@phosphor-icons/core/assets/regular/file-code.svg?raw';
@@ -71,6 +74,7 @@ import house from '@phosphor-icons/core/assets/regular/house.svg?raw';
 import image from '@phosphor-icons/core/assets/regular/image.svg?raw';
 import keyReturn from '@phosphor-icons/core/assets/regular/key-return.svg?raw';
 import info from '@phosphor-icons/core/assets/regular/info.svg?raw';
+import keyboard from '@phosphor-icons/core/assets/regular/keyboard.svg?raw';
 import lightbulb from '@phosphor-icons/core/assets/regular/lightbulb.svg?raw';
 import lightning from '@phosphor-icons/core/assets/regular/lightning.svg?raw';
 import link from '@phosphor-icons/core/assets/regular/link.svg?raw';
@@ -87,6 +91,7 @@ import minusCircle from '@phosphor-icons/core/assets/regular/minus-circle.svg?ra
 import magnifyingGlassPlus from '@phosphor-icons/core/assets/regular/magnifying-glass-plus.svg?raw';
 import mapPin from '@phosphor-icons/core/assets/regular/map-pin.svg?raw';
 import microphone from '@phosphor-icons/core/assets/regular/microphone.svg?raw';
+import monitor from '@phosphor-icons/core/assets/regular/monitor.svg?raw';
 import moon from '@phosphor-icons/core/assets/regular/moon.svg?raw';
 import option from '@phosphor-icons/core/assets/regular/option.svg?raw';
 import paintBrush from '@phosphor-icons/core/assets/regular/paint-brush.svg?raw';
@@ -173,6 +178,7 @@ const icons: Record<string, string> = {
   'arrow-up': arrowUp,
   'arrows-in': arrowsIn,
   'arrows-in-simple': arrowsInSimple,
+  'arrows-merge': arrowsMerge,
   'arrows-out': arrowsOut,
   'arrows-out-simple': arrowsOutSimple,
   'atom': atom,
@@ -190,6 +196,7 @@ const icons: Record<string, string> = {
   'caret-up': caretUp,
   'caret-up-down': caretUpDown,
   'chart-bar': chartBar,
+  'cloud': cloud,
   'chat-circle': chatCircle,
   'chat-dots': chatDots,
   'check': check,
@@ -212,6 +219,7 @@ const icons: Record<string, string> = {
   'download': download,
   'envelope': envelope,
   'envelope-simple': envelopeSimple,
+  'export': exportIcon,
   'eye': eye,
   'file-code': fileCode,
   'file-text': fileText,
@@ -233,6 +241,7 @@ const icons: Record<string, string> = {
   'image': image,
   'key-return': keyReturn,
   'info': info,
+  'keyboard': keyboard,
   'lightbulb': lightbulb,
   'lightning': lightning,
   'link': link,
@@ -249,6 +258,7 @@ const icons: Record<string, string> = {
   'magnifying-glass-plus': magnifyingGlassPlus,
   'map-pin': mapPin,
   'microphone': microphone,
+  'monitor': monitor,
   'moon': moon,
   'option': option,
   'package': pkg,

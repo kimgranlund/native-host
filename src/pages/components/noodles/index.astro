@@ -1,0 +1,207 @@
+---
+import SidebarLayout from '../../../layouts/SidebarLayout.astro';
+import ApiReference from '../../../components/ApiReference.astro';
+import { noodlesApi } from '../../../data/api/noodles';
+---
+<SidebarLayout title="Noodles">
+  <header>
+    <div slot="title">
+      <div slot="content">
+        <h1>Noodles</h1>
+      </div>
+    </div>
+    <div slot="description">
+      <span class="header-tag">&lt;n-noodles&gt;</span> Declarative SVG noodle canvas. Children declare ports via <code>data-noodle-port</code> and the element handles the SVG overlay, coordinate system, and stacking context automatically.
+    </div>
+  </header>
+
+  <section>
+
+    <!-- ── Basic ── -->
+
+    <h2>Basic (static connections)</h2>
+    <p>Children use <code>data-noodle-port</code> to declare which sides have connectable ports. Call <code>.connect()</code> to wire them up.</p>
+    <n-container data-kind="panel" bordered>
+      <n-noodles id="demo-basic" class="noodle-canvas">
+        <div id="b-start" class="node" data-noodle-port="right" style="left: 40px; top: 60px;">
+          <n-icon name="database" size="20"></n-icon> Source
+        </div>
+        <div id="b-mid" class="node" data-noodle-port="left right" style="left: 240px; top: 30px;">
+          <n-icon name="funnel" size="20"></n-icon> Filter
+        </div>
+        <div id="b-mid2" class="node" data-noodle-port="left right" style="left: 240px; top: 110px;">
+          <n-icon name="arrows-merge" size="20"></n-icon> Transform
+        </div>
+        <div id="b-end" class="node" data-noodle-port="left" style="left: 460px; top: 60px;">
+          <n-icon name="monitor" size="20"></n-icon> Display
+        </div>
+      </n-noodles>
+    <pre class="code-block"><code>&lt;n-noodles&gt;
+  &lt;div id="src" data-noodle-port="right"&gt;Source&lt;/div&gt;
+  &lt;div id="filter" data-noodle-port="left right"&gt;Filter&lt;/div&gt;
+  &lt;div id="display" data-noodle-port="left"&gt;Display&lt;/div&gt;
+&lt;/n-noodles&gt;
+
+&lt;script&gt;
+  const canvas = document.querySelector('n-noodles');
+  canvas.connect('src', 'filter', 'right', 'left');
+  canvas.connect('filter', 'display', 'right', 'left');
+&lt;/script&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Editable ── -->
+
+    <h2>Editable (drag-to-connect)</h2>
+    <p>Add <code>editable</code> to allow interactive creation and deletion. Drag from a port dot to connect. Grab near a noodle endpoint to reconnect. Drop outside to disconnect.</p>
+    <n-container data-kind="panel" bordered>
+      <n-noodles id="demo-editable" editable class="noodle-canvas noodle-canvas--tall">
+        <div id="e-input" class="node node--accent" data-noodle-port="right bottom" style="left: 40px; top: 30px;">
+          <n-icon name="keyboard" size="20"></n-icon> Input
+        </div>
+        <div id="e-validate" class="node node--warning" data-noodle-port="left right top bottom" style="left: 240px; top: 30px;">
+          <n-icon name="shield-check" size="20"></n-icon> Validate
+        </div>
+        <div id="e-process" class="node node--success" data-noodle-port="left right top bottom" style="left: 240px; top: 140px;">
+          <n-icon name="gear" size="20"></n-icon> Process
+        </div>
+        <div id="e-output" class="node node--danger" data-noodle-port="left top" style="left: 460px; top: 80px;">
+          <n-icon name="export" size="20"></n-icon> Output
+        </div>
+      </n-noodles>
+      <div class="noodle-controls">
+        <n-button id="edit-clear" size="sm" variant="ghost"><n-icon name="trash" size="16"></n-icon> Clear all</n-button>
+        <span id="edit-status" class="text-sm text-muted">0 connections</span>
+      </div>
+    <pre class="code-block"><code>&lt;n-noodles editable&gt;
+  &lt;div id="input" data-noodle-port="right bottom"&gt;Input&lt;/div&gt;
+  &lt;div id="validate" data-noodle-port="left right top bottom"&gt;Validate&lt;/div&gt;
+  &lt;div id="output" data-noodle-port="left top"&gt;Output&lt;/div&gt;
+&lt;/n-noodles&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Styled ── -->
+
+    <h2>Styled (curves, colors, animation)</h2>
+    <p>Customize appearance with <code>color</code>, <code>stroke-width</code>, <code>curve</code>, and <code>animated</code>. Per-connection color overrides are supported via <code>setConnections()</code>.</p>
+    <n-container data-kind="panel" bordered>
+      <div class="noodle-controls">
+        <n-button id="style-bezier" size="sm">Bezier</n-button>
+        <n-button id="style-step" size="sm">Step</n-button>
+        <n-button id="style-straight" size="sm">Straight</n-button>
+        <n-divider vertical></n-divider>
+        <n-button id="style-animate" size="sm" variant="ghost"><n-icon name="play" size="16"></n-icon> Animate</n-button>
+      </div>
+      <n-noodles id="demo-styled" color="var(--n-color-success-500)" stroke-width="3" class="noodle-canvas noodle-canvas--tall">
+        <div id="s-a" class="node node--accent" data-noodle-port="right bottom" style="left: 40px; top: 30px;">
+          <n-icon name="cloud" size="20"></n-icon> API
+        </div>
+        <div id="s-b" class="node node--warning" data-noodle-port="left right top bottom" style="left: 240px; top: 30px;">
+          <n-icon name="funnel" size="20"></n-icon> Filter
+        </div>
+        <div id="s-c" class="node node--success" data-noodle-port="left right top bottom" style="left: 240px; top: 140px;">
+          <n-icon name="lightning" size="20"></n-icon> Cache
+        </div>
+        <div id="s-d" class="node node--danger" data-noodle-port="left top" style="left: 460px; top: 80px;">
+          <n-icon name="chart-bar" size="20"></n-icon> Dashboard
+        </div>
+      </n-noodles>
+    <pre class="code-block"><code>&lt;n-noodles color="var(--n-color-success-500)" stroke-width="3" curve="step"&gt;
+  ...
+&lt;/n-noodles&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+    </n-container>
+
+    <!-- ── Port Declaration ── -->
+
+    <h2>Port Declaration</h2>
+    <p>Children declare connectable ports via the <code>data-noodle-port</code> attribute with space-separated sides:</p>
+    <pre class="code-block"><code>&lt;div id="node-1" data-noodle-port="left right top bottom"&gt;...&lt;/div&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+
+    <!-- ── API Reference ── -->
+
+    <h2>API Reference</h2>
+    <ApiReference data={noodlesApi} />
+  </section>
+
+  <script>
+    document.addEventListener('astro:page-load', () => {
+      const basic = document.getElementById('demo-basic') as HTMLElement & {
+        connect(from: string, to: string, fromPort?: string, toPort?: string): string;
+      } | null;
+      if (!basic) return;
+
+      // ── Demo 1: Basic (static connections) ──
+
+      customElements.whenDefined('n-noodles').then(() => {
+        basic.connect('b-start', 'b-mid', 'right', 'left');
+        basic.connect('b-start', 'b-mid2', 'right', 'left');
+        basic.connect('b-mid', 'b-end', 'right', 'left');
+        basic.connect('b-mid2', 'b-end', 'right', 'left');
+      });
+
+      // ── Demo 2: Editable ──
+
+      const editable = document.getElementById('demo-editable') as HTMLElement & {
+        connections: unknown[];
+        connect(from: string, to: string, fromPort?: string, toPort?: string): string;
+        clear(): void;
+      };
+      const editStatus = document.getElementById('edit-status')!;
+
+      function updateStatus(): void {
+        const count = editable.connections.length;
+        editStatus.textContent = `${count} connection${count !== 1 ? 's' : ''}`;
+      }
+
+      customElements.whenDefined('n-noodles').then(() => {
+        editable.connect('e-input', 'e-validate', 'right', 'left');
+        updateStatus();
+      });
+
+      editable.addEventListener('native:noodle-connect', updateStatus);
+      editable.addEventListener('native:noodle-disconnect', updateStatus);
+
+      document.getElementById('edit-clear')!.addEventListener('native:press', () => {
+        editable.clear();
+        updateStatus();
+      });
+
+      // ── Demo 3: Styled ──
+
+      const styled = document.getElementById('demo-styled') as HTMLElement & {
+        connect(from: string, to: string, fromPort?: string, toPort?: string): string;
+        setConnections(c: { id: string; from: string; to: string; fromPort: string; toPort: string; color?: string }[]): void;
+      };
+
+      customElements.whenDefined('n-noodles').then(() => {
+        styled.setConnections([
+          { id: 's-1', from: 's-a', to: 's-b', fromPort: 'right', toPort: 'left' },
+          { id: 's-2', from: 's-a', to: 's-c', fromPort: 'bottom', toPort: 'left', color: 'var(--n-color-warning-500)' },
+          { id: 's-3', from: 's-b', to: 's-d', fromPort: 'right', toPort: 'left' },
+          { id: 's-4', from: 's-c', to: 's-d', fromPort: 'right', toPort: 'left', color: 'var(--n-color-danger-500)' },
+        ]);
+      });
+
+      // Curve style buttons
+      for (const curve of ['bezier', 'step', 'straight']) {
+        document.getElementById(`style-${curve}`)!.addEventListener('native:press', () => {
+          styled.setAttribute('curve', curve);
+        });
+      }
+
+      // Animate toggle
+      let animating = false;
+      document.getElementById('style-animate')!.addEventListener('native:press', () => {
+        animating = !animating;
+        if (animating) {
+          styled.setAttribute('animated', '');
+        } else {
+          styled.removeAttribute('animated');
+        }
+      });
+    });
+  </script>
+
+  <style is:global>
+    @import './noodles.css';
+  </style>
+</SidebarLayout>
