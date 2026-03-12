@@ -18,7 +18,9 @@ import SidebarLayout from '../../../layouts/SidebarLayout.astro';
           <n-option value="">All categories</n-option>
         </n-listbox>
       </n-select>
-      <span class="tl-count" id="pattern-count"></span>
+      <n-input id="pattern-search" type="search" variant="outline" size="sm" density="compact" placeholder="50 patterns">
+        <n-icon name="magnifying-glass" slot="leading"></n-icon>
+      </n-input>
     </div>
 
     <!-- Pattern Grid -->
@@ -28,7 +30,7 @@ import SidebarLayout from '../../../layouts/SidebarLayout.astro';
   <!-- ── Editor Lightbox ── -->
   <dialog id="editor-lightbox" class="tl-lightbox">
     <!-- ── Main toolbar ── -->
-    <n-header>
+    <n-header dividers>
       <n-toolbar variant="ghost" size="sm">
         <span id="lightbox-title" class="tl-lightbox-title">A2UI Editor</span>
         <hr aria-orientation="vertical">
@@ -51,7 +53,7 @@ import SidebarLayout from '../../../layouts/SidebarLayout.astro';
           </n-listbox>
         </n-select>
         <span fill></span>
-        <n-button variant="primary" intent="accent" size="sm" data-chip="schema">Schema</n-button>
+        <n-button variant="selected" size="sm" data-chip="schema">Schema</n-button>
         <n-button variant="ghost" size="sm" data-chip="html">HTML</n-button>
         <n-button variant="ghost" size="sm" data-chip="css">CSS</n-button>
         <n-button variant="ghost" size="sm" data-chip="js">JS</n-button>
@@ -69,7 +71,8 @@ import SidebarLayout from '../../../layouts/SidebarLayout.astro';
       <n-pane data-panel-id="preview" size-min="200">
         <div class="tl-preview-mount" id="lightbox-preview"></div>
 
-        <!-- Compare control (floating top center) -->
+        <!-- Compare control (floating top center)
+             TODO: only show when the schema has multiple states or scenes (future version) -->
         <div class="tl-floating-top">
           <n-toolbar variant="ghost" size="md" class="tl-compare-bar">
             <n-segmented-control id="compare-toggle" size="md" value="edited">
@@ -82,91 +85,117 @@ import SidebarLayout from '../../../layouts/SidebarLayout.astro';
         <!-- Preview toolbar (floating bottom center) -->
         <div class="tl-floating-bottom">
           <n-toolbar size="md" class="tl-preview-toolbar">
-            <n-button variant="ghost" id="chat-toggle" aria-label="AI Chat" overflow-pin>
+            <n-button variant="ghost" size="md" id="chat-toggle" aria-label="AI Chat" overflow-pin>
               <n-icon name="chat-dots"></n-icon>
             </n-button>
-            <n-button variant="ghost" id="inspect-toggle" aria-label="CSS Inspector" overflow-pin>
+            <n-button variant="ghost" size="md" id="inspect-toggle" aria-label="CSS Inspector" overflow-pin>
               <n-icon name="stack-simple"></n-icon>
             </n-button>
             <hr aria-orientation="vertical">
-            <n-button variant="ghost" id="btn-center" aria-label="Center" overflow-pin>
+            <n-button variant="ghost" size="md" id="btn-center" aria-label="Center" overflow-pin>
               <n-icon name="crosshair"></n-icon>
             </n-button>
-            <n-button variant="ghost" id="btn-reset-zoom" aria-label="Reset zoom" overflow-pin>
+            <n-button variant="ghost" size="md" id="btn-reset-zoom" aria-label="Reset zoom" overflow-pin>
               <n-icon name="arrows-in-cardinal"></n-icon>
             </n-button>
+            <!-- Future: prev/next paddles for schemas with multiple states/scenes/surfaces.
+                 Dynamically inject a divider + caret-left/caret-right buttons here
+                 when the loaded pattern declares >1 surface. -->
           </n-toolbar>
         </div>
       </n-pane>
 
       <!-- Schema -->
       <n-pane data-panel-id="schema" border="block" size-min="150">
-        <n-header dividers>
+        <n-header>
           <nav slot="leading"><n-icon inline name="brackets-curly"></n-icon></nav>
           <span>Schema</span>
           <aside slot="trailing"><n-button variant="ghost" inline size="sm" data-close-panel-id="schema"><n-icon name="x"></n-icon></n-button></aside>
         </n-header>
-        <n-body scrollbar="none">
-          <n-editor id="schema-editor" line-numbers="false" line-wrapping></n-editor>
+        <n-body scrollbar="none" padding="none">
+          <n-editor id="schema-editor" line-numbers="false"></n-editor>
         </n-body>
       </n-pane>
 
       <!-- HTML (read-only) -->
       <n-pane data-panel-id="html" border="block" size-min="150" hidden>
-        <n-header dividers>
+        <n-header>
           <nav slot="leading"><n-icon inline name="brackets-angle"></n-icon></nav>
           <span>HTML</span>
           <aside slot="trailing"><n-button variant="ghost" inline size="sm" data-close-panel-id="html"><n-icon name="x"></n-icon></n-button></aside>
         </n-header>
-        <n-body scrollbar="none">
-          <n-editor id="output-pre" readonly line-numbers="false" line-wrapping></n-editor>
+        <n-body scrollbar="none" padding="none">
+          <n-editor id="output-pre" readonly line-numbers="false"></n-editor>
         </n-body>
       </n-pane>
 
       <!-- CSS (read-only) -->
       <n-pane data-panel-id="css" border="block" size-min="150" hidden>
-        <n-header dividers>
+        <n-header>
           <nav slot="leading"><n-icon inline name="paint-brush"></n-icon></nav>
           <span>CSS</span>
           <aside slot="trailing"><n-button variant="ghost" inline size="sm" data-close-panel-id="css"><n-icon name="x"></n-icon></n-button></aside>
         </n-header>
-        <n-body scrollbar="none">
-          <n-editor id="css-editor" readonly line-numbers="false" line-wrapping></n-editor>
+        <n-body scrollbar="none" padding="none">
+          <n-editor id="css-editor" readonly line-numbers="false"></n-editor>
         </n-body>
       </n-pane>
 
       <!-- JS (read-only) -->
       <n-pane data-panel-id="js" border="block" size-min="150" hidden>
-        <n-header dividers>
+        <n-header>
           <nav slot="leading"><n-icon inline name="lightning"></n-icon></nav>
           <span>JS</span>
           <aside slot="trailing"><n-button variant="ghost" inline size="sm" data-close-panel-id="js"><n-icon name="x"></n-icon></n-button></aside>
         </n-header>
-        <n-body scrollbar="none">
-          <n-editor id="js-editor" readonly line-numbers="false" line-wrapping></n-editor>
+        <n-body scrollbar="none" padding="none">
+          <n-editor id="js-editor" readonly line-numbers="false"></n-editor>
         </n-body>
       </n-pane>
 
       <!-- Insights (shown during pipeline regeneration) -->
       <n-pane data-panel-id="insights" border="block" size-min="150" hidden>
-        <n-header dividers>
+        <n-header>
           <nav slot="leading"><n-icon inline name="lightbulb"></n-icon></nav>
           <span>Insights</span>
           <aside slot="trailing"><n-button variant="ghost" inline size="sm" data-close-panel-id="insights"><n-icon name="x"></n-icon></n-button></aside>
         </n-header>
-        <n-body scrollbar="none">
+        <n-body scrollbar="none" padding="none">
           <div id="insights-wrap" class="tl-insights-wrap"></div>
         </n-body>
       </n-pane>
 
       <!-- AI Chat (hidden by default, toggled via chat button) -->
-      <n-pane data-panel-id="chat" size-min="280" hidden>
-        <n-header dividers>
-          <nav slot="leading"><n-icon inline name="chat-dots"></n-icon></nav>
-          <span>Chat</span>
-          <aside slot="trailing"><n-button variant="ghost" inline size="sm" data-close-panel-id="chat"><n-icon name="x"></n-icon></n-button></aside>
-        </n-header>
-        <n-llm-chat-pane id="llm-chat-pane" open position="docked"></n-llm-chat-pane>
+      <n-pane data-panel-id="chat" border="block" size-min="280" hidden>
+        <n-chat-feed id="chat-feed" auto-scroll density="compact"></n-chat-feed>
+        <n-agent-input id="chat-composer" density="compact">
+          <n-chat-input-header>
+            <nav>
+              <n-select id="chat-model-picker" value="claude-haiku-4-5" variant="ghost" inline size="sm" density="compact">
+                <n-listbox popover="auto">
+                  <n-option value="claude-haiku-4-5" selected>Claude Haiku 4.5</n-option>
+                  <n-option value="gpt-5-mini">GPT-5 mini</n-option>
+                  <n-option value="gpt-5-nano">GPT-5 nano</n-option>
+                  <n-option value="gpt-4.1-mini">GPT-4.1 mini</n-option>
+                  <n-option value="gpt-4.1-nano">GPT-4.1 nano</n-option>
+                </n-listbox>
+              </n-select>
+            </nav>
+            <aside>
+              <n-button variant="ghost" inline size="sm" data-role="toggle-pipeline" title="Multi-step pipeline"><n-icon name="flask"></n-icon></n-button>
+              <n-button variant="ghost" inline size="sm" data-close-panel-id="chat"><n-icon name="x"></n-icon></n-button>
+            </aside>
+          </n-chat-input-header>
+          <n-chat-input-prompt>
+            <n-textarea placeholder="Ask about this pattern..." autogrow rows="1"></n-textarea>
+            <n-button variant="ghost" inline size="sm" data-role="improve"><n-icon name="sparkle"></n-icon></n-button>
+            <n-toolbar variant="plain" padding="3">
+              <n-button variant="ghost" radius="round" inline><n-icon name="plus"></n-icon></n-button>
+              <span fill></span>
+              <n-button variant="primary" intent="accent" radius="round" inline disabled data-role="submit"><n-icon name="arrow-up"></n-icon></n-button>
+            </n-toolbar>
+          </n-chat-input-prompt>
+        </n-agent-input>
       </n-pane>
 
     </n-panes>

@@ -178,13 +178,12 @@
 }
 
 .flow-split > n-pane > n-header {
-  --n-background: var(--n-panel);
   border-block-end: 1px solid var(--n-border-muted-neutral);
 }
 
 .flow-split > n-pane > n-body {
-  --n-padding-block: 0;
-  --n-padding-inline: 0;
+  --n-pad-block: 0;
+  --n-pad-inline: 0;
 }
 
 .flow-split > n-pane > n-body > div {

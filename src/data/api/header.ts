@@ -26,8 +26,8 @@ export const headerApi: ApiReference = {
     {
       kind: 'css-properties',
       rows: [
-        { property: '--n-padding-block', default: 'var(--n-space)', description: 'Vertical padding.' },
-        { property: '--n-padding-inline', default: 'calc(var(--n-space) * var(--n-space-k))', description: 'Horizontal padding.' },
+        { property: '--n-pad-block', default: 'var(--n-space)', description: 'Vertical padding.' },
+        { property: '--n-pad-inline', default: 'calc(var(--n-space) * var(--n-space-k))', description: 'Horizontal padding.' },
       ],
     },
   ],

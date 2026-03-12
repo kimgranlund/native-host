@@ -13,7 +13,14 @@
   --pg-accent: var(--n-ink-accent, #61afef);
   --pg-preview-bg: var(--n-body-neutral, #ffffff);
   --n-background: var(--pg-editor-bg);
+  --n-background-hover: var(--pg-editor-bg);
   --n-panel: var(--pg-chrome);
+  --n-ink: var(--pg-text);
+  --n-ink-hover: var(--pg-text);
+  --n-ink-strong: var(--pg-text-strong);
+  --n-border-muted: transparent;
+  --n-pane-handle-accent: var(--pg-accent);
+  --n-pane-border-color: var(--pg-border-color);
 
   display: grid;
   grid-template-rows: auto 1fr;
@@ -43,25 +50,11 @@
 
 .builder > n-header {
   flex: none;
-  --n-background: var(--pg-chrome);
-  --n-background-hover: var(--pg-editor-bg);
-  border-block-end: 1px solid var(--n-border);
-  --n-ink: var(--pg-text-muted);
-  --n-ink-hover: var(--pg-text);
-  --n-ink-strong: var(--pg-text-strong);
-  --n-border-muted: transparent;
-}
-
-.builder > n-header n-button[force-active] {
-  --n-background: var(--pg-editor-bg);
-  --n-color: var(--pg-text-strong);
 }
 
 /* ── Split: chat left, panes right (n-panes handles resize) ── */
 
 .builder > n-panes {
-  --n-pane-handle-accent: var(--pg-accent);
-  --n-pane-border-color: var(--pg-border-color);
   min-height: 0;
 }
 
@@ -133,12 +126,9 @@ n-agent-dialogue-item[data-type="remap"] n-chat-message-text {
   border-inline-start: 3px solid var(--n-ink-warning);
 }
 
-/* ── Chat composer: give the input area a visible container ── */
+/* ── Chat composer ── */
 .builder [data-panel-id="agent-chat"] > :where(n-agent-input) {
   flex: none;
-  --n-background: var(--n-control);
-  --n-chat-input-border: 1px solid var(--n-border-muted);
-  --n-chat-input-border-radius: var(--n-radius);
 }
 
 /* ── Panes (right side, togglable) ── */
@@ -154,8 +144,8 @@ n-agent-dialogue-item[data-type="remap"] n-chat-message-text {
   flex: none;
   --n-background: var(--pg-chrome);
   --n-background-hover: var(--pg-editor-bg);
-  --n-padding-block: 0;
-  --n-padding-inline: 0.5rem;
+  --n-pad-block: 0;
+  --n-pad-inline: 0.5rem;
   --n-ink: var(--pg-text-muted);
   --n-ink-hover: var(--pg-text);
   --n-size: 1.75rem;
@@ -166,10 +156,8 @@ n-agent-dialogue-item[data-type="remap"] n-chat-message-text {
   --n-icon-size: 0.875rem; /* slightly larger than 0.75rem text */
 }
 
-/* Pane content */
+/* Pane content — code font for editor panes */
 .builder n-pane > n-body {
-  --n-padding-block: 0.5rem;
-  --n-padding-inline: 0.5rem;
   --n-font-family: var(--n-font-family-mono, ui-monospace, 'SF Mono', 'Cascadia Code', monospace);
   --n-font-size: 0.8125rem;
   --n-line-height: 1.5;
@@ -178,11 +166,7 @@ n-agent-dialogue-item[data-type="remap"] n-chat-message-text {
 /* ── Preview pane ── */
 
 .builder n-pane[data-panel-id="preview"] > n-body {
-  --n-background: var(--n-body);
-  --n-padding-block: 0;
-  --n-padding-inline: 0;
-  --n-font-family: inherit;
-  cursor: grab; /* pannable canvas — no generic token warranted */
+  cursor: grab;
 }
 
 .builder n-pane[data-panel-id="preview"] > n-body[data-panning] {
@@ -321,6 +305,12 @@ n-agent-dialogue-item[data-type="remap"] n-chat-message-text {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+}
+
+/* ── Code editors (n-editor in panes) ── */
+
+.builder n-pane n-editor {
+  border-radius: 0;
 }
 
 /* ── Component map table ── */

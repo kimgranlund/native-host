@@ -12,23 +12,22 @@
 // 8. CSSInspectController → npm path (@nonoun/native-ui/traits)
 // 9. Pattern loader → local source copy (not exported from npm)
 // 10. n-editor (CodeMirror) language extensions from npm
-// 11. LLMChatController → npm path (@nonoun/native-ai)
+// 11. LLMChatController → local source copy (not yet exported from @nonoun/native-ai dist)
 // 12. buildLLMAdapter uses proxy adapters (ClaudeGatewayAdapter/OpenAiGatewayAdapter)
+// 13. Copilot prompt → co-located copilot-prompt.json (not builder's system-prompt.json)
+// 14. effect() from @nonoun/native-ui (not @nonoun/native-core)
 
 import { Kernel, resetKernel } from '@nonoun/native-ui/kernel';
+import { effect } from '@nonoun/native-ui';
 import { createA2UIAdapter, COMPONENT_MAP as REGISTRY, getComponentCategory } from '@nonoun/native-ai';
 import type { A2UIAdapter } from '@nonoun/native-ai';
 import { ClaudeGatewayAdapter, OpenAiGatewayAdapter } from '@nonoun/native-ai/gateway';
 import type { GatewayAdapter } from '@nonoun/native-ai/gateway';
-// LLMChatController — not yet exported from @nonoun/native-ai dist.
-// Stubbed until native-ai publishes the chat/llm-chat module.
-// import { LLMChatController } from '@nonoun/native-ai';
-// import type { NLLMChatPane } from '@nonoun/native-ai';
-type LLMChatController = { destroy(): void };
-type NLLMChatPane = { controller: unknown };
+import { LLMChatController } from './llm-chat-controller.ts';
+import type { LLMChatMessage } from './llm-chat-controller.ts';
 import { CSSInspectController } from '@nonoun/native-ui/traits';
 import { PIPELINE_STEPS, runPipeline } from '../a2ui-builder/pipeline.ts';
-import promptJson from '../a2ui-builder/system-prompt.json';
+import copilotPromptJson from './copilot-prompt.json';
 
 // n-editor (CodeMirror)
 import { json } from '@codemirror/lang-json';
@@ -50,7 +49,7 @@ const componentRef = Array.from(REGISTRY.values())
   })
   .join('\n');
 
-const systemPrompt = ((promptJson as { prompt: string }).prompt ?? JSON.stringify(promptJson))
+const systemPrompt = ((copilotPromptJson as { prompt: string }).prompt ?? JSON.stringify(copilotPromptJson))
   .replace('{{COMPONENT_REF}}', componentRef);
 
 // ── LLM adapter (proxy mode) ──
@@ -92,7 +91,7 @@ function stripFences(raw: string): string {
   return trimmed.replace(fenceStart, '').replace(fenceEnd, '');
 }
 
-function parseJsonFromResponse(raw: string): Record<string, unknown> | null {
+function parseJsonFromResponse<T = Record<string, unknown>>(raw: string): T | null {
   try {
     return JSON.parse(stripFences(raw));
   } catch {
@@ -104,6 +103,16 @@ function parseJsonFromResponse(raw: string): Record<string, unknown> | null {
     }
     return null;
   }
+}
+
+// ── Types ──
+
+interface CopilotResponse {
+  type?: string;
+  reply?: string;
+  schema?: { surfaceId?: string; components?: Record<string, unknown>[] };
+  components?: Record<string, unknown>[];
+  suggestions?: Array<{ label: string; prompt?: string; value?: string }>;
 }
 
 // ══════════════════════════════════════════════════════════════════
@@ -121,6 +130,7 @@ document.addEventListener('astro:page-load', async () => {
   const catalog = loadCatalog();
   let activeFilter: 'all' | 'micro' | 'block' = 'all';
   let activeCategory = '';
+  let searchQuery = '';
   let currentPattern: Pattern | null = null;
   let originalSchema: Pattern['components'] | null = null;
   let lightboxAdapter: A2UIAdapter | null = null;
@@ -133,6 +143,9 @@ document.addEventListener('astro:page-load', async () => {
   let showingOriginal = false;
   let cssInspector: CSSInspectController | null = null;
   let chatController: LLMChatController | null = null;
+  let chatRenderedCount = 0;
+  let chatEffectCleanups: Array<() => void> = [];
+  const MAX_BACKUP_VERSIONS = 10;
   const renderedCards = new Set<string>();
 
   // ── Pan/zoom state ──
@@ -159,7 +172,7 @@ document.addEventListener('astro:page-load', async () => {
   const chipEls = new Map<PanelId, HTMLElement>();
 
   // ── DOM refs ──
-  const countEl = document.getElementById('pattern-count')!;
+  const searchInput = document.getElementById('pattern-search') as HTMLElement & { value: string };
   const dialog = document.getElementById('editor-lightbox') as HTMLDialogElement;
   const lightboxPreview = document.getElementById('lightbox-preview')!;
   type NEditor = HTMLElement & { value: string; extensions: unknown[]; editorView: EditorView | null };
@@ -176,7 +189,9 @@ document.addEventListener('astro:page-load', async () => {
   const actionsMenu = document.getElementById('tl-actions-menu') as HTMLElement & { value: string };
   const compareToggle = document.getElementById('compare-toggle') as HTMLElement & { value: string };
   const chatToggle = document.getElementById('chat-toggle')!;
-  const chatPane = document.getElementById('llm-chat-pane') as HTMLElement & NLLMChatPane;
+  const chatFeed = document.getElementById('chat-feed')!;
+  const chatComposer = document.getElementById('chat-composer') as HTMLElement & { busy: boolean };
+  const chatModelPicker = document.getElementById('chat-model-picker') as HTMLElement & { value: string };
   const btnCenter = document.getElementById('btn-center')!;
   const btnResetZoom = document.getElementById('btn-reset-zoom')!;
 
@@ -259,11 +274,27 @@ document.addEventListener('astro:page-load', async () => {
   let panState: { pointerId: number; startX: number; startY: number; startPanX: number; startPanY: number } | null = null;
 
   function onPanPointerDown(e: PointerEvent): void {
+    // Only primary button (left click)
     if (e.button !== 0) return;
+
+    // Option held → element inspection, not pan
+    if (e.altKey) return;
+
+    // CSS Inspector active → let inspector handle drag-to-rotate
+    if (cssInspector) return;
+
+    // Pane resize active → let n-panes handle the drag
+    if ((e.target as HTMLElement).closest('n-panes[data-resizing]')) return;
+
+    // Only pan when clicking directly on the preview mount or inside the canvas
     const target = e.target as HTMLElement;
+    if (target !== lightboxPreview && target !== canvas && !canvas.contains(target)) return;
+
+    // Don't pan when clicking a2ui Card content — let normal interactions through
     if (target.closest('[data-a2ui="Card"]')) return;
+
+    // Don't pan when clicking floating toolbar controls
     if (target.closest('.tl-floating-top') || target.closest('.tl-floating-bottom')) return;
-    if (target.closest('.pane-edge')) return;
 
     e.preventDefault();
     lightboxPreview.setPointerCapture(e.pointerId);
@@ -311,15 +342,11 @@ document.addEventListener('astro:page-load', async () => {
 
   /** Sync DOM visibility of all panes and chip active states. */
   function syncPanels(): void {
-    for (const p of PANELS) {
-      const pane = paneEls.get(p.id);
-      if (pane) pane.hidden = !activePanels.has(p.id);
-      const chip = chipEls.get(p.id);
-      if (chip) {
-        if (activePanels.has(p.id)) chip.setAttribute('force-active', '');
-        else chip.removeAttribute('force-active');
-      }
-    }
+    // Clear inline flex so CSS defaults redistribute
+    for (const [_, el] of paneEls) el.style.removeProperty('flex');
+    for (const [id, el] of paneEls) el.hidden = !activePanels.has(id);
+    for (const [id, chip] of chipEls) chip.setAttribute('variant', activePanels.has(id) ? 'selected' : 'ghost');
+    chatToggle.setAttribute('variant', activePanels.has('chat') ? 'selected' : 'ghost');
   }
 
   /** Ensure a panel is visible. */
@@ -341,31 +368,36 @@ document.addEventListener('astro:page-load', async () => {
   // ══════════════════════════════════════════════════════════════════
 
   function getFilteredPatterns(): CatalogEntry[] {
+    const q = searchQuery.toLowerCase();
     return catalog.patterns.filter((p) => {
       if (activeFilter !== 'all' && p.tier !== activeFilter) return false;
       if (activeCategory && p.category !== activeCategory) return false;
+      if (q && !p.label.toLowerCase().includes(q) && !p.category.toLowerCase().includes(q) && !p.id.toLowerCase().includes(q)) return false;
       return true;
     });
   }
 
   function renderGrid(): void {
     const entries = getFilteredPatterns();
-    countEl.textContent = `${entries.length} pattern${entries.length !== 1 ? 's' : ''}`;
+    searchInput.setAttribute('placeholder', `${entries.length} pattern${entries.length !== 1 ? 's' : ''}`);
+    renderedCards.clear();
     grid.innerHTML = '';
 
     for (const entry of entries) {
-      const card = document.createElement('article');
+      const card = document.createElement('n-container');
+      card.setAttribute('bordered', '');
       card.className = 'tl-card';
       card.dataset.patternId = entry.id;
 
       card.innerHTML = `
-        <div class="tl-card-preview"><div id="card-preview-${entry.id}" inert></div></div>
-        <div class="tl-card-meta">
-          <span class="tl-card-label">${entry.label}</span>
-          <span class="tl-card-badge" data-tier="${entry.tier}">${entry.tier}</span>
-          <span class="tl-card-badge" data-category>${entry.category}</span>
-        </div>
-        <div class="tl-card-overlay"><n-button variant="primary" intent="accent" size="sm"><n-icon name="pencil-simple" slot="leading"></n-icon>Edit</n-button></div>
+        <n-body padding="none" class="tl-card-preview"><div id="card-preview-${entry.id}" inert></div></n-body>
+        <n-footer class="tl-card-meta">
+          <div slot="content">
+            <span class="tl-card-label">${entry.label}</span>
+            <span class="tl-card-badge" data-tier="${entry.tier}">${entry.tier}</span>
+            <span class="tl-card-badge" data-category>${entry.category}</span>
+          </div>
+        </n-footer>
       `;
 
       grid.appendChild(card);
@@ -392,7 +424,7 @@ document.addEventListener('astro:page-load', async () => {
       { rootMargin: '200px' },
     );
 
-    grid.querySelectorAll('.tl-card').forEach((card) => observer!.observe(card));
+    grid.querySelectorAll('n-container.tl-card').forEach((card) => observer!.observe(card));
   }
 
   async function renderBatch(ids: string[]): Promise<void> {
@@ -427,6 +459,23 @@ document.addEventListener('astro:page-load', async () => {
     }
   }
 
+  /** Re-render a single card's preview tile on the grid (e.g. after save). */
+  function refreshCardPreview(id: string, components: Record<string, unknown>[]): void {
+    const mount = document.getElementById(`card-preview-${id}`);
+    if (!mount) return;
+    try {
+      mount.innerHTML = '';
+      const flat = flattenComponents(components);
+      const adapter = createA2UIAdapter(kernel, {});
+      adapter.receive(
+        { updateComponents: { surfaceId: `card-${id}`, components: flat } },
+        mount,
+      );
+    } catch {
+      mount.textContent = '\u26A0 Render failed';
+    }
+  }
+
   // ══════════════════════════════════════════════════════════════════
   // Filters
   // ══════════════════════════════════════════════════════════════════
@@ -444,6 +493,11 @@ document.addEventListener('astro:page-load', async () => {
 
   function onCategoryChange(category: string): void {
     activeCategory = category;
+    renderGrid();
+  }
+
+  function onSearchInput(value: string): void {
+    searchQuery = value;
     renderGrid();
   }
 
@@ -510,21 +564,76 @@ document.addEventListener('astro:page-load', async () => {
     lightboxPreview.removeAttribute('data-compare');
 
     // Create LLM chat controller bound to this pattern
-    // NOTE: LLMChatController not yet published in native-ai dist.
-    // When available, uncomment and wire up:
-    // chatController?.destroy();
-    // chatController = new LLMChatController({ ... });
-    // if (chatPane) chatPane.controller = chatController;
-    void chatController; // suppress unused warning
-    void chatPane;
+    chatController?.destroy();
+    chatRenderedCount = 0;
+    chatFeed.innerHTML = '';
+    chatController = new LLMChatController({
+      systemPrompt,
+      model: currentModel,
+      createAdapter: (system, _model, tokens) => buildLLMAdapter(system, currentModel, tokens, temperature),
+      contexts: [{
+        id: 'pattern-schema',
+        label: pattern.label,
+        element: canvas,
+        read: () => {
+          const schema = JSON.stringify(currentPattern, null, 2);
+          const html = canvas.innerHTML;
+          return `Schema:\n${schema}\n\nRendered HTML:\n${html}`;
+        },
+        apply: (output) => {
+          try {
+            const parsed = parseJsonFromResponse<CopilotResponse>(output);
+            const components = parsed?.schema?.components ?? parsed?.components;
+            if (components) applyRegenResult(components as Record<string, unknown>[]);
+          } catch { /* onComplete handles reply/seeds */ }
+        },
+        systemPromptFragment: `Pattern: "${pattern.label}" (${pattern.tier} tier)\nRespond with valid JSON containing a "components" array.`,
+        icon: 'brackets-curly',
+      }],
+      onStream: (() => {
+        let timer: ReturnType<typeof setTimeout> | null = null;
+        let lastComponentCount = 0;
+        return (fullMessage: string) => {
+          if (timer) clearTimeout(timer);
+          timer = setTimeout(() => {
+            try {
+              const parsed = parseJsonFromResponse<CopilotResponse>(fullMessage);
+              const components = parsed?.schema?.components ?? parsed?.components;
+              if (components?.length && components.length !== lastComponentCount) {
+                lastComponentCount = components.length;
+                applyRegenResult(components as Record<string, unknown>[]);
+              }
+            } catch { /* partial JSON not yet parseable */ }
+          }, 300);
+        };
+      })(),
+      onComplete: (finalMessage) => {
+        try {
+          const parsed = parseJsonFromResponse<CopilotResponse>(finalMessage);
+          if (parsed?.reply && chatController) {
+            const msgs = [...chatController.messages.value];
+            const last = msgs[msgs.length - 1];
+            if (last?.role === 'assistant') {
+              msgs[msgs.length - 1] = { ...last, content: parsed.reply };
+              chatController.messages.value = msgs;
+            }
+          }
+          if (parsed?.suggestions?.length) {
+            renderChatSeeds(parsed.suggestions);
+          }
+        } catch { /* not structured JSON — leave raw content */ }
+      },
+    });
+    bindChatController(chatController);
 
-    // Reset panels to default (preview + schema visible)
-    activePanels.clear();
+    // Ensure default panels are open
     activePanels.add('preview');
     activePanels.add('schema');
     syncPanels();
 
     dialog.showModal();
+    // Prevent showModal from auto-focusing a child element (e.g. n-select, n-editor)
+    (document.activeElement as HTMLElement | null)?.blur();
   }
 
   function renderLightboxPreview(components: Record<string, unknown>[]): void {
@@ -565,18 +674,64 @@ document.addEventListener('astro:page-load', async () => {
 
   let inspectorObserver: MutationObserver | null = null;
 
-  /** Bridge inspector selection → editor highlighting. */
+  /** Option+hover on the inspector clone — mirrors onOptionHover but operates on
+   *  the popover clone (which lives outside the canvas). */
+  function onInspectorOptionHover(e: PointerEvent): void {
+    if (!e.altKey) { clearOptionHover(); return; }
+    const target = (e.target as HTMLElement).closest('[id]') as HTMLElement | null;
+    const current = document.querySelector('[data-option-hover]');
+    if (target === current) return;
+    clearOptionHover();
+    if (target) {
+      target.setAttribute('data-option-hover', '');
+    }
+  }
+
+  /** Option+click on the inspector clone — mirrors onPreviewClick but operates
+   *  on the popover clone. Falls through to the inspector's own #select for
+   *  the 3D highlight; this adds the editor bridge on top. */
+  function onInspectorOptionClick(e: Event): void {
+    if (!(e as MouseEvent).altKey) return;
+    const target = e.target as HTMLElement;
+    clearHighlights();
+    clearOptionHover();
+
+    const el = target.closest('[id]') as HTMLElement | null;
+    if (!el) return;
+    const clickedId = el.id;
+
+    el.setAttribute('data-highlight', '');
+
+    const tab = activeEditorPanel();
+    if (tab === 'schema' && highlightInSchema(clickedId)) return;
+    if (tab === 'html' && highlightInOutput(clickedId)) return;
+    if (highlightInSchema(clickedId)) { showPanel('schema'); return; }
+    if (highlightInOutput(clickedId)) { showPanel('html'); return; }
+  }
+
+  /** Bridge inspector selection → editor highlighting.
+   *  When the user clicks a layer in the 3D inspector, find its `id`
+   *  and scroll the corresponding Schema / HTML / CSS editor to that section.
+   *  Also wires Option+hover/click on the clone for the same interaction
+   *  pattern as the non-inspector canvas. */
   function bridgeInspectorSelection(): void {
     inspectorObserver?.disconnect();
     if (!cssInspector?.active) return;
 
     const root = cssInspector.inspectRoot;
+
+    // Wire Option+hover/click on the clone
+    root.addEventListener('pointermove', onInspectorOptionHover);
+    root.addEventListener('click', onInspectorOptionClick);
+
     inspectorObserver = new MutationObserver((mutations) => {
       for (const m of mutations) {
         if (m.attributeName !== 'inspect-selected') continue;
         const el = m.target as HTMLElement;
         if (!el.hasAttribute('inspect-selected')) continue;
-        const id = el.id;
+        // Walk up to nearest [id] — the selected layer may be a deep child without one
+        const idEl = el.closest('[id]') as HTMLElement | null;
+        const id = idEl?.id;
         if (!id) continue;
 
         clearHighlights();
@@ -600,12 +755,15 @@ document.addEventListener('astro:page-load', async () => {
   function dismissInspector(): void {
     inspectorObserver?.disconnect();
     inspectorObserver = null;
-    if (cssInspector) {
-      cssInspector.dismiss();
-      cssInspector.destroy();
-      cssInspector = null;
+    // Null the reference BEFORE dismiss — dismiss synchronously dispatches native:inspect
+    // which the canvas event handler checks. If cssInspector is still set, it double-cleans.
+    const inspector = cssInspector;
+    cssInspector = null;
+    if (inspector) {
+      inspector.dismiss();
+      inspector.destroy();
     }
-    inspectToggleBtn.removeAttribute('force-active');
+    inspectToggleBtn.setAttribute('variant', 'ghost');
   }
 
   // ── Schema editor live update ──
@@ -640,13 +798,14 @@ document.addEventListener('astro:page-load', async () => {
   // ── DOM ↔ Schema bidirectional highlighting ──
 
   function clearHighlights(): void {
-    canvas.querySelectorAll('[data-highlight]').forEach((el) => {
+    // Global query — highlights can live on canvas OR inspector popover clone
+    document.querySelectorAll('[data-highlight]').forEach((el) => {
       el.removeAttribute('data-highlight');
     });
   }
 
   function clearOptionHover(): void {
-    canvas.querySelectorAll('[data-option-hover]').forEach((el) => {
+    document.querySelectorAll('[data-option-hover]').forEach((el) => {
       el.removeAttribute('data-option-hover');
     });
   }
@@ -1046,13 +1205,32 @@ ${JSON.stringify({ surfaceId: 'lightbox', components: currentPattern.components 
     setDirty(true);
   }
 
+  function backupPatternVersion(id: string): void {
+    const existing = localStorage.getItem(`tl-pattern-${id}`);
+    if (!existing) return;
+    const key = `tl-pattern-${id}-backups`;
+    let backups: string[] = [];
+    try {
+      const raw = localStorage.getItem(key);
+      if (raw) backups = JSON.parse(raw) as string[];
+    } catch { /* corrupt — start fresh */ }
+    backups.push(existing);
+    if (backups.length > MAX_BACKUP_VERSIONS) {
+      backups = backups.slice(backups.length - MAX_BACKUP_VERSIONS);
+    }
+    localStorage.setItem(key, JSON.stringify(backups));
+  }
+
   function handleSave(): void {
     if (!currentPattern || !isDirty) return;
+    backupPatternVersion(currentPattern.id);
     localStorage.setItem(`tl-pattern-${currentPattern.id}`, JSON.stringify(currentPattern));
     setDirty(false);
     // Flash confirmation on save button
     btnSave.setAttribute('intent', 'success');
     setTimeout(() => btnSave.removeAttribute('intent'), 1200);
+    // Update the card preview tile on the grid
+    refreshCardPreview(currentPattern.id, currentPattern.components as Record<string, unknown>[]);
   }
 
   // ══════════════════════════════════════════════════════════════════
@@ -1089,6 +1267,11 @@ ${JSON.stringify({ surfaceId: 'lightbox', components: currentPattern.components 
     onCategoryChange(categoryFilter.value);
   });
 
+  // Keyword search
+  searchInput.addEventListener('native:input', () => {
+    onSearchInput(searchInput.value);
+  });
+
   // Card clicks (delegated)
   grid.addEventListener('pointerup', (e) => {
     const card = (e.target as HTMLElement).closest('.tl-card') as HTMLElement | null;
@@ -1098,16 +1281,20 @@ ${JSON.stringify({ surfaceId: 'lightbox', components: currentPattern.components 
   // Lightbox close (Escape key / backdrop)
   dialog.addEventListener('close', () => {
     dismissInspector();
+    chatEffectCleanups.forEach((fn) => fn());
+    chatEffectCleanups = [];
     chatController?.destroy();
     chatController = null;
+    chatRenderedCount = 0;
+    chatFeed.innerHTML = '';
+    // Reset panels to default state
     activePanels.clear();
     activePanels.add('preview');
     activePanels.add('schema');
     syncPanels();
     dialog.removeAttribute('data-fullscreen');
-    fullscreenToggleBtn.removeAttribute('force-active');
-    fullscreenToggleBtn.querySelector('n-icon')?.setAttribute('name', 'arrows-out-simple');
-    chatToggle.removeAttribute('force-active');
+    fullscreenToggleBtn.setAttribute('variant', 'ghost');
+    fullscreenToggleBtn.querySelector('n-icon')!.setAttribute('name', 'arrows-out-simple');
     lightboxAdapter?.destroy();
     lightboxAdapter = null;
     currentPattern = null;
@@ -1170,20 +1357,20 @@ ${JSON.stringify({ surfaceId: 'lightbox', components: currentPattern.components 
   btnCenter.addEventListener('pointerup', centerContents);
   btnResetZoom.addEventListener('pointerup', resetZoom);
 
-  // CSS Inspector toggle
+  // CSS Inspector toggle — activates 3D exploded view on the whole artifact
   inspectToggleBtn.addEventListener('pointerup', () => {
     if (cssInspector) {
       dismissInspector();
     } else {
       const artifact = canvas.firstElementChild as HTMLElement | null;
       if (!artifact) return;
-      cssInspector = new CSSInspectController(artifact, { pick: true, labels: true, alwaysReady: true });
-      inspectToggleBtn.setAttribute('force-active', '');
-      bridgeInspectorSelection();
+      cssInspector = new CSSInspectController(artifact, { labels: true, dismissOnClickOutside: false, tiltElement: lightboxPreview });
+      cssInspector.inspect();
+      inspectToggleBtn.setAttribute('variant', 'selected');
     }
   });
 
-  // Sync button state if inspector dismisses itself (e.g. Escape key)
+  // Sync button state + bridge selections when inspector activates/deactivates
   canvas.addEventListener('native:inspect', (e: Event) => {
     const detail = (e as CustomEvent).detail;
     if (detail?.active && cssInspector) {
@@ -1191,8 +1378,14 @@ ${JSON.stringify({ surfaceId: 'lightbox', components: currentPattern.components 
     } else if (!detail?.active) {
       inspectorObserver?.disconnect();
       inspectorObserver = null;
-      cssInspector = null;
-      inspectToggleBtn.removeAttribute('force-active');
+      // dismissInspector nulls cssInspector BEFORE dismiss(), so if it's still set
+      // the deactivation was external (Escape key) — clean up the reference + button.
+      if (cssInspector) {
+        const inspector = cssInspector;
+        cssInspector = null;
+        inspector.destroy();
+        inspectToggleBtn.setAttribute('variant', 'ghost');
+      }
     }
   });
 
@@ -1201,24 +1394,29 @@ ${JSON.stringify({ surfaceId: 'lightbox', components: currentPattern.components 
     if (activePanels.has('chat')) activePanels.delete('chat');
     else activePanels.add('chat');
     syncPanels();
-    if (activePanels.has('chat')) chatToggle.setAttribute('force-active', '');
-    else chatToggle.removeAttribute('force-active');
+  });
+
+  // Model picker sync
+  chatModelPicker.addEventListener('native:change', () => {
+    currentModel = chatModelPicker.value;
+  });
+
+  // Pipeline toggle in chat header
+  const pipelineToggle = chatComposer.querySelector('[data-role="toggle-pipeline"]');
+  pipelineToggle?.addEventListener('pointerup', () => {
+    pipelineMode = !pipelineMode;
+    pipelineToggle.setAttribute('variant', pipelineMode ? 'selected' : 'ghost');
   });
 
   // Fullscreen toggle
   fullscreenToggleBtn.addEventListener('pointerup', () => {
-    dialog.toggleAttribute('data-fullscreen');
-    const isFullscreen = dialog.hasAttribute('data-fullscreen');
-    if (isFullscreen) {
-      fullscreenToggleBtn.setAttribute('force-active', '');
-      fullscreenToggleBtn.querySelector('n-icon')?.setAttribute('name', 'x');
-    } else {
-      fullscreenToggleBtn.removeAttribute('force-active');
-      fullscreenToggleBtn.querySelector('n-icon')?.setAttribute('name', 'arrows-out-simple');
-    }
+    const isFullscreen = dialog.toggleAttribute('data-fullscreen');
+    fullscreenToggleBtn.setAttribute('variant', isFullscreen ? 'selected' : 'ghost');
+    fullscreenToggleBtn.querySelector('n-icon')!.setAttribute('name', isFullscreen ? 'x' : 'arrows-out-simple');
   });
 
   // Compare control
+  // TODO: only show when the schema has multiple states or scenes (future version)
   compareToggle.addEventListener('native:change', (e) => {
     setCompareMode((e as CustomEvent).detail?.value ?? 'edited');
   });
@@ -1228,6 +1426,91 @@ ${JSON.stringify({ surfaceId: 'lightbox', components: currentPattern.components 
 
   // Preview click inspection
   canvas.addEventListener('click', onPreviewClick);
+
+  // ── Chat controller binding + rendering ──
+
+  function bindChatController(ctrl: LLMChatController): void {
+    chatEffectCleanups.forEach((fn) => fn());
+    chatEffectCleanups = [];
+
+    const cleanup1 = effect(() => {
+      const messages = ctrl.messages.value;
+      renderChatMessages(messages);
+    });
+    chatEffectCleanups.push(cleanup1);
+
+    const cleanup2 = effect(() => {
+      chatComposer.busy = ctrl.streaming.value;
+    });
+    chatEffectCleanups.push(cleanup2);
+  }
+
+  function renderChatMessages(messages: LLMChatMessage[]): void {
+    for (let i = chatRenderedCount; i < messages.length; i++) {
+      const msg = messages[i];
+      const group = document.createElement('n-agent-dialogue');
+      group.setAttribute('data-role', msg.role);
+      group.setAttribute('data-msg-idx', String(i));
+
+      const item = document.createElement('n-agent-dialogue-item');
+      item.setAttribute('data-role', msg.role);
+      item.setAttribute('status', msg.status);
+      item.setAttribute('actions', 'none');
+
+      const text = document.createElement('n-chat-message-text');
+      (text as HTMLElement & { content: string }).content = msg.content;
+
+      item.appendChild(text);
+      group.appendChild(item);
+      chatFeed.appendChild(group);
+    }
+
+    if (messages.length > 0) {
+      const last = messages[messages.length - 1];
+      const lastEl = chatFeed.querySelector(`[data-msg-idx="${messages.length - 1}"] n-chat-message-text`);
+      if (lastEl && last.status === 'streaming') {
+        (lastEl as HTMLElement & { content: string }).content = last.content;
+      }
+    }
+
+    chatRenderedCount = messages.length;
+    chatFeed.scrollTop = chatFeed.scrollHeight;
+  }
+
+  function renderChatSeeds(suggestions: Array<{ label: string; prompt?: string; value?: string }>): void {
+    for (const el of chatFeed.querySelectorAll('[data-seeds]')) el.remove();
+
+    const group = document.createElement('n-agent-dialogue');
+    group.setAttribute('data-role', 'assistant');
+    group.setAttribute('data-seeds', '');
+
+    const seed = document.createElement('n-chat-message-seed') as HTMLElement & { options: Array<{ label: string; value: string }> };
+    seed.options = suggestions.map(s => ({
+      label: s.label,
+      value: s.prompt ?? s.value ?? s.label,
+    }));
+    group.appendChild(seed);
+    chatFeed.appendChild(group);
+    chatFeed.scrollTop = chatFeed.scrollHeight;
+  }
+
+  // Chat seed selection
+  chatFeed.addEventListener('native:seed-select', (e: Event) => {
+    const value = (e as CustomEvent).detail?.value;
+    if (value && chatController) {
+      for (const el of chatFeed.querySelectorAll('[data-seeds]')) el.remove();
+      chatController.send(value);
+    }
+  });
+
+  // Chat composer submit
+  chatComposer.addEventListener('native:send', (e: Event) => {
+    const value = (e as CustomEvent).detail?.value;
+    if (value && chatController) {
+      for (const el of chatFeed.querySelectorAll('[data-seeds]')) el.remove();
+      chatController.send(value);
+    }
+  });
 
   // ── Boot ──
   populateCategoryFilter();

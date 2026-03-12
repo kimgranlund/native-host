@@ -11,7 +11,9 @@
 // 6. ConfettiController import → npm path
 // 7. Pipeline imports → local copies of pipeline.ts + step-prompts.ts
 // 8. n-editor (CodeMirror) language extensions from npm
-// 9. data-active → force-active for toggle button states
+// 9. Toggle buttons use aria-pressed="true"/"false" (not force-active)
+// 10. Host-only remap + gap message CSS styling
+// 11. matchPatterns/fillTemplates not yet available from npm — see T0258
 
 import { Kernel, resetKernel } from '@nonoun/native-ui/kernel';
 import { createA2UIAdapter, COMPONENT_MAP as REGISTRY, getComponentCategory } from '@nonoun/native-ai';
@@ -665,7 +667,7 @@ ${js}
     const chipEl = document.querySelector(`n-button[data-chip="${panel.id}"]`) as HTMLElement | null;
     if (chipEl) {
       chipEls.set(panel.id, chipEl);
-      chipEl.toggleAttribute('force-active', activePanels.has(panel.id));
+      chipEl.setAttribute('aria-pressed', String(activePanels.has(panel.id)));
 
       chipEl.addEventListener('native:press', () => {
         if (activePanels.has(panel.id)) {
@@ -704,7 +706,7 @@ ${js}
       el.style.removeProperty('flex');
     }
     for (const [id, el] of paneEls) el.hidden = !activePanels.has(id);
-    for (const [id, chip] of chipEls) chip.toggleAttribute('force-active', activePanels.has(id));
+    for (const [id, chip] of chipEls) chip.setAttribute('aria-pressed', String(activePanels.has(id)));
   }
 
   // ── Lightbox toggle (light/dark preview) ──
@@ -747,15 +749,19 @@ ${js}
   const inspectToggleBtn = document.getElementById('inspect-toggle');
   let cssInspector: CSSInspectController | null = null;
 
+  // Auto-activate inspector on load — 3D mode works immediately without Alt
+  cssInspector = new CSSInspectController(previewMount, { pick: true, labels: true, alwaysReady: true });
+  inspectToggleBtn?.setAttribute('aria-pressed', 'true');
+
   inspectToggleBtn?.addEventListener('native:press', () => {
     if (cssInspector) {
       cssInspector.dismiss();
       cssInspector.destroy();
       cssInspector = null;
-      inspectToggleBtn.removeAttribute('force-active');
+      inspectToggleBtn.setAttribute('aria-pressed', 'false');
     } else {
-      cssInspector = new CSSInspectController(previewMount, { pick: true, labels: true });
-      inspectToggleBtn.setAttribute('force-active', '');
+      cssInspector = new CSSInspectController(previewMount, { pick: true, labels: true, alwaysReady: true });
+      inspectToggleBtn.setAttribute('aria-pressed', 'true');
     }
   });
 
@@ -764,7 +770,7 @@ ${js}
     const detail = (e as CustomEvent).detail;
     if (!detail.active && cssInspector) {
       // Inspector dismissed itself (e.g. Escape) — sync button state
-      inspectToggleBtn?.removeAttribute('force-active');
+      inspectToggleBtn?.setAttribute('aria-pressed', 'false');
     }
   });
 
@@ -837,7 +843,7 @@ ${js}
       builderEl.removeAttribute('popover');
     }
     builderEl.toggleAttribute('data-lightbox', lightboxMode);
-    lightboxModeBtn.toggleAttribute('force-active', lightboxMode);
+    lightboxModeBtn.setAttribute('aria-pressed', String(lightboxMode));
     const icon = lightboxModeBtn.querySelector('n-icon');
     if (icon) icon.setAttribute('name', lightboxMode ? 'arrows-in-simple' : 'arrows-out-simple');
   });
@@ -847,7 +853,7 @@ ${js}
   const pipelineBtn = document.querySelector('[data-role="toggle-pipeline"]') as HTMLElement | null;
   pipelineBtn?.addEventListener('native:press', () => {
     pipelineMode = !pipelineMode;
-    pipelineBtn.toggleAttribute('force-active', pipelineMode);
+    pipelineBtn.setAttribute('aria-pressed', String(pipelineMode));
     if (pipelineMode) {
       pipelineBtn.setAttribute('intent', 'accent');
     } else {
@@ -1019,9 +1025,10 @@ ${js}
     construct: 'Construction',
   };
 
-  function clearInsights(): void {
-    conceptsWrap.innerHTML = '';
-    insightCounter = 0;
+  function separateInsights(): void {
+    if (conceptsWrap.children.length > 0) {
+      conceptsWrap.appendChild(document.createElement('hr'));
+    }
     insightEntries.clear();
   }
 
@@ -1189,7 +1196,7 @@ ${js}
   /** Populate reasoning from a single-shot (non-pipeline) response,
    *  revealing each step progressively with placeholder → fill transitions. */
   function populateInsightsFromResult(result: MockResult): void {
-    clearInsights();
+    separateInsights();
 
     const effectiveType = result.type ?? (result.schema ? 'schema' : 'question');
     const isSchema = effectiveType === 'schema' && !!result.schema;
@@ -1207,6 +1214,9 @@ ${js}
     }
 
     // Concepts — only for schema results
+    // NOTE: Upstream also does matchPatterns() + fillTemplates() here, but
+    // matchPatterns/CatalogEntry are not exported from @nonoun/native-ai npm.
+    // See T0258 — once exported, add template matching back.
     if (isSchema && result.concepts?.length) {
       steps.push({
         label: 'Concepts',
@@ -1314,7 +1324,7 @@ ${js}
       cssInspector.dismiss();
       cssInspector.destroy();
       cssInspector = null;
-      inspectToggleBtn?.removeAttribute('force-active');
+      inspectToggleBtn?.setAttribute('aria-pressed', 'false');
     }
     // Animate: shrink out → rebuild → grow in
     previewMount.classList.add('entering');
@@ -1514,7 +1524,7 @@ ${js}
     let elapsed = 0;
     const tickTimer = setInterval(() => { elapsed++; }, 1000);
 
-    clearInsights();
+    separateInsights();
 
     const callbacks: PipelineCallbacks = {
       onStepStart(step: PipelineStep, _index: number) {
@@ -1625,9 +1635,12 @@ ${js}
     addMessage('user', value);
     dismissWelcome();
 
-    const userMessage = currentSchema
-      ? `[CURRENT SCHEMA]\n${JSON.stringify(currentSchema, null, 2)}\n[/CURRENT SCHEMA]\n\n${value}`
-      : value;
+    // Inject current state so the LLM sees the live schema + rendered HTML
+    let userMessage = value;
+    if (currentSchema) {
+      const renderedHTML = previewMount.innerHTML;
+      userMessage = `[CURRENT STATE]\nSchema:\n${JSON.stringify(currentSchema, null, 2)}\n\nRendered HTML:\n${renderedHTML}\n[/CURRENT STATE]\n\n${value}`;
+    }
     messages.push({ role: 'user', message: userMessage });
 
     if (!llm) {
@@ -1686,8 +1699,8 @@ ${js}
         }
       }
       if (lastUserMsg) {
-        // Strip [CURRENT SCHEMA] wrapper if present
-        const clean = lastUserMsg.replace(/\[CURRENT SCHEMA\][\s\S]*?\[\/CURRENT SCHEMA\]\s*/g, '').trim();
+        // Strip [CURRENT STATE] wrapper if present
+        const clean = lastUserMsg.replace(/\[CURRENT STATE\][\s\S]*?\[\/CURRENT STATE\]\s*/g, '').trim();
         if (clean) sendMessage(clean);
       }
     }

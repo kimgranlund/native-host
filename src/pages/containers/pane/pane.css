@@ -11,6 +11,6 @@
 }
 
 .demo-panes n-body {
-  --n-padding-block: 0.5rem;
-  --n-padding-inline: 0.5rem;
+  --n-pad-block: 0.5rem;
+  --n-pad-inline: 0.5rem;
 }
