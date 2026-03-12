@@ -89,7 +89,12 @@ import SidebarLayout from '../../../layouts/SidebarLayout.astro';
               <n-icon name="stack-simple"></n-icon>
             </n-button>
             <hr aria-orientation="vertical">
-            <span fill></span>
+            <n-button variant="ghost" size="sm" id="btn-center" title="Center contents">
+              <n-icon name="crosshair"></n-icon>
+            </n-button>
+            <n-button variant="ghost" size="sm" id="btn-reset-zoom" title="Reset zoom">
+              <n-icon name="arrows-in-cardinal"></n-icon>
+            </n-button>
             <hr aria-orientation="vertical">
             <n-button variant="ghost" size="sm" id="btn-prev" title="Previous surface" disabled>
               <n-icon name="caret-left"></n-icon>

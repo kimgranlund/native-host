@@ -10,6 +10,7 @@ import arrowLeft from '@phosphor-icons/core/assets/regular/arrow-left.svg?raw';
 import arrowRight from '@phosphor-icons/core/assets/regular/arrow-right.svg?raw';
 import arrowUp from '@phosphor-icons/core/assets/regular/arrow-up.svg?raw';
 import arrowsIn from '@phosphor-icons/core/assets/regular/arrows-in.svg?raw';
+import arrowsInCardinal from '@phosphor-icons/core/assets/regular/arrows-in-cardinal.svg?raw';
 import arrowsInSimple from '@phosphor-icons/core/assets/regular/arrows-in-simple.svg?raw';
 import arrowsMerge from '@phosphor-icons/core/assets/regular/arrows-merge.svg?raw';
 import arrowsOut from '@phosphor-icons/core/assets/regular/arrows-out.svg?raw';
@@ -178,6 +179,7 @@ const icons: Record<string, string> = {
   'arrow-right': arrowRight,
   'arrow-up': arrowUp,
   'arrows-in': arrowsIn,
+  'arrows-in-cardinal': arrowsInCardinal,
   'arrows-in-simple': arrowsInSimple,
   'arrows-merge': arrowsMerge,
   'arrows-out': arrowsOut,

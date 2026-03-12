@@ -135,9 +135,25 @@ document.addEventListener('astro:page-load', async () => {
   let chatController: LLMChatController | null = null;
   const renderedCards = new Set<string>();
 
+  // ── Pan/zoom state ──
+  let panX = 0;
+  let panY = 0;
+  let zoom = 1;
+  const ZOOM_MIN = 0.1;
+  const ZOOM_MAX = 5;
+  const ZOOM_STEP = 0.002;
+
   // ── Panel system ──
-  const PANELS = ['schema', 'html', 'css', 'js', 'insights', 'chat'] as const;
-  type PanelId = typeof PANELS[number];
+  const PANELS = [
+    { id: 'preview' },
+    { id: 'schema' },
+    { id: 'html' },
+    { id: 'css' },
+    { id: 'js' },
+    { id: 'insights' },
+    { id: 'chat' },
+  ] as const;
+  type PanelId = typeof PANELS[number]['id'];
   const activePanels = new Set<PanelId>(['schema']);
   const paneEls = new Map<PanelId, HTMLElement>();
   const chipEls = new Map<PanelId, HTMLElement>();
@@ -163,9 +179,17 @@ document.addEventListener('astro:page-load', async () => {
   const chatPane = document.getElementById('llm-chat-pane') as HTMLElement & NLLMChatPane;
   const btnPrev = document.getElementById('btn-prev')!;
   const btnNext = document.getElementById('btn-next')!;
+  const btnCenter = document.getElementById('btn-center')!;
+  const btnResetZoom = document.getElementById('btn-reset-zoom')!;
+
+  // Create canvas wrapper for pan/zoom inside the preview mount
+  const canvas = document.createElement('div');
+  canvas.className = 'tl-canvas';
+  lightboxPreview.appendChild(canvas);
 
   // Collect pane and chip elements
-  for (const id of PANELS) {
+  for (const p of PANELS) {
+    const id = p.id;
     const pane = dialog.querySelector<HTMLElement>(`n-pane[data-panel-id="${id}"]`);
     if (pane) paneEls.set(id, pane);
     const chip = dialog.querySelector<HTMLElement>(`n-button[data-chip="${id}"]`);
@@ -201,16 +225,99 @@ document.addEventListener('astro:page-load', async () => {
     isDirty = dirty;
   }
 
+  // ── Pan/zoom ──
+
+  function applyTransform(): void {
+    canvas.style.transform = `translate(${panX}px, ${panY}px) scale(${zoom})`;
+  }
+
+  function resetPanZoom(): void {
+    panX = 0;
+    panY = 0;
+    zoom = 1;
+    applyTransform();
+  }
+
+  function centerContents(): void {
+    const mountRect = lightboxPreview.getBoundingClientRect();
+    const canvasW = lightboxPreview.clientWidth;
+    const canvasH = lightboxPreview.clientHeight;
+    panX = (mountRect.width - canvasW * zoom) / 2;
+    panY = (mountRect.height - canvasH * zoom) / 2;
+    applyTransform();
+  }
+
+  function resetZoom(): void {
+    const mountRect = lightboxPreview.getBoundingClientRect();
+    const cx = mountRect.width / 2;
+    const cy = mountRect.height / 2;
+    const oldZoom = zoom;
+    zoom = 1;
+    panX = cx - (cx - panX) * (zoom / oldZoom);
+    panY = cy - (cy - panY) * (zoom / oldZoom);
+    applyTransform();
+  }
+
+  let panState: { pointerId: number; startX: number; startY: number; startPanX: number; startPanY: number } | null = null;
+
+  function onPanPointerDown(e: PointerEvent): void {
+    if (e.button !== 0) return;
+    const target = e.target as HTMLElement;
+    if (target.closest('[data-a2ui="Card"]')) return;
+    if (target.closest('.tl-floating-top') || target.closest('.tl-floating-bottom')) return;
+
+    e.preventDefault();
+    lightboxPreview.setPointerCapture(e.pointerId);
+    lightboxPreview.setAttribute('data-panning', '');
+    panState = {
+      pointerId: e.pointerId,
+      startX: e.clientX,
+      startY: e.clientY,
+      startPanX: panX,
+      startPanY: panY,
+    };
+  }
+
+  function onPanPointerMove(e: PointerEvent): void {
+    if (!panState || e.pointerId !== panState.pointerId) return;
+    panX = panState.startPanX + (e.clientX - panState.startX);
+    panY = panState.startPanY + (e.clientY - panState.startY);
+    applyTransform();
+  }
+
+  function onPanPointerUp(e: PointerEvent): void {
+    if (!panState || e.pointerId !== panState.pointerId) return;
+    try { lightboxPreview.releasePointerCapture(e.pointerId); } catch { /* already released */ }
+    lightboxPreview.removeAttribute('data-panning');
+    panState = null;
+  }
+
+  function onWheelZoom(e: WheelEvent): void {
+    e.preventDefault();
+    const rect = lightboxPreview.getBoundingClientRect();
+    const px = e.clientX - rect.left;
+    const py = e.clientY - rect.top;
+
+    const oldZoom = zoom;
+    const delta = -e.deltaY * ZOOM_STEP;
+    zoom = Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, zoom * (1 + delta)));
+
+    const scale = zoom / oldZoom;
+    panX = px - (px - panX) * scale;
+    panY = py - (py - panY) * scale;
+    applyTransform();
+  }
+
   // ── Panel system ──
 
   /** Sync DOM visibility of all panes and chip active states. */
   function syncPanels(): void {
-    for (const id of PANELS) {
-      const pane = paneEls.get(id);
-      if (pane) pane.hidden = !activePanels.has(id);
-      const chip = chipEls.get(id);
+    for (const p of PANELS) {
+      const pane = paneEls.get(p.id);
+      if (pane) pane.hidden = !activePanels.has(p.id);
+      const chip = chipEls.get(p.id);
       if (chip) {
-        if (activePanels.has(id)) chip.setAttribute('force-active', '');
+        if (activePanels.has(p.id)) chip.setAttribute('force-active', '');
         else chip.removeAttribute('force-active');
       }
     }
@@ -393,7 +500,8 @@ document.addEventListener('astro:page-load', async () => {
     // Schema editor
     schemaEditor.value = JSON.stringify(pattern, null, 2);
 
-    // Render preview
+    // Render preview + reset canvas transform
+    resetPanZoom();
     renderLightboxPreview(pattern.components as Record<string, unknown>[]);
 
     // Reset state
@@ -421,18 +529,18 @@ document.addEventListener('astro:page-load', async () => {
 
   function renderLightboxPreview(components: Record<string, unknown>[]): void {
     lightboxAdapter?.destroy();
-    lightboxPreview.innerHTML = '';
+    canvas.innerHTML = '';
 
     const flat = flattenComponents(components);
     lightboxAdapter = createA2UIAdapter(kernel, {});
     lightboxAdapter.receive(
       { updateComponents: { surfaceId: 'lightbox', components: flat } },
-      lightboxPreview,
+      canvas,
     );
 
     // Update output tab
     requestAnimationFrame(() => {
-      outputPre.value = formatHtml(lightboxPreview.innerHTML);
+      outputPre.value = formatHtml(canvas.innerHTML);
     });
   }
 
@@ -453,7 +561,43 @@ document.addEventListener('astro:page-load', async () => {
     return lines.join('\n');
   }
 
+  let inspectorObserver: MutationObserver | null = null;
+
+  /** Bridge inspector selection → editor highlighting. */
+  function bridgeInspectorSelection(): void {
+    inspectorObserver?.disconnect();
+    if (!cssInspector?.active) return;
+
+    const root = cssInspector.inspectRoot;
+    inspectorObserver = new MutationObserver((mutations) => {
+      for (const m of mutations) {
+        if (m.attributeName !== 'inspect-selected') continue;
+        const el = m.target as HTMLElement;
+        if (!el.hasAttribute('inspect-selected')) continue;
+        const id = el.id;
+        if (!id) continue;
+
+        clearHighlights();
+        const tab = activeEditorPanel();
+        if (tab === 'schema') highlightInSchema(id);
+        else if (tab === 'html') highlightInOutput(id);
+        else {
+          if (!highlightInSchema(id)) highlightInOutput(id);
+        }
+        break;
+      }
+    });
+
+    inspectorObserver.observe(root, {
+      attributes: true,
+      attributeFilter: ['inspect-selected'],
+      subtree: true,
+    });
+  }
+
   function dismissInspector(): void {
+    inspectorObserver?.disconnect();
+    inspectorObserver = null;
     if (cssInspector) {
       cssInspector.dismiss();
       cssInspector.destroy();
@@ -493,7 +637,7 @@ document.addEventListener('astro:page-load', async () => {
   // ── DOM ↔ Schema bidirectional highlighting ──
 
   function clearHighlights(): void {
-    lightboxPreview.querySelectorAll('[data-highlight]').forEach((el) => {
+    canvas.querySelectorAll('[data-highlight]').forEach((el) => {
       el.removeAttribute('data-highlight');
     });
   }
@@ -941,7 +1085,8 @@ ${JSON.stringify({ surfaceId: 'lightbox', components: currentPattern.components 
     lightboxAdapter = null;
     currentPattern = null;
     originalSchema = null;
-    lightboxPreview.innerHTML = '';
+    canvas.innerHTML = '';
+    resetPanZoom();
   });
 
   // Main toolbar — Save
@@ -982,19 +1127,35 @@ ${JSON.stringify({ surfaceId: 'lightbox', components: currentPattern.components 
     });
   });
 
+  // Pan/zoom event listeners
+  lightboxPreview.addEventListener('pointerdown', onPanPointerDown);
+  lightboxPreview.addEventListener('pointermove', onPanPointerMove);
+  lightboxPreview.addEventListener('pointerup', onPanPointerUp);
+  lightboxPreview.addEventListener('pointercancel', onPanPointerUp);
+  lightboxPreview.addEventListener('wheel', onWheelZoom, { passive: false });
+
+  // Center + reset zoom buttons
+  btnCenter.addEventListener('pointerup', centerContents);
+  btnResetZoom.addEventListener('pointerup', resetZoom);
+
   // CSS Inspector toggle
   inspectToggleBtn.addEventListener('pointerup', () => {
     if (cssInspector) {
       dismissInspector();
     } else {
-      cssInspector = new CSSInspectController(lightboxPreview, { pick: true, labels: true });
+      cssInspector = new CSSInspectController(canvas, { pick: true, labels: true });
+      bridgeInspectorSelection();
     }
   });
 
   // Sync button state if inspector dismisses itself (e.g. Escape key)
-  lightboxPreview.addEventListener('native:inspect', (e: Event) => {
+  canvas.addEventListener('native:inspect', (e: Event) => {
     const detail = (e as CustomEvent).detail;
-    if (!detail?.active && cssInspector) {
+    if (detail?.active && cssInspector) {
+      bridgeInspectorSelection();
+    } else if (!detail?.active) {
+      inspectorObserver?.disconnect();
+      inspectorObserver = null;
       cssInspector = null;
     }
   });
@@ -1020,7 +1181,7 @@ ${JSON.stringify({ surfaceId: 'lightbox', components: currentPattern.components 
   schemaEditor.addEventListener('native:input', onSchemaInput);
 
   // Preview click inspection
-  lightboxPreview.addEventListener('click', onPreviewClick);
+  canvas.addEventListener('click', onPreviewClick);
 
   // Surface steppers (prev/next)
   btnPrev.addEventListener('pointerup', () => {
