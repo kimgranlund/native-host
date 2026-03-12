@@ -265,6 +265,7 @@ document.addEventListener('astro:page-load', async () => {
     const target = e.target as HTMLElement;
     if (target.closest('[data-a2ui="Card"]')) return;
     if (target.closest('.tl-floating-top') || target.closest('.tl-floating-bottom')) return;
+    if (target.closest('.pane-edge')) return;
 
     e.preventDefault();
     lightboxPreview.setPointerCapture(e.pointerId);
@@ -603,6 +604,7 @@ document.addEventListener('astro:page-load', async () => {
       cssInspector.destroy();
       cssInspector = null;
     }
+    inspectToggleBtn.removeAttribute('force-active');
   }
 
   // ── Schema editor live update ──
@@ -1081,6 +1083,9 @@ ${JSON.stringify({ surfaceId: 'lightbox', components: currentPattern.components 
     activePanels.add('schema');
     syncPanels();
     dialog.removeAttribute('data-fullscreen');
+    fullscreenToggleBtn.removeAttribute('force-active');
+    fullscreenToggleBtn.querySelector('n-icon')?.setAttribute('name', 'arrows-out-simple');
+    chatToggle.removeAttribute('force-active');
     lightboxAdapter?.destroy();
     lightboxAdapter = null;
     currentPattern = null;
@@ -1143,7 +1148,8 @@ ${JSON.stringify({ surfaceId: 'lightbox', components: currentPattern.components 
     if (cssInspector) {
       dismissInspector();
     } else {
-      cssInspector = new CSSInspectController(canvas, { pick: true, labels: true });
+      cssInspector = new CSSInspectController(canvas, { pick: true, labels: true, alwaysReady: true });
+      inspectToggleBtn.setAttribute('force-active', '');
       bridgeInspectorSelection();
     }
   });
@@ -1157,6 +1163,7 @@ ${JSON.stringify({ surfaceId: 'lightbox', components: currentPattern.components 
       inspectorObserver?.disconnect();
       inspectorObserver = null;
       cssInspector = null;
+      inspectToggleBtn.removeAttribute('force-active');
     }
   });
 
@@ -1165,11 +1172,21 @@ ${JSON.stringify({ surfaceId: 'lightbox', components: currentPattern.components 
     if (activePanels.has('chat')) activePanels.delete('chat');
     else activePanels.add('chat');
     syncPanels();
+    if (activePanels.has('chat')) chatToggle.setAttribute('force-active', '');
+    else chatToggle.removeAttribute('force-active');
   });
 
   // Fullscreen toggle
   fullscreenToggleBtn.addEventListener('pointerup', () => {
     dialog.toggleAttribute('data-fullscreen');
+    const isFullscreen = dialog.hasAttribute('data-fullscreen');
+    if (isFullscreen) {
+      fullscreenToggleBtn.setAttribute('force-active', '');
+      fullscreenToggleBtn.querySelector('n-icon')?.setAttribute('name', 'x');
+    } else {
+      fullscreenToggleBtn.removeAttribute('force-active');
+      fullscreenToggleBtn.querySelector('n-icon')?.setAttribute('name', 'arrows-out-simple');
+    }
   });
 
   // Compare control

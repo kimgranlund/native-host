@@ -56,7 +56,7 @@ import SidebarLayout from '../../../layouts/SidebarLayout.astro';
         <n-button variant="ghost" size="sm" data-chip="css">CSS</n-button>
         <n-button variant="ghost" size="sm" data-chip="js">JS</n-button>
         <hr aria-orientation="vertical">
-        <n-button variant="ghost" size="sm" id="fullscreen-toggle" title="Fullscreen">
+        <n-button variant="ghost" size="sm" id="fullscreen-toggle" aria-label="Fullscreen" overflow-pin>
           <n-icon name="arrows-out-simple"></n-icon>
         </n-button>
       </n-toolbar>
@@ -71,8 +71,8 @@ import SidebarLayout from '../../../layouts/SidebarLayout.astro';
 
         <!-- Compare control (floating top center) -->
         <div class="tl-floating-top">
-          <n-toolbar variant="ghost" size="sm" class="tl-compare-bar">
-            <n-segmented-control id="compare-toggle" size="sm" value="edited">
+          <n-toolbar variant="ghost" size="md" class="tl-compare-bar">
+            <n-segmented-control id="compare-toggle" size="md" value="edited">
               <n-segment value="edited">Edited</n-segment>
               <n-segment value="original">Original</n-segment>
             </n-segmented-control>
@@ -81,25 +81,25 @@ import SidebarLayout from '../../../layouts/SidebarLayout.astro';
 
         <!-- Preview toolbar (floating bottom center) -->
         <div class="tl-floating-bottom">
-          <n-toolbar size="sm" class="tl-preview-toolbar">
-            <n-button variant="ghost" size="sm" id="chat-toggle" title="AI Chat">
+          <n-toolbar size="md" class="tl-preview-toolbar">
+            <n-button variant="ghost" id="chat-toggle" aria-label="AI Chat" overflow-pin>
               <n-icon name="chat-dots"></n-icon>
             </n-button>
-            <n-button variant="ghost" size="sm" id="inspect-toggle" title="CSS Inspector">
+            <n-button variant="ghost" id="inspect-toggle" aria-label="CSS Inspector" overflow-pin>
               <n-icon name="stack-simple"></n-icon>
             </n-button>
             <hr aria-orientation="vertical">
-            <n-button variant="ghost" size="sm" id="btn-center" title="Center contents">
+            <n-button variant="ghost" id="btn-center" aria-label="Center" overflow-pin>
               <n-icon name="crosshair"></n-icon>
             </n-button>
-            <n-button variant="ghost" size="sm" id="btn-reset-zoom" title="Reset zoom">
+            <n-button variant="ghost" id="btn-reset-zoom" aria-label="Reset zoom" overflow-pin>
               <n-icon name="arrows-in-cardinal"></n-icon>
             </n-button>
             <hr aria-orientation="vertical">
-            <n-button variant="ghost" size="sm" id="btn-prev" title="Previous surface" disabled>
+            <n-button variant="ghost" id="btn-prev" aria-label="Previous" overflow-pin disabled>
               <n-icon name="caret-left"></n-icon>
             </n-button>
-            <n-button variant="ghost" size="sm" id="btn-next" title="Next surface" disabled>
+            <n-button variant="ghost" id="btn-next" aria-label="Next" overflow-pin disabled>
               <n-icon name="caret-right"></n-icon>
             </n-button>
           </n-toolbar>
