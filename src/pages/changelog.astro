@@ -17,6 +17,101 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
 
   <section>
 
+    <!-- ── 0.7.14 ── -->
+
+    <div class="changelog-version">
+      <h2>0.7.14 <span class="changelog-date">— March 2026</span></h2>
+
+      <div class="changelog-section">
+        <h3><n-badge size="xs" intent="danger">New</n-badge> New Pages</h3>
+
+        <div class="changelog-cards">
+          <n-container>
+            <n-header><a href="/components/noodles">Noodles</a> — Declarative SVG noodle canvas</n-header>
+            <n-body>
+              <ul>
+                <li>Zero-config <code>&lt;n-noodles&gt;</code> element wrapping <code>NoodleController</code></li>
+                <li>Children declare ports via <code>data-noodle-port</code>, element handles SVG overlay automatically</li>
+                <li>3 demos: static connections, editable drag-to-connect, styled (curves, colors, animation)</li>
+              </ul>
+            </n-body>
+          </n-container>
+
+          <n-container>
+            <n-header><a href="/traits/mentionable">Mentionable</a> — <code>@</code> mention trigger for contenteditable inputs</n-header>
+            <n-body>
+              <ul>
+                <li>Caret-anchored popover with filtered team members, accent-colored <code>@Name</code> tags</li>
+                <li>3 demos: basic textarea, n-input, combined slash + mention</li>
+              </ul>
+            </n-body>
+          </n-container>
+
+          <n-container>
+            <n-header><a href="/traits/backtick-wrappable">BacktickWrappable</a> — Inline code wrapping via backtick pairs</n-header>
+            <n-body>
+              <ul>
+                <li>Type <code>`hello`</code> to auto-wrap in styled <code>&lt;code&gt;</code>, or select text and press backtick</li>
+                <li>2 demos: basic backtick wrap, combined slash + mention + backtick</li>
+              </ul>
+            </n-body>
+          </n-container>
+
+          <n-container>
+            <n-header><a href="/traits/link-pasteable">LinkPasteable</a> — Paste URL to create hyperlinks</n-header>
+            <n-body>
+              <ul>
+                <li>Select text, paste a URL — selected text becomes a styled hyperlink</li>
+                <li>2 demos: basic link paste, combined all four text commands</li>
+              </ul>
+            </n-body>
+          </n-container>
+
+          <n-container>
+            <n-header><a href="/components/feed">Feed</a> — Generic scrollable feed container</n-header>
+            <n-body>
+              <ul>
+                <li>Auto-scroll, pin detection, virtual scroll windowing (10k items)</li>
+                <li>4 demos: basic, bottom-anchored, auto-scroll + pin, virtual scroll</li>
+              </ul>
+            </n-body>
+          </n-container>
+        </div>
+      </div>
+
+      <div class="changelog-section">
+        <h3><n-badge size="xs" intent="accent">Updated</n-badge> Updates</h3>
+
+        <div class="changelog-cards">
+          <n-container>
+            <n-header>Text Commands system — <code>TextTriggerController</code> base class</n-header>
+            <n-body>
+              <ul>
+                <li><code>SlashCommandController</code>, <code>MentionController</code>, <code>BacktickWrapController</code>, <code>LinkPasteController</code> share a common base</li>
+                <li>All controllers coexist on the same input without conflict</li>
+              </ul>
+            </n-body>
+          </n-container>
+
+          <n-container>
+            <n-header><a href="/containers/pane">Pane</a> — Initial size and scrollable demos</n-header>
+          </n-container>
+
+          <n-container>
+            <n-header><a href="/packages/n-editor">Editor</a> — <code>&lt;n-editor&gt;</code> element demos</n-header>
+          </n-container>
+
+          <n-container>
+            <n-header>5 new Phosphor icons: <code>arrows-merge</code>, <code>cloud</code>, <code>export</code>, <code>keyboard</code>, <code>monitor</code></n-header>
+          </n-container>
+
+          <n-container>
+            <n-header>Ecosystem upgrade — <code>native-ui@0.7.143</code></n-header>
+          </n-container>
+        </div>
+      </div>
+    </div>
+
     <!-- ── 0.7.13 ── -->
 
     <div class="changelog-version">

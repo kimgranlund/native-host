@@ -27,6 +27,9 @@ const pageBadges: Record<string, BadgeKind> = {
   '/traits/confettible': 'new',
   '/traits/magnetizable': 'new',
   '/traits/css-inspectable': 'new',
+  '/traits/mentionable': 'new',
+  '/traits/backtick-wrappable': 'new',
+  '/traits/link-pasteable': 'new',
   '/controllers/store-controller': 'new',
 };
 
