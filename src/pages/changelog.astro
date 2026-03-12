@@ -136,7 +136,26 @@ import SidebarLayout from '../layouts/SidebarLayout.astro';
           </n-container>
 
           <n-container>
-            <n-header>Ecosystem upgrade — <code>native-ui@0.7.159</code></n-header>
+            <n-header><a href="/showcase/a2ui-builder">A2UI Builder</a> — synced with upstream (system prompt, seed pool, preview animation)</n-header>
+            <n-body>
+              <ul>
+                <li>Updated system prompt with full trait documentation, CSS color guidance, CSS shapes, inline SVG patterns</li>
+                <li>18 randomized seed prompts replace 4 hardcoded starters (tic-tac-toe, kanban, music player, pricing table, etc.)</li>
+                <li>Preview mount scale + fade animation on schema apply</li>
+              </ul>
+            </n-body>
+          </n-container>
+
+          <n-container>
+            <n-header>Inline display migration (T0227) — removed no-op <code>[inline]</code> attribute from all controls</n-header>
+          </n-container>
+
+          <n-container>
+            <n-header>Listbox popover audit (T0229) — all <code>&lt;n-listbox&gt;</code> inside selects/comboboxes confirmed to have <code>popover</code> attribute</n-header>
+          </n-container>
+
+          <n-container>
+            <n-header>Ecosystem upgrade — <code>native-ui@0.7.162</code></n-header>
           </n-container>
         </div>
       </div>
