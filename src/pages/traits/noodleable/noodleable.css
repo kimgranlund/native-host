@@ -153,6 +153,7 @@
   background: var(--n-border-accent);
 }
 
+/* T0202: n-header is CSS-only (no shadow DOM) with no display/layout attribute — accepted exception */
 .flow-split > n-header {
   display: flex;
   align-items: center;
@@ -180,6 +181,7 @@
   border-block-end: 1px solid var(--n-border-muted-neutral);
 }
 
+/* T0202: n-body is CSS-only — accepted exception */
 .flow-split > n-pane > n-body {
   padding: 0;
 }

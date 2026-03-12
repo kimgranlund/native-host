@@ -121,13 +121,69 @@ import { paneApi, paneGroupApi } from '../../../data/api/pane';
   &lt;/n-pane&gt;
 &lt;/n-panes&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
 
+    <!-- ── Initial Size ── -->
+
+    <h2>Initial Size</h2>
+    <p>Set an explicit starting width (or height in vertical mode) with the <code>size</code> attribute. Panes without <code>size</code> share the remaining space equally.</p>
+    <n-container data-kind="panel" bordered class="demo-panes">
+      <n-panes>
+        <n-pane label="Sidebar" icon="sidebar" size="200px">
+          <n-body><p>Fixed 200px sidebar (won't grow)</p></n-body>
+        </n-pane>
+        <n-pane label="Editor" icon="code">
+          <n-body><p>Fills remaining space (auto)</p></n-body>
+        </n-pane>
+        <n-pane label="Inspector" icon="sliders" size="25%">
+          <n-body><p>25% inspector (won't grow)</p></n-body>
+        </n-pane>
+      </n-panes>
+    </n-container>
+    <pre class="code-block"><code>&lt;n-panes&gt;
+  &lt;n-pane label="Sidebar" icon="sidebar" size="200px"&gt;
+    &lt;n-body&gt;Fixed 200px sidebar&lt;/n-body&gt;
+  &lt;/n-pane&gt;
+  &lt;n-pane label="Editor" icon="code"&gt;
+    &lt;n-body&gt;Fills remaining space&lt;/n-body&gt;
+  &lt;/n-pane&gt;
+  &lt;n-pane label="Inspector" icon="sliders" size="25%"&gt;
+    &lt;n-body&gt;25% inspector&lt;/n-body&gt;
+  &lt;/n-pane&gt;
+&lt;/n-panes&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+
+    <!-- ── Scrollable ── -->
+
+    <h2>Scrollable Panes</h2>
+    <p>Add <code>scrollable</code> to make a pane's content area scroll independently when it overflows.</p>
+    <n-container data-kind="panel" bordered class="demo-panes" style="height: 200px;">
+      <n-panes>
+        <n-pane label="Scrollable Y" scrollable>
+          <p>Line 1</p><p>Line 2</p><p>Line 3</p><p>Line 4</p>
+          <p>Line 5</p><p>Line 6</p><p>Line 7</p><p>Line 8</p>
+          <p>Line 9</p><p>Line 10</p><p>Line 11</p><p>Line 12</p>
+        </n-pane>
+        <n-pane label="Not scrollable">
+          <n-body><p>Content in n-body (body scrolls independently)</p></n-body>
+        </n-pane>
+      </n-panes>
+    </n-container>
+    <pre class="code-block"><code>&lt;n-panes&gt;
+  &lt;n-pane label="Scrollable Y" scrollable&gt;
+    &lt;p&gt;Line 1&lt;/p&gt;
+    ...
+    &lt;p&gt;Line 12&lt;/p&gt;
+  &lt;/n-pane&gt;
+  &lt;n-pane label="Not scrollable"&gt;
+    &lt;n-body&gt;Body scrolls independently&lt;/n-body&gt;
+  &lt;/n-pane&gt;
+&lt;/n-panes&gt;</code><n-button size="sm" variant="ghost" aria-label="Copy"><n-icon name="copy"></n-icon></n-button></pre>
+
     <!-- ── Nested ── -->
 
     <h2>Nested Panes (IDE Layout)</h2>
     <p>Nest <code>&lt;n-panes&gt;</code> inside a pane to create complex layouts. Horizontal outside, vertical inside.</p>
     <n-container data-kind="panel" bordered class="demo-panes demo-panes-ide">
       <n-panes>
-        <n-pane label="Sidebar" icon="sidebar" size-min="120" size-max="300">
+        <n-pane label="Sidebar" icon="sidebar" size="200px" size-min="120" size-max="300">
           <n-body><p>Sidebar content</p></n-body>
         </n-pane>
         <n-pane>
@@ -143,7 +199,7 @@ import { paneApi, paneGroupApi } from '../../../data/api/pane';
       </n-panes>
     </n-container>
     <pre class="code-block"><code>&lt;n-panes&gt;
-  &lt;n-pane label="Sidebar" icon="sidebar" size-min="120" size-max="300"&gt;
+  &lt;n-pane label="Sidebar" icon="sidebar" size="200px" size-min="120" size-max="300"&gt;
     &lt;n-body&gt;Sidebar&lt;/n-body&gt;
   &lt;/n-pane&gt;
   &lt;n-pane&gt;

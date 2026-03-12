@@ -13,6 +13,7 @@ export interface PageEntry {
 // Badge assignments — pages with recent changes
 const pageBadges: Record<string, BadgeKind> = {
   '/changelog': 'updated',
+  '/containers/pane': 'updated',
   '/showcase/a2ui-builder': 'new',
   '/showcase/a2a-tictactoe': 'new',
   '/traits/noodleable': 'new',
