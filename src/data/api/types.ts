@@ -38,6 +38,12 @@ export interface ApiMethodRow {
   description: string;
 }
 
+export interface ApiPropertyRow {
+  property: string;
+  type: string;
+  description: string;
+}
+
 export interface ApiCssPropertyRow {
   property: string;
   default: string;
@@ -51,6 +57,7 @@ export type ApiSection =
   | { kind: 'selectors'; title?: string; rows: ApiSelectorRow[] }
   | { kind: 'keyboard'; rows: ApiKeyboardRow[] }
   | { kind: 'accessibility'; rows: ApiAccessibilityRow[] }
+  | { kind: 'properties'; rows: ApiPropertyRow[] }
   | { kind: 'methods'; rows: ApiMethodRow[] }
   | { kind: 'css-properties'; rows: ApiCssPropertyRow[] }
   | { kind: 'provider-usage'; rows: ApiAttributeRow[] };

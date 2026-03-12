@@ -14,6 +14,7 @@ const sectionTitle: Record<ApiSection['kind'], string> = {
   'selectors': 'CSS Selectors',
   'keyboard': 'Keyboard',
   'accessibility': 'Accessibility',
+  'properties': 'Properties',
   'methods': 'Methods',
   'css-properties': 'CSS Custom Properties',
   'provider-usage': 'Provider Usage',
@@ -42,6 +43,8 @@ function getColConfig(section: ApiSection): ColConfig {
       return { cols: 'auto 1fr', headers: ['Key', 'Action'] };
     case 'accessibility':
       return { cols: 'auto 1fr', headers: ['Property', 'Value'] };
+    case 'properties':
+      return { cols: 'auto auto 1fr', headers: ['Property', 'Type', 'Description'] };
     case 'methods':
       const hasReturns = section.rows.some(r => r.returns);
       return hasReturns
@@ -89,6 +92,12 @@ function getCells(section: ApiSection, row: any): { code: boolean; value: string
       return [
         { code: false, value: row.property },
         { code: false, value: row.value },
+      ];
+    case 'properties':
+      return [
+        { code: true, value: row.property },
+        { code: true, value: row.type },
+        { code: false, value: row.description },
       ];
     case 'methods': {
       const hasReturns = section.rows.some((r: any) => r.returns);
