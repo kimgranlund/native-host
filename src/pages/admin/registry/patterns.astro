@@ -1,0 +1,482 @@
+---
+import SidebarLayout from '../../../layouts/SidebarLayout.astro';
+import AdminLayout from '../../../components/AdminLayout.astro';
+import { requireAdmin } from '../../../lib/permissions';
+import { db } from '../../../db/client';
+import { contentType, contentObject } from '../../../db/schema';
+import { eq } from 'drizzle-orm';
+import { randomUUID } from 'node:crypto';
+import fs from 'node:fs';
+import path from 'node:path';
+
+const ctx = await requireAdmin(Astro.locals);
+if (ctx instanceof Response) return ctx;
+
+// ── Seed: ensure a2ui-pattern content type + import static JSON files ──
+
+let [patternType] = await db.select().from(contentType).where(eq(contentType.slug, 'a2ui-pattern'));
+if (!patternType) {
+  const now = new Date();
+  const id = randomUUID();
+  await db.insert(contentType).values({
+    id,
+    slug: 'a2ui-pattern',
+    name: 'A2UI Pattern',
+    schema: JSON.stringify({ type: 'object' }),
+    versioned: false,
+    createdAt: now,
+    updatedAt: now,
+  });
+  [patternType] = await db.select().from(contentType).where(eq(contentType.slug, 'a2ui-pattern'));
+
+  // Import all 50 static pattern JSON files as seed data
+  const patternsDir = path.resolve('src/pages/showcase/a2ui-training/patterns');
+  const folders = ['micro', 'blocks'];
+  for (const folder of folders) {
+    const dir = path.join(patternsDir, folder);
+    if (!fs.existsSync(dir)) continue;
+    const files = fs.readdirSync(dir).filter(f => f.endsWith('.json'));
+    for (const file of files) {
+      const raw = fs.readFileSync(path.join(dir, file), 'utf-8');
+      const pattern = JSON.parse(raw);
+      await db.insert(contentObject).values({
+        id: randomUUID(),
+        contentTypeId: patternType.id,
+        slug: pattern.id,
+        data: raw,
+        version: 1,
+        status: 'active',
+        createdAt: now,
+        updatedAt: now,
+      });
+    }
+  }
+}
+
+// ── Load all patterns ──
+
+const entries = await db.select().from(contentObject).where(eq(contentObject.contentTypeId, patternType.id));
+const patterns = entries.map(e => {
+  const parsed = JSON.parse(e.data) as Record<string, unknown>;
+  return { ...e, parsed };
+}).sort((a, b) => {
+  // Sort by tier (block first), then by label
+  const tierA = (a.parsed.tier as string) === 'block' ? 0 : 1;
+  const tierB = (b.parsed.tier as string) === 'block' ? 0 : 1;
+  if (tierA !== tierB) return tierA - tierB;
+  return ((a.parsed.label as string) || '').localeCompare((b.parsed.label as string) || '');
+});
+
+// Category list for select options
+const categories = ['auth','form','commerce','dashboard','content','data','navigation','communication','media','feedback','overlay','interactive','admin','primitive'];
+
+function tierIntent(tier: string) {
+  return tier === 'block' ? 'accent' : 'neutral';
+}
+---
+<SidebarLayout title="A2UI Patterns">
+  <AdminLayout current="/admin/registry/patterns" orgId={ctx.orgId}>
+
+    <!-- ── Patterns Table ── -->
+    <n-table id="pat-table" cols="1fr auto auto auto auto auto">
+      <n-table-row colspan>
+        <n-table-cell>
+          <header>
+            <h1>A2UI Patterns</h1>
+            <n-stack direction="row" gap="2">
+              <n-button id="export-btn" variant="outline">
+                <n-icon name="download-simple" slot="leading"></n-icon>
+                <span>Export All</span>
+              </n-button>
+              <n-button id="import-btn" variant="outline">
+                <n-icon name="upload-simple" slot="leading"></n-icon>
+                <span>Import</span>
+              </n-button>
+              <n-button id="create-btn" variant="primary" intent="accent">
+                <n-icon name="plus" slot="leading"></n-icon>
+                <span>Add Pattern</span>
+              </n-button>
+            </n-stack>
+          </header>
+        </n-table-cell>
+      </n-table-row>
+      <n-table-row header>
+        <n-table-cell>Label</n-table-cell>
+        <n-table-cell>Tier</n-table-cell>
+        <n-table-cell>Category</n-table-cell>
+        <n-table-cell>Components</n-table-cell>
+        <n-table-cell>Status</n-table-cell>
+        <n-table-cell>Actions</n-table-cell>
+      </n-table-row>
+      {patterns.map(p => (
+        <n-table-row>
+          <n-table-cell>
+            <n-stack gap="0">
+              <span class="text-strong">{p.parsed.label as string}</span>
+              <span class="text-muted text-xs">{p.slug}</span>
+            </n-stack>
+          </n-table-cell>
+          <n-table-cell><n-badge intent={tierIntent(p.parsed.tier as string)}>{p.parsed.tier as string}</n-badge></n-table-cell>
+          <n-table-cell><span class="text-sm">{p.parsed.category as string}</span></n-table-cell>
+          <n-table-cell><span class="text-sm text-muted">{((p.parsed.components as unknown[]) || []).length}</span></n-table-cell>
+          <n-table-cell><n-badge intent={p.status === 'active' ? 'success' : 'neutral'}>{p.status}</n-badge></n-table-cell>
+          <n-table-cell>
+            <n-stack direction="row" gap="1">
+              <n-button variant="ghost" size="sm" data-action="edit"
+                data-entry-id={p.id}
+                data-entry-json={p.data}>
+                <nav><n-icon name="pencil-simple"></n-icon></nav>
+              </n-button>
+              <n-button variant="ghost" size="sm" data-action="duplicate"
+                data-entry-json={p.data}>
+                <nav><n-icon name="copy"></n-icon></nav>
+              </n-button>
+              <n-button variant="ghost" size="sm" intent="danger" data-action="delete"
+                data-entry-id={p.id}
+                data-entry-label={p.parsed.label as string}>
+                <nav><n-icon name="trash"></n-icon></nav>
+              </n-button>
+            </n-stack>
+          </n-table-cell>
+        </n-table-row>
+      ))}
+    </n-table>
+
+    <!-- ── Pattern Editor Dialog ── -->
+    <n-dialog id="pat-dialog" class="pat-editor-dialog">
+      <div class="admin-dialog-card pat-editor-card">
+        <n-container>
+          <n-header><span id="pat-dialog-title">Add Pattern</span></n-header>
+          <n-body>
+            <n-stack gap="4">
+              <n-stack direction="row" gap="4">
+                <n-field required style="flex:1">
+                  <label slot="label">Label</label>
+                  <n-input id="pat-label" placeholder="e.g. Auth Card"></n-input>
+                </n-field>
+                <n-field required style="flex:1">
+                  <label slot="label">ID (slug)</label>
+                  <n-input id="pat-id" placeholder="e.g. auth-card"></n-input>
+                </n-field>
+              </n-stack>
+              <n-stack direction="row" gap="4">
+                <n-field required style="flex:1">
+                  <label slot="label">Tier</label>
+                  <n-select id="pat-tier" value="micro" options='[{"value":"micro","label":"Micro"},{"value":"block","label":"Block"}]'></n-select>
+                </n-field>
+                <n-field required style="flex:1">
+                  <label slot="label">Category</label>
+                  <n-select id="pat-category" value="primitive"></n-select>
+                </n-field>
+                <n-field style="flex:1">
+                  <label slot="label">Status</label>
+                  <n-select id="pat-status" value="active" options='[{"value":"active","label":"Active"},{"value":"draft","label":"Draft"},{"value":"deprecated","label":"Deprecated"}]'></n-select>
+                </n-field>
+              </n-stack>
+              <n-field>
+                <label slot="label">Description</label>
+                <n-input id="pat-desc" placeholder="One-line description for LLM context"></n-input>
+              </n-field>
+              <n-field>
+                <label slot="label">Concepts (comma-separated)</label>
+                <n-input id="pat-concepts" placeholder="e.g. login, authentication, password"></n-input>
+              </n-field>
+              <n-field required>
+                <label slot="label">Components JSON</label>
+                <n-textarea id="pat-components" rows="12" placeholder='[{"id":"root","component":"Card","children":["header"]}]'></n-textarea>
+              </n-field>
+              <n-field>
+                <label slot="label">CSS (optional)</label>
+                <n-textarea id="pat-css" rows="4" placeholder=":scope { ... }"></n-textarea>
+              </n-field>
+              <n-field>
+                <label slot="label">JS (optional)</label>
+                <n-textarea id="pat-js" rows="4" placeholder="// Event handler patterns"></n-textarea>
+              </n-field>
+            </n-stack>
+          </n-body>
+          <n-footer>
+            <n-button id="pat-cancel"><span slot="label">Cancel</span></n-button>
+            <n-button id="pat-submit" variant="primary" intent="accent"><span slot="label">Save</span></n-button>
+          </n-footer>
+        </n-container>
+      </div>
+    </n-dialog>
+
+    <!-- ── Delete Confirmation Dialog ── -->
+    <n-dialog id="pat-delete-dialog">
+      <div class="admin-dialog-card">
+        <n-container>
+          <n-header>
+            <nav><n-icon name="warning" size="lg"></n-icon></nav>
+            <span>Delete Pattern?</span>
+          </n-header>
+          <n-body>
+            <span>Are you sure you want to delete <span class="text-strong" id="pat-delete-name"></span>?</span>
+          </n-body>
+          <n-footer>
+            <n-button id="pat-delete-cancel"><span slot="label">Cancel</span></n-button>
+            <n-button id="pat-delete-submit" variant="primary" intent="danger">
+              <n-icon name="trash" slot="leading"></n-icon><span>Delete</span>
+            </n-button>
+          </n-footer>
+        </n-container>
+      </div>
+    </n-dialog>
+
+    <!-- ── Import Dialog ── -->
+    <n-dialog id="import-dialog">
+      <div class="admin-dialog-card pat-editor-card">
+        <n-container>
+          <n-header><span>Import Patterns</span></n-header>
+          <n-body>
+            <n-stack gap="4">
+              <p class="text-muted text-sm">Paste a JSON array of pattern objects. Existing patterns with the same ID will be updated.</p>
+              <n-field required>
+                <label slot="label">JSON</label>
+                <n-textarea id="import-json" rows="16" placeholder='[{"id":"...","label":"...","tier":"micro",...}]'></n-textarea>
+              </n-field>
+            </n-stack>
+          </n-body>
+          <n-footer>
+            <n-button id="import-cancel"><span slot="label">Cancel</span></n-button>
+            <n-button id="import-submit" variant="primary" intent="accent"><span slot="label">Import</span></n-button>
+          </n-footer>
+        </n-container>
+      </div>
+    </n-dialog>
+
+  </AdminLayout>
+</SidebarLayout>
+
+<style is:global>
+  .pat-editor-dialog::part(dialog) {
+    max-width: 48rem;
+  }
+  .pat-editor-card {
+    width: 48rem;
+    max-width: 90vw;
+  }
+  #pat-components,
+  #import-json {
+    font-family: var(--n-font-mono);
+    font-size: var(--n-font-xs);
+  }
+</style>
+
+<script>
+import { navigate } from 'astro:transitions/client';
+
+const CATEGORY_OPTIONS = [
+  { value: 'primitive', label: 'Primitive' },
+  { value: 'auth', label: 'Auth' },
+  { value: 'form', label: 'Form' },
+  { value: 'commerce', label: 'Commerce' },
+  { value: 'dashboard', label: 'Dashboard' },
+  { value: 'content', label: 'Content' },
+  { value: 'data', label: 'Data' },
+  { value: 'navigation', label: 'Navigation' },
+  { value: 'communication', label: 'Communication' },
+  { value: 'media', label: 'Media' },
+  { value: 'feedback', label: 'Feedback' },
+  { value: 'overlay', label: 'Overlay' },
+  { value: 'interactive', label: 'Interactive' },
+  { value: 'admin', label: 'Admin' },
+];
+
+document.addEventListener('astro:page-load', () => {
+  const table = document.getElementById('pat-table');
+  if (!table || table.hasAttribute('data-wired')) return;
+  table.setAttribute('data-wired', '');
+
+  let editingId = '';
+  let deletingId = '';
+
+  const dialog = document.getElementById('pat-dialog') as any;
+  const deleteDialog = document.getElementById('pat-delete-dialog') as any;
+  const importDialog = document.getElementById('import-dialog') as any;
+
+  const titleEl = document.getElementById('pat-dialog-title');
+  const labelInput = document.getElementById('pat-label') as any;
+  const idInput = document.getElementById('pat-id') as any;
+  const tierSelect = document.getElementById('pat-tier') as any;
+  const categorySelect = document.getElementById('pat-category') as any;
+  const statusSelect = document.getElementById('pat-status') as any;
+  const descInput = document.getElementById('pat-desc') as any;
+  const conceptsInput = document.getElementById('pat-concepts') as any;
+  const componentsArea = document.getElementById('pat-components') as any;
+  const cssArea = document.getElementById('pat-css') as any;
+  const jsArea = document.getElementById('pat-js') as any;
+
+  // Set category options
+  if (categorySelect) {
+    categorySelect.options = JSON.stringify(CATEGORY_OPTIONS);
+  }
+
+  function resetForm() {
+    editingId = '';
+    if (labelInput) labelInput.value = '';
+    if (idInput) idInput.value = '';
+    if (tierSelect) tierSelect.value = 'micro';
+    if (categorySelect) categorySelect.value = 'primitive';
+    if (statusSelect) statusSelect.value = 'active';
+    if (descInput) descInput.value = '';
+    if (conceptsInput) conceptsInput.value = '';
+    if (componentsArea) componentsArea.value = '[]';
+    if (cssArea) cssArea.value = '';
+    if (jsArea) jsArea.value = '';
+    if (titleEl) titleEl.textContent = 'Add Pattern';
+  }
+
+  function populateForm(json: string) {
+    try {
+      const p = JSON.parse(json);
+      if (labelInput) labelInput.value = p.label || '';
+      if (idInput) idInput.value = p.id || '';
+      if (tierSelect) tierSelect.value = p.tier || 'micro';
+      if (categorySelect) categorySelect.value = p.category || 'primitive';
+      if (descInput) descInput.value = p.description || '';
+      if (conceptsInput) conceptsInput.value = (p.concepts || []).join(', ');
+      if (componentsArea) componentsArea.value = JSON.stringify(p.components || [], null, 2);
+      if (cssArea) cssArea.value = p.css || '';
+      if (jsArea) jsArea.value = p.js || '';
+    } catch { /* ignore parse errors */ }
+  }
+
+  function buildPatternData(): Record<string, unknown> {
+    const concepts = (conceptsInput?.value || '').split(',').map((s: string) => s.trim()).filter(Boolean);
+    let components = [];
+    try { components = JSON.parse(componentsArea?.value || '[]'); } catch { /* keep empty */ }
+
+    const data: Record<string, unknown> = {
+      id: idInput?.value?.trim() || '',
+      label: labelInput?.value?.trim() || '',
+      tier: tierSelect?.value || 'micro',
+      concepts,
+      description: descInput?.value?.trim() || '',
+      category: categorySelect?.value || 'primitive',
+      components,
+    };
+    const css = cssArea?.value?.trim();
+    const js = jsArea?.value?.trim();
+    if (css) data.css = css;
+    if (js) data.js = js;
+    return data;
+  }
+
+  // ── Create ──
+  document.getElementById('create-btn')?.addEventListener('native:press', () => {
+    resetForm();
+    dialog?.showModal();
+  });
+
+  // ── Edit ──
+  table.querySelectorAll('[data-action="edit"]').forEach(btn => {
+    btn.addEventListener('native:press', () => {
+      editingId = btn.getAttribute('data-entry-id') || '';
+      const json = btn.getAttribute('data-entry-json') || '{}';
+      if (titleEl) titleEl.textContent = 'Edit Pattern';
+      populateForm(json);
+      dialog?.showModal();
+    });
+  });
+
+  // ── Duplicate ──
+  table.querySelectorAll('[data-action="duplicate"]').forEach(btn => {
+    btn.addEventListener('native:press', () => {
+      editingId = '';
+      const json = btn.getAttribute('data-entry-json') || '{}';
+      if (titleEl) titleEl.textContent = 'Duplicate Pattern';
+      populateForm(json);
+      // Clear ID so user must set a new one
+      if (idInput) idInput.value = '';
+      dialog?.showModal();
+    });
+  });
+
+  // ── Save ──
+  document.getElementById('pat-cancel')?.addEventListener('native:press', () => dialog?.close());
+  document.getElementById('pat-submit')?.addEventListener('native:press', async () => {
+    const data = buildPatternData();
+    const slug = (data.id as string) || '';
+    if (!slug || !data.label) return;
+
+    const status = statusSelect?.value || 'active';
+
+    const url = editingId
+      ? `/api/admin/registry/a2ui-pattern/${editingId}`
+      : '/api/admin/registry/a2ui-pattern';
+    const method = editingId ? 'PATCH' : 'POST';
+
+    const res = await fetch(url, {
+      method,
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'same-origin',
+      body: JSON.stringify({ slug, data, status }),
+    });
+    if (res.ok) { dialog?.close(); navigate(location.pathname); }
+  });
+
+  // ── Delete ──
+  table.querySelectorAll('[data-action="delete"]').forEach(btn => {
+    btn.addEventListener('native:press', () => {
+      deletingId = btn.getAttribute('data-entry-id') || '';
+      const el = document.getElementById('pat-delete-name');
+      if (el) el.textContent = btn.getAttribute('data-entry-label') || '';
+      deleteDialog?.showModal();
+    });
+  });
+
+  document.getElementById('pat-delete-cancel')?.addEventListener('native:press', () => deleteDialog?.close());
+  document.getElementById('pat-delete-submit')?.addEventListener('native:press', async () => {
+    const res = await fetch(`/api/admin/registry/a2ui-pattern/${deletingId}`, {
+      method: 'DELETE',
+      credentials: 'same-origin',
+    });
+    if (res.ok) { deleteDialog?.close(); navigate(location.pathname); }
+  });
+
+  // ── Export All ──
+  document.getElementById('export-btn')?.addEventListener('native:press', async () => {
+    const res = await fetch('/api/admin/registry/a2ui-pattern', { credentials: 'same-origin' });
+    if (!res.ok) return;
+    const items = await res.json();
+    const exported = items.map((item: any) => {
+      try { return JSON.parse(item.data); } catch { return item.data; }
+    });
+    const blob = new Blob([JSON.stringify(exported, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'a2ui-patterns.json';
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+
+  // ── Import ──
+  document.getElementById('import-btn')?.addEventListener('native:press', () => {
+    const area = document.getElementById('import-json') as any;
+    if (area) area.value = '';
+    importDialog?.showModal();
+  });
+
+  document.getElementById('import-cancel')?.addEventListener('native:press', () => importDialog?.close());
+  document.getElementById('import-submit')?.addEventListener('native:press', async () => {
+    const area = document.getElementById('import-json') as any;
+    const raw = area?.value?.trim();
+    if (!raw) return;
+
+    let items: any[];
+    try { items = JSON.parse(raw); } catch { return; }
+    if (!Array.isArray(items)) return;
+
+    const res = await fetch('/api/admin/patterns/bulk', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'same-origin',
+      body: JSON.stringify({ patterns: items }),
+    });
+    if (res.ok) { importDialog?.close(); navigate(location.pathname); }
+  });
+});
+</script>

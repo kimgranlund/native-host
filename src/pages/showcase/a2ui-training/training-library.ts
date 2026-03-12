@@ -11,17 +11,33 @@
 // 7. parseJsonFromResponse/stripFences → inline implementations
 // 8. CSSInspectController → npm path (@nonoun/native-ui/traits)
 // 9. Pattern loader → local source copy (not exported from npm)
+// 10. n-editor (CodeMirror) language extensions from npm
+// 11. LLMChatController → npm path (@nonoun/native-ai)
+// 12. buildLLMAdapter uses proxy adapters (ClaudeGatewayAdapter/OpenAiGatewayAdapter)
 
 import { Kernel, resetKernel } from '@nonoun/native-ui/kernel';
 import { createA2UIAdapter, COMPONENT_MAP as REGISTRY, getComponentCategory } from '@nonoun/native-ai';
 import type { A2UIAdapter } from '@nonoun/native-ai';
 import { ClaudeGatewayAdapter, OpenAiGatewayAdapter } from '@nonoun/native-ai/gateway';
 import type { GatewayAdapter } from '@nonoun/native-ai/gateway';
+// LLMChatController — not yet exported from @nonoun/native-ai dist.
+// Stubbed until native-ai publishes the chat/llm-chat module.
+// import { LLMChatController } from '@nonoun/native-ai';
+// import type { NLLMChatPane } from '@nonoun/native-ai';
+type LLMChatController = { destroy(): void };
+type NLLMChatPane = { controller: unknown };
 import { CSSInspectController } from '@nonoun/native-ui/traits';
 import { PIPELINE_STEPS, runPipeline } from '../a2ui-builder/pipeline.ts';
 import promptJson from '../a2ui-builder/system-prompt.json';
 
-import { loadCatalog, loadPattern } from './patterns/pattern-loader.ts';
+// n-editor (CodeMirror)
+import { json } from '@codemirror/lang-json';
+import { html as htmlLang } from '@codemirror/lang-html';
+import { css as cssLang } from '@codemirror/lang-css';
+import { javascript } from '@codemirror/lang-javascript';
+import type { EditorView } from '@codemirror/view';
+
+import { loadCatalog, loadPattern, initPatterns } from './patterns/pattern-loader.ts';
 import type { CatalogEntry, Pattern } from './patterns/pattern-types.ts';
 
 // ── System prompt + component reference ──
@@ -43,13 +59,14 @@ function isClaudeModel(model: string): boolean {
   return model.startsWith('claude-') || ['opus-4.6', 'sonnet-4.6', 'haiku-4.5'].includes(model);
 }
 
-function buildLLMAdapter(system: string, model: string, tokens: number): GatewayAdapter | null {
+function buildLLMAdapter(system: string, model: string, tokens: number, temp?: number): GatewayAdapter | null {
   if (isClaudeModel(model)) {
     return new ClaudeGatewayAdapter({
       clientId: 'tl-regen',
       baseUrl: '/api/anthropic',
       model,
       maxTokens: tokens,
+      temperature: temp,
       system,
       apiKey: 'proxy',
       anthropicVersion: '2023-06-01',
@@ -60,6 +77,7 @@ function buildLLMAdapter(system: string, model: string, tokens: number): Gateway
     baseUrl: '/api/openai',
     model,
     maxTokens: tokens,
+    temperature: temp,
     system,
     apiKey: 'proxy',
   });
@@ -78,7 +96,6 @@ function parseJsonFromResponse(raw: string): Record<string, unknown> | null {
   try {
     return JSON.parse(stripFences(raw));
   } catch {
-    // Try to find JSON object in the response
     const match = raw.match(/\{[\s\S]*\}/);
     if (match) {
       try {
@@ -93,9 +110,12 @@ function parseJsonFromResponse(raw: string): Record<string, unknown> | null {
 // Boot — wrapped in astro:page-load with element guard
 // ══════════════════════════════════════════════════════════════════
 
-document.addEventListener('astro:page-load', () => {
+document.addEventListener('astro:page-load', async () => {
   const grid = document.getElementById('pattern-grid');
   if (!grid) return; // not on this page
+
+  // Load patterns from DB (falls back to static JSON if API unavailable)
+  await initPatterns();
 
   // ── State ──
   const catalog = loadCatalog();
@@ -109,30 +129,56 @@ document.addEventListener('astro:page-load', () => {
   let maxTokens = 4096;
   let pipelineMode = false;
   let regenerating = false;
+  let isDirty = false;
+  let showingOriginal = false;
   let cssInspector: CSSInspectController | null = null;
+  let chatController: LLMChatController | null = null;
   const renderedCards = new Set<string>();
+
+  // ── Panel system ──
+  const PANELS = ['schema', 'html', 'css', 'js', 'insights', 'chat'] as const;
+  type PanelId = typeof PANELS[number];
+  const activePanels = new Set<PanelId>(['schema']);
+  const paneEls = new Map<PanelId, HTMLElement>();
+  const chipEls = new Map<PanelId, HTMLElement>();
 
   // ── DOM refs ──
   const countEl = document.getElementById('pattern-count')!;
   const dialog = document.getElementById('editor-lightbox') as HTMLDialogElement;
-  const lightboxTitle = document.getElementById('lightbox-title')!;
-  const lightboxBadges = document.getElementById('lightbox-badges')!;
   const lightboxPreview = document.getElementById('lightbox-preview')!;
-  const schemaEditor = document.getElementById('schema-editor') as HTMLTextAreaElement;
-  const outputPre = document.getElementById('output-pre')!;
+  type NEditor = HTMLElement & { value: string; extensions: unknown[]; editorView: EditorView | null };
+  const schemaEditor = document.getElementById('schema-editor') as NEditor;
+  const outputPre = document.getElementById('output-pre') as NEditor;
+  const cssEditor = document.getElementById('css-editor') as NEditor;
+  const jsEditor = document.getElementById('js-editor') as NEditor;
   const categoryFilter = document.getElementById('category-filter') as HTMLElement & { value: string };
-  const modelPicker = document.getElementById('tl-model') as HTMLElement & { value: string };
-  const tempRange = document.getElementById('tl-temperature') as HTMLInputElement;
-  const tokensRange = document.getElementById('tl-max-tokens') as HTMLInputElement;
-  const pipelineToggle = document.getElementById('tl-pipeline-toggle') as HTMLInputElement;
-  const tempVal = document.getElementById('temp-val')!;
-  const tokensVal = document.getElementById('tokens-val')!;
   const insightsWrap = document.getElementById('insights-wrap')!;
   const inspectToggleBtn = document.getElementById('inspect-toggle')!;
   const fullscreenToggleBtn = document.getElementById('fullscreen-toggle')!;
-  const btnRegenerate = document.getElementById('btn-regenerate')!;
-  const btnExport = document.getElementById('btn-export')!;
-  const btnClose = document.getElementById('lightbox-close')!;
+  const btnSave = document.getElementById('btn-save')!;
+  const viewSelect = document.getElementById('tl-view-select') as HTMLElement & { value: string };
+  const actionsMenu = document.getElementById('tl-actions-menu') as HTMLElement & { value: string };
+  const compareToggle = document.getElementById('compare-toggle') as HTMLElement & { value: string };
+  const chatToggle = document.getElementById('chat-toggle')!;
+  const chatPane = document.getElementById('llm-chat-pane') as HTMLElement & NLLMChatPane;
+  const btnPrev = document.getElementById('btn-prev')!;
+  const btnNext = document.getElementById('btn-next')!;
+
+  // Collect pane and chip elements
+  for (const id of PANELS) {
+    const pane = dialog.querySelector<HTMLElement>(`n-pane[data-panel-id="${id}"]`);
+    if (pane) paneEls.set(id, pane);
+    const chip = dialog.querySelector<HTMLElement>(`n-button[data-chip="${id}"]`);
+    if (chip) chipEls.set(id, chip);
+  }
+
+  // Set language modes on editors after CE upgrade
+  customElements.whenDefined('n-editor').then(() => {
+    schemaEditor.extensions = [json()];
+    outputPre.extensions = [htmlLang()];
+    cssEditor.extensions = [cssLang()];
+    jsEditor.extensions = [javascript()];
+  });
 
   // ── Kernel ──
   resetKernel();
@@ -148,6 +194,40 @@ document.addEventListener('astro:page-load', () => {
       }
       return c;
     });
+  }
+
+  /** Update dirty state. */
+  function setDirty(dirty: boolean): void {
+    isDirty = dirty;
+  }
+
+  // ── Panel system ──
+
+  /** Sync DOM visibility of all panes and chip active states. */
+  function syncPanels(): void {
+    for (const id of PANELS) {
+      const pane = paneEls.get(id);
+      if (pane) pane.hidden = !activePanels.has(id);
+      const chip = chipEls.get(id);
+      if (chip) {
+        if (activePanels.has(id)) chip.setAttribute('force-active', '');
+        else chip.removeAttribute('force-active');
+      }
+    }
+  }
+
+  /** Ensure a panel is visible. */
+  function showPanel(id: PanelId): void {
+    activePanels.add(id);
+    syncPanels();
+  }
+
+  /** Which editor panel is currently visible (first match from active set)? */
+  function activeEditorPanel(): PanelId {
+    for (const id of ['schema', 'html', 'css', 'js'] as const) {
+      if (activePanels.has(id)) return id;
+    }
+    return 'schema';
   }
 
   // ══════════════════════════════════════════════════════════════════
@@ -179,7 +259,7 @@ document.addEventListener('astro:page-load', () => {
           <span class="tl-card-badge" data-tier="${entry.tier}">${entry.tier}</span>
           <span class="tl-card-badge" data-category>${entry.category}</span>
         </div>
-        <div class="tl-card-overlay"><span>Edit</span></div>
+        <div class="tl-card-overlay"><n-button variant="primary" intent="accent" size="sm"><n-icon name="pencil-simple" slot="leading"></n-icon>Edit</n-button></div>
       `;
 
       grid.appendChild(card);
@@ -248,7 +328,10 @@ document.addEventListener('astro:page-load', () => {
   function onFilterChange(filter: string): void {
     activeFilter = filter as 'all' | 'micro' | 'block';
     document.querySelectorAll('[data-filter]').forEach((btn) => {
-      btn.toggleAttribute('data-active', btn.getAttribute('data-filter') === filter);
+      const isActive = btn.getAttribute('data-filter') === filter;
+      btn.setAttribute('variant', isActive ? 'primary' : 'ghost');
+      if (isActive) btn.setAttribute('intent', 'accent');
+      else btn.removeAttribute('intent');
     });
     renderGrid();
   }
@@ -269,26 +352,70 @@ document.addEventListener('astro:page-load', () => {
     }
   }
 
+  /** Populate the view select with all pattern entries. */
+  function populateViewSelect(): void {
+    const listbox = viewSelect.querySelector('n-listbox');
+    if (!listbox) return;
+    for (const entry of catalog.patterns) {
+      const option = document.createElement('n-option');
+      option.setAttribute('value', entry.id);
+      option.textContent = entry.label;
+      listbox.appendChild(option);
+    }
+  }
+
   // ══════════════════════════════════════════════════════════════════
   // Lightbox
   // ══════════════════════════════════════════════════════════════════
 
   async function openLightbox(id: string): Promise<void> {
-    const pattern = await loadPattern(id);
+    let pattern = await loadPattern(id);
     if (!pattern) return;
+
+    // Load saved version from localStorage if present
+    const saved = localStorage.getItem(`tl-pattern-${id}`);
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved) as Pattern;
+        if (parsed.components) pattern = parsed;
+      } catch { /* ignore corrupt data */ }
+    }
 
     currentPattern = pattern;
     originalSchema = structuredClone(pattern.components);
 
-    lightboxTitle.textContent = pattern.label;
-    lightboxBadges.innerHTML = `
-      <span class="tl-card-badge" data-tier="${pattern.tier}">${pattern.tier}</span>
-      <span class="tl-card-badge" data-category>${pattern.category}</span>
-    `;
+    // Sync view select to current pattern
+    viewSelect.value = id;
 
+    // Apply recommended temperature from pattern (reset to default if absent)
+    temperature = pattern.temperature ?? 0.7;
+
+    // Schema editor
     schemaEditor.value = JSON.stringify(pattern, null, 2);
+
+    // Render preview
     renderLightboxPreview(pattern.components as Record<string, unknown>[]);
-    showTab('schema');
+
+    // Reset state
+    setDirty(false);
+    showingOriginal = false;
+    compareToggle.value = 'edited';
+    lightboxPreview.removeAttribute('data-compare');
+
+    // Create LLM chat controller bound to this pattern
+    // NOTE: LLMChatController not yet published in native-ai dist.
+    // When available, uncomment and wire up:
+    // chatController?.destroy();
+    // chatController = new LLMChatController({ ... });
+    // if (chatPane) chatPane.controller = chatController;
+    void chatController; // suppress unused warning
+    void chatPane;
+
+    // Reset panels to default (schema visible)
+    activePanels.clear();
+    activePanels.add('schema');
+    syncPanels();
+
     dialog.showModal();
   }
 
@@ -303,9 +430,27 @@ document.addEventListener('astro:page-load', () => {
       lightboxPreview,
     );
 
+    // Update output tab
     requestAnimationFrame(() => {
-      outputPre.textContent = lightboxPreview.innerHTML;
+      outputPre.value = formatHtml(lightboxPreview.innerHTML);
     });
+  }
+
+  /** Indent HTML for legibility — lightweight, no external deps. */
+  function formatHtml(raw: string): string {
+    const tokens = raw.replace(/></g, '>\n<').split('\n');
+    let indent = 0;
+    const lines: string[] = [];
+    for (const token of tokens) {
+      const trimmed = token.trim();
+      if (!trimmed) continue;
+      const isClosing = /^<\//.test(trimmed);
+      const isSelfClosing = /\/>$/.test(trimmed) || /^<(area|base|br|col|embed|hr|img|input|link|meta|source|track|wbr)\b/i.test(trimmed);
+      if (isClosing) indent = Math.max(0, indent - 1);
+      lines.push('  '.repeat(indent) + trimmed);
+      if (!isClosing && !isSelfClosing && /^<[a-z]/i.test(trimmed)) indent++;
+    }
+    return lines.join('\n');
   }
 
   function dismissInspector(): void {
@@ -313,30 +458,7 @@ document.addEventListener('astro:page-load', () => {
       cssInspector.dismiss();
       cssInspector.destroy();
       cssInspector = null;
-      inspectToggleBtn.removeAttribute('data-active');
-      inspectToggleBtn.removeAttribute('intent');
     }
-  }
-
-  function closeLightbox(): void {
-    dismissInspector();
-    dialog.close();
-    lightboxAdapter?.destroy();
-    lightboxAdapter = null;
-    currentPattern = null;
-    originalSchema = null;
-    lightboxPreview.innerHTML = '';
-  }
-
-  // ── Tab switching ──
-
-  function showTab(tab: string): void {
-    document.querySelectorAll('.tl-tab-panel').forEach((panel) => {
-      (panel as HTMLElement).hidden = panel.getAttribute('data-tab') !== tab;
-    });
-    dialog.querySelectorAll('[data-chip]').forEach((btn) => {
-      btn.toggleAttribute('data-active', btn.getAttribute('data-chip') === tab);
-    });
   }
 
   // ── Schema editor live update ──
@@ -353,6 +475,13 @@ document.addEventListener('astro:page-load', () => {
           renderLightboxPreview(components as Record<string, unknown>[]);
           if (currentPattern) {
             currentPattern = { ...currentPattern, components };
+            setDirty(true);
+          }
+          // Exit compare mode on edit
+          if (showingOriginal) {
+            showingOriginal = false;
+            compareToggle.value = 'edited';
+            lightboxPreview.removeAttribute('data-compare');
           }
         }
       } catch {
@@ -369,94 +498,97 @@ document.addEventListener('astro:page-load', () => {
     });
   }
 
+  /** Select a range in a CodeMirror editor and scroll it into view. */
+  function selectRange(editor: NEditor, from: number, to: number): void {
+    const view = editor.editorView;
+    if (!view) return;
+    view.dispatch({ selection: { anchor: from, head: to }, scrollIntoView: true });
+    view.focus();
+  }
+
+  /**
+   * Find the enclosing JSON object boundaries for a `"id": "value"` match.
+   * Walks outward from the match position counting braces to find `{…}`.
+   */
+  function findEnclosingObject(text: string, matchPos: number): { from: number; to: number } | null {
+    let depth = 0;
+    let from = matchPos;
+    for (let i = matchPos; i >= 0; i--) {
+      if (text[i] === '}') depth++;
+      if (text[i] === '{') {
+        if (depth === 0) { from = i; break; }
+        depth--;
+      }
+    }
+    depth = 0;
+    let to = matchPos;
+    for (let i = matchPos; i < text.length; i++) {
+      if (text[i] === '{') depth++;
+      if (text[i] === '}') {
+        if (depth === 1) { to = i + 1; break; }
+        depth--;
+      }
+    }
+    return { from, to };
+  }
+
+  /** Find an HTML element's opening tag in formatted HTML text. */
+  function findHtmlTag(text: string, id: string): { from: number; to: number } | null {
+    const pattern = new RegExp(`id=["']${id.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}["']`);
+    const match = pattern.exec(text);
+    if (!match) return null;
+    let from = match.index;
+    for (let i = match.index; i >= 0; i--) {
+      if (text[i] === '<') { from = i; break; }
+    }
+    let to = match.index + match[0].length;
+    for (let i = to; i < text.length; i++) {
+      if (text[i] === '>') { to = i + 1; break; }
+    }
+    return { from, to };
+  }
+
+  /** Try to select the clicked id in the schema editor. Returns true on match. */
+  function highlightInSchema(clickedId: string): boolean {
+    const text = schemaEditor.value;
+    const pattern = new RegExp(`"id"\\s*:\\s*"${clickedId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`);
+    const match = pattern.exec(text);
+    if (!match) return false;
+    const obj = findEnclosingObject(text, match.index);
+    if (!obj) return false;
+    selectRange(schemaEditor, obj.from, obj.to);
+    return true;
+  }
+
+  /** Try to select the clicked id in the output HTML editor. Returns true on match. */
+  function highlightInOutput(clickedId: string): boolean {
+    const text = outputPre.value;
+    const tag = findHtmlTag(text, clickedId);
+    if (!tag) return false;
+    selectRange(outputPre, tag.from, tag.to);
+    return true;
+  }
+
+  /** Preview → editor: click element highlights it in the current panel's editor (or falls back). */
   function onPreviewClick(e: Event): void {
     const target = e.target as HTMLElement;
     clearHighlights();
 
     const el = target.closest('[id]') as HTMLElement | null;
     if (!el || el === lightboxPreview) return;
+    const clickedId = el.id;
 
     el.setAttribute('data-highlight', '');
 
-    const searchStr = `"id": "${el.id}"`;
-    const idx = schemaEditor.value.indexOf(searchStr);
-    if (idx >= 0) {
-      schemaEditor.focus();
-      schemaEditor.setSelectionRange(idx, idx + searchStr.length);
-      const linesBefore = schemaEditor.value.substring(0, idx).split('\n').length;
-      const lineHeight = 11 * 1.6;
-      schemaEditor.scrollTop = Math.max(0, (linesBefore - 3) * lineHeight);
-    }
+    const panel = activeEditorPanel();
 
-    showTab('schema');
-  }
+    // If already on a highlightable panel, try that first
+    if (panel === 'schema' && highlightInSchema(clickedId)) return;
+    if (panel === 'html' && highlightInOutput(clickedId)) return;
 
-  let schemaCursorDebounce: ReturnType<typeof setTimeout> | undefined;
-
-  function onSchemaCursorMove(): void {
-    clearTimeout(schemaCursorDebounce);
-    schemaCursorDebounce = setTimeout(() => {
-      clearHighlights();
-
-      const pos = schemaEditor.selectionStart;
-      const text = schemaEditor.value;
-
-      const idPattern = /"id"\s*:\s*"([^"]+)"/g;
-      let bestId: string | null = null;
-      let bestStart = -1;
-      let match: RegExpExecArray | null;
-
-      while ((match = idPattern.exec(text)) !== null) {
-        const matchEnd = match.index + match[0].length;
-        if (matchEnd > pos) {
-          if (bestId) break;
-          const objectStart = findObjectStart(text, match.index);
-          if (objectStart <= pos) {
-            bestId = match[1];
-            bestStart = objectStart;
-          }
-          break;
-        }
-        bestId = match[1];
-        bestStart = match.index;
-      }
-
-      if (!bestId) return;
-
-      const objectStart = findObjectStart(text, bestStart);
-      const objectEnd = findObjectEnd(text, objectStart);
-      if (pos < objectStart || pos > objectEnd) return;
-
-      const el = lightboxPreview.querySelector(`#${CSS.escape(bestId)}`) as HTMLElement | null;
-      if (el) {
-        el.setAttribute('data-highlight', '');
-        el.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-      }
-    }, 120);
-  }
-
-  function findObjectStart(text: string, pos: number): number {
-    let depth = 0;
-    for (let i = pos - 1; i >= 0; i--) {
-      if (text[i] === '}') depth++;
-      if (text[i] === '{') {
-        if (depth === 0) return i;
-        depth--;
-      }
-    }
-    return 0;
-  }
-
-  function findObjectEnd(text: string, pos: number): number {
-    let depth = 0;
-    for (let i = pos; i < text.length; i++) {
-      if (text[i] === '{') depth++;
-      if (text[i] === '}') {
-        depth--;
-        if (depth === 0) return i;
-      }
-    }
-    return text.length;
+    // Fall back to whichever editor has a match
+    if (highlightInSchema(clickedId)) { showPanel('schema'); return; }
+    if (highlightInOutput(clickedId)) { showPanel('html'); return; }
   }
 
   // ══════════════════════════════════════════════════════════════════
@@ -593,7 +725,6 @@ document.addEventListener('astro:page-load', () => {
   async function handleRegenerate(): Promise<void> {
     if (!currentPattern || regenerating) return;
     regenerating = true;
-    btnRegenerate.setAttribute('disabled', '');
 
     const query = `Regenerate this UI pattern with improved structure and styling.
 
@@ -615,13 +746,15 @@ ${JSON.stringify({ surfaceId: 'lightbox', components: currentPattern.components 
       console.error('Regeneration failed:', err);
     } finally {
       regenerating = false;
-      btnRegenerate.removeAttribute('disabled');
     }
   }
 
   async function regenerateDirect(query: string): Promise<void> {
-    const adapter = buildLLMAdapter(systemPrompt, currentModel, maxTokens);
-    if (!adapter) return;
+    const adapter = buildLLMAdapter(systemPrompt, currentModel, maxTokens, temperature);
+    if (!adapter) {
+      schemaEditor.value = '// No API key configured.';
+      return;
+    }
 
     const now = Date.now();
     const response = await adapter.sendMessage({
@@ -643,7 +776,7 @@ ${JSON.stringify({ surfaceId: 'lightbox', components: currentPattern.components 
 
   async function regeneratePipeline(query: string): Promise<void> {
     clearInsights();
-    showTab('insights');
+    showPanel('insights');
 
     const ctx = {
       query,
@@ -688,7 +821,7 @@ ${JSON.stringify({ surfaceId: 'lightbox', components: currentPattern.components 
     };
 
     const buildStepAdapter = (system: string, tokens: number) =>
-      buildLLMAdapter(system, currentModel, tokens);
+      buildLLMAdapter(system, currentModel, tokens, temperature);
 
     const result = await runPipeline(ctx, callbacks, buildStepAdapter, systemPrompt);
 
@@ -703,58 +836,74 @@ ${JSON.stringify({ surfaceId: 'lightbox', components: currentPattern.components 
     currentPattern = { ...currentPattern, components: components as Pattern['components'] };
     schemaEditor.value = JSON.stringify(currentPattern, null, 2);
     renderLightboxPreview(components);
-    showTab('schema');
+    setDirty(true);
+    showPanel('schema');
   }
 
   // ══════════════════════════════════════════════════════════════════
-  // Export Improvement
+  // CRUD — Reset, Download, Save
   // ══════════════════════════════════════════════════════════════════
 
-  function handleExport(): void {
+  function handleReset(): void {
+    if (!currentPattern || !originalSchema) return;
+    currentPattern = { ...currentPattern, components: structuredClone(originalSchema) };
+    schemaEditor.value = JSON.stringify(currentPattern, null, 2);
+    renderLightboxPreview(originalSchema as Record<string, unknown>[]);
+    setDirty(false);
+    // Exit compare mode
+    if (showingOriginal) {
+      showingOriginal = false;
+      compareToggle.value = 'edited';
+      lightboxPreview.removeAttribute('data-compare');
+    }
+  }
+
+  function handleExportJson(): void {
     if (!currentPattern) return;
-
-    const folder = currentPattern.tier === 'micro' ? 'micro' : 'blocks';
-    const md = `# Pattern Improvement: ${currentPattern.label}
-
-## Pattern
-- **ID:** ${currentPattern.id}
-- **Tier:** ${currentPattern.tier}
-- **Category:** ${currentPattern.category}
-- **Description:** ${currentPattern.description}
-- **Concepts:** ${currentPattern.concepts.join(', ')}
-
-## LLM Settings Used
-- **Model:** ${currentModel}
-- **Temperature:** ${temperature}
-- **Max Tokens:** ${maxTokens}
-- **Pipeline:** ${pipelineMode ? 'multi-step (4 stages)' : 'direct (single-shot)'}
-
-## Original Schema
-\`\`\`json
-${JSON.stringify(originalSchema, null, 2)}
-\`\`\`
-
-## Updated Schema
-\`\`\`json
-${JSON.stringify(currentPattern.components, null, 2)}
-\`\`\`
-
-## Instruction for Claude Code
-Update the pattern file at \`packages/native-ai/src/a2ui/patterns/${folder}/${currentPattern.id}.json\`
-with the full updated pattern JSON below. Verify it renders correctly in the A2UI Training Library.
-
-\`\`\`json
-${JSON.stringify(currentPattern, null, 2)}
-\`\`\`
-`;
-
-    const blob = new Blob([md], { type: 'text/markdown' });
+    const blob = new Blob([JSON.stringify(currentPattern, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `pattern-improvement-${currentPattern.id}.md`;
+    a.download = `${currentPattern.id}.json`;
     a.click();
     URL.revokeObjectURL(url);
+  }
+
+  function handleDuplicate(): void {
+    if (!currentPattern) return;
+    const dup = structuredClone(currentPattern);
+    dup.id = `${dup.id}-copy`;
+    dup.label = `${dup.label} (Copy)`;
+    schemaEditor.value = JSON.stringify(dup, null, 2);
+    currentPattern = dup;
+    setDirty(true);
+  }
+
+  function handleSave(): void {
+    if (!currentPattern || !isDirty) return;
+    localStorage.setItem(`tl-pattern-${currentPattern.id}`, JSON.stringify(currentPattern));
+    setDirty(false);
+    // Flash confirmation on save button
+    btnSave.setAttribute('intent', 'success');
+    setTimeout(() => btnSave.removeAttribute('intent'), 1200);
+  }
+
+  // ══════════════════════════════════════════════════════════════════
+  // Before / After Compare
+  // ══════════════════════════════════════════════════════════════════
+
+  function setCompareMode(mode: 'edited' | 'original'): void {
+    if (!currentPattern || !originalSchema) return;
+    showingOriginal = mode === 'original';
+    compareToggle.value = mode;
+
+    if (showingOriginal) {
+      lightboxPreview.setAttribute('data-compare', 'original');
+      renderLightboxPreview(originalSchema as Record<string, unknown>[]);
+    } else {
+      lightboxPreview.removeAttribute('data-compare');
+      renderLightboxPreview(currentPattern.components as Record<string, unknown>[]);
+    }
   }
 
   // ══════════════════════════════════════════════════════════════════
@@ -779,14 +928,58 @@ ${JSON.stringify(currentPattern, null, 2)}
     if (card?.dataset.patternId) openLightbox(card.dataset.patternId);
   });
 
-  // Lightbox close
-  btnClose.addEventListener('pointerup', closeLightbox);
+  // Lightbox close (Escape key / backdrop)
   dialog.addEventListener('close', () => {
     dismissInspector();
+    chatController?.destroy();
+    chatController = null;
+    activePanels.clear();
+    activePanels.add('schema');
+    syncPanels();
+    dialog.removeAttribute('data-fullscreen');
     lightboxAdapter?.destroy();
     lightboxAdapter = null;
     currentPattern = null;
     originalSchema = null;
+    lightboxPreview.innerHTML = '';
+  });
+
+  // Main toolbar — Save
+  btnSave.addEventListener('pointerup', handleSave);
+
+  // Main toolbar — View select (pattern picker)
+  viewSelect.addEventListener('native:change', () => {
+    const id = viewSelect.value;
+    if (id && id !== 'examples') openLightbox(id);
+  });
+
+  // Main toolbar — Actions dropdown
+  actionsMenu.addEventListener('native:change', () => {
+    const action = actionsMenu.value;
+    // Reset select so it can be re-triggered
+    requestAnimationFrame(() => { actionsMenu.value = ''; });
+    if (action === 'reset') handleReset();
+    else if (action === 'export-json') handleExportJson();
+    else if (action === 'duplicate') handleDuplicate();
+    else if (action === 'regenerate') handleRegenerate();
+  });
+
+  // Chip toggle buttons (pane visibility)
+  for (const [id, chip] of chipEls) {
+    chip.addEventListener('native:press', () => {
+      if (activePanels.has(id)) activePanels.delete(id);
+      else activePanels.add(id);
+      syncPanels();
+    });
+  }
+
+  // Pane close buttons
+  dialog.querySelectorAll<HTMLElement>('[data-close-panel-id]').forEach((btn) => {
+    btn.addEventListener('native:press', () => {
+      const panelId = btn.getAttribute('data-close-panel-id') as PanelId;
+      activePanels.delete(panelId);
+      syncPanels();
+    });
   });
 
   // CSS Inspector toggle
@@ -795,64 +988,50 @@ ${JSON.stringify(currentPattern, null, 2)}
       dismissInspector();
     } else {
       cssInspector = new CSSInspectController(lightboxPreview, { pick: true, labels: true });
-      inspectToggleBtn.setAttribute('data-active', '');
-      inspectToggleBtn.setAttribute('intent', 'accent');
     }
   });
 
+  // Sync button state if inspector dismisses itself (e.g. Escape key)
   lightboxPreview.addEventListener('native:inspect', (e: Event) => {
     const detail = (e as CustomEvent).detail;
     if (!detail?.active && cssInspector) {
       cssInspector = null;
-      inspectToggleBtn.removeAttribute('data-active');
-      inspectToggleBtn.removeAttribute('intent');
     }
   });
 
-  // Tab chip buttons
-  dialog.addEventListener('pointerup', (e) => {
-    const chip = (e.target as HTMLElement).closest<HTMLElement>('[data-chip]');
-    if (chip) showTab(chip.getAttribute('data-chip')!);
+  // Chat toggle — show/hide the docked chat pane
+  chatToggle.addEventListener('pointerup', () => {
+    if (activePanels.has('chat')) activePanels.delete('chat');
+    else activePanels.add('chat');
+    syncPanels();
   });
 
   // Fullscreen toggle
   fullscreenToggleBtn.addEventListener('pointerup', () => {
-    const isFS = dialog.toggleAttribute('data-fullscreen');
-    fullscreenToggleBtn.toggleAttribute('data-active', isFS);
+    dialog.toggleAttribute('data-fullscreen');
   });
 
-  // Schema editor — live update + cursor-driven highlight
-  schemaEditor.addEventListener('input', onSchemaInput);
-  schemaEditor.addEventListener('click', onSchemaCursorMove);
-  schemaEditor.addEventListener('keyup', onSchemaCursorMove);
+  // Compare control
+  compareToggle.addEventListener('native:change', (e) => {
+    setCompareMode((e as CustomEvent).detail?.value ?? 'edited');
+  });
+
+  // Schema editor — live update (n-editor fires native:input)
+  schemaEditor.addEventListener('native:input', onSchemaInput);
 
   // Preview click inspection
   lightboxPreview.addEventListener('click', onPreviewClick);
 
-  // Regenerate + Export
-  btnRegenerate.addEventListener('pointerup', handleRegenerate);
-  btnExport.addEventListener('pointerup', handleExport);
-
-  // Settings controls
-  modelPicker?.addEventListener('native:change', () => {
-    currentModel = modelPicker.value;
+  // Surface steppers (prev/next)
+  btnPrev.addEventListener('pointerup', () => {
+    // TODO: step through surfaces when multi-surface patterns exist
   });
-
-  tempRange?.addEventListener('native:input', () => {
-    temperature = (tempRange as unknown as { value: number }).value;
-    tempVal.textContent = String(temperature);
-  });
-
-  tokensRange?.addEventListener('native:input', () => {
-    maxTokens = (tokensRange as unknown as { value: number }).value;
-    tokensVal.textContent = String(maxTokens);
-  });
-
-  pipelineToggle?.addEventListener('native:change', () => {
-    pipelineMode = (pipelineToggle as unknown as { checked: boolean }).checked;
+  btnNext.addEventListener('pointerup', () => {
+    // TODO: step through surfaces when multi-surface patterns exist
   });
 
   // ── Boot ──
   populateCategoryFilter();
+  populateViewSelect();
   renderGrid();
 });

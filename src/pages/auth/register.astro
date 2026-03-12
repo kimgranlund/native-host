@@ -10,9 +10,10 @@ if (Astro.locals.user) return Astro.redirect('/blocks/data-dashboard-stats');
 
     .auth-screen {
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 100dvh;
+      height: 100dvh;
       padding: 2rem;
     }
 
@@ -84,75 +85,73 @@ if (Astro.locals.user) return Astro.redirect('/blocks/data-dashboard-stats');
   </style>
 
   <div class="auth-screen">
-    <n-stack align="center" justify="center">
-      <div class="auth-card-wrapper">
-        <div class="auth-logo">
-          <n-stack align="center">
-            <Logo size={40} />
-          </n-stack>
-        </div>
-        <div class="auth-heading">
-          <span class="text-lg text-strong">Create your account</span>
-        </div>
-        <div class="auth-subheading">
-          <span class="text-sm text-muted">Get started with NativeUI for free</span>
-        </div>
-
-        <div class="auth-error" id="auth-error">
-          <span class="text-sm text-danger" id="auth-error-text"></span>
-        </div>
-
-        <div class="auth-card">
-          <n-container padding="relaxed">
-            <n-body>
-              <n-stack gap="8">
-                <form id="register-form">
-                  <n-stack gap="6">
-                    <n-field required>
-                      <label slot="label">Full name</label>
-                      <n-input size="lg" placeholder="Kim Granlund" name="name">
-                        <n-icon name="user" slot="leading"></n-icon>
-                      </n-input>
-                    </n-field>
-                    <n-field required>
-                      <label slot="label">Email</label>
-                      <n-input size="lg" type="email" placeholder="kim@example.com" name="email">
-                        <n-icon name="envelope" slot="leading"></n-icon>
-                      </n-input>
-                    </n-field>
-                    <n-field required>
-                      <label slot="label">Password</label>
-                      <n-input size="lg" type="password" placeholder="At least 8 characters" name="password">
-                        <n-icon name="lock" slot="leading"></n-icon>
-                      </n-input>
-                    </n-field>
-                    <n-button size="lg" variant="primary" intent="accent" type="submit" id="register-submit">
-                      <span slot="label">Create account</span>
-                    </n-button>
-                  </n-stack>
-                </form>
-                <n-divider>or continue with</n-divider>
-                <n-button size="lg" id="google-register">
-                  <n-icon name="google-logo" slot="leading"></n-icon>
-                  <span slot="label">Google</span>
-                </n-button>
-              </n-stack>
-            </n-body>
-          </n-container>
-        </div>
-        <div class="auth-footer">
-          <span class="text-sm text-muted">
-            Already have an account? <a href="/auth/login">Sign in</a> | <a href="/blocks/data-dashboard-stats">Skip</a>
-          </span>
-        </div>
+    <div class="auth-card-wrapper">
+      <div class="auth-logo">
+        <n-stack align="center">
+          <Logo size={40} />
+        </n-stack>
+      </div>
+      <div class="auth-heading">
+        <span class="text-lg text-strong">Create your account</span>
+      </div>
+      <div class="auth-subheading">
+        <span class="text-sm text-muted">Get started with NativeUI for free</span>
       </div>
 
-      <div class="auth-legal">
-        <span class="text-xs text-muted">
-          By continuing, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+      <div class="auth-error" id="auth-error">
+        <span class="text-sm text-danger" id="auth-error-text"></span>
+      </div>
+
+      <div class="auth-card">
+        <n-container padding="relaxed">
+          <n-body>
+            <n-stack gap="8">
+              <form id="register-form">
+                <n-stack gap="6">
+                  <n-field required>
+                    <label slot="label">Full name</label>
+                    <n-input size="lg" placeholder="Kim Granlund" name="name">
+                      <n-icon name="user" slot="leading"></n-icon>
+                    </n-input>
+                  </n-field>
+                  <n-field required>
+                    <label slot="label">Email</label>
+                    <n-input size="lg" type="email" placeholder="kim@example.com" name="email">
+                      <n-icon name="envelope" slot="leading"></n-icon>
+                    </n-input>
+                  </n-field>
+                  <n-field required>
+                    <label slot="label">Password</label>
+                    <n-input size="lg" type="password" placeholder="At least 8 characters" name="password">
+                      <n-icon name="lock" slot="leading"></n-icon>
+                    </n-input>
+                  </n-field>
+                  <n-button size="lg" variant="primary" intent="accent" type="submit" id="register-submit">
+                    <span slot="label">Create account</span>
+                  </n-button>
+                </n-stack>
+              </form>
+              <n-divider>or continue with</n-divider>
+              <n-button size="lg" id="google-register">
+                <n-icon name="google-logo" slot="leading"></n-icon>
+                <span slot="label">Google</span>
+              </n-button>
+            </n-stack>
+          </n-body>
+        </n-container>
+      </div>
+      <div class="auth-footer">
+        <span class="text-sm text-muted">
+          Already have an account? <a href="/auth/login">Sign in</a> | <a href="/blocks/data-dashboard-stats">Skip</a>
         </span>
       </div>
-    </n-stack>
+    </div>
+
+    <div class="auth-legal">
+      <span class="text-xs text-muted">
+        By continuing, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+      </span>
+    </div>
   </div>
 
   <script>

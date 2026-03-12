@@ -10,6 +10,8 @@
 // 5. REGISTRY from npm (COMPONENT_MAP export), not local array
 // 6. ConfettiController import → npm path
 // 7. Pipeline imports → local copies of pipeline.ts + step-prompts.ts
+// 8. n-editor (CodeMirror) language extensions from npm
+// 9. data-active → force-active for toggle button states
 
 import { Kernel, resetKernel } from '@nonoun/native-ui/kernel';
 import { createA2UIAdapter, COMPONENT_MAP as REGISTRY, getComponentCategory } from '@nonoun/native-ai';
@@ -20,6 +22,12 @@ import { ConfettiController, CSSInspectController } from '@nonoun/native-ui/trai
 import { PIPELINE_STEPS, runPipeline, shouldSkipEarlySteps } from './pipeline.ts';
 import type { PipelineStep, PipelineCallbacks } from './pipeline.ts';
 import promptJson from './system-prompt.json';
+
+// n-editor (CodeMirror)
+import { json } from '@codemirror/lang-json';
+import { javascript } from '@codemirror/lang-javascript';
+import { css as cssLang } from '@codemirror/lang-css';
+import { html as htmlLang } from '@codemirror/lang-html';
 
 // ── System prompt ──
 
@@ -36,7 +44,7 @@ const DEFAULT_SYSTEM_PROMPT = (promptJson as { prompt: string }).prompt
 
 const PANELS = [
   { id: 'preview',  label: 'Preview',  icon: 'eye' },
-  { id: 'concepts', label: 'Insights', icon: 'lightbulb' },
+  { id: 'concepts', label: 'Reasoning', icon: 'lightbulb' },
   { id: 'schema',   label: 'Schema',   icon: 'brackets-curly' },
   { id: 'html',     label: 'HTML',     icon: 'brackets-angle' },
   { id: 'css',      label: 'CSS',      icon: 'paint-brush' },
@@ -353,6 +361,34 @@ function mockResponse(input: string): MockResult {
 }
 
 /**
+ * Attempt to repair truncated JSON by closing unclosed strings, arrays, and objects.
+ * LLMs frequently hit max_tokens and produce cut-off JSON.
+ */
+function repairTruncatedJSON(text: string): string {
+  let repaired = text;
+  // Close unclosed string: count unescaped quotes
+  const quotes = repaired.match(/(?<!\\)"/g);
+  if (quotes && quotes.length % 2 !== 0) repaired += '"';
+  // Close unclosed structures by scanning open/close counts
+  const opens: string[] = [];
+  let inString = false;
+  for (let i = 0; i < repaired.length; i++) {
+    const ch = repaired[i];
+    if (ch === '\\' && inString) { i++; continue; }
+    if (ch === '"') { inString = !inString; continue; }
+    if (inString) continue;
+    if (ch === '{' || ch === '[') opens.push(ch);
+    else if (ch === '}' || ch === ']') opens.pop();
+  }
+  // Close in reverse order
+  while (opens.length) {
+    const open = opens.pop();
+    repaired += open === '{' ? '}' : ']';
+  }
+  return repaired;
+}
+
+/**
  * Extract a JSON object from an LLM response that may contain surrounding
  * text, markdown fences, or other non-JSON content.
  */
@@ -376,7 +412,13 @@ function parseJSON(raw: string | undefined): MockResult {
     try { return JSON.parse(text.slice(braceStart, braceEnd + 1)); } catch { /* fall through */ }
   }
 
-  // 4. Nothing worked — show truncated response for debugging
+  // 4. Truncated response — try to repair unclosed JSON
+  if (braceStart !== -1) {
+    const fragment = text.slice(braceStart);
+    try { return JSON.parse(repairTruncatedJSON(fragment)); } catch { /* fall through */ }
+  }
+
+  // 5. Nothing worked — show truncated response for debugging
   const preview = text.length > 200 ? text.slice(0, 200) + '…' : text;
   throw new Error(`Could not parse JSON from response:\n${preview}`);
 }
@@ -479,13 +521,22 @@ document.addEventListener('astro:page-load', () => {
   // Pane content containers
   const previewMount = document.getElementById('preview-mount')!;
   const conceptsWrap = document.getElementById('concepts-wrap')!;
-  const schemaPre = document.getElementById('schema-pre')!;
-  const htmlPre = document.getElementById('html-pre')!;
-  const cssEditor = document.getElementById('css-editor') as HTMLTextAreaElement;
-  const jsEditor = document.getElementById('js-editor') as HTMLTextAreaElement;
+  type NEditor = HTMLElement & { value: string; extensions: unknown[] };
+  const schemaPre = document.getElementById('schema-pre') as NEditor;
+  const htmlPre = document.getElementById('html-pre') as NEditor;
+  const cssEditor = document.getElementById('css-editor') as NEditor;
+  const jsEditor = document.getElementById('js-editor') as NEditor;
   const mapTable = document.getElementById('map-table')!;
-  const promptEditor = document.getElementById('prompt-editor') as HTMLTextAreaElement;
+  const promptEditor = document.getElementById('prompt-editor') as NEditor;
   const modelPicker = document.getElementById('model-picker') as HTMLElement & { value: string };
+
+  // Set language modes on editors after CE upgrade
+  customElements.whenDefined('n-editor').then(() => {
+    schemaPre.extensions = [json()];
+    htmlPre.extensions = [htmlLang()];
+    cssEditor.extensions = [cssLang()];
+    jsEditor.extensions = [javascript()];
+  });
 
   // ── CSS/JS live apply ──
 
@@ -527,10 +578,22 @@ document.addEventListener('astro:page-load', () => {
     if (!previewMount.children.length) return;
 
     try {
+      // Wrap generated code in try/catch so async callbacks (event listeners)
+      // don't throw uncaught errors from LLM-generated code.
       const wrapper = `(function(preview){
   var $ = function(sel){ return preview.querySelector(sel); };
   var $$ = function(sel){ return preview.querySelectorAll(sel); };
+  var _origAEL = EventTarget.prototype.addEventListener;
+  EventTarget.prototype.addEventListener = function(type, fn, opts) {
+    var safeFn = typeof fn === 'function' ? function() {
+      try { return fn.apply(this, arguments); }
+      catch(e) { console.warn('[A2UI Preview] JS callback error:', e); }
+    } : fn;
+    return _origAEL.call(this, type, safeFn, opts);
+  };
+  try {
 ${js}
+  } finally { EventTarget.prototype.addEventListener = _origAEL; }
 }(__mount__))`;
       const fn = new Function('__mount__', wrapper);
       fn(previewMount);
@@ -547,7 +610,7 @@ ${js}
     cssDebounce = setTimeout(() => applyCSSToPreview(cssEditor.value), 300);
   }
 
-  cssEditor.addEventListener('input', debouncedCSSApply);
+  cssEditor.addEventListener('native:input', debouncedCSSApply);
   cssEditor.addEventListener('keydown', (e) => {
     if ((e.metaKey || e.ctrlKey) && e.key === 's') {
       e.preventDefault();
@@ -593,7 +656,7 @@ ${js}
   // ── Init pane refs + chips ──
 
   for (const panel of PANELS) {
-    const paneEl = document.querySelector(`n-pane[data-panel="${panel.id}"]`) as HTMLElement | null;
+    const paneEl = document.querySelector(`n-pane[data-panel-id="${panel.id}"]`) as HTMLElement | null;
     if (paneEl) {
       paneEls.set(panel.id, paneEl);
       paneEl.hidden = !activePanels.has(panel.id);
@@ -602,7 +665,7 @@ ${js}
     const chipEl = document.querySelector(`n-button[data-chip="${panel.id}"]`) as HTMLElement | null;
     if (chipEl) {
       chipEls.set(panel.id, chipEl);
-      chipEl.toggleAttribute('data-active', activePanels.has(panel.id));
+      chipEl.toggleAttribute('force-active', activePanels.has(panel.id));
 
       chipEl.addEventListener('native:press', () => {
         if (activePanels.has(panel.id)) {
@@ -616,9 +679,9 @@ ${js}
   }
 
   // Pane close buttons
-  for (const btn of document.querySelectorAll('[data-close-panel]')) {
+  for (const btn of document.querySelectorAll('[data-close-panel-id]')) {
     btn.addEventListener('native:press', () => {
-      const id = (btn as HTMLElement).getAttribute('data-close-panel');
+      const id = (btn as HTMLElement).getAttribute('data-close-panel-id');
       if (id) activePanels.delete(id);
       syncPanels();
     });
@@ -641,12 +704,12 @@ ${js}
       el.style.removeProperty('flex');
     }
     for (const [id, el] of paneEls) el.hidden = !activePanels.has(id);
-    for (const [id, chip] of chipEls) chip.toggleAttribute('data-active', activePanels.has(id));
+    for (const [id, chip] of chipEls) chip.toggleAttribute('force-active', activePanels.has(id));
   }
 
   // ── Lightbox toggle (light/dark preview) ──
 
-  const previewBody = document.querySelector('n-pane[data-panel="preview"] > n-body') as HTMLElement | null;
+  const previewBody = document.querySelector('n-pane[data-panel-id="preview"] > n-body') as HTMLElement | null;
   const colorSchemeBtn = document.getElementById('lightbox-toggle');
   let userOverride: boolean | null = null; // null = inherit from context
 
@@ -689,10 +752,10 @@ ${js}
       cssInspector.dismiss();
       cssInspector.destroy();
       cssInspector = null;
-      inspectToggleBtn.removeAttribute('data-active');
+      inspectToggleBtn.removeAttribute('force-active');
     } else {
       cssInspector = new CSSInspectController(previewMount, { pick: true, labels: true });
-      inspectToggleBtn.setAttribute('data-active', '');
+      inspectToggleBtn.setAttribute('force-active', '');
     }
   });
 
@@ -701,7 +764,7 @@ ${js}
     const detail = (e as CustomEvent).detail;
     if (!detail.active && cssInspector) {
       // Inspector dismissed itself (e.g. Escape) — sync button state
-      inspectToggleBtn?.removeAttribute('data-active');
+      inspectToggleBtn?.removeAttribute('force-active');
     }
   });
 
@@ -720,9 +783,10 @@ ${js}
     }
 
     previewBody.addEventListener('pointerdown', (e: PointerEvent) => {
-      // Only pan when clicking on the canvas background, not on the artifact
+      // Only pan when clicking on the canvas background, not on the artifact or pane grippers
       const target = e.target as HTMLElement;
       if (target.closest('#preview-mount')) return;
+      if (target.closest('n-gripper')) return;
       if (e.button !== 0) return;
 
       panStartX = e.clientX;
@@ -747,6 +811,13 @@ ${js}
     previewBody.addEventListener('lostpointercapture', () => {
       previewBody.removeAttribute('data-panning');
     });
+
+    // Re-center preview when pane resizes (reset pan offset)
+    new ResizeObserver(() => {
+      panX = 0;
+      panY = 0;
+      applyTransform();
+    }).observe(previewBody);
   }
 
   // ── Lightbox mode (fullscreen overlay) ──
@@ -766,7 +837,7 @@ ${js}
       builderEl.removeAttribute('popover');
     }
     builderEl.toggleAttribute('data-lightbox', lightboxMode);
-    lightboxModeBtn.toggleAttribute('data-active', lightboxMode);
+    lightboxModeBtn.toggleAttribute('force-active', lightboxMode);
     const icon = lightboxModeBtn.querySelector('n-icon');
     if (icon) icon.setAttribute('name', lightboxMode ? 'arrows-in-simple' : 'arrows-out-simple');
   });
@@ -776,7 +847,7 @@ ${js}
   const pipelineBtn = document.querySelector('[data-role="toggle-pipeline"]') as HTMLElement | null;
   pipelineBtn?.addEventListener('native:press', () => {
     pipelineMode = !pipelineMode;
-    pipelineBtn.toggleAttribute('data-active', pipelineMode);
+    pipelineBtn.toggleAttribute('force-active', pipelineMode);
     if (pipelineMode) {
       pipelineBtn.setAttribute('intent', 'accent');
     } else {
@@ -790,7 +861,7 @@ ${js}
 
   // Prompt editor — editable textarea
   promptEditor.value = DEFAULT_SYSTEM_PROMPT;
-  promptEditor.addEventListener('input', () => {
+  promptEditor.addEventListener('native:input', () => {
     systemPrompt = promptEditor.value;
     llm = buildAdapter(currentModel);
   });
@@ -972,7 +1043,7 @@ ${js}
     entry.appendChild(header);
 
     conceptsWrap.appendChild(entry);
-    conceptsWrap.scrollTop = conceptsWrap.scrollHeight;
+    scrollReasoningToBottom();
 
     if (stepId) insightEntries.set(stepId, entry);
     return entry;
@@ -1074,16 +1145,163 @@ ${js}
     entry.querySelector('.insight-placeholder')?.remove();
     try {
       const data = JSON.parse(stripFences(output));
-      const count = data.components?.length ?? 0;
-      appendInsightText(entry, `Built ${count} component${count !== 1 ? 's' : ''}`);
-      if (data.surfaceId) appendInsightBadges(entry, [data.surfaceId]);
+
+      // Detect response type — the construct step may produce questions instead of a schema
+      const type: string = data.type ?? (data.schema ? 'schema' : data.components ? 'schema' : data.questions ? 'question' : '');
+
+      if (type === 'question' || (!data.components && !data.schema && data.reply)) {
+        appendInsightText(entry, 'Asked clarifying questions');
+        // Update header label from "Construction" to "Outcome"
+        const label = entry.querySelector('.insight-label');
+        if (label) label.textContent = 'Outcome';
+        return;
+      }
+
+      const components = data.components ?? data.schema?.components ?? [];
+      const count = Array.isArray(components) ? components.length : 0;
+      if (count > 0) {
+        appendInsightText(entry, `Built ${count} component${count !== 1 ? 's' : ''}`);
+      } else {
+        appendInsightText(entry, 'Responded (no schema)', true);
+        const label = entry.querySelector('.insight-label');
+        if (label) label.textContent = 'Outcome';
+      }
+      const surfaceId = data.surfaceId ?? data.schema?.surfaceId;
+      if (surfaceId) appendInsightBadges(entry, [surfaceId]);
     } catch {
-      appendInsightText(entry, 'Schema constructed', true);
+      // Raw text output — likely a question or error, not a schema
+      if (output.includes('?') || output.length < 200) {
+        appendInsightText(entry, 'Responded', true);
+        const label = entry.querySelector('.insight-label');
+        if (label) label.textContent = 'Outcome';
+      } else {
+        appendInsightText(entry, 'Schema constructed', true);
+      }
     }
   }
 
+  /** Scroll the Reasoning pane's n-body to bottom. */
+  function scrollReasoningToBottom(): void {
+    const scrollParent = conceptsWrap.closest('n-body') as HTMLElement | null ?? conceptsWrap;
+    scrollParent.scrollTop = scrollParent.scrollHeight;
+  }
+
+  /** Populate reasoning from a single-shot (non-pipeline) response,
+   *  revealing each step progressively with placeholder → fill transitions. */
+  function populateInsightsFromResult(result: MockResult): void {
+    clearInsights();
+
+    const effectiveType = result.type ?? (result.schema ? 'schema' : 'question');
+    const isSchema = effectiveType === 'schema' && !!result.schema;
+
+    type InsightStep = { label: string; placeholder: string; fill: (entry: HTMLElement) => void };
+    const steps: InsightStep[] = [];
+
+    // Always show the response summary
+    if (result.reply) {
+      steps.push({
+        label: isSchema ? 'Response' : 'Clarification',
+        placeholder: isSchema ? 'Composing response…' : 'Thinking…',
+        fill(entry) { appendInsightText(entry, result.reply); },
+      });
+    }
+
+    // Concepts — only for schema results
+    if (isSchema && result.concepts?.length) {
+      steps.push({
+        label: 'Concepts',
+        placeholder: 'Mapping concepts…',
+        fill(entry) {
+          for (const c of result.concepts) {
+            const item = document.createElement('div');
+            item.className = 'insight-concept';
+            const name = document.createElement('span');
+            name.className = 'insight-concept-name';
+            name.textContent = c;
+            item.appendChild(name);
+            entry.appendChild(item);
+          }
+        },
+      });
+    }
+
+    // Construction — only when a schema was actually built
+    if (isSchema && result.schema) {
+      steps.push({
+        label: 'Construction',
+        placeholder: 'Building schema…',
+        fill(entry) {
+          const count = result.schema!.components?.length ?? 0;
+          appendInsightText(entry, `Built ${count} component${count !== 1 ? 's' : ''}`);
+          if (result.schema!.surfaceId) appendInsightBadges(entry, [result.schema!.surfaceId]);
+        },
+      });
+    }
+
+    // Non-schema type badges (question, gap, remap, prompt)
+    if (!isSchema && effectiveType !== 'question') {
+      const typeLabels: Record<string, string> = {
+        gap: 'Gap Analysis',
+        remap: 'Component Remap',
+        prompt: 'Prompt Generated',
+      };
+      steps.push({
+        label: typeLabels[effectiveType] ?? 'Outcome',
+        placeholder: 'Processing…',
+        fill(entry) { appendInsightBadges(entry, [effectiveType]); },
+      });
+    }
+
+    const extras: string[] = [];
+    if (result.css !== undefined) extras.push('Custom CSS');
+    if (result.js !== undefined) extras.push('Custom JS');
+    if (extras.length) {
+      steps.push({
+        label: 'Extras',
+        placeholder: 'Applying extras…',
+        fill(entry) { appendInsightBadges(entry, extras, 'accent'); },
+      });
+    }
+
+    if (result.gaps?.length) {
+      steps.push({
+        label: 'Gaps',
+        placeholder: 'Analyzing gaps…',
+        fill(entry) {
+          for (const g of result.gaps!) {
+            const item = document.createElement('div');
+            item.className = 'insight-concept';
+            const name = document.createElement('span');
+            name.className = 'insight-concept-name';
+            name.textContent = g.component;
+            item.appendChild(name);
+            appendInsightText(item, g.need, true);
+            entry.appendChild(item);
+          }
+        },
+      });
+    }
+
+    // Progressive reveal: placeholder first, then fill after a short delay
+    const STEP_DELAY = 400;
+    const FILL_DELAY = 300;
+
+    steps.forEach((step, i) => {
+      setTimeout(() => {
+        const entry = appendInsightEntry(step.label);
+        appendInsightPlaceholder(entry, step.placeholder);
+
+        setTimeout(() => {
+          entry.querySelector('.insight-placeholder')?.remove();
+          step.fill(entry);
+          scrollReasoningToBottom();
+        }, FILL_DELAY);
+      }, i * STEP_DELAY);
+    });
+  }
+
   function renderSchema(schema: MockResult['schema']) {
-    schemaPre.textContent = JSON.stringify(schema, null, 2);
+    schemaPre.value = JSON.stringify(schema, null, 2);
   }
 
   function renderPreview(schema: MockResult['schema']) {
@@ -1096,7 +1314,7 @@ ${js}
       cssInspector.dismiss();
       cssInspector.destroy();
       cssInspector = null;
-      inspectToggleBtn?.removeAttribute('data-active');
+      inspectToggleBtn?.removeAttribute('force-active');
     }
     // Animate: shrink out → rebuild → grow in
     previewMount.classList.add('entering');
@@ -1117,7 +1335,7 @@ ${js}
 
     // Extract rendered HTML after adapter finishes rendering
     queueMicrotask(() => {
-      htmlPre.textContent = previewMount.innerHTML;
+      htmlPre.value = previewMount.innerHTML;
     });
   }
 
@@ -1259,6 +1477,7 @@ ${js}
       clearProgress(summaryVerbs[result.type ?? '']);
 
       messages.push({ role: 'assistant', message: trimmed! });
+      populateInsightsFromResult(result);
       applyResult(result);
     } catch (err) {
       clearProgress('Error');
@@ -1326,11 +1545,12 @@ ${js}
         else if (step.id === 'plan') fillPlan(entry, output);
         else if (step.id === 'construct') {
           fillConstruct(entry, output);
-          schemaPre.textContent = output;
+          schemaPre.value = output;
         }
+        scrollReasoningToBottom();
       },
       onStreamChunk(_delta: string, fullMessage: string) {
-        schemaPre.textContent = fullMessage;
+        schemaPre.value = fullMessage;
       },
       onError(step: PipelineStep, _index: number, error: Error) {
         const line = stepLines.get(step.id);
@@ -1375,6 +1595,12 @@ ${js}
       progressEl.className = 'builder-progress-summary';
       progressEl.textContent = `Thought for ${elapsed}s · ${label}`;
 
+      // If result isn't a schema, fix the construct step label in progress + reasoning
+      if (result.type !== 'schema') {
+        const constructLine = stepLines.get('construct');
+        if (constructLine) constructLine.textContent = summaryVerbs[result.type ?? ''] ?? 'Responded';
+      }
+
       messages.push({ role: 'assistant', message: trimmed! });
       applyResult(result);
     } catch (err) {
@@ -1405,7 +1631,11 @@ ${js}
     messages.push({ role: 'user', message: userMessage });
 
     if (!llm) {
-      setTimeout(() => applyResult(mockResponse(value)), 300);
+      setTimeout(() => {
+        const result = mockResponse(value);
+        populateInsightsFromResult(result);
+        applyResult(result);
+      }, 300);
       return;
     }
 
@@ -1499,7 +1729,7 @@ ${js}
   }
 
   // Dismiss on first user input (textarea focus or keydown)
-  const textarea = document.querySelector<HTMLElement>('[data-panel="agent-chat"] n-textarea');
+  const textarea = document.querySelector<HTMLElement>('[data-panel-id="agent-chat"] n-textarea');
   if (textarea) {
     const onFirstInput = () => {
       dismissWelcome();

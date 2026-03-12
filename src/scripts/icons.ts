@@ -102,6 +102,7 @@ import pencilSimple from '@phosphor-icons/core/assets/regular/pencil-simple.svg?
 import percent from '@phosphor-icons/core/assets/regular/percent.svg?raw';
 import phone from '@phosphor-icons/core/assets/regular/phone.svg?raw';
 import plug from '@phosphor-icons/core/assets/regular/plug.svg?raw';
+import puzzlePiece from '@phosphor-icons/core/assets/regular/puzzle-piece.svg?raw';
 import plugsConnected from '@phosphor-icons/core/assets/regular/plugs-connected.svg?raw';
 import play from '@phosphor-icons/core/assets/regular/play.svg?raw';
 import plus from '@phosphor-icons/core/assets/regular/plus.svg?raw';
@@ -270,6 +271,7 @@ const icons: Record<string, string> = {
   'phone': phone,
   'plug': plug,
   'plugs-connected': plugsConnected,
+  'puzzle-piece': puzzlePiece,
   'play': play,
   'plus': plus,
   'printer': printer,

@@ -52,7 +52,7 @@
   --n-border-muted: transparent;
 }
 
-.builder > n-header n-button[data-active] {
+.builder > n-header n-button[force-active] {
   --n-background: var(--pg-editor-bg);
   --n-color: var(--pg-text-strong);
 }
@@ -67,16 +67,15 @@
 
 /* ── Chat region (left) ── */
 
-.builder [data-panel="agent-chat"] {
+.builder [data-panel-id="agent-chat"] {
   flex: 1 1 0%;
   min-width: 28rem;
   background: var(--n-body);
 }
 
-.builder [data-panel="agent-chat"] > n-chat-feed {
+.builder [data-panel-id="agent-chat"] > n-chat-feed {
   flex: 1;
   min-height: 0;
-  --n-chat-feed-padding-inline: calc(var(--n-space) * 2);
 }
 
 /* ── Welcome screen ── */
@@ -135,13 +134,11 @@ n-agent-dialogue-item[data-type="remap"] n-chat-message-text {
 }
 
 /* ── Chat composer: give the input area a visible container ── */
-.builder [data-panel="agent-chat"] > :where(n-agent-input) {
+.builder [data-panel-id="agent-chat"] > :where(n-agent-input) {
   flex: none;
   --n-background: var(--n-control);
   --n-chat-input-border: 1px solid var(--n-border-muted);
   --n-chat-input-border-radius: var(--n-radius);
-  --n-chat-input-padding-inline: calc(var(--n-space) * 2);
-  --n-chat-input-padding-block: var(--n-space);
 }
 
 /* ── Panes (right side, togglable) ── */
@@ -149,6 +146,7 @@ n-agent-dialogue-item[data-type="remap"] n-chat-message-text {
 .builder n-pane {
   min-width: 0;
   flex: 1 1 16rem;
+  scrollbar-width: none;
 }
 
 /* Pane header */
@@ -156,7 +154,6 @@ n-agent-dialogue-item[data-type="remap"] n-chat-message-text {
   flex: none;
   --n-background: var(--pg-chrome);
   --n-background-hover: var(--pg-editor-bg);
-  border-block-end: var(--pg-border);
   --n-padding-block: 0;
   --n-padding-inline: 0.5rem;
   --n-ink: var(--pg-text-muted);
@@ -180,7 +177,7 @@ n-agent-dialogue-item[data-type="remap"] n-chat-message-text {
 
 /* ── Preview pane ── */
 
-.builder n-pane[data-panel="preview"] > n-body {
+.builder n-pane[data-panel-id="preview"] > n-body {
   --n-background: var(--n-body);
   --n-padding-block: 0;
   --n-padding-inline: 0;
@@ -188,7 +185,7 @@ n-agent-dialogue-item[data-type="remap"] n-chat-message-text {
   cursor: grab; /* pannable canvas — no generic token warranted */
 }
 
-.builder n-pane[data-panel="preview"] > n-body[data-panning] {
+.builder n-pane[data-panel-id="preview"] > n-body[data-panning] {
   cursor: grabbing;
   user-select: none;
 }
@@ -206,6 +203,7 @@ n-agent-dialogue-item[data-type="remap"] n-chat-message-text {
   top: 50%;
   transform: translate(-50%, -50%) scale(1);
   min-width: 20rem;
+  max-width: calc(100% - 2rem);
   cursor: default;
   pointer-events: auto;
   will-change: transform, opacity;
@@ -222,7 +220,7 @@ n-agent-dialogue-item[data-type="remap"] n-chat-message-text {
   opacity: 1;
 }
 
-/* ── Insights pane ── */
+/* ── Reasoning pane ── */
 
 .concepts-wrap {
   display: flex;
@@ -299,66 +297,30 @@ n-agent-dialogue-item[data-type="remap"] n-chat-message-text {
   color: var(--pg-text-strong);
 }
 
+.insight-template {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  padding-inline-start: 0.625rem;
+  border-inline-start: 2px solid var(--pg-text-muted);
+}
+
+.insight-template-name {
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: var(--pg-text-strong);
+}
+
+.insight-template-meta {
+  font-size: 0.75rem;
+  color: var(--pg-text-muted);
+  letter-spacing: 0.01em;
+}
+
 .insight-badges {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-}
-
-/* ── Pre content (schema, map) ── */
-
-.pane-pre {
-  margin: 0;
-  padding: 0.75rem 1rem;
-  font-size: 0.8125rem;
-  line-height: 1.7;
-  letter-spacing: 0.01em;
-  white-space: pre-wrap;
-  word-break: break-word;
-  color: var(--pg-text);
-}
-
-/* ── Prompt textarea (editable) ── */
-
-.prompt-editor {
-  display: block;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0.75rem 1rem;
-  border: none;
-  outline: none;
-  resize: none;
-  background: transparent;
-  color: var(--pg-text);
-  font-family: var(--n-font-family-mono, ui-monospace, 'SF Mono', 'Cascadia Code', monospace);
-  font-size: 0.8125rem;
-  line-height: 1.7;
-  letter-spacing: 0.01em;
-  white-space: pre-wrap;
-  word-break: break-word;
-}
-
-/* ── Code editors (CSS/JS panes) ── */
-
-.code-editor {
-  display: block;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0.75rem 1rem;
-  border: none;
-  outline: none;
-  resize: none;
-  background: transparent;
-  color: var(--pg-text);
-  font-family: var(--n-font-family-mono, ui-monospace, 'SF Mono', 'Cascadia Code', monospace);
-  font-size: 0.8125rem;
-  line-height: 1.7;
-  letter-spacing: 0.01em;
-  white-space: pre-wrap;
-  word-break: break-word;
-  tab-size: 2;
 }
 
 /* ── Component map table ── */

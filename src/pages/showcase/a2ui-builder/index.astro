@@ -67,7 +67,7 @@ for (const m of visibleModels) {
           <span class="builder-title">A2UI Builder</span>
           <span fill></span>
           <n-button variant="ghost" size="sm" data-chip="preview">Preview</n-button>
-          <n-button variant="ghost" size="sm" data-chip="concepts">Insights</n-button>
+          <n-button variant="ghost" size="sm" data-chip="concepts">Reasoning</n-button>
           <n-button variant="ghost" size="sm" data-chip="schema">Schema</n-button>
           <n-button variant="ghost" size="sm" data-chip="html">HTML</n-button>
           <n-button variant="ghost" size="sm" data-chip="css">CSS</n-button>
@@ -82,9 +82,9 @@ for (const m of visibleModels) {
       <n-panes handle="hover">
 
         <!-- Chat (left) -->
-        <n-pane data-panel="agent-chat" data-region="chat" size-min="280">
-          <n-chat-feed id="chat-feed" auto-scroll></n-chat-feed>
-          <n-agent-input id="chat-composer">
+        <n-pane data-panel-id="agent-chat" data-region="chat" size-min="280">
+          <n-chat-feed id="chat-feed" auto-scroll density="compact"></n-chat-feed>
+          <n-agent-input id="chat-composer" density="compact">
               <n-chat-input-header>
                 <nav>
                   <n-select id="model-picker" value={defaultModel?.modelId ?? 'claude-haiku-4-5'} data-role="model-picker" variant="ghost" size="sm" density="compact" placeholder={defaultModel?.name ?? 'Claude Haiku 4.5'}>
@@ -130,17 +130,17 @@ for (const m of visibleModels) {
         </n-pane>
 
         <!-- Pane: Preview -->
-        <n-pane data-panel="preview" size-min="150">
-          <n-header>
-            <nav><n-icon inline name="eye"></n-icon></nav>
+        <n-pane data-panel-id="preview" border="block" size-min="150">
+          <n-header dividers>
+            <nav slot="leading"><n-icon inline name="eye"></n-icon></nav>
             <span>Preview</span>
-            <aside>
+            <aside slot="trailing">
               <n-button variant="ghost" size="sm" id="inspect-toggle" title="CSS Inspector"><n-icon name="stack-simple"></n-icon></n-button>
               <n-button variant="ghost" size="sm" id="lightbox-toggle" title="Toggle light/dark preview"><n-icon name="moon"></n-icon></n-button>
-              <n-button variant="ghost" size="sm" data-close-panel="preview"><n-icon name="x"></n-icon></n-button>
+              <n-button variant="ghost" size="sm" data-close-panel-id="preview"><n-icon name="x"></n-icon></n-button>
             </aside>
           </n-header>
-          <n-body>
+          <n-body overflow="hidden" relative>
             <div id="preview-canvas">
               <div id="preview-mount">
                 <span class="empty-state">Live preview will appear here</span>
@@ -150,76 +150,76 @@ for (const m of visibleModels) {
         </n-pane>
 
         <!-- Pane: Concepts -->
-        <n-pane data-panel="concepts" size-min="150">
-          <n-header>
-            <nav><n-icon inline name="lightbulb"></n-icon></nav>
-            <span>Insights</span>
-            <aside><n-button variant="ghost" size="sm" data-close-panel="concepts"><n-icon name="x"></n-icon></n-button></aside>
+        <n-pane data-panel-id="concepts" border="block" size-min="150">
+          <n-header dividers>
+            <nav slot="leading"><n-icon inline name="lightbulb"></n-icon></nav>
+            <span>Reasoning</span>
+            <aside slot="trailing"><n-button variant="ghost" size="sm" data-close-panel-id="concepts"><n-icon name="x"></n-icon></n-button></aside>
           </n-header>
-          <n-body>
+          <n-body scrollbar="none">
             <div id="concepts-wrap" class="concepts-wrap"></div>
           </n-body>
         </n-pane>
 
         <!-- Pane: Schema -->
-        <n-pane data-panel="schema" size-min="150">
-          <n-header>
-            <nav><n-icon inline name="brackets-curly"></n-icon></nav>
+        <n-pane data-panel-id="schema" border="block" size-min="150">
+          <n-header dividers>
+            <nav slot="leading"><n-icon inline name="brackets-curly"></n-icon></nav>
             <span>Schema</span>
-            <aside><n-button variant="ghost" size="sm" data-close-panel="schema"><n-icon name="x"></n-icon></n-button></aside>
+            <aside slot="trailing"><n-button variant="ghost" size="sm" data-close-panel-id="schema"><n-icon name="x"></n-icon></n-button></aside>
           </n-header>
-          <n-body>
-            <pre id="schema-pre" class="pane-pre"></pre>
+          <n-body scrollbar="none">
+            <n-editor id="schema-pre" readonly line-numbers="false" line-wrapping></n-editor>
           </n-body>
         </n-pane>
 
         <!-- Pane: HTML (read-only) -->
-        <n-pane data-panel="html" size-min="150" hidden>
-          <n-header>
-            <nav><n-icon inline name="brackets-angle"></n-icon></nav>
+        <n-pane data-panel-id="html" border="block" size-min="150" hidden>
+          <n-header dividers>
+            <nav slot="leading"><n-icon inline name="brackets-angle"></n-icon></nav>
             <span>HTML</span>
-            <aside><n-button variant="ghost" size="sm" data-close-panel="html"><n-icon name="x"></n-icon></n-button></aside>
+            <aside slot="trailing"><n-button variant="ghost" size="sm" data-close-panel-id="html"><n-icon name="x"></n-icon></n-button></aside>
           </n-header>
-          <n-body>
-            <pre id="html-pre" class="pane-pre"></pre>
+          <n-body scrollbar="none">
+            <n-editor id="html-pre" readonly line-numbers="false" line-wrapping></n-editor>
           </n-body>
         </n-pane>
 
         <!-- Pane: CSS (editable, live-applied) -->
-        <n-pane data-panel="css" size-min="150" hidden>
-          <n-header>
-            <nav><n-icon inline name="paint-brush"></n-icon></nav>
+        <n-pane data-panel-id="css" border="block" size-min="150" hidden>
+          <n-header dividers>
+            <nav slot="leading"><n-icon inline name="paint-brush"></n-icon></nav>
             <span>CSS</span>
-            <aside><n-button variant="ghost" size="sm" data-close-panel="css"><n-icon name="x"></n-icon></n-button></aside>
+            <aside slot="trailing"><n-button variant="ghost" size="sm" data-close-panel-id="css"><n-icon name="x"></n-icon></n-button></aside>
           </n-header>
-          <n-body>
-            <textarea id="css-editor" class="code-editor" spellcheck="false" placeholder="/* Custom styles for the preview */"></textarea>
+          <n-body scrollbar="none">
+            <n-editor id="css-editor" line-numbers="false" line-wrapping placeholder="/* Custom styles for the preview */"></n-editor>
           </n-body>
         </n-pane>
 
         <!-- Pane: JS (editable, apply-on-click) -->
-        <n-pane data-panel="js" size-min="150" hidden>
-          <n-header>
-            <nav><n-icon inline name="lightning"></n-icon></nav>
+        <n-pane data-panel-id="js" border="block" size-min="150" hidden>
+          <n-header dividers>
+            <nav slot="leading"><n-icon inline name="lightning"></n-icon></nav>
             <span>JS</span>
-            <aside>
+            <aside slot="trailing">
               <n-button variant="ghost" size="sm" data-role="apply-js" title="Run JS"><n-icon name="play"></n-icon></n-button>
-              <n-button variant="ghost" size="sm" data-close-panel="js"><n-icon name="x"></n-icon></n-button>
+              <n-button variant="ghost" size="sm" data-close-panel-id="js"><n-icon name="x"></n-icon></n-button>
             </aside>
           </n-header>
-          <n-body>
-            <textarea id="js-editor" class="code-editor" spellcheck="false" placeholder="// `preview` is the mount element.&#10;// preview.querySelector('#btn1').addEventListener('native:press', () => { ... })"></textarea>
+          <n-body scrollbar="none">
+            <n-editor id="js-editor" line-numbers="false" line-wrapping placeholder="// preview.querySelector('#btn1').addEventListener('native:press', () => { ... })"></n-editor>
           </n-body>
         </n-pane>
 
         <!-- Pane: Component Map -->
-        <n-pane data-panel="map" size-min="150" hidden>
-          <n-header>
-            <nav><n-icon inline name="tree-structure"></n-icon></nav>
+        <n-pane data-panel-id="map" border="block" size-min="150" hidden>
+          <n-header dividers>
+            <nav slot="leading"><n-icon inline name="tree-structure"></n-icon></nav>
             <span>Map</span>
-            <aside><n-button variant="ghost" size="sm" data-close-panel="map"><n-icon name="x"></n-icon></n-button></aside>
+            <aside slot="trailing"><n-button variant="ghost" size="sm" data-close-panel-id="map"><n-icon name="x"></n-icon></n-button></aside>
           </n-header>
-          <n-body>
+          <n-body scrollbar="none">
             <table id="map-table" class="map-table">
               <thead><tr><th class="map-chevron"></th><th>A2UI Type</th><th>Native Tag</th><th>Category</th></tr></thead>
               <tbody></tbody>
@@ -228,14 +228,14 @@ for (const m of visibleModels) {
         </n-pane>
 
         <!-- Pane: System Prompt (editable) -->
-        <n-pane data-panel="prompt" size-min="150" hidden>
-          <n-header>
-            <nav><n-icon inline name="terminal"></n-icon></nav>
+        <n-pane data-panel-id="prompt" border="block" size-min="150" hidden>
+          <n-header dividers>
+            <nav slot="leading"><n-icon inline name="terminal"></n-icon></nav>
             <span>Prompt</span>
-            <aside><n-button variant="ghost" size="sm" data-close-panel="prompt"><n-icon name="x"></n-icon></n-button></aside>
+            <aside slot="trailing"><n-button variant="ghost" size="sm" data-close-panel-id="prompt"><n-icon name="x"></n-icon></n-button></aside>
           </n-header>
-          <n-body>
-            <textarea id="prompt-editor" class="prompt-editor" spellcheck="false"></textarea>
+          <n-body scrollbar="none">
+            <n-editor id="prompt-editor" line-numbers="false" line-wrapping></n-editor>
           </n-body>
         </n-pane>
 
@@ -249,6 +249,7 @@ for (const m of visibleModels) {
 
   <style is:global>
     @import '@nonoun/native-ai/css';
+    @import '@nonoun/native-code/css';
     @import './a2ui-builder.css';
 
     /* Builder fills remaining <main> flex space.
