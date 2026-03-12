@@ -28,8 +28,8 @@ These are non-negotiable. Violating any of them will break the build or the UI.
 
 7. **Do NOT write JS/CSS workarounds for component bugs** -- file a ticket in `../../dev-ops/TICKETS/` instead and let native-ui fix it.
 
-8. **Never style `n-*`/`native-*` elements with raw CSS** -- use the component's attribute API (`size`, `variant`, `intent`, `muted`, `spacing`, `bordered`, `cols`, `align`, etc.) exclusively. Never apply `style=""`, `padding`, `margin`, `color`, `width`, `max-width`, `flex`, `font-size`, `gap`, `height`, `outline`, `box-shadow`, or any other raw CSS property directly on a native-ui element — whether by tag name (`n-button { ... }`), class (`n-button.foo { ... }`), or inline style (`style="..."`). If you need a layout constraint (e.g. `max-width`, `flex: 1`, `margin-bottom`), wrap the component in a plain `<div>` with a class, or use a layout container like `<n-stack>`.
-   - **Acceptable:** Targeting standard HTML descendants inside a component scope (e.g. `n-table code { ... }`). Setting CSS custom properties (`--n-border-color`) — that's the intended customization mechanism.
+8. **Never style `n-*`/`native-*` elements with raw CSS** -- use the component's attribute API or **styling boundary tokens** (see below). Never apply `style=""`, `padding`, `margin`, `color`, `width`, `max-width`, `flex`, `font-size`, `gap`, `height`, `outline`, `box-shadow`, or any other raw CSS property directly on a native-ui element — whether by tag name (`n-button { ... }`), class (`n-button.foo { ... }`), or inline style (`style="..."`). If you need a layout constraint (e.g. `max-width`, `flex: 1`, `margin-bottom`), wrap the component in a plain `<div>` with a class, or use a layout container like `<n-stack>`.
+   - **Acceptable:** Setting CSS custom properties (`--n-*` tokens) on a parent or the element itself — that's the intended customization mechanism. Targeting standard HTML descendants inside a component scope (e.g. `n-table code { ... }`).
    - **Infrastructure exception:** Shared layout files (`layout-blocks.css`) may use `n-app-panel` as a scoping ancestor to style standard HTML descendants (`h1`, `h2`, `main`). This does not style the component itself.
    - **Known API gaps:** Some violations are blocked on missing component APIs — see `T0071` in `../../dev-ops/TICKETS/`.
 
@@ -59,6 +59,44 @@ These are non-negotiable. Violating any of them will break the build or the UI.
 11. **No TypeScript syntax in `<script>` blocks** -- esbuild may parse them as JS. No `!` non-null assertions, no `as Type` casts, no `: Type` annotations. Use optional chaining (`?.`), null guards (`if (!el) return`), and JSDoc (`/** @type {CustomEvent} */`) instead.
 
 12. **`astro:page-load` guards must use a unique element ID** -- the guard ID must be specific to that page (e.g. `getter-demo`, `swap-list`). Generic IDs like `log`, `panel`, `output` exist on multiple pages and will cause cross-page crashes when listeners accumulate during View Transition navigation.
+
+## Styling Boundary Tokens
+
+native-ui components (≥ 0.7.145) expose **styling boundary tokens** — CSS custom properties that let consumers customize appearance without violating the component boundary. All component CSS uses `:where()` wrappers (zero specificity), so any consumer selector wins naturally — `!important` is never needed.
+
+**How to use them:** Set the token on the element or a parent selector. The component picks it up internally.
+
+```css
+/* Customise an n-header via tokens — NOT raw CSS */
+.my-scope n-header {
+  --n-background: var(--my-chrome);
+  --n-padding-block: 0;
+  --n-font-size: 0.75rem;
+  --n-font-weight: 600;
+}
+
+/* Customise n-picture sizing — NOT inline width/height */
+.pic-thumb { --n-picture-width: 6rem; --n-picture-height: 6rem; }
+```
+
+### Available tokens (non-exhaustive)
+
+| Category | Tokens |
+|---|---|
+| **Layout** | `--n-padding-block`, `--n-padding-inline`, `--n-padding`, `--n-size` |
+| **Background** | `--n-background`, `--n-background-hover` |
+| **Typography** | `--n-font-size`, `--n-font-weight`, `--n-font-family`, `--n-line-height`, `--n-text-transform`, `--n-letter-spacing` |
+| **Ink / color** | `--n-ink`, `--n-ink-hover`, `--n-ink-strong`, `--n-color` |
+| **Icon** | `--n-icon-size` |
+| **Border** | `--n-border-muted`, `--n-border-color` |
+| **n-picture** | `--n-picture-width`, `--n-picture-height`, `--n-picture-max-width` |
+| **n-divider** | `--n-divider-size` |
+| **n-pane** | `--n-pane-handle-accent`, `--n-pane-border-color` |
+| **Chat bubbles** | `--n-chat-bubble-padding-block`, `--n-chat-bubble-padding-inline`, `--n-chat-bubble-border`, `--n-chat-bubble-border-radius`, `--n-chat-bubble-font-size` |
+| **Chat input** | `--n-chat-input-border`, `--n-chat-input-border-radius`, `--n-chat-input-padding-inline`, `--n-chat-input-padding-block` |
+| **Chat feed** | `--n-chat-feed-padding-inline` |
+
+> **Rule of thumb:** If you're about to write `padding:`, `font-size:`, `background:`, `display:`, `width:`, or similar on an `n-*` element — check if there's a `--n-*` token first. If there isn't one, file a ticket.
 
 ## CSS Gotchas
 
@@ -145,8 +183,9 @@ To file a new ticket: create `T{next}-{slug}.md` in `../../dev-ops/TICKETS/` and
 | `src/scripts/setup.ts` | Component + trait registration |
 | `src/scripts/icons.ts` | Phosphor icon registration (static `?raw` imports) |
 | `src/data/pages.ts` | Auto-discovers `.astro` pages via `import.meta.glob` for nav |
-| `src/styles/layout.css` | App-specific sidebar/chrome styles |
-| `src/styles/layout-blocks.css` | Documentation layout utilities (`.layout-section`, `.layout-row`, etc.) |
+| `src/styles/chrome.css` | Sidebar chrome: logo, command dialog, aside bridge, badge dots |
+| `src/styles/content.css` | Main content area: padding, typography, slot header layout |
+| `src/styles/demo.css` | Demo page utilities: .section, .row, .label, .code, .grid, .card, .log |
 | `src/lib/auth.ts` | better-auth server config (Drizzle adapter, providers) |
 | `src/lib/auth-client.ts` | Client-side auth helper (`createAuthClient()`) |
 | `src/lib/preferences.ts` | Cookie parsing + DB preference loading |
