@@ -1,0 +1,121 @@
+---
+import SidebarLayout from '../../../layouts/SidebarLayout.astro';
+---
+<SidebarLayout title="A2UI Training Library">
+  <header>
+    <h1>A2UI Training Library</h1>
+    <div class="demo-desc">50 reusable UI composition patterns for grounding AI generation. Click any card to open the editor.</div>
+  </header>
+
+  <section>
+    <!-- Filter bar -->
+    <div class="tl-filter-bar">
+      <n-button variant="ghost" size="sm" data-filter="all" data-active>All</n-button>
+      <n-button variant="ghost" size="sm" data-filter="micro">Micro</n-button>
+      <n-button variant="ghost" size="sm" data-filter="block">Block</n-button>
+      <n-select id="category-filter" placeholder="All categories" variant="outline" size="sm" density="compact">
+        <n-listbox popover="auto">
+          <n-option value="">All categories</n-option>
+        </n-listbox>
+      </n-select>
+      <span class="tl-count" id="pattern-count"></span>
+    </div>
+
+    <!-- Pattern Grid -->
+    <div id="pattern-grid" class="tl-grid"></div>
+  </section>
+
+  <!-- ── Editor Lightbox ── -->
+  <dialog id="editor-lightbox" class="tl-lightbox">
+    <!-- ── Top toolbar (full width) ── -->
+    <n-header>
+      <n-toolbar variant="ghost" size="sm">
+        <span id="lightbox-title" class="tl-lightbox-title">Pattern</span>
+        <span id="lightbox-badges"></span>
+        <span fill></span>
+        <n-button variant="ghost" size="sm" data-chip="schema" data-active>Schema</n-button>
+        <n-button variant="ghost" size="sm" data-chip="insights">Insights</n-button>
+        <n-button variant="ghost" size="sm" data-chip="output">Output</n-button>
+        <n-button variant="ghost" size="sm" data-chip="settings">Settings</n-button>
+        <hr aria-orientation="vertical">
+        <n-button variant="ghost" size="sm" id="inspect-toggle" title="CSS Inspector">
+          <n-icon name="stack-simple"></n-icon>
+        </n-button>
+        <n-button variant="ghost" size="sm" id="fullscreen-toggle" title="Fullscreen">
+          <n-icon name="arrows-out-simple"></n-icon>
+        </n-button>
+        <n-button variant="ghost" size="sm" id="lightbox-close">
+          <n-icon name="x"></n-icon>
+        </n-button>
+      </n-toolbar>
+    </n-header>
+
+    <!-- ── Split: preview left, editor right ── -->
+    <div class="tl-lightbox-inner">
+      <div class="tl-preview-pane">
+        <div class="tl-preview-mount" id="lightbox-preview"></div>
+      </div>
+
+      <div class="tl-editor-pane">
+        <!-- Schema tab -->
+        <div class="tl-tab-panel" data-tab="schema">
+          <textarea id="schema-editor" class="tl-code-editor" spellcheck="false"></textarea>
+        </div>
+
+        <!-- Insights tab -->
+        <div class="tl-tab-panel" data-tab="insights" hidden>
+          <div id="insights-wrap" class="tl-insights-wrap"></div>
+        </div>
+
+        <!-- Output tab -->
+        <div class="tl-tab-panel" data-tab="output" hidden>
+          <pre id="output-pre" class="tl-code-readonly"></pre>
+        </div>
+
+        <!-- Settings tab -->
+        <div class="tl-tab-panel" data-tab="settings" hidden>
+          <div class="tl-settings-form">
+            <label>Model</label>
+            <n-select id="tl-model" variant="outline" size="sm" value="claude-haiku-4-5">
+              <n-listbox popover="auto">
+                <n-option value="claude-haiku-4-5" selected>Claude Haiku 4.5</n-option>
+                <n-option value="claude-sonnet-4-6">Claude Sonnet 4.6</n-option>
+                <n-option value="gpt-5-mini">GPT-5 mini</n-option>
+                <n-option value="gpt-4.1-mini">GPT-4.1 mini</n-option>
+              </n-listbox>
+            </n-select>
+
+            <label>Temperature <span id="temp-val" class="tl-settings-val">0.7</span></label>
+            <n-range id="tl-temperature" min="0" max="1" step="0.1" value="0.7"></n-range>
+
+            <label>Max Tokens <span id="tokens-val" class="tl-settings-val">4096</span></label>
+            <n-range id="tl-max-tokens" min="512" max="8192" step="512" value="4096"></n-range>
+
+            <label>Multi-step Pipeline</label>
+            <n-switch id="tl-pipeline-toggle"></n-switch>
+          </div>
+        </div>
+
+        <!-- Action footer -->
+        <n-footer class="tl-actions">
+          <n-button variant="primary" intent="accent" size="sm" id="btn-regenerate">
+            <n-icon name="arrow-clockwise" slot="leading"></n-icon>
+            Regenerate
+          </n-button>
+          <n-button variant="outline" size="sm" id="btn-export">
+            <n-icon name="copy" slot="leading"></n-icon>
+            Export Improvement
+          </n-button>
+        </n-footer>
+      </div>
+    </div>
+  </dialog>
+
+  <script>
+    import './training-library.ts';
+  </script>
+
+  <style is:global>
+    @import './training-library.css';
+  </style>
+</SidebarLayout>
