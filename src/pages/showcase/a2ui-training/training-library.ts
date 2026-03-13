@@ -167,18 +167,22 @@ document.addEventListener('astro:page-load', async () => {
   const jsEditor = document.getElementById('js-editor') as NEditor;
   const categoryFilter = document.getElementById('category-filter') as HTMLElement & { value: string };
   const insightsWrap = document.getElementById('insights-wrap')!;
-  const inspectToggleBtn = document.getElementById('inspect-toggle')!;
+  const inspectToggleBtn = dialog.querySelector('.tl-preview-toolbar n-button[aria-label="CSS Inspector"]') as HTMLElement
+    ?? document.getElementById('inspect-toggle')!;
   const fullscreenToggleBtn = document.getElementById('fullscreen-toggle')!;
   const btnSave = document.getElementById('btn-save')!;
   const viewSelect = document.getElementById('tl-view-select') as HTMLElement & { value: string };
   const actionsMenu = document.getElementById('tl-actions-menu') as HTMLElement & { value: string };
   const compareToggle = document.getElementById('compare-toggle') as HTMLElement & { value: string };
-  const chatToggle = document.getElementById('chat-toggle')!;
+  const chatToggle = dialog.querySelector('.tl-preview-toolbar n-button[aria-label="AI Chat"]') as HTMLElement
+    ?? document.getElementById('chat-toggle')!;
   const chatFeed = document.getElementById('chat-feed')!;
   const chatComposer = document.getElementById('chat-composer') as HTMLElement & { busy: boolean };
   const chatModelPicker = document.getElementById('chat-model-picker') as HTMLElement & { value: string };
-  const btnCenter = document.getElementById('btn-center')!;
-  const btnResetZoom = document.getElementById('btn-reset-zoom')!;
+  const btnCenter = dialog.querySelector('.tl-preview-toolbar n-button[aria-label="Center"]') as HTMLElement
+    ?? document.getElementById('btn-center')!;
+  const btnResetZoom = dialog.querySelector('.tl-preview-toolbar n-button[aria-label="Reset zoom"]') as HTMLElement
+    ?? document.getElementById('btn-reset-zoom')!;
 
   // Create canvas wrapper for pan/zoom inside the preview mount
   const canvas = document.createElement('div');
