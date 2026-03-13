@@ -1,27 +1,32 @@
 # Monorepo Transition Plan
 
+> Last updated: 2026-03-12
+
 ## Current State
 
 ```
 /nonoun/                          ← NOT a monorepo root (no package.json)
 ├── native-ui/                    ← monorepo, npm workspaces: packages/*
+│   ├── src/                      ← ~45 UI components + containers + styles demos
 │   ├── packages/
-│   │   ├── native-ai/            → @nonoun/native-ai
+│   │   ├── native-ai/            → @nonoun/native-ai@1.0.128
 │   │   ├── native-cdn/           → (internal)
-│   │   ├── native-code/          → @nonoun/native-code
-│   │   ├── native-core/          → (internal, base classes)
-│   │   ├── native-dashboard/     → @nonoun/native-dashboard
-│   │   ├── native-data-viz/      → @nonoun/native-data-viz
-│   │   ├── native-design/        → @nonoun/native-design
-│   │   ├── native-kernel/        → (internal, signal runtime)
-│   │   └── native-traits/        → (internal, re-exported by native-ui)
+│   │   ├── native-code/          → @nonoun/native-code@1.0.12
+│   │   ├── native-core/          → (internal, reactivity + element base)
+│   │   ├── native-dashboard/     → @nonoun/native-dashboard@0.4.23
+│   │   ├── native-data-viz/      → @nonoun/native-data-viz@0.2.5
+│   │   ├── native-design/        → @nonoun/native-design@0.6.7
+│   │   ├── native-kernel/        → (internal, GenUI engine)
+│   │   └── native-traits/        → @nonoun/native-traits@0.1.15
 │   └── package.json              workspaces: ["packages/*"]
 │                                 remote: git@github.com:kimgranlund/native-ui.git
 │
 ├── native-host/                  ← standalone Astro app (this repo)
-│   └── package.json              consumes 6 @nonoun/* packages from npm
+│   └── package.json              consumes 7 @nonoun/* packages from npm
 │                                 remote: https://github.com/kimgranlund/native-host.git
 │
+├── dev-ops/                      ← cross-project tickets
+│   └── TICKETS/
 ├── nonoun-chat/                  ← private, local-only (no remote)
 ├── nonoun-css/                   ← private, local-only (no remote)
 ├── nonoun-functional/            ← private, local-only (no remote)
@@ -29,13 +34,58 @@
 └── _archive/
 ```
 
+### Foundational Systems Inventory
+
+These are the internal packages that power the entire stack. In the monorepo, they become workspace siblings instead of npm-published dependencies.
+
+#### native-core (reactivity + element base)
+- **Reactivity:** `signal`, `computed`, `effect`, `batch`, `untrack` — graph-based dependency tracking with automatic cleanup
+- **NativeElement:** Base HTMLElement with lifecycle (setup/teardown), effect auto-disposal, trait controller protocol
+- **ReactiveProp:** Attribute-bound signals — `prop(this, 'disabled', { type: 'boolean' })`
+- **Context:** `ContextProvider`/`ContextConsumer` mixins — event-driven context bubbling
+- **DataListController:** List data management — filtering, sorting, selection, empty state
+- **Registries:** trait registry, plugin registry, icon registry
+
+#### native-kernel (GenUI engine)
+- **CommandBus:** pub/sub with handlers, filters, middleware, undo/redo history
+- **WorkflowEngine:** xstate-like state machine with signals for currentState, context, history
+- **Planner:** converts UIIntent → UIPlan with accessibility auditing
+- **SCHEMA_CATALOG:** pre-defined schemas for all components (attributes, slots, events, aria)
+- **DataStore:** HTTP fetches with caching, retries, abort handling
+- **PolicyEngine:** capability-based access control + rate limiting
+- **Workflow templates:** formWizard, confirmFlow, crudLifecycle, authFlow, toggleFlow
+
+#### native-traits (45+ behavior controllers)
+- **Interaction:** PressController, HoverController, DragController, SwipeController, TossController
+- **Selection:** SelectionController, RangeSelectController, SortController, VirtualScrollController
+- **UI behavior:** PopoverController, DialogController, CollapsibleController, FocusTrapController, ToastController
+- **Text editing:** SlashCommandController, MentionController, BacktickWrapController, LinkPasteController
+- **Advanced:** CSSInspectController, ConfettiController, NoodleController, ParallaxController, MagnetController
+- **Runtime:** TraitRuntime singleton (DismissStack, GestureRouter), adapter pattern with conflict detection
+
+### Page Coverage Audit (2026-03-12)
+
+**122 of 128** native-ui HTML demos already have 1:1 Astro equivalents in native-host.
+
+Missing pages (6):
+
+| Native-UI Demo | Category | Priority |
+|---|---|---|
+| `src/styles/ui.html` | Style reference | Low — superseded by existing reference.astro |
+| `src/components/gripper/n-gripper.html` | Component | Low — internal resize handle |
+| `packages/native-ai/src/a2ui/a2ui-protocol.html` | A2UI docs | Medium — protocol reference |
+| `packages/native-ai/src/a2ui/a2a-catalog.html` | A2A | Medium — catalog viewer |
+| `packages/native-ai/src/a2ui/a2a-ownership.html` | A2A | Medium — ownership demo |
+| `packages/native-ai/src/a2ui/a2a-sessions.html` | A2A | Medium — sessions demo |
+
 ### Pain Points the Monorepo Solves
 
-1. **Version upgrade friction** — every native-ui change requires npm publish → npm install in native-host before testing. Builder CSS must be source-copied manually.
-2. **Cross-repo tickets** — bugs found in native-host that need native-ui fixes require a separate checkout, branch, fix, publish, upgrade cycle.
-3. **Builder source-copy pattern** — a2ui-builder TS/CSS/JSON are manually synced from native-ai source to native-host. In a monorepo, the host could import directly from source.
-4. **Storybook isolation** — Storybook (T0169) currently lives in native-ui but needs host-level integration testing context.
-5. **No atomic cross-repo commits** — a component API change and its host migration can't land in one commit.
+1. **Version upgrade friction** — every native-ui change requires npm publish → npm install in native-host before testing. Currently at native-ui@0.7.221, native-ai@1.0.128 — upgrades happen weekly.
+2. **Cross-repo tickets** — bugs found in native-host that need native-ui fixes require a separate checkout, branch, fix, publish, upgrade cycle. T0258 (missing npm exports for `parseJsonFromResponse`, `stripFences`, `matchPatterns`, `CatalogEntry`) is a current example — would be moot in a monorepo.
+3. **Source-copy pattern (2 pages)** — both a2ui-builder AND a2ui-training are manually synced from native-ai source to native-host (~1600 lines each, 6 host adaptations per page). In a monorepo, both could import directly from source.
+4. **Shared pipeline module** — `pipeline.ts` is shared between builder and training library via relative import (`../a2ui-builder/pipeline.ts`). In a monorepo, both would import from `packages/native-ai/src/`.
+5. **Storybook isolation** — Storybook (T0169) currently lives in native-ui but needs host-level integration testing context.
+6. **No atomic cross-repo commits** — a component API change and its host migration can't land in one commit.
 
 ### What a Monorepo Does NOT Solve
 
@@ -53,20 +103,23 @@
 │   └── native-host/             ← this Astro app (moved from top-level)
 ├── packages/
 │   ├── native-ai/               ← moved from native-ui/packages/
+│   ├── native-cdn/
 │   ├── native-code/
-│   ├── native-core/
+│   ├── native-core/             ← reactivity, element base, context, registries
 │   ├── native-dashboard/
 │   ├── native-data-viz/
 │   ├── native-design/
-│   ├── native-kernel/
-│   ├── native-traits/
-│   └── native-cdn/
-├── dev-ops/                      ← stays at root (already here)
+│   ├── native-kernel/           ← command bus, workflow, planner, schema catalog
+│   ├── native-traits/           ← 45+ behavior controllers
+│   └── native-ui/               ← components + aggregator (re-exports core/kernel/traits)
+├── dev-ops/                      ← moved from /nonoun/dev-ops/
 │   └── TICKETS/
 └── _archive/
 ```
 
 The four local-only repos (`nonoun-chat`, `nonoun-css`, `nonoun-functional`, `nonoun-ui`) are not included. They have no remotes and appear to be legacy/experimental. Archive or leave in place.
+
+**Key difference from native-ui's current structure:** native-ui's `src/` (components, containers, styles demos, index.ts, register-all.ts) becomes `packages/native-ui/` — the aggregator package that re-exports core + kernel + traits + components.
 
 ---
 
@@ -95,6 +148,7 @@ The four local-only repos (`nonoun-chat`, `nonoun-css`, `nonoun-functional`, `no
    git fetch native-ui
    git merge native-ui/main --allow-unrelated-histories -m "Import native-ui history"
    # Move packages/* to top level (they're already there)
+   # Move src/ into packages/native-ui/ (the aggregator package)
    # Remove native-ui's root package.json, replace with monorepo root
    ```
 
@@ -110,7 +164,15 @@ The four local-only repos (`nonoun-chat`, `nonoun-css`, `nonoun-functional`, `no
    git merge native-host/main --allow-unrelated-histories -m "Import native-host history"
    ```
 
-4. **Create root `package.json`:**
+4. **Import dev-ops:**
+   ```bash
+   git remote add dev-ops ../dev-ops
+   git fetch dev-ops
+   git merge dev-ops/main --allow-unrelated-histories -m "Import dev-ops history"
+   # dev-ops/TICKETS/ is already at root level
+   ```
+
+5. **Create root `package.json`:**
    ```json
    {
      "name": "nonoun",
@@ -119,13 +181,13 @@ The four local-only repos (`nonoun-chat`, `nonoun-css`, `nonoun-functional`, `no
    }
    ```
 
-5. **Update native-host's `package.json`:**
-   - Change `@nonoun/*` dependency versions from `^0.7.150` (npm) to `workspace:*` (local resolution).
+6. **Update native-host's `package.json`:**
+   - Change `@nonoun/*` dependency versions from `^0.7.221` (npm) to `workspace:*` (local resolution).
    - Remove any `file:` or version-pinned references.
 
-6. **Run `npm install`** from root — verify hoisted `node_modules` resolves all workspaces.
+7. **Run `npm install`** from root — verify hoisted `node_modules` resolves all workspaces.
 
-7. **Verify builds:**
+8. **Verify builds:**
    ```bash
    cd apps/native-host && npm run build   # Astro build
    cd packages/native-ai && npm run build  # (if applicable)
@@ -133,16 +195,39 @@ The four local-only repos (`nonoun-chat`, `nonoun-css`, `nonoun-functional`, `no
 
 ### Phase 2 — Eliminate Source-Copy Pattern
 
-**Goal:** native-host imports builder files directly from native-ai source, no more manual sync.
+**Goal:** native-host imports builder and training library files directly from source, no more manual sync.
+
+#### A. Builder (`a2ui-builder/`)
 
 1. **Replace copied builder files** in `apps/native-host/src/pages/showcase/a2ui-builder/`:
    - `a2ui-builder.css` → `@import '../../../../packages/native-ai/src/a2ui/builder/a2ui-builder.css'` with a small host override sheet
    - `a2ui-builder.ts` → import from source path, apply host adaptations via a thin wrapper
    - `system-prompt.json` → import directly from source
 
-2. **Document the 6 host adaptations** as a checklist in the wrapper module (icon registration, npm paths, proxy API key, astro:page-load, REGISTRY, ConfettiController).
+#### B. Training Library (`a2ui-training/`)
 
-3. **Bring dev-server pages into native-host** — two internal reference pages currently live in native-ui's dev server (`src/styles/`) and should move into the Astro host where they can be served as proper pages:
+2. **Replace copied training library files** in `apps/native-host/src/pages/showcase/a2ui-training/`:
+   - `training-library.css` → `@import '../../../../packages/native-ai/src/a2ui/training-library.demo.css'` with host overrides
+   - `training-library.ts` → import from source path, apply host adaptations via thin wrapper
+   - `copilot-prompt.json` → import directly from source
+
+#### C. Shared pipeline
+
+3. **Remove local `pipeline.ts` copy** from `a2ui-builder/` — both builder and training library import directly from `packages/native-ai/src/a2ui/builder/pipeline.ts`.
+
+#### D. Host adaptations (6 per page)
+
+4. **Document the 6 host adaptations** as a checklist in each wrapper module:
+   1. No icon/registration imports (handled by `setup.ts`)
+   2. npm package paths → workspace-relative paths
+   3. `apiKey: 'proxy'` for LLM adapters
+   4. `astro:page-load` wrapper with element guard
+   5. REGISTRY from npm `COMPONENT_MAP` export
+   6. Package-specific (ConfettiController for builder, Pipeline for training library)
+
+#### E. Dev-server pages
+
+5. **Bring remaining dev-server pages into native-host** — reference pages currently in native-ui's dev server:
 
    | Source (native-ui) | Destination (native-host) |
    |---|---|
@@ -153,12 +238,15 @@ The four local-only repos (`nonoun-chat`, `nonoun-css`, `nonoun-functional`, `no
    | `src/styles/reference.demo.ts` | `apps/native-host/src/pages/styles/reference/reference.ts` |
    | `src/styles/reference.demo.css` | `apps/native-host/src/pages/styles/reference/reference.css` |
 
-   Migration steps:
-   - Convert each `.html` to `.astro` (wrap in `SidebarLayout`, add frontmatter)
-   - Rename `.demo.ts` → `{name}.ts`, `.demo.css` → `{name}.css` (co-located folder pattern)
-   - Update import paths to use workspace-relative `@nonoun/*` imports
-   - Add pages to sidebar nav under a "Styles" or "Internals" group
-   - Remove originals from native-ui `src/styles/` after migration
+   Note: `state-grid.astro` and `reference.astro` already exist in native-host as flat files. Convert to co-located folders if they have associated TS/CSS.
+
+#### F. Missing pages (optional, low priority)
+
+6. **Port remaining 6 demos** when needed:
+   - `gripper` → `/components/gripper/index.astro`
+   - `ui.html` → `/styles/ui/index.astro` (if not redundant with reference)
+   - `a2ui-protocol` → `/a2ui/a2ui-protocol.astro`
+   - `a2a-catalog`, `a2a-ownership`, `a2a-sessions` → `/showcase/a2a-*.astro`
 
 ### Phase 3 — Tooling & CI
 
@@ -186,7 +274,9 @@ The four local-only repos (`nonoun-chat`, `nonoun-css`, `nonoun-functional`, `no
 - [ ] Update all `CLAUDE.md` and `docs/` references to new paths
 - [ ] Update `dev-ops/TICKETS/` paths (now at monorepo root)
 - [ ] Update git remotes in any local tooling or scripts
-- [ ] Remove builder source-copy documentation from MEMORY.md
+- [ ] Remove builder + training library source-copy documentation from MEMORY.md
+- [ ] Close T0258 (missing npm exports — no longer needed with workspace resolution)
+- [ ] Close T0170 if co-located folder pattern is fully adopted
 
 ---
 
@@ -199,6 +289,7 @@ The four local-only repos (`nonoun-chat`, `nonoun-css`, `nonoun-functional`, `no
 | **npm workspace resolution issues** | Test `workspace:*` resolution locally before pushing; keep npm-published versions as fallback |
 | **Path breakage in imports** | All `@nonoun/*` imports stay the same (workspace resolution is transparent); only relative paths (like `../../dev-ops/TICKETS/`) need updating |
 | **Claude Code context** | Update all `CLAUDE.md` files and memory entries after migration |
+| **native-ui src/ restructure** | Moving `src/` → `packages/native-ui/` may break internal dev-server references; test Vite dev server after move |
 
 ## Decision Points
 
@@ -206,3 +297,8 @@ The four local-only repos (`nonoun-chat`, `nonoun-css`, `nonoun-functional`, `no
 2. **Continue npm publishing?** Only if external consumers exist. If native-host is the sole consumer, `workspace:*` is simpler.
 3. **Include sibling repos?** No. `nonoun-chat`, `nonoun-css`, `nonoun-functional`, `nonoun-ui` are local-only with no remotes — keep them separate or archive.
 4. **New GitHub repo or reuse?** Create a new `nonoun-mono` repo. Archive the two originals.
+5. **dev-ops inclusion?** Yes — import with full history. Cross-project tickets benefit from living in the same repo.
+
+## What Does NOT Need Migration
+
+The foundational systems (signals, reactivity, context, store, kernel, traits) require **zero code changes**. They move from npm `node_modules` resolution to `workspace:*` resolution — the import specifiers (`@nonoun/native-ui`, `@nonoun/native-ai`, etc.) are identical. Only the version field in `package.json` changes (e.g., `"^0.7.221"` → `"workspace:*"`).

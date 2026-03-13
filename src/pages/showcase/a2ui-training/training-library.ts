@@ -7,8 +7,8 @@
 // 3. API key env vars → 'proxy' (host uses server-side API proxies)
 // 4. All imperative code wrapped in astro:page-load with element guard
 // 5. REGISTRY from npm (COMPONENT_MAP export), not local array
-// 6. Pipeline imports → local copies shared with builder page
-// 7. parseJsonFromResponse/stripFences → inline implementations
+// 6. Pipeline imports → npm package path
+// 7. parseJsonFromResponse/stripFences → inline implementations (T0258)
 // 8. CSSInspectController → npm path (@nonoun/native-ui/traits)
 // 9. Pattern loader → local source copy (not exported from npm)
 // 10. n-editor (CodeMirror) language extensions from npm
@@ -17,95 +17,68 @@
 // 13. Copilot prompt → co-located copilot-prompt.json (not builder's system-prompt.json)
 // 14. effect() from @nonoun/native-ui (not @nonoun/native-core)
 
-import { Kernel, resetKernel } from '@nonoun/native-ui/kernel';
-import { effect } from '@nonoun/native-ui';
-import { createA2UIAdapter, COMPONENT_MAP as REGISTRY, getComponentCategory } from '@nonoun/native-ai';
-import type { A2UIAdapter } from '@nonoun/native-ai';
-import { ClaudeGatewayAdapter, OpenAiGatewayAdapter } from '@nonoun/native-ai/gateway';
-import type { GatewayAdapter } from '@nonoun/native-ai/gateway';
+// Chat UI (agent-feed + agent-input)
 import { LLMChatController } from './llm-chat-controller.ts';
 import type { LLMChatMessage } from './llm-chat-controller.ts';
-import { CSSInspectController } from '@nonoun/native-ui/traits';
-import { PIPELINE_STEPS, runPipeline } from '../a2ui-builder/pipeline.ts';
-import copilotPromptJson from './copilot-prompt.json';
 
-// n-editor (CodeMirror)
+// Traits
+import { CSSInspectController } from '@nonoun/native-ui/traits';
+
+// n-editor (CodeMirror) — registration handled by setup.ts
 import { json } from '@codemirror/lang-json';
 import { html as htmlLang } from '@codemirror/lang-html';
 import { css as cssLang } from '@codemirror/lang-css';
 import { javascript } from '@codemirror/lang-javascript';
 import type { EditorView } from '@codemirror/view';
 
+// Kernel + A2UI
+import { effect } from '@nonoun/native-ui';
+import { Kernel, resetKernel } from '@nonoun/native-ui/kernel';
+import { createA2UIAdapter, COMPONENT_MAP as REGISTRY, getComponentCategory } from '@nonoun/native-ai';
+import type { A2UIAdapter } from '@nonoun/native-ai';
+import { ClaudeGatewayAdapter, OpenAiGatewayAdapter } from '@nonoun/native-ai/gateway';
+import type { GatewayAdapter } from '@nonoun/native-ai/gateway';
+
+// Pattern system
 import { loadCatalog, loadPattern, initPatterns } from './patterns/pattern-loader.ts';
 import type { CatalogEntry, Pattern } from './patterns/pattern-types.ts';
 
-// ── System prompt + component reference ──
+// Builder pipeline (not exported from npm — shared local copy)
+import { PIPELINE_STEPS, runPipeline } from '../a2ui-builder/pipeline.ts';
+import copilotPromptJson from './copilot-prompt.json';
 
-const componentRef = Array.from(REGISTRY.values())
-  .map((m) => {
-    const cat = getComponentCategory(m.a2uiType);
-    const props = m.properties?.map((p: { attr: string }) => p.attr).join(', ') || '';
-    return `  - ${m.a2uiType} → <${m.nativeTag}> [${cat}]${props ? ': ' + props : ''}`;
-  })
-  .join('\n');
+// ══════════════════════════════════════════════════════════════════
+// Inline helpers (T0258 blocks npm export)
+// ══════════════════════════════════════════════════════════════════
 
-const systemPrompt = ((copilotPromptJson as { prompt: string }).prompt ?? JSON.stringify(copilotPromptJson))
-  .replace('{{COMPONENT_REF}}', componentRef);
+function stripFences(text: string): string {
+  return text.replace(/^```(?:json)?\s*\n?/gm, '').replace(/\n?```\s*$/gm, '').trim();
+}
 
-// ── LLM adapter (proxy mode) ──
+function parseJsonFromResponse<T = Record<string, unknown>>(text: string): T | null {
+  const stripped = stripFences(text);
+  // Direct parse
+  try { return JSON.parse(stripped) as T; } catch { /* continue */ }
+  // Extract first {...} block
+  const start = stripped.indexOf('{');
+  const end = stripped.lastIndexOf('}');
+  if (start >= 0 && end > start) {
+    try { return JSON.parse(stripped.slice(start, end + 1)) as T; } catch { /* continue */ }
+  }
+  return null;
+}
+
+// ══════════════════════════════════════════════════════════════════
+// Proxy adapter helpers
+// ══════════════════════════════════════════════════════════════════
 
 function isClaudeModel(model: string): boolean {
-  return model.startsWith('claude-') || ['opus-4.6', 'sonnet-4.6', 'haiku-4.5'].includes(model);
+  return model.startsWith('claude');
 }
 
-function buildLLMAdapter(system: string, model: string, tokens: number, temp?: number): GatewayAdapter | null {
-  if (isClaudeModel(model)) {
-    return new ClaudeGatewayAdapter({
-      clientId: 'tl-regen',
-      baseUrl: '/api/anthropic',
-      model,
-      maxTokens: tokens,
-      temperature: temp,
-      system,
-      apiKey: 'proxy',
-      anthropicVersion: '2023-06-01',
-    });
-  }
-  return new OpenAiGatewayAdapter({
-    clientId: 'tl-regen',
-    baseUrl: '/api/openai',
-    model,
-    maxTokens: tokens,
-    temperature: temp,
-    system,
-    apiKey: 'proxy',
-  });
-}
-
-// ── Inline JSON parsing (not exported from npm) ──
-
-function stripFences(raw: string): string {
-  const trimmed = raw.trim();
-  const fenceStart = /^```(?:json)?\s*\n?/;
-  const fenceEnd = /\n?```\s*$/;
-  return trimmed.replace(fenceStart, '').replace(fenceEnd, '');
-}
-
-function parseJsonFromResponse<T = Record<string, unknown>>(raw: string): T | null {
-  try {
-    return JSON.parse(stripFences(raw));
-  } catch {
-    const match = raw.match(/\{[\s\S]*\}/);
-    if (match) {
-      try {
-        return JSON.parse(match[0]);
-      } catch { /* ignore */ }
-    }
-    return null;
-  }
-}
-
-// ── Types ──
+// ══════════════════════════════════════════════════════════════════
+// Types
+// ══════════════════════════════════════════════════════════════════
 
 interface CopilotResponse {
   type?: string;
@@ -116,62 +89,74 @@ interface CopilotResponse {
 }
 
 // ══════════════════════════════════════════════════════════════════
-// Boot — wrapped in astro:page-load with element guard
+// State
+// ══════════════════════════════════════════════════════════════════
+
+let activeFilter: 'all' | 'micro' | 'block' = 'all';
+let activeCategory = '';
+let searchQuery = '';
+let currentPattern: Pattern | null = null;
+let originalSchema: Pattern['components'] | null = null;
+let lightboxAdapter: A2UIAdapter | null = null;
+let currentModel = 'claude-haiku-4-5';
+let temperature = 0.7;
+let maxTokens = 4096;
+let pipelineMode = false;
+let regenerating = false;
+let isDirty = false;
+let showingOriginal = false;
+let cssInspector: CSSInspectController | null = null;
+let chatController: LLMChatController | null = null;
+
+// ── Panel system (builder-style toggle-able panes) ──
+
+const PANELS = [
+  { id: 'preview' },
+  { id: 'schema' },
+  { id: 'html' },
+  { id: 'css' },
+  { id: 'js' },
+  { id: 'insights' },
+  { id: 'chat' },
+];
+
+const activePanels = new Set(['preview', 'schema']);
+const paneEls = new Map<string, HTMLElement>();
+const chipEls = new Map<string, HTMLElement>();
+
+// Rendered card tracking
+const renderedCards = new Set<string>();
+
+const componentRef = Array.from(REGISTRY.values())
+  .map((m) => {
+    const cat = getComponentCategory(m.a2uiType);
+    const props = m.properties?.map((p: { attr: string }) => p.attr).join(', ') || '';
+    return `  - ${m.a2uiType} → <${m.nativeTag}> [${cat}]${props ? ': ' + props : ''}`;
+  })
+  .join('\n');
+
+// System prompt — co-pilot prompt with component reference injected
+const systemPrompt = (copilotPromptJson as { prompt: string }).prompt
+  .replace('{{COMPONENT_REF}}', componentRef);
+
+// ══════════════════════════════════════════════════════════════════
+// Astro page-load wrapper
 // ══════════════════════════════════════════════════════════════════
 
 document.addEventListener('astro:page-load', async () => {
-  const grid = document.getElementById('pattern-grid');
-  if (!grid) return; // not on this page
+  const pageEl = document.getElementById('pattern-grid');
+  if (!pageEl || pageEl.dataset.wired === '') return;
+  pageEl.dataset.wired = '';
 
-  // Load patterns from DB (falls back to static JSON if API unavailable)
   await initPatterns();
 
-  // ── State ──
   const catalog = loadCatalog();
-  let activeFilter: 'all' | 'micro' | 'block' = 'all';
-  let activeCategory = '';
-  let searchQuery = '';
-  let currentPattern: Pattern | null = null;
-  let originalSchema: Pattern['components'] | null = null;
-  let lightboxAdapter: A2UIAdapter | null = null;
-  let currentModel = 'claude-haiku-4-5';
-  let temperature = 0.7;
-  let maxTokens = 4096;
-  let pipelineMode = false;
-  let regenerating = false;
-  let isDirty = false;
-  let showingOriginal = false;
-  let cssInspector: CSSInspectController | null = null;
-  let chatController: LLMChatController | null = null;
-  let chatRenderedCount = 0;
-  let chatEffectCleanups: Array<() => void> = [];
-  const MAX_BACKUP_VERSIONS = 10;
-  const renderedCards = new Set<string>();
 
-  // ── Pan/zoom state ──
-  let panX = 0;
-  let panY = 0;
-  let zoom = 1;
-  const ZOOM_MIN = 0.1;
-  const ZOOM_MAX = 5;
-  const ZOOM_STEP = 0.002;
+  // ══════════════════════════════════════════════════════════════════
+  // DOM refs
+  // ══════════════════════════════════════════════════════════════════
 
-  // ── Panel system ──
-  const PANELS = [
-    { id: 'preview' },
-    { id: 'schema' },
-    { id: 'html' },
-    { id: 'css' },
-    { id: 'js' },
-    { id: 'insights' },
-    { id: 'chat' },
-  ] as const;
-  type PanelId = typeof PANELS[number]['id'];
-  const activePanels = new Set<PanelId>(['preview', 'schema']);
-  const paneEls = new Map<PanelId, HTMLElement>();
-  const chipEls = new Map<PanelId, HTMLElement>();
-
-  // ── DOM refs ──
+  const grid = document.getElementById('pattern-grid')!;
   const searchInput = document.getElementById('pattern-search') as HTMLElement & { value: string };
   const dialog = document.getElementById('editor-lightbox') as HTMLDialogElement;
   const lightboxPreview = document.getElementById('lightbox-preview')!;
@@ -200,15 +185,6 @@ document.addEventListener('astro:page-load', async () => {
   canvas.className = 'tl-canvas';
   lightboxPreview.appendChild(canvas);
 
-  // Collect pane and chip elements
-  for (const p of PANELS) {
-    const id = p.id;
-    const pane = dialog.querySelector<HTMLElement>(`n-pane[data-panel-id="${id}"]`);
-    if (pane) paneEls.set(id, pane);
-    const chip = dialog.querySelector<HTMLElement>(`n-button[data-chip="${id}"]`);
-    if (chip) chipEls.set(id, chip);
-  }
-
   // Set language modes on editors after CE upgrade
   customElements.whenDefined('n-editor').then(() => {
     schemaEditor.extensions = [json()];
@@ -217,28 +193,23 @@ document.addEventListener('astro:page-load', async () => {
     jsEditor.extensions = [javascript()];
   });
 
-  // ── Kernel ──
+  // ══════════════════════════════════════════════════════════════════
+  // Kernel
+  // ══════════════════════════════════════════════════════════════════
+
   resetKernel();
   const kernel = new Kernel({ allowUnregistered: true });
 
-  // ── Helpers ──
+  // ══════════════════════════════════════════════════════════════════
+  // Pan / Zoom
+  // ══════════════════════════════════════════════════════════════════
 
-  function flattenComponents(comps: Record<string, unknown>[]): Record<string, unknown>[] {
-    return comps.map((c) => {
-      if (c.properties && typeof c.properties === 'object' && !Array.isArray(c.properties)) {
-        const { properties, ...rest } = c;
-        return { ...rest, ...(properties as Record<string, unknown>) };
-      }
-      return c;
-    });
-  }
-
-  /** Update dirty state. */
-  function setDirty(dirty: boolean): void {
-    isDirty = dirty;
-  }
-
-  // ── Pan/zoom ──
+  let panX = 0;
+  let panY = 0;
+  let zoom = 1;
+  const ZOOM_MIN = 0.1;
+  const ZOOM_MAX = 5;
+  const ZOOM_STEP = 0.002;
 
   function applyTransform(): void {
     canvas.style.transform = `translate(${panX}px, ${panY}px) scale(${zoom})`;
@@ -253,6 +224,8 @@ document.addEventListener('astro:page-load', async () => {
 
   function centerContents(): void {
     const mountRect = lightboxPreview.getBoundingClientRect();
+    // The canvas fills the mount at its natural size, then we transform it.
+    // Center = translate so that the canvas center aligns with the mount center.
     const canvasW = lightboxPreview.clientWidth;
     const canvasH = lightboxPreview.clientHeight;
     panX = (mountRect.width - canvasW * zoom) / 2;
@@ -261,15 +234,19 @@ document.addEventListener('astro:page-load', async () => {
   }
 
   function resetZoom(): void {
+    // Reset zoom to 100% while keeping content centered
     const mountRect = lightboxPreview.getBoundingClientRect();
     const cx = mountRect.width / 2;
     const cy = mountRect.height / 2;
+    // Zoom toward center
     const oldZoom = zoom;
     zoom = 1;
     panX = cx - (cx - panX) * (zoom / oldZoom);
     panY = cy - (cy - panY) * (zoom / oldZoom);
     applyTransform();
   }
+
+  // ── Pointer pan ──
 
   let panState: { pointerId: number; startX: number; startY: number; startPanX: number; startPanY: number } | null = null;
 
@@ -290,7 +267,7 @@ document.addEventListener('astro:page-load', async () => {
     const target = e.target as HTMLElement;
     if (target !== lightboxPreview && target !== canvas && !canvas.contains(target)) return;
 
-    // Don't pan when clicking a2ui Card content — let normal interactions through
+    // Don't pan when clicking on a2ui Card content — let normal interactions through
     if (target.closest('[data-a2ui="Card"]')) return;
 
     // Don't pan when clicking floating toolbar controls
@@ -322,8 +299,12 @@ document.addEventListener('astro:page-load', async () => {
     panState = null;
   }
 
+  // ── Wheel zoom ──
+
   function onWheelZoom(e: WheelEvent): void {
     e.preventDefault();
+
+    // Zoom toward pointer position
     const rect = lightboxPreview.getBoundingClientRect();
     const px = e.clientX - rect.left;
     const py = e.clientY - rect.top;
@@ -332,35 +313,38 @@ document.addEventListener('astro:page-load', async () => {
     const delta = -e.deltaY * ZOOM_STEP;
     zoom = Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, zoom * (1 + delta)));
 
+    // Adjust pan so the point under the cursor stays fixed
     const scale = zoom / oldZoom;
     panX = px - (px - panX) * scale;
     panY = py - (py - panY) * scale;
     applyTransform();
   }
 
-  // ── Panel system ──
+  // Wire pan/zoom to the preview mount
+  lightboxPreview.addEventListener('pointerdown', onPanPointerDown);
+  lightboxPreview.addEventListener('pointermove', onPanPointerMove);
+  lightboxPreview.addEventListener('pointerup', onPanPointerUp);
+  lightboxPreview.addEventListener('pointercancel', onPanPointerUp);
+  lightboxPreview.addEventListener('wheel', onWheelZoom, { passive: false });
 
-  /** Sync DOM visibility of all panes and chip active states. */
-  function syncPanels(): void {
-    // Clear inline flex so CSS defaults redistribute
-    for (const [_, el] of paneEls) el.style.removeProperty('flex');
-    for (const [id, el] of paneEls) el.hidden = !activePanels.has(id);
-    for (const [id, chip] of chipEls) chip.setAttribute('variant', activePanels.has(id) ? 'selected' : 'ghost');
-    chatToggle.setAttribute('variant', activePanels.has('chat') ? 'selected' : 'ghost');
-  }
+  // Option+hover element highlighting
+  canvas.addEventListener('pointermove', onOptionHover);
+  canvas.addEventListener('pointerleave', clearOptionHover);
+  document.addEventListener('keyup', (e) => { if (e.key === 'Alt') clearOptionHover(); });
 
-  /** Ensure a panel is visible. */
-  function showPanel(id: PanelId): void {
-    activePanels.add(id);
-    syncPanels();
-  }
+  // ══════════════════════════════════════════════════════════════════
+  // Helpers
+  // ══════════════════════════════════════════════════════════════════
 
-  /** Which editor panel is currently visible (first match from active set)? */
-  function activeEditorPanel(): PanelId {
-    for (const id of ['schema', 'html', 'css', 'js'] as const) {
-      if (activePanels.has(id)) return id;
-    }
-    return 'schema';
+  /** Flatten pattern JSON `properties` sub-objects to top-level A2UI component shape. */
+  function flattenComponents(comps: Record<string, unknown>[]): Record<string, unknown>[] {
+    return comps.map((c) => {
+      if (c.properties && typeof c.properties === 'object' && !Array.isArray(c.properties)) {
+        const { properties, ...rest } = c;
+        return { ...rest, ...(properties as Record<string, unknown>) };
+      }
+      return c;
+    });
   }
 
   // ══════════════════════════════════════════════════════════════════
@@ -403,6 +387,7 @@ document.addEventListener('astro:page-load', async () => {
       grid.appendChild(card);
     }
 
+    // Lazy render previews
     observeCards();
   }
 
@@ -428,9 +413,11 @@ document.addEventListener('astro:page-load', async () => {
   }
 
   async function renderBatch(ids: string[]): Promise<void> {
+    // Render in batches of 6
     for (let i = 0; i < ids.length; i += 6) {
       const batch = ids.slice(i, i + 6);
       await Promise.all(batch.map(renderCardPreview));
+      // Yield between batches
       if (i + 6 < ids.length) {
         await new Promise((r) => requestAnimationFrame(r));
       }
@@ -454,12 +441,13 @@ document.addEventListener('astro:page-load', async () => {
         { updateComponents: { surfaceId: `card-${id}`, components: flat } },
         mount,
       );
+      // Keep adapter alive — kernel owns the surface
     } catch {
       mount.textContent = '⚠ Render failed';
     }
   }
 
-  /** Re-render a single card's preview tile on the grid (e.g. after save). */
+  /** Re-render a single card's preview with the given components (e.g. after save). */
   function refreshCardPreview(id: string, components: Record<string, unknown>[]): void {
     const mount = document.getElementById(`card-preview-${id}`);
     if (!mount) return;
@@ -472,7 +460,7 @@ document.addEventListener('astro:page-load', async () => {
         mount,
       );
     } catch {
-      mount.textContent = '\u26A0 Render failed';
+      mount.textContent = '⚠ Render failed';
     }
   }
 
@@ -480,13 +468,22 @@ document.addEventListener('astro:page-load', async () => {
   // Filters
   // ══════════════════════════════════════════════════════════════════
 
+  /** Update dirty state. */
+  function setDirty(dirty: boolean): void {
+    isDirty = dirty;
+  }
+
+  /** Toggle a button between ghost (off) and primary+accent (on). */
+  function setChipActive(btn: Element, active: boolean): void {
+    btn.setAttribute('variant', active ? 'primary' : 'ghost');
+    if (active) btn.setAttribute('intent', 'accent');
+    else btn.removeAttribute('intent');
+  }
+
   function onFilterChange(filter: string): void {
     activeFilter = filter as 'all' | 'micro' | 'block';
     document.querySelectorAll('[data-filter]').forEach((btn) => {
-      const isActive = btn.getAttribute('data-filter') === filter;
-      btn.setAttribute('variant', isActive ? 'primary' : 'ghost');
-      if (isActive) btn.setAttribute('intent', 'accent');
-      else btn.removeAttribute('intent');
+      setChipActive(btn, btn.getAttribute('data-filter') === filter);
     });
     renderGrid();
   }
@@ -547,7 +544,7 @@ document.addEventListener('astro:page-load', async () => {
     // Sync view select to current pattern
     viewSelect.value = id;
 
-    // Apply recommended temperature from pattern (reset to default if absent)
+    // Apply recommended temperature from pattern (default 0.7 if unspecified)
     temperature = pattern.temperature ?? 0.7;
 
     // Schema editor
@@ -570,7 +567,7 @@ document.addEventListener('astro:page-load', async () => {
     chatController = new LLMChatController({
       systemPrompt,
       model: currentModel,
-      createAdapter: (system, _model, tokens) => buildLLMAdapter(system, currentModel, tokens, temperature),
+      createAdapter: (system, _model, tokens) => buildLLMAdapter(system, tokens),
       contexts: [{
         id: 'pattern-schema',
         label: pattern.label,
@@ -581,6 +578,7 @@ document.addEventListener('astro:page-load', async () => {
           return `Schema:\n${schema}\n\nRendered HTML:\n${html}`;
         },
         apply: (output) => {
+          // Final apply — parse and render the completed schema
           try {
             const parsed = parseJsonFromResponse<CopilotResponse>(output);
             const components = parsed?.schema?.components ?? parsed?.components;
@@ -590,6 +588,8 @@ document.addEventListener('astro:page-load', async () => {
         systemPromptFragment: `Pattern: "${pattern.label}" (${pattern.tier} tier)\nRespond with valid JSON containing a "components" array.`,
         icon: 'brackets-curly',
       }],
+      // Live preview: try to extract components from partial JSON as it streams
+      // Debounced to avoid re-rendering on every chunk (adapter teardown is expensive)
       onStream: (() => {
         let timer: ReturnType<typeof setTimeout> | null = null;
         let lastComponentCount = 0;
@@ -599,17 +599,20 @@ document.addEventListener('astro:page-load', async () => {
             try {
               const parsed = parseJsonFromResponse<CopilotResponse>(fullMessage);
               const components = parsed?.schema?.components ?? parsed?.components;
+              // Only re-render when component count changes (new components streamed in)
               if (components?.length && components.length !== lastComponentCount) {
                 lastComponentCount = components.length;
                 applyRegenResult(components as Record<string, unknown>[]);
               }
-            } catch { /* partial JSON not yet parseable */ }
+            } catch { /* partial JSON not yet parseable — expected */ }
           }, 300);
         };
       })(),
+      // Post-completion: replace raw JSON in chat with reply text, show seed suggestions
       onComplete: (finalMessage) => {
         try {
           const parsed = parseJsonFromResponse<CopilotResponse>(finalMessage);
+          // Replace the chat message content with the human-readable reply
           if (parsed?.reply && chatController) {
             const msgs = [...chatController.messages.value];
             const last = msgs[msgs.length - 1];
@@ -618,12 +621,14 @@ document.addEventListener('astro:page-load', async () => {
               chatController.messages.value = msgs;
             }
           }
+          // Render follow-up seed suggestions
           if (parsed?.suggestions?.length) {
             renderChatSeeds(parsed.suggestions);
           }
         } catch { /* not structured JSON — leave raw content */ }
       },
     });
+    // Bind chat controller to direct DOM
     bindChatController(chatController);
 
     // Ensure default panels are open
@@ -639,6 +644,7 @@ document.addEventListener('astro:page-load', async () => {
   function renderLightboxPreview(components: Record<string, unknown>[]): void {
     // Tear down inspector before destroying artifact DOM
     if (cssInspector) dismissInspector();
+    // Destroy old adapter
     lightboxAdapter?.destroy();
     canvas.innerHTML = '';
 
@@ -673,6 +679,20 @@ document.addEventListener('astro:page-load', async () => {
   }
 
   let inspectorObserver: MutationObserver | null = null;
+
+  function dismissInspector(): void {
+    inspectorObserver?.disconnect();
+    inspectorObserver = null;
+    // Null the reference BEFORE dismiss — dismiss synchronously dispatches native:inspect
+    // which the canvas event handler checks. If cssInspector is still set, it double-cleans.
+    const inspector = cssInspector;
+    cssInspector = null;
+    if (inspector) {
+      inspector.dismiss();
+      inspector.destroy();
+    }
+    inspectToggleBtn.setAttribute('variant', 'ghost');
+  }
 
   /** Option+hover on the inspector clone — mirrors onOptionHover but operates on
    *  the popover clone (which lives outside the canvas). */
@@ -734,11 +754,13 @@ document.addEventListener('astro:page-load', async () => {
         const id = idEl?.id;
         if (!id) continue;
 
+        // Highlight in whichever editor panes are open
         clearHighlights();
         const tab = activeEditorPanel();
         if (tab === 'schema') highlightInSchema(id);
         else if (tab === 'html') highlightInOutput(id);
         else {
+          // Fall back: try schema first, then html
           if (!highlightInSchema(id)) highlightInOutput(id);
         }
         break;
@@ -752,18 +774,22 @@ document.addEventListener('astro:page-load', async () => {
     });
   }
 
-  function dismissInspector(): void {
-    inspectorObserver?.disconnect();
-    inspectorObserver = null;
-    // Null the reference BEFORE dismiss — dismiss synchronously dispatches native:inspect
-    // which the canvas event handler checks. If cssInspector is still set, it double-cleans.
-    const inspector = cssInspector;
-    cssInspector = null;
-    if (inspector) {
-      inspector.dismiss();
-      inspector.destroy();
+  // ── Panel toggle (builder-style) ──
+
+  function syncPanels(): void {
+    // Clear inline flex so CSS defaults redistribute
+    for (const [_, el] of paneEls) el.style.removeProperty('flex');
+    for (const [id, el] of paneEls) el.hidden = !activePanels.has(id);
+    for (const [id, chip] of chipEls) chip.setAttribute('variant', activePanels.has(id) ? 'selected' : 'ghost');
+    chatToggle.setAttribute('variant', activePanels.has('chat') ? 'selected' : 'ghost');
+  }
+
+  /** Ensure a panel is visible (open it if hidden). */
+  function showPanel(id: string): void {
+    if (!activePanels.has(id)) {
+      activePanels.add(id);
+      syncPanels();
     }
-    inspectToggleBtn.setAttribute('variant', 'ghost');
   }
 
   // ── Schema editor live update ──
@@ -835,6 +861,7 @@ document.addEventListener('astro:page-load', async () => {
    * Walks outward from the match position counting braces to find `{…}`.
    */
   function findEnclosingObject(text: string, matchPos: number): { from: number; to: number } | null {
+    // Walk backward to opening `{`
     let depth = 0;
     let from = matchPos;
     for (let i = matchPos; i >= 0; i--) {
@@ -844,6 +871,7 @@ document.addEventListener('astro:page-load', async () => {
         depth--;
       }
     }
+    // Walk forward to closing `}`
     depth = 0;
     let to = matchPos;
     for (let i = matchPos; i < text.length; i++) {
@@ -858,18 +886,30 @@ document.addEventListener('astro:page-load', async () => {
 
   /** Find an HTML element's opening tag in formatted HTML text. */
   function findHtmlTag(text: string, id: string): { from: number; to: number } | null {
+    // Match id="value" or id='value'
     const pattern = new RegExp(`id=["']${id.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}["']`);
     const match = pattern.exec(text);
     if (!match) return null;
+    // Walk backward to `<`
     let from = match.index;
     for (let i = match.index; i >= 0; i--) {
       if (text[i] === '<') { from = i; break; }
     }
+    // Walk forward to `>` (end of opening tag)
     let to = match.index + match[0].length;
     for (let i = to; i < text.length; i++) {
       if (text[i] === '>') { to = i + 1; break; }
     }
     return { from, to };
+  }
+
+  /** Which editor pane is currently visible? */
+  function activeEditorPanel(): string {
+    if (activePanels.has('schema')) return 'schema';
+    if (activePanels.has('html')) return 'html';
+    if (activePanels.has('css')) return 'css';
+    if (activePanels.has('js')) return 'js';
+    return 'schema';
   }
 
   /** Try to select the clicked id in the schema editor. Returns true on match. */
@@ -906,11 +946,11 @@ document.addEventListener('astro:page-load', async () => {
 
     el.setAttribute('data-highlight', '');
 
-    const panel = activeEditorPanel();
+    const tab = activeEditorPanel();
 
-    // If already on a highlightable panel, try that first
-    if (panel === 'schema' && highlightInSchema(clickedId)) return;
-    if (panel === 'html' && highlightInOutput(clickedId)) return;
+    // If already on a highlightable tab, try that first
+    if (tab === 'schema' && highlightInSchema(clickedId)) return;
+    if (tab === 'html' && highlightInOutput(clickedId)) return;
 
     // Fall back to whichever editor has a match
     if (highlightInSchema(clickedId)) { showPanel('schema'); return; }
@@ -922,6 +962,8 @@ document.addEventListener('astro:page-load', async () => {
   // ══════════════════════════════════════════════════════════════════
 
   let insightCounter = 0;
+
+  /** Map step id → its DOM entry (so we can replace placeholder with content). */
   const insightEntries = new Map<string, HTMLElement>();
 
   function clearInsights(): void {
@@ -983,7 +1025,9 @@ document.addEventListener('astro:page-load', async () => {
   }
 
   function appendInterpretation(entry: HTMLElement, output: string): void {
+    // Remove placeholder
     entry.querySelector('.tl-insight-placeholder')?.remove();
+
     try {
       const data = JSON.parse(stripFences(output));
       if (data.intent) appendInsightText(entry, data.intent);
@@ -1000,8 +1044,10 @@ document.addEventListener('astro:page-load', async () => {
 
   function appendConcepts(entry: HTMLElement, output: string): void {
     entry.querySelector('.tl-insight-placeholder')?.remove();
+
     try {
       const data = JSON.parse(stripFences(output));
+
       for (const c of data.concepts ?? []) {
         const item = document.createElement('div');
         item.className = 'tl-insight-concept';
@@ -1012,6 +1058,7 @@ document.addEventListener('astro:page-load', async () => {
         if (c.rationale) appendInsightText(item, c.rationale, true);
         entry.appendChild(item);
       }
+
       if (data.interactions?.length) {
         appendInsightBadges(entry, data.interactions, 'accent');
       }
@@ -1024,12 +1071,15 @@ document.addEventListener('astro:page-load', async () => {
 
   function appendPlan(entry: HTMLElement, output: string): void {
     entry.querySelector('.tl-insight-placeholder')?.remove();
+
     try {
       const data = JSON.parse(stripFences(output));
       if (data.layout) appendInsightText(entry, data.layout);
       if (data.hierarchy) appendInsightText(entry, data.hierarchy, true);
+
       const traits = data.traits ?? [];
       if (traits.length) appendInsightBadges(entry, traits);
+
       const notes: string[] = [];
       if (data.cssNeeded && data.cssNotes) notes.push(`CSS: ${data.cssNotes}`);
       if (data.jsNeeded && data.jsNotes) notes.push(`JS: ${data.jsNotes}`);
@@ -1047,6 +1097,20 @@ document.addEventListener('astro:page-load', async () => {
   // ══════════════════════════════════════════════════════════════════
   // LLM Regeneration
   // ══════════════════════════════════════════════════════════════════
+
+  function buildLLMAdapter(system: string, tokens: number): GatewayAdapter | null {
+    const Adapter = isClaudeModel(currentModel) ? ClaudeGatewayAdapter : OpenAiGatewayAdapter;
+    const baseUrl = isClaudeModel(currentModel) ? '/api/anthropic' : '/api/openai';
+    return new Adapter({
+      clientId: 'tl-regen',
+      baseUrl,
+      model: currentModel,
+      maxTokens: tokens,
+      temperature,
+      system,
+      apiKey: 'proxy',
+    });
+  }
 
   async function handleRegenerate(): Promise<void> {
     if (!currentPattern || regenerating) return;
@@ -1076,7 +1140,7 @@ ${JSON.stringify({ surfaceId: 'lightbox', components: currentPattern.components 
   }
 
   async function regenerateDirect(query: string): Promise<void> {
-    const adapter = buildLLMAdapter(systemPrompt, currentModel, maxTokens, temperature);
+    const adapter = buildLLMAdapter(systemPrompt, maxTokens);
     if (!adapter) {
       schemaEditor.value = '// No API key configured.';
       return;
@@ -1093,14 +1157,15 @@ ${JSON.stringify({ surfaceId: 'lightbox', components: currentPattern.components 
     if (!response?.message) return;
 
     const parsed = parseJsonFromResponse(response.message);
-    if (parsed?.schema && (parsed.schema as Record<string, unknown>).components) {
-      applyRegenResult((parsed.schema as Record<string, unknown>).components as Record<string, unknown>[]);
+    if (parsed?.schema?.components) {
+      applyRegenResult(parsed.schema.components);
     } else if (parsed?.components) {
-      applyRegenResult(parsed.components as Record<string, unknown>[]);
+      applyRegenResult(parsed.components);
     }
   }
 
   async function regeneratePipeline(query: string): Promise<void> {
+    // Clear and switch to insights tab
     clearInsights();
     showPanel('insights');
 
@@ -1128,6 +1193,7 @@ ${JSON.stringify({ surfaceId: 'lightbox', components: currentPattern.components 
       onStepComplete(step: (typeof PIPELINE_STEPS)[number], _idx: number, output: string) {
         const entry = insightEntries.get(step.id);
         if (!entry) return;
+
         if (step.id === 'interpret') appendInterpretation(entry, output);
         else if (step.id === 'concepts') appendConcepts(entry, output);
         else if (step.id === 'plan') appendPlan(entry, output);
@@ -1147,13 +1213,14 @@ ${JSON.stringify({ surfaceId: 'lightbox', components: currentPattern.components 
     };
 
     const buildStepAdapter = (system: string, tokens: number) =>
-      buildLLMAdapter(system, currentModel, tokens, temperature);
+      buildLLMAdapter(system, tokens);
 
     const result = await runPipeline(ctx, callbacks, buildStepAdapter, systemPrompt);
 
+    // Parse final output
     const parsed = parseJsonFromResponse(result.raw);
-    if (parsed?.schema && (parsed.schema as Record<string, unknown>).components) {
-      applyRegenResult((parsed.schema as Record<string, unknown>).components as Record<string, unknown>[]);
+    if (parsed?.schema?.components) {
+      applyRegenResult(parsed.schema.components);
     }
   }
 
@@ -1169,6 +1236,26 @@ ${JSON.stringify({ surfaceId: 'lightbox', components: currentPattern.components 
   // ══════════════════════════════════════════════════════════════════
   // CRUD — Reset, Download, Save
   // ══════════════════════════════════════════════════════════════════
+
+  const MAX_BACKUP_VERSIONS = 10;
+
+  /** Push the current saved version onto the backup stack before overwriting. */
+  function backupPatternVersion(id: string): void {
+    const existing = localStorage.getItem(`tl-pattern-${id}`);
+    if (!existing) return;
+    const key = `tl-pattern-${id}-backups`;
+    let backups: string[] = [];
+    try {
+      const raw = localStorage.getItem(key);
+      if (raw) backups = JSON.parse(raw) as string[];
+    } catch { /* corrupt — start fresh */ }
+    backups.push(existing);
+    // Trim oldest versions beyond the cap
+    if (backups.length > MAX_BACKUP_VERSIONS) {
+      backups = backups.slice(backups.length - MAX_BACKUP_VERSIONS);
+    }
+    localStorage.setItem(key, JSON.stringify(backups));
+  }
 
   function handleReset(): void {
     if (!currentPattern || !originalSchema) return;
@@ -1205,24 +1292,9 @@ ${JSON.stringify({ surfaceId: 'lightbox', components: currentPattern.components 
     setDirty(true);
   }
 
-  function backupPatternVersion(id: string): void {
-    const existing = localStorage.getItem(`tl-pattern-${id}`);
-    if (!existing) return;
-    const key = `tl-pattern-${id}-backups`;
-    let backups: string[] = [];
-    try {
-      const raw = localStorage.getItem(key);
-      if (raw) backups = JSON.parse(raw) as string[];
-    } catch { /* corrupt — start fresh */ }
-    backups.push(existing);
-    if (backups.length > MAX_BACKUP_VERSIONS) {
-      backups = backups.slice(backups.length - MAX_BACKUP_VERSIONS);
-    }
-    localStorage.setItem(key, JSON.stringify(backups));
-  }
-
   function handleSave(): void {
     if (!currentPattern || !isDirty) return;
+    // Backup previous version before overwriting
     backupPatternVersion(currentPattern.id);
     localStorage.setItem(`tl-pattern-${currentPattern.id}`, JSON.stringify(currentPattern));
     setDirty(false);
@@ -1250,6 +1322,118 @@ ${JSON.stringify({ surfaceId: 'lightbox', components: currentPattern.components 
       renderLightboxPreview(currentPattern.components as Record<string, unknown>[]);
     }
   }
+
+
+  // ══════════════════════════════════════════════════════════════════
+  // Chat Controller → Direct DOM Binding
+  // ══════════════════════════════════════════════════════════════════
+
+  let chatRenderedCount = 0;
+  let chatEffectCleanups: Array<() => void> = [];
+
+  function bindChatController(ctrl: LLMChatController): void {
+    // Clean up previous bindings
+    chatEffectCleanups.forEach((fn) => fn());
+    chatEffectCleanups = [];
+
+    // Sync messages → feed
+    const cleanup1 = effect(() => {
+      const messages = ctrl.messages.value;
+      renderChatMessages(messages);
+    });
+    chatEffectCleanups.push(cleanup1);
+
+    // Sync streaming → busy state on composer
+    const cleanup2 = effect(() => {
+      chatComposer.busy = ctrl.streaming.value;
+    });
+    chatEffectCleanups.push(cleanup2);
+  }
+
+  function renderChatMessages(messages: LLMChatMessage[]): void {
+    // Append-only rendering
+    for (let i = chatRenderedCount; i < messages.length; i++) {
+      const msg = messages[i];
+      const group = document.createElement('n-agent-dialogue');
+      group.setAttribute('data-role', msg.role);
+      group.setAttribute('data-msg-idx', String(i));
+
+      const item = document.createElement('n-agent-dialogue-item');
+      item.setAttribute('data-role', msg.role);
+      item.setAttribute('status', msg.status);
+      item.setAttribute('actions', 'none');
+
+      const text = document.createElement('n-chat-message-text');
+      (text as HTMLElement & { content: string }).content = msg.content;
+
+      item.appendChild(text);
+      group.appendChild(item);
+      chatFeed.appendChild(group);
+    }
+
+    // Update last message content if streaming
+    if (messages.length > 0) {
+      const last = messages[messages.length - 1];
+      const lastEl = chatFeed.querySelector(`[data-msg-idx="${messages.length - 1}"] n-chat-message-text`);
+      if (lastEl && last.status === 'streaming') {
+        (lastEl as HTMLElement & { content: string }).content = last.content;
+      }
+    }
+
+    chatRenderedCount = messages.length;
+  }
+
+  // ── Chat seeds (follow-up suggestion chips) ──
+
+  function renderChatSeeds(suggestions: Array<{ label: string; prompt?: string; value?: string }>) {
+    // Remove previous seeds
+    for (const el of chatFeed.querySelectorAll('[data-seeds]')) el.remove();
+
+    const group = document.createElement('n-agent-dialogue');
+    group.setAttribute('data-role', 'assistant');
+    group.setAttribute('data-seeds', '');
+
+    const seed = document.createElement('n-chat-message-seed') as HTMLElement & { options: Array<{ label: string; value: string }> };
+    seed.options = suggestions.map(s => ({
+      label: s.label,
+      value: s.prompt ?? s.value ?? s.label,
+    }));
+    group.appendChild(seed);
+    chatFeed.appendChild(group);
+    chatFeed.scrollTop = chatFeed.scrollHeight;
+  }
+
+  // Seed chip selection → auto-submit
+  chatFeed.addEventListener('native:seed-select', (e: Event) => {
+    const value = (e as CustomEvent).detail?.value;
+    if (value && chatController) {
+      // Remove seeds before sending
+      for (const el of chatFeed.querySelectorAll('[data-seeds]')) el.remove();
+      chatController.send(value);
+    }
+  });
+
+  // Composer submit
+  chatComposer.addEventListener('native:send', (e: Event) => {
+    const value = (e as CustomEvent).detail?.value;
+    if (value && chatController) {
+      // Remove seeds before sending
+      for (const el of chatFeed.querySelectorAll('[data-seeds]')) el.remove();
+      chatController.send(value);
+    }
+  });
+
+  // Model picker sync
+  chatModelPicker.addEventListener('native:change', () => {
+    currentModel = chatModelPicker.value;
+  });
+
+  // Pipeline toggle in chat header
+  const pipelineToggle = chatComposer.querySelector('[data-role="toggle-pipeline"]');
+  pipelineToggle?.addEventListener('pointerup', () => {
+    pipelineMode = !pipelineMode;
+    pipelineToggle.setAttribute('variant', pipelineMode ? 'selected' : 'ghost');
+  });
 
   // ══════════════════════════════════════════════════════════════════
   // Event Wiring
@@ -1323,39 +1507,39 @@ ${JSON.stringify({ surfaceId: 'lightbox', components: currentPattern.components 
     else if (action === 'regenerate') handleRegenerate();
   });
 
-  // Chip toggle buttons (pane visibility)
-  for (const [id, chip] of chipEls) {
-    chip.addEventListener('native:press', () => {
-      if (activePanels.has(id)) activePanels.delete(id);
-      else activePanels.add(id);
-      syncPanels();
-    });
+  // ── Init pane refs + chips (builder-style) ──
+
+  for (const panel of PANELS) {
+    const paneEl = dialog.querySelector(`n-pane[data-panel-id="${panel.id}"]`) as HTMLElement | null;
+    if (paneEl) {
+      paneEls.set(panel.id, paneEl);
+      paneEl.hidden = !activePanels.has(panel.id);
+    }
+
+    const chipEl = dialog.querySelector(`n-button[data-chip="${panel.id}"]`) as HTMLElement | null;
+    if (chipEl) {
+      chipEls.set(panel.id, chipEl);
+      chipEl.setAttribute('variant', activePanels.has(panel.id) ? 'selected' : 'ghost');
+
+      chipEl.addEventListener('native:press', () => {
+        if (activePanels.has(panel.id)) {
+          activePanels.delete(panel.id);
+        } else {
+          activePanels.add(panel.id);
+        }
+        syncPanels();
+      });
+    }
   }
 
   // Pane close buttons
-  dialog.querySelectorAll<HTMLElement>('[data-close-panel-id]').forEach((btn) => {
+  for (const btn of dialog.querySelectorAll('[data-close-panel-id]')) {
     btn.addEventListener('native:press', () => {
-      const panelId = btn.getAttribute('data-close-panel-id') as PanelId;
-      activePanels.delete(panelId);
+      const id = (btn as HTMLElement).getAttribute('data-close-panel-id');
+      if (id) activePanels.delete(id);
       syncPanels();
     });
-  });
-
-  // Pan/zoom event listeners
-  lightboxPreview.addEventListener('pointerdown', onPanPointerDown);
-  lightboxPreview.addEventListener('pointermove', onPanPointerMove);
-  lightboxPreview.addEventListener('pointerup', onPanPointerUp);
-  lightboxPreview.addEventListener('pointercancel', onPanPointerUp);
-  lightboxPreview.addEventListener('wheel', onWheelZoom, { passive: false });
-
-  // Option+hover element highlighting
-  canvas.addEventListener('pointermove', onOptionHover);
-  canvas.addEventListener('pointerleave', clearOptionHover);
-  document.addEventListener('keyup', (e) => { if (e.key === 'Alt') clearOptionHover(); });
-
-  // Center + reset zoom buttons
-  btnCenter.addEventListener('pointerup', centerContents);
-  btnResetZoom.addEventListener('pointerup', resetZoom);
+  }
 
   // CSS Inspector toggle — activates 3D exploded view on the whole artifact
   inspectToggleBtn.addEventListener('pointerup', () => {
@@ -1391,21 +1575,12 @@ ${JSON.stringify({ surfaceId: 'lightbox', components: currentPattern.components 
 
   // Chat toggle — show/hide the docked chat pane
   chatToggle.addEventListener('pointerup', () => {
-    if (activePanels.has('chat')) activePanels.delete('chat');
-    else activePanels.add('chat');
+    if (activePanels.has('chat')) {
+      activePanels.delete('chat');
+    } else {
+      activePanels.add('chat');
+    }
     syncPanels();
-  });
-
-  // Model picker sync
-  chatModelPicker.addEventListener('native:change', () => {
-    currentModel = chatModelPicker.value;
-  });
-
-  // Pipeline toggle in chat header
-  const pipelineToggle = chatComposer.querySelector('[data-role="toggle-pipeline"]');
-  pipelineToggle?.addEventListener('pointerup', () => {
-    pipelineMode = !pipelineMode;
-    pipelineToggle.setAttribute('variant', pipelineMode ? 'selected' : 'ghost');
   });
 
   // Fullscreen toggle
@@ -1416,103 +1591,24 @@ ${JSON.stringify({ surfaceId: 'lightbox', components: currentPattern.components 
   });
 
   // Compare control
-  // TODO: only show when the schema has multiple states or scenes (future version)
   compareToggle.addEventListener('native:change', (e) => {
     setCompareMode((e as CustomEvent).detail?.value ?? 'edited');
   });
 
-  // Schema editor — live update (n-editor fires native:input)
+  // Schema editor — live update
   schemaEditor.addEventListener('native:input', onSchemaInput);
 
   // Preview click inspection
   canvas.addEventListener('click', onPreviewClick);
 
-  // ── Chat controller binding + rendering ──
+  // Pan/zoom toolbar
+  btnCenter.addEventListener('pointerup', centerContents);
+  btnResetZoom.addEventListener('pointerup', resetZoom);
 
-  function bindChatController(ctrl: LLMChatController): void {
-    chatEffectCleanups.forEach((fn) => fn());
-    chatEffectCleanups = [];
+  // ══════════════════════════════════════════════════════════════════
+  // Boot
+  // ══════════════════════════════════════════════════════════════════
 
-    const cleanup1 = effect(() => {
-      const messages = ctrl.messages.value;
-      renderChatMessages(messages);
-    });
-    chatEffectCleanups.push(cleanup1);
-
-    const cleanup2 = effect(() => {
-      chatComposer.busy = ctrl.streaming.value;
-    });
-    chatEffectCleanups.push(cleanup2);
-  }
-
-  function renderChatMessages(messages: LLMChatMessage[]): void {
-    for (let i = chatRenderedCount; i < messages.length; i++) {
-      const msg = messages[i];
-      const group = document.createElement('n-agent-dialogue');
-      group.setAttribute('data-role', msg.role);
-      group.setAttribute('data-msg-idx', String(i));
-
-      const item = document.createElement('n-agent-dialogue-item');
-      item.setAttribute('data-role', msg.role);
-      item.setAttribute('status', msg.status);
-      item.setAttribute('actions', 'none');
-
-      const text = document.createElement('n-chat-message-text');
-      (text as HTMLElement & { content: string }).content = msg.content;
-
-      item.appendChild(text);
-      group.appendChild(item);
-      chatFeed.appendChild(group);
-    }
-
-    if (messages.length > 0) {
-      const last = messages[messages.length - 1];
-      const lastEl = chatFeed.querySelector(`[data-msg-idx="${messages.length - 1}"] n-chat-message-text`);
-      if (lastEl && last.status === 'streaming') {
-        (lastEl as HTMLElement & { content: string }).content = last.content;
-      }
-    }
-
-    chatRenderedCount = messages.length;
-    chatFeed.scrollTop = chatFeed.scrollHeight;
-  }
-
-  function renderChatSeeds(suggestions: Array<{ label: string; prompt?: string; value?: string }>): void {
-    for (const el of chatFeed.querySelectorAll('[data-seeds]')) el.remove();
-
-    const group = document.createElement('n-agent-dialogue');
-    group.setAttribute('data-role', 'assistant');
-    group.setAttribute('data-seeds', '');
-
-    const seed = document.createElement('n-chat-message-seed') as HTMLElement & { options: Array<{ label: string; value: string }> };
-    seed.options = suggestions.map(s => ({
-      label: s.label,
-      value: s.prompt ?? s.value ?? s.label,
-    }));
-    group.appendChild(seed);
-    chatFeed.appendChild(group);
-    chatFeed.scrollTop = chatFeed.scrollHeight;
-  }
-
-  // Chat seed selection
-  chatFeed.addEventListener('native:seed-select', (e: Event) => {
-    const value = (e as CustomEvent).detail?.value;
-    if (value && chatController) {
-      for (const el of chatFeed.querySelectorAll('[data-seeds]')) el.remove();
-      chatController.send(value);
-    }
-  });
-
-  // Chat composer submit
-  chatComposer.addEventListener('native:send', (e: Event) => {
-    const value = (e as CustomEvent).detail?.value;
-    if (value && chatController) {
-      for (const el of chatFeed.querySelectorAll('[data-seeds]')) el.remove();
-      chatController.send(value);
-    }
-  });
-
-  // ── Boot ──
   populateCategoryFilter();
   populateViewSelect();
   renderGrid();

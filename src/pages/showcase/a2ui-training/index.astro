@@ -71,8 +71,7 @@ import SidebarLayout from '../../../layouts/SidebarLayout.astro';
       <n-pane data-panel-id="preview" size-min="200">
         <div class="tl-preview-mount" id="lightbox-preview"></div>
 
-        <!-- Compare control (floating top center)
-             TODO: only show when the schema has multiple states or scenes (future version) -->
+        <!-- Compare control (floating top center) -->
         <div class="tl-floating-top">
           <n-toolbar variant="ghost" size="md" class="tl-compare-bar">
             <n-segmented-control id="compare-toggle" size="md" value="edited">
@@ -98,9 +97,6 @@ import SidebarLayout from '../../../layouts/SidebarLayout.astro';
             <n-button variant="ghost" size="md" id="btn-reset-zoom" aria-label="Reset zoom" overflow-pin>
               <n-icon name="arrows-in-cardinal"></n-icon>
             </n-button>
-            <!-- Future: prev/next paddles for schemas with multiple states/scenes/surfaces.
-                 Dynamically inject a divider + caret-left/caret-right buttons here
-                 when the loaded pattern declares >1 surface. -->
           </n-toolbar>
         </div>
       </n-pane>
@@ -171,7 +167,7 @@ import SidebarLayout from '../../../layouts/SidebarLayout.astro';
         <n-agent-input id="chat-composer" density="compact">
           <n-chat-input-header>
             <nav>
-              <n-select id="chat-model-picker" value="claude-haiku-4-5" variant="ghost" inline size="sm" density="compact">
+              <n-select id="chat-model-picker" value="claude-haiku-4-5" data-role="model-picker" variant="ghost" inline size="sm" density="compact">
                 <n-listbox popover="auto">
                   <n-option value="claude-haiku-4-5" selected>Claude Haiku 4.5</n-option>
                   <n-option value="gpt-5-mini">GPT-5 mini</n-option>
@@ -180,6 +176,7 @@ import SidebarLayout from '../../../layouts/SidebarLayout.astro';
                   <n-option value="gpt-4.1-nano">GPT-4.1 nano</n-option>
                 </n-listbox>
               </n-select>
+              <n-button variant="ghost" inline size="sm" density="compact"><n-icon name="brain"></n-icon> UI Builder</n-button>
             </nav>
             <aside>
               <n-button variant="ghost" inline size="sm" data-role="toggle-pipeline" title="Multi-step pipeline"><n-icon name="flask"></n-icon></n-button>
@@ -191,7 +188,12 @@ import SidebarLayout from '../../../layouts/SidebarLayout.astro';
             <n-button variant="ghost" inline size="sm" data-role="improve"><n-icon name="sparkle"></n-icon></n-button>
             <n-toolbar variant="plain" padding="3">
               <n-button variant="ghost" radius="round" inline><n-icon name="plus"></n-icon></n-button>
+              <n-button variant="ghost" radius="round" inline><n-icon name="magnifying-glass"></n-icon></n-button>
+              <n-button variant="ghost" radius="round" inline><n-icon name="compass"></n-icon></n-button>
+              <n-button variant="ghost" radius="round" inline data-role="toggle-pipeline" title="Multi-step pipeline"><n-icon name="flask"></n-icon></n-button>
               <span fill></span>
+              <n-button variant="ghost" radius="round" inline><n-icon name="record"></n-icon></n-button>
+              <n-button variant="ghost" radius="round" inline><n-icon name="microphone"></n-icon></n-button>
               <n-button variant="primary" intent="accent" radius="round" inline disabled data-role="submit"><n-icon name="arrow-up"></n-icon></n-button>
             </n-toolbar>
           </n-chat-input-prompt>
